@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
+# SPDX-License-Identifier: Apache-2.0
+
+name: Docs
+
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  documentation:
+    name: Build documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Python runtime
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.5
+      - name: Install Python dependencies
+        run: |
+          pip install '.[docs]'
+      - name: Deploy documentation
+        run: |
+          mkdocs gh-deploy --force

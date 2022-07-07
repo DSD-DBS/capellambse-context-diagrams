@@ -1,0 +1,106 @@
+# SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
+# SPDX-License-Identifier: Apache-2.0
+
+site_name: Context diagrams for py-capellambse
+repo_name: capellambse-context-diagrams
+repo_url: https://github.com/DSD-DBS/capellambse-context-diagrams
+watch: [capellambse_context_diagrams, overrides]
+
+theme:
+  name: material
+  custom_dir: overrides
+  icon:
+    repo: fontawesome/brands/github-square
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - content.code.annotate
+    - content.tooltips
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: "🔗"
+
+plugins:
+  - search
+  - gen-files:
+      scripts:
+        - docs/gen_ref_pages.py
+        - docs/gen_images.py
+  - section-index
+  - literate-nav:
+      nav_file: SUMMARY.md
+  - autorefs
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [capellambse_context_diagrams]
+          import:
+            - https://dsd-dbs.github.io/py-capellambse/objects.inv
+          selection:
+            docstring_style: numpy
+          rendering:
+            show_root_full_path: no
+            merge_init_into_class: yes
+            show_submodules: no
+            show_signature_annotations: yes
+            separate_signature: yes
+          enable_inventory: yes
+      watch:
+        - capellambse_context_diagrams
+
+nav:
+  - Home:
+      - Overview: index.md
+      - Quickstart: quickstart.md
+      - Credits: credits.md
+      - License: license.md
+  - Extras:
+      - Filters: extras/filters.md
+      - Styling: extras/styling.md
+  - Code Reference: reference/
+
+extra_css:
+  - css/base.css
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://dsd-dbs.github.io/capellambse-context-diagrams/
+    - icon: custom/db
+      name: DB Netz AG - SET
+      link: https://github.com/DSD-DBS
+
+copyright: Copyright &copy; 2022 DB Netz AG

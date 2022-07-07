@@ -1,0 +1,42 @@
+# SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
+# SPDX-License-Identifier: Apache-2.0
+
+name: Lint
+
+on:
+  push:
+    branches: ["*"]
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: Upgrade pip
+        run: |-
+          python -m pip install -U pip
+      - name: Install pre-commit
+        run: |-
+          python -m pip install pre-commit types-docutils
+      - name: Run Pre-Commit
+        run: |-
+          pre-commit run --all-files
+  pylint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: Upgrade pip
+        run: |-
+          python -m pip install -U pip
+      - name: Install pylint
+        run: |-
+          python -m pip install pylint==2.13.9
+      - name: Run pylint
+        run: |-
+          pylint -dfixme -- capellambse_context_diagrams || exit $(($? & ~24))

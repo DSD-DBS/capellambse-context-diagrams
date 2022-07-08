@@ -212,6 +212,7 @@ class ContextDiagram(diagram.AbstractDiagram):
                 return
             if value not in self._set:
                 self._set.add(value)
+                self._diagram.invalidate_cache()
 
         def discard(self, value: str) -> None:
             if value in self._set:

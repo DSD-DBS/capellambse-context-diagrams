@@ -66,6 +66,7 @@ def generate_filter_image(
     diag: context.ContextDiagram = obj.context_diagram
     diag.filters.clear()
     diag.filters = {filter_name}
+    diag.invalidate_cache()
     filename = " ".join((str(dest / diag.name), suffix))
     with mkdocs_gen_files.open(f"{filename}.svg", "w") as fd:
         print(diag.as_svg, file=fd)
@@ -77,6 +78,7 @@ def generate_styling_image(
     obj = model.by_uuid(uuid)
     diag: context.ContextDiagram = obj.context_diagram
     diag.filters.clear()
+    diag.invalidate_cache()
     diag.render_styles = styles
     filename = " ".join((str(dest / diag.name), suffix))
     with mkdocs_gen_files.open(f"{filename}.svg", "w") as fd:

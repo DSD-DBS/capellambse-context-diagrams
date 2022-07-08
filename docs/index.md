@@ -10,14 +10,14 @@ that extends the [`AbstractDiagram`][capellambse.model.diagram.AbstractDiagram]
 base class with [`ContextDiagram`s][capellambse_context_diagrams.context.ContextDiagram] that are layouted by [elkjs'](https://github.com/kieler/elkjs) Layered algorithm.
 
 <figure markdown>
-<img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context_of_Left.svg" width="1000000">
+<img src="assets/images/Context of Left.svg" width="1000000">
 <figcaption>Context diagram of <b>Left</b></figcaption>
 </figure>
 
 Generate **Context Diagrams** from your model data!
 
 <figure markdown>
-<img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Interface Context of Left to right.svg" width="1000000">
+<img src="assets/images/Interface Context of Left to right.svg" width="1000000">
 <figcaption>Interface context diagram of <b>Left to right</b></figcaption>
 </figure>
 
@@ -44,7 +44,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
         diag.render("svgdiagram").save_drawing(True)
         ```
         <figure markdown>
-            <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context_of_Environment.svg" width="1000000">
+            <img src="assets/images/Context of Environment.svg" width="1000000">
             <figcaption>Context diagram of Environment Entity with type [OAB]</figcaption>
         </figure>
 
@@ -58,7 +58,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
         diag.render("svgdiagram").save_drawing(True)
         ```
         <figure markdown>
-            <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context_of_Eat.svg" width="1000000">
+            <img src="assets/images/Context of Eat.svg" width="1000000">
             <figcaption>Context diagram of Activity Eat with type [OAIB]</figcaption>
         </figure>
 
@@ -72,7 +72,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
         diag.render("svgdiagram").save_drawing(True)
         ```
         <figure markdown>
-            <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context of Middle.svg" width="1000000">
+            <img src="assets/images/Context of Middle.svg" width="1000000">
             <figcaption>Context diagram of Middle OperationalCapability with type [OCB]</figcaption>
         </figure>
 
@@ -86,7 +86,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
         diag.render("svgdiagram").save_drawing(True)
         ```
         <figure markdown>
-            <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context of Top secret.svg" width="1000000">
+            <img src="assets/images/Context of Top secret.svg" width="1000000">
             <figcaption>Context diagram of Mission Top secret with type [MCB]</figcaption>
         </figure>
 
@@ -100,7 +100,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
         diag.render("svgdiagram").save_drawing(True)
         ```
         <figure markdown>
-            <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context of Capability.svg" width="1000000">
+            <img src="assets/images/Context of Capability.svg" width="1000000">
             <figcaption>Context diagram of Capability Capability with type [MCB]</figcaption>
         </figure>
 
@@ -116,7 +116,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
         diag.render("svgdiagram").save_drawing(True)
         ```
         <figure markdown>
-            <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context of Lost.svg" width="1000000">
+            <img src="assets/images/Context of Lost.svg" width="1000000">
             <figcaption>Context diagram of Lost SystemFunction with type [SDFB]</figcaption>
         </figure>
 
@@ -130,7 +130,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
         diag.render("svgdiagram").save_drawing(True)
         ```
         <figure markdown>
-            <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context of Left.svg" width="1000000">
+            <img src="assets/images/Context of Left.svg" width="1000000">
             <figcaption>Context diagram of Left LogicalComponent with type [LAB]</figcaption>
         </figure>
 
@@ -144,7 +144,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
         diag.render("svgdiagram").save_drawing(True)
         ```
         <figure markdown>
-            <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context of educate Wizards.svg" width="1000000">
+            <img src="assets/images/Context of educate Wizards.svg" width="1000000">
             <figcaption>Context diagram of educate Wizards LogicalFunction with type [LDFB]</figcaption>
         </figure>
 
@@ -167,7 +167,7 @@ The data is collected by [get_elkdata_for_exchanges][capellambse_context_diagram
     diag.render("svgdiagram").save_drawing(True)
     ```
     <figure markdown>
-        <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Interface Context of Left to right.svg" width="1000000">
+        <img src="assets/images/Interface Context of Left to right.svg" width="1000000">
         <figcaption>Interface context diagram of Left to right LogicalComponentExchange with type [LAB]</figcaption>
     </figure>
 
@@ -183,7 +183,7 @@ The data is collected by [get_elkdata_for_exchanges][capellambse_context_diagram
     flow exchanges routes lengths and bendpoints increase.
 
     <figure markdown>
-        <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context of Weird guy.svg" width="1000000">
+        <img src="assets/images/Context of Weird guy.svg" width="1000000">
         <figcaption>Context diagram of Weird guy SystemFunction</figcaption>
     </figure>
 

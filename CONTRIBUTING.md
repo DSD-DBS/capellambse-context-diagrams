@@ -153,7 +153,7 @@ Example:
 >         diag.render("svgdiagram").save_drawing(True)
 >         ```
 >         <figure markdown>
->             <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context of Top secret.svg" width="1000000">
+>             <img src="assets/images/Context of Top secret.svg" width="1000000">
 >             <figcaption>Context diagram of Mission Top secret with type [MCB]</figcaption>
 >         </figure>
 > ```

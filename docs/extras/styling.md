@@ -26,7 +26,7 @@ Capella. These appear to be blue.
     ```
     produces
     <figure markdown>
-        <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context of educate Wizards.svg" width="1000000">
+        <img src="../assets/images/Context of educate Wizards.svg" width="1000000">
         <figcaption>Context diagram of Lost SystemFunction with blue actor styling</figcaption>
     </figure>
 
@@ -51,7 +51,7 @@ displayed as an icon beside the box-label.
     ```
     produces
     <figure markdown>
-        <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context of Middle no_symbols.svg" width="1000000">
+        <img src="../assets/images/Context of Middle no_symbols.svg" width="1000000">
         <figcaption>Context of Middle OperationalCapability [OCB] no-symbols</figcaption>
     </figure>
 
@@ -66,7 +66,7 @@ displayed as an icon beside the box-label.
     ```
     produces
     <figure markdown>
-        <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context of Capability no_symbols.svg" width="1000000">
+        <img src="../assets/images/Context of Capability no_symbols.svg" width="1000000">
         <figcaption>Context of Capability Capability [MCB] no-symbols</figcaption>
     </figure>
 
@@ -84,7 +84,7 @@ The `no_edgelabels` render parameter prevents edge labels from being displayed.
     diag.render("svgdiagram", no_edgelabels=True).save_drawing(True)
     ```
     <figure markdown>
-        <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context of educate Wizards no_edgelabels.svg" width="1000000">
+        <img src="../assets/images/Context of educate Wizards no_edgelabels.svg" width="1000000">
         <figcaption>Context diagram of educate Wizards LogicalFunction no-edgelabels</figcaption>
     </figure>
 
@@ -105,7 +105,7 @@ You can switch to py-capellambse default styling by overriding the
     ```
     produces
     <figure markdown>
-        <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context of educate Wizards no_styles.svg" width="1000000">
+        <img src="../assets/images/Context of educate Wizards no_styles.svg" width="1000000">
         <figcaption>Context diagram of educate Wizards LogicalFunction w/o any styles</figcaption>
     </figure>
 
@@ -126,6 +126,6 @@ Style your diagram elements ([ElkChildType][capellambse_context_diagrams.seriali
     ```
     produces
     <figure markdown>
-        <img src="https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/blob/gh-pages/assets/images/Context of Lost red junction.svg" width="1000000">
+        <img src="../assets/images/Context of Lost red junction.svg" width="1000000">
         <figcaption>Context diagram of Lost SystemFunction with junction point styling</figcaption>
     </figure>

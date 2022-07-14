@@ -242,20 +242,8 @@ class ContextDiagram(diagram.AbstractDiagram):
 
         self.render_styles = render_styles or styling.BLUE_ACTOR_FNCS
         self.serializer = serializers.DiagramSerializer(self)
-        self.filters: cabc.MutableSet[str] = self.FilterSet(self)
+        self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
         self.display_symbols_as_boxes = display_symbols_as_boxes
-
-    def __setattr__(self, name: str, value: t.Any) -> None:
-        if name == "filters":
-            self.filters.clear()
-            if not isinstance(value, cabc.Iterable):
-                raise ValueError(
-                    "The value for 'filters' need to be an iterable."
-                )
-            for val in value:
-                self.filters.add(val)
-            return None
-        return super().__setattr__(name, value)
 
     def _create_diagram(
         self,
@@ -269,6 +257,15 @@ class ContextDiagram(diagram.AbstractDiagram):
             logger.error(json.dumps(data, indent=4))
             raise error
         return self.serializer.make_diagram(layout)
+
+    @property  # type: ignore
+    def filters(self) -> cabc.MutableSet[str]:  # type: ignore
+        return self.__filters
+
+    @filters.setter
+    def filters(self, value: cabc.Iterable[str]) -> None:
+        self.__filters.clear()
+        self.__filters |= set(value)
 
 
 class InterfaceContextDiagram(ContextDiagram):

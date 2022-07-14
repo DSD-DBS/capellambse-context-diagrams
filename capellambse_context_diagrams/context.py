@@ -245,6 +245,18 @@ class ContextDiagram(diagram.AbstractDiagram):
         self.filters: cabc.MutableSet[str] = self.FilterSet(self)
         self.display_symbols_as_boxes = display_symbols_as_boxes
 
+    def __setattr__(self, name: str, value: t.Any) -> None:
+        if name == "filters":
+            self.filters.clear()
+            if not isinstance(value, cabc.Iterable):
+                raise ValueError(
+                    "The value for 'filters' need to be an iterable."
+                )
+            for val in value:
+                self.filters.add(val)
+            return None
+        return super().__setattr__(name, value)
+
     def _create_diagram(
         self,
         params: dict[str, t.Any],

@@ -109,7 +109,7 @@ class DiagramSerializer:
         [`aird.Diagram`][capellambse.aird.diagram.Diagram] : Diagram
             class type that stores all previously named classes.
         """
-        styleclass: str | None = self.get_styleclass(child)
+        styleclass: str | None = self.get_styleclass(child["id"])
         element: aird.Box | aird.Edge
         if child["type"] in {"node", "port"}:
             assert parent is None or isinstance(parent, aird.Box)
@@ -184,7 +184,7 @@ class DiagramSerializer:
                 aird.Vector2D(**child["position"]),
                 5,
                 uuid=child["id"],
-                styleclass=self.get_styleclass({"id": uuid}),
+                styleclass=self.get_styleclass(uuid),
                 styleoverrides=self.get_styleoverrides(child),
             )
             self.aird_diagram.add_element(element)
@@ -195,13 +195,13 @@ class DiagramSerializer:
         for i in child.get("children", []):  # type: ignore
             self.deserialize_child(i, ref, element)
 
-    def get_styleclass(self, obj: _elkjs.ELKOutputChild) -> str | None:
+    def get_styleclass(self, uuid: str) -> str | None:
         """Return the style-class string from a given
         [`_elkjs.ELKOutputChild`][capellambse_context_diagrams._elkjs.ELKOutputChild].
         """
         styleclass: str | None
         try:
-            melodyobj = self._diagram._model.by_uuid(obj["id"])
+            melodyobj = self._diagram._model.by_uuid(uuid)
             styleclass = get_styleclass(melodyobj)
         except KeyError:
             styleclass = None

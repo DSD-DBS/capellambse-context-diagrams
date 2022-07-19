@@ -153,6 +153,16 @@ class ELKOutputNode(t.TypedDict):
     size: ELKSize
 
 
+class ELKOutputJunction(t.TypedDict):
+    """Exchange-Junction that comes out of ELK."""
+
+    id: str
+    type: t.Literal["junction"]
+
+    position: ELKPoint
+    size: ELKSize
+
+
 class ELKOutputPort(t.TypedDict):
     """Port that comes out of ELK."""
 
@@ -187,12 +197,13 @@ class ELKOutputEdge(t.TypedDict):
 
 
 ELKOutputChild = t.Union[  # type: ignore
-    ELKOutputNode, ELKOutputPort, ELKOutputLabel, ELKOutputEdge
+    ELKOutputEdge,
+    ELKOutputJunction,
+    ELKOutputLabel,
+    ELKOutputNode,
+    ELKOutputPort,
 ]
-"""
-Type alias for `ELKOutputNode`, `ELKOutputPort`, `ELKOutputLabel` or
-`ELKOutputEdge`.
-"""
+"""Type alias for ELK output."""
 
 
 class NodeJSError(RuntimeError):

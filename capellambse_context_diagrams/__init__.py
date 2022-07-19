@@ -19,8 +19,15 @@ them.
 from __future__ import annotations
 
 import logging
+from importlib import metadata
 
 from . import context
+
+try:
+    __version__ = metadata.version("capellambse-context-diagrams")
+except metadata.PackageNotFoundError:
+    __version__ = "0.0.0+unknown"
+del metadata
 
 logger = logging.getLogger(__name__)
 

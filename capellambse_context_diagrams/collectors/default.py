@@ -18,7 +18,7 @@ from . import generic, makers
 
 
 def collector(
-    diagram: context.ContextDiagram, params: dict[str, t.Any] = None
+    diagram: context.ContextDiagram, params: dict[str, t.Any] | None = None
 ) -> _elkjs.ELKInputData:
     """Collect context data from ports of centric box."""
     data = generic.collector(diagram)

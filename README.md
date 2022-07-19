@@ -17,16 +17,9 @@ The layout work is done by [elkjs'](https://github.com/kieler/elkjs) Layered alg
 
 When the extension is installed you get additional method `.context_diagram` available on those model elements that are already covered by context view definitions.
 
-<figure markdown>
-<img src="docs/assets/images/Context of Left.svg" width="1000000">
-<figcaption align="center">Context diagram of <b>Left</b></figcaption>
-</figure>
+![Context diagram of **Left**][/docs/assets/images/Context%20of%20Left.svg]
 
-
-<figure markdown>
-<img src="docs/assets/images/Interface Context of Left to right.svg" width="1000000">
-<figcaption align="center">Interface context diagram of <b>Left to right</b></figcaption>
-</figure>
+![Interface context diagram of **Left to right**][/docs/assets/images/Interface Context%20of%20Left%20to%20right.svg]
 
 Have a look at our [documentation](https://dsd-dbs.github.io/capellambse-context-diagrams/) to get started and see the capabilities of this extension.
 

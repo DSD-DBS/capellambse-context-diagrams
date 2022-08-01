@@ -285,10 +285,10 @@
               source="#5d637de8-410f-42b8-a467-3b1c84d40775"/>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
               id="716b61a1-36c9-43b6-b364-190dcd09e210" name="hinders" target="#ab016025-d456-4c2d-8359-d50cf9de3825"
-              source="#14ed11c2-da65-4721-9258-180467c2c376"/>
+              source="#14ed11c2-da65-4721-9258-180467c2c376" exchangedItems="#8f8ba7de-a7e6-4b5c-bd5d-11fba313b444"/>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
               id="e3889e88-1d16-44f6-8f38-bb871ed4ace0" name="favours" target="#0e0164c3-076e-42c1-8f82-7a43ab84385c"
-              source="#8d8d235d-e030-4608-9508-68bb3818e7a4"/>
+              source="#8d8d235d-e030-4608-9508-68bb3818e7a4" exchangedItems="#e6b13a92-4ea7-4d4a-9738-d03d2291b0c5"/>
         </ownedOperationalActivities>
       </ownedFunctionPkg>
       <ownedAbstractCapabilityPkg xsi:type="org.polarsys.capella.core.data.oa:OperationalCapabilityPkg"
@@ -735,13 +735,13 @@ The predator is far away</bodies>
         <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
             id="1ca7b206-be29-4315-a036-0b532b26a191" name="ExchangeItem 1" exchangeMechanism="EVENT"/>
         <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
-            id="8f8ba7de-a7e6-4b5c-bd5d-11fba313b444" name="ExchangeItem 2" exchangeMechanism="FLOW"/>
+            id="8f8ba7de-a7e6-4b5c-bd5d-11fba313b444" name="Water" exchangeMechanism="FLOW"/>
         <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
             id="de75e8e3-6410-421c-be75-3bca555e6051" name="ExchangeItem 3" exchangeMechanism="SHARED_DATA"/>
         <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
             id="0e0e179f-14bf-452b-9d8c-7de820c60895" name="ExchangeItem 4"/>
         <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
-            id="e6b13a92-4ea7-4d4a-9738-d03d2291b0c5" name="ExchangeItem 5" exchangeMechanism="FLOW"/>
+            id="e6b13a92-4ea7-4d4a-9738-d03d2291b0c5" name="Vitamin D" exchangeMechanism="FLOW"/>
         <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
             id="408f9055-bdcf-4181-865c-db3e823bd93d" name="ExchangeItem 6" exchangeMechanism="OPERATION"/>
         <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
@@ -1123,8 +1123,8 @@ The predator is far away</bodies>
                 sourceElement="#e6e4d30c-4d80-4899-8d8d-1350239c15a7"/>
           </ownedEntities>
           <ownedCommunicationMeans xsi:type="org.polarsys.capella.core.data.oa:CommunicationMean"
-              id="3c9764aa-4981-44ef-8463-87a053016635" name="Weather Influence" source="#4bf0356c-89dd-45e9-b8a6-e0332c026d33"
-              target="#a8c42033-fdf2-458f-bae9-1cfd1207c49f">
+              id="3c9764aa-4981-44ef-8463-87a053016635" name="Weather Influence" convoyedInformations="#8f8ba7de-a7e6-4b5c-bd5d-11fba313b444 #e6b13a92-4ea7-4d4a-9738-d03d2291b0c5"
+              source="#4bf0356c-89dd-45e9-b8a6-e0332c026d33" target="#a8c42033-fdf2-458f-bae9-1cfd1207c49f">
             <ownedComponentExchangeFunctionalExchangeAllocations xsi:type="org.polarsys.capella.core.data.fa:ComponentExchangeFunctionalExchangeAllocation"
                 id="16d26b48-0911-4e11-ad4b-8379143337d3" targetElement="#716b61a1-36c9-43b6-b364-190dcd09e210"
                 sourceElement="#3c9764aa-4981-44ef-8463-87a053016635"/>

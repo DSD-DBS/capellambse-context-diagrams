@@ -38,8 +38,7 @@ UUID_PTRN = re.compile(
 
 
 def exchange_items(obj: common.GenericElement) -> str:
-    """
-    Return `obj`'s `ExchangeItem`s wrapped in [E1,...] and separated
+    """Return `obj`'s `ExchangeItem`s wrapped in [E1,...] and separated
     by ','.
     """
     stringifier = importlib.import_module(
@@ -48,11 +47,12 @@ def exchange_items(obj: common.GenericElement) -> str:
     return stringifier(obj, obj._model._loader)
 
 
-def exchange_name_and_items(obj: common.GenericElement) -> str:
+def exchange_name_and_items(
+    obj: common.GenericElement, label: str | None = None
+) -> str:
     """Return `obj`'s name and `ExchangeItem`s if there are any."""
-    label = obj.name
-    ex_items = exchange_items(obj)
-    if ex_items:
+    label = label or obj.name
+    if ex_items := exchange_items(obj):
         label += " " + ex_items
     return label
 
@@ -68,10 +68,10 @@ FILTER_LABEL_ADJUSTERS: dict[
     str, cabc.Callable[[common.GenericElement, str | None], str]
 ] = {
     EX_ITEMS: lambda obj, _: exchange_items(obj),
-    FEX_EX_ITEMS: lambda obj, _: exchange_name_and_items(obj),
-    FEX_OR_EX_ITEMS: lambda obj, _: exchange_items(obj)
-    if obj.exchange_items
-    else obj.name,
+    FEX_EX_ITEMS: exchange_name_and_items,
+    FEX_OR_EX_ITEMS: lambda obj, label: exchange_items(obj)
+    if getattr(obj, "exchange_items", "")
+    else label or obj.name,
     NO_UUID: uuid_filter,
 }
 """Label adjuster registry. """

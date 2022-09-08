@@ -49,8 +49,8 @@ repos:
           - --comment-style
           - '#'
       - id: insert-license
-        name: Insert Licence for HTML files
-        files: '\.html$|\.md$'
+        name: Insert Licence for HTML/XML/SVG files
+        files: '\.html$|\.md$|\.svg$'
         exclude: '^\.|^docs/credits\.md$'
         args:
           - --license-filepath

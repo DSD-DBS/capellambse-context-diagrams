@@ -4,6 +4,10 @@
 import capellambse
 import pytest
 
+TEST_CAP_SIZING_UUID = "b996a45f-2954-4fdd-9141-7934e7687de6"
+TEST_HUMAN_ACTOR_SIZING_UUID = "e95847ae-40bb-459e-8104-7209e86ea2d1"
+TEST_ACTOR_SIZING_UUID = "6c8f32bf-0316-477f-a23b-b5239624c28d"
+
 
 @pytest.mark.parametrize(
     "uuid",
@@ -30,3 +34,68 @@ def test_context_diagrams(model: capellambse.MelodyModel, uuid: str) -> None:
     diag = obj.context_diagram
 
     assert diag.nodes
+
+
+@pytest.mark.parametrize(
+    "diagram_elements",
+    [
+        pytest.param(
+            [
+                ("e9a6fd43-88d2-4832-91d5-595b6fbf613d", 42),
+                ("a4f69ce4-2f3f-40d4-af58-423388df449f", 72),
+                ("a07b7cb1-0424-4261-9980-504dd9c811d4", 72),
+            ],
+            id="Entity",
+        ),
+        pytest.param(
+            [
+                (TEST_ACTOR_SIZING_UUID, 37),
+                (TEST_HUMAN_ACTOR_SIZING_UUID, 57),
+                (TEST_CAP_SIZING_UUID, 92),
+            ],
+            id="Capability",
+        ),
+        pytest.param(
+            [
+                ("e1e48763-7479-4f3a-8134-c82bb6705d58", 98),
+                ("8df45b70-15cc-4d3a-99e4-593516392c5a", 122),
+                ("74af6883-25a0-446a-80f3-656f8a490b11", 122),
+            ],
+            id="LogicalComponent",
+        ),
+        pytest.param(
+            [
+                ("0c06cc88-8c77-46f2-8542-c08b1e8edd18", 86),
+                ("9f1e1875-9ead-4af2-b428-c390786a436a", 86),
+            ],
+            id="LogicalFunction",
+        ),
+    ],
+)
+def test_context_diagrams_box_sizing(
+    model: capellambse.MelodyModel, diagram_elements: list[tuple[str, int]]
+) -> None:
+    uuid, min_size = diagram_elements.pop()
+    obj = model.by_uuid(uuid)
+
+    diag = obj.context_diagram
+    diag.display_symbols_as_boxes = True
+    adiag = diag.render(None)
+
+    assert adiag[uuid].size.y >= min_size
+    for uuid, min_size in diagram_elements:
+        obj = model.by_uuid(uuid)
+
+        assert adiag[uuid].size.y >= min_size
+
+
+def test_context_diagrams_symbol_sizing(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid(TEST_CAP_SIZING_UUID)
+
+    adiag = obj.context_diagram.render(None)
+
+    assert adiag[TEST_CAP_SIZING_UUID].size.y >= 92
+    assert adiag[TEST_HUMAN_ACTOR_SIZING_UUID].size.y >= 57
+    assert adiag[TEST_ACTOR_SIZING_UUID].size.y >= 37

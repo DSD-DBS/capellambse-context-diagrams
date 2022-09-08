@@ -38,25 +38,30 @@ def collector(
         "input": -makers.NEIGHBOR_VMARGIN,
         "output": -makers.NEIGHBOR_VMARGIN,
     }
-    already_made = {centerbox["id"]}
-    for i, ports, side in port_context_collector(connections, ports):
+    made_boxes = {centerbox["id"]: centerbox}
+    for i, local_ports, side in port_context_collector(connections, ports):
         _, label_height = helpers.get_text_extent(i.name)
         height = max(
             label_height + 2 * makers.LABEL_VPAD,
             makers.PORT_PADDING
-            + (makers.PORT_SIZE + makers.PORT_PADDING) * len(ports),
+            + (makers.PORT_SIZE + makers.PORT_PADDING) * len(local_ports),
         )
-        if i.uuid not in already_made:
+        if box := made_boxes.get(i.uuid):
+            if box is centerbox:
+                continue
+            box["ports"].extend(
+                [makers.make_port(j.uuid) for j in local_ports]
+            )
+            box["height"] += height
+        else:
             box = makers.make_box(i, height=height)
-            box["ports"] = [makers.make_port(j.uuid) for j in ports]
-        elif i.uuid != centerbox["id"]:
-            box = next(b for b in data["children"] if b["id"] == i.uuid)
-        else:  # Circle
-            continue
+            box["ports"] = [makers.make_port(j.uuid) for j in local_ports]
+            made_boxes[i.uuid] = box
 
         stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
-        data["children"].append(box)
 
+    del made_boxes[centerbox["id"]]
+    data["children"].extend(made_boxes.values())
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
     return data
 

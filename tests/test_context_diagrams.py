@@ -82,11 +82,11 @@ def test_context_diagrams_box_sizing(
     diag.display_symbols_as_boxes = True
     adiag = diag.render(None)
 
+    assert adiag[uuid].size.y >= min_size
     for uuid, min_size in diagram_elements:
         obj = model.by_uuid(uuid)
 
         assert adiag[uuid].size.y >= min_size
-    assert adiag[uuid].size.y >= min_size
 
 
 def test_context_diagrams_symbol_sizing(

@@ -21,7 +21,7 @@ def collector(
     diagram: context.ContextDiagram, params: dict[str, t.Any] | None = None
 ) -> _elkjs.ELKInputData:
     """Collect context data from ports of centric box."""
-    data = generic.collector(diagram)
+    data = generic.collector(diagram, no_symbol=True)
     ports = port_collector(diagram.target)
     centerbox = data["children"][0]
     centerbox["ports"] = [makers.make_port(i.uuid) for i in ports]

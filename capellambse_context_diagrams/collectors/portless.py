@@ -44,7 +44,7 @@ def collector(
         "output": -makers.NEIGHBOR_VMARGIN,
     }
     contexts = context_collector(connections, diagram.target)
-    already_made = {centerbox["id"]}
+    made_boxes = {centerbox["id"]: centerbox}
     for i, exchanges, side in contexts:
         var_height = generic.MARKER_PADDING + (
             generic.MARKER_SIZE + generic.MARKER_PADDING
@@ -56,19 +56,20 @@ def collector(
         else:
             height = var_height
 
-        if i.uuid not in already_made:
+        if box := made_boxes.get(i.uuid):
+            if box is centerbox:
+                continue
+            box["height"] = height
+        else:
             box = makers.make_box(
                 i, height=height, no_symbol=diagram.display_symbols_as_boxes
             )
-        elif i.uuid != centerbox["id"]:
-            box = next(b for b in data["children"] if b["id"] == i.uuid)
-            box["height"] = height
-        else:  # Circle
-            continue
+            made_boxes[i.uuid] = box
 
         stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
-        data["children"].append(box)
 
+    del made_boxes[centerbox["id"]]
+    data["children"].extend(made_boxes.values())
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
     centerbox["width"] = (
         max(label["width"] for label in centerbox["labels"])

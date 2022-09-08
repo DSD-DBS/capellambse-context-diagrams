@@ -1939,6 +1939,12 @@ The predator is far away</bodies>
               id="da6131e9-dbc0-4f16-8e9c-be6932fa05d8" targetElement="#77dd3442-c092-4b69-8b50-830bc1c5d584"
               sourceElement="#86a1afc2-b7fd-4023-bbd5-ab44f5dc2c28"/>
         </ownedComponentExchanges>
+        <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+            id="2602eeef-c1bc-40a8-9406-52f4a809ca4a" name="Test Output Ex" source="#dcbf18a9-8589-4ba6-84ad-094ec1810de1"
+            target="#c8ea5da6-6042-4881-89cb-c67977df1d60" kind="FLOW"/>
+        <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+            id="560e799d-d291-4928-a367-430232ddef65" name="Test Input Ex" source="#d5fd4286-1d41-4d21-b3cf-9babc8872c77"
+            target="#898b878b-4392-499a-82f7-eb48e0f07e36" kind="FLOW"/>
         <ownedStateMachines xsi:type="org.polarsys.capella.core.data.capellacommon:StateMachine"
             id="9806df59-397c-4505-918f-3b1288638251" name="RootStateMachine">
           <ownedRegions xsi:type="org.polarsys.capella.core.data.capellacommon:Region"
@@ -2277,6 +2283,12 @@ The predator is far away</bodies>
               </ownedTransitions>
             </ownedRegions>
           </ownedStateMachines>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="dcbf18a9-8589-4ba6-84ad-094ec1810de1" name="CP 1" orientation="OUT"
+              kind="FLOW"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="898b878b-4392-499a-82f7-eb48e0f07e36" name="CP 2" orientation="IN"
+              kind="FLOW"/>
         </ownedSystemComponents>
         <ownedSystemComponents xsi:type="org.polarsys.capella.core.data.ctx:SystemComponent"
             id="344a405e-c7e5-4367-8a9a-41d3d9a27f81" name="Kevin Spacey" actor="true"
@@ -2306,6 +2318,9 @@ The predator is far away</bodies>
                 id="52d5ed69-25b3-413e-a40d-665dac93176a" targetElement="#4a528807-d155-43b4-9e5e-533648a06217"
                 sourceElement="#6b07c5a0-8731-4266-b465-25590d1af82c"/>
           </ownedFeatures>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="d5fd4286-1d41-4d21-b3cf-9babc8872c77" name="CP 4" orientation="OUT"
+              kind="FLOW"/>
         </ownedSystemComponents>
         <ownedSystemComponents xsi:type="org.polarsys.capella.core.data.ctx:SystemComponent"
             id="d4a22478-5717-4ca7-bfc9-9a193e6218a8" name="HollyWood" actor="true">
@@ -2353,6 +2368,9 @@ The predator is far away</bodies>
                 sourceElement="#6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6"/>
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
                 id="74505eac-7abc-476d-8dec-ad68abb4b2a5" name="CP 1" orientation="IN"
+                kind="FLOW"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="c8ea5da6-6042-4881-89cb-c67977df1d60" name="CP 2" orientation="IN"
                 kind="FLOW"/>
           </ownedSystemComponents>
         </ownedSystemComponentPkgs>

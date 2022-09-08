@@ -49,7 +49,7 @@ class DiagramSerializer:
     def __init__(self, elk_diagram: context.ContextDiagram) -> None:
         self.model = elk_diagram.target._model
         self._diagram = elk_diagram
-        self._cache: dict[str, dict[str, aird.Box]] = {}
+        self._cache: dict[str, aird.Box] = {}
 
     def make_diagram(self, data: _elkjs.ELKOutputData) -> aird.Diagram:
         """Transform a layouted diagram into an `aird.Diagram`.
@@ -71,14 +71,16 @@ class DiagramSerializer:
         for child in data["children"]:
             self.deserialize_child(child, aird.Vector2D(), None)
 
-        for box in self._cache.values():
-            if box["box"].JSON_TYPE != "symbol":  # Label is outside
-                self.check_boxlabel_space(box["box"])
-            self.check_viewBox_space(box["box"])
-
-        for edge in self.aird_diagram:
-            if isinstance(edge, aird.Edge):
-                self.check_edgelabel_space(edge)
+        space_checkers = {
+            "box": self.check_boxlabel_space,
+            "edge": self.check_edgelabel_space,
+            "symbol": lambda _: None,  # No need since label is outside
+        }
+        for element in self._cache.values():
+            if not element.port:
+                space_checkers[element.JSON_TYPE](element)
+            if element.JSON_TYPE != "edge":
+                self.check_viewBox_space(element)
 
         return self.aird_diagram
 
@@ -118,12 +120,15 @@ class DiagramSerializer:
                 obj = self.model.by_uuid(child["id"])
                 has_symbol_cls = collectors.makers.is_symbol(obj)
             except KeyError:
-                pass
+                logger.error(
+                    "ModelObject could not be found: '%s'", child["id"]
+                )
 
             is_port = child["type"] == "port"
             box_type = ("box", "symbol")[
                 is_port
                 or has_symbol_cls
+                and not self._diagram.target == obj
                 and not self._diagram.display_symbols_as_boxes
             ]
 
@@ -140,7 +145,7 @@ class DiagramSerializer:
             )
             element.JSON_TYPE = box_type
             self.aird_diagram.add_element(element)
-            self._cache[child["id"]] = {"box": element}
+            self._cache[child["id"]] = element
         elif child["type"] == "edge":
             element = aird.Edge(
                 [
@@ -154,6 +159,7 @@ class DiagramSerializer:
                 styleoverrides=self.get_styleoverrides(child),
             )
             self.aird_diagram.add_element(element)
+            self._cache[child["id"]] = element
         elif child["type"] == "label":
             assert parent is not None
             if isinstance(parent, aird.Box) and not parent.port:
@@ -239,10 +245,11 @@ class DiagramSerializer:
             ]
         )
 
-        if isinstance(box.label, aird.Box):
-            label = box.label.label
-        else:
-            label = box.label or ""
+        label = box.label
+        if isinstance(label, aird.Box):
+            label = label.label
+        elif label is None:
+            return
 
         assert isinstance(label, str)
         lines = helpers.word_wrap(
@@ -267,16 +274,6 @@ class DiagramSerializer:
             self.aird_diagram.viewport.pos += viewport_dist
             self.aird_diagram.viewport.size += abs(viewport_dist)
 
-    def check_viewBox_space(self, box: aird.Box) -> None:
-        """Check if given box and its label fits inside the diagram."""
-        assert self.aird_diagram.viewport is not None
-        lower_bound = (
-            self.aird_diagram.viewport.pos + self.aird_diagram.viewport.size
-        )
-        self._fix_space(lower_bound, box)
-        if isinstance(box.label, aird.Box):
-            self._fix_space(lower_bound, box.label)
-
     def check_edgelabel_space(self, edge: aird.Edge) -> None:
         """Check if any label is outside of the viewport."""
         if not edge.labels:
@@ -287,12 +284,35 @@ class DiagramSerializer:
             self.aird_diagram.viewport.pos + self.aird_diagram.viewport.size
         )
         for label in edge.labels:
-            self._fix_space(lower_bound, label)
+            self._fix_lower_space(lower_bound, label)
 
-    def _fix_space(self, lower_bound: aird.Vector2D, box: aird.Box) -> None:
+    def check_viewBox_space(self, box: aird.Box) -> None:
+        """Check if given box and its label fits inside the diagram."""
+        assert self.aird_diagram.viewport is not None
+        upper_bound = self.aird_diagram.viewport.pos
+        lower_bound = upper_bound + self.aird_diagram.viewport.size
+        self._fix_lower_space(lower_bound, box)
+        self._fix_upper_space(upper_bound, box)
+        if isinstance(box.label, aird.Box):
+            self._fix_lower_space(lower_bound, box.label)
+            self._fix_upper_space(upper_bound, box.label)
+
+    def _fix_lower_space(
+        self, lower_bound: aird.Vector2D, box: aird.Box
+    ) -> None:
         assert self.aird_diagram.viewport is not None
         space = lower_bound - (box.pos + box.size)
         self.aird_diagram.viewport.size += aird.Vector2D(
+            abs(space.x) if space.x <= 0 else 0,
+            abs(space.y) if space.y <= 0 else 0,
+        )
+
+    def _fix_upper_space(
+        self, upper_bound: aird.Vector2D, box: aird.Box
+    ) -> None:
+        assert self.aird_diagram.viewport is not None
+        space = box.pos - upper_bound
+        self.aird_diagram.viewport.pos -= aird.Vector2D(
             abs(space.x) if space.x <= 0 else 0,
             abs(space.y) if space.y <= 0 else 0,
         )

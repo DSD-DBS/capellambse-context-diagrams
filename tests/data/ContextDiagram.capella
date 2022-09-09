@@ -1939,6 +1939,9 @@ The predator is far away</bodies>
               id="da6131e9-dbc0-4f16-8e9c-be6932fa05d8" targetElement="#77dd3442-c092-4b69-8b50-830bc1c5d584"
               sourceElement="#86a1afc2-b7fd-4023-bbd5-ab44f5dc2c28"/>
         </ownedComponentExchanges>
+        <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+            id="db5126f8-a842-48b5-a344-1d272aa33f52" name="Holla" source="#e7ea5a90-3b07-499d-b17f-4e61917c850a"
+            target="#c3c130ad-e999-4145-ab73-4257a9cc69f0" kind="FLOW"/>
         <ownedStateMachines xsi:type="org.polarsys.capella.core.data.capellacommon:StateMachine"
             id="9806df59-397c-4505-918f-3b1288638251" name="RootStateMachine">
           <ownedRegions xsi:type="org.polarsys.capella.core.data.capellacommon:Region"
@@ -2315,6 +2318,9 @@ The predator is far away</bodies>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
               id="5e53616c-d3b6-4b2c-be23-6fb4229ddd20" name="CP 1" orientation="IN"
               kind="FLOW"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="e7ea5a90-3b07-499d-b17f-4e61917c850a" name="CP 2" orientation="OUT"
+              kind="FLOW"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="4582f200-8833-4697-8234-279cb4a1d9bb" targetElement="#b805a725-4b13-4b77-810e-b0ba002d5d98"
               sourceElement="#d4a22478-5717-4ca7-bfc9-9a193e6218a8"/>
@@ -2334,6 +2340,9 @@ The predator is far away</bodies>
                 id="b5aaa4ee-c96b-48f3-be37-36b596eed46d" targetElement="#91fd613c-4cea-4c2b-8acb-0c8c27f5f0da"
                 sourceElement="#b2d2a4f1-0c21-45f4-918c-3d3c5e8af104"/>
           </ownedFeatures>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="c3c130ad-e999-4145-ab73-4257a9cc69f0" name="CP 2" orientation="IN"
+              kind="FLOW"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="c91d5664-b9af-48f8-b654-ee09bd46ab6a" targetElement="#b805a725-4b13-4b77-810e-b0ba002d5d98"
               sourceElement="#da12377b-fb70-4441-8faa-3a5c153c5de2"/>

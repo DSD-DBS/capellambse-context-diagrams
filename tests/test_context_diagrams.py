@@ -1,6 +1,8 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
+import pathlib
+
 import capellambse
 import pytest
 
@@ -18,6 +20,9 @@ TEST_ACTOR_SIZING_UUID = "6c8f32bf-0316-477f-a23b-b5239624c28d"
             "344a405e-c7e5-4367-8a9a-41d3d9a27f81", id="SystemComponent"
         ),
         pytest.param(
+            "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df", id="SystemComponent Root"
+        ),
+        pytest.param(
             "a5642060-c9cc-4d49-af09-defaa3024bae", id="SystemFunction"
         ),
         pytest.param(
@@ -28,10 +33,14 @@ TEST_ACTOR_SIZING_UUID = "6c8f32bf-0316-477f-a23b-b5239624c28d"
         ),
     ],
 )
-def test_context_diagrams(model: capellambse.MelodyModel, uuid: str) -> None:
+def test_context_diagrams(
+    model: capellambse.MelodyModel, uuid: str, tmp_path: pathlib.Path
+) -> None:
     obj = model.by_uuid(uuid)
+    filename = tmp_path / "tmp.svg"
 
     diag = obj.context_diagram
+    diag.render("svgdiagram").save_drawing(filename=filename)
 
     assert diag.nodes
 
@@ -69,6 +78,14 @@ def test_context_diagrams(model: capellambse.MelodyModel, uuid: str) -> None:
                 ("9f1e1875-9ead-4af2-b428-c390786a436a", 86),
             ],
             id="LogicalFunction",
+        ),
+        pytest.param(
+            [
+                ("6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6", 20),
+                ("344a405e-c7e5-4367-8a9a-41d3d9a27f81", 20),
+                ("230c4621-7e0a-4d0a-9db2-d4ba5e97b3df", 45),
+            ],
+            id="SystemComponent Root",
         ),
     ],
 )

@@ -90,6 +90,9 @@ def patch_styles() -> None:
     capstyle.STYLES["Operational Capabilities Blank"][
         "Box.OperationalCapability"
     ] = cap
+    capstyle.STYLES["System Data Flow Blank"]["Circle.FunctionalExchange"] = {
+        "fill": COLORS["_CAP_xAB_Function_Border_Green"]
+    }
 
 
 def register_interface_context() -> None:

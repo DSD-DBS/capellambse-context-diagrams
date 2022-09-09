@@ -35,13 +35,18 @@ MARKER_PADDING = makers.PORT_PADDING
 
 
 def collector(
-    diagram: context.ContextDiagram, *, width: int | float = makers.EOI_WIDTH
+    diagram: context.ContextDiagram,
+    *,
+    width: int | float = makers.EOI_WIDTH,
+    no_symbol: bool = False,
 ) -> _elkjs.ELKInputData:
     """Returns `ELKInputData` with only centerbox in children and config."""
     return {
         "id": diagram.uuid,
         "layoutOptions": _elkjs.get_global_layered_layout_options(),
-        "children": [makers.make_box(diagram.target, width=width)],
+        "children": [
+            makers.make_box(diagram.target, width=width, no_symbol=no_symbol)
+        ],
         "edges": [],
     }
 

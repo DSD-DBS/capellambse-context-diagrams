@@ -120,8 +120,7 @@ class FunctionalContextAccessor(ContextAccessor):
 
 
 class ContextDiagram(diagram.AbstractDiagram):
-    """
-    An automatically generated context diagram.
+    """An automatically generated context diagram.
 
     Attributes
     ----------
@@ -151,6 +150,23 @@ class ContextDiagram(diagram.AbstractDiagram):
         context. Currently this is only done in
         [`collectors.exchange_data_collector`][capellambse_context_diagrams.collectors.generic.exchange_data_collector].
     """
+
+    def __init__(
+        self,
+        class_: str,
+        obj: common.GenericElement,
+        *,
+        render_styles: dict[str, styling.Styler] | None = None,
+        display_symbols_as_boxes: bool = False,
+    ) -> None:
+        super().__init__(obj._model)
+        self.target = obj
+        self.styleclass = class_
+
+        self.render_styles = render_styles or styling.BLUE_ACTOR_FNCS
+        self.serializer = serializers.DiagramSerializer(self)
+        self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
+        self.display_symbols_as_boxes = display_symbols_as_boxes
 
     @property
     def uuid(self) -> str:  # type: ignore
@@ -228,23 +244,6 @@ class ContextDiagram(diagram.AbstractDiagram):
         def __len__(self) -> int:
             return self._set.__len__()
 
-    def __init__(
-        self,
-        class_: str,
-        obj: common.GenericElement,
-        *,
-        render_styles: dict[str, styling.Styler] | None = None,
-        display_symbols_as_boxes: bool = False,
-    ) -> None:
-        super().__init__(obj._model)
-        self.target = obj
-        self.styleclass = class_
-
-        self.render_styles = render_styles or styling.BLUE_ACTOR_FNCS
-        self.serializer = serializers.DiagramSerializer(self)
-        self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
-        self.display_symbols_as_boxes = display_symbols_as_boxes
-
     def _create_diagram(
         self,
         params: dict[str, t.Any],
@@ -270,8 +269,11 @@ class ContextDiagram(diagram.AbstractDiagram):
 
 class InterfaceContextDiagram(ContextDiagram):
     """An automatically generated Context Diagram exclusively for
-    ComponentExchanges.
+    ``ComponentExchange``s.
     """
+
+    def __init__(self, class_: str, obj: common.GenericElement, **kw) -> None:
+        super().__init__(class_, obj, **kw, display_symbols_as_boxes=True)
 
     @property
     def name(self) -> str:  # type: ignore

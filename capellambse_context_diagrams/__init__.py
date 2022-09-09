@@ -18,7 +18,9 @@ them.
 """
 from __future__ import annotations
 
+import collections.abc as cabc
 import logging
+import typing as t
 from importlib import metadata
 
 from . import context
@@ -28,6 +30,11 @@ try:
 except metadata.PackageNotFoundError:
     __version__ = "0.0.0+unknown"
 del metadata
+
+if t.TYPE_CHECKING:
+    from capellambse.model.modeltypes import DiagramType
+
+    ClassPair = tuple[type[common.GenericElement], DiagramType]
 
 logger = logging.getLogger(__name__)
 
@@ -46,10 +53,7 @@ def register_classes() -> None:
     from capellambse.model.layers import ctx, la, oa, pa
     from capellambse.model.modeltypes import DiagramType
 
-    patch_styles()
-    supported_classes: list[
-        tuple[type[common.GenericElement], DiagramType]
-    ] = [
+    supported_classes: list[ClassPair] = [
         (oa.Entity, DiagramType.OAB),
         (oa.OperationalActivity, DiagramType.OAIB),
         (oa.OperationalCapability, DiagramType.OCB),
@@ -62,6 +66,7 @@ def register_classes() -> None:
         (pa.PhysicalComponent, DiagramType.PAB),
         (pa.PhysicalFunction, DiagramType.PDFB),
     ]
+    patch_styles(supported_classes)
     class_: type[common.GenericElement]
     for class_, dgcls in supported_classes:
         common.set_accessor(
@@ -69,7 +74,7 @@ def register_classes() -> None:
         )
 
 
-def patch_styles() -> None:
+def patch_styles(classes: cabc.Iterable[ClassPair]) -> None:
     """Add missing default styling to default styles.
 
     See Also
@@ -90,6 +95,9 @@ def patch_styles() -> None:
     capstyle.STYLES["Operational Capabilities Blank"][
         "Box.OperationalCapability"
     ] = cap
+    circle_style = {"fill": COLORS["_CAP_xAB_Function_Border_Green"]}
+    for _, dt in classes:
+        capstyle.STYLES[dt.value]["Circle.FunctionalExchange"] = circle_style
 
 
 def register_interface_context() -> None:
@@ -134,6 +142,7 @@ def register_functional_context() -> None:
     from capellambse.model.layers import ctx, la, oa, pa
     from capellambse.model.modeltypes import DiagramType
 
+    attr_name = f"functional_{ATTR_NAME}"
     supported_classes: list[
         tuple[type[common.GenericElement], DiagramType]
     ] = [
@@ -146,7 +155,7 @@ def register_functional_context() -> None:
     for class_, dgcls in supported_classes:
         common.set_accessor(
             class_,
-            f"functional_{ATTR_NAME}",
+            attr_name,
             context.FunctionalContextAccessor(dgcls.value),
         )
 

@@ -1945,6 +1945,9 @@ The predator is far away</bodies>
         <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
             id="560e799d-d291-4928-a367-430232ddef65" name="Test Input Ex" source="#d5fd4286-1d41-4d21-b3cf-9babc8872c77"
             target="#898b878b-4392-499a-82f7-eb48e0f07e36" kind="FLOW"/>
+        <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+            id="66edd9e5-64bf-4bfa-8f0c-17966ab94c98" name="Holla" source="#e7ea5a90-3b07-499d-b17f-4e61917c850a"
+            target="#c3c130ad-e999-4145-ab73-4257a9cc69f0" kind="FLOW"/>
         <ownedStateMachines xsi:type="org.polarsys.capella.core.data.capellacommon:StateMachine"
             id="9806df59-397c-4505-918f-3b1288638251" name="RootStateMachine">
           <ownedRegions xsi:type="org.polarsys.capella.core.data.capellacommon:Region"
@@ -2330,6 +2333,9 @@ The predator is far away</bodies>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
               id="5e53616c-d3b6-4b2c-be23-6fb4229ddd20" name="CP 1" orientation="IN"
               kind="FLOW"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="e7ea5a90-3b07-499d-b17f-4e61917c850a" name="CP 2" orientation="OUT"
+              kind="FLOW"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="4582f200-8833-4697-8234-279cb4a1d9bb" targetElement="#b805a725-4b13-4b77-810e-b0ba002d5d98"
               sourceElement="#d4a22478-5717-4ca7-bfc9-9a193e6218a8"/>
@@ -2349,6 +2355,9 @@ The predator is far away</bodies>
                 id="b5aaa4ee-c96b-48f3-be37-36b596eed46d" targetElement="#91fd613c-4cea-4c2b-8acb-0c8c27f5f0da"
                 sourceElement="#b2d2a4f1-0c21-45f4-918c-3d3c5e8af104"/>
           </ownedFeatures>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="c3c130ad-e999-4145-ab73-4257a9cc69f0" name="CP 2" orientation="IN"
+              kind="FLOW"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="c91d5664-b9af-48f8-b654-ee09bd46ab6a" targetElement="#b805a725-4b13-4b77-810e-b0ba002d5d98"
               sourceElement="#da12377b-fb70-4441-8faa-3a5c153c5de2"/>

@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 class ExchangeCollector(metaclass=abc.ABCMeta):
     """Base class for context collection on Exchanges."""
 
-    intermap = {
+    intermap: dict[str, DT] = {
         DT.OAB: ("source", "target", "allocated_interactions", "activities"),
         DT.SAB: (
             "source.parent",
@@ -34,13 +34,13 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
             "source.parent",
             "target.parent",
             "allocated_functional_exchanges",
-            "functions",
+            "allocated_functions",
         ),
         DT.PAB: (
             "source.parent",
             "target.parent",
             "allocated_functional_exchanges",
-            "functions",
+            "allocated_functions",
         ),
     }
 
@@ -57,7 +57,7 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
         self.get_source = operator.attrgetter(src)
         self.get_target = operator.attrgetter(trg)
         self.get_alloc_fex = operator.attrgetter(alloc_fex)
-        self.get_functions = operator.attrgetter(fncs)
+        self.get_alloc_functions = operator.attrgetter(fncs)
 
     def get_functions_and_exchanges(
         self, comp: common.GenericElement, interface: common.GenericElement
@@ -70,7 +70,7 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
         `FunctionalExchange`s for given `Component` and `interface`.
         """
         functions, outgoings, incomings = [], [], []
-        alloc_functions = self.get_functions(comp)
+        alloc_functions = self.get_alloc_functions(comp)
         for fex in self.get_alloc_fex(interface):
             source = self.get_source(fex)
             if source in alloc_functions:
@@ -170,7 +170,8 @@ class InterfaceContextCollector(ExchangeCollector):
         def get_capella_order(
             comp: common.GenericElement, functions: list[common.GenericElement]
         ) -> list[common.GenericElement]:
-            return [fnc for fnc in comp.functions if fnc in functions]
+            alloc_functions = self.get_alloc_functions(comp)
+            return [fnc for fnc in alloc_functions if fnc in functions]
 
         def make_boxes(
             comp: common.GenericElement, functions: list[common.GenericElement]
@@ -180,7 +181,7 @@ class InterfaceContextCollector(ExchangeCollector):
                 box["children"] = [
                     makers.make_box(c)
                     for c in functions
-                    if c in self.get_functions(comp)
+                    if c in self.get_alloc_functions(comp)
                 ]
                 self.data["children"].append(box)
                 made_children.add(comp.uuid)

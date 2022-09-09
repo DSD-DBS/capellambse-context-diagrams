@@ -18,8 +18,16 @@ them.
 """
 from __future__ import annotations
 
+import collections.abc as cabc
 import logging
+import typing as t
 from importlib import metadata
+
+from capellambse.aird import COLORS, CSSdef, capstyle
+from capellambse.model import common
+from capellambse.model.crosslayer import fa
+from capellambse.model.layers import ctx, la, oa, pa
+from capellambse.model.modeltypes import DiagramType
 
 from . import context
 
@@ -28,6 +36,8 @@ try:
 except metadata.PackageNotFoundError:
     __version__ = "0.0.0+unknown"
 del metadata
+
+ClassPair = tuple[type[common.GenericElement], DiagramType]
 
 logger = logging.getLogger(__name__)
 
@@ -43,13 +53,7 @@ def init() -> None:
 
 def register_classes() -> None:
     """Add the `context_diagram` property to the relevant model objects."""
-    from capellambse.model.layers import ctx, la, oa, pa
-    from capellambse.model.modeltypes import DiagramType
-
-    patch_styles()
-    supported_classes: list[
-        tuple[type[common.GenericElement], DiagramType]
-    ] = [
+    supported_classes: list[ClassPair] = [
         (oa.Entity, DiagramType.OAB),
         (oa.OperationalActivity, DiagramType.OAIB),
         (oa.OperationalCapability, DiagramType.OCB),
@@ -62,6 +66,7 @@ def register_classes() -> None:
         (pa.PhysicalComponent, DiagramType.PAB),
         (pa.PhysicalFunction, DiagramType.PDFB),
     ]
+    patch_styles(supported_classes)
     class_: type[common.GenericElement]
     for class_, dgcls in supported_classes:
         common.set_accessor(
@@ -69,7 +74,7 @@ def register_classes() -> None:
         )
 
 
-def patch_styles() -> None:
+def patch_styles(classes: cabc.Iterable[ClassPair]) -> None:
     """Add missing default styling to default styles.
 
     See Also
@@ -77,8 +82,6 @@ def patch_styles() -> None:
     [capstyle.get_style][capellambse.aird.capstyle.get_style] : Default
         style getter.
     """
-    from capellambse.aird import COLORS, CSSdef, capstyle
-
     cap: dict[str, CSSdef] = {
         "fill": [COLORS["_CAP_Entity_Gray_min"], COLORS["_CAP_Entity_Gray"]],
         "stroke": COLORS["dark_gray"],
@@ -90,17 +93,13 @@ def patch_styles() -> None:
     capstyle.STYLES["Operational Capabilities Blank"][
         "Box.OperationalCapability"
     ] = cap
-    capstyle.STYLES["System Data Flow Blank"]["Circle.FunctionalExchange"] = {
-        "fill": COLORS["_CAP_xAB_Function_Border_Green"]
-    }
+    circle_style = {"fill": COLORS["_CAP_xAB_Function_Border_Green"]}
+    for _, dt in classes:
+        capstyle.STYLES[dt.value]["Circle.FunctionalExchange"] = circle_style
 
 
 def register_interface_context() -> None:
     """Add the `context_diagram` property to interface model objects."""
-    from capellambse.model.crosslayer import fa
-    from capellambse.model.layers import ctx, la, oa, pa
-    from capellambse.model.modeltypes import DiagramType
-
     common.set_accessor(
         oa.CommunicationMean,
         ATTR_NAME,
@@ -134,9 +133,7 @@ def register_functional_context() -> None:
 
         The functional context diagrams will be available soon.
     """
-    from capellambse.model.layers import ctx, la, oa, pa
-    from capellambse.model.modeltypes import DiagramType
-
+    attr_name = f"functional_{ATTR_NAME}"
     supported_classes: list[
         tuple[type[common.GenericElement], DiagramType]
     ] = [
@@ -149,9 +146,6 @@ def register_functional_context() -> None:
     for class_, dgcls in supported_classes:
         common.set_accessor(
             class_,
-            f"functional_{ATTR_NAME}",
+            attr_name,
             context.FunctionalContextAccessor(dgcls.value),
         )
-
-
-from capellambse.model import common

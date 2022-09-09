@@ -285,10 +285,10 @@
               source="#5d637de8-410f-42b8-a467-3b1c84d40775"/>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
               id="716b61a1-36c9-43b6-b364-190dcd09e210" name="hinders" target="#ab016025-d456-4c2d-8359-d50cf9de3825"
-              source="#14ed11c2-da65-4721-9258-180467c2c376"/>
+              source="#14ed11c2-da65-4721-9258-180467c2c376" exchangedItems="#8f8ba7de-a7e6-4b5c-bd5d-11fba313b444"/>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
               id="e3889e88-1d16-44f6-8f38-bb871ed4ace0" name="favours" target="#0e0164c3-076e-42c1-8f82-7a43ab84385c"
-              source="#8d8d235d-e030-4608-9508-68bb3818e7a4"/>
+              source="#8d8d235d-e030-4608-9508-68bb3818e7a4" exchangedItems="#e6b13a92-4ea7-4d4a-9738-d03d2291b0c5"/>
         </ownedOperationalActivities>
       </ownedFunctionPkg>
       <ownedAbstractCapabilityPkg xsi:type="org.polarsys.capella.core.data.oa:OperationalCapabilityPkg"
@@ -735,13 +735,13 @@ The predator is far away</bodies>
         <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
             id="1ca7b206-be29-4315-a036-0b532b26a191" name="ExchangeItem 1" exchangeMechanism="EVENT"/>
         <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
-            id="8f8ba7de-a7e6-4b5c-bd5d-11fba313b444" name="ExchangeItem 2" exchangeMechanism="FLOW"/>
+            id="8f8ba7de-a7e6-4b5c-bd5d-11fba313b444" name="Water" exchangeMechanism="FLOW"/>
         <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
             id="de75e8e3-6410-421c-be75-3bca555e6051" name="ExchangeItem 3" exchangeMechanism="SHARED_DATA"/>
         <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
             id="0e0e179f-14bf-452b-9d8c-7de820c60895" name="ExchangeItem 4"/>
         <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
-            id="e6b13a92-4ea7-4d4a-9738-d03d2291b0c5" name="ExchangeItem 5" exchangeMechanism="FLOW"/>
+            id="e6b13a92-4ea7-4d4a-9738-d03d2291b0c5" name="Vitamin D" exchangeMechanism="FLOW"/>
         <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
             id="408f9055-bdcf-4181-865c-db3e823bd93d" name="ExchangeItem 6" exchangeMechanism="OPERATION"/>
         <ownedExchangeItems xsi:type="org.polarsys.capella.core.data.information:ExchangeItem"
@@ -1195,8 +1195,8 @@ The predator is far away</bodies>
                 sourceElement="#e6e4d30c-4d80-4899-8d8d-1350239c15a7"/>
           </ownedEntities>
           <ownedCommunicationMeans xsi:type="org.polarsys.capella.core.data.oa:CommunicationMean"
-              id="3c9764aa-4981-44ef-8463-87a053016635" name="Weather Influence" source="#4bf0356c-89dd-45e9-b8a6-e0332c026d33"
-              target="#a8c42033-fdf2-458f-bae9-1cfd1207c49f">
+              id="3c9764aa-4981-44ef-8463-87a053016635" name="Weather Influence" convoyedInformations="#8f8ba7de-a7e6-4b5c-bd5d-11fba313b444 #e6b13a92-4ea7-4d4a-9738-d03d2291b0c5"
+              source="#4bf0356c-89dd-45e9-b8a6-e0332c026d33" target="#a8c42033-fdf2-458f-bae9-1cfd1207c49f">
             <ownedComponentExchangeFunctionalExchangeAllocations xsi:type="org.polarsys.capella.core.data.fa:ComponentExchangeFunctionalExchangeAllocation"
                 id="16d26b48-0911-4e11-ad4b-8379143337d3" targetElement="#716b61a1-36c9-43b6-b364-190dcd09e210"
                 sourceElement="#3c9764aa-4981-44ef-8463-87a053016635"/>
@@ -1940,7 +1940,13 @@ The predator is far away</bodies>
               sourceElement="#86a1afc2-b7fd-4023-bbd5-ab44f5dc2c28"/>
         </ownedComponentExchanges>
         <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
-            id="db5126f8-a842-48b5-a344-1d272aa33f52" name="Holla" source="#e7ea5a90-3b07-499d-b17f-4e61917c850a"
+            id="2602eeef-c1bc-40a8-9406-52f4a809ca4a" name="Test Output Ex" source="#dcbf18a9-8589-4ba6-84ad-094ec1810de1"
+            target="#c8ea5da6-6042-4881-89cb-c67977df1d60" kind="FLOW"/>
+        <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+            id="560e799d-d291-4928-a367-430232ddef65" name="Test Input Ex" source="#d5fd4286-1d41-4d21-b3cf-9babc8872c77"
+            target="#898b878b-4392-499a-82f7-eb48e0f07e36" kind="FLOW"/>
+        <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+            id="66edd9e5-64bf-4bfa-8f0c-17966ab94c98" name="Holla" source="#e7ea5a90-3b07-499d-b17f-4e61917c850a"
             target="#c3c130ad-e999-4145-ab73-4257a9cc69f0" kind="FLOW"/>
         <ownedStateMachines xsi:type="org.polarsys.capella.core.data.capellacommon:StateMachine"
             id="9806df59-397c-4505-918f-3b1288638251" name="RootStateMachine">
@@ -2280,6 +2286,12 @@ The predator is far away</bodies>
               </ownedTransitions>
             </ownedRegions>
           </ownedStateMachines>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="dcbf18a9-8589-4ba6-84ad-094ec1810de1" name="CP 1" orientation="OUT"
+              kind="FLOW"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="898b878b-4392-499a-82f7-eb48e0f07e36" name="CP 2" orientation="IN"
+              kind="FLOW"/>
         </ownedSystemComponents>
         <ownedSystemComponents xsi:type="org.polarsys.capella.core.data.ctx:SystemComponent"
             id="344a405e-c7e5-4367-8a9a-41d3d9a27f81" name="Kevin Spacey" actor="true"
@@ -2309,6 +2321,9 @@ The predator is far away</bodies>
                 id="52d5ed69-25b3-413e-a40d-665dac93176a" targetElement="#4a528807-d155-43b4-9e5e-533648a06217"
                 sourceElement="#6b07c5a0-8731-4266-b465-25590d1af82c"/>
           </ownedFeatures>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="d5fd4286-1d41-4d21-b3cf-9babc8872c77" name="CP 4" orientation="OUT"
+              kind="FLOW"/>
         </ownedSystemComponents>
         <ownedSystemComponents xsi:type="org.polarsys.capella.core.data.ctx:SystemComponent"
             id="d4a22478-5717-4ca7-bfc9-9a193e6218a8" name="HollyWood" actor="true">
@@ -2362,6 +2377,9 @@ The predator is far away</bodies>
                 sourceElement="#6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6"/>
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
                 id="74505eac-7abc-476d-8dec-ad68abb4b2a5" name="CP 1" orientation="IN"
+                kind="FLOW"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="c8ea5da6-6042-4881-89cb-c67977df1d60" name="CP 2" orientation="IN"
                 kind="FLOW"/>
           </ownedSystemComponents>
         </ownedSystemComponentPkgs>

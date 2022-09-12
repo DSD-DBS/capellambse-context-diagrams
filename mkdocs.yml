@@ -10,7 +10,7 @@ theme:
   name: material
   custom_dir: overrides
   icon:
-    repo: fontawesome/brands/github-square
+    repo: fontawesome/brands/square-github
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default

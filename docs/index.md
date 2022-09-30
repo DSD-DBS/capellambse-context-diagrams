@@ -62,7 +62,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
             <figcaption>Context diagram of Activity Eat with type [OAIB]</figcaption>
         </figure>
 
-- ??? example "🔥Brand-new🔥 [`oa.OperationalCapability`][capellambse.model.layers.oa.OperationalCapability] (OCB) 🔥Brand-new🔥"
+- ??? example "[`oa.OperationalCapability`][capellambse.model.layers.oa.OperationalCapability] (OCB)"
 
         ``` py
         import capellambse
@@ -76,7 +76,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
             <figcaption>Context diagram of Middle OperationalCapability with type [OCB]</figcaption>
         </figure>
 
-- ??? example "🔥Brand-new🔥 [`ctx.Mission`][capellambse.model.layers.ctx.Mission] (MCB) 🔥Brand-new🔥"
+- ??? example "[`ctx.Mission`][capellambse.model.layers.ctx.Mission] (MCB)"
 
         ``` py
         import capellambse
@@ -90,7 +90,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
             <figcaption>Context diagram of Mission Top secret with type [MCB]</figcaption>
         </figure>
 
-- ??? example "🔥Brand-new🔥 [`ctx.Capability`][capellambse.model.layers.ctx.Capability] (MCB) 🔥Brand-new🔥"
+- ??? example "[`ctx.Capability`][capellambse.model.layers.ctx.Capability] (MCB)"
 
         ``` py
         import capellambse

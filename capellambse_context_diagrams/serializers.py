@@ -71,17 +71,11 @@ class DiagramSerializer:
         for child in data["children"]:
             self.deserialize_child(child, aird.Vector2D(), None)
 
-        space_checkers = {
-            "box": self.check_boxlabel_space,
-            "edge": self.check_edgelabel_space,
-            "symbol": lambda _: None,  # No need since label is outside
-        }
         for element in self._cache.values():
-            if not element.port:
-                space_checkers[element.JSON_TYPE](element)
-            if element.JSON_TYPE != "edge":
-                self.check_viewBox_space(element)
+            if element.JSON_TYPE == "box":
+                self.check_boxlabel_space(element)
 
+        self.aird_diagram.calculate_viewport()
         return self.aird_diagram
 
     def deserialize_child(
@@ -266,56 +260,6 @@ class DiagramSerializer:
 
         box.pos += labelspace
         box.size += abs(labelspace)
-        assert self.aird_diagram.viewport is not None
-        viewport_dist = aird.Vector2D(
-            0, box.pos.y + labelspace.y - self.aird_diagram.viewport.pos.y
-        )
-        if viewport_dist.y <= 0:
-            self.aird_diagram.viewport.pos += viewport_dist
-            self.aird_diagram.viewport.size += abs(viewport_dist)
-
-    def check_edgelabel_space(self, edge: aird.Edge) -> None:
-        """Check if any label is outside of the viewport."""
-        if not edge.labels:
-            return
-
-        assert self.aird_diagram.viewport is not None
-        lower_bound = (
-            self.aird_diagram.viewport.pos + self.aird_diagram.viewport.size
-        )
-        for label in edge.labels:
-            self._fix_lower_space(lower_bound, label)
-
-    def check_viewBox_space(self, box: aird.Box) -> None:
-        """Check if given box and its label fits inside the diagram."""
-        assert self.aird_diagram.viewport is not None
-        upper_bound = self.aird_diagram.viewport.pos
-        lower_bound = upper_bound + self.aird_diagram.viewport.size
-        self._fix_lower_space(lower_bound, box)
-        self._fix_upper_space(upper_bound, box)
-        if isinstance(box.label, aird.Box):
-            self._fix_lower_space(lower_bound, box.label)
-            self._fix_upper_space(upper_bound, box.label)
-
-    def _fix_lower_space(
-        self, lower_bound: aird.Vector2D, box: aird.Box
-    ) -> None:
-        assert self.aird_diagram.viewport is not None
-        space = lower_bound - (box.pos + box.size)
-        self.aird_diagram.viewport.size += aird.Vector2D(
-            abs(space.x) if space.x <= 0 else 0,
-            abs(space.y) if space.y <= 0 else 0,
-        )
-
-    def _fix_upper_space(
-        self, upper_bound: aird.Vector2D, box: aird.Box
-    ) -> None:
-        assert self.aird_diagram.viewport is not None
-        space = box.pos - upper_bound
-        self.aird_diagram.viewport.pos -= aird.Vector2D(
-            abs(space.x) if space.x <= 0 else 0,
-            abs(space.y) if space.y <= 0 else 0,
-        )
 
 
 def get_styleclass(obj: common.GenericElement) -> str:

@@ -5,7 +5,7 @@
 
 ## Requirements
 
-You need `Python>=3.8` and [py-capellambse](https://github.com/DSD-DBS/py-capellambse) to be
+You need `Python>=3.9` and [py-capellambse](https://github.com/DSD-DBS/py-capellambse) to be
 installed.
 
 ## Installation

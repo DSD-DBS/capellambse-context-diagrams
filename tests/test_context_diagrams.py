@@ -81,9 +81,9 @@ def test_context_diagrams(
         ),
         pytest.param(
             [
-                ("6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6", 20),
-                ("344a405e-c7e5-4367-8a9a-41d3d9a27f81", 20),
-                ("230c4621-7e0a-4d0a-9db2-d4ba5e97b3df", 45),
+                ("6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6", 17),
+                ("344a405e-c7e5-4367-8a9a-41d3d9a27f81", 17),
+                ("230c4621-7e0a-4d0a-9db2-d4ba5e97b3df", 38),
             ],
             id="SystemComponent Root",
         ),

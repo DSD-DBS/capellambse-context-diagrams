@@ -133,7 +133,7 @@ def get_elkdata_for_exchanges(
     collector_type: type[ExchangeCollector],
 ) -> _elkjs.ELKInputData:
     """Return exchange data for ELK."""
-    data = generic.collector(diagram)
+    data = makers.make_diagram(diagram)
     collector = collector_type(diagram, data)
     data["edges"] = collector.collect()
     for comp in data["children"]:
@@ -161,7 +161,6 @@ class InterfaceContextCollector(ExchangeCollector):
         data: _elkjs.ELKInputData,
     ) -> None:
         super().__init__(diagram, data)
-        self.data["children"] = []
         self.get_left_and_right()
 
     def get_left_and_right(self) -> None:
@@ -177,7 +176,7 @@ class InterfaceContextCollector(ExchangeCollector):
             comp: common.GenericElement, functions: list[common.GenericElement]
         ) -> None:
             if comp.uuid not in made_children:
-                box = makers.make_box(comp)
+                box = makers.make_box(comp, no_symbol=True)
                 box["children"] = [
                     makers.make_box(c)
                     for c in functions

@@ -11,9 +11,8 @@ from __future__ import annotations
 
 import logging
 
-from capellambse import aird, helpers
+from capellambse import aird
 from capellambse.model import common
-from capellambse.svg.decorations import icon_padding, icon_size
 
 from . import _elkjs, collectors, context
 
@@ -70,10 +69,6 @@ class DiagramSerializer:
         )
         for child in data["children"]:
             self.deserialize_child(child, aird.Vector2D(), None)
-
-        for element in self._cache.values():
-            if element.JSON_TYPE == "box":
-                self.check_boxlabel_space(element)
 
         self.aird_diagram.calculate_viewport()
         return self.aird_diagram
@@ -225,41 +220,6 @@ class DiagramSerializer:
 
             styleoverrides = style_condition(obj)
         return styleoverrides
-
-    def check_boxlabel_space(self, box: aird.Box) -> None:
-        """Check if size of parent boxes is enough for their label."""
-        if not box.children or any(child.port for child in box.children):
-            return
-
-        child_dist = min(
-            [
-                abs(child.pos.y - box.pos.y)
-                for child in box.children
-                if isinstance(child, aird.Box)
-            ]
-        )
-
-        label = box.label
-        if isinstance(label, aird.Box):
-            label = label.label
-        elif label is None:
-            return
-
-        assert isinstance(label, str)
-        lines = helpers.word_wrap(
-            label, box.size.x - (2 * icon_padding + icon_size)
-        )
-        _, labelheight = helpers.extent_func(label)
-        labelspace = aird.Vector2D(
-            0,
-            child_dist
-            - (2 * collectors.makers.LABEL_VPAD + len(lines) * labelheight),
-        )
-        if labelspace.y >= 0:
-            return
-
-        box.pos += labelspace
-        box.size += abs(labelspace)
 
 
 def get_styleclass(obj: common.GenericElement) -> str:

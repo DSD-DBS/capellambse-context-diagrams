@@ -40,15 +40,12 @@ def collector(
     width: int | float = makers.EOI_WIDTH,
     no_symbol: bool = False,
 ) -> _elkjs.ELKInputData:
-    """Returns `ELKInputData` with only centerbox in children and config."""
-    return {
-        "id": diagram.uuid,
-        "layoutOptions": _elkjs.get_global_layered_layout_options(),
-        "children": [
-            makers.make_box(diagram.target, width=width, no_symbol=no_symbol)
-        ],
-        "edges": [],
-    }
+    """Returns ``ELKInputData`` with only centerbox in children and config."""
+    data = makers.make_diagram(diagram)
+    data["children"] = [
+        makers.make_box(diagram.target, width=width, no_symbol=no_symbol)
+    ]
+    return data
 
 
 def collect_exchange_endpoints(

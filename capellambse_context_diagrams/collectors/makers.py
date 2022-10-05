@@ -7,7 +7,7 @@ from capellambse import helpers
 from capellambse.model import common, layers
 from capellambse.svg.decorations import icon_padding, icon_size
 
-from .. import _elkjs
+from .. import _elkjs, context
 
 PORT_SIZE = 10
 """Default size of ports in pixels."""
@@ -15,7 +15,7 @@ PORT_PADDING = 2
 """Default padding of ports in pixels."""
 LABEL_HPAD = 15
 """Horizontal padding left and right of the label."""
-LABEL_VPAD = 5
+LABEL_VPAD = 1
 """Vertical padding above and below the label."""
 NEIGHBOR_VMARGIN = 20
 """Vertical space between two neighboring boxes."""
@@ -43,6 +43,16 @@ BOX_TO_SYMBOL = (
 Types that need to be converted to symbols during serialization if
 `display_symbols_as_boxes` attribute is `False`.
 """
+
+
+def make_diagram(diagram: context.ContextDiagram) -> _elkjs.ELKInputData:
+    """Return basic skeleton for ``ContextDiagram``s."""
+    return {
+        "id": diagram.uuid,
+        "layoutOptions": _elkjs.get_global_layered_layout_options(),
+        "children": [],
+        "edges": [],
+    }
 
 
 def make_box(
@@ -90,6 +100,7 @@ def make_label(obj: common.GenericElement) -> _elkjs.ELKInputLabel:
         "text": obj.name,
         "width": label_width + 2 * LABEL_HPAD,
         "height": label_height + 2 * LABEL_VPAD,
+        "layoutOptions": {"nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"},
     }
 
 

@@ -98,7 +98,7 @@ def port_collector(
 def port_exchange_collector(
     ports: t.Iterable[common.GenericElement],
 ) -> list[common.GenericElement]:
-    """Savely collect exchanges from `ports`."""
+    """Collect exchanges from `ports` savely."""
     exchanges: list[common.GenericElement] = []
     for i in ports:
         try:

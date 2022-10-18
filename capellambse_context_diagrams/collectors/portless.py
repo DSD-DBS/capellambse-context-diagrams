@@ -150,8 +150,8 @@ def get_exchanges(
 ) -> t.Iterator[common.GenericElement]:
     """Yield exchanges safely.
 
-    Yields exchanges from `.exchanges` or `.extends`, `.includes` and
-    `.inheritance` (exclusively for Capabilities).
+    Yields exchanges from `.related_exchanges` or `.extends`,
+    `.includes` and `.inheritance` (exclusively for Capabilities).
     """
     is_op_capability = isinstance(obj, layers.oa.OperationalCapability)
     is_capability = isinstance(obj, layers.ctx.Capability)
@@ -160,7 +160,7 @@ def get_exchanges(
     elif isinstance(obj, layers.ctx.Mission):
         exchanges = obj.involvements + obj.exploitations
     else:
-        exchanges = obj.exchanges
+        exchanges = obj.related_exchanges
 
     if is_op_capability:
         exchanges += obj.entity_involvements

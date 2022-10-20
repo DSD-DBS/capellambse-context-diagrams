@@ -175,4 +175,4 @@ def get_exchanges(
     elif is_capability:
         exchanges += [obj.component_involvements, obj.incoming_exploitations]
 
-    yield from set(chain.from_iterable(exchanges))
+    yield from {i.uuid: i for i in chain.from_iterable(exchanges)}.values()

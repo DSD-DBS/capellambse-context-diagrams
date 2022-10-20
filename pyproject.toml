@@ -33,6 +33,7 @@ classifiers = [
 dependencies = [
   "capellambse>=0.4.19.dev12",
   "typing_extensions",
+  "pyYAML>=6.0",
 ]
 
 [project.urls]

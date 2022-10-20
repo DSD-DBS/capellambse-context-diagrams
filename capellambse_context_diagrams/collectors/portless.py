@@ -11,7 +11,7 @@ import typing as t
 
 from capellambse.model import common, layers
 
-from .. import _elkjs, context
+from .. import _elkjs, diagram
 from . import generic, makers
 
 SOURCE_ATTR_NAMES = frozenset(("parent",))
@@ -19,7 +19,7 @@ TARGET_ATTR_NAMES = frozenset(("involved", "capability"))
 
 
 def collector(
-    diagram: context.ContextDiagram, params: dict[str, t.Any] | None = None
+    diag: diagram.ContextDiagram, params: dict[str, t.Any] | None = None
 ) -> _elkjs.ELKInputData:
     """Collect context data from exchanges of centric box.
 
@@ -27,18 +27,19 @@ def collector(
     architecture layer diagrams (diagrams where elements don't exchange
     via ports/connectors).
     """
-    data = generic.collector(diagram)
+    data = generic.collector(diag)
     centerbox = data["children"][0]
-    connections = list(get_exchanges(diagram.target))
+    connections = list(get_exchanges(diag.target))
     for ex in connections:
         try:
             generic.exchange_data_collector(
-                generic.ExchangeData(ex, data, diagram.filters, params),
+                generic.ExchangeData(ex, data, diag.filters, params),
                 collect_exchange_endpoints,
             )
         except AttributeError:
             continue
 
+    contexts = context_collector(connections, diag.target)
     stack_heights: dict[str, float | int] = {
         "input": -makers.NEIGHBOR_VMARGIN,
         "output": -makers.NEIGHBOR_VMARGIN,
@@ -49,9 +50,7 @@ def collector(
         var_height = generic.MARKER_PADDING + (
             generic.MARKER_SIZE + generic.MARKER_PADDING
         ) * len(exchanges)
-        if not diagram.display_symbols_as_boxes and makers.is_symbol(
-            diagram.target
-        ):
+        if not diag.display_symbols_as_boxes and makers.is_symbol(diag.target):
             height = max(makers.MIN_SYMBOL_HEIGHT, var_height)
         else:
             height = var_height
@@ -62,7 +61,7 @@ def collector(
             box["height"] = height
         else:
             box = makers.make_box(
-                i, height=height, no_symbol=diagram.display_symbols_as_boxes
+                i, height=height, no_symbol=diag.display_symbols_as_boxes
             )
             made_boxes[i.uuid] = box
 
@@ -75,9 +74,7 @@ def collector(
         max(label["width"] for label in centerbox["labels"])
         + 2 * makers.LABEL_HPAD
     )
-    if not diagram.display_symbols_as_boxes and makers.is_symbol(
-        diagram.target
-    ):
+    if not diag.display_symbols_as_boxes and makers.is_symbol(diag.target):
         data["layoutOptions"]["spacing.labelNode"] = 5.0
         centerbox["width"] = centerbox["height"] * makers.SYMBOL_RATIO
     return data

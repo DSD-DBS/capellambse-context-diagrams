@@ -13,23 +13,23 @@ from capellambse import helpers
 from capellambse.model import common
 from capellambse.model.crosslayer import cs, fa
 
-from .. import _elkjs, context
+from .. import _elkjs, diagram
 from . import generic, makers
 
 
 def collector(
-    diagram: context.ContextDiagram, params: dict[str, t.Any] | None = None
+    diag: diagram.ContextDiagram, params: dict[str, t.Any] | None = None
 ) -> _elkjs.ELKInputData:
     """Collect context data from ports of centric box."""
-    data = generic.collector(diagram, no_symbol=True)
-    ports = port_collector(diagram.target)
+    data = generic.collector(diag, no_symbol=True)
+    ports = port_collector(diag.target)
     centerbox = data["children"][0]
     centerbox["ports"] = [makers.make_port(i.uuid) for i in ports]
     connections = port_exchange_collector(ports)
     for ex in connections:
         try:
             generic.exchange_data_collector(
-                generic.ExchangeData(ex, data, diagram.filters, params)
+                generic.ExchangeData(ex, data, diag.filters, params)
             )
         except AttributeError:
             continue

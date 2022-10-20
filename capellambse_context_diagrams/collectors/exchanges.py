@@ -13,7 +13,7 @@ from capellambse import helpers
 from capellambse.model import common
 from capellambse.model.modeltypes import DiagramType as DT
 
-from .. import _elkjs, context
+from .. import _elkjs, diagram
 from . import generic, makers
 
 logger = logging.getLogger(__name__)
@@ -46,14 +46,14 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
 
     def __init__(
         self,
-        diagram: context.InterfaceContextDiagram
-        | context.FunctionalContextDiagram,
+        diag: diagram.InterfaceContextDiagram
+        | diagram.FunctionalContextDiagram,
         data: _elkjs.ELKInputData,
     ) -> None:
-        self.diagram = diagram
+        self.diagram = diag
         self.data: _elkjs.ELKInputData = data
         self.obj = self.diagram.target
-        src, trg, alloc_fex, fncs = self.intermap[diagram.type]
+        src, trg, alloc_fex, fncs = self.intermap[diag.type]
         self.get_source = operator.attrgetter(src)
         self.get_target = operator.attrgetter(trg)
         self.get_alloc_fex = operator.attrgetter(alloc_fex)
@@ -128,13 +128,12 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
 
 
 def get_elkdata_for_exchanges(
-    diagram: context.InterfaceContextDiagram
-    | context.FunctionalContextDiagram,
+    diag: diagram.InterfaceContextDiagram | diagram.FunctionalContextDiagram,
     collector_type: type[ExchangeCollector],
 ) -> _elkjs.ELKInputData:
     """Return exchange data for ELK."""
-    data = makers.make_diagram(diagram)
-    collector = collector_type(diagram, data)
+    data = makers.make_diagram(diag)
+    collector = collector_type(diag, data)
     data["edges"] = collector.collect()
     for comp in data["children"]:
         collector.make_ports_and_update_children_size(comp, data["edges"])
@@ -157,10 +156,10 @@ class InterfaceContextCollector(ExchangeCollector):
 
     def __init__(
         self,
-        diagram: context.InterfaceContextDiagram,
+        diag: diagram.InterfaceContextDiagram,
         data: _elkjs.ELKInputData,
     ) -> None:
-        super().__init__(diagram, data)
+        super().__init__(diag, data)
         self.get_left_and_right()
 
     def get_left_and_right(self) -> None:

@@ -7,7 +7,7 @@ from capellambse import helpers
 from capellambse.model import common, layers
 from capellambse.svg.decorations import icon_padding, icon_size
 
-from .. import _elkjs, context
+from .. import _elkjs, diagram
 
 PORT_SIZE = 10
 """Default size of ports in pixels."""
@@ -45,10 +45,10 @@ Types that need to be converted to symbols during serialization if
 """
 
 
-def make_diagram(diagram: context.ContextDiagram) -> _elkjs.ELKInputData:
+def make_diagram(diag: diagram.ContextDiagram) -> _elkjs.ELKInputData:
     """Return basic skeleton for ``ContextDiagram``s."""
     return {
-        "id": diagram.uuid,
+        "id": diag.uuid,
         "layoutOptions": _elkjs.get_global_layered_layout_options(),
         "children": [],
         "edges": [],

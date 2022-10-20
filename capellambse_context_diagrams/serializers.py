@@ -14,7 +14,7 @@ import logging
 from capellambse import aird
 from capellambse.model import common
 
-from . import _elkjs, collectors, context
+from . import _elkjs, collectors, diagram
 
 logger = logging.getLogger(__name__)
 
@@ -45,7 +45,7 @@ class DiagramSerializer:
 
     aird_diagram: aird.Diagram
 
-    def __init__(self, elk_diagram: context.ContextDiagram) -> None:
+    def __init__(self, elk_diagram: diagram.ContextDiagram) -> None:
         self.model = elk_diagram.target._model
         self._diagram = elk_diagram
         self._cache: dict[str, aird.Box] = {}

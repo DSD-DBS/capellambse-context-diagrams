@@ -10,7 +10,7 @@ import pytest
 from capellambse import MelodyModel, aird
 from capellambse.model import crosslayer
 
-from capellambse_context_diagrams import context, filters
+from capellambse_context_diagrams import diagram, filters
 
 EX_PTRN = re.compile(r"\[(.*?)\]")
 CAP_EXPLOIT = "4513c8cd-b94b-4bde-bd00-4c18aaf600ff"
@@ -38,7 +38,7 @@ def start_filter_apply_test(
 ) -> tuple[list[crosslayer.fa.FunctionalExchange], aird.Diagram]:
     """StartUp for every filter test case."""
     obj = model.by_uuid("a5642060-c9cc-4d49-af09-defaa3024bae")
-    diag: context.ContextDiagram = obj.context_diagram
+    diag: diagram.ContextDiagram = obj.context_diagram
     diag.filters.add(filter_name)
     edges = [
         elt
@@ -134,7 +134,7 @@ def test_context_diagrams_FEX_OR_EX_ITEMS_is_applied(
 
 def test_context_diagrams_NO_UUID_is_applied(model: MelodyModel) -> None:
     obj = model.by_uuid("9390b7d5-598a-42db-bef8-23677e45ba06")
-    diag: context.ContextDiagram = obj.context_diagram
+    diag: diagram.ContextDiagram = obj.context_diagram
 
     diag.filters.add(filters.NO_UUID)
     aird_diag = diag.render(None)
@@ -148,7 +148,7 @@ def test_context_diagrams_no_edgelabels_render_param_is_applied(
     model: MelodyModel,
 ) -> None:
     obj = model.by_uuid("a5642060-c9cc-4d49-af09-defaa3024bae")
-    diag: context.ContextDiagram = obj.context_diagram
+    diag: diagram.ContextDiagram = obj.context_diagram
 
     adiag = diag.render(None, no_edgelabels=True)
 

@@ -11,7 +11,7 @@ from __future__ import annotations
 import logging
 import typing as t
 
-from .. import _elkjs, context
+from .. import _elkjs, diagram
 from . import default, generic, portless
 
 __all__ = ["get_elkdata"]
@@ -19,13 +19,13 @@ logger = logging.getLogger(__name__)
 
 
 def get_elkdata(
-    diagram: context.ContextDiagram, params: dict[str, t.Any] | None = None
+    diag: diagram.ContextDiagram, params: dict[str, t.Any] | None = None
 ) -> _elkjs.ELKInputData:
     """High level collector function to collect needed data for ELK.
 
     Parameters
     ----------
-    diagram
+    diag
         The [`ContextDiagram`][capellambse_context_diagrams.context.ContextDiagram]
         instance to get the
         [`_elkjs.ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData]
@@ -39,9 +39,9 @@ def get_elkdata(
         The data that can be fed into elkjs.
     """
 
-    if diagram.type in generic.PORTLESS_DIAGRAM_TYPES:
+    if diag.type in generic.PORTLESS_DIAGRAM_TYPES:
         collector = portless.collector
     else:
         collector = default.collector
 
-    return collector(diagram, params)
+    return collector(diag, params)

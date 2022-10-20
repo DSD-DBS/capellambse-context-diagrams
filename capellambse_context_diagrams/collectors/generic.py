@@ -16,7 +16,7 @@ from capellambse.model import common
 from capellambse.model.crosslayer import interaction
 from capellambse.model.modeltypes import DiagramType as DT
 
-from .. import _elkjs, context, filters
+from .. import _elkjs, diagram, filters
 from . import makers
 
 logger = logging.getLogger(__name__)
@@ -35,15 +35,15 @@ MARKER_PADDING = makers.PORT_PADDING
 
 
 def collector(
-    diagram: context.ContextDiagram,
+    diag: diagram.ContextDiagram,
     *,
     width: int | float = makers.EOI_WIDTH,
     no_symbol: bool = False,
 ) -> _elkjs.ELKInputData:
     """Returns ``ELKInputData`` with only centerbox in children and config."""
-    data = makers.make_diagram(diagram)
+    data = makers.make_diagram(diag)
     data["children"] = [
-        makers.make_box(diagram.target, width=width, no_symbol=no_symbol)
+        makers.make_box(diag.target, width=width, no_symbol=no_symbol)
     ]
     return data
 

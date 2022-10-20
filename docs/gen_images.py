@@ -9,7 +9,7 @@ import pathlib
 import mkdocs_gen_files
 from capellambse import MelodyModel, aird
 
-from capellambse_context_diagrams import context, filters, styling
+from capellambse_context_diagrams import diagram, filters, styling
 
 logging.basicConfig()
 
@@ -35,7 +35,7 @@ diagram_uuids = general_context_diagram_uuids | interface_context_diagram_uuids
 
 def generate_index_images() -> None:
     for uuid in diagram_uuids.values():
-        diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
+        diag: diagram.ContextDiagram = model.by_uuid(uuid).context_diagram
         with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
             print(diag.as_svg, file=fd)
 
@@ -43,7 +43,7 @@ def generate_index_images() -> None:
 def generate_no_symbol_images() -> None:
     for name in ("Capability", "Middle"):
         uuid = general_context_diagram_uuids[name]
-        diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
+        diag: diagram.ContextDiagram = model.by_uuid(uuid).context_diagram
         diag.display_symbols_as_boxes = True
         diag.invalidate_cache()
         filepath = f"{str(dest / diag.name)} no_symbols.svg"
@@ -52,7 +52,7 @@ def generate_no_symbol_images() -> None:
 
 
 def generate_no_edgelabel_image(uuid: str) -> None:
-    diagram: context.ContextDiagram = model.by_uuid(uuid).context_diagram
+    diagram: diagram.ContextDiagram = model.by_uuid(uuid).context_diagram
     diagram.invalidate_cache()
     filename = " ".join((str(dest / diagram.name), "no_edgelabels"))
     with mkdocs_gen_files.open(f"{filename}.svg", "w") as fd:
@@ -63,7 +63,7 @@ def generate_filter_image(
     uuid: str, filter_name: str, suffix: str = ""
 ) -> None:
     obj = model.by_uuid(uuid)
-    diag: context.ContextDiagram = obj.context_diagram
+    diag: diagram.ContextDiagram = obj.context_diagram
     diag.filters = {filter_name}
     filename = " ".join((str(dest / diag.name), suffix))
     with mkdocs_gen_files.open(f"{filename}.svg", "w") as fd:
@@ -74,7 +74,7 @@ def generate_styling_image(
     uuid: str, styles: dict[str, styling.Styler], suffix: str = ""
 ) -> None:
     obj = model.by_uuid(uuid)
-    diag: context.ContextDiagram = obj.context_diagram
+    diag: diagram.ContextDiagram = obj.context_diagram
     diag.filters.clear()
     diag.invalidate_cache()
     diag.render_styles = styles

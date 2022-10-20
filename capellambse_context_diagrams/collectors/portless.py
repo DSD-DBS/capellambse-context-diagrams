@@ -8,6 +8,7 @@ on diagrams that don't involve ports or any connectors.
 from __future__ import annotations
 
 import typing as t
+from itertools import chain
 
 from capellambse.model import common, layers
 
@@ -156,15 +157,22 @@ def get_exchanges(
     is_op_capability = isinstance(obj, layers.oa.OperationalCapability)
     is_capability = isinstance(obj, layers.ctx.Capability)
     if is_op_capability or is_capability:
-        exchanges = obj.includes + obj.extends + obj.generalizes
+        exchanges = [
+            obj.includes,
+            obj.extends,
+            obj.generalizes,
+            obj.included_by,
+            obj.extended_by,
+            obj.generalized_by,
+        ]
     elif isinstance(obj, layers.ctx.Mission):
-        exchanges = obj.involvements + obj.exploitations
+        exchanges = [obj.involvements, obj.exploitations]
     else:
-        exchanges = obj.related_exchanges
+        exchanges = [obj.related_exchanges]
 
     if is_op_capability:
-        exchanges += obj.entity_involvements
+        exchanges += [obj.entity_involvements]
     elif is_capability:
-        exchanges += obj.component_involvements + obj.incoming_exploitations
+        exchanges += [obj.component_involvements, obj.incoming_exploitations]
 
-    yield from exchanges
+    yield from set(chain.from_iterable(exchanges))

@@ -8,6 +8,7 @@ on diagrams that don't involve ports or any connectors.
 from __future__ import annotations
 
 import typing as t
+from itertools import chain
 
 from capellambse.model import common, layers
 
@@ -150,21 +151,41 @@ def get_exchanges(
 ) -> t.Iterator[common.GenericElement]:
     """Yield exchanges safely.
 
-    Yields exchanges from `.related_exchanges` or `.extends`,
-    `.includes` and `.inheritance` (exclusively for Capabilities).
+    Yields exchanges from ``.related_exchanges`` or exclusively by
+    ``obj`` classtype:
+        * Capabilities:
+            * ``.extends``,
+            * ``.includes``,
+            * ``.generalizes`` and their reverse
+            * ``.included_by``,
+            * ``.extended_by``,
+            * ``.generalized_by`` and optionally
+            * ``.entity_involvements`` (Operational)
+            * ``.component_involvements`` and ``.incoming_exploitations``
+              (System)
+        * Mission:
+            * ``.involvements`` and
+            * ``.exploitations``.
     """
     is_op_capability = isinstance(obj, layers.oa.OperationalCapability)
     is_capability = isinstance(obj, layers.ctx.Capability)
     if is_op_capability or is_capability:
-        exchanges = obj.includes + obj.extends + obj.generalizes
+        exchanges = [
+            obj.includes,
+            obj.extends,
+            obj.generalizes,
+            obj.included_by,
+            obj.extended_by,
+            obj.generalized_by,
+        ]
     elif isinstance(obj, layers.ctx.Mission):
-        exchanges = obj.involvements + obj.exploitations
+        exchanges = [obj.involvements, obj.exploitations]
     else:
-        exchanges = obj.related_exchanges
+        exchanges = [obj.related_exchanges]
 
     if is_op_capability:
-        exchanges += obj.entity_involvements
+        exchanges += [obj.entity_involvements]
     elif is_capability:
-        exchanges += obj.component_involvements + obj.incoming_exploitations
+        exchanges += [obj.component_involvements, obj.incoming_exploitations]
 
-    yield from exchanges
+    yield from {i.uuid: i for i in chain.from_iterable(exchanges)}.values()

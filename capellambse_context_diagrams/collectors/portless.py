@@ -7,6 +7,7 @@ on diagrams that don't involve ports or any connectors.
 """
 from __future__ import annotations
 
+import dataclasses
 import typing as t
 
 from capellambse.model import common, layers
@@ -44,26 +45,34 @@ def collector(
         "input": -makers.NEIGHBOR_VMARGIN,
         "output": -makers.NEIGHBOR_VMARGIN,
     }
-    contexts = context_collector(connections, diagram.target)
     made_boxes = {centerbox["id"]: centerbox}
-    for i, exchanges, side in contexts:
-        var_height = generic.MARKER_PADDING + (
-            generic.MARKER_SIZE + generic.MARKER_PADDING
-        ) * len(exchanges)
+    for context in contexts:
+        variable_heights = [
+            (
+                side,
+                generic.MARKER_PADDING
+                + (generic.MARKER_SIZE + (generic.MARKER_PADDING + 3))
+                * len(exchanges),
+            )
+            for side, exchanges in context.connections.items()
+        ]
+        side, var_height = max(variable_heights, key=lambda t: t[1])
         if not diag.display_symbols_as_boxes and makers.is_symbol(diag.target):
             height = max(makers.MIN_SYMBOL_HEIGHT, var_height)
         else:
             height = var_height
 
-        if box := made_boxes.get(i.uuid):
+        if box := made_boxes.get(context.element.uuid):
             if box is centerbox:
                 continue
             box["height"] = height
         else:
             box = makers.make_box(
-                i, height=height, no_symbol=diag.display_symbols_as_boxes
+                context.element,
+                height=height,
+                no_symbol=diag.display_symbols_as_boxes,
             )
-            made_boxes[i.uuid] = box
+            made_boxes[context.element.uuid] = box
 
         stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
 
@@ -104,15 +113,32 @@ def collect_exchange_endpoints(
     return generic.collect_exchange_endpoints(e)
 
 
-class ContextInfo(t.NamedTuple):
+@dataclasses.dataclass
+class ContextInfo:
     """ContextInfo data."""
 
     element: common.GenericElement
     """An element of context."""
-    connections: list[common.GenericElement]
-    """The context element's relevant exchanges."""
-    side: t.Literal["input", "output"]
-    """Whether this is an input or output to the element of interest."""
+    connections: dict[
+        t.Literal["input", "output"], list[common.GenericElement]
+    ]
+    """The context element's relevant exchanges, keyed by direction."""
+
+    def __hash__(self) -> int:
+        return hash(self.element)
+
+    def __eq__(self, __o: object) -> bool:
+        if not isinstance(__o, ContextInfo):
+            return False
+
+        eq_elements = self.element == __o.element
+        eq_connections = all(
+            set(self.connections[side]) == set(__o.connections[side])  # type: ignore[index]
+            for side in ("input", "output")
+        )
+        if eq_elements and eq_connections:
+            return True
+        return False
 
 
 def context_collector(
@@ -130,14 +156,18 @@ def context_collector(
         if source == obj_oi:
             obj = target
             side = "output"
-        else:
+        elif target == obj_oi:
             obj = source
             side = "input"
+        else:
+            continue
 
-        info = ContextInfo(obj, [], side)
+        info = ContextInfo(
+            element=obj, connections={"output": [], "input": []}
+        )
         info = ctx.setdefault(obj.uuid, info)
-        if exchange not in info.connections:
-            info.connections.append(exchange)
+        if exchange not in info.connections[side]:
+            info.connections[side].append(exchange)
 
     return iter(ctx.values())
 

@@ -67,8 +67,8 @@ def test_context_diagrams(
         pytest.param(
             [
                 ("e1e48763-7479-4f3a-8134-c82bb6705d58", 98),
-                ("8df45b70-15cc-4d3a-99e4-593516392c5a", 122),
-                ("74af6883-25a0-446a-80f3-656f8a490b11", 122),
+                ("8df45b70-15cc-4d3a-99e4-593516392c5a", 119),
+                ("74af6883-25a0-446a-80f3-656f8a490b11", 119),
             ],
             id="LogicalComponent",
         ),

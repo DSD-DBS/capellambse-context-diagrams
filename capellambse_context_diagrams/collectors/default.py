@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import collections.abc as cabc
 import typing as t
+from itertools import chain
 
 from capellambse import helpers
 from capellambse.model import common
@@ -39,14 +40,22 @@ def collector(
         "output": -makers.NEIGHBOR_VMARGIN,
     }
     made_boxes = {centerbox["id"]: centerbox}
-    for i, local_ports, side in port_context_collector(connections, ports):
-        _, label_height = helpers.get_text_extent(i.name)
-        height = max(
-            label_height + 2 * makers.LABEL_VPAD,
-            makers.PORT_PADDING
-            + (makers.PORT_SIZE + makers.PORT_PADDING) * len(local_ports),
-        )
-        if box := made_boxes.get(i.uuid):
+    for context in port_context_collector(connections, ports):
+        _, label_height = helpers.get_text_extent(context.element.name)
+        heights = [
+            (
+                side,
+                label_height
+                + 2 * makers.LABEL_VPAD
+                + makers.PORT_PADDING
+                + (makers.PORT_SIZE + makers.PORT_PADDING + 3)
+                * len(local_ports),
+            )
+            for side, local_ports in context.ports.items()
+        ]
+        side, height = max(heights, key=lambda t: t[1])
+        local_ports = chain.from_iterable(context.ports.values())
+        if box := made_boxes.get(context.element.uuid):
             if box is centerbox:
                 continue
             box["ports"].extend(
@@ -54,9 +63,9 @@ def collector(
             )
             box["height"] += height
         else:
-            box = makers.make_box(i, height=height)
+            box = makers.make_box(context.element, height=height)
             box["ports"] = [makers.make_port(j.uuid) for j in local_ports]
-            made_boxes[i.uuid] = box
+            made_boxes[context.element.uuid] = box
 
         stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
 
@@ -113,14 +122,12 @@ class ContextInfo(t.NamedTuple):
 
     element: common.GenericElement
     """An element of context."""
-    ports: list[common.GenericElement]
-    """The context element's relevant ports.
+    ports: dict[t.Literal["input", "output"], list[common.GenericElement]]
+    """The context element's relevant ports, keyed by direction.
 
     This list only contains ports that at least one of the exchanges
     passed into ``collect_exchanges`` sees.
     """
-    side: t.Literal["input", "output"]
-    """Whether this is an input or output to the element of interest."""
 
 
 def port_context_collector(
@@ -167,9 +174,9 @@ def port_context_collector(
         except AttributeError:
             continue
 
-        info = ContextInfo(owner, [], side)
+        info = ContextInfo(element=owner, ports={"output": [], "input": []})
         info = ctx.setdefault(owner.uuid, info)
-        if port not in info.ports:
-            info.ports.append(port)
+        if port not in info.ports[side]:
+            info.ports[side].append(port)
 
     return iter(ctx.values())

@@ -1,0 +1,11 @@
+graph: Mission -> exchanges * targets
+
+subject: Mission
+exchanges:
+  - types:
+      - MissionInvolvement
+      - CapabilityExploitation
+    targets:
+      - SystemComponent
+      - Capability
+    direction: out

@@ -21,7 +21,7 @@
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/context.odesign#//@ownedViewpoints[name='System%20Analysis']/@ownedRepresentations[name='System%20Architecture%20Blank']"/>
         <target xmi:type="org.polarsys.capella.core.data.ctx:SystemComponentPkg" href="ContextDiagram.capella#ecb687c1-c540-4de6-8b1d-024d1ed0178f"/>
       </ownedRepresentationDescriptors>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_bySNsO7EEeykbcjqZhtx0w" name="[MCB] Capability Context" repPath="#_byPKYO7EEeykbcjqZhtx0w" changeId="52bb3996-0b4a-4006-8571-d09f4a0b34ed">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_bySNsO7EEeykbcjqZhtx0w" name="[MCB] Capability Context" repPath="#_byPKYO7EEeykbcjqZhtx0w" changeId="97d94f89-11d8-489d-af22-a1946af8e3ee">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/context.odesign#//@ownedViewpoints[name='System%20Analysis']/@ownedRepresentations[name='Missions%20Capabilities%20Blank']"/>
         <target xmi:type="org.polarsys.capella.core.data.ctx:CapabilityPkg" href="ContextDiagram.capella#1fded3ea-675d-4b0d-b018-3502a77a5b67"/>
       </ownedRepresentationDescriptors>

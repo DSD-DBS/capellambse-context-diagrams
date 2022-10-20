@@ -1,0 +1,16 @@
+graph: targets * exchanges -> OperationalCapability -> exchanges * targets
+
+subject: OperationalCapability
+exchanges:
+  - types:
+      - AbstractCapabilityExtend
+      - AbstractCapabilityInclude
+      - AbstractCapabilityGeneralization
+    targets:
+      - OperationalCapability
+    direction: bi
+  - types:
+      - EntityOperationalCapabilityInvolvement
+    targets:
+      - Entity
+    direction: out

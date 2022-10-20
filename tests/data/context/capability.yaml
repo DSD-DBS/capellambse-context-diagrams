@@ -1,0 +1,21 @@
+graph: targets * exchanges -> Capability -> exchanges * targets
+
+subject: Capability
+exchanges:
+  - types:
+      - AbstractCapabilityExtend
+      - AbstractCapabilityInclude
+      - AbstractCapabilityGeneralization
+    targets:
+      - Capability
+    direction: bi
+  - types:
+      - CapabilityExploitation
+    targets:
+      - Mission
+    direction: in
+  - types:
+      - CapabilityInvolvement
+    targets:
+      - SystemComponent
+    direction: out

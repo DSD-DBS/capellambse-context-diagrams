@@ -7,7 +7,7 @@ from capellambse import helpers
 from capellambse.model import common, layers
 from capellambse.svg.decorations import icon_padding, icon_size
 
-from .. import _elkjs, diagram
+from . import _elkjs, diagram
 
 PORT_SIZE = 10
 """Default size of ports in pixels."""

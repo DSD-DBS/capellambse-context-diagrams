@@ -14,8 +14,8 @@ from capellambse import helpers
 from capellambse.model import common
 from capellambse.model.crosslayer import cs, fa
 
-from .. import _elkjs, diagram
-from . import generic, makers
+from .. import _elkjs, diagram, makers
+from . import generic
 
 
 def collector(

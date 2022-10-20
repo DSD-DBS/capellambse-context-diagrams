@@ -14,7 +14,7 @@ import logging
 from capellambse import aird
 from capellambse.model import common
 
-from . import _elkjs, collectors, diagram
+from . import _elkjs, diagram, makers
 
 logger = logging.getLogger(__name__)
 
@@ -107,7 +107,7 @@ class DiagramSerializer:
             has_symbol_cls = False
             try:
                 obj = self.model.by_uuid(child["id"])
-                has_symbol_cls = collectors.makers.is_symbol(obj)
+                has_symbol_cls = makers.is_symbol(obj)
             except KeyError:
                 logger.error(
                     "ModelObject could not be found: '%s'", child["id"]

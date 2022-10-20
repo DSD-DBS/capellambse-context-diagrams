@@ -16,8 +16,7 @@ from capellambse.model import common
 from capellambse.model.crosslayer import interaction
 from capellambse.model.modeltypes import DiagramType as DT
 
-from .. import _elkjs, diagram, filters
-from . import makers
+from .. import _elkjs, diagram, filters, makers
 
 logger = logging.getLogger(__name__)
 

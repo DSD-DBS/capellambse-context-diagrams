@@ -13,8 +13,8 @@ from capellambse import helpers
 from capellambse.model import common
 from capellambse.model.modeltypes import DiagramType as DT
 
-from .. import _elkjs, diagram
-from . import generic, makers
+from .. import _elkjs, diagram, makers
+from . import generic
 
 logger = logging.getLogger(__name__)
 

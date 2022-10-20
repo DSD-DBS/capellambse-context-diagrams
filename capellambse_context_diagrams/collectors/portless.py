@@ -12,8 +12,8 @@ import typing as t
 
 from capellambse.model import common, layers
 
-from .. import _elkjs, diagram
-from . import generic, makers
+from .. import _elkjs, diagram, makers
+from . import generic
 
 SOURCE_ATTR_NAMES = frozenset(("parent",))
 TARGET_ATTR_NAMES = frozenset(("involved", "capability"))

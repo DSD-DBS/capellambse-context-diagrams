@@ -22,7 +22,6 @@ from . import default, generic, portless
 
 __all__ = ["get_elkdata"]
 logger = logging.getLogger(__name__)
-G = t.ParamSpec("G")
 CONTEXT_DIRECTION_MAP = {
     "i": "input",
     "in": "input",
@@ -64,10 +63,10 @@ def get_elkdata(
 
 def collect_free_context(
     model: capellambse.MelodyModel,
-    target: G,
+    target: common.GenericElement,
     context_description: dict[str, t.Any],
     context_collector: cabc.Callable[
-        [t.Iterable[common.GenericElement], G, cabc.Callable[[G], bool]],
+        [t.Iterable[common.GenericElement], common.GenericElement],
         t.Iterator[default.ContextInfo | portless.ContextInfo],
     ],
 ) -> cabc.Iterator[default.ContextInfo | portless.ContextInfo]:
@@ -76,42 +75,46 @@ def collect_free_context(
     if type(target).__name__ != subject:
         raise TypeError("Subject needs to match class-type of given target")
 
-    def filter_by_type(
-        ctx: default.ContextInfo | portless.ContextInfo,
-        types: cabc.Iterable[type],
-    ) -> bool:
-        return any(isinstance(ctx.element, type) for type in types)
-
-    direction_map = CONTEXT_DIRECTION_MAP
-    contexts: list[list[default.ContextInfo | portless.ContextInfo]] = []
     exchanges = context_description.get("exchanges", [])
+    contexts: list[list[default.ContextInfo | portless.ContextInfo]] = []
     for exchange in exchanges:
         candidates = set(model.search(*exchange["types"]))
-        target_classes = get_types(exchange["targets"], model)
-        target_filter = functools.partial(filter_by_type, types=target_classes)
-        direction: str = exchange["direction"]
-
-        def filter_connections_by_direction(
-            ctx: default.ContextInfo | portless.ContextInfo,
-        ) -> default.ContextInfo | portless.ContextInfo:
-            if direction != "bi":
-                for side in ctx.connections:
-                    if side != direction_map[direction]:
-                        ctx.connections[side].clear()
-            return ctx
-
+        target_classes = _get_types(exchange["targets"], model)
         contexts.append(
             [
-                filter_connections_by_direction(ctx)
+                _filter_connections_by_direction(ctx, exchange["direction"])
                 for ctx in context_collector(candidates, target)
-                if target_filter(ctx)
+                if _filter_by_type(ctx, target_classes)
             ]
         )
 
     yield from chain.from_iterable(contexts)
 
 
-def get_types(
+def _filter_by_type(
+    ctx: default.ContextInfo | portless.ContextInfo,
+    types: cabc.Iterable[type],
+) -> bool:
+    return any(isinstance(ctx.element, type) for type in types)
+
+
+def _filter_connections_by_direction(
+    ctx: default.ContextInfo | portless.ContextInfo, direction: str
+) -> default.ContextInfo | portless.ContextInfo:
+    try:
+        attr = ctx.connections  # type: ignore[union-attr]
+    except AttributeError:
+        assert isinstance(ctx, default.ContextInfo)
+        attr = ctx.ports
+
+    if direction != "bi":
+        for side in attr:
+            if side != CONTEXT_DIRECTION_MAP[direction]:
+                attr[side].clear()
+    return ctx
+
+
+def _get_types(
     targets: cabc.Iterable[str], model: capellambse.MelodyModel
 ) -> set[type]:
     return set((type(obj) for obj in model.search(*targets)))

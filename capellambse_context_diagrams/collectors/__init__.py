@@ -1,15 +1,13 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
-"""
-Functionality for collection of model data from an instance of
+"""Functionality for collection of model data from an instance of
 [`MelodyModel`][capellambse.model.MelodyModel] and conversion of it into
 [`_elkjs.ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData].
 """
 from __future__ import annotations
 
 import collections.abc as cabc
-import functools
 import logging
 import typing as t
 from itertools import chain
@@ -22,6 +20,13 @@ from . import default, generic, portless
 
 __all__ = ["get_elkdata"]
 logger = logging.getLogger(__name__)
+
+ContextInfo = t.Union[default.ContextInfo, portless.ContextInfo]
+ContextCollector = cabc.Callable[
+    [t.Iterable[common.GenericElement], common.GenericElement],
+    t.Iterator[ContextInfo],
+]
+
 CONTEXT_DIRECTION_MAP = {
     "i": "input",
     "in": "input",
@@ -65,18 +70,15 @@ def collect_free_context(
     model: capellambse.MelodyModel,
     target: common.GenericElement,
     context_description: dict[str, t.Any],
-    context_collector: cabc.Callable[
-        [t.Iterable[common.GenericElement], common.GenericElement],
-        t.Iterator[default.ContextInfo | portless.ContextInfo],
-    ],
-) -> cabc.Iterator[default.ContextInfo | portless.ContextInfo]:
+    context_collector: ContextCollector,
+) -> cabc.Iterator[ContextInfo]:
     """Collect context for given ``target`` from ``context_description``."""
     subject = context_description.get("subject")
     if type(target).__name__ != subject:
         raise TypeError("Subject needs to match class-type of given target")
 
     exchanges = context_description.get("exchanges", [])
-    contexts: list[list[default.ContextInfo | portless.ContextInfo]] = []
+    contexts: list[list[ContextInfo]] = []
     for exchange in exchanges:
         candidates = set(model.search(*exchange["types"]))
         target_classes = _get_types(exchange["targets"], model)
@@ -91,16 +93,13 @@ def collect_free_context(
     yield from chain.from_iterable(contexts)
 
 
-def _filter_by_type(
-    ctx: default.ContextInfo | portless.ContextInfo,
-    types: cabc.Iterable[type],
-) -> bool:
+def _filter_by_type(ctx: ContextInfo, types: cabc.Iterable[type]) -> bool:
     return any(isinstance(ctx.element, type) for type in types)
 
 
 def _filter_connections_by_direction(
-    ctx: default.ContextInfo | portless.ContextInfo, direction: str
-) -> default.ContextInfo | portless.ContextInfo:
+    ctx: ContextInfo, direction: str
+) -> ContextInfo:
     try:
         attr = ctx.connections  # type: ignore[union-attr]
     except AttributeError:

@@ -1,0 +1,9 @@
+graph: targets * exchanges -> Entity -> exchanges * targets
+
+subject: Entity
+exchanges:
+  - types:
+      - CommunicationMean
+    targets:
+      - Entity
+    direction: bi

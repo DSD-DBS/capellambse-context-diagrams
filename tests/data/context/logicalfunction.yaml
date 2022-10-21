@@ -1,0 +1,14 @@
+graph: targets < ports * exchanges -> LogicalFunction -> exchanges * ports > targets
+
+subject: LogicalFunction
+exchanges:
+  - types:
+      - FunctionalExchange
+    targets:
+      - FunctionInputPort:
+          targets:
+            - owner > LogicalFunction
+      - FunctionOutputPort:
+          targets:
+            - owner > LogicalFunction
+    direction: bi

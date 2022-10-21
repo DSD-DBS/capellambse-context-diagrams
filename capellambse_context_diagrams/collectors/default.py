@@ -7,6 +7,7 @@ on diagrams that involve ports.
 from __future__ import annotations
 
 import collections.abc as cabc
+import dataclasses
 import typing as t
 from itertools import chain
 
@@ -117,7 +118,8 @@ def port_exchange_collector(
     return exchanges
 
 
-class ContextInfo(t.NamedTuple):
+@dataclasses.dataclass
+class ContextInfo:
     """ContextInfo data."""
 
     element: common.GenericElement
@@ -128,6 +130,22 @@ class ContextInfo(t.NamedTuple):
     This list only contains ports that at least one of the exchanges
     passed into ``collect_exchanges`` sees.
     """
+
+    def __hash__(self) -> int:
+        return hash(self.element)
+
+    def __eq__(self, __o: object) -> bool:
+        if not isinstance(__o, ContextInfo):
+            return False
+
+        eq_elements = self.element == __o.element
+        eq_ports = all(
+            set(self.ports[side]) == set(__o.ports[side])  # type: ignore[index]
+            for side in ("input", "output")
+        )
+        if eq_elements and eq_ports:
+            return True
+        return False
 
 
 def port_context_collector(

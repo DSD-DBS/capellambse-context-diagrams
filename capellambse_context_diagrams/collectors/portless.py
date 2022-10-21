@@ -40,13 +40,12 @@ def collector(
         except AttributeError:
             continue
 
-    contexts = context_collector(connections, diag.target)
     stack_heights: dict[str, float | int] = {
         "input": -makers.NEIGHBOR_VMARGIN,
         "output": -makers.NEIGHBOR_VMARGIN,
     }
     made_boxes = {centerbox["id"]: centerbox}
-    for context in contexts:
+    for context in context_collector(connections, diag.target):
         variable_heights = [
             (
                 side,

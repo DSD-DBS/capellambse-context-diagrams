@@ -1,0 +1,14 @@
+graph: targets < ports * exchanges -> SystemFunction -> exchanges * ports > targets
+
+subject: SystemFunction
+exchanges:
+  - types:
+      - FunctionalExchange
+    targets:
+      - FunctionInputPort:
+          targets:
+            - owner > SystemFunction
+      - FunctionOutputPort:
+          targets:
+            - owner > SystemFunction
+    direction: bi

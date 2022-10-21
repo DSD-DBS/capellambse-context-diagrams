@@ -1,0 +1,11 @@
+graph: targets < ports * exchanges -> SystemComponent -> exchanges * ports > targets
+
+subject: SystemComponent
+exchanges:
+  - types:
+      - ComponentExchange
+    targets:
+      - ComponentPort:
+          targets:
+            - owner > SystemComponent
+    direction: bi

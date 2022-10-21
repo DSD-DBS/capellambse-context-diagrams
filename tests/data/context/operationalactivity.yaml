@@ -1,0 +1,9 @@
+graph: targets * exchanges -> OperationalActivity -> exchanges * targets
+
+subject: OperationalActivity
+exchanges:
+  - types:
+      - FunctionalExchange
+    targets:
+      - OperationalActivity
+    direction: bi

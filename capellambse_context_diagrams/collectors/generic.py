@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 SourceAndTarget = tuple[common.GenericElement, common.GenericElement]
 
 
-CONNECTOR_ATTR_NAMES = {"inputs", "outputs"}
+CONNECTOR_ATTR_NAMES = {"inputs", "outputs", "physical_ports"}
 """Attribute of GenericElements for receiving connections."""
 PORTLESS_DIAGRAM_TYPES = {DT.OAB, DT.OAIB, DT.OCB, DT.MCB}
 """Supported diagram types without connectors (i.e. ports)."""

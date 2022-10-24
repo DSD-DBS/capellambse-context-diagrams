@@ -52,11 +52,11 @@ def generate_no_symbol_images() -> None:
 
 
 def generate_no_edgelabel_image(uuid: str) -> None:
-    diagram: diagram.ContextDiagram = model.by_uuid(uuid).context_diagram
-    diagram.invalidate_cache()
-    filename = " ".join((str(dest / diagram.name), "no_edgelabels"))
+    diag: diagram.ContextDiagram = model.by_uuid(uuid).context_diagram
+    diag.invalidate_cache()
+    filename = " ".join((str(dest / diag.name), "no_edgelabels"))
     with mkdocs_gen_files.open(f"{filename}.svg", "w") as fd:
-        print(diagram.render("svg", no_edgelabels=True), file=fd)
+        print(diag.render("svg", no_edgelabels=True), file=fd)
 
 
 def generate_filter_image(

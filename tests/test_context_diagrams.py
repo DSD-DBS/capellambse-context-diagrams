@@ -31,6 +31,13 @@ TEST_ACTOR_SIZING_UUID = "6c8f32bf-0316-477f-a23b-b5239624c28d"
         pytest.param(
             "7f138bae-4949-40a1-9a88-15941f827f8c", id="LogicalFunction"
         ),
+        pytest.param(
+            "b51ccc6f-5f96-4e28-b90e-72463a3b50cf", id="PhysicalNodeComponent"
+        ),
+        pytest.param(
+            "c78b5d7c-be0c-4ed4-9d12-d447cb39304e",
+            id="PhysicalBehaviorComponent",
+        ),
     ],
 )
 def test_context_diagrams(

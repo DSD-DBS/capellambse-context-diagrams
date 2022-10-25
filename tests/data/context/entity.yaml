@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
-graph: targets * exchanges -> Entity -> exchanges * targets
+graph: targets * exchanges -> subject -> exchanges * targets
 
 subject: Entity
 exchanges:

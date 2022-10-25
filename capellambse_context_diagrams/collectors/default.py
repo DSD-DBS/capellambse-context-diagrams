@@ -152,7 +152,7 @@ def port_context_collector(
     exchanges: t.Iterable[common.GenericElement],
     local_ports: t.Container[common.GenericElement],
 ) -> t.Iterator[ContextInfo]:
-    """Collect the context objects.
+    """Collect the context objects with ports on the object of interest.
 
     Parameters
     ----------
@@ -167,7 +167,7 @@ def port_context_collector(
     -------
     contexts
         An iterator over
-        [`ContextDiagram.ContextInfo`s][capellambse_context_diagrams.context.ContextDiagram].
+        [`ContextDiagram.ContextInfo`s][capellambse_context_diagrams.diagram.ContextDiagram].
     """
 
     ctx: dict[str, ContextInfo] = {}

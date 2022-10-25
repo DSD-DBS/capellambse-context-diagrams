@@ -45,7 +45,7 @@ def get_elkdata(
     Parameters
     ----------
     diag
-        The [`ContextDiagram`][capellambse_context_diagrams.context.ContextDiagram]
+        The [`ContextDiagram`][capellambse_context_diagrams.diagram.ContextDiagram]
         instance to get the
         [`_elkjs.ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData]
         for.

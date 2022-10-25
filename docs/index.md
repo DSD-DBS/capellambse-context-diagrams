@@ -7,7 +7,7 @@
 
 This is a pluggable extension for [py-capellambse](https://github.com/DSD-DBS/py-capellambse)
 that extends the [`AbstractDiagram`][capellambse.model.diagram.AbstractDiagram]
-base class with [`ContextDiagram`s][capellambse_context_diagrams.context.ContextDiagram] that are layouted by [elkjs'](https://github.com/kieler/elkjs) Layered algorithm.
+base class with [`ContextDiagram`s][capellambse_context_diagrams.diagram.ContextDiagram] that are layouted by [elkjs'](https://github.com/kieler/elkjs) Layered algorithm.
 
 <figure markdown>
 <img src="assets/images/Context of Left.svg" width="1000000">

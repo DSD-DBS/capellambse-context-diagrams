@@ -144,6 +144,22 @@ def context_collector(
     exchanges: t.Iterable[common.GenericElement],
     obj_oi: common.GenericElement,
 ) -> t.Iterator[ContextInfo]:
+    """Collect the context objects from the exchanges of the ``obj_oi``.
+
+    Parameters
+    ----------
+    exchanges
+        The exchanges to look at to find new elements.
+    obj_oi
+        The object of interest (target of the diagram) on which a
+        context is to be collected.
+
+    Returns
+    -------
+    contexts
+        An iterator over
+        [`ContextDiagram.ContextInfo`s][capellambse_context_diagrams.diagram.ContextDiagram].
+    """
     ctx: dict[str, ContextInfo] = {}
     side: t.Literal["input", "output"]
     for exchange in exchanges:

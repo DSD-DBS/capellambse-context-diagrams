@@ -6,7 +6,7 @@
 # Applying Capella filters
 
 With release [`v0.4.11`](https://github.com/DSD-DBS/py-capellambse/releases/tag/v0.4.11) of [py-capellambse](https://github.com/DSD-DBS/py-capellambse)
-you can apply filters headlessly. Since an instance of a [`ContextDiagram`][capellambse_context_diagrams.context.ContextDiagram] is not stored in
+you can apply filters headlessly. Since an instance of a [`ContextDiagram`][capellambse_context_diagrams.diagram.ContextDiagram] is not stored in
 the `.aird` file of your Capella model there is no way to apply
 filters via Capella/GUI. The [filters][capellambse_context_diagrams.filters] implementation bridge
 the filter functionality of py-capellambse such that the labels are

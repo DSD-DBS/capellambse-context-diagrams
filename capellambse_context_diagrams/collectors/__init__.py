@@ -9,14 +9,14 @@ from __future__ import annotations
 
 import collections.abc as cabc
 import logging
+import operator
 import typing as t
-from itertools import chain
 
 import capellambse
 from capellambse.model import common
 
 from .. import _elkjs, diagram
-from . import default, generic, portless
+from . import data, default, generic, portless
 
 __all__ = ["get_elkdata"]
 logger = logging.getLogger(__name__)
@@ -26,15 +26,6 @@ ContextCollector = cabc.Callable[
     [t.Iterable[common.GenericElement], common.GenericElement],
     t.Iterator[ContextInfo],
 ]
-
-CONTEXT_DIRECTION_MAP = {
-    "i": "input",
-    "in": "input",
-    "input": "input",
-    "o": "output",
-    "out": "output",
-    "output": "output",
-}
 
 
 def get_elkdata(
@@ -69,10 +60,10 @@ def get_elkdata(
 def collect_free_context(
     model: capellambse.MelodyModel,
     target: common.GenericElement,
-    context_description: dict[str, t.Any],
+    context_description: cabc.Mapping[str, t.Any],
     context_collector: ContextCollector,
 ) -> cabc.Iterator[ContextInfo]:
-    """Collect context for given ``target`` from ``context_description``."""
+    """Collect the context for the diagram target from a description."""
     subject = context_description.get("subject")
     if type(target).__name__ != subject:
         raise TypeError("Subject needs to match class-type of given target")
@@ -82,24 +73,27 @@ def collect_free_context(
     if context_collector == default.port_context_collector:
         second_param = default.port_collector(target)
 
-    exchanges = context_description.get("exchanges", [])
-    contexts: list[list[ContextInfo]] = []
-    for exchange in exchanges:
-        candidates = set(model.search(*exchange["types"]))
-        context_collection = context_collector(candidates, second_param)
-        target_classes = _get_types(exchange["targets"], model)
-        contexts.append(
-            [
-                _apply_mods(ctx, exchange)
-                for ctx in context_collection
-                if _filter_by_type(ctx, target_classes)
-            ]
+    exchange: dict[str, t.Any]
+    for exchange in context_description.get("exchanges", []):
+        ex_descr = data.ExchangeDescription(
+            targets=data.get_target_descriptions(exchange["targets"]),
+            types=exchange["types"],
+            model=model,
+            direction=exchange.get("direction", "bi"),
         )
 
-    yield from chain.from_iterable(contexts)
+        context_collection = context_collector(
+            ex_descr.candidates, second_param
+        )
+
+        for context in context_collection:
+            if _filter_by_target_description(context, ex_descr.target_types):
+                yield _apply_mods(context, exchange)
 
 
-def _filter_by_type(ctx: ContextInfo, types: cabc.Iterable[type]) -> bool:
+def _filter_by_target_description(
+    ctx: ContextInfo, types: cabc.Iterable[type[common.ModelObject]]
+) -> bool:
     return any(isinstance(ctx.element, type) for type in types)
 
 
@@ -122,35 +116,6 @@ def _filter_connections_by_direction(
 
     if direction != "bi":
         for side in attr:
-            if side != CONTEXT_DIRECTION_MAP[direction]:
+            if side != direction:
                 attr[side].clear()
     return ctx
-
-
-def _get_types(
-    targets: cabc.Sequence[str | dict[str, t.Any]],
-    model: capellambse.MelodyModel,
-) -> set[type]:
-    if targets and isinstance(targets[0], str):
-        return {type(obj) for obj in model.search(*targets)}
-    targets = [target for _, target in _extract_targets(targets)]
-    return {type(obj) for obj in model.search(*targets)}
-
-
-def _extract_targets(
-    targets: cabc.Sequence[str | dict[str, t.Any]]
-) -> cabc.Iterator[tuple[str, str]]:
-    for target in targets:
-        if isinstance(target, str):
-            target_path = target.split(" > ")
-            if len(target_path) == 1:
-                yield "", target
-            else:
-                yield ".".join(target_path[:-1]), target_path[-1]
-        else:
-            types = list(target.keys())
-            assert len(types) == 1
-            type = types[0]
-            subtargets = target[type]["targets"]
-            for path, target_type in _extract_targets(subtargets):
-                yield f"{type}.{path}", target_type

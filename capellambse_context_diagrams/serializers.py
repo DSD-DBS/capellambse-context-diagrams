@@ -236,6 +236,7 @@ def get_styleclass(obj: common.GenericElement) -> str:
             (
                 styleclass[: -len("Component")],
                 "Human" * obj.is_human,
+                obj.nature.name.capitalize() if hasattr(obj, "nature") else "",
                 ("Component", "Actor")[obj.is_actor],
             )
         )

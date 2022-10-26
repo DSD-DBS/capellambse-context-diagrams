@@ -10,5 +10,8 @@ exchanges:
     targets:
       - ComponentPort:
           targets:
-            - owner > SystemComponent
+            - types:
+                - SystemComponent
+              queries:
+                - owner
     direction: bi

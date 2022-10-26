@@ -10,5 +10,8 @@ exchanges:
     targets:
       - ComponentPort:
           targets:
-            - owner > LogicalComponent
+            - types:
+                - LogicalComponent
+              queries:
+                - owner
     direction: bi

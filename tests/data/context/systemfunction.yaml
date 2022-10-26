@@ -8,10 +8,12 @@ exchanges:
   - types:
       - FunctionalExchange
     targets:
-      - FunctionInputPort:
-          targets:
-            - owner > SystemFunction
-      - FunctionOutputPort:
-          targets:
-            - owner > SystemFunction
+      - types:
+          - FunctionInputPort
+          - FunctionOutputPort
+        targets:
+          - types:
+              - SystemFunction
+            queries:
+              - owner
     direction: bi

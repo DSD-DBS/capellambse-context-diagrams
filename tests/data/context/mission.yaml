@@ -11,4 +11,4 @@ exchanges:
     targets:
       - SystemComponent
       - Capability
-    direction: out
+    direction: output

@@ -15,10 +15,17 @@ exchanges:
   - types:
       - CapabilityExploitation
     targets:
-      - Mission
-    direction: in
+      - types:
+          - Mission
+        queries:
+          - parent
+          - capability
+    direction: input
   - types:
       - CapabilityInvolvement
     targets:
-      - SystemComponent
-    direction: out
+      - types:
+          - SystemComponent
+        queries:
+          - involved
+    direction: output

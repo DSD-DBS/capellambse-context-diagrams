@@ -16,4 +16,4 @@ exchanges:
       - EntityOperationalCapabilityInvolvement
     targets:
       - Entity
-    direction: out
+    direction: output

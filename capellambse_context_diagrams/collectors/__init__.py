@@ -61,7 +61,7 @@ def collect_free_context(
     model: capellambse.MelodyModel,
     target: common.GenericElement,
     context_description: cabc.Mapping[str, t.Any],
-    context_collector: ContextCollector,
+    context_collector: ContextCollector | None = None,
 ) -> cabc.Iterator[ContextInfo]:
     """Collect the context for the diagram target from a description."""
     subject = context_description.get("subject")
@@ -81,6 +81,8 @@ def collect_free_context(
             model=model,
             direction=exchange.get("direction", "bi"),
         )
+        if context_collector is None:
+            context_collector = generate_ctx_collector(target, ex_descr)
 
         context_collection = context_collector(
             ex_descr.candidates, second_param
@@ -89,6 +91,69 @@ def collect_free_context(
         for context in context_collection:
             if _filter_by_target_description(context, ex_descr.target_types):
                 yield _apply_mods(context, exchange)
+
+
+def generate_ctx_collector(
+    target: common.GenericElement, ex_ctx_desc: dict[str, t.Any]
+) -> ContextCollector:
+    """Return a context collector function."""
+    types = set(ex_ctx_desc.get("types", []))
+    if not types:
+        raise data.InvalidContextDescription(
+            "Invalid exchanges description: List of 'types' required"
+        )
+    targets = ex_ctx_desc.get("targets", [])
+    if not target:
+        raise data.InvalidContextDescription(
+            "Invalid exchanges description: List of 'targets' required"
+        )
+
+    for path, ttype in _extract_targets(targets):
+        operator.attrgetter(path)
+
+    def collect_exchange_endpoints(
+        exchange: common.GenericElement,
+    ) -> tuple[common.GenericElement, common.GenericElement]:
+        if ex_ctx_desc.get("sources", []):
+            logger.debug("Individual source endpoint translation.")
+            ...
+        else:
+            logger.debug("Uniform source and target endpoints translation.")
+
+    def context_collector(
+        exchanges: t.Iterable[common.GenericElement],
+        obj_oi: common.GenericElement,
+    ) -> t.Iterator[ContextInfo]:
+        ctx: dict[str, ContextInfo] = {}
+        side: t.Literal["input", "output"]
+        for exchange in exchanges:
+            if type(exchange).__name__ not in types:
+                continue
+
+            try:
+                source, target = collect_exchange_endpoints(exchange)
+            except AttributeError:
+                continue
+
+            if source == obj_oi:
+                obj = target
+                side = "output"
+            elif target == obj_oi:
+                obj = source
+                side = "input"
+            else:
+                continue
+
+            info = ContextInfo(
+                element=obj, connections={"output": [], "input": []}
+            )
+            info = ctx.setdefault(obj.uuid, info)
+            if exchange not in info.connections[side]:
+                info.connections[side].append(exchange)
+
+        return iter(ctx.values())
+
+    return context_collector
 
 
 def _filter_by_target_description(

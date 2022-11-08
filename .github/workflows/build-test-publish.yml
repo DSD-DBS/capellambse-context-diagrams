@@ -22,16 +22,16 @@ jobs:
           - os: windows-latest
             python_version: "3.9"
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python ${{matrix.python_version}}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{matrix.python_version}}
       - uses: actions/setup-node@v3
         with:
           node-version: 16
       - run: npm -v
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ~/.cache/pip
           key: ${{runner.os}}-pip-${{hashFiles('setup.cfg')}}
@@ -53,9 +53,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: "3.9"
       - name: Install dependencies
@@ -69,7 +69,7 @@ jobs:
         run: |-
           python -m twine check dist/*
       - name: Upload artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Artifacts
           path: "dist/*"

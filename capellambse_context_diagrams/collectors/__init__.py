@@ -68,57 +68,54 @@ def collect_free_context(
     if type(target).__name__ != subject:
         raise TypeError("Subject needs to match class-type of given target")
 
-    second_param = target
+    cparam = target
     # pylint: disable=comparison-with-callable
     if context_collector == default.port_context_collector:
-        second_param = default.port_collector(target)
+        cparam = default.port_collector(target)
 
+    no_context_collector_given = context_collector is None
     exchange: dict[str, t.Any]
     for exchange in context_description.get("exchanges", []):
-        ex_descr = data.ExchangeDescription(
-            targets=data.get_target_descriptions(exchange["targets"]),
-            types=exchange["types"],
-            model=model,
-            direction=exchange.get("direction", "bi"),
-        )
-        if context_collector is None:
-            context_collector = generate_ctx_collector(target, ex_descr)
+        ex_descr = data.ExchangeDescription.from_dict(exchange, model, subject)
+        if no_context_collector_given:
+            context_collector = generate_ctx_collector(ex_descr)
 
-        context_collection = context_collector(
-            ex_descr.candidates, second_param
+        assert context_collector is not None
+        context_collection = list(
+            context_collector(ex_descr.candidates, cparam)
         )
-
         for context in context_collection:
-            if _filter_by_target_description(context, ex_descr.target_types):
-                yield _apply_mods(context, exchange)
+            yield _apply_mods(context, ex_descr)
 
 
 def generate_ctx_collector(
-    target: common.GenericElement, ex_ctx_desc: dict[str, t.Any]
+    ex_description: data.ExchangeDescription,
 ) -> ContextCollector:
     """Return a context collector function."""
-    types = set(ex_ctx_desc.get("types", []))
-    if not types:
-        raise data.InvalidContextDescription(
-            "Invalid exchanges description: List of 'types' required"
-        )
-    targets = ex_ctx_desc.get("targets", [])
-    if not target:
-        raise data.InvalidContextDescription(
-            "Invalid exchanges description: List of 'targets' required"
-        )
-
-    for path, ttype in _extract_targets(targets):
-        operator.attrgetter(path)
+    SourceAndTargetTuple = tuple[common.GenericElement, common.GenericElement]
 
     def collect_exchange_endpoints(
         exchange: common.GenericElement,
-    ) -> tuple[common.GenericElement, common.GenericElement]:
-        if ex_ctx_desc.get("sources", []):
-            logger.debug("Individual source endpoint translation.")
-            ...
-        else:
-            logger.debug("Uniform source and target endpoints translation.")
+    ) -> SourceAndTargetTuple:
+        """Return endpoints for given exchange."""
+        queries = ex_description.target_queries[type(exchange)]
+        source: common.ModelObject = exchange
+        target: common.ModelObject = exchange
+        for source_query, target_query in queries:
+            source = source_query(source)
+            target = target_query(target)
+
+        if not isinstance(source, ex_description.source_end_types):
+            raise data.InvalidContextDescription(
+                f"Invalid terminal 'type' in 'targets' for source: {source!r}"
+            )
+
+        if not isinstance(target, ex_description.target_end_types):
+            raise data.InvalidContextDescription(
+                f"Invalid terminal 'type' in 'targets' for target: {target!r}"
+            )
+
+        return source, target
 
     def context_collector(
         exchanges: t.Iterable[common.GenericElement],
@@ -127,12 +124,15 @@ def generate_ctx_collector(
         ctx: dict[str, ContextInfo] = {}
         side: t.Literal["input", "output"]
         for exchange in exchanges:
-            if type(exchange).__name__ not in types:
+            if type(exchange).__name__ not in ex_description.types:
                 continue
 
             try:
                 source, target = collect_exchange_endpoints(exchange)
-            except AttributeError:
+            except AttributeError as error:
+                logger.exception("Invalid model query: %s", error.args[0])
+                continue
+            except data.InvalidContextDescription:
                 continue
 
             if source == obj_oi:
@@ -144,7 +144,7 @@ def generate_ctx_collector(
             else:
                 continue
 
-            info = ContextInfo(
+            info = portless.ContextInfo(
                 element=obj, connections={"output": [], "input": []}
             )
             info = ctx.setdefault(obj.uuid, info)
@@ -156,17 +156,12 @@ def generate_ctx_collector(
     return context_collector
 
 
-def _filter_by_target_description(
-    ctx: ContextInfo, types: cabc.Iterable[type[common.ModelObject]]
-) -> bool:
-    return any(isinstance(ctx.element, type) for type in types)
-
-
 def _apply_mods(
-    ctx: ContextInfo, exchange_data: dict[str, t.Any]
+    ctx: ContextInfo, ex_description: data.ExchangeDescription
 ) -> ContextInfo:
-    if direction := exchange_data.get("direction"):
-        ctx = _filter_connections_by_direction(ctx, direction)
+    if ex_description.direction != "bi":
+        ctx = _filter_connections_by_direction(ctx, ex_description.direction)
+
     return ctx
 
 
@@ -179,8 +174,8 @@ def _filter_connections_by_direction(
         assert isinstance(ctx, default.ContextInfo)
         attr = ctx.ports
 
-    if direction != "bi":
-        for side in attr:
-            if side != direction:
-                attr[side].clear()
+    for side in attr:
+        if side != direction:
+            attr[side].clear()
+
     return ctx

@@ -7,10 +7,19 @@ from __future__ import annotations
 import collections.abc as cabc
 import dataclasses
 import itertools
+import logging
+import operator
 import typing as t
 
 import capellambse
 from capellambse.model import common
+
+logger = logging.getLogger(__name__)
+
+ModelQuery = cabc.Callable[
+    [common.ModelObject], t.Union[common.ModelObject, common.ElementList]
+]
+EndpointsQuery = tuple[ModelQuery, ModelQuery]
 
 
 class InvalidContextDescription(Exception):
@@ -23,24 +32,34 @@ class TargetDescription:
 
     types: cabc.Sequence[type[common.ModelObject]]
 
-    queries: t.Optional[cabc.Sequence[str]] = dataclasses.field(
-        default_factory=lambda: ["source", "target"]
+    queries: tuple[str, str] = dataclasses.field(
+        default_factory=lambda: ("source", "target")
     )
-    targets: t.Optional[cabc.Sequence[TargetDescription]] = dataclasses.field(
+    targets: cabc.Sequence[TargetDescription] = dataclasses.field(
         default_factory=lambda: []
     )
 
     @property
     def end_types(self) -> set[type[common.ModelObject]]:
+        """Return terminal types of the ``TargetDescription`` chain."""
         if self.targets:
             end_types = (target.end_types for target in self.targets)
             return set(itertools.chain.from_iterable(end_types))
         return set(self.types)
 
+    @property
+    def full_queries(self) -> list[tuple[str, str]]:
+        """Return a sequence of queries in order to receive the target."""
+        full_target_queries = itertools.chain.from_iterable(
+            target.full_queries for target in self.targets
+        )
+        return [self.queries] + list(full_target_queries)
+
     @classmethod
     def from_dict(
         cls, description: cabc.Mapping[str, t.Any]
     ) -> TargetDescription:
+        """Return a ``TargetDescription`` from a given dictionary."""
         types = description.get("types", [])
         if not types:
             types = list(description.keys())
@@ -55,20 +74,30 @@ class TargetDescription:
 
             description = description[types[0]]
 
-        optional_params = {}
+        optional_params = dict[str, t.Any]()
         if queries := description.get("queries", []):
-            optional_params["queries"] = queries
+            try:
+                source_query, target_query = queries
+            except ValueError as err:
+                raise InvalidContextDescription(
+                    "Invalid number of 'queries' in target description:"
+                    f" '{queries!r}'. Only 2 queries (for source and target)"
+                    "are valid."
+                ) from err
+
+            optional_params["queries"] = (source_query, target_query)
         if targets := description.get("targets", []):
-            optional_params["targets"] = get_target_descriptions(targets)
+            optional_params["targets"] = _get_target_descriptions(targets)
 
         return TargetDescription(
             [_get_type(type) for type in types], **optional_params
         )
 
 
-def get_target_descriptions(
+def _get_target_descriptions(
     targets: cabc.Iterable[str | cabc.Mapping[str, t.Any]],
 ) -> list[TargetDescription]:
+    r"""Return a list of ``TargetDescription`` \s from given ``targets``."""
     return [
         TargetDescription([_get_type(target)])
         if isinstance(target, str)
@@ -98,18 +127,93 @@ def _match_from_xtype_handlers(
 
 @dataclasses.dataclass
 class ExchangeDescription:
-    """A description of an exchange in the context."""
+    """A description of an exchange to be collected in the context."""
 
-    targets: cabc.Sequence[TargetDescription]
-    types: cabc.Sequence[str]
     model: dataclasses.InitVar[capellambse.MelodyModel]
+    subject: dataclasses.InitVar[str]
+    targets: cabc.Sequence[TargetDescription]
+    types: set[str]
 
     candidates: set[common.ModelObject] = dataclasses.field(init=False)
     direction: str = "bi"
-    target_types: set[type[common.ModelObject]] = dataclasses.field(init=False)
+    source_end_types: tuple[type[common.ModelObject], ...] = dataclasses.field(
+        init=False
+    )
+    target_end_types: tuple[type[common.ModelObject], ...] = dataclasses.field(
+        init=False
+    )
+    target_queries: cabc.Mapping[
+        type[common.ModelObject], cabc.Sequence[EndpointsQuery]
+    ] = dataclasses.field(init=False)
 
-    def __post_init__(self, model: capellambse.MelodyModel) -> None:
+    def __post_init__(
+        self, model: capellambse.MelodyModel, subject: str
+    ) -> None:
+        if not self.types:
+            raise InvalidContextDescription(
+                "Invalid 'exchanges' in description: List of 'types' required"
+            )
+
+        if not self.targets:
+            raise InvalidContextDescription(
+                "Invalid 'exchanges' in description: List of 'targets' required"
+            )
+
         self.candidates = set(model.search(*self.types))
-        self.target_types = set()
+        if not self.candidates:
+            logger.warning(
+                "No exchanges found in model with types: %r", self.types
+            )
+
+        end_types = self._get_end_types()
+        if self.direction == "input":
+            self.source_end_types = end_types
+            self.target_end_types = (_get_type(subject),)
+        elif self.direction == "output":
+            self.source_end_types = (_get_type(subject),)
+            self.target_end_types = end_types
+        else:
+            self.source_end_types = self.target_end_types = end_types
+
+        self.target_queries = self._get_target_queries()
+
+    @classmethod
+    def from_dict(
+        cls,
+        exchange: dict[str, t.Any],
+        model: capellambse.MelodyModel,
+        subject: str,
+    ) -> ExchangeDescription:
+        """Return an ``ExchangeDescription`` from a given dictionary."""
+        targets = _get_target_descriptions(exchange.get("targets", []))
+        return cls(
+            model=model,
+            subject=subject,
+            targets=targets,
+            types=set(exchange.get("types", set())),
+            direction=exchange.get("direction", "bi"),
+        )
+
+    def _get_end_types(self) -> tuple[type[common.ModelObject], ...]:
+        types = set[type]()
         for target in self.targets:
-            self.target_types |= set(target.end_types)
+            types |= set(target.end_types)
+
+        return tuple(types)
+
+    def _get_target_queries(
+        self,
+    ) -> dict[type[common.ModelObject], list[EndpointsQuery]]:
+        query_map = {}
+        for target in self.targets:
+            target_queries: list[EndpointsQuery] = [
+                (
+                    operator.attrgetter(src_query),
+                    operator.attrgetter(trg_query),
+                )
+                for src_query, trg_query in target.full_queries
+            ]
+            for ttype in set(target.types):
+                query_map[ttype] = target_queries
+
+        return query_map

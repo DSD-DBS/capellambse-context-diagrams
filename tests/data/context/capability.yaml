@@ -4,6 +4,7 @@
 graph: targets * exchanges -> subject -> exchanges * targets
 
 subject: Capability
+
 exchanges:
   - types:
       - AbstractCapabilityExtend
@@ -27,5 +28,6 @@ exchanges:
       - types:
           - SystemComponent
         queries:
+          - source
           - involved
     direction: output

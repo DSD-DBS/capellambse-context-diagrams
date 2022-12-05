@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
+# SPDX-License-Identifier: Apache-2.0
+
+graph: subject -> exchanges * targets
+
+subject: Mission
+exchanges:
+  - types:
+      - MissionInvolvement
+      - CapabilityExploitation
+    targets:
+      - SystemComponent
+      - Capability
+    direction: output

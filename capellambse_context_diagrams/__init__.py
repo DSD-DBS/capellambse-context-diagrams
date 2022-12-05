@@ -29,7 +29,7 @@ from capellambse.model.crosslayer import fa
 from capellambse.model.layers import ctx, la, oa, pa
 from capellambse.model.modeltypes import DiagramType
 
-from . import context
+from . import diagram
 
 try:
     __version__ = metadata.version("capellambse-context-diagrams")
@@ -70,7 +70,7 @@ def register_classes() -> None:
     class_: type[common.GenericElement]
     for class_, dgcls in supported_classes:
         common.set_accessor(
-            class_, ATTR_NAME, context.ContextAccessor(dgcls.value)
+            class_, ATTR_NAME, diagram.ContextAccessor(dgcls.value)
         )
 
 
@@ -103,7 +103,7 @@ def register_interface_context() -> None:
     common.set_accessor(
         oa.CommunicationMean,
         ATTR_NAME,
-        context.InterfaceContextAccessor(
+        diagram.InterfaceContextAccessor(
             {
                 oa.EntityPkg: DiagramType.OAB.value,
                 oa.Entity: DiagramType.OAB.value,
@@ -113,7 +113,7 @@ def register_interface_context() -> None:
     common.set_accessor(
         fa.ComponentExchange,
         ATTR_NAME,
-        context.InterfaceContextAccessor(
+        diagram.InterfaceContextAccessor(
             {
                 ctx.SystemComponentPkg: DiagramType.SAB.value,
                 ctx.SystemComponent: DiagramType.SAB.value,
@@ -147,5 +147,5 @@ def register_functional_context() -> None:
         common.set_accessor(
             class_,
             attr_name,
-            context.FunctionalContextAccessor(dgcls.value),
+            diagram.FunctionalContextAccessor(dgcls.value),
         )

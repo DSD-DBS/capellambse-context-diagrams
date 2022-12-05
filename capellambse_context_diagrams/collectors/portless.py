@@ -7,20 +7,21 @@ on diagrams that don't involve ports or any connectors.
 """
 from __future__ import annotations
 
+import dataclasses
 import typing as t
 from itertools import chain
 
 from capellambse.model import common, layers
 
-from .. import _elkjs, context
-from . import generic, makers
+from .. import _elkjs, diagram, makers
+from . import generic
 
 SOURCE_ATTR_NAMES = frozenset(("parent",))
 TARGET_ATTR_NAMES = frozenset(("involved", "capability"))
 
 
 def collector(
-    diagram: context.ContextDiagram, params: dict[str, t.Any] | None = None
+    diag: diagram.ContextDiagram, params: dict[str, t.Any] | None = None
 ) -> _elkjs.ELKInputData:
     """Collect context data from exchanges of centric box.
 
@@ -28,13 +29,13 @@ def collector(
     architecture layer diagrams (diagrams where elements don't exchange
     via ports/connectors).
     """
-    data = generic.collector(diagram)
+    data = generic.collector(diag)
     centerbox = data["children"][0]
-    connections = list(get_exchanges(diagram.target))
+    connections = list(get_exchanges(diag.target))
     for ex in connections:
         try:
             generic.exchange_data_collector(
-                generic.ExchangeData(ex, data, diagram.filters, params),
+                generic.ExchangeData(ex, data, diag.filters, params),
                 collect_exchange_endpoints,
             )
         except AttributeError:
@@ -44,28 +45,34 @@ def collector(
         "input": -makers.NEIGHBOR_VMARGIN,
         "output": -makers.NEIGHBOR_VMARGIN,
     }
-    contexts = context_collector(connections, diagram.target)
     made_boxes = {centerbox["id"]: centerbox}
-    for i, exchanges, side in contexts:
-        var_height = generic.MARKER_PADDING + (
-            generic.MARKER_SIZE + generic.MARKER_PADDING
-        ) * len(exchanges)
-        if not diagram.display_symbols_as_boxes and makers.is_symbol(
-            diagram.target
-        ):
+    for context in context_collector(connections, diag.target):
+        variable_heights = [
+            (
+                side,
+                generic.MARKER_PADDING
+                + (generic.MARKER_SIZE + (generic.MARKER_PADDING + 3))
+                * len(exchanges),
+            )
+            for side, exchanges in context.connections.items()
+        ]
+        side, var_height = max(variable_heights, key=lambda t: t[1])
+        if not diag.display_symbols_as_boxes and makers.is_symbol(diag.target):
             height = max(makers.MIN_SYMBOL_HEIGHT, var_height)
         else:
             height = var_height
 
-        if box := made_boxes.get(i.uuid):
+        if box := made_boxes.get(context.element.uuid):
             if box is centerbox:
                 continue
             box["height"] = height
         else:
             box = makers.make_box(
-                i, height=height, no_symbol=diagram.display_symbols_as_boxes
+                context.element,
+                height=height,
+                no_symbol=diag.display_symbols_as_boxes,
             )
-            made_boxes[i.uuid] = box
+            made_boxes[context.element.uuid] = box
 
         stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
 
@@ -76,9 +83,7 @@ def collector(
         max(label["width"] for label in centerbox["labels"])
         + 2 * makers.LABEL_HPAD
     )
-    if not diagram.display_symbols_as_boxes and makers.is_symbol(
-        diagram.target
-    ):
+    if not diag.display_symbols_as_boxes and makers.is_symbol(diag.target):
         data["layoutOptions"]["spacing.labelNode"] = 5.0
         centerbox["width"] = centerbox["height"] * makers.SYMBOL_RATIO
     return data
@@ -108,21 +113,54 @@ def collect_exchange_endpoints(
     return generic.collect_exchange_endpoints(e)
 
 
-class ContextInfo(t.NamedTuple):
+@dataclasses.dataclass
+class ContextInfo:
     """ContextInfo data."""
 
     element: common.GenericElement
     """An element of context."""
-    connections: list[common.GenericElement]
-    """The context element's relevant exchanges."""
-    side: t.Literal["input", "output"]
-    """Whether this is an input or output to the element of interest."""
+    connections: dict[
+        t.Literal["input", "output"], list[common.GenericElement]
+    ]
+    """The context element's relevant exchanges, keyed by direction."""
+
+    def __hash__(self) -> int:
+        return hash(self.element)
+
+    def __eq__(self, __o: object) -> bool:
+        if not isinstance(__o, ContextInfo):
+            return False
+
+        eq_elements = self.element == __o.element
+        eq_connections = all(
+            set(self.connections[side]) == set(__o.connections[side])  # type: ignore[index]
+            for side in ("input", "output")
+        )
+        if eq_elements and eq_connections:
+            return True
+        return False
 
 
 def context_collector(
     exchanges: t.Iterable[common.GenericElement],
     obj_oi: common.GenericElement,
 ) -> t.Iterator[ContextInfo]:
+    """Collect the context objects from the exchanges of the ``obj_oi``.
+
+    Parameters
+    ----------
+    exchanges
+        The exchanges to look at to find new elements.
+    obj_oi
+        The object of interest (target of the diagram) on which a
+        context is to be collected.
+
+    Returns
+    -------
+    contexts
+        An iterator over
+        [`ContextDiagram.ContextInfo`s][capellambse_context_diagrams.diagram.ContextDiagram].
+    """
     ctx: dict[str, ContextInfo] = {}
     side: t.Literal["input", "output"]
     for exchange in exchanges:
@@ -134,14 +172,18 @@ def context_collector(
         if source == obj_oi:
             obj = target
             side = "output"
-        else:
+        elif target == obj_oi:
             obj = source
             side = "input"
+        else:
+            continue
 
-        info = ContextInfo(obj, [], side)
+        info = ContextInfo(
+            element=obj, connections={"output": [], "input": []}
+        )
         info = ctx.setdefault(obj.uuid, info)
-        if exchange not in info.connections:
-            info.connections.append(exchange)
+        if exchange not in info.connections[side]:
+            info.connections[side].append(exchange)
 
     return iter(ctx.values())
 

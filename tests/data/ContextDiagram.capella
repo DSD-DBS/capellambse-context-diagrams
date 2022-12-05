@@ -3035,6 +3035,9 @@ The predator is far away</bodies>
           <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
               id="bcdee96b-9113-4388-858f-1bea7fa1d3b7" name="C 22" source="#60a1fd22-3ef8-46dd-8e0c-b4dbcca86ec0"
               target="#c06968be-09ae-4e9a-acc9-733c833a3c87" kind="FLOW"/>
+          <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+              id="8436eb3b-06d4-447f-8e9a-854dd942caf6" name="Right to Left" source="#4cd7a9ba-afa2-47df-aa89-5b4ca5a5627a"
+              target="#99f22922-a4cf-45c7-9c07-665a8dcdd409" kind="FLOW"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="a3194240-cd17-4998-8f8b-785233487ec3"
               name="Campus" abstractType="#6583b560-6d2f-4190-baa2-94eef179c8ea"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
@@ -3245,15 +3248,6 @@ The predator is far away</bodies>
               <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
                   id="0796afa8-a1d4-4c38-b6af-e097f067b509" targetElement="#6265248f-2ec9-449f-9b07-0614957cbab3"
                   sourceElement="#f89ea9b3-e92d-49cb-ae9e-a734a9f5c5dc"/>
-              <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
-                  id="fbf0da49-1765-47da-854d-da5d2d068a53" targetElement="#73fef6c0-53a9-42aa-8527-7a091113f011"
-                  sourceElement="#f89ea9b3-e92d-49cb-ae9e-a734a9f5c5dc"/>
-              <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
-                  id="29996cb2-9db4-452c-887a-38704a554aa1" targetElement="#60fbcf0f-7cbc-4540-a4b0-961c82007924"
-                  sourceElement="#f89ea9b3-e92d-49cb-ae9e-a734a9f5c5dc"/>
-              <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
-                  id="74c1b37e-12f8-4fa7-8b13-08e37a4f94aa" targetElement="#f6146687-79be-44de-8268-587dc2abab11"
-                  sourceElement="#f89ea9b3-e92d-49cb-ae9e-a734a9f5c5dc"/>
             </ownedFeatures>
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
                 id="a001cfb0-2b21-4e52-a119-8f4515dded91" name="CP 2" orientation="IN"
@@ -3261,6 +3255,19 @@ The predator is far away</bodies>
               <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
                   id="a002291c-0cf0-48ab-b823-adc63f256a03" targetElement="#8b39d153-234b-4ced-9c0a-af75f79c23ec"
                   sourceElement="#a001cfb0-2b21-4e52-a119-8f4515dded91"/>
+            </ownedFeatures>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="99f22922-a4cf-45c7-9c07-665a8dcdd409" name="CP 3" orientation="IN"
+                kind="FLOW">
+              <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
+                  id="a74b1627-9961-4573-8c1b-b1d2d454525e" targetElement="#f6146687-79be-44de-8268-587dc2abab11"
+                  sourceElement="#99f22922-a4cf-45c7-9c07-665a8dcdd409"/>
+              <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
+                  id="02119884-451e-40d5-bb05-a423dee4fca5" targetElement="#73fef6c0-53a9-42aa-8527-7a091113f011"
+                  sourceElement="#99f22922-a4cf-45c7-9c07-665a8dcdd409"/>
+              <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
+                  id="3755a2b5-bab9-4d47-8e2c-be9d24557a59" targetElement="#60fbcf0f-7cbc-4540-a4b0-961c82007924"
+                  sourceElement="#99f22922-a4cf-45c7-9c07-665a8dcdd409"/>
             </ownedFeatures>
           </ownedLogicalComponents>
           <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
@@ -3277,15 +3284,19 @@ The predator is far away</bodies>
               <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
                   id="4609bd33-012d-47f3-afd4-5b16c7ecf132" targetElement="#dd98c04f-6e47-4989-bccf-7fa6cc51a28f"
                   sourceElement="#58f89f0a-7647-4077-b29b-8fe2bf270f02"/>
+            </ownedFeatures>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="4cd7a9ba-afa2-47df-aa89-5b4ca5a5627a" name="CP 2" orientation="OUT"
+                kind="FLOW">
               <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
-                  id="a8997c5c-d5a1-4c2a-b352-32bcdb831601" targetElement="#5f821bbb-724f-4adf-a41f-b612399d32d2"
-                  sourceElement="#58f89f0a-7647-4077-b29b-8fe2bf270f02"/>
+                  id="6ba3363c-4971-4f4e-bd33-1908f7dc019d" targetElement="#b7f2d2ef-3aef-43a9-9309-cf172e50ebb7"
+                  sourceElement="#4cd7a9ba-afa2-47df-aa89-5b4ca5a5627a"/>
               <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
-                  id="eb93e547-8dbc-4c9a-98aa-c244b70a132b" targetElement="#aac1f636-44cd-467a-8238-3c383f28351e"
-                  sourceElement="#58f89f0a-7647-4077-b29b-8fe2bf270f02"/>
+                  id="afe42675-e1c5-43bf-9798-277574b8a42e" targetElement="#5f821bbb-724f-4adf-a41f-b612399d32d2"
+                  sourceElement="#4cd7a9ba-afa2-47df-aa89-5b4ca5a5627a"/>
               <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
-                  id="f0e39876-6665-4d6c-9eec-b0c0f1dd8399" targetElement="#b7f2d2ef-3aef-43a9-9309-cf172e50ebb7"
-                  sourceElement="#58f89f0a-7647-4077-b29b-8fe2bf270f02"/>
+                  id="7acc7a91-5212-45b7-a7db-bf813470d087" targetElement="#aac1f636-44cd-467a-8238-3c383f28351e"
+                  sourceElement="#4cd7a9ba-afa2-47df-aa89-5b4ca5a5627a"/>
             </ownedFeatures>
           </ownedLogicalComponents>
           <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"

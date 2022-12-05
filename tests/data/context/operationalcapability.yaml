@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
+# SPDX-License-Identifier: Apache-2.0
+
+graph: targets * exchanges -> subject -> exchanges * targets
+
+subject: OperationalCapability
+exchanges:
+  - types:
+      - AbstractCapabilityExtend
+      - AbstractCapabilityInclude
+      - AbstractCapabilityGeneralization
+    targets:
+      - OperationalCapability
+    direction: bi
+  - types:
+      - EntityOperationalCapabilityInvolvement
+    targets:
+      - Entity
+    direction: output

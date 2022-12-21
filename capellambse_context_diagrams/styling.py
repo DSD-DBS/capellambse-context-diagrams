@@ -8,7 +8,7 @@ import typing as t
 from capellambse import aird
 from capellambse.model import common
 
-CSSStyles = t.Union[aird.diagram._StyleOverrides, None]
+CSSStyles = t.Union[aird.diagram.StyleOverrides, None]
 """
 A dictionary with CSS styles. The keys are the attribute names and the
 values can be of the types `str`, `aird.RGB` and even
@@ -21,7 +21,7 @@ See also
 [parent_is_actor_fills_blue][capellambse_context_diagrams.styling.parent_is_actor_fills_blue]
 """
 Styler = t.Callable[
-    [common.GenericElement], t.Union[aird.diagram._StyleOverrides, None]
+    [common.GenericElement], t.Union[aird.diagram.StyleOverrides, None]
 ]
 """Function that produces `CSSStyles` for given obj."""
 

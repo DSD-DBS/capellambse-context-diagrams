@@ -42,7 +42,7 @@ def exchange_items(obj: common.GenericElement) -> str:
     by ','.
     """
     stringifier = importlib.import_module(
-        "capellambse.aird.parser._filters.global"
+        "capellambse.aird._filters.global"
     )._stringify_exchange_items
     return stringifier(obj, obj._model._loader)
 
@@ -84,7 +84,7 @@ def sort_exchange_items_label(
 ) -> None:
     """Sort the exchange items in the exchange label if value is true."""
     global_filters = importlib.import_module(
-        "capellambse.aird.parser._filters.global"
+        "capellambse.aird._filters.global"
     )
     adjustments["labels_text"] = global_filters._stringify_exchange_items(
         exchange, exchange._model._loader, value

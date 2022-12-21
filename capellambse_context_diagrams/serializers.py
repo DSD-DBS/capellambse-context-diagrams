@@ -204,7 +204,7 @@ class DiagramSerializer:
 
     def get_styleoverrides(
         self, child: _elkjs.ELKOutputChild
-    ) -> aird.diagram._StyleOverrides | None:
+    ) -> aird.diagram.StyleOverrides | None:
         """Return
         [`styling.CSSStyles`][capellambse_context_diagrams.styling.CSSStyles]
         from a given
@@ -226,9 +226,7 @@ def get_styleclass(obj: common.GenericElement) -> str:
     """Return the styleclass for a given `obj`."""
     styleclass = obj.__class__.__name__
     styleclass = (
-        aird.parser._semantic.STYLECLASS_LOOKUP.get(
-            styleclass, (styleclass, None)
-        )[0]
+        aird._semantic.STYLECLASS_LOOKUP.get(styleclass, (styleclass, None))[0]
         or styleclass
     )
     if styleclass.endswith("Component"):

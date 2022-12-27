@@ -23,7 +23,7 @@ import logging
 import typing as t
 from importlib import metadata
 
-from capellambse.aird import COLORS, CSSdef, capstyle
+from capellambse.diagram import COLORS, CSSdef, capstyle
 from capellambse.model import common
 from capellambse.model.crosslayer import fa
 from capellambse.model.layers import ctx, la, oa, pa

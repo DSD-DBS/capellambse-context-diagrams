@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import logging
 
-from capellambse import aird
+from capellambse import aird, diagram
 from capellambse.model import common
 
 from . import _elkjs, collectors, context
@@ -32,26 +32,26 @@ Elk types can be one of the following types:
 
 class DiagramSerializer:
     """Serialize an ``elk_diagram`` into an
-    [`aird.Diagram`][capellambse.aird.diagram.Diagram].
+    [`diagram.Diagram`][capellambse.diagram.Diagram].
 
     Attributes
     ----------
     model
         The [`MelodyModel`][capellambse.model.MelodyModel] instance.
     aird_diagram
-        The created [`aird.Diagram`][capellambse.aird.diagram.Diagram]
+        The created [`diagram.Diagram`][capellambse.diagram.Diagram]
         instance.
     """
 
-    aird_diagram: aird.Diagram
+    aird_diagram: diagram.Diagram
 
     def __init__(self, elk_diagram: context.ContextDiagram) -> None:
         self.model = elk_diagram.target._model
         self._diagram = elk_diagram
-        self._cache: dict[str, aird.Box] = {}
+        self._cache: dict[str, diagram.Box] = {}
 
-    def make_diagram(self, data: _elkjs.ELKOutputData) -> aird.Diagram:
-        """Transform a layouted diagram into an `aird.Diagram`.
+    def make_diagram(self, data: _elkjs.ELKOutputData) -> diagram.Diagram:
+        """Transform a layouted diagram into an `diagram.Diagram`.
 
         Parameters
         ----------
@@ -61,14 +61,14 @@ class DiagramSerializer:
         Returns
         -------
         diagram
-            A [`aird.Diagram`][capellambse.aird.diagram.Diagram] constructed
+            A [`diagram.Diagram`][capellambse.diagram.Diagram] constructed
             from the input data.
         """
-        self.aird_diagram = aird.Diagram(
+        self.aird_diagram = diagram.Diagram(
             self._diagram.name, styleclass=self._diagram.styleclass
         )
         for child in data["children"]:
-            self.deserialize_child(child, aird.Vector2D(), None)
+            self.deserialize_child(child, diagram.Vector2D(), None)
 
         self.aird_diagram.calculate_viewport()
         return self.aird_diagram
@@ -76,34 +76,34 @@ class DiagramSerializer:
     def deserialize_child(
         self,
         child: _elkjs.ELKOutputChild,
-        ref: aird.Vector2D,
-        parent: aird.Box | aird.Edge | None,
+        ref: diagram.Vector2D,
+        parent: diagram.Box | diagram.Edge | None,
     ) -> None:
         """Converts a `child` into aird elements and adds it to the
         diagram.
 
         Parameters
         ----------
-        child : _elkjs.ELKOutputChild
+        child
             The child to deserialize.
-        ref : aird.Vector2D
+        ref
             The reference point of the child.
-        parent : aird.Box | aird.Edge | None
+        parent
             The parent of the child. This is either a box or an edge.
 
         See Also
         --------
-        [`aird.Box`][capellambse.aird.diagram.Box] : Box class type.
-        [`aird.Edge`][capellambse.aird.diagram.Edge] : Edge class type.
-        [`aird.Circle`][capellambse.aird.diagram.Circle] : Circle class
+        [`diagram.Box`][capellambse.diagram.Box] : Box class type.
+        [`diagram.Edge`][capellambse.diagram.Edge] : Edge class type.
+        [`diagram.Circle`][capellambse.diagram.Circle] : Circle class
             type.
-        [`aird.Diagram`][capellambse.aird.diagram.Diagram] : Diagram
+        [`diagram.Diagram`][capellambse.diagram.Diagram] : Diagram
             class type that stores all previously named classes.
         """
         styleclass: str | None = self.get_styleclass(child["id"])
-        element: aird.Box | aird.Edge
+        element: diagram.Box | diagram.Edge
         if child["type"] in {"node", "port"}:
-            assert parent is None or isinstance(parent, aird.Box)
+            assert parent is None or isinstance(parent, diagram.Box)
             has_symbol_cls = False
             try:
                 obj = self.model.by_uuid(child["id"])
@@ -123,7 +123,7 @@ class DiagramSerializer:
 
             ref += (child["position"]["x"], child["position"]["y"])  # type: ignore
             size = (child["size"]["width"], child["size"]["height"])  # type: ignore
-            element = aird.Box(
+            element = diagram.Box(
                 ref,
                 size,
                 uuid=child["id"],
@@ -136,7 +136,7 @@ class DiagramSerializer:
             self.aird_diagram.add_element(element)
             self._cache[child["id"]] = element
         elif child["type"] == "edge":
-            element = aird.Edge(
+            element = diagram.Edge(
                 [
                     ref + (point["x"], point["y"])
                     for point in child["routingPoints"]
@@ -151,20 +151,20 @@ class DiagramSerializer:
             self._cache[child["id"]] = element
         elif child["type"] == "label":
             assert parent is not None
-            if isinstance(parent, aird.Box) and not parent.port:
+            if isinstance(parent, diagram.Box) and not parent.port:
                 if parent.JSON_TYPE != "symbol":
                     parent.label = child["text"]
                 else:
-                    parent.label = aird.Box(
+                    parent.label = diagram.Box(
                         ref + (child["position"]["x"], child["position"]["y"]),
                         (child["size"]["width"], child["size"]["height"]),
                         label=child["text"],
                         # parent=parent,
                     )
             else:
-                assert isinstance(parent, aird.Edge)
+                assert isinstance(parent, diagram.Edge)
                 parent.labels = [
-                    aird.Box(
+                    diagram.Box(
                         ref + (child["position"]["x"], child["position"]["y"]),
                         (child["size"]["width"], child["size"]["height"]),
                         label=child["text"],
@@ -175,8 +175,8 @@ class DiagramSerializer:
             element = parent
         elif child["type"] == "junction":
             uuid = child["id"].split("_", maxsplit=1)[0]
-            element = aird.Circle(
-                aird.Vector2D(**child["position"]),
+            element = diagram.Circle(
+                diagram.Vector2D(**child["position"]),
                 5,
                 uuid=child["id"],
                 styleclass=self.get_styleclass(uuid),
@@ -204,7 +204,7 @@ class DiagramSerializer:
 
     def get_styleoverrides(
         self, child: _elkjs.ELKOutputChild
-    ) -> aird.diagram.StyleOverrides | None:
+    ) -> diagram.StyleOverrides | None:
         """Return
         [`styling.CSSStyles`][capellambse_context_diagrams.styling.CSSStyles]
         from a given
@@ -226,7 +226,7 @@ def get_styleclass(obj: common.GenericElement) -> str:
     """Return the styleclass for a given `obj`."""
     styleclass = obj.__class__.__name__
     styleclass = (
-        aird._semantic.STYLECLASS_LOOKUP.get(styleclass, (styleclass, None))[0]
+        aird.STYLECLASS_LOOKUP.get(styleclass, (styleclass, None))[0]
         or styleclass
     )
     if styleclass.endswith("Component"):

@@ -5,10 +5,11 @@ from __future__ import annotations
 
 import typing as t
 
-from capellambse import aird
+from capellambse import diagram
+from capellambse.diagram import capstyle
 from capellambse.model import common
 
-CSSStyles = t.Union[aird.diagram.StyleOverrides, None]
+CSSStyles = t.Union[diagram.StyleOverrides, None]
 """
 A dictionary with CSS styles. The keys are the attribute names and the
 values can be of the types `str`, `aird.RGB` and even
@@ -21,7 +22,7 @@ See also
 [parent_is_actor_fills_blue][capellambse_context_diagrams.styling.parent_is_actor_fills_blue]
 """
 Styler = t.Callable[
-    [common.GenericElement], t.Union[aird.diagram.StyleOverrides, None]
+    [common.GenericElement], t.Union[diagram.StyleOverrides, None]
 ]
 """Function that produces `CSSStyles` for given obj."""
 
@@ -34,10 +35,10 @@ def parent_is_actor_fills_blue(obj: common.GenericElement) -> CSSStyles:
         if obj.owner.is_actor:
             return {
                 "fill": [
-                    aird.capstyle.COLORS["_CAP_Actor_Blue_min"],
-                    aird.capstyle.COLORS["_CAP_Actor_Blue"],
+                    capstyle.COLORS["_CAP_Actor_Blue_min"],
+                    capstyle.COLORS["_CAP_Actor_Blue"],
                 ],
-                "stroke": aird.capstyle.COLORS["_CAP_Actor_Border_Blue"],
+                "stroke": capstyle.COLORS["_CAP_Actor_Border_Blue"],
             }
     except AttributeError:
         pass

@@ -11,8 +11,7 @@ from __future__ import annotations
 
 import logging
 
-from capellambse import aird, diagram
-from capellambse.model import common
+from capellambse import diagram
 
 from . import _elkjs, collectors, context
 
@@ -38,12 +37,12 @@ class DiagramSerializer:
     ----------
     model
         The [`MelodyModel`][capellambse.model.MelodyModel] instance.
-    aird_diagram
+    diagram
         The created [`diagram.Diagram`][capellambse.diagram.Diagram]
         instance.
     """
 
-    aird_diagram: diagram.Diagram
+    diagram: diagram.Diagram
 
     def __init__(self, elk_diagram: context.ContextDiagram) -> None:
         self.model = elk_diagram.target._model
@@ -64,14 +63,14 @@ class DiagramSerializer:
             A [`diagram.Diagram`][capellambse.diagram.Diagram] constructed
             from the input data.
         """
-        self.aird_diagram = diagram.Diagram(
+        self.diagram = diagram.Diagram(
             self._diagram.name, styleclass=self._diagram.styleclass
         )
         for child in data["children"]:
             self.deserialize_child(child, diagram.Vector2D(), None)
 
-        self.aird_diagram.calculate_viewport()
-        return self.aird_diagram
+        self.diagram.calculate_viewport()
+        return self.diagram
 
     def deserialize_child(
         self,
@@ -133,7 +132,7 @@ class DiagramSerializer:
                 styleoverrides=self.get_styleoverrides(child),
             )
             element.JSON_TYPE = box_type
-            self.aird_diagram.add_element(element)
+            self.diagram.add_element(element)
             self._cache[child["id"]] = element
         elif child["type"] == "edge":
             element = diagram.Edge(
@@ -142,12 +141,12 @@ class DiagramSerializer:
                     for point in child["routingPoints"]
                 ],
                 uuid=child["id"],
-                source=self.aird_diagram[child["sourceId"]],
-                target=self.aird_diagram[child["targetId"]],
+                source=self.diagram[child["sourceId"]],
+                target=self.diagram[child["targetId"]],
                 styleclass=styleclass,
                 styleoverrides=self.get_styleoverrides(child),
             )
-            self.aird_diagram.add_element(element)
+            self.diagram.add_element(element)
             self._cache[child["id"]] = element
         elif child["type"] == "label":
             assert parent is not None
@@ -182,7 +181,7 @@ class DiagramSerializer:
                 styleclass=self.get_styleclass(uuid),
                 styleoverrides=self.get_styleoverrides(child),
             )
-            self.aird_diagram.add_element(element)
+            self.diagram.add_element(element)
         else:
             logger.warning("Received unknown type %s", child["type"])
             return
@@ -197,7 +196,7 @@ class DiagramSerializer:
         styleclass: str | None
         try:
             melodyobj = self._diagram._model.by_uuid(uuid)
-            styleclass = get_styleclass(melodyobj)
+            styleclass = diagram.get_styleclass(melodyobj)
         except KeyError:
             styleclass = None
         return styleclass
@@ -220,27 +219,3 @@ class DiagramSerializer:
 
             styleoverrides = style_condition(obj)
         return styleoverrides
-
-
-def get_styleclass(obj: common.GenericElement) -> str:
-    """Return the styleclass for a given `obj`."""
-    styleclass = obj.__class__.__name__
-    styleclass = (
-        aird._semantic.STYLECLASS_LOOKUP.get(styleclass, (styleclass, None))[0]
-        or styleclass
-    )
-    if styleclass.endswith("Component"):
-        styleclass = "".join(
-            (
-                styleclass[: -len("Component")],
-                "Human" * obj.is_human,
-                obj.nature.name.capitalize() if hasattr(obj, "nature") else "",
-                ("Component", "Actor")[obj.is_actor],
-            )
-        )
-    elif styleclass == "CP":
-        try:
-            styleclass += f'_{obj._element.attrib["orientation"]}'
-        except KeyError:
-            styleclass = "CP_UNSET"
-    return styleclass

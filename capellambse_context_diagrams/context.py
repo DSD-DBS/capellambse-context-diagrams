@@ -141,11 +141,11 @@ class ContextDiagram(diagram.AbstractDiagram):
         symbol in the middle of the diagram, and instead keeps the
         symbol small and only enlarges the surrounding box.
     serializer
-        The serializer builds an `diagram.Diagram` via
+        The serializer builds a `diagram.Diagram` via
         [`serializers.DiagramSerializer.make_diagram`][capellambse_context_diagrams.serializers.DiagramSerializer.make_diagram]
         by converting every
         [`_elkjs.ELKOutputChild`][capellambse_context_diagrams._elkjs.ELKOutputChild]
-        into an `diagram.Box`, `diagram.Edge` or `diagram.Circle`.
+        into a `diagram.Box`, `diagram.Edge` or `diagram.Circle`.
     filters
         A list of filter names that are applied during collection of
         context. Currently this is only done in

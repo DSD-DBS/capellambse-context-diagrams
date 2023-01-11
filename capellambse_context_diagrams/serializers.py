@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
-"""This submodule provides a serializer that transform data from an ELK-
+"""This submodule provides a serializer that transforms data from an ELK-
 layouted diagram [_elkjs.ELKOutputData][capellambse_context_diagrams._elkjs.ELKOutputData]
 according to [_elkjs.ELKInputData][capellambse_context_diagrams._elkjs.ELKInputData].
 The pre-layouted data was collected with the functions from
@@ -226,7 +226,7 @@ def get_styleclass(obj: common.GenericElement) -> str:
     """Return the styleclass for a given `obj`."""
     styleclass = obj.__class__.__name__
     styleclass = (
-        aird.STYLECLASS_LOOKUP.get(styleclass, (styleclass, None))[0]
+        aird._semantic.STYLECLASS_LOOKUP.get(styleclass, (styleclass, None))[0]
         or styleclass
     )
     if styleclass.endswith("Component"):

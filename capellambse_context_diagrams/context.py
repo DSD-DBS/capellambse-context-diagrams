@@ -11,8 +11,7 @@ import json
 import logging
 import typing as t
 
-from capellambse import aird
-from capellambse import diagram as aird_diagram
+from capellambse import diagram as cdiagram
 from capellambse.model import common, diagram, modeltypes
 
 from . import _elkjs, filters, serializers, styling
@@ -192,7 +191,7 @@ class ContextDiagram(diagram.AbstractDiagram):
     def nodes(self) -> common.MixedElementList:
         """Return a list of all nodes visible in this diagram."""
         adiagram = self.render(None)
-        assert isinstance(adiagram, aird_diagram.Diagram)
+        assert isinstance(adiagram, cdiagram.Diagram)
         allids = {e.uuid for e in iter(adiagram)}
         assert None not in allids
         elems = []
@@ -249,7 +248,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         self,
         params: dict[str, t.Any],
         elkdata: _elkjs.ELKInputData | None = None,
-    ) -> aird_diagram.Diagram:
+    ) -> cdiagram.Diagram:
         try:
             data = elkdata or get_elkdata(self, params)
             layout = _elkjs.call_elkjs(data)
@@ -284,7 +283,7 @@ class InterfaceContextDiagram(ContextDiagram):
         self,
         params: dict[str, t.Any],
         elkdata: _elkjs.ELKInputData | None = None,
-    ) -> aird_diagram.Diagram:
+    ) -> cdiagram.Diagram:
         return super()._create_diagram(
             params,
             elkdata
@@ -307,7 +306,7 @@ class FunctionalContextDiagram(ContextDiagram):
         self,
         params: dict[str, t.Any],
         elkdata: _elkjs.ELKInputData | None = None,
-    ) -> aird_diagram.Diagram:
+    ) -> cdiagram.Diagram:
         return super()._create_diagram(
             params,
             elkdata

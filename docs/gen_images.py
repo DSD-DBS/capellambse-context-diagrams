@@ -7,7 +7,7 @@ import logging
 import pathlib
 
 import mkdocs_gen_files
-from capellambse import MelodyModel, aird
+from capellambse import MelodyModel, diagram
 
 from capellambse_context_diagrams import context, filters, styling
 
@@ -98,7 +98,7 @@ generate_styling_image(
     lost,
     dict(
         styling.BLUE_ACTOR_FNCS,
-        **{"junction": lambda _: {"fill": aird.RGB(220, 20, 60)}},  # type: ignore
+        **{"junction": lambda _: {"fill": diagram.RGB(220, 20, 60)}},  # type: ignore
     ),
     "red junction",
 )

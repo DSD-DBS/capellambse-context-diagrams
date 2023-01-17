@@ -7,7 +7,7 @@ import re
 import typing as t
 
 import pytest
-from capellambse import MelodyModel, aird
+from capellambse import MelodyModel, diagram
 from capellambse.model import crosslayer
 
 from capellambse_context_diagrams import context, filters
@@ -35,7 +35,7 @@ def test_uuid_filter(model: MelodyModel, label: str, expected: str) -> None:
 
 def start_filter_apply_test(
     model: MelodyModel, filter_name: str, **render_params: t.Any
-) -> tuple[list[crosslayer.fa.FunctionalExchange], aird.Diagram]:
+) -> tuple[list[crosslayer.fa.FunctionalExchange], diagram.Diagram]:
     """StartUp for every filter test case."""
     obj = model.by_uuid("a5642060-c9cc-4d49-af09-defaa3024bae")
     diag: context.ContextDiagram = obj.context_diagram
@@ -48,14 +48,14 @@ def start_filter_apply_test(
     return edges, diag.render(None, **render_params)
 
 
-def get_ExchangeItems(edge: aird.Edge) -> list[str]:
+def get_ExchangeItems(edge: diagram.Edge) -> list[str]:
     assert isinstance(edge.labels[0].label, str)
     match = EX_PTRN.match(edge.labels[0].label)
     assert match is not None
     return match.group(1).split(", ")
 
 
-def has_sorted_ExchangeItems(edge: aird.Edge) -> bool:
+def has_sorted_ExchangeItems(edge: diagram.Edge) -> bool:
     exitems = get_ExchangeItems(edge)
     return exitems == sorted(exitems)
 
@@ -67,7 +67,7 @@ def test_EX_ITEMS_is_applied(model: MelodyModel) -> None:
         aedge = aird_diag[edge.uuid]
         expected = (ex.name for ex in edge.exchange_items)
 
-        assert isinstance(aedge, aird.Edge)
+        assert isinstance(aedge, diagram.Edge)
         if aedge.labels:
             assert get_ExchangeItems(aedge) == list(expected)
 
@@ -83,7 +83,7 @@ def test_context_diagrams_ExchangeItems_sorting(
     all_sorted = True
     for edge in edges:
         aedge = aird_diag[edge.uuid]
-        assert isinstance(aedge, aird.Edge)
+        assert isinstance(aedge, diagram.Edge)
         if aedge.labels and not has_sorted_ExchangeItems(aedge):
             all_sorted = False
             break
@@ -103,7 +103,7 @@ def test_context_diagrams_FEX_EX_ITEMS_is_applied(
         if eitems:
             expected_label += f" [{eitems}]"
 
-        assert isinstance(aedge, aird.Edge)
+        assert isinstance(aedge, diagram.Edge)
         assert len(aedge.labels) == 1
         assert isinstance(aedge.labels[0].label, str)
         assert aedge.labels[0].label == expected_label
@@ -117,7 +117,7 @@ def test_context_diagrams_FEX_OR_EX_ITEMS_is_applied(
     for edge in edges:
         aedge = aird_diag[edge.uuid]
 
-        assert isinstance(aedge, aird.Edge)
+        assert isinstance(aedge, diagram.Edge)
 
         label = aedge.labels[0].label
         if edge.exchange_items:
@@ -140,7 +140,7 @@ def test_context_diagrams_NO_UUID_is_applied(model: MelodyModel) -> None:
     aird_diag = diag.render(None)
     aedge = aird_diag[CAP_EXPLOIT]
 
-    assert isinstance(aedge, aird.Edge)
+    assert isinstance(aedge, diagram.Edge)
     assert aedge.labels[0].label == "[CapabilityExploitation] to Capability"
 
 
@@ -153,5 +153,5 @@ def test_context_diagrams_no_edgelabels_render_param_is_applied(
     adiag = diag.render(None, no_edgelabels=True)
 
     for aedge in adiag:
-        if isinstance(aedge, aird.Edge):
+        if isinstance(aedge, diagram.Edge):
             assert not aedge.labels

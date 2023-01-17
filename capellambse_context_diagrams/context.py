@@ -11,7 +11,7 @@ import json
 import logging
 import typing as t
 
-from capellambse import aird
+from capellambse import diagram as cdiagram
 from capellambse.model import common, diagram, modeltypes
 
 from . import _elkjs, filters, serializers, styling
@@ -140,11 +140,11 @@ class ContextDiagram(diagram.AbstractDiagram):
         symbol in the middle of the diagram, and instead keeps the
         symbol small and only enlarges the surrounding box.
     serializer
-        The serializer builds an `aird.Diagram` via
+        The serializer builds a `diagram.Diagram` via
         [`serializers.DiagramSerializer.make_diagram`][capellambse_context_diagrams.serializers.DiagramSerializer.make_diagram]
         by converting every
         [`_elkjs.ELKOutputChild`][capellambse_context_diagrams._elkjs.ELKOutputChild]
-        into an `aird.Box`, `aird.Edge` or `aird.Circle`.
+        into a `diagram.Box`, `diagram.Edge` or `diagram.Circle`.
     filters
         A list of filter names that are applied during collection of
         context. Currently this is only done in
@@ -191,7 +191,7 @@ class ContextDiagram(diagram.AbstractDiagram):
     def nodes(self) -> common.MixedElementList:
         """Return a list of all nodes visible in this diagram."""
         adiagram = self.render(None)
-        assert isinstance(adiagram, aird.Diagram)
+        assert isinstance(adiagram, cdiagram.Diagram)
         allids = {e.uuid for e in iter(adiagram)}
         assert None not in allids
         elems = []
@@ -248,7 +248,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         self,
         params: dict[str, t.Any],
         elkdata: _elkjs.ELKInputData | None = None,
-    ) -> aird.Diagram:
+    ) -> cdiagram.Diagram:
         try:
             data = elkdata or get_elkdata(self, params)
             layout = _elkjs.call_elkjs(data)
@@ -283,7 +283,7 @@ class InterfaceContextDiagram(ContextDiagram):
         self,
         params: dict[str, t.Any],
         elkdata: _elkjs.ELKInputData | None = None,
-    ) -> aird.Diagram:
+    ) -> cdiagram.Diagram:
         return super()._create_diagram(
             params,
             elkdata
@@ -306,7 +306,7 @@ class FunctionalContextDiagram(ContextDiagram):
         self,
         params: dict[str, t.Any],
         elkdata: _elkjs.ELKInputData | None = None,
-    ) -> aird.Diagram:
+    ) -> cdiagram.Diagram:
         return super()._create_diagram(
             params,
             elkdata

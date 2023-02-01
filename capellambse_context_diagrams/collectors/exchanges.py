@@ -94,7 +94,7 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
         exchanges: t.Sequence[_elkjs.ELKInputEdge],
     ) -> None:
         """Adjust size of functions and make ports."""
-        stack_height = -makers.NEIGHBOR_VMARGIN
+        stack_height: int | float = -makers.NEIGHBOR_VMARGIN
         for child in data["children"]:
             inputs, outputs = [], []
             obj = self.obj._model.by_uuid(child["id"])

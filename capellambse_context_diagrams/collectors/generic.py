@@ -126,7 +126,7 @@ def exchange_data_collector(
                 name,
             )
 
-    data.elkdata["edges"].append(
+    data.elkdata.setdefault("edges", []).append(
         {
             "id": render_adj.get("id", data.exchange.uuid),
             "sources": [render_adj.get("sources", source.uuid)],

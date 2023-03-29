@@ -14,7 +14,7 @@ from capellambse.model import common
 from capellambse.model.crosslayer import cs, fa
 
 from .. import _elkjs, context
-from . import generic, makers
+from . import generic, makers, exchanges
 
 
 def collector(
@@ -27,9 +27,13 @@ def collector(
     centerbox["ports"] = [makers.make_port(i.uuid) for i in ports]
     connections = port_exchange_collector(ports)
     for ex in connections:
+        if exchanges.is_hierarchical(ex, centerbox):
+            ex_data: _elkjs.ELKInputData = centerbox
+        else:
+            ex_data = data
         try:
             generic.exchange_data_collector(
-                generic.ExchangeData(ex, data, diagram.filters, params)
+                generic.ExchangeData(ex, ex_data, diagram.filters, params)
             )
         except AttributeError:
             continue
@@ -38,7 +42,8 @@ def collector(
         "input": -makers.NEIGHBOR_VMARGIN,
         "output": -makers.NEIGHBOR_VMARGIN,
     }
-    made_boxes = {centerbox["id"]: centerbox}
+    global_boxes = {centerbox["id"]: centerbox}
+    child_boxes = list[_elkjs.ELKInputChild]()
     for i, local_ports, side in port_context_collector(connections, ports):
         _, label_height = helpers.get_text_extent(i.name)
         height = max(
@@ -46,7 +51,7 @@ def collector(
             makers.PORT_PADDING
             + (makers.PORT_SIZE + makers.PORT_PADDING) * len(local_ports),
         )
-        if box := made_boxes.get(i.uuid):
+        if box := global_boxes.get(i.uuid):
             if box is centerbox:
                 continue
             box["ports"].extend(
@@ -56,12 +61,18 @@ def collector(
         else:
             box = makers.make_box(i, height=height)
             box["ports"] = [makers.make_port(j.uuid) for j in local_ports]
-            made_boxes[i.uuid] = box
+            if i.parent.uuid == centerbox["id"]:
+                child_boxes.append(box)
+            else:
+                global_boxes[i.uuid] = box
 
         stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
 
-    del made_boxes[centerbox["id"]]
-    data["children"].extend(made_boxes.values())
+    del global_boxes[centerbox["id"]]
+    data["children"].extend(global_boxes.values())
+    if child_boxes:
+        centerbox["children"] = child_boxes
+
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
     return data
 

@@ -72,18 +72,15 @@ class ELKInputData(te.TypedDict):
     """Data that can be fed to ELK."""
 
     id: str
-    layoutOptions: cabc.MutableMapping[str, t.Union[str, int, float]]
+    layoutOptions: te.NotRequired[
+        cabc.MutableMapping[str, t.Union[str, int, float]]
+    ]
     children: cabc.MutableSequence[ELKInputChild]  # type: ignore
     edges: cabc.MutableSequence[ELKInputEdge]
 
 
-class ELKInputChild(te.TypedDict, total=False):
+class ELKInputChild(ELKInputData, total=False):
     """Children of either `ELKInputData` or `ELKInputChild`."""
-
-    id: te.Required[str]
-    layoutOptions: cabc.MutableMapping[str, t.Union[str, int, float]]
-    children: cabc.MutableSequence[ELKInputChild]  # type: ignore
-    edges: cabc.MutableSequence[ELKInputEdge]
 
     labels: te.NotRequired[cabc.MutableSequence[ELKInputLabel]]
     ports: cabc.MutableSequence[ELKInputPort]

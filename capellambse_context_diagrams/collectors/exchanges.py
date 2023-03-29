@@ -299,3 +299,18 @@ class FunctionalContextCollector(ExchangeCollector):
             )
 
         return self.data["edges"]
+
+
+def is_hierarchical(
+    ex: common.GenericElement,
+    box: _elkjs.ELKInputChild,
+    key: t.Literal["ports"] | t.Literal["children"] = "ports",
+) -> bool:
+    """Check if the exchange is hierarchical (nested) inside ``box``."""
+    src, trg = generic.collect_exchange_endpoints(ex)
+    objs = {o["id"] for o in box[key]}
+    attr_map = {"children": "parent.uuid", "ports": "parent.parent.uuid"}
+    attr_getter = operator.attrgetter(attr_map[key])
+    source_contained = src.uuid in objs or attr_getter(src) == box["id"]
+    target_contained = trg.uuid in objs or attr_getter(trg) == box["id"]
+    return source_contained and target_contained

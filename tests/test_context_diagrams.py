@@ -4,7 +4,6 @@
 import pathlib
 
 import capellambse
-from capellambse import diagram
 import pytest
 
 TEST_CAP_SIZING_UUID = "b996a45f-2954-4fdd-9141-7934e7687de6"

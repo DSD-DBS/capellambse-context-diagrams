@@ -14,7 +14,7 @@ from capellambse.model import common
 from capellambse.model.crosslayer import cs, fa
 
 from .. import _elkjs, context
-from . import generic, makers, exchanges
+from . import exchanges, generic, makers
 
 
 def collector(
@@ -26,15 +26,18 @@ def collector(
     centerbox = data["children"][0]
     centerbox["ports"] = [makers.make_port(i.uuid) for i in ports]
     connections = port_exchange_collector(ports)
+    ex_datas = list[generic.ExchangeData]()
     for ex in connections:
-        if exchanges.is_hierarchical(ex, centerbox):
-            ex_data: _elkjs.ELKInputData = centerbox
+        if is_hierarchical := exchanges.is_hierarchical(ex, centerbox):
+            elkdata: _elkjs.ELKInputData = centerbox
         else:
-            ex_data = data
+            elkdata = data
         try:
-            generic.exchange_data_collector(
-                generic.ExchangeData(ex, ex_data, diagram.filters, params)
+            ex_data = generic.ExchangeData(
+                ex, elkdata, diagram.filters, params, is_hierarchical
             )
+            generic.exchange_data_collector(ex_data)
+            ex_datas.append(ex_data)
         except AttributeError:
             continue
 
@@ -44,7 +47,7 @@ def collector(
     }
     global_boxes = {centerbox["id"]: centerbox}
     child_boxes = list[_elkjs.ELKInputChild]()
-    for i, local_ports, side in port_context_collector(connections, ports):
+    for i, local_ports, side in port_context_collector(ex_datas, ports):
         _, label_height = helpers.get_text_extent(i.name)
         height = max(
             label_height + 2 * makers.LABEL_VPAD,
@@ -110,13 +113,13 @@ def port_exchange_collector(
     ports: t.Iterable[common.GenericElement],
 ) -> list[common.GenericElement]:
     """Collect exchanges from `ports` savely."""
-    exchanges: list[common.GenericElement] = []
+    edges: list[common.GenericElement] = []
     for i in ports:
         try:
-            exchanges.extend(getattr(i, "exchanges"))
+            edges.extend(getattr(i, "exchanges"))
         except AttributeError:
             pass
-    return exchanges
+    return edges
 
 
 class ContextInfo(t.NamedTuple):
@@ -135,19 +138,19 @@ class ContextInfo(t.NamedTuple):
 
 
 def port_context_collector(
-    exchanges: t.Iterable[common.GenericElement],
+    exchange_datas: t.Iterable[generic.ExchangeData],
     local_ports: t.Container[common.GenericElement],
 ) -> t.Iterator[ContextInfo]:
     """Collect the context objects.
 
     Parameters
     ----------
-    exchanges
-        The exchanges to look at to find new elements.
+    exchange_datas
+        The ``ExchangeData``s to look at to find new elements.
     local_ports
-        Connectors/Ports lookup where `exchanges` is checked against.
-        If an exchange connects via a port from `local_ports` it is
-        collected.
+        Connectors/Ports lookup where ``exchange_datas`` is checked
+        against. If an exchange connects via a port from ``local_ports``
+        it is collected.
 
     Returns
     -------
@@ -158,9 +161,9 @@ def port_context_collector(
 
     ctx: dict[str, ContextInfo] = {}
     side: t.Literal["input", "output"]
-    for exchange in exchanges:
+    for exd in exchange_datas:
         try:
-            source, target = generic.collect_exchange_endpoints(exchange)
+            source, target = generic.collect_exchange_endpoints(exd)
         except AttributeError:
             continue
 

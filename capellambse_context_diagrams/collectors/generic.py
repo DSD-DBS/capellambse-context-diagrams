@@ -49,10 +49,14 @@ def collector(
 
 
 def collect_exchange_endpoints(
-    e: common.GenericElement,
-) -> tuple[common.GenericElement, common.GenericElement]:
-    """Safely collect exchange endpoints from `e`."""
-    return e.source, e.target
+    ex: ExchangeData | common.GenericElement,
+) -> SourceAndTarget:
+    """Safely collect exchange endpoints from ``ex``."""
+    if isinstance(ex, ExchangeData):
+        if ex.is_hierarchical:
+            return ex.exchange.target, ex.exchange.source
+        return ex.exchange.source, ex.exchange.target
+    return ex.source, ex.target
 
 
 class ExchangeData(t.NamedTuple):
@@ -70,6 +74,8 @@ class ExchangeData(t.NamedTuple):
     """
     params: dict[str, t.Any] | None = None
     """Optional dictionary of additional render params."""
+    is_hierarchical: bool = False
+    """True if exchange isn't global, i.e. nested inside a box."""
 
 
 def exchange_data_collector(
@@ -77,7 +83,7 @@ def exchange_data_collector(
     endpoint_collector: cabc.Callable[
         [common.GenericElement], SourceAndTarget
     ] = collect_exchange_endpoints,
-) -> tuple[common.GenericElement, common.GenericElement]:
+) -> SourceAndTarget:
     """Return source and target port from `exchange`.
 
     Additionally inflate `elkdata["children"]` with input data for ELK.
@@ -100,6 +106,9 @@ def exchange_data_collector(
         A tuple consisting of the exchange's source and target elements.
     """
     source, target = endpoint_collector(data.exchange)
+    if data.is_hierarchical:
+        target, source = source, target
+
     label = collect_label(data.exchange)
     for filter in data.filter_iterable:
         try:

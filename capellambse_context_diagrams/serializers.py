@@ -222,7 +222,10 @@ class DiagramSerializer:
         return styleoverrides
 
     def order_children(self) -> None:
-        new_diagram = diagram.Diagram(self.diagram.name, styleclass=self.diagram.styleclass) 
+        """Reorder diagram elements such that symbols are drawn last."""
+        new_diagram = diagram.Diagram(
+            self.diagram.name, styleclass=self.diagram.styleclass
+        )
         draw_last = list[diagram.DiagramElement]()
         for element in self.diagram:
             if element.JSON_TYPE in {"symbol", "circle"}:

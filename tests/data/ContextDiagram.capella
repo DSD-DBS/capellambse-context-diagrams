@@ -3447,7 +3447,7 @@ The predator is far away</bodies>
                 kind="FLOW"/>
           </ownedLogicalComponents>
           <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
-              id="16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb" name="Middle">
+              id="16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb" name="Hierarchy">
             <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
                 id="4a8f4058-3ef1-4e76-8c0f-41d45ed8f669" name="i1" source="#5d162922-7b14-4671-81ed-8fd2a240ae13"
                 target="#4f111d67-92a8-4a39-845e-a0662401c889" kind="FLOW"/>

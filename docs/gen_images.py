@@ -26,6 +26,7 @@ general_context_diagram_uuids = {
     "educate Wizards": "957c5799-1d4a-4ac0-b5de-33a65bf1519c",
     "Weird guy": "098810d9-0325-4ae8-a111-82202c0d2016",
     "Top secret": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+    "Hierarchy": "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb",
 }
 interface_context_diagram_uuids = {
     "Left to right": "3ef23099-ce9a-4f7d-812f-935f47e7938d",

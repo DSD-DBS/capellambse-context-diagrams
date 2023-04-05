@@ -70,6 +70,7 @@ class DiagramSerializer:
             self.deserialize_child(child, diagram.Vector2D(), None)
 
         self.diagram.calculate_viewport()
+        self.order_children()
         return self.diagram
 
     def deserialize_child(
@@ -219,3 +220,17 @@ class DiagramSerializer:
 
             styleoverrides = style_condition(obj)
         return styleoverrides
+
+    def order_children(self) -> None:
+        new_diagram = diagram.Diagram(self.diagram.name, styleclass=self.diagram.styleclass) 
+        draw_last = list[diagram.DiagramElement]()
+        for element in self.diagram:
+            if element.JSON_TYPE in {"symbol", "circle"}:
+                draw_last.append(element)
+            else:
+                new_diagram.add_element(element)
+
+        for element in draw_last:
+            new_diagram.add_element(element)
+
+        self.diagram = new_diagram

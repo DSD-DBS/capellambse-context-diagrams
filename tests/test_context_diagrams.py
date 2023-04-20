@@ -9,6 +9,7 @@ import pytest
 TEST_CAP_SIZING_UUID = "b996a45f-2954-4fdd-9141-7934e7687de6"
 TEST_HUMAN_ACTOR_SIZING_UUID = "e95847ae-40bb-459e-8104-7209e86ea2d1"
 TEST_ACTOR_SIZING_UUID = "6c8f32bf-0316-477f-a23b-b5239624c28d"
+TEST_HIERARCHY_UUID = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
 
 
 @pytest.mark.parametrize(
@@ -123,3 +124,18 @@ def test_context_diagrams_symbol_sizing(
     assert adiag[TEST_CAP_SIZING_UUID].size.y >= 92
     assert adiag[TEST_HUMAN_ACTOR_SIZING_UUID].size.y >= 57
     assert adiag[TEST_ACTOR_SIZING_UUID].size.y >= 37
+
+
+def test_hierarchy_in_context_diagram(model: capellambse.MelodyModel) -> None:
+    obj = model.by_uuid(TEST_HIERARCHY_UUID)
+    expected_children = {
+        "31bc2326-5a55-45f9-9967-f1957bcd3f89",
+        "ad0bdf2f-bd0e-48bc-9296-5be3371a76e2",
+    }
+
+    adiag = obj.context_diagram.render(None)
+
+    children = {obj.uuid for obj in adiag[TEST_HIERARCHY_UUID].children}
+
+    for uuid in expected_children:
+        assert uuid in children

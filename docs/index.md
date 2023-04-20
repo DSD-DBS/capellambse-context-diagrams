@@ -153,6 +153,19 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
 * [`pa.PhysicalComponent`][capellambse.model.layers.pa.PhysicalComponent] (PAB)
 * [`pa.PhysicalFunction`][capellambse.model.layers.pa.PhysicalFunction] (PDFB)
 
+#### Hierarchy in diagrams
+
+Hierarchical diagrams are diagrams where boxes have child boxes and edges
+contained. These form subdiagrams which can be layouted via ELK again.
+Hierarchy is identified and supported:
+
+??? example "Hierarchical diagram"
+
+        <figure markdown>
+            <img src="assets/images/Context of Hierarchy.svg" width="1000000">
+            <figcaption>Context diagram of Hierarchy LogicalComponenet with type [LAB]</figcaption>
+        </figure>
+
 ### Interfaces (aka ComponentExchanges)
 
 The data is collected by [get_elkdata_for_exchanges][capellambse_context_diagrams.collectors.exchanges.get_elkdata_for_exchanges] which is using the [`InterfaceContextCollector`][capellambse_context_diagrams.collectors.exchanges.InterfaceContextCollector] underneath.

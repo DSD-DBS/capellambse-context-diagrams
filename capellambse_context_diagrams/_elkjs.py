@@ -68,24 +68,19 @@ LABEL_LAYOUT_OPTIONS = {"nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"}
 """Options for labels to configure ELK layouting."""
 
 
-class ELKInputData(te.TypedDict):
+class ELKInputData(te.TypedDict, total=False):
     """Data that can be fed to ELK."""
-
-    id: str
-    layoutOptions: cabc.MutableMapping[str, t.Union[str, int, float]]
-    children: cabc.MutableSequence[ELKInputChild]  # type: ignore
-    edges: cabc.MutableSequence[ELKInputEdge]
-
-
-class ELKInputChild(te.TypedDict, total=False):
-    """Children of either `ELKInputData` or `ELKInputChild`."""
 
     id: te.Required[str]
     layoutOptions: cabc.MutableMapping[str, t.Union[str, int, float]]
     children: cabc.MutableSequence[ELKInputChild]  # type: ignore
     edges: cabc.MutableSequence[ELKInputEdge]
 
-    labels: te.NotRequired[cabc.MutableSequence[ELKInputLabel]]
+
+class ELKInputChild(ELKInputData, total=False):
+    """Children of either `ELKInputData` or `ELKInputChild`."""
+
+    labels: cabc.MutableSequence[ELKInputLabel]
     ports: cabc.MutableSequence[ELKInputPort]
 
     width: t.Union[int, float]
@@ -108,7 +103,7 @@ class ELKInputPort(t.TypedDict):
     width: t.Union[int, float]
     height: t.Union[int, float]
 
-    layoutOptions: cabc.MutableMapping[str, t.Any]
+    layoutOptions: te.NotRequired[cabc.MutableMapping[str, t.Any]]
 
 
 class ELKInputEdge(te.TypedDict):

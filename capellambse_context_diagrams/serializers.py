@@ -175,8 +175,12 @@ class DiagramSerializer:
             element = parent
         elif child["type"] == "junction":
             uuid = child["id"].split("_", maxsplit=1)[0]
+            pos = diagram.Vector2D(**child["position"])
+            if self._is_hierarchical(uuid):
+                pos += self.diagram[self._diagram.target.uuid].pos
+
             element = diagram.Circle(
-                diagram.Vector2D(**child["position"]),
+                pos,
                 5,
                 uuid=child["id"],
                 styleclass=self.get_styleclass(uuid),
@@ -189,6 +193,18 @@ class DiagramSerializer:
 
         for i in child.get("children", []):  # type: ignore
             self.deserialize_child(i, ref, element)
+
+    def _is_hierarchical(self, uuid: str) -> bool:
+        def is_contained(obj: diagram.Box) -> bool:
+            if obj.port and obj.parent and obj.parent.parent:
+                parent = obj.parent.parent
+            else:
+                parent = obj.parent
+
+            return parent.uuid == self._diagram.target.uuid
+
+        exchange = self.diagram[uuid]
+        return is_contained(exchange.source) and is_contained(exchange.target)
 
     def get_styleclass(self, uuid: str) -> str | None:
         """Return the style-class string from a given

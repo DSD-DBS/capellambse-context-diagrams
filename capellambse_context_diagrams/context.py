@@ -24,6 +24,7 @@ class ContextAccessor(common.Accessor):
     """Provides access to the context diagrams."""
 
     def __init__(self, dgcls: str) -> None:
+        super().__init__()
         self._dgcls = dgcls
 
     @t.overload
@@ -158,6 +159,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         *,
         render_styles: dict[str, styling.Styler] | None = None,
         display_symbols_as_boxes: bool = False,
+        include_inner_objects: bool = False,
     ) -> None:
         super().__init__(obj._model)
         self.target = obj
@@ -167,6 +169,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         self.serializer = serializers.DiagramSerializer(self)
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
         self.display_symbols_as_boxes = display_symbols_as_boxes
+        self.include_inner_objects = include_inner_objects
 
     @property
     def uuid(self) -> str:  # type: ignore
@@ -244,13 +247,21 @@ class ContextDiagram(diagram.AbstractDiagram):
         def __len__(self) -> int:
             return self._set.__len__()
 
-    def _create_diagram(
-        self,
-        params: dict[str, t.Any],
-        elkdata: _elkjs.ELKInputData | None = None,
-    ) -> cdiagram.Diagram:
+    def render(self, fmt: str | None, /, **params) -> t.Any:
+        """Render the diagram in the given format."""
+        rparams = params.copy()
+        for attr, value in params.items():
+            attribute = getattr(self, attr, "NOT_FOUND")
+            if attribute not in {"NOT_FOUND", value}:
+                self.invalidate_cache()
+
+                setattr(self, attr, value)
+                del rparams[attr]
+        return super().render(fmt, **rparams)
+
+    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         try:
-            data = elkdata or get_elkdata(self, params)
+            data = params.get("elkdata") or get_elkdata(self, params)
             layout = _elkjs.call_elkjs(data)
         except json.JSONDecodeError as error:
             logger.error(json.dumps(data, indent=4))
@@ -279,18 +290,11 @@ class InterfaceContextDiagram(ContextDiagram):
     def name(self) -> str:  # type: ignore
         return f"Interface Context of {self.target.name}"
 
-    def _create_diagram(
-        self,
-        params: dict[str, t.Any],
-        elkdata: _elkjs.ELKInputData | None = None,
-    ) -> cdiagram.Diagram:
-        return super()._create_diagram(
-            params,
-            elkdata
-            or exchanges.get_elkdata_for_exchanges(
-                self, exchanges.InterfaceContextCollector
-            ),
+    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
+        params["elkdata"] = exchanges.get_elkdata_for_exchanges(
+            self, exchanges.InterfaceContextCollector
         )
+        return super()._create_diagram(params)
 
 
 class FunctionalContextDiagram(ContextDiagram):
@@ -302,15 +306,8 @@ class FunctionalContextDiagram(ContextDiagram):
     def name(self) -> str:  # type: ignore
         return f"Interface Context of {self.target.name}"
 
-    def _create_diagram(
-        self,
-        params: dict[str, t.Any],
-        elkdata: _elkjs.ELKInputData | None = None,
-    ) -> cdiagram.Diagram:
-        return super()._create_diagram(
-            params,
-            elkdata
-            or exchanges.get_elkdata_for_exchanges(
-                self, exchanges.FunctionalContextCollector
-            ),
+    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
+        params["elkdata"] = exchanges.get_elkdata_for_exchanges(
+            self, exchanges.FunctionalContextCollector
         )
+        return super()._create_diagram(params)

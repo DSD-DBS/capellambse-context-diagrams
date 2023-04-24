@@ -161,10 +161,10 @@ Hierarchy is identified and supported:
 
 ??? example "Hierarchical diagram"
 
-        <figure markdown>
-            <img src="assets/images/Context of Hierarchy.svg" width="1000000">
-            <figcaption>Context diagram of Hierarchy LogicalComponenet with type [LAB]</figcaption>
-        </figure>
+    <figure markdown>
+        <img src="assets/images/Context of Hierarchy.svg" width="1000000">
+        <figcaption>Context diagram of Hierarchy LogicalComponenet with type [LAB]</figcaption>
+    </figure>
 
 ### Interfaces (aka ComponentExchanges)
 

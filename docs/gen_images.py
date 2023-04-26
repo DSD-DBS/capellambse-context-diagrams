@@ -26,11 +26,11 @@ general_context_diagram_uuids = {
     "educate Wizards": "957c5799-1d4a-4ac0-b5de-33a65bf1519c",
     "Weird guy": "098810d9-0325-4ae8-a111-82202c0d2016",
     "Top secret": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
-    "Hierarchy": "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb",
 }
 interface_context_diagram_uuids = {
     "Left to right": "3ef23099-ce9a-4f7d-812f-935f47e7938d",
 }
+hierarchy_context = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
 diagram_uuids = general_context_diagram_uuids | interface_context_diagram_uuids
 
 
@@ -84,7 +84,15 @@ def generate_styling_image(
         print(diag.as_svg, file=fd)
 
 
+def generate_hierarchy_image() -> None:
+    obj = model.by_uuid(hierarchy_context)
+    diag: context.ContextDiagram = obj.context_diagram
+    with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
+        print(diag.render("svg", include_inner_objects=True), file=fd)
+
+
 generate_index_images()
+generate_hierarchy_image()
 generate_no_symbol_images()
 
 wizard = general_context_diagram_uuids["educate Wizards"]

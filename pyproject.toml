@@ -98,6 +98,7 @@ add-ignore = [
 
 [tool.pylint.messages_control]
 disable = [
+  "duplicate-code",
   "broad-except",
   "consider-using-f-string",
   "cyclic-import",

@@ -161,6 +161,14 @@ Hierarchy is identified and supported:
 
 ??? example "Hierarchical diagram"
 
+    ``` py
+    import capellambse
+
+    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+    obj = model.by_uuid("16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb")
+    diagram = obj.context_diagram.render("svgdiagram", include_inner_objects=True)
+    diagram.save_drawing(True)
+    ```
     <figure markdown>
         <img src="assets/images/Context of Hierarchy.svg" width="1000000">
         <figcaption>Context diagram of Hierarchy LogicalComponenet with type [LAB]</figcaption>

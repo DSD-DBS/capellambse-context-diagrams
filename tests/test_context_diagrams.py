@@ -10,6 +10,10 @@ TEST_CAP_SIZING_UUID = "b996a45f-2954-4fdd-9141-7934e7687de6"
 TEST_HUMAN_ACTOR_SIZING_UUID = "e95847ae-40bb-459e-8104-7209e86ea2d1"
 TEST_ACTOR_SIZING_UUID = "6c8f32bf-0316-477f-a23b-b5239624c28d"
 TEST_HIERARCHY_UUID = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
+TEST_HIERARCHY_CHILDREN_UUIDS = {
+    "31bc2326-5a55-45f9-9967-f1957bcd3f89",
+    "ad0bdf2f-bd0e-48bc-9296-5be3371a76e2",
+}
 
 
 @pytest.mark.parametrize(
@@ -103,9 +107,7 @@ def test_context_diagrams_box_sizing(
     uuid, min_size = diagram_elements.pop()
     obj = model.by_uuid(uuid)
 
-    diag = obj.context_diagram
-    diag.display_symbols_as_boxes = True
-    adiag = diag.render(None)
+    adiag = obj.context_diagram.render(None, display_symbols_as_boxes=True)
 
     assert adiag[uuid].size.y >= min_size
     for uuid, min_size in diagram_elements:
@@ -128,14 +130,27 @@ def test_context_diagrams_symbol_sizing(
 
 def test_hierarchy_in_context_diagram(model: capellambse.MelodyModel) -> None:
     obj = model.by_uuid(TEST_HIERARCHY_UUID)
-    expected_children = {
-        "31bc2326-5a55-45f9-9967-f1957bcd3f89",
-        "ad0bdf2f-bd0e-48bc-9296-5be3371a76e2",
-    }
+    expected_children = TEST_HIERARCHY_CHILDREN_UUIDS
 
-    adiag = obj.context_diagram.render(None)
+    adiag = obj.context_diagram.render(None, include_inner_objects=True)
 
     children = {obj.uuid for obj in adiag[TEST_HIERARCHY_UUID].children}
 
     for uuid in expected_children:
         assert uuid in children
+
+
+def test_context_diagram_pass_params_to_render(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid(TEST_HIERARCHY_UUID)
+
+    diag = obj.context_diagram
+    without_hierarchy = diag.render(None, include_inner_objects=False)
+    with_hierarchy = diag.render(None, include_inner_objects=True)
+
+    for uuid in TEST_HIERARCHY_CHILDREN_UUIDS:
+        assert with_hierarchy[uuid]
+
+        with pytest.raises(KeyError):
+            without_hierarchy[uuid]  # pylint: disable=pointless-statement

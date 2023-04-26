@@ -29,6 +29,9 @@ def collector(
     ex_datas = list[generic.ExchangeData]()
     for ex in connections:
         if is_hierarchical := exchanges.is_hierarchical(ex, centerbox):
+            if not diagram.include_inner_objects:
+                continue
+
             elkdata: _elkjs.ELKInputData = centerbox
         else:
             elkdata = data

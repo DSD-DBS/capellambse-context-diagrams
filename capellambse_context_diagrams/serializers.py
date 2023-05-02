@@ -117,7 +117,6 @@ class DiagramSerializer:
             box_type = ("box", "symbol")[
                 is_port
                 or has_symbol_cls
-                and not self._diagram.target == obj
                 and not self._diagram.display_symbols_as_boxes
             ]
 

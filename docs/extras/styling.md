@@ -109,6 +109,10 @@ You can switch to py-capellambse default styling by overriding the
         <figcaption>Context diagram of educate Wizards LogicalFunction w/o any styles</figcaption>
     </figure>
 
+You probably noticed that the SystemAnalysis diagrams on the index page have
+custom styling. There we applied the [SYSTEM_EX_RELABEL][capellambse_context_diagrams.filters.SYSTEM_EX_RELABEL] filter
+and [SYSTEM_CAP_STYLING][capellambse_context_diagrams.styling.SYSTEM_CAP_STYLING] style. These styles are applied per default.
+
 Style your diagram elements ([ElkChildType][capellambse_context_diagrams.serializers.ElkChildType]) arbitrarily:
 
 ??? example "Red junction point"
@@ -120,7 +124,7 @@ Style your diagram elements ([ElkChildType][capellambse_context_diagrams.seriali
     diag = model.by_uuid("957c5799-1d4a-4ac0-b5de-33a65bf1519c").context_diagram
     diag.render_styles = dict(
         styling.BLUE_ACTOR_FNCS,
-        **{"junction": lambda _: {"fill": aird.RGB(220, 20, 60)}},
+        **{"junction": lambda _, __: {"fill": aird.RGB(220, 20, 60)}},
     )
     diag.render("svgdiagram").save_drawing(True)
     ```

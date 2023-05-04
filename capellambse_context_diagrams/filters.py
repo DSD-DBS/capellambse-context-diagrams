@@ -12,22 +12,25 @@ import typing as t
 from capellambse.model import common
 
 FEX_EX_ITEMS = "show.functional.exchanges.exchange.items.filter"
-"""
-Show the name of `FunctionalExchange` and its `ExchangeItems` wrapped in
+"""Show the name of `FunctionalExchange` and its `ExchangeItems` wrapped in
 [E1,...] and seperated by ',' - filter in Capella.
 """
 EX_ITEMS = "show.exchange.items.filter"
-"""
-Show `ExchangeItems` wrapped in [E1,...] and seperated by ',' - filter
+"""Show `ExchangeItems` wrapped in [E1,...] and seperated by ',' - filter
 in Capella.
 """
 FEX_OR_EX_ITEMS = "capellambse_context_diagrams-show.functional.exchanges.or.exchange.items.filter"
-"""
-Show either `FunctionalExchange` name or its `ExchangeItems` wrapped in
+"""Show either `FunctionalExchange` name or its `ExchangeItems` wrapped in
 [E1,...] and seperated by ',' - Custom filter, not available in Capella.
 """
 NO_UUID = "capellambse_context_diagrams-hide.uuids.filter"
 """Filter out UUIDs from label text."""
+SYSTEM_EX_RELABEL = (
+    "capellambse_context_diagrams-relabel.system.analysis.exchange"
+)
+"""Relabel exchanges from the SystemAnalysis layer. E.g. « i » is converted to
+includes or involves, based on the type."""
+
 
 logger = logging.getLogger(__name__)
 
@@ -64,6 +67,24 @@ def uuid_filter(obj: common.GenericElement, label: str | None = None) -> str:
     return UUID_PTRN.sub("", filtered_label)
 
 
+def relabel_system_exchange(
+    obj: common.GenericElement, label: str | None
+) -> str:
+    """Return converted label from obj, a system exchanges."""
+    label_map = {
+        "AbstractCapabilityExtend": "extends",
+        "AbstractCapabilityGeneralization": "specializes",
+        "AbstractCapabilityInclude": "includes",
+        "CapabilityExploitation": "exploits",
+        "CapabilityInvolvement": "involves",
+        "EntityOperationalCapabilityInvolvement": "involves",
+        "MissionInvolvement": "involves",
+    }
+    if patch := label_map.get(type(obj).__name__):
+        return f"« {patch} »"
+    return label or obj.name
+
+
 FILTER_LABEL_ADJUSTERS: dict[
     str, cabc.Callable[[common.GenericElement, str | None], str]
 ] = {
@@ -73,6 +94,7 @@ FILTER_LABEL_ADJUSTERS: dict[
     if getattr(obj, "exchange_items", "")
     else label or obj.name,
     NO_UUID: uuid_filter,
+    SYSTEM_EX_RELABEL: relabel_system_exchange,
 }
 """Label adjuster registry. """
 

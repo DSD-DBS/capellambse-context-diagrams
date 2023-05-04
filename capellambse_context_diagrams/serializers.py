@@ -117,6 +117,7 @@ class DiagramSerializer:
             box_type = ("box", "symbol")[
                 is_port
                 or has_symbol_cls
+                and not self._diagram.target == obj
                 and not self._diagram.display_symbols_as_boxes
             ]
 
@@ -233,7 +234,7 @@ class DiagramSerializer:
             else:
                 obj = None
 
-            styleoverrides = style_condition(obj)
+            styleoverrides = style_condition(obj, self)
         return styleoverrides
 
     def order_children(self) -> None:

@@ -19,6 +19,15 @@ from .collectors import exchanges, get_elkdata
 
 logger = logging.getLogger(__name__)
 
+STANDARD_FILTERS = {
+    "Operational Capabilities Blank": filters.SYSTEM_EX_RELABEL,
+    "Missions Capabilities Blank": filters.SYSTEM_EX_RELABEL,
+}
+STANDARD_STYLES = {
+    "Operational Capabilities Blank": styling.SYSTEM_CAP_STYLING,
+    "Missions Capabilities Blank": styling.SYSTEM_CAP_STYLING,
+}
+
 
 class ContextAccessor(common.Accessor):
     """Provides access to the context diagrams."""
@@ -170,6 +179,11 @@ class ContextDiagram(diagram.AbstractDiagram):
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
         self.display_symbols_as_boxes = display_symbols_as_boxes
         self.include_inner_objects = include_inner_objects
+
+        if standard_filter := STANDARD_FILTERS.get(class_):
+            self.filters.add(standard_filter)
+        if standard_styles := STANDARD_STYLES.get(class_):
+            self.render_styles = standard_styles
 
     @property
     def uuid(self) -> str:  # type: ignore

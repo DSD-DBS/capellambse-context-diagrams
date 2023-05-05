@@ -43,7 +43,12 @@ def collector(
     """Returns ``ELKInputData`` with only centerbox in children and config."""
     data = makers.make_diagram(diagram)
     data["children"] = [
-        makers.make_box(diagram.target, width=width, no_symbol=no_symbol)
+        makers.make_box(
+            diagram.target,
+            width=width,
+            no_symbol=no_symbol,
+            slim_width=diagram.slim_center_box,
+        )
     ]
     return data
 

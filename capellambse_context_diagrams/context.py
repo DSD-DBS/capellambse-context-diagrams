@@ -149,6 +149,9 @@ class ContextDiagram(diagram.AbstractDiagram):
         avoids the object of interest to become one giant, oversized
         symbol in the middle of the diagram, and instead keeps the
         symbol small and only enlarges the surrounding box.
+    slim_center_box
+        Minimal width for the center box, containing just the icon and
+        the label. This is False if hierarchy was identified.
     serializer
         The serializer builds a `diagram.Diagram` via
         [`serializers.DiagramSerializer.make_diagram`][capellambse_context_diagrams.serializers.DiagramSerializer.make_diagram]
@@ -169,6 +172,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         render_styles: dict[str, styling.Styler] | None = None,
         display_symbols_as_boxes: bool = False,
         include_inner_objects: bool = False,
+        slim_center_box: bool = True,
     ) -> None:
         super().__init__(obj._model)
         self.target = obj
@@ -179,6 +183,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
         self.display_symbols_as_boxes = display_symbols_as_boxes
         self.include_inner_objects = include_inner_objects
+        self.slim_center_box = slim_center_box
 
         if standard_filter := STANDARD_FILTERS.get(class_):
             self.filters.add(standard_filter)

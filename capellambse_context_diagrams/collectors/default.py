@@ -78,6 +78,7 @@ def collector(
     data["children"].extend(global_boxes.values())
     if child_boxes:
         centerbox["children"] = child_boxes
+        centerbox["width"] = makers.EOI_WIDTH
 
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
     return data

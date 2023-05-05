@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+import collections.abc as cabc
+
 from capellambse import helpers
 from capellambse.model import common, layers
 from capellambse.svg.decorations import icon_padding, icon_size
@@ -61,6 +63,7 @@ def make_box(
     width: int | float = 0,
     height: int | float = 0,
     no_symbol: bool = False,
+    slim_width: bool = False,
 ) -> _elkjs.ELKInputChild:
     """Return an
     [`ELKInputChild`][capellambse_context_diagrams._elkjs.ELKInputChild].
@@ -81,7 +84,8 @@ def make_box(
             height,
             sum(label["height"] for label in labels) + icon,
         )
-        width = max(width, max(label["width"] for label in labels) + icon)
+        min_width = max(label["width"] for label in labels) + icon
+        width = min_width if slim_width else max(width, min_width)
 
     return {"id": obj.uuid, "labels": labels, "width": width, "height": height}
 

@@ -13,15 +13,15 @@ from capellambse.model import common
 
 FEX_EX_ITEMS = "show.functional.exchanges.exchange.items.filter"
 """Show the name of `FunctionalExchange` and its `ExchangeItems` wrapped in
-[E1,...] and seperated by ',' - filter in Capella.
+[E1,...] and separated by ',' - filter in Capella.
 """
 EX_ITEMS = "show.exchange.items.filter"
-"""Show `ExchangeItems` wrapped in [E1,...] and seperated by ',' - filter
+"""Show `ExchangeItems` wrapped in [E1,...] and separated by ',' - filter
 in Capella.
 """
 FEX_OR_EX_ITEMS = "capellambse_context_diagrams-show.functional.exchanges.or.exchange.items.filter"
 """Show either `FunctionalExchange` name or its `ExchangeItems` wrapped in
-[E1,...] and seperated by ',' - Custom filter, not available in Capella.
+[E1,...] and separated by ',' - Custom filter, not available in Capella.
 """
 NO_UUID = "capellambse_context_diagrams-hide.uuids.filter"
 """Filter out UUIDs from label text."""
@@ -38,6 +38,16 @@ UUID_PTRN = re.compile(
     r"\s*\([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\)"
 )
 """Regular expression pattern for UUIDs of `ModelObject`s."""
+LABEL_CONVERSION: t.Final[dict[str, str]] = {
+    "AbstractCapabilityExtend": "extends",
+    "AbstractCapabilityGeneralization": "specializes",
+    "AbstractCapabilityInclude": "includes",
+    "CapabilityExploitation": "exploits",
+    "CapabilityInvolvement": "involves",
+    "EntityOperationalCapabilityInvolvement": "involves",
+    "MissionInvolvement": "involves",
+}
+"""A map that for relabelling specific ModelObject types."""
 
 
 def exchange_items(obj: common.GenericElement) -> str:
@@ -71,15 +81,7 @@ def relabel_system_exchange(
     obj: common.GenericElement, label: str | None
 ) -> str:
     """Return converted label from obj, a system exchanges."""
-    label_map = {
-        "AbstractCapabilityExtend": "extends",
-        "AbstractCapabilityGeneralization": "specializes",
-        "AbstractCapabilityInclude": "includes",
-        "CapabilityExploitation": "exploits",
-        "CapabilityInvolvement": "involves",
-        "EntityOperationalCapabilityInvolvement": "involves",
-        "MissionInvolvement": "involves",
-    }
+    label_map = LABEL_CONVERSION
     if patch := label_map.get(type(obj).__name__):
         return f"« {patch} »"
     return label or obj.name

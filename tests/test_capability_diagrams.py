@@ -16,7 +16,7 @@ TEST_TYPES = (oa.OperationalCapability, ctx.Capability, ctx.Mission)
 @pytest.mark.parametrize("uuid", SYSTEM_ANALYSIS_PARAMS)
 def test_context_diagrams(model: capellambse.MelodyModel, uuid: str) -> None:
     obj = model.by_uuid(uuid)
-    assert isinstance(obj, TEST_TYPES), "Precondition met"
+    assert isinstance(obj, TEST_TYPES), "Precondition failed"
 
     diag = obj.context_diagram
 

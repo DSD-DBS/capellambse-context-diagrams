@@ -195,7 +195,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         """Return a list of all nodes visible in this diagram."""
         adiagram = self.render(None)
         assert isinstance(adiagram, cdiagram.Diagram)
-        allids = {e.uuid for e in iter(adiagram)}
+        allids = {e.uuid for e in iter(adiagram) if not e.hidden}
         assert None not in allids
         elems = []
         for elemid in allids:

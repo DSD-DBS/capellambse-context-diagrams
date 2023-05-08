@@ -22,7 +22,11 @@ CAP_EXPLOIT = "4513c8cd-b94b-4bde-bd00-4c18aaf600ff"
     "label,expected",
     [
         (
-            "[CapabilityExploitation] to Capability (9390b7d5-598a-42db-bef8-23677e45ba06) from Affleck (da12377b-fb70-4441-8faa-3a5c153c5de2)",
+            (
+                "[CapabilityExploitation] to Capability"
+                "(9390b7d5-598a-42db-bef8-23677e45ba06) from Affleck"
+                "(da12377b-fb70-4441-8faa-3a5c153c5de2)"
+            ),
             "[CapabilityExploitation] to Capability from Affleck",
         ),
         (None, "[CapabilityExploitation] to Capability"),
@@ -140,8 +144,13 @@ def test_context_diagrams_SYSTEM_EX_RELABEL_is_applied(
 ) -> None:
     element = model.by_uuid(uuid)
     diag: context.ContextDiagram = element.context_diagram
-    verbs = ("exploits", "extends", "specializes", "includes", "involves")
-    expected = {f"« {i} »" for i in verbs}
+    expected = {
+        "« exploits »",
+        "« extends »",
+        "« specializes »",
+        "« includes »",
+        "« involves »",
+    }
 
     diag.filters.add(filters.SYSTEM_EX_RELABEL)
 

@@ -3,8 +3,6 @@
 
 from __future__ import annotations
 
-import collections.abc as cabc
-
 from capellambse import helpers
 from capellambse.model import common, layers
 from capellambse.svg.decorations import icon_padding, icon_size

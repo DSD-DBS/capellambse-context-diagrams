@@ -5,8 +5,6 @@ import capellambse
 import pytest
 from capellambse.model.layers import ctx, oa
 
-from capellambse_context_diagrams import styling
-
 # pylint: disable-next=relative-beyond-top-level, useless-suppression
 from .conftest import SYSTEM_ANALYSIS_PARAMS  # type: ignore[import]
 

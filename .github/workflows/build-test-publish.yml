@@ -21,6 +21,8 @@ jobs:
         include:
           - os: windows-latest
             python_version: "3.9"
+    env:
+      PYTHONUTF8: 1
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{matrix.python_version}}

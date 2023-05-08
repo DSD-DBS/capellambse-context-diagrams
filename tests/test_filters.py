@@ -3,7 +3,9 @@
 
 from __future__ import annotations
 
+import os
 import re
+import sys
 import typing as t
 
 import pytest
@@ -11,6 +13,8 @@ from capellambse import MelodyModel, diagram
 from capellambse.model import crosslayer
 
 from capellambse_context_diagrams import context, filters
+
+from .conftest import SYSTEM_ANALYSIS_PARAMS
 
 EX_PTRN = re.compile(r"\[(.*?)\]")
 CAP_EXPLOIT = "4513c8cd-b94b-4bde-bd00-4c18aaf600ff"
@@ -20,7 +24,11 @@ CAP_EXPLOIT = "4513c8cd-b94b-4bde-bd00-4c18aaf600ff"
     "label,expected",
     [
         (
-            "[CapabilityExploitation] to Capability (9390b7d5-598a-42db-bef8-23677e45ba06) from Affleck (da12377b-fb70-4441-8faa-3a5c153c5de2)",
+            (
+                "[CapabilityExploitation] to Capability"
+                "(9390b7d5-598a-42db-bef8-23677e45ba06) from Affleck"
+                "(da12377b-fb70-4441-8faa-3a5c153c5de2)"
+            ),
             "[CapabilityExploitation] to Capability from Affleck",
         ),
         (None, "[CapabilityExploitation] to Capability"),
@@ -132,10 +140,32 @@ def test_context_diagrams_FEX_OR_EX_ITEMS_is_applied(
         assert len(aedge.labels) == 1
 
 
+@pytest.mark.parametrize("uuid", SYSTEM_ANALYSIS_PARAMS)
+def test_context_diagrams_SYSTEM_EX_RELABEL_is_applied(
+    model: MelodyModel, uuid: str
+) -> None:
+    element = model.by_uuid(uuid)
+    diag: context.ContextDiagram = element.context_diagram
+    expected = {
+        "« exploits »",
+        "« extends »",
+        "« specializes »",
+        "« includes »",
+        "« involves »",
+    }
+
+    diag.filters.add(filters.SYSTEM_EX_RELABEL)
+
+    for element in diag.render(None):
+        if isinstance(element, diagram.Edge):
+            assert element.labels[0].label in expected
+
+
 def test_context_diagrams_NO_UUID_is_applied(model: MelodyModel) -> None:
     obj = model.by_uuid("9390b7d5-598a-42db-bef8-23677e45ba06")
     diag: context.ContextDiagram = obj.context_diagram
 
+    diag.filters.clear()
     diag.filters.add(filters.NO_UUID)
     aird_diag = diag.render(None)
     aedge = aird_diag[CAP_EXPLOIT]

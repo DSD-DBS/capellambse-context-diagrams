@@ -234,7 +234,7 @@ class DiagramSerializer:
             else:
                 obj = None
 
-            styleoverrides = style_condition(obj)
+            styleoverrides = style_condition(obj, self)
         return styleoverrides
 
     def order_children(self) -> None:

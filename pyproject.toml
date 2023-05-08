@@ -167,6 +167,7 @@ enable = [
 addopts = """
   --strict-config
   --strict-markers
+  --import-mode=importlib
 """
 testpaths = ["tests"]
 xfail_strict = true

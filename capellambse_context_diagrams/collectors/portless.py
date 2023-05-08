@@ -28,7 +28,7 @@ def collector(
     architecture layer diagrams (diagrams where elements don't exchange
     via ports/connectors).
     """
-    data = generic.collector(diagram)
+    data = generic.collector(diagram, no_symbol=True)
     centerbox = data["children"][0]
     connections = list(get_exchanges(diagram.target))
     for ex in connections:
@@ -63,7 +63,9 @@ def collector(
             box["height"] = height
         else:
             box = makers.make_box(
-                i, height=height, no_symbol=diagram.display_symbols_as_boxes
+                i,
+                height=height,
+                no_symbol=diagram.display_symbols_as_boxes,
             )
             made_boxes[i.uuid] = box
 
@@ -72,15 +74,10 @@ def collector(
     del made_boxes[centerbox["id"]]
     data["children"].extend(made_boxes.values())
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
-    centerbox["width"] = (
-        max(label["width"] for label in centerbox["labels"])
-        + 2 * makers.LABEL_HPAD
-    )
     if not diagram.display_symbols_as_boxes and makers.is_symbol(
         diagram.target
     ):
         data["layoutOptions"]["spacing.labelNode"] = 5.0
-        centerbox["width"] = centerbox["height"] * makers.SYMBOL_RATIO
     return data
 
 

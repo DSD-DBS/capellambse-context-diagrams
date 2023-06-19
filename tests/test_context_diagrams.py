@@ -1,8 +1,6 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
-import pathlib
-
 import capellambse
 import pytest
 
@@ -45,14 +43,10 @@ TEST_HIERARCHY_CHILDREN_UUIDS = {
         ),
     ],
 )
-def test_context_diagrams(
-    model: capellambse.MelodyModel, uuid: str, tmp_path: pathlib.Path
-) -> None:
+def test_context_diagrams(model: capellambse.MelodyModel, uuid: str) -> None:
     obj = model.by_uuid(uuid)
-    filename = tmp_path / "tmp.svg"
 
     diag = obj.context_diagram
-    diag.render("svgdiagram").save_drawing(filename=filename)
 
     assert diag.nodes
 

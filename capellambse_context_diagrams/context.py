@@ -312,7 +312,7 @@ class InterfaceContextDiagram(ContextDiagram):
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         params["elkdata"] = exchanges.get_elkdata_for_exchanges(
-            self, exchanges.InterfaceContextCollector
+            self, exchanges.InterfaceContextCollector, params
         )
         return super()._create_diagram(params)
 
@@ -328,6 +328,6 @@ class FunctionalContextDiagram(ContextDiagram):
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         params["elkdata"] = exchanges.get_elkdata_for_exchanges(
-            self, exchanges.FunctionalContextCollector
+            self, exchanges.FunctionalContextCollector, params
         )
         return super()._create_diagram(params)

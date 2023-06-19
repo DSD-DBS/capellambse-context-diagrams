@@ -3,9 +3,7 @@
 
 from __future__ import annotations
 
-import os
 import re
-import sys
 import typing as t
 
 import pytest
@@ -14,10 +12,17 @@ from capellambse.model import crosslayer
 
 from capellambse_context_diagrams import context, filters
 
-from .conftest import SYSTEM_ANALYSIS_PARAMS
+# pylint: disable-next=relative-beyond-top-level, useless-suppression
+from .conftest import SYSTEM_ANALYSIS_PARAMS  # type: ignore[import]
 
 EX_PTRN = re.compile(r"\[(.*?)\]")
 CAP_EXPLOIT = "4513c8cd-b94b-4bde-bd00-4c18aaf600ff"
+FNC_UUID = "a5642060-c9cc-4d49-af09-defaa3024bae"
+INTERF_UUID = "9cbdd233-aff5-47dd-9bef-9be1277c77c3"
+
+Types = list[
+    t.Union[crosslayer.fa.FunctionalExchange, crosslayer.fa.ComponentExchange]
+]
 
 
 @pytest.mark.parametrize(
@@ -42,16 +47,22 @@ def test_uuid_filter(model: MelodyModel, label: str, expected: str) -> None:
 
 
 def start_filter_apply_test(
-    model: MelodyModel, filter_name: str, **render_params: t.Any
-) -> tuple[list[crosslayer.fa.FunctionalExchange], diagram.Diagram]:
+    model: MelodyModel, uuid: str, filter_name: str, **render_params: t.Any
+) -> tuple[Types, diagram.Diagram]:
     """StartUp for every filter test case."""
-    obj = model.by_uuid("a5642060-c9cc-4d49-af09-defaa3024bae")
+    obj = model.by_uuid(uuid)
     diag: context.ContextDiagram = obj.context_diagram
     diag.filters.add(filter_name)
     edges = [
         elt
         for elt in diag.nodes
-        if isinstance(elt, crosslayer.fa.FunctionalExchange)
+        if isinstance(
+            elt,
+            (
+                crosslayer.fa.FunctionalExchange,
+                crosslayer.fa.ComponentExchange,
+            ),
+        )
     ]
     return edges, diag.render(None, **render_params)
 
@@ -68,8 +79,9 @@ def has_sorted_ExchangeItems(edge: diagram.Edge) -> bool:
     return exitems == sorted(exitems)
 
 
-def test_EX_ITEMS_is_applied(model: MelodyModel) -> None:
-    edges, aird_diag = start_filter_apply_test(model, filters.EX_ITEMS)
+@pytest.mark.parametrize("uuid", [FNC_UUID, INTERF_UUID])
+def test_EX_ITEMS_is_applied(model: MelodyModel, uuid: str) -> None:
+    edges, aird_diag = start_filter_apply_test(model, uuid, filters.EX_ITEMS)
 
     for edge in edges:
         aedge = aird_diag[edge.uuid]
@@ -80,12 +92,12 @@ def test_EX_ITEMS_is_applied(model: MelodyModel) -> None:
             assert get_ExchangeItems(aedge) == list(expected)
 
 
-@pytest.mark.parametrize("sort", [False, True])
+@pytest.mark.parametrize("sort,uuid", [(False, FNC_UUID), (True, INTERF_UUID)])
 def test_context_diagrams_ExchangeItems_sorting(
-    model: MelodyModel, sort: bool
+    model: MelodyModel, sort: bool, uuid: str
 ) -> None:
     edges, aird_diag = start_filter_apply_test(
-        model, filters.EX_ITEMS, sorted_exchangedItems=sort
+        model, uuid, filters.EX_ITEMS, sorted_exchangedItems=sort
     )
 
     all_sorted = True
@@ -99,10 +111,13 @@ def test_context_diagrams_ExchangeItems_sorting(
     assert all_sorted == sort
 
 
+@pytest.mark.parametrize("uuid", (FNC_UUID, INTERF_UUID))
 def test_context_diagrams_FEX_EX_ITEMS_is_applied(
-    model: MelodyModel,
+    model: MelodyModel, uuid: str
 ) -> None:
-    edges, aird_diag = start_filter_apply_test(model, filters.FEX_EX_ITEMS)
+    edges, aird_diag = start_filter_apply_test(
+        model, uuid, filters.FEX_EX_ITEMS
+    )
 
     for edge in edges:
         aedge = aird_diag[edge.uuid]
@@ -117,10 +132,13 @@ def test_context_diagrams_FEX_EX_ITEMS_is_applied(
         assert aedge.labels[0].label == expected_label
 
 
+@pytest.mark.parametrize("uuid", (FNC_UUID, INTERF_UUID))
 def test_context_diagrams_FEX_OR_EX_ITEMS_is_applied(
-    model: MelodyModel,
+    model: MelodyModel, uuid: str
 ) -> None:
-    edges, aird_diag = start_filter_apply_test(model, filters.FEX_OR_EX_ITEMS)
+    edges, aird_diag = start_filter_apply_test(
+        model, uuid, filters.FEX_OR_EX_ITEMS
+    )
 
     for edge in edges:
         aedge = aird_diag[edge.uuid]

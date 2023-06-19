@@ -4,12 +4,10 @@
 from __future__ import annotations
 
 import abc
-import collections.abc as cabc
 import logging
 import operator
 import typing as t
 
-from capellambse import helpers
 from capellambse.model import common
 from capellambse.model.modeltypes import DiagramType as DT
 
@@ -49,10 +47,13 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
         diagram: context.InterfaceContextDiagram
         | context.FunctionalContextDiagram,
         data: _elkjs.ELKInputData,
+        params: dict[str, t.Any],
     ) -> None:
         self.diagram = diagram
         self.data: _elkjs.ELKInputData = data
         self.obj = self.diagram.target
+        self.params = params
+
         src, trg, alloc_fex, fncs = self.intermap[diagram.type]
         self.get_source = operator.attrgetter(src)
         self.get_target = operator.attrgetter(trg)
@@ -123,19 +124,21 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
         data["height"] = stack_height
 
     @abc.abstractmethod
-    def collect(self) -> cabc.MutableSequence[_elkjs.ELKInputEdge]:
-        return NotImplemented
+    def collect(self) -> None:
+        """Populate the elkdata container."""
+        raise NotImplementedError
 
 
 def get_elkdata_for_exchanges(
     diagram: context.InterfaceContextDiagram
     | context.FunctionalContextDiagram,
     collector_type: type[ExchangeCollector],
+    params: dict[str, t.Any],
 ) -> _elkjs.ELKInputData:
     """Return exchange data for ELK."""
     data = makers.make_diagram(diagram)
-    collector = collector_type(diagram, data)
-    data["edges"] = collector.collect()
+    collector = collector_type(diagram, data, params)
+    collector.collect()
     for comp in data["children"]:
         collector.make_ports_and_update_children_size(comp, data["edges"])
 
@@ -159,8 +162,9 @@ class InterfaceContextCollector(ExchangeCollector):
         self,
         diagram: context.InterfaceContextDiagram,
         data: _elkjs.ELKInputData,
+        params: dict[str, t.Any],
     ) -> None:
-        super().__init__(diagram, data)
+        super().__init__(diagram, data, params)
         self.get_left_and_right()
 
     def get_left_and_right(self) -> None:
@@ -223,34 +227,24 @@ class InterfaceContextCollector(ExchangeCollector):
         except AttributeError:
             pass
 
-    def collect(self) -> cabc.MutableSequence[_elkjs.ELKInputEdge]:
+    def collect(self) -> None:
         """Return all allocated `FunctionalExchange`s in the context."""
-        functional_exchanges: list[_elkjs.ELKInputEdge] = []
         try:
             for ex in self.incoming_edges + self.outgoing_edges:
-                try:
-                    src, tgt = generic.collect_exchange_endpoints(ex)
-                except AttributeError:
-                    continue
-
-                width, height = helpers.extent_func(ex.name)
-                swap = ex in self.incoming_edges
-                functional_exchanges.append(
-                    _elkjs.ELKInputEdge(
-                        id=ex.uuid,
-                        sources=[tgt.uuid] if swap else [src.uuid],
-                        targets=[src.uuid] if swap else [tgt.uuid],
-                        labels=[
-                            _elkjs.ELKInputLabel(
-                                text=ex.name,
-                                width=width + 2 * makers.LABEL_HPAD,
-                                height=height + 2 * makers.LABEL_VPAD,
-                            )
-                        ],
-                    )
+                ex_data = generic.ExchangeData(
+                    ex,
+                    self.data,
+                    self.diagram.filters,
+                    self.params,
+                    is_hierarchical=False,
                 )
+                src, tgt = generic.exchange_data_collector(ex_data)
 
-            if not functional_exchanges:
+                if ex in self.incoming_edges:
+                    self.data["edges"][-1]["sources"] = [tgt.uuid]
+                    self.data["edges"][-1]["targets"] = [src.uuid]
+
+            if not self.data["edges"]:
                 logger.warning(
                     "There are no FunctionalExchanges allocated to '%s'.",
                     self.obj.name,
@@ -258,11 +252,17 @@ class InterfaceContextCollector(ExchangeCollector):
         except AttributeError:
             pass
 
-        return functional_exchanges
-
 
 class FunctionalContextCollector(ExchangeCollector):
-    def collect(self) -> cabc.MutableSequence[_elkjs.ELKInputEdge]:
+    def __init__(
+        self,
+        diagram: context.InterfaceContextDiagram,
+        data: _elkjs.ELKInputData,
+        params: dict[str, t.Any],
+    ) -> None:
+        super().__init__(diagram, data, params)
+
+    def collect(self) -> None:
         functional_exchanges: list[common.GenericElement] = []
         all_functions: list[common.GenericElement] = []
         made_children: set[str] = {self.obj.uuid}
@@ -295,10 +295,10 @@ class FunctionalContextCollector(ExchangeCollector):
 
         for ex in functional_exchanges:
             generic.exchange_data_collector(
-                generic.ExchangeData(ex, self.data, set())
+                generic.ExchangeData(
+                    ex, self.data, set(), is_hierarchical=False
+                )
             )
-
-        return self.data["edges"]
 
 
 def is_hierarchical(

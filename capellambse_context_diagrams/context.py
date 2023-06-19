@@ -175,6 +175,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         slim_center_box: bool = True,
     ) -> None:
         super().__init__(obj._model)
+        self._allow_render = True
         self.target = obj
         self.styleclass = class_
 

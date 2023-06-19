@@ -4,12 +4,10 @@
 from __future__ import annotations
 
 import abc
-import collections.abc as cabc
 import logging
 import operator
 import typing as t
 
-from capellambse import helpers
 from capellambse.model import common
 from capellambse.model.modeltypes import DiagramType as DT
 

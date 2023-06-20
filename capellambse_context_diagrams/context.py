@@ -175,7 +175,6 @@ class ContextDiagram(diagram.AbstractDiagram):
         slim_center_box: bool = True,
     ) -> None:
         super().__init__(obj._model)
-        self._allow_render = True
         self.target = obj
         self.styleclass = class_
 
@@ -209,31 +208,6 @@ class ContextDiagram(diagram.AbstractDiagram):
         except ValueError:  # pragma: no cover
             logger.warning("Unknown diagram type %r", self.styleclass)
             return modeltypes.DiagramType.UNKNOWN
-
-    @property
-    def nodes(self) -> common.MixedElementList:
-        """Return a list of all nodes visible in this diagram."""
-        adiagram = self.render(None)
-        assert isinstance(adiagram, cdiagram.Diagram)
-        allids = {e.uuid for e in iter(adiagram) if not e.hidden}
-        assert None not in allids
-        elems = []
-        for elemid in allids:
-            assert elemid is not None
-            try:
-                elem = self._model._loader[elemid]
-            except (KeyError, StopIteration):  # pragma: no cover
-                continue
-            else:
-                # Filter out visual-only elements that live in the
-                # .aird / .airdfragment files
-                frag = self._model._loader.find_fragment(elem)
-                if frag.suffix not in {".aird", ".airdfragment"}:
-                    elems.append(elem)
-
-        return common.MixedElementList(
-            self._model, elems, common.GenericElement
-        )
 
     class FilterSet(cabc.MutableSet):
         """A set that stores filter_names and invalidates diagram cache."""

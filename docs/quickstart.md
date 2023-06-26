@@ -5,8 +5,8 @@
 
 ## Requirements
 
-You need `Python>=3.9` and [py-capellambse](https://github.com/DSD-DBS/py-capellambse) to be
-installed.
+You need `Python>=3.9` and either `npm`or `node` to be installed. The automatic
+layouting is provided by `elkjs` which is installed if it isn't already.
 
 ## Installation
 

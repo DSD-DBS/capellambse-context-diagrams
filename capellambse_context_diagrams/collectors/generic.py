@@ -23,11 +23,23 @@ logger = logging.getLogger(__name__)
 
 SourceAndTarget = tuple[common.GenericElement, common.GenericElement]
 
-
-CONNECTOR_ATTR_NAMES = {"inputs", "outputs", "physical_ports"}
+PHYSICAL_CONNECTOR_ATTR_NAMES = {"physical_ports"}
+"""Attribute of PhysicalComponents for receiving connections."""
+CONNECTOR_ATTR_NAMES = {"ports", "inputs", "outputs"}
 """Attribute of GenericElements for receiving connections."""
-PORTLESS_DIAGRAM_TYPES = {DT.OAB, DT.OAIB, DT.OCB, DT.MCB}
-"""Supported diagram types without connectors (i.e. ports)."""
+DIAGRAM_TYPE_TO_CONNECTOR_NAMES: dict[DT, set[str]] = {
+    DT.OAB: set(),
+    DT.OAIB: set(),
+    DT.OCB: set(),
+    DT.MCB: set(),
+    DT.SAB: CONNECTOR_ATTR_NAMES,
+    DT.SDFB: CONNECTOR_ATTR_NAMES,
+    DT.LAB: CONNECTOR_ATTR_NAMES,
+    DT.LDFB: CONNECTOR_ATTR_NAMES,
+    DT.PAB: CONNECTOR_ATTR_NAMES | PHYSICAL_CONNECTOR_ATTR_NAMES,
+    DT.PDFB: CONNECTOR_ATTR_NAMES | PHYSICAL_CONNECTOR_ATTR_NAMES,
+}
+"""Supported diagram types mapping to the attribute name of connectors."""
 MARKER_SIZE = 3
 """Default size of marker-ends in pixels."""
 MARKER_PADDING = makers.PORT_PADDING

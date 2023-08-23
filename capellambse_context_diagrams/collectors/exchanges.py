@@ -107,7 +107,7 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
                 elif target in port_ids:
                     inputs.append(target)
 
-            if self.diagram.type not in generic.PORTLESS_DIAGRAM_TYPES:
+            if generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[self.diagram.type]:
                 child["ports"] = [
                     makers.make_port(i) for i in set(inputs + outputs)
                 ]

@@ -25,23 +25,29 @@ def collector(
     diagram: context.ContextDiagram, params: dict[str, t.Any] | None = None
 ) -> _elkjs.ELKInputData:
     """Return the class tree data for ELK."""
+    params = params or {}
     assert isinstance(diagram.target, information.Class)
     data = generic.collector(diagram, no_symbol=True)
-    data["children"][0]["layoutOptions"] = {}
-    data["children"][0]["layoutOptions"]["elk.partitioning.partition"] = 0
+    if params.get("partitioning", False):
+        data["children"][0]["layoutOptions"] = {}
+        data["children"][0]["layoutOptions"]["elk.partitioning.partition"] = 0
     data["layoutOptions"] = LAYOUT_OPTIONS
     data["layoutOptions"]["algorithm"] = (params or {})["algorithm"]
     data["layoutOptions"]["elk.direction"] = (params or {})["direction"]
     data["layoutOptions"]["edgeRouting"] = (params or {})["edgeRouting"]
 
     made_boxes: set[str] = set()
-    for uid, (source, prop, target) in get_all_classes(diagram.target):
-        partition = uid.split(" ")[-1]
+    for _, (source, prop, target, partition) in get_all_classes(
+        diagram.target
+    ):
         if target.uuid not in made_boxes:
             made_boxes.add(target.uuid)
             box = makers.make_box(target)
-            box["layoutOptions"] = {}
-            box["layoutOptions"]["elk.partitioning.partition"] = int(partition)
+            if params.get("partitioning", False):
+                box["layoutOptions"] = {}
+                box["layoutOptions"]["elk.partitioning.partition"] = int(
+                    partition
+                )
             data["children"].append(box)
 
         width, height = helpers.extent_func(prop.name)
@@ -62,7 +68,7 @@ def collector(
 
 
 ClassContext = tuple[
-    information.Class, information.Property, information.Class
+    information.Class, information.Property, information.Class, int
 ]
 
 
@@ -74,9 +80,9 @@ def get_all_classes(
     classes: dict[str, ClassContext] = {}
     for prop in root.properties:
         if prop.type.xtype.endswith("Class"):
-            edge_id = f"{root.name} {prop.type.name} {partition}"
+            edge_id = f"{root.uuid} {prop.uuid} {prop.type.uuid}"
             if edge_id not in classes:
-                classes[edge_id] = (root, prop, prop.type)
+                classes[edge_id] = (root, prop, prop.type, partition)
                 classes.update(dict(get_all_classes(prop.type, partition)))
 
     yield from classes.items()

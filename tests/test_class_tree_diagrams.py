@@ -18,11 +18,22 @@ def test_class_tree_diagram_gets_rendered_successfully(
     assert diag.render(fmt)
 
 
+@pytest.mark.parametrize("edgeRouting", ["SPLINE", "ORTHOGONAL", "POLYLINE"])
+@pytest.mark.parametrize("direction", ["DOWN", "RIGHT"])
+@pytest.mark.parametrize("partitioning", [True, False])
 def test_class_tree_diagram_renders_with_additional_params(
     model: capellambse.MelodyModel,
+    edgeRouting: str,
+    direction: str,
+    partitioning: bool,
 ) -> None:
     obj = model.by_uuid(CLASS_UUID)
 
     diag = obj.class_tree_diagram
 
-    assert diag.render("svgdiagram", edgeRouting="POLYLINE", direction="RIGHT")
+    assert diag.render(
+        "svgdiagram",
+        edgeRouting=edgeRouting,
+        direction=direction,
+        partitioning=partitioning,
+    )

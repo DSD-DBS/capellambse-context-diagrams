@@ -28,7 +28,7 @@ Elk types can be one of the following types:
 * `junction`.
 """
 
-REMAP_STYLECLASS: dict[str, str] = {"Property": "Association"}
+REMAP_STYLECLASS: dict[str, str] = {"Unset": "Association"}
 
 
 class DiagramSerializer:

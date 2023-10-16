@@ -28,6 +28,8 @@ Elk types can be one of the following types:
 * `junction`.
 """
 
+REMAP_STYLECLASS: dict[str, str] = {"Property": "Association"}
+
 
 class DiagramSerializer:
     """Serialize an ``elk_diagram`` into an
@@ -47,7 +49,7 @@ class DiagramSerializer:
     def __init__(self, elk_diagram: context.ContextDiagram) -> None:
         self.model = elk_diagram.target._model
         self._diagram = elk_diagram
-        self._cache: dict[str, diagram.Box] = {}
+        self._cache: dict[str, diagram.Box | diagram.Edge] = {}
 
     def make_diagram(self, data: _elkjs.ELKOutputData) -> diagram.Diagram:
         """Transform a layouted diagram into an `diagram.Diagram`.
@@ -136,6 +138,7 @@ class DiagramSerializer:
             self.diagram.add_element(element)
             self._cache[child["id"]] = element
         elif child["type"] == "edge":
+            styleclass = REMAP_STYLECLASS.get(styleclass, styleclass)  # type: ignore[arg-type]
             element = diagram.Edge(
                 [
                     ref + (point["x"], point["y"])

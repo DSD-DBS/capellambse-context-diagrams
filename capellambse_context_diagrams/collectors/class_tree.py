@@ -35,8 +35,8 @@ def collector(
     data["layoutOptions"]["edgeRouting"] = (params or {})["edgeRouting"]
 
     made_boxes: set[str] = set()
-    for uid, (source, target) in get_all_classes(diagram.target):
-        property_uuid, text, partition = uid.split(" ")[1:4]
+    for uid, (source, prop, target) in get_all_classes(diagram.target):
+        partition = uid.split(" ")[-1]
         if target.uuid not in made_boxes:
             made_boxes.add(target.uuid)
             box = makers.make_box(target)
@@ -44,15 +44,15 @@ def collector(
             box["layoutOptions"]["elk.partitioning.partition"] = int(partition)
             data["children"].append(box)
 
-        width, height = helpers.extent_func(text)
+        width, height = helpers.extent_func(prop.name)
         label: _elkjs.ELKInputLabel = {
-            "text": text,
+            "text": prop.name,
             "width": width + 2 * makers.LABEL_HPAD,
             "height": height + 2 * makers.LABEL_VPAD,
         }
         data["edges"].append(
             {
-                "id": property_uuid,
+                "id": prop.uuid,
                 "sources": [source.uuid],
                 "targets": [target.uuid],
                 "labels": [label],
@@ -61,18 +61,22 @@ def collector(
     return data
 
 
+ClassContext = tuple[
+    information.Class, information.Property, information.Class
+]
+
+
 def get_all_classes(
     root: information.Class, partition: int = 0
-) -> cabc.Iterator[tuple[str, tuple[information.Class, information.Class]]]:
+) -> cabc.Iterator[tuple[str, ClassContext]]:
     """Yield all classes of the class tree."""
     partition += 1
-    classes: dict[str, tuple[information.Class, information.Class]] = {}
+    classes: dict[str, ClassContext] = {}
     for prop in root.properties:
         if prop.type.xtype.endswith("Class"):
-            edge_id = f"{root.name} {prop.uuid} {prop.name}"
-            edge_id = f"{edge_id} {partition} {prop.type.name}"
+            edge_id = f"{root.name} {prop.type.name} {partition}"
             if edge_id not in classes:
-                classes[edge_id] = (root, prop.type)
-                classes.update(dict(get_all_classes(prop.type)))
+                classes[edge_id] = (root, prop, prop.type)
+                classes.update(dict(get_all_classes(prop.type, partition)))
 
     yield from classes.items()

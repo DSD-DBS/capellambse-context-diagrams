@@ -351,5 +351,6 @@ class ClassTreeDiagram(ContextDiagram):
         params.setdefault("direction", "DOWN")
         params.setdefault("edgeRouting", "POLYLINE")
         params.setdefault("partitioning", True)
+        params.setdefault("edgeLabelsSide", "SMART_DOWN")
         params["elkdata"] = class_tree.collector(self, params)
         return super()._create_diagram(params)

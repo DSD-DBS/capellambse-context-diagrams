@@ -12,29 +12,26 @@ from capellambse.model.crosslayer import information
 from .. import _elkjs, context
 from . import generic, makers
 
-LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
-    "algorithm": "layered",
-    "edgeRouting": "ORTHOGONAL",
-    "elk.direction": "DOWN",
-    "partitioning.activate": True,
-    "edgeLabels.sideSelection": "ALWAYS_DOWN",
-}
-
 
 def collector(
-    diagram: context.ContextDiagram, params: dict[str, t.Any] | None = None
+    diagram: context.ContextDiagram, params: dict[str, t.Any]
 ) -> _elkjs.ELKInputData:
     """Return the class tree data for ELK."""
-    params = params or {}
     assert isinstance(diagram.target, information.Class)
     data = generic.collector(diagram, no_symbol=True)
     if params.get("partitioning", False):
+        data["layoutOptions"]["partitioning.activate"] = True
         data["children"][0]["layoutOptions"] = {}
         data["children"][0]["layoutOptions"]["elk.partitioning.partition"] = 0
-    data["layoutOptions"] = LAYOUT_OPTIONS
-    data["layoutOptions"]["algorithm"] = (params or {})["algorithm"]
-    data["layoutOptions"]["elk.direction"] = (params or {})["direction"]
-    data["layoutOptions"]["edgeRouting"] = (params or {})["edgeRouting"]
+
+    data["layoutOptions"]["edgeLabels.sideSelection"] = params.get(
+        "edgeLabelsSide", "ALWAYS_DOWN"
+    )
+    data["layoutOptions"]["algorithm"] = params.get("algorithm", "layered")
+    data["layoutOptions"]["elk.direction"] = params.get("direction", "DOWN")
+    data["layoutOptions"]["edgeRouting"] = params.get(
+        "edgeRouting", "ORTHOGONAL"
+    )
 
     made_boxes: set[str] = set()
     for _, (source, prop, target, partition) in get_all_classes(

@@ -6,8 +6,9 @@
 # Class Tree Diagram
 
 With release [`v0.5.35`](https://github.com/DSD-DBS/py-capellambse/releases/tag/v0.5.35) of [py-capellambse](https://github.com/DSD-DBS/py-capellambse) you can access the
-`.class_tree_diagram` on `Class` objects. A class tree diagram shows a tree
-made from all properties of the parent class.
+`.tree_diagram` on [`Class`][capellambse.model.crosslayer.information.Class]
+objects. A class tree diagram shows a tree made from all properties of the
+parent class.
 
 ??? example "Class Tree of Root"
 
@@ -15,7 +16,7 @@ made from all properties of the parent class.
     import capellambse
 
     model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
-    diag = model.by_uuid("b7c7f442-377f-492c-90bf-331e66988bda").class_tree_diagram
+    diag = model.by_uuid("b7c7f442-377f-492c-90bf-331e66988bda").tree_diagram
     diag.render("svgdiagram").save_drawing(pretty=True)
     ```
     <figure markdown>
@@ -43,6 +44,13 @@ ELK. The available options are:
 classes is its own partition.
     - True (default)
     - False
+5. edgeLabelSide - Controls edge label placement.
+    - SMART_DOWN (default)
+    - SMART_UP
+    - ALWAYS_UP
+    - ALWAYS_DOWN
+    - DIRECTION_UP
+    - DIRECTION_DOWN
 
 Here is an example that shows how convenient these parameters can be passed
 before rendering:
@@ -53,12 +61,13 @@ before rendering:
     import capellambse
 
     model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
-    diag = model.by_uuid("b7c7f442-377f-492c-90bf-331e66988bda").class_tree_diagram
+    diag = model.by_uuid("b7c7f442-377f-492c-90bf-331e66988bda").tree_diagram
     diag.render(
         "svgdiagram",
         edgeRouting="ORTHOGONAL",
         direction="Right",
         partitioning=False,
+        edgeLabelsSide="ALWAYS_DOWN",
     ).save_drawing(pretty=True)
     ```
     <figure markdown>

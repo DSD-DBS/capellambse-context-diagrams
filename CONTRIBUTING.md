@@ -150,7 +150,7 @@ Example:
 >
 >         model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
 >         diag = model.by_uuid("5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6").context_diagram
->         diag.render("svgdiagram").save_drawing(True)
+>         diag.render("svgdiagram").save_drawing(pretty=True)
 >         ```
 >         <figure markdown>
 >             <img src="assets/images/Context of Top secret.svg" width="1000000">

@@ -152,9 +152,9 @@ def register_functional_context() -> None:
 
 
 def register_class_tree() -> None:
-    """Add the `class_tree_diagram` attribute to `ModelObject`s."""
+    """Add the `tree_diagram` attribute to ``Class``es."""
     common.set_accessor(
         information.Class,
-        "class_tree_diagram",
+        "tree_diagram",
         context.ClassTreeAccessor(DiagramType.CDB.value),
     )

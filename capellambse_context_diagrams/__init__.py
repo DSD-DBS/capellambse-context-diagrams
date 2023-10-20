@@ -24,7 +24,7 @@ from importlib import metadata
 
 from capellambse.diagram import COLORS, CSSdef, capstyle
 from capellambse.model import common
-from capellambse.model.crosslayer import fa
+from capellambse.model.crosslayer import fa, information
 from capellambse.model.layers import ctx, la, oa, pa
 from capellambse.model.modeltypes import DiagramType
 
@@ -47,6 +47,7 @@ def init() -> None:
     """Initialize the extension."""
     register_classes()
     register_interface_context()
+    register_class_tree()
     # register_functional_context() XXX: Future
 
 
@@ -148,3 +149,12 @@ def register_functional_context() -> None:
             attr_name,
             context.FunctionalContextAccessor(dgcls.value),
         )
+
+
+def register_class_tree() -> None:
+    """Add the `tree_diagram` attribute to ``Class``es."""
+    common.set_accessor(
+        information.Class,
+        "tree_diagram",
+        context.ClassTreeAccessor(DiagramType.CDB.value),
+    )

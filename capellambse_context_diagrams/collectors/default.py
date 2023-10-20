@@ -12,6 +12,7 @@ import typing as t
 from capellambse import helpers
 from capellambse.model import common
 from capellambse.model.crosslayer import cs, fa
+from capellambse.model.modeltypes import DiagramType as DT
 
 from .. import _elkjs, context
 from . import exchanges, generic, makers
@@ -22,7 +23,7 @@ def collector(
 ) -> _elkjs.ELKInputData:
     """Collect context data from ports of centric box."""
     data = generic.collector(diagram, no_symbol=True)
-    ports = port_collector(diagram.target)
+    ports = port_collector(diagram.target, diagram.type)
     centerbox = data["children"][0]
     centerbox["ports"] = [makers.make_port(i.uuid) for i in ports]
     connections = port_exchange_collector(ports)
@@ -85,13 +86,13 @@ def collector(
 
 
 def port_collector(
-    target: common.GenericElement | common.ElementList,
+    target: common.GenericElement | common.ElementList, diagram_type: DT
 ) -> list[common.GenericElement]:
     """Savely collect ports from `target`."""
 
     def __collect(target):
         all_ports: list[common.GenericElement] = []
-        for attr in generic.CONNECTOR_ATTR_NAMES | {"ports"}:
+        for attr in generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[diagram_type]:
             try:
                 ports = getattr(target, attr)
                 if ports and isinstance(

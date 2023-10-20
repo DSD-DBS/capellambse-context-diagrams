@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import collections.abc as cabc
+import dataclasses
+import math
 import typing as t
 
 from capellambse import helpers
@@ -34,52 +36,78 @@ def collector(
     )
 
     made_boxes: set[str] = set()
-    for _, (source, prop, target, partition) in get_all_classes(
-        diagram.target
-    ):
-        if target.uuid not in made_boxes:
-            made_boxes.add(target.uuid)
-            box = makers.make_box(target)
+    for _, cls in get_all_classes(diagram.target):
+        if cls.target.uuid not in made_boxes:
+            made_boxes.add(cls.target.uuid)
+            box = makers.make_box(cls.target)
             if params.get("partitioning", False):
                 box["layoutOptions"] = {}
                 box["layoutOptions"]["elk.partitioning.partition"] = int(
-                    partition
+                    cls.partition
                 )
             data["children"].append(box)
 
-        width, height = helpers.extent_func(prop.name)
+        text = cls.prop.name
+        start, end = cls.multiplicity
+        if start != "1" or end != "1":
+            text = f"[{start}..{end}] {text}"
+
+        width, height = helpers.extent_func(text)
         label: _elkjs.ELKInputLabel = {
-            "text": prop.name,
+            "text": text,
             "width": width + 2 * makers.LABEL_HPAD,
             "height": height + 2 * makers.LABEL_VPAD,
         }
         data["edges"].append(
             {
-                "id": prop.uuid,
-                "sources": [source.uuid],
-                "targets": [target.uuid],
+                "id": cls.prop.uuid,
+                "sources": [cls.source.uuid],
+                "targets": [cls.target.uuid],
                 "labels": [label],
             }
         )
     return data
 
 
-ClassContext = tuple[
-    information.Class, information.Property, information.Class, int
-]
+@dataclasses.dataclass
+class ClassInfo:
+    source: information.Class
+    target: information.Class
+    prop: information.Property
+    partition: int
+    multiplicity: tuple[str, str]
 
 
 def get_all_classes(
     root: information.Class, partition: int = 0
-) -> cabc.Iterator[tuple[str, ClassContext]]:
+) -> cabc.Iterator[tuple[str, ClassInfo]]:
     """Yield all classes of the class tree."""
     partition += 1
-    classes: dict[str, ClassContext] = {}
+    visited_classes = set()
+    classes: dict[str, ClassInfo] = {}
     for prop in root.properties:
         if prop.type.xtype.endswith("Class"):
+            if prop.uuid in visited_classes:
+                continue
+            visited_classes.add(prop.uuid)
+
             edge_id = f"{root.uuid} {prop.uuid} {prop.type.uuid}"
             if edge_id not in classes:
-                classes[edge_id] = (root, prop, prop.type, partition)
+                classes[edge_id] = _make_class_info(root, prop, partition)
                 classes.update(dict(get_all_classes(prop.type, partition)))
-
     yield from classes.items()
+
+
+def _make_class_info(
+    source: information.Class, prop: information.Property, partition: int
+) -> ClassInfo:
+    converter = {math.inf: "*"}
+    start = converter.get(prop.min_card.value, str(prop.min_card.value))
+    end = converter.get(prop.max_card.value, str(prop.max_card.value))
+    return ClassInfo(
+        source=source,
+        target=prop.type,
+        prop=prop,
+        partition=partition,
+        multiplicity=(start, end),
+    )

@@ -32,6 +32,7 @@ interface_context_diagram_uuids = {
 }
 hierarchy_context = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
 diagram_uuids = general_context_diagram_uuids | interface_context_diagram_uuids
+class_tree_uuid = "b7c7f442-377f-492c-90bf-331e66988bda"
 
 
 def generate_index_images() -> None:
@@ -91,6 +92,26 @@ def generate_hierarchy_image() -> None:
         print(diag.render("svg", include_inner_objects=True), file=fd)
 
 
+def generate_class_tree_images() -> None:
+    obj = model.by_uuid(class_tree_uuid)
+    diag = obj.tree_diagram
+    with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
+        print(diag.render("svg"), file=fd)
+    with mkdocs_gen_files.open(
+        f"{str(dest / diag.name)}-params.svg", "w"
+    ) as fd:
+        print(
+            diag.render(
+                "svg",
+                edgeRouting="ORTHOGONAL",
+                direction="Right",
+                partitioning=False,
+                edgeLabelsSide="ALWAYS_DOWN",
+            ),
+            file=fd,
+        )
+
+
 generate_index_images()
 generate_hierarchy_image()
 generate_no_symbol_images()
@@ -112,3 +133,4 @@ generate_styling_image(
     "red junction",
 )
 generate_styling_image(wizard, {}, "no_styles")
+generate_class_tree_images()

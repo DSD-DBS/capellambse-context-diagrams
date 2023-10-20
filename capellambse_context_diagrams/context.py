@@ -15,7 +15,7 @@ from capellambse import diagram as cdiagram
 from capellambse.model import common, diagram, modeltypes
 
 from . import _elkjs, filters, serializers, styling
-from .collectors import exchanges, get_elkdata
+from .collectors import class_tree, exchanges, get_elkdata
 
 logger = logging.getLogger(__name__)
 
@@ -127,6 +127,26 @@ class FunctionalContextAccessor(ContextAccessor):
         return self._get(
             obj, FunctionalContextDiagram, "{}_functional_context"
         )
+
+
+class ClassTreeAccessor(ContextAccessor):
+    """Provides access to the class tree diagrams."""
+
+    # pylint: disable=super-init-not-called
+    def __init__(self, diagclass: str) -> None:
+        self._dgcls = diagclass
+
+    def __get__(  # type: ignore
+        self,
+        obj: common.T | None,
+        objtype: type | None = None,
+    ) -> common.Accessor | ContextDiagram:
+        """Make a ContextDiagram for the given model object."""
+        del objtype
+        if obj is None:  # pragma: no cover
+            return self
+        assert isinstance(obj, common.GenericElement)
+        return self._get(obj, ClassTreeDiagram, "{}_class_tree")
 
 
 class ContextDiagram(diagram.AbstractDiagram):
@@ -304,4 +324,33 @@ class FunctionalContextDiagram(ContextDiagram):
         params["elkdata"] = exchanges.get_elkdata_for_exchanges(
             self, exchanges.FunctionalContextCollector, params
         )
+        return super()._create_diagram(params)
+
+
+class ClassTreeDiagram(ContextDiagram):
+    """An automatically generated ClassTree Diagram.
+
+    This diagram is exclusively for ``Class``es.
+    """
+
+    def __init__(self, class_: str, obj: common.GenericElement, **kw) -> None:
+        super().__init__(class_, obj, **kw, display_symbols_as_boxes=True)
+
+    @property
+    def uuid(self) -> str:  # type: ignore
+        """Returns the UUID of the diagram."""
+        return f"{self.target.uuid}_class-tree"
+
+    @property
+    def name(self) -> str:  # type: ignore
+        """Returns the name of the diagram."""
+        return f"Class Tree of {self.target.name}"
+
+    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
+        params.setdefault("algorithm", "layered")
+        params.setdefault("direction", "DOWN")
+        params.setdefault("edgeRouting", "POLYLINE")
+        params.setdefault("partitioning", True)
+        params.setdefault("edgeLabelsSide", "SMART_DOWN")
+        params["elkdata"] = class_tree.collector(self, params)
         return super()._create_diagram(params)

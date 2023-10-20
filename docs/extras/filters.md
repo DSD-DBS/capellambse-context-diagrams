@@ -26,7 +26,7 @@ Currently the supported filters are:
     diag = obj.context_diagram
     assert filters.EX_ITEMS == "show.exchange.items.filter"
     diag.filters.add(filters.EX_ITEMS)
-    diag.render("svgdiagram").save_drawing(True)
+    diag.render("svgdiagram").save_drawing(pretty=True)
     ```
     <figure markdown>
         <img src="../../assets/images/Context of Lost ex.svg" width="1000000">
@@ -43,7 +43,7 @@ Currently the supported filters are:
     diag = obj.context_diagram
     assert filters.FEX_EX_ITEMS == "show.functional.exchanges.exchange.items.filter"
     filters.filters = {filters.FEX_EX_ITEMS}
-    diag.render("svgdiagram").save_drawing(True)
+    diag.render("svgdiagram").save_drawing(pretty=True)
     ```
     <figure markdown>
         <img src="../../assets/images/Context of Lost fex and ex.svg" width="1000000">
@@ -62,7 +62,7 @@ Currently the supported filters are:
     diag = obj.context_diagram
     assert filters.FEX_OR_EX_ITEMS == "capellambse_context_diagrams-show.functional.exchanges.or.exchange.items.filter"
     filters.filters.add(filters.FEX_OR_EX_ITEMS)
-    diag.render("svgdiagram").save_drawing(True)
+    diag.render("svgdiagram").save_drawing(pretty=True)
     ```
     <figure markdown>
         <img src="../../assets/images/Context of Lost fex or ex.svg" width="1000000">

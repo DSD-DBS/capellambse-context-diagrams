@@ -38,9 +38,16 @@ def get_elkdata(
     elkdata
         The data that can be fed into elkjs.
     """
-    if generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[diagram.type]:
+    try:
+        if generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[diagram.type]:
+            collector = default.collector
+        else:
+            collector = portless.collector
+    except KeyError:
+        logger.error(
+            "Handling unknown diagram type %r. Default collector is used.",
+            diagram.type,
+        )
         collector = default.collector
-    else:
-        collector = portless.collector
 
     return collector(diagram, params)

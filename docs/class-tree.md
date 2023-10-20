@@ -66,14 +66,16 @@ before rendering:
         "svgdiagram",
         edgeRouting="ORTHOGONAL",
         direction="Right",
-        partitioning=False,
-        edgeLabelsSide="ALWAYS_DOWN",
+        # partitioning=False,
+        # edgeLabelsSide="ALWAYS_DOWN",
     ).save_drawing(pretty=True)
     ```
     <figure markdown>
         <img src="../assets/images/Class Tree of Root-params.svg">
         <figcaption>[CDB] Class Tree Diagram of Root</figcaption>
     </figure>
+
+They are optional and don't need to be set all together.
 
 ## Check out the code
 

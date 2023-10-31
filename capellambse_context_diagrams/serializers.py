@@ -12,6 +12,7 @@ from __future__ import annotations
 import logging
 
 from capellambse import diagram
+from capellambse.svg import decorations
 
 from . import _elkjs, collectors, context
 
@@ -125,6 +126,10 @@ class DiagramSerializer:
 
             ref += (child["position"]["x"], child["position"]["y"])  # type: ignore
             size = (child["size"]["width"], child["size"]["height"])  # type: ignore
+            features = []
+            if styleclass in decorations.needs_feature_line:
+                features = self._handle_features(child)  # type: ignore[arg-type]
+
             element = diagram.Box(
                 ref,
                 size,
@@ -133,6 +138,7 @@ class DiagramSerializer:
                 port=is_port,
                 styleclass=styleclass,
                 styleoverrides=self.get_styleoverrides(child),
+                features=features,
             )
             element.JSON_TYPE = box_type
             self.diagram.add_element(element)
@@ -196,6 +202,18 @@ class DiagramSerializer:
 
         for i in child.get("children", []):  # type: ignore
             self.deserialize_child(i, ref, element)
+
+    def _handle_features(self, child: _elkjs.ELKOutputNode) -> list[str]:
+        features: list[str] = []
+        if len(child["children"]) <= 1:
+            return features
+
+        for c in child["children"][1:]:
+            if not c["type"] == "label":
+                continue
+            features.append(c["text"])
+        child["children"] = child["children"][:1]
+        return features
 
     def _is_hierarchical(self, uuid: str) -> bool:
         def is_contained(obj: diagram.Box) -> bool:

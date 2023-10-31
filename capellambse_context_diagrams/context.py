@@ -7,6 +7,7 @@ Definitions of Custom Accessor- and Diagram-Classtypes based on
 from __future__ import annotations
 
 import collections.abc as cabc
+import copy
 import json
 import logging
 import typing as t
@@ -218,7 +219,7 @@ class ContextDiagram(diagram.AbstractDiagram):
     @property
     def name(self) -> str:  # type: ignore
         """Returns the diagram name."""
-        return f"Context of {self.target.name}"
+        return f"Context of {self.target.name.replace('/', '- or -')}"
 
     @property
     def type(self) -> modeltypes.DiagramType:
@@ -347,10 +348,46 @@ class ClassTreeDiagram(ContextDiagram):
         return f"Class Tree of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params.setdefault("algorithm", "layered")
-        params.setdefault("direction", "DOWN")
-        params.setdefault("edgeRouting", "POLYLINE")
-        params.setdefault("partitioning", True)
-        params.setdefault("edgeLabelsSide", "SMART_DOWN")
-        params["elkdata"] = class_tree.collector(self, params)
-        return super()._create_diagram(params)
+        params.setdefault("algorithm", params.get("algorithm", "layered"))
+        params.setdefault("elk.direction", params.pop("direction", "DOWN"))
+        params.setdefault("edgeRouting", params.get("edgeRouting", "POLYLINE"))
+        params.setdefault(
+            "nodeSize.constraints",
+            params.pop("nodeSizeConstraints", "NODE_LABELS"),
+        )
+        params.setdefault(
+            "partitioning.activate", params.pop("partitioning", False)
+        )
+        params.setdefault(
+            "layered.edgeLabels.sideSelection",
+            params.pop("edgeLabelsSide", "SMART_DOWN"),
+        )
+        data, legend = class_tree.collector(self, params)
+        params["elkdata"] = data
+        class_diagram = super()._create_diagram(params)
+        width, height = class_diagram.viewport.size
+        axis: t.Literal["x", "y"]
+        if params["elk.direction"] in {"DOWN", "UP"}:
+            legend["layoutOptions"]["aspectRatio"] = width / height
+            axis = "x"
+        else:
+            legend["layoutOptions"]["aspectRatio"] = width
+            axis = "y"
+        params["elkdata"] = legend
+        legend_diagram = super()._create_diagram(params)
+        stack_diagrams(class_diagram, legend_diagram, axis)
+        return class_diagram
+
+
+def stack_diagrams(
+    first: cdiagram.Diagram,
+    second: cdiagram.Diagram,
+    axis: t.Literal["x", "y"] = "x",
+) -> None:
+    """Add the diagram elements from ``right`` to left inline."""
+    offset = first.viewport.pos + first.viewport.size
+    offset @= (1, 0) if axis == "x" else (0, 1)
+    for element in second:
+        new = copy.deepcopy(element)
+        new.move(offset)
+        first += new

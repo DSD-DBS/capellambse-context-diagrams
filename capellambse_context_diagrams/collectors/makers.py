@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import collections.abc as cabc
-import typing as t
 
 import typing_extensions as te
 from capellambse import helpers

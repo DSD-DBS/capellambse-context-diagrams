@@ -128,7 +128,7 @@ class DiagramSerializer:
             size = (child["size"]["width"], child["size"]["height"])  # type: ignore
             features = []
             if styleclass in decorations.needs_feature_line:
-                features = self._handle_features(child)  # type: ignore[arg-type]
+                features = handle_features(child)  # type: ignore[arg-type]
 
             element = diagram.Box(
                 ref,
@@ -203,18 +203,6 @@ class DiagramSerializer:
         for i in child.get("children", []):  # type: ignore
             self.deserialize_child(i, ref, element)
 
-    def _handle_features(self, child: _elkjs.ELKOutputNode) -> list[str]:
-        features: list[str] = []
-        if len(child["children"]) <= 1:
-            return features
-
-        for c in child["children"][1:]:
-            if not c["type"] == "label":
-                continue
-            features.append(c["text"])
-        child["children"] = child["children"][:1]
-        return features
-
     def _is_hierarchical(self, uuid: str) -> bool:
         def is_contained(obj: diagram.Box) -> bool:
             if obj.port and obj.parent and obj.parent.parent:
@@ -274,3 +262,17 @@ class DiagramSerializer:
             new_diagram.add_element(element)
 
         self.diagram = new_diagram
+
+
+def handle_features(child: _elkjs.ELKOutputNode) -> list[str]:
+    """Return all consecutive labels (without first) from the ``child``."""
+    features: list[str] = []
+    if len(child["children"]) <= 1:
+        return features
+
+    for c in child["children"][1:]:
+        if not c["type"] == "label":
+            continue
+        features.append(c["text"])
+    child["children"] = child["children"][:1]
+    return features

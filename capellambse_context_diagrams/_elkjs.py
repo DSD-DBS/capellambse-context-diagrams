@@ -9,6 +9,7 @@ function is [call_elkjs][capellambse_context_diagrams._elkjs.call_elkjs].
 from __future__ import annotations
 
 import collections.abc as cabc
+import copy
 import json
 import logging
 import os
@@ -42,12 +43,13 @@ log = logging.getLogger(__name__)
 NODE_HOME = Path(capellambse.dirs.user_cache_dir, "elkjs", "node_modules")
 PATH_TO_ELK_JS = Path(__file__).parent / "elk.js"
 REQUIRED_NPM_PKG_VERSIONS: t.Dict[str, str] = {
-    "elkjs": "0.8.1",
+    "elkjs": "0.8.2",
 }
 """npm package names and versions required by this Python module."""
 
-LayoutOptions = dict[str, t.Union[str, int, float]]
-LAYOUT_OPTIONS: LayoutOptions = {
+LayoutOptions = cabc.MutableMapping[str, t.Union[str, int, float]]
+ImmutableLayoutOptions = cabc.Mapping[str, t.Union[str, int, float]]
+LAYOUT_OPTIONS: ImmutableLayoutOptions = {
     "algorithm": "layered",
     "edgeRouting": "ORTHOGONAL",
     "elk.direction": "RIGHT",
@@ -64,6 +66,24 @@ See Also
 [get_global_layered_layout_options][capellambse_context_diagrams._elkjs.get_global_layered_layout_options] :
     A function that instantiates this class with well-tested settings.
 """
+CLASS_TREE_LAYOUT_OPTIONS: ImmutableLayoutOptions = {
+    "algorithm": "layered",
+    "edgeRouting": "ORTHOGONAL",
+    "elk.direction": "RIGHT",
+    "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+    "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+    "spacing.labelNode": "0.0",
+    "spacing.edgeNode": 20,
+    "compaction.postCompaction.strategy": "LEFT_RIGHT_CONSTRAINT_LOCKING",
+    "layered.considerModelOrder.components": "MODEL_ORDER",
+    "separateConnectedComponents": False,
+}
+RECT_PACKING_LAYOUT_OPTIONS: ImmutableLayoutOptions = {
+    "algorithm": "elk.rectpacking",
+    "nodeSize.constraints": "[NODE_LABELS, MINIMUM_SIZE]",
+    "widthApproximation.targetWidth": 1,  # width / height
+    "elk.contentAlignment": "V_TOP H_CENTER",
+}
 LABEL_LAYOUT_OPTIONS = {"nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"}
 """Options for labels to configure ELK layouting."""
 
@@ -72,7 +92,7 @@ class ELKInputData(te.TypedDict, total=False):
     """Data that can be fed to ELK."""
 
     id: te.Required[str]
-    layoutOptions: cabc.MutableMapping[str, t.Union[str, int, float]]
+    layoutOptions: LayoutOptions
     children: cabc.MutableSequence[ELKInputChild]  # type: ignore
     edges: cabc.MutableSequence[ELKInputEdge]
 
@@ -91,7 +111,7 @@ class ELKInputLabel(te.TypedDict, total=False):
     """Label data that can be fed to ELK."""
 
     text: te.Required[str]
-    layoutOptions: cabc.MutableMapping[str, t.Union[str, int, float]]
+    layoutOptions: LayoutOptions
     width: t.Union[int, float]
     height: t.Union[int, float]
 
@@ -107,7 +127,7 @@ class ELKInputPort(t.TypedDict):
 
 
 class ELKInputEdge(te.TypedDict):
-    """Exchange data that can be fed to ELK"""
+    """Exchange data that can be fed to ELK."""
 
     id: str
     sources: cabc.MutableSequence[str]
@@ -325,4 +345,4 @@ def call_elkjs(elk_dict: ELKInputData) -> ELKOutputData:
 
 def get_global_layered_layout_options() -> LayoutOptions:
     """Return optimal ELKLayered configuration."""
-    return LAYOUT_OPTIONS
+    return copy.deepcopy(LAYOUT_OPTIONS)  # type: ignore[arg-type]

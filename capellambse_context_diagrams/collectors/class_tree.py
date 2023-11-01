@@ -83,8 +83,7 @@ class ClassProcessor:
     ) -> None:
         if obj.uuid not in self.made_boxes:
             self.made_boxes.add(obj.uuid)
-            box = self._make_box(obj, partition, params)
-            self._set_data_types_and_labels(box, obj)
+            self._make_box(obj, partition, params)
 
     def _make_box(
         self, obj: information.Class, partition: int, params: dict[str, t.Any]

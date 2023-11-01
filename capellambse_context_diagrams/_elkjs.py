@@ -9,6 +9,7 @@ function is [call_elkjs][capellambse_context_diagrams._elkjs.call_elkjs].
 from __future__ import annotations
 
 import collections.abc as cabc
+import copy
 import json
 import logging
 import os
@@ -47,7 +48,8 @@ REQUIRED_NPM_PKG_VERSIONS: t.Dict[str, str] = {
 """npm package names and versions required by this Python module."""
 
 LayoutOptions = cabc.MutableMapping[str, t.Union[str, int, float]]
-LAYOUT_OPTIONS: LayoutOptions = {
+ImmutableLayoutOptions = cabc.Mapping[str, t.Union[str, int, float]]
+LAYOUT_OPTIONS: ImmutableLayoutOptions = {
     "algorithm": "layered",
     "edgeRouting": "ORTHOGONAL",
     "elk.direction": "RIGHT",
@@ -64,7 +66,7 @@ See Also
 [get_global_layered_layout_options][capellambse_context_diagrams._elkjs.get_global_layered_layout_options] :
     A function that instantiates this class with well-tested settings.
 """
-CLASS_TREE_LAYOUT_OPTIONS: LayoutOptions = {
+CLASS_TREE_LAYOUT_OPTIONS: ImmutableLayoutOptions = {
     "algorithm": "layered",
     "edgeRouting": "ORTHOGONAL",
     "elk.direction": "RIGHT",
@@ -76,7 +78,7 @@ CLASS_TREE_LAYOUT_OPTIONS: LayoutOptions = {
     "layered.considerModelOrder.components": "MODEL_ORDER",
     "separateConnectedComponents": False,
 }
-RECT_PACKING_LAYOUT_OPTIONS: LayoutOptions = {
+RECT_PACKING_LAYOUT_OPTIONS: ImmutableLayoutOptions = {
     "algorithm": "elk.rectpacking",
     "nodeSize.constraints": "[NODE_LABELS, MINIMUM_SIZE]",
     "widthApproximation.targetWidth": 1,  # width / height
@@ -343,4 +345,4 @@ def call_elkjs(elk_dict: ELKInputData) -> ELKOutputData:
 
 def get_global_layered_layout_options() -> LayoutOptions:
     """Return optimal ELKLayered configuration."""
-    return LAYOUT_OPTIONS
+    return copy.deepcopy(LAYOUT_OPTIONS)  # type: ignore[arg-type]

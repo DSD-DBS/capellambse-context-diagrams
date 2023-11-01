@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import collections.abc as cabc
+import copy
 import dataclasses
 import logging
 import math
@@ -124,7 +125,7 @@ def collector(
         processor.process_class(cls, params)
 
     legend = makers.make_diagram(diagram)
-    legend["layoutOptions"] = _elkjs.RECT_PACKING_LAYOUT_OPTIONS
+    legend["layoutOptions"] = copy.deepcopy(_elkjs.RECT_PACKING_LAYOUT_OPTIONS)  # type: ignore[arg-type]
     legend["children"] = processor.legend_boxes
     return data, legend
 

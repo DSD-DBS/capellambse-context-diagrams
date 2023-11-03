@@ -43,7 +43,8 @@ log = logging.getLogger(__name__)
 NODE_HOME = Path(capellambse.dirs.user_cache_dir, "elkjs", "node_modules")
 PATH_TO_ELK_JS = Path(__file__).parent / "elk.js"
 REQUIRED_NPM_PKG_VERSIONS: t.Dict[str, str] = {
-    "elkjs": "0.8.2",
+    # "elkjs": "0.8.2",
+    "elkjs": "file:~/elk-master/git/elkjs",
 }
 """npm package names and versions required by this Python module."""
 
@@ -149,18 +150,24 @@ class ELKSize(t.TypedDict):
     height: t.Union[int, float]
 
 
-class ELKOutputData(t.TypedDict):
-    """Data that comes from ELK."""
+class ELKOutputElement(t.TypedDict):
+    """Base class for all elements that comes out of ELK."""
 
     id: str
+
+    style: dict[str, t.Any]
+
+
+class ELKOutputData(ELKOutputElement):
+    """Data that comes from ELK."""
+
     type: t.Literal["graph"]
     children: cabc.MutableSequence[ELKOutputChild]  # type: ignore
 
 
-class ELKOutputNode(t.TypedDict):
+class ELKOutputNode(ELKOutputElement):
     """Node that comes out of ELK."""
 
-    id: str
     type: t.Literal["node"]
     children: cabc.MutableSequence[ELKOutputChild]  # type: ignore
 
@@ -168,20 +175,18 @@ class ELKOutputNode(t.TypedDict):
     size: ELKSize
 
 
-class ELKOutputJunction(t.TypedDict):
+class ELKOutputJunction(ELKOutputElement):
     """Exchange-Junction that comes out of ELK."""
 
-    id: str
     type: t.Literal["junction"]
 
     position: ELKPoint
     size: ELKSize
 
 
-class ELKOutputPort(t.TypedDict):
+class ELKOutputPort(ELKOutputElement):
     """Port that comes out of ELK."""
 
-    id: str
     type: t.Literal["port"]
     children: cabc.MutableSequence[ELKOutputLabel]
 
@@ -189,10 +194,9 @@ class ELKOutputPort(t.TypedDict):
     size: ELKSize
 
 
-class ELKOutputLabel(t.TypedDict):
+class ELKOutputLabel(ELKOutputElement):
     """Label that comes out of ELK."""
 
-    id: str
     type: t.Literal["label"]
     text: str
 
@@ -200,11 +204,11 @@ class ELKOutputLabel(t.TypedDict):
     size: ELKSize
 
 
-class ELKOutputEdge(t.TypedDict):
+class ELKOutputEdge(ELKOutputElement):
     """Edge that comes out of ELK."""
 
-    id: str
     type: t.Literal["edge"]
+
     sourceId: str
     targetId: str
     routingPoints: cabc.MutableSequence[ELKPoint]

@@ -128,7 +128,7 @@ generate_styling_image(
     lost,
     dict(
         styling.BLUE_ACTOR_FNCS,
-        junction=lambda o, s: {"fill": diagram.RGB(220, 20, 60)},
+        junction=lambda o, s: {"stroke": diagram.RGB(220, 20, 60)},
     ),
     "red junction",
 )

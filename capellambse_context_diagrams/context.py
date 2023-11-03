@@ -10,13 +10,15 @@ import collections.abc as cabc
 import copy
 import json
 import logging
+import math
 import typing as t
 
 from capellambse import diagram as cdiagram
+from capellambse import helpers
 from capellambse.model import common, diagram, modeltypes
 
 from . import _elkjs, filters, serializers, styling
-from .collectors import exchanges, get_elkdata, tree_view
+from .collectors import exchanges, get_elkdata, realization_view, tree_view
 
 logger = logging.getLogger(__name__)
 
@@ -142,12 +144,32 @@ class ClassTreeAccessor(ContextAccessor):
         obj: common.T | None,
         objtype: type | None = None,
     ) -> common.Accessor | ContextDiagram:
-        """Make a ContextDiagram for the given model object."""
+        """Make a ClassTreeDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
             return self
         assert isinstance(obj, common.GenericElement)
         return self._get(obj, ClassTreeDiagram, "{}_class_tree")
+
+
+class RealizationViewContextAccessor(ContextAccessor):
+    """Provides access to the realization view diagrams."""
+
+    # pylint: disable=super-init-not-called
+    def __init__(self, diagclass: str) -> None:
+        self._dgcls = diagclass
+
+    def __get__(  # type: ignore
+        self,
+        obj: common.T | None,
+        objtype: type | None = None,
+    ) -> common.Accessor | ContextDiagram:
+        """Make a RealizationViewDiagram for the given model object."""
+        del objtype
+        if obj is None:  # pragma: no cover
+            return self
+        assert isinstance(obj, common.GenericElement)
+        return self._get(obj, RealizationViewDiagram, "{}_realization_view")
 
 
 class ContextDiagram(diagram.AbstractDiagram):
@@ -275,12 +297,8 @@ class ContextDiagram(diagram.AbstractDiagram):
         return super().render(fmt, **rparams)
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        try:
-            data = params.get("elkdata") or get_elkdata(self, params)
-            layout = _elkjs.call_elkjs(data)
-        except json.JSONDecodeError as error:
-            logger.error(json.dumps(data, indent=4))
-            raise error
+        data = params.get("elkdata") or get_elkdata(self, params)
+        layout = self._try_to_layout(data)
         return self.serializer.make_diagram(layout)
 
     @property  # type: ignore
@@ -291,6 +309,15 @@ class ContextDiagram(diagram.AbstractDiagram):
     def filters(self, value: cabc.Iterable[str]) -> None:
         self.__filters.clear()
         self.__filters |= set(value)
+
+    def _try_to_layout(
+        self, data: _elkjs.ELKInputData
+    ) -> _elkjs.ELKOutputData:
+        try:
+            return _elkjs.call_elkjs(data)
+        except json.JSONDecodeError as error:
+            logger.error(json.dumps(data, indent=4))
+            raise error
 
 
 class InterfaceContextDiagram(ContextDiagram):
@@ -379,6 +406,104 @@ class ClassTreeDiagram(ContextDiagram):
         return class_diagram
 
 
+class RealizationViewDiagram(ContextDiagram):
+    """An automatically generated RealizationViewDiagram Diagram.
+
+    This diagram is exclusively for ``Activity``, ``Function``s,
+    ``Entity`` and ``Components`` of all layers.
+    """
+
+    def __init__(self, class_: str, obj: common.GenericElement, **kw) -> None:
+        super().__init__(class_, obj, **kw, display_symbols_as_boxes=True)
+
+    @property
+    def uuid(self) -> str:  # type: ignore
+        """Returns the UUID of the diagram."""
+        return f"{self.target.uuid}_realization_view"
+
+    @property
+    def name(self) -> str:  # type: ignore
+        """Returns the name of the diagram."""
+        return f"Reailization view of {self.target.name}"
+
+    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
+        params.setdefault("depth", params.get("depth", 1))
+        params.setdefault(
+            "search_direction", params.get("search_direction", "ALL")
+        )
+        params.setdefault("show_owners", params.get("show_owners", True))
+        data, edges = realization_view.collector(self, params)
+        layout = self._try_to_layout(data)
+        min_width = max(child["size"]["width"] for child in layout["children"])  # type: ignore[typeddict-item]
+        min_width += 15.0
+        for layer in data["children"]:
+            min_height: int | float = 0
+            for layout_layer in layout["children"]:
+                if layer["id"] != layout_layer["id"]:
+                    continue
+                assert layout_layer["type"] != "edge"
+                min_height = layout_layer["size"]["height"]
+
+            assert min_height > 0
+            layer["width"] = min_width
+            layer["layoutOptions"][
+                "nodeSize.minimum"
+            ] = f"({min_width},{min_height})"
+
+        layout = self._try_to_layout(data)
+        self._add_layer_labels(layout)
+        self._add_edges_to_layout(layout, edges)
+        return self.serializer.make_diagram(layout)
+
+    def _add_layer_labels(self, layout: _elkjs.ELKOutputData) -> None:
+        for layer in layout["children"]:
+            if layer["type"] != "node":
+                continue
+
+            layer_obj = self.serializer.model.by_uuid(layer["id"])
+            _, layer_name = realization_view.find_layer(layer_obj)
+            pos = layer["position"]["x"], layer["position"]["y"]
+            size = layer["size"]["width"], layer["size"]["height"]
+            width, height = helpers.get_text_extent(layer_name)
+            x, y, tspan_y = calculate_label_position(*pos, *size)
+            label_box: _elkjs.ELKOutputChild = {
+                "type": "label",
+                "id": "None",
+                "text": layer_name,
+                "position": {"x": x, "y": y},
+                "size": {"width": width, "height": height},
+                "style": {
+                    "text_transform": f"rotate(-90, {x}, {y}) {tspan_y}",
+                    "text_fill": "grey",
+                },
+            }
+            layer["children"].insert(0, label_box)
+            layer["style"] = {"stroke": "grey", "rx": 5, "ry": 5}
+
+    @t.no_type_check
+    def _add_edges_to_layout(
+        self,
+        layout: _elkjs.ELKOutputData,
+        edges: cabc.Iterable[_elkjs.ELKInputEdge],
+    ) -> None:
+        """Calculates routing points for given ``edges``.
+
+        This can be removed when ELK's rectangle packing algorithm is
+        aware of edges, or a sole routing algorithm can be used.
+        """
+        for edge in edges:
+            layout["children"].append(
+                {
+                    "id": edge["id"],
+                    "type": "edge",
+                    "sourceId": edge["sources"][0],
+                    "targetId": edge["targets"][0],
+                    "routingPoints": [],
+                    "styleclass": "Realization",
+                }
+            )
+
+
 def stack_diagrams(
     first: cdiagram.Diagram,
     second: cdiagram.Diagram,
@@ -391,3 +516,32 @@ def stack_diagrams(
         new = copy.deepcopy(element)
         new.move(offset)
         first += new
+
+
+def calculate_label_position(
+    x: float,
+    y: float,
+    width: float,
+    height: float,
+    padding: float = 10,
+) -> tuple[float, float, float]:
+    """Calculate the position of the label and tspan.
+
+    The function calculates the center of the rectangle and uses the
+    rectangle's width and height to adjust its position within it. The
+    text is assumed to be horizontally and vertically centered within
+    the rectangle. The tspan y coordinate is for positioning the label
+    right under the left side of the rectangle.
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    tuple
+        A tuple containing the x- and y-coordinate for the text element
+        and the adjusted y-coordinate for the tspan element.
+    """
+    center_y = y + height / 2
+    tspan_y = center_y - width / 2 + padding
+    return (x + width / 2, center_y, tspan_y)

@@ -48,6 +48,7 @@ def init() -> None:
     register_classes()
     register_interface_context()
     register_tree_view()
+    register_realization_view()
     # register_functional_context() XXX: Future
 
 
@@ -152,9 +153,45 @@ def register_functional_context() -> None:
 
 
 def register_tree_view() -> None:
-    """Add the `tree_view` attribute to ``Class``es."""
+    """Add the ``tree_view`` attribute to ``Class``es."""
     common.set_accessor(
         information.Class,
         "tree_view",
         context.ClassTreeAccessor(DiagramType.CDB.value),
     )
+
+
+def register_realization_view() -> None:
+    """Add the ``realization_view`` attribute to various objects.
+
+    Adds ``realization_view`` to Activities, Functions and Components
+    of all layers.
+    """
+    supported_classes: list[ClassPair] = [
+        (oa.Entity, DiagramType.OAB),
+        (oa.OperationalActivity, DiagramType.OAIB),
+        (ctx.SystemComponent, DiagramType.SAB),
+        (ctx.SystemFunction, DiagramType.SDFB),
+        (la.LogicalComponent, DiagramType.LAB),
+        (la.LogicalFunction, DiagramType.LDFB),
+        (pa.PhysicalComponent, DiagramType.PAB),
+        (pa.PhysicalFunction, DiagramType.PDFB),
+    ]
+    styles: dict[str, dict[str, capstyle.CSSdef]] = {}
+    for class_, dgcls in supported_classes:
+        common.set_accessor(
+            class_,
+            "realization_view",
+            context.RealizationViewContextAccessor("RealizationView Diagram"),
+        )
+        styles.update(capstyle.STYLES.get(dgcls.value, {}))
+
+    capstyle.STYLES["RealizationView Diagram"] = styles
+    capstyle.STYLES["RealizationView Diagram"].update(
+        capstyle.STYLES["__GLOBAL__"]
+    )
+    capstyle.STYLES["RealizationView Diagram"]["Edge.Realization"] = {
+        "stroke": capstyle.COLORS["dark_gray"],
+        "marker-end": "FineArrowMark",
+        "stroke-dasharray": "5",
+    }

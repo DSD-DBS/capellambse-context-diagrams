@@ -89,8 +89,8 @@ nav:
   - Extras:
       - Filters: extras/filters.md
       - Styling: extras/styling.md
-  - Class Tree:
-      - Overview: class-tree.md
+  - Tree View:
+      - Overview: tree_view.md
   - Code Reference: reference/
 
 extra_css:

@@ -16,7 +16,7 @@ from capellambse import diagram as cdiagram
 from capellambse.model import common, diagram, modeltypes
 
 from . import _elkjs, filters, serializers, styling
-from .collectors import class_tree, exchanges, get_elkdata
+from .collectors import exchanges, get_elkdata, tree_view
 
 logger = logging.getLogger(__name__)
 
@@ -131,7 +131,7 @@ class FunctionalContextAccessor(ContextAccessor):
 
 
 class ClassTreeAccessor(ContextAccessor):
-    """Provides access to the class tree diagrams."""
+    """Provides access to the tree view diagrams."""
 
     # pylint: disable=super-init-not-called
     def __init__(self, diagclass: str) -> None:
@@ -340,12 +340,12 @@ class ClassTreeDiagram(ContextDiagram):
     @property
     def uuid(self) -> str:  # type: ignore
         """Returns the UUID of the diagram."""
-        return f"{self.target.uuid}_class-tree"
+        return f"{self.target.uuid}_tree_view"
 
     @property
     def name(self) -> str:  # type: ignore
         """Returns the name of the diagram."""
-        return f"Class Tree of {self.target.name}"
+        return f"Tree view of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         params.setdefault("algorithm", params.get("algorithm", "layered"))
@@ -362,7 +362,7 @@ class ClassTreeDiagram(ContextDiagram):
             "layered.edgeLabels.sideSelection",
             params.pop("edgeLabelsSide", "SMART_DOWN"),
         )
-        data, legend = class_tree.collector(self, params)
+        data, legend = tree_view.collector(self, params)
         params["elkdata"] = data
         class_diagram = super()._create_diagram(params)
         width, height = class_diagram.viewport.size

@@ -3,25 +3,25 @@
  ~ SPDX-License-Identifier: Apache-2.0
  -->
 
-# Class Tree Diagram
+# Tree View Diagram
 
 With release [`v0.5.35`](https://github.com/DSD-DBS/py-capellambse/releases/tag/v0.5.35) of [py-capellambse](https://github.com/DSD-DBS/py-capellambse) you can access the
-`.tree_diagram` on [`Class`][capellambse.model.crosslayer.information.Class]
-objects. A class tree diagram shows a tree made from all properties of the
+`.tree_view` on [`Class`][capellambse.model.crosslayer.information.Class]
+objects. A tree view diagram shows a tree made from all properties of the
 parent class.
 
-??? example "Class Tree of Root"
+??? example "Tree view of Root"
 
     ``` py
     import capellambse
 
     model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
-    diag = model.by_uuid("b7c7f442-377f-492c-90bf-331e66988bda").tree_diagram
+    diag = model.by_uuid("b7c7f442-377f-492c-90bf-331e66988bda").tree_view
     diag.render("svgdiagram").save_drawing(pretty=True)
     ```
     <figure markdown>
-        <img src="../assets/images/Class Tree of Root.svg">
-        <figcaption>[CDB] Class Tree Diagram of Root</figcaption>
+        <img src="../assets/images/Tree view of Root.svg">
+        <figcaption>[CDB] Tree View Diagram of Root</figcaption>
     </figure>
 
 Additional rendering parameters enable the control over the layout computed by
@@ -55,13 +55,13 @@ classes is its own partition.
 Here is an example that shows how convenient these parameters can be passed
 before rendering:
 
-??? example "Class Tree of Root"
+??? example "Tree View of Root"
 
     ``` py
     import capellambse
 
     model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
-    diag = model.by_uuid("b7c7f442-377f-492c-90bf-331e66988bda").tree_diagram
+    diag = model.by_uuid("b7c7f442-377f-492c-90bf-331e66988bda").tree_view
     diag.render(
         "svgdiagram",
         edgeRouting="ORTHOGONAL",
@@ -71,8 +71,8 @@ before rendering:
     ).save_drawing(pretty=True)
     ```
     <figure markdown>
-        <img src="../assets/images/Class Tree of Root-params.svg">
-        <figcaption>[CDB] Class Tree Diagram of Root</figcaption>
+        <img src="../assets/images/Tree view of Root-params.svg">
+        <figcaption>[CDB] Tree View Diagram of Root</figcaption>
     </figure>
 
 They are optional and don't need to be set all together.
@@ -80,4 +80,4 @@ They are optional and don't need to be set all together.
 ## Check out the code
 
 To understand the collection have a look into the
-[`class_tree`][capellambse_context_diagrams.collectors.class_tree] module.
+[`class_tree`][capellambse_context_diagrams.collectors.tree_view] module.

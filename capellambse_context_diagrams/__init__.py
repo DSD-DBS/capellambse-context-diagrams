@@ -47,7 +47,7 @@ def init() -> None:
     """Initialize the extension."""
     register_classes()
     register_interface_context()
-    register_class_tree()
+    register_tree_view()
     # register_functional_context() XXX: Future
 
 
@@ -151,10 +151,10 @@ def register_functional_context() -> None:
         )
 
 
-def register_class_tree() -> None:
-    """Add the `tree_diagram` attribute to ``Class``es."""
+def register_tree_view() -> None:
+    """Add the `tree_view` attribute to ``Class``es."""
     common.set_accessor(
         information.Class,
-        "tree_diagram",
+        "tree_view",
         context.ClassTreeAccessor(DiagramType.CDB.value),
     )

@@ -67,7 +67,8 @@ class DiagramSerializer:
             from the input data.
         """
         self.diagram = diagram.Diagram(
-            self._diagram.name, styleclass=self._diagram.styleclass
+            self._diagram.name.replace("/", "\\"),
+            styleclass=self._diagram.styleclass,
         )
         for child in data["children"]:
             self.deserialize_child(child, diagram.Vector2D(), None)

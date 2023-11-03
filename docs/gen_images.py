@@ -94,7 +94,7 @@ def generate_hierarchy_image() -> None:
 
 def generate_class_tree_images() -> None:
     obj = model.by_uuid(class_tree_uuid)
-    diag = obj.tree_diagram
+    diag = obj.tree_view
     with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
         print(diag.render("svg"), file=fd)
     with mkdocs_gen_files.open(

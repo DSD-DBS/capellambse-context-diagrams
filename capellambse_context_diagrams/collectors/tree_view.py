@@ -41,28 +41,30 @@ class ClassProcessor:
         self.all_associations = all_associations
 
     def process_class(self, cls, params):
-        self._process_box(cls.target, cls.partition, params)
         self._process_box(cls.source, cls.partition, params)
-        edges = [
-            assoc
-            for assoc in self.all_associations
-            if cls.prop in assoc.navigable_members
-        ]
-        assert len(edges) == 1
-        if (edge_id := edges[0].uuid) not in self.made_edges:
-            self.made_edges.add(edge_id)
-            text = cls.prop.name
-            start, end = cls.multiplicity
-            if start != "1" or end != "1":
-                text = f"[{start}..{end}] {text}"
-            self.data["edges"].append(
-                {
-                    "id": edge_id,
-                    "sources": [cls.source.uuid],
-                    "targets": [cls.target.uuid],
-                    "labels": [makers.make_label(text)],
-                }
-            )
+
+        if not cls.primitive:
+            self._process_box(cls.target, cls.partition, params)
+            edges = [
+                assoc
+                for assoc in self.all_associations
+                if cls.prop in assoc.navigable_members
+            ]
+            assert len(edges) == 1
+            if (edge_id := edges[0].uuid) not in self.made_edges:
+                self.made_edges.add(edge_id)
+                text = cls.prop.name
+                start, end = cls.multiplicity
+                if start != "1" or end != "1":
+                    text = f"[{start}..{end}] {text}"
+                self.data["edges"].append(
+                    {
+                        "id": edge_id,
+                        "sources": [cls.source.uuid],
+                        "targets": [cls.target.uuid],
+                        "labels": [makers.make_label(text)],
+                    }
+                )
 
         if cls.generalizes:
             self._process_box(cls.generalizes, cls.partition, params)
@@ -153,6 +155,7 @@ class ClassInfo:
     partition: int
     multiplicity: tuple[str, str]
     generalizes: information.Class | None = None
+    primitive: bool = False
 
 
 def get_all_classes(
@@ -170,6 +173,9 @@ def get_all_classes(
             )
             continue
 
+        if prop.type.is_primitive:
+            continue
+
         edge_id = f"{root.uuid} {prop.uuid} {prop.type.uuid}"
         if edge_id not in classes:
             classes[edge_id] = _make_class_info(root, prop, partition)
@@ -183,6 +189,9 @@ def get_all_classes(
                     "Property without abstract type found: %r",
                     prop._short_repr_(),
                 )
+                continue
+
+            if prop.type.is_primitive:
                 continue
 
             edge_id = f"{root.uuid} {prop.uuid} {prop.type.uuid}"
@@ -212,6 +221,7 @@ def _make_class_info(
         partition=partition,
         multiplicity=(start, end),
         generalizes=generalizes,
+        primitive=source.is_primitive,
     )
 
 
@@ -222,7 +232,11 @@ def _get_all_non_edge_properties(
     properties: list[_elkjs.ELKInputLabel] = []
     legends: list[_elkjs.ELKInputChild] = []
     for prop in obj.properties:
-        if isinstance(prop.type, (information.Class, type(None))):
+        if prop.type is None:
+            continue
+
+        is_class = isinstance(prop.type, information.Class)
+        if is_class and not prop.type.is_primitive:
             continue
 
         text = f"{prop.name}: {prop.type.name}"  # type: ignore[unreachable]
@@ -233,8 +247,10 @@ def _get_all_non_edge_properties(
             continue
 
         data_types.add(prop.type.uuid)
-        if not isinstance(prop.type, information.datatype.Enumeration):
+        is_enum = isinstance(prop.type, information.datatype.Enumeration)
+        if not is_enum and not (is_class and prop.type.is_primitive):
             continue
+
         legend = makers.make_box(prop.type, label_getter=_get_legend_labels)
         legend["layoutOptions"] = {}
         legend["layoutOptions"]["nodeSize.constraints"] = "NODE_LABELS"
@@ -243,15 +259,19 @@ def _get_all_non_edge_properties(
 
 
 def _get_legend_labels(
-    obj: information.datatype.Enumeration,
+    obj: information.datatype.Enumeration | information.Class,
 ) -> cabc.Iterator[makers._LabelBuilder]:
     yield {"text": obj.name, "icon": (0, 0), "layout_options": {}}
-    if not isinstance(obj, information.datatype.Enumeration):
+    if isinstance(obj, information.datatype.Enumeration):
+        labels = [literal.name for literal in obj.literals]
+    elif isinstance(obj, information.Class):
+        labels = [prop.name for prop in obj.owned_properties]
+    else:
         return
     layout_options = DATA_TYPE_LABEL_LAYOUT_OPTIONS
-    for lit in obj.literals:
+    for label in labels:
         yield {
-            "text": lit.name,
+            "text": label,
             "icon": (0, 0),
             "layout_options": layout_options,
         }

@@ -121,10 +121,10 @@ Style your diagram elements ([ElkChildType][capellambse_context_diagrams.seriali
     from capellambse import aird
     from capellambse_context_diagrams import styling
 
-    diag = model.by_uuid("957c5799-1d4a-4ac0-b5de-33a65bf1519c").context_diagram
+    diag = model.by_uuid("a5642060-c9cc-4d49-af09-defaa3024bae").context_diagram
     diag.render_styles = dict(
         styling.BLUE_ACTOR_FNCS,
-        junction=lambda obj, serializer: {"fill": aird.RGB(220, 20, 60)},
+        junction=lambda obj, serializer: {"stroke": aird.RGB(220, 20, 60)},
     )
     diag.render("svgdiagram").save_drawing(pretty=True)
     ```

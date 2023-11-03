@@ -162,7 +162,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         The diagram class (for e.g. [LAB]).
     render_styles
         Dictionary with the `ElkChildType` in str format as keys and
-        `styling.Styler` functions as values. An exanple is given by:
+        `styling.Styler` functions as values. An example is given by:
         [`styling.BLUE_ACTOR_FNCS`][capellambse_context_diagrams.styling.BLUE_ACTOR_FNCS]
     display_symbols_as_boxes
         Display objects that are normally displayed as symbol as a

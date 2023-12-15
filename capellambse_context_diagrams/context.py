@@ -364,6 +364,7 @@ class ClassTreeDiagram(ContextDiagram):
         )
         data, legend = tree_view.collector(self, params)
         params["elkdata"] = data
+        add_context(data)
         class_diagram = super()._create_diagram(params)
         width, height = class_diagram.viewport.size
         axis: t.Literal["x", "y"]
@@ -377,6 +378,21 @@ class ClassTreeDiagram(ContextDiagram):
         legend_diagram = super()._create_diagram(params)
         stack_diagrams(class_diagram, legend_diagram, axis)
         return class_diagram
+
+
+def add_context(data: _elkjs.ELKInputData) -> None:
+    ids: set[str] = set()
+
+    def get_ids(obj: _elkjs.ELKInputChild):
+        ids.add(obj["id"])
+        for cobj in obj.get("children", []):
+            get_ids(cobj)
+
+    for child in data["children"]:
+        get_ids(child)
+
+    for child in data["children"] + data["edges"]:
+        child["context"] = list(ids)
 
 
 def stack_diagrams(

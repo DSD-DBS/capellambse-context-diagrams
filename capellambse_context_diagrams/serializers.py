@@ -140,6 +140,7 @@ class DiagramSerializer:
                 styleclass=styleclass,
                 styleoverrides=self.get_styleoverrides(child),
                 features=features,
+                context=child.get("context"),
             )
             element.JSON_TYPE = box_type
             self.diagram.add_element(element)
@@ -156,6 +157,7 @@ class DiagramSerializer:
                 target=self.diagram[child["targetId"]],
                 styleclass=styleclass,
                 styleoverrides=self.get_styleoverrides(child),
+                context=child.get("context"),
             )
             self.diagram.add_element(element)
             self._cache[child["id"]] = element

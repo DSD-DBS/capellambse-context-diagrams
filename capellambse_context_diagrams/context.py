@@ -48,14 +48,16 @@ class ContextAccessor(common.Accessor):
         self._default_render_params = render_params or {}
 
     @t.overload
-    def __get__(self, obj: None, objtype=None) -> common.Accessor: ...
+    def __get__(self, obj: None, objtype=None) -> common.Accessor:
+        ...
 
     @t.overload
     def __get__(
         self,
         obj: common.T,
         objtype: type[common.T] | None = None,
-    ) -> ContextDiagram: ...
+    ) -> ContextDiagram:
+        ...
 
     def __get__(
         self,
@@ -576,21 +578,6 @@ def adjust_layer_sizing(
     )
     for layer in data["children"]:
         layer["layoutOptions"]["nodeSize.minimum"] = f"({min_w},{min_h})"
-
-
-def add_context(data: _elkjs.ELKInputData) -> None:
-    ids: set[str] = set()
-
-    def get_ids(obj: _elkjs.ELKInputChild):
-        ids.add(obj["id"])
-        for cobj in obj.get("children", []):
-            get_ids(cobj)
-
-    for child in data["children"]:
-        get_ids(child)
-
-    for child in data["children"] + data["edges"]:
-        child["context"] = list(ids)
 
 
 def stack_diagrams(

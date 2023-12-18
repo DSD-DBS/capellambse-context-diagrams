@@ -364,8 +364,9 @@ class ClassTreeDiagram(ContextDiagram):
         )
         data, legend = tree_view.collector(self, params)
         params["elkdata"] = data
-        add_context(data)
-        class_diagram = super()._create_diagram(params)
+        layout = _elkjs.call_elkjs(data)
+        add_context(layout)
+        class_diagram = self.serializer.make_diagram(layout)
         width, height = class_diagram.viewport.size
         axis: t.Literal["x", "y"]
         if params["elk.direction"] in {"DOWN", "UP"}:
@@ -380,18 +381,19 @@ class ClassTreeDiagram(ContextDiagram):
         return class_diagram
 
 
-def add_context(data: _elkjs.ELKInputData) -> None:
+def add_context(data: _elkjs.ELKOutputData) -> None:
     ids: set[str] = set()
 
-    def get_ids(obj: _elkjs.ELKInputChild):
-        ids.add(obj["id"])
+    def get_ids(obj: _elkjs.ELKOutputChild):
+        if obj["id"] and not obj["id"].startswith("g_"):
+            ids.add(obj["id"])
         for cobj in obj.get("children", []):
             get_ids(cobj)
 
     for child in data["children"]:
         get_ids(child)
 
-    for child in data["children"] + data["edges"]:
+    for child in data["children"]:
         child["context"] = list(ids)
 
 

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
+# SPDX-FileCopyrightText: 2022 Copyright DB InfraGo AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
 [build-system]
@@ -14,7 +14,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = { file = "LICENSES/Apache-2.0.txt" }
 authors = [
-  { name = "DB Netz AG" },
+  { name = "DB InfraGo AG" },
 ]
 keywords = ["capella", "mbse", "context", "diagram", "automatic diagrams"]
 classifiers = [

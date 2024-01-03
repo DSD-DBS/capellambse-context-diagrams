@@ -1,5 +1,5 @@
 <!--
- ~ SPDX-FileCopyrightText: 2022 Copyright DB InfraGo AG and the capellambse-context-diagrams contributors
+ ~ SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
  ~ SPDX-License-Identifier: Apache-2.0
  -->
 
@@ -35,7 +35,7 @@ Special thanks goes to the developers and maintainers of [Eclipse Layout Kernelâ
 
 Copyright and license information added and maintained via the reuse tool from [Reuse Software](https://reuse.software/).
 
-***Copyright 2022 DB InfraGo AG, own contributions licensed under Apache 2.0 (see full text in [LICENSES/Apache-2.0](https://github.com/DSD-DBS/capellambse-context-diagrams/blob/master/LICENSES/Apache-2.0.txt))***
+***Copyright 2022 DB InfraGO AG, own contributions licensed under Apache 2.0 (see full text in [LICENSES/Apache-2.0](https://github.com/DSD-DBS/capellambse-context-diagrams/blob/master/LICENSES/Apache-2.0.txt))***
 
 ***Copyright (c) 2021 Kiel University and others, ELK/Sprotty contributions ([elkgraph-json.js](https://github.com/DSD-DBS/capellambse-context-diagrams/blob/master/capellambse_context_diagrams/elkgraph-json.js) & [elkgraph-to-sprotty.js](https://github.com/DSD-DBS/capellambse-context-diagrams/blob/master/capellambse_context_diagrams/elkgraph-to-sprotty.js)) licensed under EPL-2.0***
 

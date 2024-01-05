@@ -210,3 +210,4 @@ COLLECTORS: dict[str, Collector] = {
     "ABOVE": collect_realized,
     "BELOW": collect_realizing,
 }
+"""The functions to receive the diagram elements for every layer."""

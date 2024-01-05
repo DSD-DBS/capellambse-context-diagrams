@@ -424,7 +424,7 @@ class RealizationViewDiagram(ContextDiagram):
     @property
     def name(self) -> str:  # type: ignore
         """Returns the name of the diagram."""
-        return f"Reailization view of {self.target.name}"
+        return f"Realization view of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         params.setdefault("depth", params.get("depth", 1))

@@ -43,8 +43,7 @@ log = logging.getLogger(__name__)
 NODE_HOME = Path(capellambse.dirs.user_cache_dir, "elkjs", "node_modules")
 PATH_TO_ELK_JS = Path(__file__).parent / "elk.js"
 REQUIRED_NPM_PKG_VERSIONS: t.Dict[str, str] = {
-    # "elkjs": "0.8.2",
-    "elkjs": "file:~/elk-master/git/elkjs",
+    "elkjs": "0.9.0",
 }
 """npm package names and versions required by this Python module."""
 

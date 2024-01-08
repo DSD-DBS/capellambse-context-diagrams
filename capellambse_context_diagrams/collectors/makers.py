@@ -7,7 +7,7 @@ import collections.abc as cabc
 
 import typing_extensions as te
 from capellambse import helpers
-from capellambse.model import common, crosslayer, layers
+from capellambse.model import common, layers
 from capellambse.svg.decorations import icon_padding, icon_size
 
 from .. import _elkjs, context

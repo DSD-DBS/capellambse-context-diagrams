@@ -10,7 +10,6 @@ import collections.abc as cabc
 import copy
 import json
 import logging
-import math
 import typing as t
 
 from capellambse import diagram as cdiagram
@@ -298,7 +297,7 @@ class ContextDiagram(diagram.AbstractDiagram):
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         data = params.get("elkdata") or get_elkdata(self, params)
-        layout = self._try_to_layout(data)
+        layout = try_to_layout(data)
         return self.serializer.make_diagram(layout)
 
     @property  # type: ignore
@@ -309,15 +308,6 @@ class ContextDiagram(diagram.AbstractDiagram):
     def filters(self, value: cabc.Iterable[str]) -> None:
         self.__filters.clear()
         self.__filters |= set(value)
-
-    def _try_to_layout(
-        self, data: _elkjs.ELKInputData
-    ) -> _elkjs.ELKOutputData:
-        try:
-            return _elkjs.call_elkjs(data)
-        except json.JSONDecodeError as error:
-            logger.error(json.dumps(data, indent=4))
-            raise error
 
 
 class InterfaceContextDiagram(ContextDiagram):
@@ -433,7 +423,7 @@ class RealizationViewDiagram(ContextDiagram):
         )
         params.setdefault("show_owners", params.get("show_owners", True))
         data, edges = realization_view.collector(self, params)
-        layout = self._try_to_layout(data)
+        layout = try_to_layout(data)
         min_width = max(child["size"]["width"] for child in layout["children"])  # type: ignore[typeddict-item]
         min_width += 15.0
         for layer in data["children"]:
@@ -450,9 +440,19 @@ class RealizationViewDiagram(ContextDiagram):
                 "nodeSize.minimum"
             ] = f"({min_width},{min_height})"
 
-        layout = self._try_to_layout(data)
+        layout = try_to_layout(data)
+        for edge in edges:
+            layout["children"].append(
+                {
+                    "id": edge["id"],
+                    "type": "edge",
+                    "sourceId": edge["sources"][0],
+                    "targetId": edge["targets"][0],
+                    "routingPoints": [],
+                    "styleclass": "Realization",
+                }  # type: ignore[arg-type]
+            )
         self._add_layer_labels(layout)
-        self._add_edges_to_layout(layout, edges)
         return self.serializer.make_diagram(layout)
 
     def _add_layer_labels(self, layout: _elkjs.ELKOutputData) -> None:
@@ -480,28 +480,14 @@ class RealizationViewDiagram(ContextDiagram):
             layer["children"].insert(0, label_box)
             layer["style"] = {"stroke": "grey", "rx": 5, "ry": 5}
 
-    @t.no_type_check
-    def _add_edges_to_layout(
-        self,
-        layout: _elkjs.ELKOutputData,
-        edges: cabc.Iterable[_elkjs.ELKInputEdge],
-    ) -> None:
-        """Calculates routing points for given ``edges``.
 
-        This can be removed when ELK's rectangle packing algorithm is
-        aware of edges, or a sole routing algorithm can be used.
-        """
-        for edge in edges:
-            layout["children"].append(
-                {
-                    "id": edge["id"],
-                    "type": "edge",
-                    "sourceId": edge["sources"][0],
-                    "targetId": edge["targets"][0],
-                    "routingPoints": [],
-                    "styleclass": "Realization",
-                }
-            )
+def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:
+    """Try calling elkjs, raise a JSONDecodeError if it fails."""
+    try:
+        return _elkjs.call_elkjs(data)
+    except json.JSONDecodeError as error:
+        logger.error(json.dumps(data, indent=4))
+        raise error
 
 
 def stack_diagrams(

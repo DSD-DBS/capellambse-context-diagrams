@@ -3,12 +3,7 @@
  ~ SPDX-License-Identifier: Apache-2.0
  -->
 
-<!--
- ~ SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
- ~ SPDX-License-Identifier: Apache-2.0
- -->
-
-# Tree View Diagram
+# 🔥Brand-new🔥 Tree View Diagram 🔥Brand-new🔥
 
 With release
 [`v0.5.42`](https://github.com/DSD-DBS/py-capellambse/releases/tag/v0.5.42) of

@@ -422,24 +422,10 @@ class RealizationViewDiagram(ContextDiagram):
             "search_direction", params.get("search_direction", "ALL")
         )
         params.setdefault("show_owners", params.get("show_owners", True))
+        params.setdefault("layer_sizing", params.get("layer_sizing", "UNION"))
         data, edges = realization_view.collector(self, params)
         layout = try_to_layout(data)
-        min_width = max(child["size"]["width"] for child in layout["children"])  # type: ignore[typeddict-item]
-        min_width += 15.0
-        for layer in data["children"]:
-            min_height: int | float = 0
-            for layout_layer in layout["children"]:
-                if layer["id"] != layout_layer["id"]:
-                    continue
-                assert layout_layer["type"] != "edge"
-                min_height = layout_layer["size"]["height"]
-
-            assert min_height > 0
-            layer["width"] = min_width
-            layer["layoutOptions"][
-                "nodeSize.minimum"
-            ] = f"({min_width},{min_height})"
-
+        adjust_layer_sizing(data, layout, params["layer_sizing"])
         layout = try_to_layout(data)
         for edge in edges:
             layout["children"].append(
@@ -488,6 +474,29 @@ def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:
     except json.JSONDecodeError as error:
         logger.error(json.dumps(data, indent=4))
         raise error
+
+
+def adjust_layer_sizing(
+    data: _elkjs.ELKInputData,
+    layout: _elkjs.ELKOutputData,
+    layer_sizing: t.Literal["UNION", "WIDTH", "HEIGHT"],
+) -> None:
+    """Set `nodeSize.minimum` config in the layoutOptions."""
+
+    def calculate_min(key: t.Literal["width", "height"] = "width") -> float:
+        return max(child["size"][key] for child in layout["children"])  # type: ignore[typeddict-item]
+
+    if layer_sizing not in {"UNION", "WIDTH", "HEIGHT"}:
+        raise NotImplementedError(
+            "For ``layer_sizing`` only UNION, WIDTH or HEIGHT is supported"
+        )
+
+    min_w = calculate_min() + 15.0 if layer_sizing in {"UNION", "WIDTH"} else 0
+    min_h = (
+        calculate_min("height") if layer_sizing in {"UNION", "HEIGHT"} else 0
+    )
+    for layer in data["children"]:
+        layer["layoutOptions"]["nodeSize.minimum"] = f"({min_w},{min_h})"
 
 
 def stack_diagrams(

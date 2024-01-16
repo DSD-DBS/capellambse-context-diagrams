@@ -32,6 +32,7 @@ implement currently. The diagram elements are collected from the
         depth=3, # 1-3
         search_direction="ALL", # BELOW; ABOVE and ALL
         show_owners=True,
+        layer_sizing="UNION", # UNION; WIDTH and HEIGHT
     ).save_drawing(pretty=True)
     ```
     <figure markdown>
@@ -51,6 +52,7 @@ implement currently. The diagram elements are collected from the
         depth=3,
         search_direction="ALL",
         show_owners=True,
+        layer_sizing="UNION",
     ).save_drawing(pretty=True)
     ```
     <figure markdown>
@@ -59,8 +61,9 @@ implement currently. The diagram elements are collected from the
     </figure>
 
 Additional rendering parameters enable showing owning functions or components,
-as well as the depth of traversion (i.e. `1`-`3`). They are put to display the
-maximum amount of diagram elements per default.
+as well as the depth of traversion (i.e. `1`-`3`) and control on sizing of the
+layer boxes. They are put to display the maximum amount of diagram elements per
+default.
 
 ??? bug "Alignment of diagram elements"
 

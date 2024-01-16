@@ -34,9 +34,12 @@ STANDARD_STYLES = {
 class ContextAccessor(common.Accessor):
     """Provides access to the context diagrams."""
 
-    def __init__(self, dgcls: str) -> None:
+    def __init__(
+        self, dgcls: str, render_params: dict[str, t.Any] | None = None
+    ) -> None:
         super().__init__()
         self._dgcls = dgcls
+        self._default_render_params = render_params or {}
 
     @t.overload
     def __get__(self, obj: None, objtype=None) -> common.Accessor:
@@ -85,7 +88,9 @@ class ContextAccessor(common.Accessor):
         except KeyError:
             pass
 
-        new_diagram = diagram_class(self._dgcls, obj)
+        new_diagram = diagram_class(
+            self._dgcls, obj, **self._default_render_params
+        )
         new_diagram.filters.add(filters.NO_UUID)
         cache[diagram_id] = new_diagram
         return new_diagram
@@ -97,8 +102,10 @@ class InterfaceContextAccessor(ContextAccessor):
     def __init__(  # pylint: disable=super-init-not-called
         self,
         diagclass: dict[type[common.GenericElement], str],
+        render_params: dict[str, t.Any] | None = None,
     ) -> None:
         self.__dgclasses = diagclass
+        self._default_render_params = render_params or {}
 
     def __get__(  # type: ignore
         self,
@@ -135,8 +142,11 @@ class ClassTreeAccessor(ContextAccessor):
     """Provides access to the tree view diagrams."""
 
     # pylint: disable=super-init-not-called
-    def __init__(self, diagclass: str) -> None:
+    def __init__(
+        self, diagclass: str, render_params: dict[str, t.Any] | None = None
+    ) -> None:
         self._dgcls = diagclass
+        self._default_render_params = render_params or {}
 
     def __get__(  # type: ignore
         self,
@@ -155,8 +165,11 @@ class RealizationViewContextAccessor(ContextAccessor):
     """Provides access to the realization view diagrams."""
 
     # pylint: disable=super-init-not-called
-    def __init__(self, diagclass: str) -> None:
+    def __init__(
+        self, diagclass: str, render_params: dict[str, t.Any] | None = None
+    ) -> None:
         self._dgcls = diagclass
+        self._default_render_params = render_params or {}
 
     def __get__(  # type: ignore
         self,
@@ -212,7 +225,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         obj: common.GenericElement,
         *,
         render_styles: dict[str, styling.Styler] | None = None,
-        display_symbols_as_boxes: bool = True,
+        display_symbols_as_boxes: bool = False,
         include_inner_objects: bool = False,
         slim_center_box: bool = True,
     ) -> None:

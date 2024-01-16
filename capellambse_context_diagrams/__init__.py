@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import collections.abc as cabc
 import logging
+import typing as t
 from importlib import metadata
 
 from capellambse.diagram import COLORS, CSSdef, capstyle
@@ -36,8 +37,10 @@ except metadata.PackageNotFoundError:
     __version__ = "0.0.0+unknown"
 del metadata
 
-ClassPair = tuple[type[common.GenericElement], DiagramType]
-
+DefaultRenderParams = dict[str, t.Any]
+ClassPair = tuple[
+    type[common.GenericElement], DiagramType, DefaultRenderParams
+]
 logger = logging.getLogger(__name__)
 
 ATTR_NAME = "context_diagram"
@@ -55,24 +58,27 @@ def init() -> None:
 def register_classes() -> None:
     """Add the `context_diagram` property to the relevant model objects."""
     supported_classes: list[ClassPair] = [
-        (oa.Entity, DiagramType.OAB),
-        (oa.OperationalActivity, DiagramType.OAIB),
-        (oa.OperationalCapability, DiagramType.OCB),
-        (ctx.Mission, DiagramType.MCB),
-        (ctx.Capability, DiagramType.MCB),
-        (ctx.SystemComponent, DiagramType.SAB),
-        (ctx.SystemFunction, DiagramType.SDFB),
-        (la.LogicalComponent, DiagramType.LAB),
-        (la.LogicalFunction, DiagramType.LDFB),
-        (pa.PhysicalComponent, DiagramType.PAB),
-        (pa.PhysicalFunction, DiagramType.PDFB),
+        (oa.Entity, DiagramType.OAB, {}),
+        (oa.OperationalActivity, DiagramType.OAIB, {}),
+        (oa.OperationalCapability, DiagramType.OCB, {}),
+        (ctx.Mission, DiagramType.MCB, {}),
+        (ctx.Capability, DiagramType.MCB, {"display_symbols_as_boxes": False}),
+        (
+            ctx.SystemComponent,
+            DiagramType.SAB,
+            {"display_symbols_as_boxes": True},
+        ),
+        (ctx.SystemFunction, DiagramType.SDFB, {}),
+        (la.LogicalComponent, DiagramType.LAB, {}),
+        (la.LogicalFunction, DiagramType.LDFB, {}),
+        (pa.PhysicalComponent, DiagramType.PAB, {}),
+        (pa.PhysicalFunction, DiagramType.PDFB, {}),
     ]
     patch_styles(supported_classes)
     class_: type[common.GenericElement]
-    for class_, dgcls in supported_classes:
-        common.set_accessor(
-            class_, ATTR_NAME, context.ContextAccessor(dgcls.value)
-        )
+    for class_, dgcls, default_render_params in supported_classes:
+        accessor = context.ContextAccessor(dgcls.value, default_render_params)
+        common.set_accessor(class_, ATTR_NAME, accessor)
 
 
 def patch_styles(classes: cabc.Iterable[ClassPair]) -> None:
@@ -95,7 +101,7 @@ def patch_styles(classes: cabc.Iterable[ClassPair]) -> None:
         "Box.OperationalCapability"
     ] = cap
     circle_style = {"fill": COLORS["_CAP_xAB_Function_Border_Green"]}
-    for _, dt in classes:
+    for _, dt, _ in classes:
         capstyle.STYLES[dt.value]["Circle.FunctionalExchange"] = circle_style
 
 
@@ -168,17 +174,17 @@ def register_realization_view() -> None:
     of all layers.
     """
     supported_classes: list[ClassPair] = [
-        (oa.Entity, DiagramType.OAB),
-        (oa.OperationalActivity, DiagramType.OAIB),
-        (ctx.SystemComponent, DiagramType.SAB),
-        (ctx.SystemFunction, DiagramType.SDFB),
-        (la.LogicalComponent, DiagramType.LAB),
-        (la.LogicalFunction, DiagramType.LDFB),
-        (pa.PhysicalComponent, DiagramType.PAB),
-        (pa.PhysicalFunction, DiagramType.PDFB),
+        (oa.Entity, DiagramType.OAB, {}),
+        (oa.OperationalActivity, DiagramType.OAIB, {}),
+        (ctx.SystemComponent, DiagramType.SAB, {}),
+        (ctx.SystemFunction, DiagramType.SDFB, {}),
+        (la.LogicalComponent, DiagramType.LAB, {}),
+        (la.LogicalFunction, DiagramType.LDFB, {}),
+        (pa.PhysicalComponent, DiagramType.PAB, {}),
+        (pa.PhysicalFunction, DiagramType.PDFB, {}),
     ]
     styles: dict[str, dict[str, capstyle.CSSdef]] = {}
-    for class_, dgcls in supported_classes:
+    for class_, dgcls, _ in supported_classes:
         common.set_accessor(
             class_,
             "realization_view",

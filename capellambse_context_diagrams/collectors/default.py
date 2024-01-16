@@ -50,7 +50,7 @@ def collector(
         "output": -makers.NEIGHBOR_VMARGIN,
     }
     global_boxes = {centerbox["id"]: centerbox}
-    child_boxes = list[_elkjs.ELKInputChild]()
+    child_boxes: list[_elkjs.ELKInputChild] = []
     for i, local_ports, side in port_context_collector(ex_datas, ports):
         _, label_height = helpers.get_text_extent(i.name)
         height = max(
@@ -66,7 +66,9 @@ def collector(
             )
             box["height"] += height
         else:
-            box = makers.make_box(i, height=height)
+            box = makers.make_box(
+                i, height=height, no_symbol=diagram.display_symbols_as_boxes
+            )
             box["ports"] = [makers.make_port(j.uuid) for j in local_ports]
             if i.parent.uuid == centerbox["id"]:
                 child_boxes.append(box)

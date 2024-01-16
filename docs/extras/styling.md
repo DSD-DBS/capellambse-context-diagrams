@@ -35,10 +35,10 @@ py-capellambse.
 
 # No symbol rendering
 
-There are some ModelObjects that are displayed as symbols in a diagram
-(e.g. Capabilities or Missions). The `.display_symbols_as_boxes` attribute
-gives you the control to render these as boxes such that the symbol is
-displayed as an icon beside the box-label.
+There are some ModelObjects that are displayed as symbols in a diagram (e.g.
+Capabilities or Missions). The `.display_symbols_as_boxes` attribute gives you
+the control to render these as boxes such that the symbol is displayed as an
+icon beside the box-label. Per default this attribute is set to `True`.
 
 ??? example "Box-only style for Context diagram of Middle OperationalCapability [OCB]"
 

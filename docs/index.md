@@ -41,7 +41,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
 
         model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
         diag = model.by_uuid("e37510b9-3166-4f80-a919-dfaac9b696c7").context_diagram
-        diag.render("svgdiagram").save_drawing(pretty=True)
+        diag.render("svgdiagram").save(pretty=True)
         ```
         <figure markdown>
             <img src="assets/images/Context of Environment.svg" width="1000000">
@@ -55,7 +55,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
 
         model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
         diag = model.by_uuid("8bcb11e6-443b-4b92-bec2-ff1d87a224e7").context_diagram
-        diag.render("svgdiagram").save_drawing(pretty=True)
+        diag.render("svgdiagram").save(pretty=True)
         ```
         <figure markdown>
             <img src="assets/images/Context of Eat.svg" width="1000000">
@@ -69,7 +69,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
 
         model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
         diag = model.by_uuid("da08ddb6-92ba-4c3b-956a-017424dbfe85").context_diagram
-        diag.render("svgdiagram").save_drawing(pretty=True)
+        diag.render("svgdiagram").save(pretty=True)
         ```
         <figure markdown>
             <img src="assets/images/Context of Middle.svg" width="1000000">
@@ -83,7 +83,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
 
         model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
         diag = model.by_uuid("5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6").context_diagram
-        diag.render("svgdiagram").save_drawing(pretty=True)
+        diag.render("svgdiagram").save(pretty=True)
         ```
         <figure markdown>
             <img src="assets/images/Context of Top secret.svg" width="1000000">
@@ -97,7 +97,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
 
         model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
         diag = model.by_uuid("9390b7d5-598a-42db-bef8-23677e45ba06").context_diagram
-        diag.render("svgdiagram").save_drawing(pretty=True)
+        diag.render("svgdiagram").save(pretty=True)
         ```
         <figure markdown>
             <img src="assets/images/Context of Capability.svg" width="1000000">
@@ -113,7 +113,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
 
         model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
         diag = model.by_uuid("a5642060-c9cc-4d49-af09-defaa3024bae").context_diagram
-        diag.render("svgdiagram").save_drawing(pretty=True)
+        diag.render("svgdiagram").save(pretty=True)
         ```
         <figure markdown>
             <img src="assets/images/Context of Lost.svg" width="1000000">
@@ -127,7 +127,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
 
         model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
         diag = model.by_uuid("f632888e-51bc-4c9f-8e81-73e9404de784").context_diagram
-        diag.render("svgdiagram").save_drawing(pretty=True)
+        diag.render("svgdiagram").save(pretty=True)
         ```
         <figure markdown>
             <img src="assets/images/Context of Left.svg" width="1000000">
@@ -141,7 +141,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
 
         model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
         diag = model.by_uuid("957c5799-1d4a-4ac0-b5de-33a65bf1519c").context_diagram
-        diag.render("svgdiagram").save_drawing(pretty=True)
+        diag.render("svgdiagram").save(pretty=True)
         ```
         <figure markdown>
             <img src="assets/images/Context of educate Wizards.svg" width="1000000">
@@ -167,7 +167,7 @@ Hierarchy is identified and supported:
     model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
     obj = model.by_uuid("16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb")
     diagram = obj.context_diagram.render("svgdiagram", include_inner_objects=True)
-    diagram.save_drawing(pretty=True)
+    diagram.save(pretty=True)
     ```
     <figure markdown>
         <img src="assets/images/Context of Hierarchy.svg" width="1000000">
@@ -185,7 +185,7 @@ The data is collected by [get_elkdata_for_exchanges][capellambse_context_diagram
 
     model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
     diag = model.by_uuid("3ef23099-ce9a-4f7d-812f-935f47e7938d").context_diagram
-    diag.render("svgdiagram").save_drawing(pretty=True)
+    diag.render("svgdiagram").save(pretty=True)
     ```
     <figure markdown>
         <img src="assets/images/Interface Context of Left to right.svg" width="1000000">

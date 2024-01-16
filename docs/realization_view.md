@@ -28,7 +28,7 @@ implement currently. The diagram elements are collected from the
         search_direction="ALL", # BELOW; ABOVE and ALL
         show_owners=True,
         layer_sizing="UNION", # UNION; WIDTH and HEIGHT
-    ).save_drawing(pretty=True)
+    ).save(pretty=True)
     ```
     <figure markdown>
         <img src="../assets/images/Realization view of advise Harry.svg">
@@ -48,7 +48,7 @@ implement currently. The diagram elements are collected from the
         search_direction="ALL",
         show_owners=True,
         layer_sizing="UNION",
-    ).save_drawing(pretty=True)
+    ).save(pretty=True)
     ```
     <figure markdown>
         <img src="../assets/images/Realization view of Physical System.svg">

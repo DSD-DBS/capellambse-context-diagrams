@@ -212,7 +212,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         obj: common.GenericElement,
         *,
         render_styles: dict[str, styling.Styler] | None = None,
-        display_symbols_as_boxes: bool = True,
+        display_symbols_as_boxes: bool = False,
         include_inner_objects: bool = False,
         slim_center_box: bool = True,
     ) -> None:

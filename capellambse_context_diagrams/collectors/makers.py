@@ -40,6 +40,7 @@ BOX_TO_SYMBOL = (
     layers.ctx.Capability,
     layers.oa.OperationalCapability,
     layers.ctx.Mission,
+    layers.ctx.SystemComponent,
 )
 """
 Types that need to be converted to symbols during serialization if

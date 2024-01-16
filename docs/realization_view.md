@@ -3,12 +3,7 @@
  ~ SPDX-License-Identifier: Apache-2.0
  -->
 
-<!--
- ~ SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
- ~ SPDX-License-Identifier: Apache-2.0
- -->
-
-# Tree View Diagram
+# 🔥Brand-new🔥 Tree View Diagram 🔥Brand-new🔥
 
 With release
 [`v0.5.42`](https://github.com/DSD-DBS/py-capellambse/releases/tag/v0.5.42) of
@@ -33,7 +28,7 @@ implement currently. The diagram elements are collected from the
         search_direction="ALL", # BELOW; ABOVE and ALL
         show_owners=True,
         layer_sizing="UNION", # UNION; WIDTH and HEIGHT
-    ).save_drawing(pretty=True)
+    ).save(pretty=True)
     ```
     <figure markdown>
         <img src="../assets/images/Realization view of advise Harry.svg">
@@ -53,7 +48,7 @@ implement currently. The diagram elements are collected from the
         search_direction="ALL",
         show_owners=True,
         layer_sizing="UNION",
-    ).save_drawing(pretty=True)
+    ).save(pretty=True)
     ```
     <figure markdown>
         <img src="../assets/images/Realization view of Physical System.svg">

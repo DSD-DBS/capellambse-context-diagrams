@@ -22,7 +22,7 @@ Capella. These appear to be blue.
 
     model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
     diag = model.by_uuid("957c5799-1d4a-4ac0-b5de-33a65bf1519c").context_diagram
-    diag.render("svgdiagram").save_drawing(pretty=True)
+    diag.render("svgdiagram").save(pretty=True)
     ```
     produces
     <figure markdown>
@@ -35,10 +35,10 @@ py-capellambse.
 
 # No symbol rendering
 
-There are some ModelObjects that are displayed as symbols in a diagram
-(e.g. Capabilities or Missions). The `.display_symbols_as_boxes` attribute
-gives you the control to render these as boxes such that the symbol is
-displayed as an icon beside the box-label.
+There are some ModelObjects that are displayed as symbols in a diagram (e.g.
+Capabilities or Missions). The `.display_symbols_as_boxes` attribute gives you
+the control to render these as boxes such that the symbol is displayed as an
+icon beside the box-label. Per default this attribute is set to `True`.
 
 ??? example "Box-only style for Context diagram of Middle OperationalCapability [OCB]"
 
@@ -46,8 +46,8 @@ displayed as an icon beside the box-label.
     from capellambse import aird
 
     diag = model.by_uuid("da08ddb6-92ba-4c3b-956a-017424dbfe85").context_diagram
-    diag.display_symbols_as_boxes = True
-    diag.render("svgdiagram").save_drawing(pretty=True)
+    diag.display_symbols_as_boxes = True # per default
+    diag.render("svgdiagram").save(pretty=True)
     ```
     produces
     <figure markdown>
@@ -61,8 +61,8 @@ displayed as an icon beside the box-label.
     from capellambse import aird
 
     diag = model.by_uuid("9390b7d5-598a-42db-bef8-23677e45ba06").context_diagram
-    diag.display_symbols_as_boxes = True
-    diag.render("svgdiagram").save_drawing(pretty=True)
+    diag.display_symbols_as_boxes = True # per default
+    diag.render("svgdiagram").save(pretty=True)
     ```
     produces
     <figure markdown>
@@ -81,7 +81,7 @@ The `no_edgelabels` render parameter prevents edge labels from being displayed.
 
     model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
     diag = model.by_uuid("957c5799-1d4a-4ac0-b5de-33a65bf1519c").context_diagram
-    diag.render("svgdiagram", no_edgelabels=True).save_drawing(pretty=True)
+    diag.render("svgdiagram", no_edgelabels=True).save(pretty=True)
     ```
     <figure markdown>
         <img src="../../assets/images/Context of educate Wizards no_edgelabels.svg" width="1000000">
@@ -101,7 +101,7 @@ You can switch to py-capellambse default styling by overriding the
 
     diag = model.by_uuid("957c5799-1d4a-4ac0-b5de-33a65bf1519c").context_diagram
     diag.render_styles = {}
-    diag.render("svgdiagram").save_drawing(pretty=True)
+    diag.render("svgdiagram").save(pretty=True)
     ```
     produces
     <figure markdown>
@@ -126,7 +126,7 @@ Style your diagram elements ([ElkChildType][capellambse_context_diagrams.seriali
         styling.BLUE_ACTOR_FNCS,
         junction=lambda obj, serializer: {"stroke": aird.RGB(220, 20, 60)},
     )
-    diag.render("svgdiagram").save_drawing(pretty=True)
+    diag.render("svgdiagram").save(pretty=True)
     ```
     produces
     <figure markdown>

@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
+# SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
 """The Context Diagrams model extension.
@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import collections.abc as cabc
 import logging
+import typing as t
 from importlib import metadata
 
 from capellambse.diagram import COLORS, CSSdef, capstyle
@@ -36,8 +37,10 @@ except metadata.PackageNotFoundError:
     __version__ = "0.0.0+unknown"
 del metadata
 
-ClassPair = tuple[type[common.GenericElement], DiagramType]
-
+DefaultRenderParams = dict[str, t.Any]
+ClassPair = tuple[
+    type[common.GenericElement], DiagramType, DefaultRenderParams
+]
 logger = logging.getLogger(__name__)
 
 ATTR_NAME = "context_diagram"
@@ -48,30 +51,34 @@ def init() -> None:
     register_classes()
     register_interface_context()
     register_tree_view()
+    register_realization_view()
     # register_functional_context() XXX: Future
 
 
 def register_classes() -> None:
     """Add the `context_diagram` property to the relevant model objects."""
     supported_classes: list[ClassPair] = [
-        (oa.Entity, DiagramType.OAB),
-        (oa.OperationalActivity, DiagramType.OAIB),
-        (oa.OperationalCapability, DiagramType.OCB),
-        (ctx.Mission, DiagramType.MCB),
-        (ctx.Capability, DiagramType.MCB),
-        (ctx.SystemComponent, DiagramType.SAB),
-        (ctx.SystemFunction, DiagramType.SDFB),
-        (la.LogicalComponent, DiagramType.LAB),
-        (la.LogicalFunction, DiagramType.LDFB),
-        (pa.PhysicalComponent, DiagramType.PAB),
-        (pa.PhysicalFunction, DiagramType.PDFB),
+        (oa.Entity, DiagramType.OAB, {}),
+        (oa.OperationalActivity, DiagramType.OAIB, {}),
+        (oa.OperationalCapability, DiagramType.OCB, {}),
+        (ctx.Mission, DiagramType.MCB, {}),
+        (ctx.Capability, DiagramType.MCB, {"display_symbols_as_boxes": False}),
+        (
+            ctx.SystemComponent,
+            DiagramType.SAB,
+            {"display_symbols_as_boxes": True},
+        ),
+        (ctx.SystemFunction, DiagramType.SDFB, {}),
+        (la.LogicalComponent, DiagramType.LAB, {}),
+        (la.LogicalFunction, DiagramType.LDFB, {}),
+        (pa.PhysicalComponent, DiagramType.PAB, {}),
+        (pa.PhysicalFunction, DiagramType.PDFB, {}),
     ]
     patch_styles(supported_classes)
     class_: type[common.GenericElement]
-    for class_, dgcls in supported_classes:
-        common.set_accessor(
-            class_, ATTR_NAME, context.ContextAccessor(dgcls.value)
-        )
+    for class_, dgcls, default_render_params in supported_classes:
+        accessor = context.ContextAccessor(dgcls.value, default_render_params)
+        common.set_accessor(class_, ATTR_NAME, accessor)
 
 
 def patch_styles(classes: cabc.Iterable[ClassPair]) -> None:
@@ -94,7 +101,7 @@ def patch_styles(classes: cabc.Iterable[ClassPair]) -> None:
         "Box.OperationalCapability"
     ] = cap
     circle_style = {"fill": COLORS["_CAP_xAB_Function_Border_Green"]}
-    for _, dt in classes:
+    for _, dt, _ in classes:
         capstyle.STYLES[dt.value]["Circle.FunctionalExchange"] = circle_style
 
 
@@ -152,9 +159,45 @@ def register_functional_context() -> None:
 
 
 def register_tree_view() -> None:
-    """Add the `tree_view` attribute to ``Class``es."""
+    """Add the ``tree_view`` attribute to ``Class``es."""
     common.set_accessor(
         information.Class,
         "tree_view",
         context.ClassTreeAccessor(DiagramType.CDB.value),
     )
+
+
+def register_realization_view() -> None:
+    """Add the ``realization_view`` attribute to various objects.
+
+    Adds ``realization_view`` to Activities, Functions and Components
+    of all layers.
+    """
+    supported_classes: list[ClassPair] = [
+        (oa.Entity, DiagramType.OAB, {}),
+        (oa.OperationalActivity, DiagramType.OAIB, {}),
+        (ctx.SystemComponent, DiagramType.SAB, {}),
+        (ctx.SystemFunction, DiagramType.SDFB, {}),
+        (la.LogicalComponent, DiagramType.LAB, {}),
+        (la.LogicalFunction, DiagramType.LDFB, {}),
+        (pa.PhysicalComponent, DiagramType.PAB, {}),
+        (pa.PhysicalFunction, DiagramType.PDFB, {}),
+    ]
+    styles: dict[str, dict[str, capstyle.CSSdef]] = {}
+    for class_, dgcls, _ in supported_classes:
+        common.set_accessor(
+            class_,
+            "realization_view",
+            context.RealizationViewContextAccessor("RealizationView Diagram"),
+        )
+        styles.update(capstyle.STYLES.get(dgcls.value, {}))
+
+    capstyle.STYLES["RealizationView Diagram"] = styles
+    capstyle.STYLES["RealizationView Diagram"].update(
+        capstyle.STYLES["__GLOBAL__"]
+    )
+    capstyle.STYLES["RealizationView Diagram"]["Edge.Realization"] = {
+        "stroke": capstyle.COLORS["dark_gray"],
+        "marker-end": "FineArrowMark",
+        "stroke-dasharray": "5",
+    }

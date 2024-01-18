@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
+# SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
 from __future__ import annotations
@@ -33,6 +33,8 @@ interface_context_diagram_uuids = {
 hierarchy_context = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
 diagram_uuids = general_context_diagram_uuids | interface_context_diagram_uuids
 class_tree_uuid = "b7c7f442-377f-492c-90bf-331e66988bda"
+realization_fnc_uuid = "beaf5ba4-8fa9-4342-911f-0266bb29be45"
+realization_comp_uuid = "b9f9a83c-fb02-44f7-9123-9d86326de5f1"
 
 
 def generate_index_images() -> None:
@@ -112,6 +114,22 @@ def generate_class_tree_images() -> None:
         )
 
 
+def generate_realization_view_images() -> None:
+    for uuid in (realization_fnc_uuid, realization_comp_uuid):
+        obj = model.by_uuid(uuid)
+        diag = obj.realization_view
+        with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
+            print(
+                diag.render(
+                    "svg",
+                    depth=3,
+                    search_direction="ALL",
+                    show_owners=True,
+                ),
+                file=fd,
+            )
+
+
 generate_index_images()
 generate_hierarchy_image()
 generate_no_symbol_images()
@@ -134,3 +152,4 @@ generate_styling_image(
 )
 generate_styling_image(wizard, {}, "no_styles")
 generate_class_tree_images()
+generate_realization_view_images()

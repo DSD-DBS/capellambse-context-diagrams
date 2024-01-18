@@ -1,5 +1,6 @@
-# SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
+# SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
+
 """This submodule defines the collector for the RealizationView diagram."""
 from __future__ import annotations
 
@@ -30,13 +31,14 @@ def collector(
     data["layoutOptions"] = layout_options
     _collector = COLLECTORS[params.get("search_direction", "ALL")]
     lay_to_els = _collector(diagram.target, params.get("depth", 1))
-    min_layer_box_width = 0.0
-    min_layer_box_height = 0.0
     layer_layout_options: _elkjs.LayoutOptions = layout_options | {  # type: ignore[operator]
         "nodeSize.constraints": "[NODE_LABELS,MINIMUM_SIZE]",
     }  # type: ignore[assignment]
     edges: list[_elkjs.ELKInputEdge] = []
-    for layer, elements in lay_to_els.items():
+    for layer in ("Operational", "System", "Logical", "Physical"):
+        if not (elements := lay_to_els.get(layer)):  # type: ignore[call-overload]
+            continue
+
         labels = [makers.make_label(layer)]
         width, height = makers.calculate_height_and_width(labels)
         layer_box: _elkjs.ELKInputChild = {
@@ -48,8 +50,7 @@ def collector(
         }
         children: dict[str, _elkjs.ELKInputChild] = {}
         for elt in elements:
-            element_box = makers.make_box(elt["element"], no_symbol=True)
-            children[elt["element"].uuid] = element_box
+            assert elt["element"] is not None
             if elt["origin"] is not None:
                 edges.append(
                     {
@@ -59,51 +60,48 @@ def collector(
                     }
                 )
 
-            if params.get("show_owners", False):
-                layer_box["children"].append(element_box)
+            if elt.get("reverse", False):
+                source = elt["element"]
+                target = elt["origin"]
             else:
-                owner = elt["element"].owner
-                if not isinstance(owner, (fa.Function, cs.Component)):
-                    layer_box["children"].append(element_box)
-                    continue
+                source = elt["origin"]
+                target = elt["element"]
 
-                if not (owner_box := children.get(owner.uuid)):
-                    owner_box = makers.make_box(owner, no_symbol=True)
-                    owner_box["height"] += element_box["height"]
-                    children[owner.uuid] = owner_box
-                    layer_box["children"].append(owner_box)
+            if not (element_box := children.get(target.uuid)):
+                element_box = makers.make_box(target, no_symbol=True)
+                children[target.uuid] = element_box
+                layer_box["children"].append(element_box)
+                index = len(layer_box["children"]) - 1
 
-                owner_box.setdefault("children", []).append(element_box)
-                owner_box["width"] += element_box["width"]
-                if (
-                    elt["origin"] is not None
-                    and elt["origin"].owner.uuid in children
-                    and owner.uuid in children
-                ):
-                    eid = f'{elt["origin"].owner.uuid}_{owner.uuid}'
-                    edges.append(
-                        {
-                            "id": eid,
-                            "sources": [elt["origin"].owner.uuid],
-                            "targets": [owner.uuid],
-                        }
-                    )
+                if params.get("show_owners"):
+                    owner = target.owner
+                    if not isinstance(owner, (fa.Function, cs.Component)):
+                        continue
 
-        layer_box_width = sum(b["width"] for b in layer_box["children"])
-        if layer_box_width > min_layer_box_width:
-            min_layer_box_width = float(layer_box_width)
-        layer_box_height = max(b["height"] for b in layer_box["children"])
-        if layer_box_height > min_layer_box_height:
-            min_layer_box_height = float(layer_box_height)
+                    if not (owner_box := children.get(owner.uuid)):
+                        owner_box = makers.make_box(owner, no_symbol=True)
+                        owner_box["height"] += element_box["height"]
+                        children[owner.uuid] = owner_box
+                        layer_box["children"].append(owner_box)
+
+                    del layer_box["children"][index]
+                    owner_box.setdefault("children", []).append(element_box)
+                    owner_box["width"] += element_box["width"]
+                    if (
+                        source is not None
+                        and source.owner.uuid in children
+                        and owner.uuid in children
+                    ):
+                        eid = f"{source.owner.uuid}_{owner.uuid}"
+                        edges.append(
+                            {
+                                "id": eid,
+                                "sources": [source.owner.uuid],
+                                "targets": [owner.uuid],
+                            }
+                        )
 
         data["children"].append(layer_box)
-
-    for layer_box in data["children"]:
-        layer_box["width"] = min_layer_box_width
-        layer_box["layoutOptions"][
-            "nodeSize.minimum"
-        ] = f"({min_layer_box_width},{min_layer_box_height})"
-    data["children"] = data["children"][::-1]
     return data, edges
 
 
@@ -123,7 +121,7 @@ def collect_realizing(
 
 def collect_all(
     start: common.GenericElement, depth: int
-) -> dict[LayerLiteral, list[common.GenericElement]]:
+) -> dict[LayerLiteral, list[dict[str, t.Any]]]:
     """Collect all elements in both ABOVE and BELOW directions."""
     above = collect_realized(start, depth)
     below = collect_realizing(start, depth)
@@ -135,13 +133,27 @@ def collect_elements(
     depth: int,
     direction: str,
     attribute_prefix: str,
-    origin: common.GenericElement = None,
+    origin: common.GenericElement | None = None,
 ) -> dict[LayerLiteral, list[dict[str, t.Any]]]:
     """Collect elements based on the specified direction and attribute name."""
     layer_obj, layer = find_layer(start)
-    collected_elements: dict[LayerLiteral, list[dict[str, t.Any]]] = {
-        layer: [{"element": start, "origin": origin, "layer": layer_obj}]
-    }
+    collected_elements: dict[LayerLiteral, list[dict[str, t.Any]]] = {}
+    if direction == "ABOVE" or origin is None:
+        collected_elements = {
+            layer: [{"element": start, "origin": origin, "layer": layer_obj}]
+        }
+    elif direction == "BELOW" and origin is not None:
+        collected_elements = {
+            layer: [
+                {
+                    "element": origin,
+                    "origin": start,
+                    "layer": layer_obj,
+                    "reverse": True,
+                }
+            ]
+        }
+
     if (
         (direction == "ABOVE" and layer == "Operational")
         or (direction == "BELOW" and layer == "Physical")
@@ -199,3 +211,4 @@ COLLECTORS: dict[str, Collector] = {
     "ABOVE": collect_realized,
     "BELOW": collect_realizing,
 }
+"""The functions to receive the diagram elements for every layer."""

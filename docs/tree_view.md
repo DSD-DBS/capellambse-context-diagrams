@@ -1,5 +1,5 @@
 <!--
- ~ SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
+ ~ SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
  ~ SPDX-License-Identifier: Apache-2.0
  -->
 
@@ -17,7 +17,7 @@ parent class.
 
     model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
     diag = model.by_uuid("b7c7f442-377f-492c-90bf-331e66988bda").tree_view
-    diag.render("svgdiagram").save_drawing(pretty=True)
+    diag.render("svgdiagram").save(pretty=True)
     ```
     <figure markdown>
         <img src="../assets/images/Tree view of Root.svg">
@@ -68,7 +68,7 @@ before rendering:
         direction="Right",
         # partitioning=False,
         # edgeLabelsSide="ALWAYS_DOWN",
-    ).save_drawing(pretty=True)
+    ).save(pretty=True)
     ```
     <figure markdown>
         <img src="../assets/images/Tree view of Root-params.svg">

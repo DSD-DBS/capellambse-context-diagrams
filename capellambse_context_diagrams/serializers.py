@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2022 Copyright DB Netz AG and the capellambse-context-diagrams contributors
+# SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
 """This submodule provides a serializer that transforms data from an ELK-
@@ -10,6 +10,7 @@ The pre-layouted data was collected with the functions from
 from __future__ import annotations
 
 import logging
+import typing as t
 
 from capellambse import diagram
 from capellambse.svg import decorations
@@ -146,12 +147,20 @@ class DiagramSerializer:
             self.diagram.add_element(element)
             self._cache[child["id"]] = element
         elif child["type"] == "edge":
+            styleclass = child.get("styleclass", styleclass)  # type: ignore[assignment]
             styleclass = REMAP_STYLECLASS.get(styleclass, styleclass)  # type: ignore[arg-type]
-            element = diagram.Edge(
-                [
+            if child["routingPoints"]:
+                refpoints = [
                     ref + (point["x"], point["y"])
                     for point in child["routingPoints"]
-                ],
+                ]
+            else:
+                source = self._cache[child["sourceId"]]
+                target = self._cache[child["targetId"]]
+                refpoints = route_shortest_connection(source, target)
+
+            element = diagram.Edge(
+                refpoints,
                 uuid=child["id"],
                 source=self.diagram[child["sourceId"]],
                 target=self.diagram[child["targetId"]],
@@ -166,12 +175,13 @@ class DiagramSerializer:
             if isinstance(parent, diagram.Box) and not parent.port:
                 if parent.JSON_TYPE != "symbol":
                     parent.label = child["text"]
+                    parent.styleoverrides |= self.get_styleoverrides(child)
                 else:
                     parent.label = diagram.Box(
                         ref + (child["position"]["x"], child["position"]["y"]),
                         (child["size"]["width"], child["size"]["height"]),
                         label=child["text"],
-                        # parent=parent,
+                        styleoverrides=self.get_styleoverrides(child),
                     )
             else:
                 assert isinstance(parent, diagram.Edge)
@@ -232,21 +242,25 @@ class DiagramSerializer:
 
     def get_styleoverrides(
         self, child: _elkjs.ELKOutputChild
-    ) -> diagram.StyleOverrides | None:
+    ) -> diagram.StyleOverrides:
         """Return
         [`styling.CSSStyles`][capellambse_context_diagrams.styling.CSSStyles]
         from a given
         [`_elkjs.ELKOutputChild`][capellambse_context_diagrams._elkjs.ELKOutputChild].
         """
         style_condition = self._diagram.render_styles.get(child["type"])
-        styleoverrides = None
+        styleoverrides: dict[str, t.Any] = {}
         if style_condition is not None:
             if child["type"] != "junction":
                 obj = self._diagram._model.by_uuid(child["id"])
             else:
                 obj = None
 
-            styleoverrides = style_condition(obj, self)
+            styleoverrides = style_condition(obj, self) or {}
+
+        style: dict[str, t.Any]
+        if style := child.get("style", {}):
+            styleoverrides |= style
         return styleoverrides
 
     def order_children(self) -> None:
@@ -279,3 +293,24 @@ def handle_features(child: _elkjs.ELKOutputNode) -> list[str]:
         features.append(c["text"])
     child["children"] = child["children"][:1]
     return features
+
+
+def route_shortest_connection(
+    source: diagram.Box,
+    target: diagram.Box,
+) -> list[diagram.Vector2D]:
+    """Calculate shortest path between boxes with 'Oblique' style.
+
+    Calculate the intersection points of the line from source.center to
+    target.center with the bounding boxes of the source and target.
+    """
+    line_start = source.center
+    line_end = target.center
+
+    source_intersection = source.vector_snap(
+        line_start, source=line_end, style=diagram.RoutingStyle.OBLIQUE
+    )
+    target_intersection = target.vector_snap(
+        line_end, source=line_start, style=diagram.RoutingStyle.OBLIQUE
+    )
+    return [source_intersection, target_intersection]

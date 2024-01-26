@@ -52,6 +52,7 @@ def init() -> None:
     register_interface_context()
     register_tree_view()
     register_realization_view()
+    register_data_flow_view()
     # register_functional_context() XXX: Future
 
 
@@ -201,3 +202,14 @@ def register_realization_view() -> None:
         "marker-end": "FineArrowMark",
         "stroke-dasharray": "5",
     }
+
+
+def register_data_flow_view() -> None:
+    supported_classes: list[ClassPair] = [
+        (oa.OperationalCapability, DiagramType.OAIB, {}),  # portless
+        (ctx.Capability, DiagramType.SDFB, {}),  # default
+    ]
+    class_: type[common.GenericElement]
+    for class_, dgcls, default_render_params in supported_classes:
+        accessor = context.DataFlowAccessor(dgcls.value, default_render_params)
+        common.set_accessor(class_, "data_flow_view", accessor)

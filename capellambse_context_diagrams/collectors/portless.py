@@ -7,6 +7,7 @@ on diagrams that don't involve ports or any connectors.
 """
 from __future__ import annotations
 
+import collections.abc as cabc
 import typing as t
 from itertools import chain
 
@@ -145,6 +146,10 @@ def context_collector(
 
 def get_exchanges(
     obj: common.GenericElement,
+    filter: cabc.Callable[
+        [cabc.Iterable[common.GenericElement]],
+        cabc.Iterable[common.GenericElement],
+    ] = lambda i: i,
 ) -> t.Iterator[common.GenericElement]:
     """Yield exchanges safely.
 
@@ -185,4 +190,5 @@ def get_exchanges(
     elif is_capability:
         exchanges += [obj.component_involvements, obj.incoming_exploitations]
 
-    yield from {i.uuid: i for i in chain.from_iterable(exchanges)}.values()
+    filtered = filter(chain.from_iterable(exchanges))
+    yield from {i.uuid: i for i in filtered}.values()

@@ -27,7 +27,7 @@ def collector(
     centerbox = data["children"][0]
     centerbox["ports"] = [makers.make_port(i.uuid) for i in ports]
     connections = port_exchange_collector(ports)
-    ex_datas = list[generic.ExchangeData]()
+    ex_datas: list[generic.ExchangeData] = []
     for ex in connections:
         if is_hierarchical := exchanges.is_hierarchical(ex, centerbox):
             if not diagram.include_inner_objects:
@@ -118,12 +118,17 @@ def port_collector(
 
 def port_exchange_collector(
     ports: t.Iterable[common.GenericElement],
+    filter: cabc.Callable[
+        [cabc.Iterable[common.GenericElement]],
+        cabc.Iterable[common.GenericElement],
+    ] = lambda i: i,
 ) -> list[common.GenericElement]:
     """Collect exchanges from `ports` savely."""
     edges: list[common.GenericElement] = []
     for i in ports:
         try:
-            edges.extend(getattr(i, "exchanges"))
+            filtered = filter(getattr(i, "exchanges"))
+            edges.extend(filtered)
         except AttributeError:
             pass
     return edges

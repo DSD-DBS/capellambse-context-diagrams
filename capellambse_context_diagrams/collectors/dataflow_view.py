@@ -9,10 +9,9 @@ import functools
 import operator
 import typing as t
 
-from capellambse import helpers
-from capellambse.model import common, modeltypes
+from capellambse.model import modeltypes
 from capellambse.model.crosslayer import fa
-from capellambse.model.layers import ctx, oa
+from capellambse.model.layers import oa
 
 from .. import _elkjs, context
 from . import default, generic, makers, portless

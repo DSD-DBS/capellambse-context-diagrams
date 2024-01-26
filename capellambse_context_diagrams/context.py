@@ -8,7 +8,6 @@ from __future__ import annotations
 
 import collections.abc as cabc
 import copy
-import functools
 import json
 import logging
 import typing as t

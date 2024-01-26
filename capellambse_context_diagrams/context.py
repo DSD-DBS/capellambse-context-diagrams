@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import collections.abc as cabc
 import copy
+import functools
 import json
 import logging
 import typing as t
@@ -17,7 +18,13 @@ from capellambse import helpers
 from capellambse.model import common, diagram, modeltypes
 
 from . import _elkjs, filters, serializers, styling
-from .collectors import exchanges, get_elkdata, realization_view, tree_view
+from .collectors import (
+    dataflow_view,
+    exchanges,
+    get_elkdata,
+    realization_view,
+    tree_view,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -182,6 +189,27 @@ class RealizationViewContextAccessor(ContextAccessor):
             return self
         assert isinstance(obj, common.GenericElement)
         return self._get(obj, RealizationViewDiagram, "{}_realization_view")
+
+
+class DataFlowAccessor(ContextAccessor):
+    # pylint: disable=super-init-not-called
+    def __init__(
+        self, diagclass: str, render_params: dict[str, t.Any] | None = None
+    ) -> None:
+        self._dgcls = diagclass
+        self._default_render_params = render_params or {}
+
+    def __get__(  # type: ignore
+        self,
+        obj: common.T | None,
+        objtype: type | None = None,
+    ) -> common.Accessor | ContextDiagram:
+        """Make a DataFlowViewDiagram for the given model object."""
+        del objtype
+        if obj is None:  # pragma: no cover
+            return self
+        assert isinstance(obj, common.GenericElement)
+        return self._get(obj, DataFlowViewDiagram, "{}_data_flow_view")
 
 
 class ContextDiagram(diagram.AbstractDiagram):
@@ -498,6 +526,33 @@ class RealizationViewDiagram(ContextDiagram):
             }
             layer["children"].insert(0, label_box)
             layer["style"] = {"stroke": "grey", "rx": 5, "ry": 5}
+
+
+class DataFlowViewDiagram(ContextDiagram):
+    """An automatically generated DataFlowViewDiagram."""
+
+    def __init__(self, class_: str, obj: common.GenericElement, **kw) -> None:
+        super().__init__(class_, obj, **kw, display_symbols_as_boxes=True)
+
+    @property
+    def uuid(self) -> str:  # type: ignore
+        """Returns the UUID of the diagram."""
+        return f"{self.target.uuid}_data_flow_view"
+
+    @property
+    def name(self) -> str:  # type: ignore
+        """Returns the name of the diagram."""
+        return f"DatFlow view of {self.target.name}"
+
+    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
+        filter = functools.partial(
+            dataflow_view.only_involved,
+            functions=self.target.involved_functions,
+        )
+        params["elkdata"] = dataflow_view.collector(
+            self, params, exchange_filter=filter
+        )
+        return super()._create_diagram(params)
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:

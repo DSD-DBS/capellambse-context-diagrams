@@ -135,8 +135,8 @@ def calculate_height_and_width(
 ) -> tuple[int | float, int | float]:
     """Calculate the size (width and height) from given labels for a box."""
     icon = icon_size + icon_padding * 2
-    _height = sum(label["height"] for label in labels) + icon
-    min_width = max(label["width"] for label in labels) + icon
+    _height = sum(label["height"] + 2 * LABEL_VPAD for label in labels) + icon
+    min_width = max(label["width"] + 2 * LABEL_HPAD for label in labels) + icon
     width = min_width if slim_width else max(width, min_width)
     return width, max(height, _height)
 

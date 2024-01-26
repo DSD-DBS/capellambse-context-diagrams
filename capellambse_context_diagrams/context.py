@@ -545,13 +545,7 @@ class DataFlowViewDiagram(ContextDiagram):
         return f"DatFlow view of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        filter = functools.partial(
-            dataflow_view.only_involved,
-            functions=self.target.involved_functions,
-        )
-        params["elkdata"] = dataflow_view.collector(
-            self, params, exchange_filter=filter
-        )
+        params["elkdata"] = dataflow_view.collector(self, params)
         return super()._create_diagram(params)
 
 

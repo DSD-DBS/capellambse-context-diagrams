@@ -29,7 +29,7 @@ from capellambse.model.crosslayer import fa, information
 from capellambse.model.layers import ctx, la, oa, pa
 from capellambse.model.modeltypes import DiagramType
 
-from . import context
+from . import context, styling
 
 try:
     __version__ = metadata.version("capellambse-context-diagrams")
@@ -38,7 +38,7 @@ except metadata.PackageNotFoundError:
 del metadata
 
 DefaultRenderParams = dict[str, t.Any]
-ClassPair = tuple[
+SupportedClass = tuple[
     type[common.GenericElement], DiagramType, DefaultRenderParams
 ]
 logger = logging.getLogger(__name__)
@@ -58,7 +58,7 @@ def init() -> None:
 
 def register_classes() -> None:
     """Add the `context_diagram` property to the relevant model objects."""
-    supported_classes: list[ClassPair] = [
+    supported_classes: list[SupportedClass] = [
         (oa.Entity, DiagramType.OAB, {}),
         (oa.OperationalActivity, DiagramType.OAIB, {}),
         (oa.OperationalCapability, DiagramType.OCB, {}),
@@ -67,13 +67,36 @@ def register_classes() -> None:
         (
             ctx.SystemComponent,
             DiagramType.SAB,
-            {"display_symbols_as_boxes": True},
+            {
+                "display_symbols_as_boxes": True,
+                "render_styles": styling.BLUE_ACTOR_FNCS,
+            },
         ),
-        (ctx.SystemFunction, DiagramType.SDFB, {}),
-        (la.LogicalComponent, DiagramType.LAB, {}),
-        (la.LogicalFunction, DiagramType.LDFB, {}),
-        (pa.PhysicalComponent, DiagramType.PAB, {}),
-        (pa.PhysicalFunction, DiagramType.PDFB, {}),
+        (
+            ctx.SystemFunction,
+            DiagramType.SDFB,
+            {"render_styles": styling.BLUE_ACTOR_FNCS},
+        ),
+        (
+            la.LogicalComponent,
+            DiagramType.LAB,
+            {"render_styles": styling.BLUE_ACTOR_FNCS},
+        ),
+        (
+            la.LogicalFunction,
+            DiagramType.LDFB,
+            {"render_styles": styling.BLUE_ACTOR_FNCS},
+        ),
+        (
+            pa.PhysicalComponent,
+            DiagramType.PAB,
+            {"render_styles": styling.BLUE_ACTOR_FNCS},
+        ),
+        (
+            pa.PhysicalFunction,
+            DiagramType.PDFB,
+            {"render_styles": styling.BLUE_ACTOR_FNCS},
+        ),
     ]
     patch_styles(supported_classes)
     class_: type[common.GenericElement]
@@ -82,7 +105,7 @@ def register_classes() -> None:
         common.set_accessor(class_, ATTR_NAME, accessor)
 
 
-def patch_styles(classes: cabc.Iterable[ClassPair]) -> None:
+def patch_styles(classes: cabc.Iterable[SupportedClass]) -> None:
     """Add missing default styling to default styles.
 
     See Also
@@ -174,7 +197,7 @@ def register_realization_view() -> None:
     Adds ``realization_view`` to Activities, Functions and Components
     of all layers.
     """
-    supported_classes: list[ClassPair] = [
+    supported_classes: list[SupportedClass] = [
         (oa.Entity, DiagramType.OAB, {}),
         (oa.OperationalActivity, DiagramType.OAIB, {}),
         (ctx.SystemComponent, DiagramType.SAB, {}),
@@ -205,7 +228,7 @@ def register_realization_view() -> None:
 
 
 def register_data_flow_view() -> None:
-    supported_classes: list[ClassPair] = [
+    supported_classes: list[SupportedClass] = [
         (oa.OperationalCapability, DiagramType.OAIB, {}),  # portless
         (ctx.Capability, DiagramType.SDFB, {}),  # default
     ]

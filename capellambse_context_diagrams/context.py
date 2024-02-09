@@ -338,6 +338,7 @@ class ContextDiagram(diagram.AbstractDiagram):
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         data = params.get("elkdata") or get_elkdata(self, params)
         layout = try_to_layout(data)
+        add_context(layout)
         return self.serializer.make_diagram(layout)
 
     @property  # type: ignore
@@ -421,9 +422,7 @@ class ClassTreeDiagram(ContextDiagram):
         )
         data, legend = tree_view.collector(self, params)
         params["elkdata"] = data
-        layout = _elkjs.call_elkjs(data)
-        add_context(layout)
-        class_diagram = self.serializer.make_diagram(layout)
+        class_diagram = super()._create_diagram(params)
         width, height = class_diagram.viewport.size
         axis: t.Literal["x", "y"]
         if params["elk.direction"] in {"DOWN", "UP"}:
@@ -439,6 +438,7 @@ class ClassTreeDiagram(ContextDiagram):
 
 
 def add_context(data: _elkjs.ELKOutputData) -> None:
+    """Add all connected nodes as context to all elements."""
     ids: set[str] = set()
 
     def get_ids(obj: _elkjs.ELKOutputNode) -> None:

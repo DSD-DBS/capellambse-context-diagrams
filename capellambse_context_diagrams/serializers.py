@@ -207,6 +207,7 @@ class DiagramSerializer:
                 uuid=child["id"],
                 styleclass=self.get_styleclass(uuid),
                 styleoverrides=self.get_styleoverrides(child),
+                context=child.get("context"),
             )
             self.diagram.add_element(element)
         else:

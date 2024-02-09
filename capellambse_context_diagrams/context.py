@@ -448,19 +448,36 @@ def add_context(data: _elkjs.ELKOutputData, is_legend: bool = False) -> None:
 
     ids: set[str] = set()
 
-    def get_ids(obj: _elkjs.ELKOutputNode | _elkjs.ELKOutputEdge) -> None:
+    def get_ids(
+        obj: (
+            _elkjs.ELKOutputNode
+            | _elkjs.ELKOutputPort
+            | _elkjs.ELKOutputJunction
+            | _elkjs.ELKOutputEdge
+        ),
+    ) -> None:
         if obj["id"] and not obj["id"].startswith("g_"):
             ids.add(obj["id"])
-        for cobj in obj.get("children", []):
-            if cobj["type"] == "node":
-                get_ids(cobj)
+        for child in obj.get("children", []):
+            if child["type"] in {"node", "port", "junction", "edge"}:
+                assert child["type"] != "label"
+                get_ids(child)
+
+    def set_ids(
+        obj: _elkjs.ELKOutputChild,
+        ids: set[str],
+    ) -> None:
+        obj["context"] = list(ids)  # type: ignore[typeddict-unknown-key]
+        for child in obj.get("children", []):  # type: ignore[attr-defined]
+            set_ids(child, ids)
 
     for child in data["children"]:
-        if child["type"] == "node" or child["type"] == "edge":
+        if child["type"] in {"node", "port", "junction", "edge"}:
+            assert child["type"] != "label"
             get_ids(child)
 
     for child in data["children"]:
-        child["context"] = list(ids)  # type: ignore[typeddict-unknown-key]
+        set_ids(child, ids)
 
 
 class RealizationViewDiagram(ContextDiagram):

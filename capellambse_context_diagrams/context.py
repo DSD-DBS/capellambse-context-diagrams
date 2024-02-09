@@ -441,7 +441,7 @@ def add_context(data: _elkjs.ELKOutputData) -> None:
     """Add all connected nodes as context to all elements."""
     ids: set[str] = set()
 
-    def get_ids(obj: _elkjs.ELKOutputNode) -> None:
+    def get_ids(obj: _elkjs.ELKOutputNode | _elkjs.ELKOutputEdge) -> None:
         if obj["id"] and not obj["id"].startswith("g_"):
             ids.add(obj["id"])
         for cobj in obj.get("children", []):
@@ -449,7 +449,7 @@ def add_context(data: _elkjs.ELKOutputData) -> None:
                 get_ids(cobj)
 
     for child in data["children"]:
-        if child["type"] == "node":
+        if child["type"] == "node" or child["type"] == "edge":
             get_ids(child)
 
     for child in data["children"]:

@@ -338,7 +338,7 @@ class ContextDiagram(diagram.AbstractDiagram):
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         data = params.get("elkdata") or get_elkdata(self, params)
         layout = try_to_layout(data)
-        add_context(layout)
+        add_context(layout, params.get("is_legend", False))
         return self.serializer.make_diagram(layout)
 
     @property  # type: ignore
@@ -432,13 +432,20 @@ class ClassTreeDiagram(ContextDiagram):
             legend["layoutOptions"]["aspectRatio"] = width
             axis = "y"
         params["elkdata"] = legend
+        params["is_legend"] = True
         legend_diagram = super()._create_diagram(params)
         stack_diagrams(class_diagram, legend_diagram, axis)
         return class_diagram
 
 
-def add_context(data: _elkjs.ELKOutputData) -> None:
+def add_context(data: _elkjs.ELKOutputData, is_legend: bool = False) -> None:
     """Add all connected nodes as context to all elements."""
+    if is_legend:
+        for child in data["children"]:
+            if child["type"] == "node":
+                child["context"] = [child["id"]]  # type: ignore[typeddict-unknown-key]
+        return
+
     ids: set[str] = set()
 
     def get_ids(obj: _elkjs.ELKOutputNode | _elkjs.ELKOutputEdge) -> None:

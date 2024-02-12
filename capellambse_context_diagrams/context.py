@@ -48,7 +48,7 @@ class ContextAccessor(common.Accessor):
         self._default_render_params = render_params or {}
 
     @t.overload
-    def __get__(self, obj: None, objtype=None) -> common.Accessor:
+    def __get__(self, obj: None, objtype: type[t.Any]) -> ContextAccessor:
         ...
 
     @t.overload
@@ -260,7 +260,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         self.target = obj
         self.styleclass = class_
 
-        self.render_styles = render_styles or styling.BLUE_ACTOR_FNCS
+        self.render_styles = render_styles or {}
         self.serializer = serializers.DiagramSerializer(self)
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
         self.display_symbols_as_boxes = display_symbols_as_boxes

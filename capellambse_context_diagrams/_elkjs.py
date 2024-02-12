@@ -178,6 +178,7 @@ class ELKOutputJunction(ELKOutputElement):
     """Exchange-Junction that comes out of ELK."""
 
     type: t.Literal["junction"]
+    children: cabc.MutableSequence[ELKOutputLabel]
 
     position: ELKPoint
     size: ELKSize

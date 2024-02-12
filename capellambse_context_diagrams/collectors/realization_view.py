@@ -121,7 +121,7 @@ def collect_realizing(
 
 def collect_all(
     start: common.GenericElement, depth: int
-) -> dict[LayerLiteral, list[common.GenericElement]]:
+) -> dict[LayerLiteral, list[dict[str, t.Any]]]:
     """Collect all elements in both ABOVE and BELOW directions."""
     above = collect_realized(start, depth)
     below = collect_realizing(start, depth)
@@ -133,7 +133,7 @@ def collect_elements(
     depth: int,
     direction: str,
     attribute_prefix: str,
-    origin: common.GenericElement = None,
+    origin: common.GenericElement | None = None,
 ) -> dict[LayerLiteral, list[dict[str, t.Any]]]:
     """Collect elements based on the specified direction and attribute name."""
     layer_obj, layer = find_layer(start)

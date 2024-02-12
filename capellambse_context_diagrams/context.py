@@ -338,6 +338,7 @@ class ContextDiagram(diagram.AbstractDiagram):
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         data = params.get("elkdata") or get_elkdata(self, params)
         layout = try_to_layout(data)
+        add_context(layout, params.get("is_legend", False))
         return self.serializer.make_diagram(layout)
 
     @property  # type: ignore
@@ -431,9 +432,52 @@ class ClassTreeDiagram(ContextDiagram):
             legend["layoutOptions"]["aspectRatio"] = width
             axis = "y"
         params["elkdata"] = legend
+        params["is_legend"] = True
         legend_diagram = super()._create_diagram(params)
         stack_diagrams(class_diagram, legend_diagram, axis)
         return class_diagram
+
+
+def add_context(data: _elkjs.ELKOutputData, is_legend: bool = False) -> None:
+    """Add all connected nodes as context to all elements."""
+    if is_legend:
+        for child in data["children"]:
+            if child["type"] == "node":
+                child["context"] = [child["id"]]  # type: ignore[typeddict-unknown-key]
+        return
+
+    ids: set[str] = set()
+
+    def get_ids(
+        obj: (
+            _elkjs.ELKOutputNode
+            | _elkjs.ELKOutputPort
+            | _elkjs.ELKOutputJunction
+            | _elkjs.ELKOutputEdge
+        ),
+    ) -> None:
+        if obj["id"] and not obj["id"].startswith("g_"):
+            ids.add(obj["id"])
+        for child in obj.get("children", []):
+            if child["type"] in {"node", "port", "junction", "edge"}:
+                assert child["type"] != "label"
+                get_ids(child)
+
+    def set_ids(
+        obj: _elkjs.ELKOutputChild,
+        ids: set[str],
+    ) -> None:
+        obj["context"] = list(ids)  # type: ignore[typeddict-unknown-key]
+        for child in obj.get("children", []):  # type: ignore[attr-defined]
+            set_ids(child, ids)
+
+    for child in data["children"]:
+        if child["type"] in {"node", "port", "junction", "edge"}:
+            assert child["type"] != "label"
+            get_ids(child)
+
+    for child in data["children"]:
+        set_ids(child, ids)
 
 
 class RealizationViewDiagram(ContextDiagram):
@@ -566,12 +610,17 @@ def stack_diagrams(
     axis: t.Literal["x", "y"] = "x",
 ) -> None:
     """Add the diagram elements from ``right`` to left inline."""
-    offset = first.viewport.pos + first.viewport.size
-    offset @= (1, 0) if axis == "x" else (0, 1)
-    for element in second:
-        new = copy.deepcopy(element)
-        new.move(offset)
-        first += new
+    if first.viewport:
+        offset = first.viewport.pos + first.viewport.size
+        offset @= (1, 0) if axis == "x" else (0, 1)
+        for element in second:
+            new = copy.deepcopy(element)
+            new.move(offset)
+            first += new
+    else:
+        for element in second:
+            new = copy.deepcopy(element)
+            first += new
 
 
 def calculate_label_position(

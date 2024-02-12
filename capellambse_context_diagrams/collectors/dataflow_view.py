@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
-"""..."""
+"""This module defines the collectors for the DataFlowDiagram."""
 from __future__ import annotations
 
 import collections.abc as cabc

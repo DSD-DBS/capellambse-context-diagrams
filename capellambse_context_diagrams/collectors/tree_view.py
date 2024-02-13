@@ -40,6 +40,10 @@ class ClassProcessor:
         self.legend_boxes: list[_elkjs.ELKInputChild] = []
         self.all_associations = all_associations
 
+    def __contains__(self, uuid: str) -> bool:
+        objects = self.data["children"] + self.data["edges"]  # type: ignore[operator]
+        return uuid in {obj["id"] for obj in objects}
+
     def process_class(self, cls, params):
         self._process_box(cls.source, cls.partition, params)
 
@@ -108,7 +112,9 @@ class ClassProcessor:
         box["width"], box["height"] = makers.calculate_height_and_width(
             list(box["labels"])
         )
-        self.legend_boxes.extend(legends)
+        for legend in legends:
+            if legend["id"] not in self:
+                self.legend_boxes.append(legend)
 
 
 def collector(

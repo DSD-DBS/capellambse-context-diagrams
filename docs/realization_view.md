@@ -3,7 +3,7 @@
  ~ SPDX-License-Identifier: Apache-2.0
  -->
 
-# 🔥Brand-new🔥 Tree View Diagram 🔥Brand-new🔥
+# Tree View Diagram
 
 With release
 [`v0.5.42`](https://github.com/DSD-DBS/py-capellambse/releases/tag/v0.5.42) of

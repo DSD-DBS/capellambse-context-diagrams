@@ -231,6 +231,9 @@ class ContextDiagram(diagram.AbstractDiagram):
         avoids the object of interest to become one giant, oversized
         symbol in the middle of the diagram, and instead keeps the
         symbol small and only enlarges the surrounding box.
+    display_parent_relation
+        Display objects with a parent relationship to the object of
+        interest as the parent box.
     slim_center_box
         Minimal width for the center box, containing just the icon and
         the label. This is False if hierarchy was identified.
@@ -253,6 +256,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         *,
         render_styles: dict[str, styling.Styler] | None = None,
         display_symbols_as_boxes: bool = False,
+        display_parent_relation: bool = False,
         include_inner_objects: bool = False,
         slim_center_box: bool = True,
     ) -> None:
@@ -264,6 +268,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         self.serializer = serializers.DiagramSerializer(self)
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
         self.display_symbols_as_boxes = display_symbols_as_boxes
+        self.display_parent_relation = display_parent_relation
         self.include_inner_objects = include_inner_objects
         self.slim_center_box = slim_center_box
 

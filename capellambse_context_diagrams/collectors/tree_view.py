@@ -122,9 +122,9 @@ def collector(
     """Return the class tree data for ELK."""
     assert isinstance(diagram.target, information.Class)
     data = generic.collector(diagram, no_symbol=True)
-    all_associations: cabc.Iterable[
-        information.Association
-    ] = diagram._model.search("Association")
+    all_associations: cabc.Iterable[information.Association] = (
+        diagram._model.search("Association")
+    )
     _set_layout_options(data, params)
     processor = ClassProcessor(data, all_associations)
     processor._set_data_types_and_labels(data["children"][0], diagram.target)
@@ -233,6 +233,16 @@ def get_all_classes(
                 )
                 classes.update(get_all_classes(cls, partition, classes))
 
+    for cls in root.sub:
+        if cls.is_primitive:
+            continue
+
+        edge_id = f"{root.uuid} {cls.uuid}"
+        if edge_id not in classes:
+            classes[edge_id] = _make_class_info(
+                root, prop, partition, generalizes=cls
+            )
+            classes.update(dict(get_all_classes(cls, partition, classes)))
     yield from classes.items()
 
 

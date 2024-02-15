@@ -233,16 +233,6 @@ def get_all_classes(
                 )
                 classes.update(get_all_classes(cls, partition, classes))
 
-    for cls in root.sub:
-        if cls.is_primitive:
-            continue
-
-        edge_id = f"{root.uuid} {cls.uuid}"
-        if edge_id not in classes:
-            classes[edge_id] = _make_class_info(
-                root, prop, partition, generalizes=cls
-            )
-            classes.update(dict(get_all_classes(cls, partition, classes)))
     yield from classes.items()
 
 

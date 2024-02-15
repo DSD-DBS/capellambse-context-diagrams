@@ -47,7 +47,7 @@ class ClassProcessor:
     def process_class(self, cls, params):
         self._process_box(cls.source, cls.partition, params)
 
-        if not cls.primitive:
+        if not cls.primitive and isinstance(cls.target, information.Class):
             self._process_box(cls.target, cls.partition, params)
             edges = [
                 assoc
@@ -89,7 +89,6 @@ class ClassProcessor:
         self, obj: information.Class, partition: int, params: dict[str, t.Any]
     ) -> None:
         if obj.uuid not in self.made_boxes:
-            self.made_boxes.add(obj.uuid)
             self._make_box(obj, partition, params)
 
     def _make_box(
@@ -208,6 +207,17 @@ def get_all_classes(
                 classes.update(
                     dict(get_all_classes(prop.type, partition, classes))
                 )
+
+    for cls in root.sub:
+        if cls.is_primitive:
+            continue
+
+        edge_id = f"{root.uuid} {cls.uuid}"
+        if edge_id not in classes:
+            classes[edge_id] = _make_class_info(
+                root, prop, partition, generalizes=cls
+            )
+            classes.update(dict(get_all_classes(cls, partition, classes)))
     yield from classes.items()
 
 
@@ -271,7 +281,9 @@ def _get_legend_labels(
     if isinstance(obj, information.datatype.Enumeration):
         labels = [literal.name for literal in obj.literals]
     elif isinstance(obj, information.Class):
-        labels = [prop.name for prop in obj.owned_properties]
+        labels = [
+            f"{prop.name}: {prop.type.name}" for prop in obj.owned_properties
+        ]
     else:
         return
     layout_options = DATA_TYPE_LABEL_LAYOUT_OPTIONS

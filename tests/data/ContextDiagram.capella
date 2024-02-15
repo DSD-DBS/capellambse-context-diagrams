@@ -911,7 +911,7 @@ The predator is far away</bodies>
             <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
                 id="7c049ec8-4432-49f8-a570-6ea17a4ddd17" value="1"/>
             <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
-                id="480dcffe-2984-4df3-91f5-459cb5943f1c" name="" value="*"/>
+                id="9477652e-d0dc-4834-97f8-575bab9df46e" value="1"/>
           </ownedFeatures>
         </ownedClasses>
         <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:BooleanType"

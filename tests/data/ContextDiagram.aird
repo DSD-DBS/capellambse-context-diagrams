@@ -8,7 +8,7 @@
     </ownedViews>
     <ownedViews xmi:type="viewpoint:DView" uid="__FJxoKDzEeqf7Mw7EIo_Ew">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/common.odesign#//@ownedViewpoints[name='Common']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_OmRFoGwfEe6iyfecRwAuGw" name="[CDB] Data" repPath="#_OmIiwGwfEe6iyfecRwAuGw" changeId="8733cf88-652d-4faf-8681-f70453d639a1">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_OmRFoGwfEe6iyfecRwAuGw" name="[CDB] Data" repPath="#_OmIiwGwfEe6iyfecRwAuGw" changeId="7feceff4-e268-4430-b254-ca7aa5a3e2a9">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/common.odesign#//@ownedViewpoints[name='Common']/@ownedRepresentations[name='Class%20Diagram%20Blank']"/>
         <target xmi:type="org.polarsys.capella.core.data.information:DataPkg" href="ContextDiagram.capella#d12c04b6-392f-4761-be5a-e44c688823f6"/>
       </ownedRepresentationDescriptors>
@@ -8200,7 +8200,7 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="_d-9WlswJEe6cROezh8CcIg"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_d-9WkcwJEe6cROezh8CcIg" fontName="Fira Code" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_d-9WkswJEe6cROezh8CcIg" x="20" y="592"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_d-9WkswJEe6cROezh8CcIg" x="60" y="592"/>
         </children>
         <styles xmi:type="notation:DiagramStyle" xmi:id="_OmWlMmwfEe6iyfecRwAuGw"/>
         <edges xmi:type="notation:Edge" xmi:id="_4vzTMGwfEe6iyfecRwAuGw" type="4001" element="_4vKaAGwfEe6iyfecRwAuGw" source="_PLddYGwfEe6iyfecRwAuGw" target="_RGnigGwfEe6iyfecRwAuGw">
@@ -8243,7 +8243,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6ZM58WwfEe6iyfecRwAuGw" x="8" y="6"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_6ZM58mwfEe6iyfecRwAuGw" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6ZM582wfEe6iyfecRwAuGw" x="-32" y="36"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6ZM582wfEe6iyfecRwAuGw" x="10"/>
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_6ZMS4WwfEe6iyfecRwAuGw" jumpLinkStatus="Above" jumpLinkType="Tunnel"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_6ZMS4mwfEe6iyfecRwAuGw" fontName="Fira Code" fontHeight="8"/>
@@ -8684,7 +8684,7 @@
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/common.odesign#//@ownedViewpoints[name='Common']/@ownedRepresentations[name='Class%20Diagram%20Blank']/@defaultLayer/@containerMappings[name='DT_Class']/@conditionnalStyles.1/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/common.odesign#//@ownedViewpoints[name='Common']/@ownedRepresentations[name='Class%20Diagram%20Blank']/@defaultLayer/@containerMappings[name='DT_Class']"/>
-      <ownedElements xmi:type="diagram:DNodeListElement" uid="_gkLsYMwJEe6cROezh8CcIg" name="[1..*] ex : EnumExample">
+      <ownedElements xmi:type="diagram:DNodeListElement" uid="_gkLsYMwJEe6cROezh8CcIg" name=" ex : EnumExample">
         <target xmi:type="org.polarsys.capella.core.data.information:Property" href="ContextDiagram.capella#271d9bcb-8077-417b-9298-5b8057915b3c"/>
         <semanticElements xmi:type="org.polarsys.capella.core.data.information:Property" href="ContextDiagram.capella#271d9bcb-8077-417b-9298-5b8057915b3c"/>
         <ownedStyle xmi:type="diagram:Square" uid="_gkMTcMwJEe6cROezh8CcIg" labelAlignment="LEFT" borderSize="1" borderSizeComputationExpression="1" borderColor="136,136,136">

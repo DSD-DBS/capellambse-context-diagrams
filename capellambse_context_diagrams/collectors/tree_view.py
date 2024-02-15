@@ -155,12 +155,39 @@ class ClassInfo:
     """All information needed for a ``Class`` box."""
 
     source: information.Class
-    target: information.Class
+    target: information.Class | None
     prop: information.Property
     partition: int
-    multiplicity: tuple[str, str]
+    multiplicity: tuple[str, str] | None
     generalizes: information.Class | None = None
     primitive: bool = False
+
+
+def process_property(
+    source: information.Class,
+    prop: information.Property,
+    partition: int,
+    classes: dict[str, ClassInfo],
+    generalizes: information.Class | None = None,
+) -> bool:
+    """Process a single property for class information."""
+    if not prop.type:
+        logger.warning(
+            "Property without abstract type found: %r", prop._short_repr_()
+        )
+        return False
+
+    if not prop.type.xtype.endswith("Class") or prop.type.is_primitive:
+        logger.debug("Ignoring non-class property: %r", prop._short_repr_())
+        return False
+
+    edge_id = f"{source.uuid} {prop.uuid} {prop.type.uuid}"
+    if edge_id not in classes:
+        classes[edge_id] = _make_class_info(
+            source, prop, partition, generalizes=generalizes
+        )
+        classes.update(get_all_classes(prop.type, partition, classes))
+    return True
 
 
 def get_all_classes(
@@ -171,71 +198,65 @@ def get_all_classes(
     """Yield all classes of the class tree."""
     partition += 1
     classes = classes or {}
+
     for prop in root.owned_properties:
-        if not (prop.type and prop.type.xtype.endswith("Class")):
-            logger.warning(
-                "Property without abstract type found: %r", prop._short_repr_()
+        process_property(root, prop, partition, classes)
+
+    if root.super and not root.super.is_primitive:
+        processed_properties = [
+            process_property(
+                root.super, prop, partition, classes, generalizes=root
             )
-            continue
+            for prop in root.super.owned_properties
+        ]
 
-        if prop.type.is_primitive:
-            continue
-
-        edge_id = f"{root.uuid} {prop.uuid} {prop.type.uuid}"
-        if edge_id not in classes:
-            classes[edge_id] = _make_class_info(root, prop, partition)
-            classes.update(
-                dict(get_all_classes(prop.type, partition, classes))
-            )
-    if root.super is not None and (properties := root.super.owned_properties):
-        for prop in properties:
-            if not (prop.type and prop.type.xtype.endswith("Class")):
-                logger.warning(
-                    "Property without abstract type found: %r",
-                    prop._short_repr_(),
-                )
-                continue
-
-            if prop.type.is_primitive:
-                continue
-
-            edge_id = f"{root.uuid} {prop.uuid} {prop.type.uuid}"
-            if edge_id not in classes:
+        if not root.super.owned_properties or any(processed_properties):
+            if (edge_id := f"{root.uuid} {root.super.uuid}") not in classes:
                 classes[edge_id] = _make_class_info(
-                    root.super, prop, partition, generalizes=root
+                    root.super, None, partition, generalizes=root
                 )
-                classes.update(
-                    dict(get_all_classes(prop.type, partition, classes))
-                )
+                classes.update(get_all_classes(root.super, partition, classes))
 
     for cls in root.sub:
         if cls.is_primitive:
             continue
 
-        edge_id = f"{root.uuid} {cls.uuid}"
-        if edge_id not in classes:
-            classes[edge_id] = _make_class_info(
-                root, prop, partition, generalizes=cls
-            )
-            classes.update(dict(get_all_classes(cls, partition, classes)))
+        processed_properties = [
+            process_property(root, prop, partition, classes, generalizes=cls)
+            for prop in cls.owned_properties
+        ]
+
+        if not cls.owned_properties or not any(processed_properties):
+            if (edge_id := f"{root.uuid} {cls.uuid}") not in classes:
+                classes[edge_id] = _make_class_info(
+                    root, None, partition, generalizes=cls
+                )
+                classes.update(get_all_classes(cls, partition, classes))
+
     yield from classes.items()
 
 
 def _make_class_info(
     source: information.Class,
-    prop: information.Property,
+    prop: information.Property | None,
     partition: int,
     generalizes: information.Class | None = None,
 ) -> ClassInfo:
     converter = {math.inf: "*"}
-    start = converter.get(prop.min_card.value, str(prop.min_card.value))
-    end = converter.get(prop.max_card.value, str(prop.max_card.value))
+    multiplicity = None
+    target = None
+    if prop is not None:
+        start = converter.get(prop.min_card.value, str(prop.min_card.value))
+        end = converter.get(prop.max_card.value, str(prop.max_card.value))
+        multiplicity = (start, end)
+        target = prop.type
+
     return ClassInfo(
         source=source,
-        target=prop.type,
+        target=target,
         prop=prop,
         partition=partition,
-        multiplicity=(start, end),
+        multiplicity=multiplicity,
         generalizes=generalizes,
         primitive=source.is_primitive,
     )

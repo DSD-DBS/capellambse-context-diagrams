@@ -202,7 +202,7 @@ class DiagramSerializer:
                 pos += self.diagram[self._diagram.target.uuid].pos
 
             element = diagram.Circle(
-                pos,
+                ref + pos,
                 5,
                 uuid=child["id"],
                 styleclass=self.get_styleclass(uuid),

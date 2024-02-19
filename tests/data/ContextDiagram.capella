@@ -829,12 +829,12 @@ The predator is far away</bodies>
             <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
                 id="4b48bb17-5bc7-4b79-b400-f412c5fe3fd2" value="1"/>
             <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
-                id="7b53089f-0cd3-4a1e-8481-26395e92b177" value="1"/>
+                id="f4cccc05-3d52-4c0a-ae47-6cea5a45ab75" name="" value="*"/>
           </ownedFeatures>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.information:Property"
               id="29f49b05-bd0c-4314-9930-85939ce582b5" name="enum_example" abstractType="#861ff9e8-295d-43ae-a8eb-d77769879c9f">
             <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
-                id="6e7b8c99-ac1d-4c84-98f1-af5f121d15f7" value="1"/>
+                id="56a5ee1d-08bb-4816-a7ab-4a233e1210d0" name="" value="0"/>
             <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
                 id="d4a6e522-a1d1-40bb-871f-8bb1db3656fa" value="1"/>
           </ownedFeatures>
@@ -889,7 +889,31 @@ The predator is far away</bodies>
           </ownedFeatures>
         </ownedClasses>
         <ownedClasses xsi:type="org.polarsys.capella.core.data.information:Class"
-            id="322dc599-ea72-49e9-8e37-fe5226e41f19" name="Three"/>
+            id="322dc599-ea72-49e9-8e37-fe5226e41f19" name="Three">
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.information:Property"
+              id="856d02f0-c7c8-4aee-a09a-56e76b8c1c4d" name="primitiveExample" abstractType="#cdfea28e-21a8-4643-81e4-cea184756733">
+            <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                id="17b42d61-e3f1-41aa-beec-c27d0c331bae" value="1"/>
+            <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                id="34149eb4-d842-4850-904c-6ac88464f292" value="1"/>
+          </ownedFeatures>
+        </ownedClasses>
+        <ownedClasses xsi:type="org.polarsys.capella.core.data.information:Class"
+            id="0678bda0-3f17-4be4-b6ea-ee368c458015" name="four">
+          <ownedGeneralizations xsi:type="org.polarsys.capella.core.data.capellacore:Generalization"
+              id="2f8ed3ca-7178-4551-bb8a-e6cdfc379d08" super="#322dc599-ea72-49e9-8e37-fe5226e41f19"
+              sub="#0678bda0-3f17-4be4-b6ea-ee368c458015"/>
+        </ownedClasses>
+        <ownedClasses xsi:type="org.polarsys.capella.core.data.information:Class"
+            id="cdfea28e-21a8-4643-81e4-cea184756733" name="Primitive" isPrimitive="true">
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.information:Property"
+              id="271d9bcb-8077-417b-9298-5b8057915b3c" name="ex" abstractType="#861ff9e8-295d-43ae-a8eb-d77769879c9f">
+            <ownedMinCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                id="7c049ec8-4432-49f8-a570-6ea17a4ddd17" value="1"/>
+            <ownedMaxCard xsi:type="org.polarsys.capella.core.data.information.datavalue:LiteralNumericValue"
+                id="480dcffe-2984-4df3-91f5-459cb5943f1c" name="" value="*"/>
+          </ownedFeatures>
+        </ownedClasses>
         <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:BooleanType"
             id="839bccd2-fb2c-4c9b-96c0-266de7aa8068" name="Example"/>
         <ownedDataTypes xsi:type="org.polarsys.capella.core.data.information.datatype:Enumeration"

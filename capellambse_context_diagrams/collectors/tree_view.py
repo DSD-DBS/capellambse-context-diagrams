@@ -276,7 +276,7 @@ def _get_all_non_edge_properties(
         if is_class and not prop.type.is_primitive:
             continue
 
-        text = f"{prop.name}: {prop.type.name}"  # type: ignore[unreachable]
+        text = _get_property_text(prop)
         label = makers.make_label(text, layout_options=layout_options)
         properties.append(label)
 
@@ -295,6 +295,13 @@ def _get_all_non_edge_properties(
     return properties, legends
 
 
+def _get_property_text(prop: information.Property) -> str:
+    text = f"{prop.name}: {prop.type.name}"
+    if prop.min_card.value != "1" or prop.max_card.value != "1":
+        text = f"[{prop.min_card.value}..{prop.max_card.value}] {text}"
+    return text
+
+
 def _get_legend_labels(
     obj: information.datatype.Enumeration | information.Class,
 ) -> cabc.Iterator[makers._LabelBuilder]:
@@ -302,9 +309,7 @@ def _get_legend_labels(
     if isinstance(obj, information.datatype.Enumeration):
         labels = [literal.name for literal in obj.literals]
     elif isinstance(obj, information.Class):
-        labels = [
-            f"{prop.name}: {prop.type.name}" for prop in obj.owned_properties
-        ]
+        labels = [_get_property_text(prop) for prop in obj.owned_properties]
     else:
         return
     layout_options = DATA_TYPE_LABEL_LAYOUT_OPTIONS

@@ -52,6 +52,18 @@ classes is its own partition.
     - DIRECTION_UP
     - DIRECTION_DOWN
 
+Additionally the following render parameters are offered:
+
+1. depth - The depth of the computed tree. Defaults to `None` such that the
+whole tree is computed. `depth=1` means that only first level properties and
+generalizations are collected.
+2. super - Generalizations from the `super` attribute, can be set to
+    - ALL
+    - ROOT
+3. sub - Generalizations from the `sub` attribute, can be set to
+    - ALL
+    - ROOT
+
 Here is an example that shows how convenient these parameters can be passed
 before rendering:
 

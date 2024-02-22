@@ -80,8 +80,8 @@ class ClassProcessor:
                 self.data["edges"].append(
                     {
                         "id": edge.uuid,
-                        "sources": [cls.generalizes.uuid],
-                        "targets": [cls.source.uuid],
+                        "sources": [cls.source.uuid],
+                        "targets": [cls.generalizes.uuid],
                     }
                 )
 
@@ -128,7 +128,12 @@ def collector(
     _set_layout_options(data, params)
     processor = ClassProcessor(data, all_associations)
     processor._set_data_types_and_labels(data["children"][0], diagram.target)
-    for _, cls in get_all_classes(diagram.target):
+    for _, cls in get_all_classes(
+        diagram.target,
+        max_partition=params.get("depth"),
+        super=params.get("super", "ROOT"),
+        sub=params.get("sub", "ROOT"),
+    ):
         processor.process_class(cls, params)
 
     legend = makers.make_diagram(diagram)
@@ -140,7 +145,10 @@ def collector(
 def _set_layout_options(
     data: _elkjs.ELKInputData, params: dict[str, t.Any]
 ) -> None:
-    data["layoutOptions"] = {**DEFAULT_LAYOUT_OPTIONS, **params}
+    options = {
+        k: v for k, v in params.items() if k not in ("depth", "super", "sub")
+    }
+    data["layoutOptions"] = {**DEFAULT_LAYOUT_OPTIONS, **options}
     _set_partitioning(data["children"][0], 0, params)
 
 
@@ -163,75 +171,141 @@ class ClassInfo:
     primitive: bool = False
 
 
+@dataclasses.dataclass
+class _PropertyInfo:
+    """Builder dataclass for properties."""
+
+    source: information.Class
+    prop: information.Property
+    partition: int
+    classes: dict[str, ClassInfo] = dataclasses.field(default_factory=dict)
+    generalizes: information.Class | None = None
+    max_partition: int | None = None
+    super: t.Literal["ROOT"] | t.Literal["ALL"] = "ALL"
+    sub: t.Literal["ROOT"] | t.Literal["ALL"] = "ALL"
+
+
 def process_property(
-    source: information.Class,
-    prop: information.Property,
-    partition: int,
-    classes: dict[str, ClassInfo],
-    generalizes: information.Class | None = None,
-) -> bool:
+    property: _PropertyInfo,
+) -> None:
     """Process a single property for class information."""
+    prop = property.prop
     if not prop.type:
         logger.warning(
             "Property without abstract type found: %r", prop._short_repr_()
         )
-        return False
+        return
 
     if not prop.type.xtype.endswith("Class") or prop.type.is_primitive:
         logger.debug("Ignoring non-class property: %r", prop._short_repr_())
-        return False
+        return
 
-    edge_id = f"{source.uuid} {prop.uuid} {prop.type.uuid}"
-    if edge_id not in classes:
-        classes[edge_id] = _make_class_info(
-            source, prop, partition, generalizes=generalizes
+    if (
+        property.max_partition is not None
+        and property.partition > property.max_partition
+    ):
+        return
+
+    edge_id = f"{property.source.uuid} {prop.uuid} {prop.type.uuid}"
+    if edge_id not in property.classes:
+        property.classes[edge_id] = _make_class_info(
+            property.source,
+            prop,
+            property.partition,
+            generalizes=property.generalizes,
         )
-        classes.update(get_all_classes(prop.type, partition, classes))
-    return True
+        property.classes.update(
+            get_all_classes(
+                prop.type,
+                property.partition,
+                property.classes,
+                property.max_partition,
+                property.super,
+                property.sub,
+            )
+        )
 
 
 def get_all_classes(
     root: information.Class,
     partition: int = 0,
     classes: dict[str, ClassInfo] | None = None,
+    max_partition: int | None = None,
+    super: t.Literal["ROOT"] | t.Literal["ALL"] = "ALL",
+    sub: t.Literal["ROOT"] | t.Literal["ALL"] = "ALL",
 ) -> cabc.Iterator[tuple[str, ClassInfo]]:
     """Yield all classes of the class tree."""
     partition += 1
     classes = classes or {}
+    if max_partition is not None and partition > max_partition:
+        return
 
     for prop in root.owned_properties:
-        process_property(root, prop, partition, classes)
+        property = _PropertyInfo(
+            root, prop, partition, classes, None, max_partition, super, sub
+        )
+        process_property(property)
 
-    if root.super and not root.super.is_primitive:
-        processed_properties = [
-            process_property(
-                root.super, prop, partition, classes, generalizes=root
-            )
-            for prop in root.super.owned_properties
-        ]
+    if super == "ALL" or (super == "ROOT" and partition == 1):
+        if root.super and not root.super.is_primitive:
+            for prop in root.super.owned_properties:
+                process_property(
+                    _PropertyInfo(
+                        root.super,
+                        prop,
+                        partition + 1,
+                        classes,
+                        root,
+                        max_partition,
+                        super,
+                        sub,
+                    )
+                )
 
-        if not root.super.owned_properties or any(processed_properties):
-            if (edge_id := f"{root.uuid} {root.super.uuid}") not in classes:
+            edge_id = f"{root.uuid} {root.super.uuid}"
+            if edge_id not in classes:
                 classes[edge_id] = _make_class_info(
                     root.super, None, partition, generalizes=root
                 )
-                classes.update(get_all_classes(root.super, partition, classes))
+                classes.update(
+                    get_all_classes(
+                        root.super,
+                        partition,
+                        classes,
+                        max_partition,
+                        super,
+                        sub,
+                    )
+                )
 
-    for cls in root.sub:
-        if cls.is_primitive:
-            continue
+    if sub == "ALL" or (sub == "ROOT" and partition == 1):
+        for cls in root.sub:
+            if cls.is_primitive:
+                continue
 
-        processed_properties = [
-            process_property(root, prop, partition, classes, generalizes=cls)
-            for prop in cls.owned_properties
-        ]
+            for prop in cls.owned_properties:
+                process_property(
+                    _PropertyInfo(
+                        root,
+                        prop,
+                        partition,
+                        classes,
+                        cls,
+                        max_partition,
+                        super,
+                        sub,
+                    )
+                )
 
-        if not cls.owned_properties or not any(processed_properties):
             if (edge_id := f"{root.uuid} {cls.uuid}") not in classes:
                 classes[edge_id] = _make_class_info(
                     root, None, partition, generalizes=cls
                 )
-                classes.update(get_all_classes(cls, partition, classes))
+                classes.update(
+                    get_all_classes(
+                        cls, partition, classes, max_partition, super, sub
+                    )
+                )
 
     yield from classes.items()
 
@@ -296,7 +370,14 @@ def _get_all_non_edge_properties(
 
 
 def _get_property_text(prop: information.Property) -> str:
-    text = f"{prop.name}: {prop.type.name}"
+    text = prop.name
+    if prop.type is not None:
+        text = f"{prop.name}: {prop.type.name}"
+    else:
+        logger.warning(
+            "Property without abstract type found: %r", prop._short_repr_()
+        )
+
     if prop.min_card.value != "1" or prop.max_card.value != "1":
         text = f"[{prop.min_card.value}..{prop.max_card.value}] {text}"
     return text

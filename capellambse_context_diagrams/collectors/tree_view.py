@@ -80,8 +80,8 @@ class ClassProcessor:
                 self.data["edges"].append(
                     {
                         "id": edge.uuid,
-                        "sources": [cls.generalizes.uuid],
-                        "targets": [cls.source.uuid],
+                        "sources": [cls.source.uuid],
+                        "targets": [cls.generalizes.uuid],
                     }
                 )
 
@@ -122,9 +122,9 @@ def collector(
     """Return the class tree data for ELK."""
     assert isinstance(diagram.target, information.Class)
     data = generic.collector(diagram, no_symbol=True)
-    all_associations: cabc.Iterable[information.Association] = (
-        diagram._model.search("Association")
-    )
+    all_associations: cabc.Iterable[
+        information.Association
+    ] = diagram._model.search("Association")
     _set_layout_options(data, params)
     processor = ClassProcessor(data, all_associations)
     processor._set_data_types_and_labels(data["children"][0], diagram.target)

@@ -9,6 +9,7 @@ The pre-layouted data was collected with the functions from
 """
 from __future__ import annotations
 
+import collections.abc as cabc
 import logging
 import typing as t
 
@@ -149,6 +150,8 @@ class DiagramSerializer:
         elif child["type"] == "edge":
             styleclass = child.get("styleclass", styleclass)  # type: ignore[assignment]
             styleclass = REMAP_STYLECLASS.get(styleclass, styleclass)  # type: ignore[arg-type]
+            EDGE_HANDLER.get(styleclass, lambda c: c)(child)
+
             if child["routingPoints"]:
                 refpoints = [
                     ref + (point["x"], point["y"])
@@ -315,3 +318,16 @@ def route_shortest_connection(
         line_end, source=line_start, style=diagram.RoutingStyle.OBLIQUE
     )
     return [source_intersection, target_intersection]
+
+
+def reverse_edge_refpoints(child: _elkjs.ELKOutputEdge) -> None:
+    source = child["sourceId"]
+    target = child["targetId"]
+    child["targetId"] = source
+    child["sourceId"] = target
+    child["routingPoints"] = child["routingPoints"][::-1]
+
+
+EDGE_HANDLER: dict[str, cabc.Callable[[_elkjs.ELKOutputEdge], None]] = {
+    "Generalization": reverse_edge_refpoints
+}

@@ -47,7 +47,7 @@ class ClassProcessor:
     def process_class(self, cls, params):
         self._process_box(cls.source, cls.partition, params)
 
-        if not cls.primitive:
+        if not cls.primitive and isinstance(cls.target, information.Class):
             self._process_box(cls.target, cls.partition, params)
             edges = [
                 assoc
@@ -80,8 +80,8 @@ class ClassProcessor:
                 self.data["edges"].append(
                     {
                         "id": edge.uuid,
-                        "sources": [cls.generalizes.uuid],
-                        "targets": [cls.source.uuid],
+                        "sources": [cls.source.uuid],
+                        "targets": [cls.generalizes.uuid],
                     }
                 )
 
@@ -89,7 +89,6 @@ class ClassProcessor:
         self, obj: information.Class, partition: int, params: dict[str, t.Any]
     ) -> None:
         if obj.uuid not in self.made_boxes:
-            self.made_boxes.add(obj.uuid)
             self._make_box(obj, partition, params)
 
     def _make_box(
@@ -129,7 +128,12 @@ def collector(
     _set_layout_options(data, params)
     processor = ClassProcessor(data, all_associations)
     processor._set_data_types_and_labels(data["children"][0], diagram.target)
-    for _, cls in get_all_classes(diagram.target):
+    for _, cls in get_all_classes(
+        diagram.target,
+        max_partition=params.get("depth"),
+        super=params.get("super", "ROOT"),
+        sub=params.get("sub", "ROOT"),
+    ):
         processor.process_class(cls, params)
 
     legend = makers.make_diagram(diagram)
@@ -141,7 +145,10 @@ def collector(
 def _set_layout_options(
     data: _elkjs.ELKInputData, params: dict[str, t.Any]
 ) -> None:
-    data["layoutOptions"] = {**DEFAULT_LAYOUT_OPTIONS, **params}
+    options = {
+        k: v for k, v in params.items() if k not in ("depth", "super", "sub")
+    }
+    data["layoutOptions"] = {**DEFAULT_LAYOUT_OPTIONS, **options}
     _set_partitioning(data["children"][0], 0, params)
 
 
@@ -156,76 +163,174 @@ class ClassInfo:
     """All information needed for a ``Class`` box."""
 
     source: information.Class
-    target: information.Class
+    target: information.Class | None
     prop: information.Property
     partition: int
-    multiplicity: tuple[str, str]
+    multiplicity: tuple[str, str] | None
     generalizes: information.Class | None = None
     primitive: bool = False
+
+
+@dataclasses.dataclass
+class _PropertyInfo:
+    """Builder dataclass for properties."""
+
+    source: information.Class
+    prop: information.Property
+    partition: int
+    classes: dict[str, ClassInfo] = dataclasses.field(default_factory=dict)
+    generalizes: information.Class | None = None
+    max_partition: int | None = None
+    super: t.Literal["ROOT"] | t.Literal["ALL"] = "ALL"
+    sub: t.Literal["ROOT"] | t.Literal["ALL"] = "ALL"
+
+
+def process_property(
+    property: _PropertyInfo,
+) -> None:
+    """Process a single property for class information."""
+    prop = property.prop
+    if not prop.type:
+        logger.warning(
+            "Property without abstract type found: %r", prop._short_repr_()
+        )
+        return
+
+    if not prop.type.xtype.endswith("Class") or prop.type.is_primitive:
+        logger.debug("Ignoring non-class property: %r", prop._short_repr_())
+        return
+
+    if (
+        property.max_partition is not None
+        and property.partition > property.max_partition
+    ):
+        return
+
+    edge_id = f"{property.source.uuid} {prop.uuid} {prop.type.uuid}"
+    if edge_id not in property.classes:
+        property.classes[edge_id] = _make_class_info(
+            property.source,
+            prop,
+            property.partition,
+            generalizes=property.generalizes,
+        )
+        property.classes.update(
+            get_all_classes(
+                prop.type,
+                property.partition,
+                property.classes,
+                property.max_partition,
+                property.super,
+                property.sub,
+            )
+        )
 
 
 def get_all_classes(
     root: information.Class,
     partition: int = 0,
     classes: dict[str, ClassInfo] | None = None,
+    max_partition: int | None = None,
+    super: t.Literal["ROOT"] | t.Literal["ALL"] = "ALL",
+    sub: t.Literal["ROOT"] | t.Literal["ALL"] = "ALL",
 ) -> cabc.Iterator[tuple[str, ClassInfo]]:
     """Yield all classes of the class tree."""
     partition += 1
     classes = classes or {}
+    if max_partition is not None and partition > max_partition:
+        return
+
     for prop in root.owned_properties:
-        if not (prop.type and prop.type.xtype.endswith("Class")):
-            logger.warning(
-                "Property without abstract type found: %r", prop._short_repr_()
-            )
-            continue
+        property = _PropertyInfo(
+            root, prop, partition, classes, None, max_partition, super, sub
+        )
+        process_property(property)
 
-        if prop.type.is_primitive:
-            continue
-
-        edge_id = f"{root.uuid} {prop.uuid} {prop.type.uuid}"
-        if edge_id not in classes:
-            classes[edge_id] = _make_class_info(root, prop, partition)
-            classes.update(
-                dict(get_all_classes(prop.type, partition, classes))
-            )
-    if root.super is not None and (properties := root.super.owned_properties):
-        for prop in properties:
-            if not (prop.type and prop.type.xtype.endswith("Class")):
-                logger.warning(
-                    "Property without abstract type found: %r",
-                    prop._short_repr_(),
+    if super == "ALL" or (super == "ROOT" and partition == 1):
+        if root.super and not root.super.is_primitive:
+            for prop in root.super.owned_properties:
+                process_property(
+                    _PropertyInfo(
+                        root.super,
+                        prop,
+                        partition + 1,
+                        classes,
+                        root,
+                        max_partition,
+                        super,
+                        sub,
+                    )
                 )
-                continue
 
-            if prop.type.is_primitive:
-                continue
-
-            edge_id = f"{root.uuid} {prop.uuid} {prop.type.uuid}"
+            edge_id = f"{root.uuid} {root.super.uuid}"
             if edge_id not in classes:
                 classes[edge_id] = _make_class_info(
-                    root.super, prop, partition, generalizes=root
+                    root.super, None, partition, generalizes=root
                 )
                 classes.update(
-                    dict(get_all_classes(prop.type, partition, classes))
+                    get_all_classes(
+                        root.super,
+                        partition,
+                        classes,
+                        max_partition,
+                        super,
+                        sub,
+                    )
                 )
+
+    if sub == "ALL" or (sub == "ROOT" and partition == 1):
+        for cls in root.sub:
+            if cls.is_primitive:
+                continue
+
+            for prop in cls.owned_properties:
+                process_property(
+                    _PropertyInfo(
+                        root,
+                        prop,
+                        partition,
+                        classes,
+                        cls,
+                        max_partition,
+                        super,
+                        sub,
+                    )
+                )
+
+            if (edge_id := f"{root.uuid} {cls.uuid}") not in classes:
+                classes[edge_id] = _make_class_info(
+                    root, None, partition, generalizes=cls
+                )
+                classes.update(
+                    get_all_classes(
+                        cls, partition, classes, max_partition, super, sub
+                    )
+                )
+
     yield from classes.items()
 
 
 def _make_class_info(
     source: information.Class,
-    prop: information.Property,
+    prop: information.Property | None,
     partition: int,
     generalizes: information.Class | None = None,
 ) -> ClassInfo:
     converter = {math.inf: "*"}
-    start = converter.get(prop.min_card.value, str(prop.min_card.value))
-    end = converter.get(prop.max_card.value, str(prop.max_card.value))
+    multiplicity = None
+    target = None
+    if prop is not None:
+        start = converter.get(prop.min_card.value, str(prop.min_card.value))
+        end = converter.get(prop.max_card.value, str(prop.max_card.value))
+        multiplicity = (start, end)
+        target = prop.type
+
     return ClassInfo(
         source=source,
-        target=prop.type,
+        target=target,
         prop=prop,
         partition=partition,
-        multiplicity=(start, end),
+        multiplicity=multiplicity,
         generalizes=generalizes,
         primitive=source.is_primitive,
     )
@@ -245,7 +350,7 @@ def _get_all_non_edge_properties(
         if is_class and not prop.type.is_primitive:
             continue
 
-        text = f"{prop.name}: {prop.type.name}"  # type: ignore[unreachable]
+        text = _get_property_text(prop)
         label = makers.make_label(text, layout_options=layout_options)
         properties.append(label)
 
@@ -264,6 +369,20 @@ def _get_all_non_edge_properties(
     return properties, legends
 
 
+def _get_property_text(prop: information.Property) -> str:
+    text = prop.name
+    if prop.type is not None:
+        text = f"{prop.name}: {prop.type.name}"
+    else:
+        logger.warning(
+            "Property without abstract type found: %r", prop._short_repr_()
+        )
+
+    if prop.min_card.value != "1" or prop.max_card.value != "1":
+        text = f"[{prop.min_card.value}..{prop.max_card.value}] {text}"
+    return text
+
+
 def _get_legend_labels(
     obj: information.datatype.Enumeration | information.Class,
 ) -> cabc.Iterator[makers._LabelBuilder]:
@@ -271,7 +390,7 @@ def _get_legend_labels(
     if isinstance(obj, information.datatype.Enumeration):
         labels = [literal.name for literal in obj.literals]
     elif isinstance(obj, information.Class):
-        labels = [prop.name for prop in obj.owned_properties]
+        labels = [_get_property_text(prop) for prop in obj.owned_properties]
     else:
         return
     layout_options = DATA_TYPE_LABEL_LAYOUT_OPTIONS

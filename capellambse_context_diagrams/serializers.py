@@ -107,7 +107,7 @@ class DiagramSerializer:
             class type that stores all previously named classes.
         """
         styleclass: str | None = self.get_styleclass(child["id"])
-        element: diagram.Box | diagram.Edge
+        element: diagram.Box | diagram.Edge | diagram.Circle
         if child["type"] in {"node", "port"}:
             assert parent is None or isinstance(parent, diagram.Box)
             has_symbol_cls = False
@@ -205,7 +205,7 @@ class DiagramSerializer:
                 pos += self.diagram[self._diagram.target.uuid].pos
 
             element = diagram.Circle(
-                pos,
+                ref + pos,
                 5,
                 uuid=child["id"],
                 styleclass=self.get_styleclass(uuid),

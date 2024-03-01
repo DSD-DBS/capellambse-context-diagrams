@@ -45,35 +45,60 @@ def collector(
         except AttributeError:
             continue
 
+    global_boxes = {centerbox["id"]: centerbox}
+    if diagram.display_parent_relation:
+        box = makers.make_box(
+            diagram.target.parent,
+            no_symbol=diagram.display_symbols_as_boxes,
+        )
+        box["children"] = [centerbox]
+        del data["children"][0]
+        global_boxes[diagram.target.parent.uuid] = box
+
     stack_heights: dict[str, float | int] = {
         "input": -makers.NEIGHBOR_VMARGIN,
         "output": -makers.NEIGHBOR_VMARGIN,
     }
-    global_boxes = {centerbox["id"]: centerbox}
     child_boxes: list[_elkjs.ELKInputChild] = []
-    for i, local_ports, side in port_context_collector(ex_datas, ports):
-        _, label_height = helpers.get_text_extent(i.name)
+    for child, local_ports, side in port_context_collector(ex_datas, ports):
+        _, label_height = helpers.get_text_extent(child.name)
         height = max(
             label_height + 2 * makers.LABEL_VPAD,
             makers.PORT_PADDING
             + (makers.PORT_SIZE + makers.PORT_PADDING) * len(local_ports),
         )
-        if box := global_boxes.get(i.uuid):
+        if box := global_boxes.get(child.uuid):  # type: ignore[assignment]
             if box is centerbox:
                 continue
-            box["ports"].extend(
+            box.setdefault("ports", []).extend(
                 [makers.make_port(j.uuid) for j in local_ports]
             )
             box["height"] += height
         else:
             box = makers.make_box(
-                i, height=height, no_symbol=diagram.display_symbols_as_boxes
+                child,
+                height=height,
+                no_symbol=diagram.display_symbols_as_boxes,
             )
             box["ports"] = [makers.make_port(j.uuid) for j in local_ports]
-            if i.parent.uuid == centerbox["id"]:
+            if child.parent.uuid == centerbox["id"]:
                 child_boxes.append(box)
             else:
-                global_boxes[i.uuid] = box
+                global_boxes[child.uuid] = box
+
+        if diagram.display_parent_relation:
+            if child == diagram.target.parent:
+                _move_edge_to_local_edges(
+                    box, connections, local_ports, diagram, data
+                )
+            elif child.parent == diagram.target.parent:
+                parent_box = global_boxes[child.parent.uuid]
+                parent_box.setdefault("children", []).append(
+                    global_boxes.pop(child.uuid)
+                )
+                _move_edge_to_local_edges(
+                    parent_box, connections, local_ports, diagram, data
+                )
 
         stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
 
@@ -85,6 +110,31 @@ def collector(
 
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
     return data
+
+
+def _move_edge_to_local_edges(
+    box: _elkjs.ELKInputChild,
+    connections: list[common.GenericElement],
+    local_ports: list[common.GenericElement],
+    diagram: context.ContextDiagram,
+    data: _elkjs.ELKInputData,
+) -> None:
+    edges_to_remove: list[str] = []
+    for c in connections:
+        if (
+            c.target in local_ports
+            and c.source in diagram.target.ports
+            or c.source in local_ports
+            and c.target in diagram.target.ports
+        ):
+            for edge in data["edges"]:
+                if edge["id"] == c.uuid:
+                    box.setdefault("edges", []).append(edge)
+                    edges_to_remove.append(edge["id"])
+
+    data["edges"] = [
+        e for e in data["edges"] if e["id"] not in edges_to_remove
+    ]
 
 
 def port_collector(

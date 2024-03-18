@@ -50,6 +50,7 @@ def collector(
         box = makers.make_box(
             diagram.target.parent,
             no_symbol=diagram.display_symbols_as_boxes,
+            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
         )
         box["children"] = [centerbox]
         del data["children"][0]
@@ -96,6 +97,11 @@ def collector(
                 parent_box.setdefault("children", []).append(
                     global_boxes.pop(child.uuid)
                 )
+                for label in parent_box["labels"]:
+                    label[
+                        "layoutOptions"
+                    ] = makers.CENTRIC_LABEL_LAYOUT_OPTIONS
+
                 _move_edge_to_local_edges(
                     parent_box, connections, local_ports, diagram, data
                 )
@@ -107,6 +113,10 @@ def collector(
     if child_boxes:
         centerbox["children"] = child_boxes
         centerbox["width"] = makers.EOI_WIDTH
+        for label in centerbox.get("labels", []):
+            label.setdefault("layoutOptions", {}).update(
+                makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+            )
 
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
     return data

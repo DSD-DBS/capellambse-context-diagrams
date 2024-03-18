@@ -6,22 +6,27 @@ import pytest
 
 
 @pytest.mark.parametrize(
-    "uuid",
+    "uuid,expected_labels",
     [
         pytest.param(
-            "8bcb11e6-443b-4b92-bec2-ff1d87a224e7", id="OperationalCapability"
-        ),
-        pytest.param(
-            "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df", id="SystemComponent Root"
-        ),
-        pytest.param(
-            "d817767f-68b7-49a5-aa47-13419d41df0a", id="LogicalFunction"
+            "d817767f-68b7-49a5-aa47-13419d41df0a",
+            [
+                ["Really long label"],
+                ["that needs"],
+                ["wrapping else"],
+                ["its parent box is"],
+                ["also very long!"],
+            ],
+            id="LogicalFunction",
         ),
     ],
 )
-def test_context_diagrams(model: capellambse.MelodyModel, uuid: str) -> None:
+def test_context_diagrams(
+    model: capellambse.MelodyModel, uuid: str, expected_labels: list[list[str]]
+) -> None:
     obj = model.by_uuid(uuid)
 
     diagram = obj.context_diagram.render(None)
+    labels = [label.labels for label in diagram[uuid].labels]
 
-    diagram[uuid]
+    assert labels == expected_labels

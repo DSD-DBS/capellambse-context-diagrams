@@ -6,8 +6,9 @@ from __future__ import annotations
 import collections.abc as cabc
 
 import typing_extensions as te
-from capellambse import helpers
+from capellambse import helpers as chelpers
 from capellambse.model import common, layers
+from capellambse.svg import helpers as svghelpers
 from capellambse.svg.decorations import icon_padding, icon_size
 
 from .. import _elkjs, context
@@ -16,14 +17,16 @@ PORT_SIZE = 10
 """Default size of ports in pixels."""
 PORT_PADDING = 2
 """Default padding of ports in pixels."""
-LABEL_HPAD = 15
+LABEL_HPAD = 5
 """Horizontal padding left and right of the label."""
 LABEL_VPAD = 1
 """Vertical padding above and below the label."""
 NEIGHBOR_VMARGIN = 20
 """Vertical space between two neighboring boxes."""
-EOI_WIDTH = 150
+EOI_WIDTH = 100
 """The width of the element of interest."""
+MAX_BOX_WIDTH = 150
+"""Maximum width of boxes."""
 MIN_SYMBOL_WIDTH = 30
 """Minimum width of symbols."""
 MIN_SYMBOL_HEIGHT = 17
@@ -54,6 +57,14 @@ DEFAULT_LABEL_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
     "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
 }
 """Default layout options for a label."""
+CENTRIC_LABEL_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
+    "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+}
+"""Layout options for a centric label."""
+SYMBOL_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
+    "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+}
+"""Layout options for a symbol label."""
 
 
 def make_diagram(diagram: context.ContextDiagram) -> _elkjs.ELKInputData:
@@ -68,21 +79,38 @@ def make_diagram(diagram: context.ContextDiagram) -> _elkjs.ELKInputData:
 
 def make_label(
     text: str,
-    icon: tuple[int | float, int | float] = (0, 0),
+    icon: tuple[int | float, int | float] = (ICON_WIDTH, ICON_HEIGHT),
     layout_options: _elkjs.LayoutOptions | None = None,
-) -> _elkjs.ELKInputLabel:
+    max_width: int | float | None = None,
+) -> list[_elkjs.ELKInputLabel]:
     """Return an
     [`ELKInputLabel`][capellambse_context_diagrams._elkjs.ELKInputLabel].
     """
-    label_width, label_height = helpers.get_text_extent(text)
+    label_width, label_height = chelpers.get_text_extent(text)
     icon_width, icon_height = icon
-    layout_options = layout_options or DEFAULT_LABEL_LAYOUT_OPTIONS
-    return {
-        "text": text,
-        "width": icon_width + label_width + 2 * LABEL_HPAD,
-        "height": icon_height + label_height + 2 * LABEL_VPAD,
-        "layoutOptions": layout_options,
-    }
+    lines = [text]
+    if max_width is not None and label_width > max_width:
+        lines, _, _ = svghelpers.check_for_horizontal_overflow(
+            text,
+            max_width,
+            icon_padding,
+            icon_width,
+        )
+
+    layout_options = layout_options or CENTRIC_LABEL_LAYOUT_OPTIONS
+    labels: list[_elkjs.ELKInputLabel] = []
+    for line in lines:
+        label_width, label_height = chelpers.get_text_extent(line)
+        labels.append(
+            {
+                "text": line,
+                "width": icon_width + label_width + 2 * LABEL_HPAD,
+                "height": icon_height + label_height + 2 * LABEL_VPAD,
+                "layoutOptions": layout_options,
+            }
+        )
+        icon_height *= 0
+    return labels
 
 
 class _LabelBuilder(te.TypedDict, total=True):
@@ -99,26 +127,40 @@ def make_box(
     width: int | float = 0,
     height: int | float = 0,
     no_symbol: bool = False,
-    slim_width: bool = False,
+    slim_width: bool = True,
     label_getter: cabc.Callable[
         [common.GenericElement], cabc.Iterable[_LabelBuilder]
     ] = lambda i: [
-        {"text": i.name, "icon": (0, 0), "layout_options": {}}
+        {
+            "text": i.name,
+            "icon": (ICON_WIDTH, 0),
+            "layout_options": {},
+        }
     ],  # type: ignore
+    max_label_width: int | float = MAX_BOX_WIDTH,
+    layout_options: _elkjs.LayoutOptions | None = None,
 ) -> _elkjs.ELKInputChild:
     """Return an
     [`ELKInputChild`][capellambse_context_diagrams._elkjs.ELKInputChild].
     """
-    labels = [make_label(**label) for label in label_getter(obj)]
+    layout_options = layout_options or CENTRIC_LABEL_LAYOUT_OPTIONS
+    labels: list[_elkjs.ELKInputLabel] = []
+    for label_builder in label_getter(obj):
+        if not label_builder.get("layout_options"):
+            label_builder.setdefault("layout_options", {}).update(
+                layout_options
+            )
+
+        labels.extend(make_label(**label_builder, max_width=max_label_width))
+
     if not no_symbol and is_symbol(obj):
         if height < MIN_SYMBOL_HEIGHT:
             height = MIN_SYMBOL_HEIGHT
         elif height > MAX_SYMBOL_HEIGHT:
             height = MAX_SYMBOL_HEIGHT
         width = height * SYMBOL_RATIO
-        labels[0]["layoutOptions"] = {
-            "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
-        }
+        for label in labels:
+            label.setdefault("layoutOptions", {}).update(SYMBOL_LAYOUT_OPTIONS)
     else:
         width, height = calculate_height_and_width(
             labels, width=width, height=height, slim_width=slim_width

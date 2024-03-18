@@ -54,7 +54,7 @@ def collector(
         if not diagram.display_symbols_as_boxes and makers.is_symbol(
             diagram.target
         ):
-            height = max(makers.MIN_SYMBOL_HEIGHT, var_height)
+            height = makers.MIN_SYMBOL_HEIGHT + var_height
         else:
             height = var_height
 

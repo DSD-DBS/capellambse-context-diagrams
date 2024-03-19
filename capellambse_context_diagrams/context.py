@@ -48,16 +48,14 @@ class ContextAccessor(common.Accessor):
         self._default_render_params = render_params or {}
 
     @t.overload
-    def __get__(self, obj: None, objtype: type[t.Any]) -> ContextAccessor:
-        ...
+    def __get__(self, obj: None, objtype: type[t.Any]) -> ContextAccessor: ...
 
     @t.overload
     def __get__(
         self,
         obj: common.T,
         objtype: type[common.T] | None = None,
-    ) -> ContextDiagram:
-        ...
+    ) -> ContextDiagram: ...
 
     def __get__(
         self,
@@ -341,10 +339,14 @@ class ContextDiagram(diagram.AbstractDiagram):
         return super().render(fmt, **rparams)
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
+        transparent_background = params.pop("transparent_background", False)
         data = params.get("elkdata") or get_elkdata(self, params)
         layout = try_to_layout(data)
         add_context(layout, params.get("is_legend", False))
-        return self.serializer.make_diagram(layout)
+        return self.serializer.make_diagram(
+            layout,
+            transparent_background=transparent_background,
+        )
 
     @property  # type: ignore
     def filters(self) -> cabc.MutableSet[str]:  # type: ignore
@@ -528,7 +530,10 @@ class RealizationViewDiagram(ContextDiagram):
                 }  # type: ignore[arg-type]
             )
         self._add_layer_labels(layout)
-        return self.serializer.make_diagram(layout)
+        return self.serializer.make_diagram(
+            layout,
+            transparent_background=params.get("transparent_background", False),
+        )
 
     def _add_layer_labels(self, layout: _elkjs.ELKOutputData) -> None:
         for layer in layout["children"]:

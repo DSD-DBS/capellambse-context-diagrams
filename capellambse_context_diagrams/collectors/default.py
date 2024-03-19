@@ -98,9 +98,9 @@ def collector(
                     global_boxes.pop(child.uuid)
                 )
                 for label in parent_box["labels"]:
-                    label[
-                        "layoutOptions"
-                    ] = makers.CENTRIC_LABEL_LAYOUT_OPTIONS
+                    label["layoutOptions"] = (
+                        makers.CENTRIC_LABEL_LAYOUT_OPTIONS
+                    )
 
                 _move_edge_to_local_edges(
                     parent_box, connections, local_ports, diagram, data

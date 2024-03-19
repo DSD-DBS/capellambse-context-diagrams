@@ -54,7 +54,11 @@ class DiagramSerializer:
         self._diagram = elk_diagram
         self._cache: dict[str, diagram.Box | diagram.Edge] = {}
 
-    def make_diagram(self, data: _elkjs.ELKOutputData) -> diagram.Diagram:
+    def make_diagram(
+        self,
+        data: _elkjs.ELKOutputData,
+        **kwargs: dict[str, t.Any],
+    ) -> diagram.Diagram:
         """Transform a layouted diagram into an `diagram.Diagram`.
 
         Parameters
@@ -71,6 +75,7 @@ class DiagramSerializer:
         self.diagram = diagram.Diagram(
             self._diagram.name.replace("/", "\\"),
             styleclass=self._diagram.styleclass,
+            params=kwargs,
         )
         for child in data["children"]:
             self.deserialize_child(child, diagram.Vector2D(), None)
@@ -271,7 +276,9 @@ class DiagramSerializer:
     def order_children(self) -> None:
         """Reorder diagram elements such that symbols are drawn last."""
         new_diagram = diagram.Diagram(
-            self.diagram.name, styleclass=self.diagram.styleclass
+            self.diagram.name,
+            styleclass=self.diagram.styleclass,
+            params=self.diagram.params,
         )
         draw_last = list[diagram.DiagramElement]()
         for element in self.diagram:

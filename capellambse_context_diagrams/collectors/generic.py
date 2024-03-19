@@ -141,6 +141,7 @@ def exchange_data_collector(
     params = (data.params or {}).copy()
     # Remove simple render parameters from params
     no_edgelabels: bool = params.pop("no_edgelabels", False)
+    params.pop("transparent_background", False)
 
     render_adj: dict[str, t.Any] = {}
     for name, value in params.items():

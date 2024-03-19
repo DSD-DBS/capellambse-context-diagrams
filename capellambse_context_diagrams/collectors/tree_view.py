@@ -132,9 +132,9 @@ def collector(
     data["children"][0]["labels"][0].setdefault("layoutOptions", {}).update(
         makers.DEFAULT_LABEL_LAYOUT_OPTIONS
     )
-    all_associations: cabc.Iterable[
-        information.Association
-    ] = diagram._model.search("Association")
+    all_associations: cabc.Iterable[information.Association] = (
+        diagram._model.search("Association")
+    )
     _set_layout_options(data, params)
     processor = ClassProcessor(data, all_associations)
     processor._set_data_types_and_labels(data["children"][0], diagram.target)

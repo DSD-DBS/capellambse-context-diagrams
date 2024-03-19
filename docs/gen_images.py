@@ -35,13 +35,14 @@ diagram_uuids = general_context_diagram_uuids | interface_context_diagram_uuids
 class_tree_uuid = "b7c7f442-377f-492c-90bf-331e66988bda"
 realization_fnc_uuid = "beaf5ba4-8fa9-4342-911f-0266bb29be45"
 realization_comp_uuid = "b9f9a83c-fb02-44f7-9123-9d86326de5f1"
+data_flow_uuid = "3b83b4ba-671a-4de8-9c07-a5c6b1d3c422"
 
 
 def generate_index_images() -> None:
     for uuid in diagram_uuids.values():
         diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
         with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
-            print(diag.as_svg, file=fd)
+            print(diag.render("svg", transparent_background=True), file=fd)
 
 
 def generate_no_symbol_images() -> None:
@@ -52,7 +53,7 @@ def generate_no_symbol_images() -> None:
         diag.invalidate_cache()
         filepath = f"{str(dest / diag.name)} no_symbols.svg"
         with mkdocs_gen_files.open(filepath, "w") as fd:
-            print(diag.as_svg, file=fd)
+            print(diag.render("svg", transparent_background=True), file=fd)
 
 
 def generate_no_edgelabel_image(uuid: str) -> None:
@@ -60,7 +61,12 @@ def generate_no_edgelabel_image(uuid: str) -> None:
     cdiagram.invalidate_cache()
     filename = " ".join((str(dest / cdiagram.name), "no_edgelabels"))
     with mkdocs_gen_files.open(f"{filename}.svg", "w") as fd:
-        print(cdiagram.render("svg", no_edgelabels=True), file=fd)
+        print(
+            cdiagram.render(
+                "svg", no_edgelabels=True, transparent_background=True
+            ),
+            file=fd,
+        )
 
 
 def generate_filter_image(
@@ -71,7 +77,7 @@ def generate_filter_image(
     diag.filters = {filter_name}
     filename = " ".join((str(dest / diag.name), suffix))
     with mkdocs_gen_files.open(f"{filename}.svg", "w") as fd:
-        print(diag.as_svg, file=fd)
+        print(diag.render("svg", transparent_background=True), file=fd)
 
 
 def generate_styling_image(
@@ -84,14 +90,19 @@ def generate_styling_image(
     diag.render_styles = styles
     filename = " ".join((str(dest / diag.name), suffix))
     with mkdocs_gen_files.open(f"{filename}.svg", "w") as fd:
-        print(diag.as_svg, file=fd)
+        print(diag.render("svg", transparent_background=True), file=fd)
 
 
 def generate_hierarchy_image() -> None:
     obj = model.by_uuid(hierarchy_context)
     diag: context.ContextDiagram = obj.context_diagram
     with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
-        print(diag.render("svg", include_inner_objects=True), file=fd)
+        print(
+            diag.render(
+                "svg", include_inner_objects=True, transparent_background=True
+            ),
+            file=fd,
+        )
 
 
 def generate_class_tree_images() -> None:
@@ -109,6 +120,7 @@ def generate_class_tree_images() -> None:
                 direction="Right",
                 partitioning=False,
                 edgeLabelsSide="ALWAYS_DOWN",
+                transparent_background=True,
             ),
             file=fd,
         )
@@ -125,9 +137,18 @@ def generate_realization_view_images() -> None:
                     depth=3,
                     search_direction="ALL",
                     show_owners=True,
+                    transparent_background=True,
                 ),
                 file=fd,
             )
+
+
+def generate_data_flow_image() -> None:
+    diag: context.DataFlowViewDiagram = model.by_uuid(
+        data_flow_uuid
+    ).data_flow_view
+    with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
+        print(diag.render("svg", transparent_background=True), file=fd)
 
 
 generate_index_images()
@@ -153,3 +174,4 @@ generate_styling_image(
 generate_styling_image(wizard, {}, "no_styles")
 generate_class_tree_images()
 generate_realization_view_images()
+generate_data_flow_image()

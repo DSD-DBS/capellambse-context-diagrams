@@ -11,7 +11,6 @@ import collections.abc as cabc
 import logging
 import typing as t
 
-from capellambse import helpers
 from capellambse.model import common
 from capellambse.model.crosslayer import interaction
 from capellambse.model.modeltypes import DiagramType as DT
@@ -130,8 +129,8 @@ def exchange_data_collector(
     # Remove simple render parameters from params
     no_edgelabels: bool = params.pop("no_edgelabels", False)
     params.pop("transparent_background", False)
-    font_family = params.pop("font_family", "Open Sans")
-    font_size = params.pop("font_size", 12)
+    _ = params.pop("font_family", "Open Sans")
+    _ = params.pop("font_size", 12)
 
     render_adj: dict[str, t.Any] = {}
     for name, value in params.items():

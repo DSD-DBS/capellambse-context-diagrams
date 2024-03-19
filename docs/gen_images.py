@@ -42,7 +42,7 @@ def generate_index_images() -> None:
     for uuid in diagram_uuids.values():
         diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
         with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
-            print(diag.render("svg", transparent_background=True), file=fd)
+            print(diag.render("svg", transparent_background=False), file=fd)
 
 
 def generate_no_symbol_images() -> None:
@@ -53,7 +53,7 @@ def generate_no_symbol_images() -> None:
         diag.invalidate_cache()
         filepath = f"{str(dest / diag.name)} no_symbols.svg"
         with mkdocs_gen_files.open(filepath, "w") as fd:
-            print(diag.render("svg", transparent_background=True), file=fd)
+            print(diag.render("svg", transparent_background=False), file=fd)
 
 
 def generate_no_edgelabel_image(uuid: str) -> None:
@@ -63,7 +63,7 @@ def generate_no_edgelabel_image(uuid: str) -> None:
     with mkdocs_gen_files.open(f"{filename}.svg", "w") as fd:
         print(
             cdiagram.render(
-                "svg", no_edgelabels=True, transparent_background=True
+                "svg", no_edgelabels=True, transparent_background=False
             ),
             file=fd,
         )
@@ -77,7 +77,7 @@ def generate_filter_image(
     diag.filters = {filter_name}
     filename = " ".join((str(dest / diag.name), suffix))
     with mkdocs_gen_files.open(f"{filename}.svg", "w") as fd:
-        print(diag.render("svg", transparent_background=True), file=fd)
+        print(diag.render("svg", transparent_background=False), file=fd)
 
 
 def generate_styling_image(
@@ -90,7 +90,7 @@ def generate_styling_image(
     diag.render_styles = styles
     filename = " ".join((str(dest / diag.name), suffix))
     with mkdocs_gen_files.open(f"{filename}.svg", "w") as fd:
-        print(diag.render("svg", transparent_background=True), file=fd)
+        print(diag.render("svg", transparent_background=False), file=fd)
 
 
 def generate_hierarchy_image() -> None:
@@ -99,7 +99,7 @@ def generate_hierarchy_image() -> None:
     with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
         print(
             diag.render(
-                "svg", include_inner_objects=True, transparent_background=True
+                "svg", include_inner_objects=True, transparent_background=False
             ),
             file=fd,
         )
@@ -120,7 +120,7 @@ def generate_class_tree_images() -> None:
                 direction="Right",
                 partitioning=False,
                 edgeLabelsSide="ALWAYS_DOWN",
-                transparent_background=True,
+                transparent_background=False,
             ),
             file=fd,
         )
@@ -137,7 +137,7 @@ def generate_realization_view_images() -> None:
                     depth=3,
                     search_direction="ALL",
                     show_owners=True,
-                    transparent_background=True,
+                    transparent_background=False,
                 ),
                 file=fd,
             )
@@ -148,7 +148,7 @@ def generate_data_flow_image() -> None:
         data_flow_uuid
     ).data_flow_view
     with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
-        print(diag.render("svg", transparent_background=True), file=fd)
+        print(diag.render("svg", transparent_background=False), file=fd)
 
 
 generate_index_images()

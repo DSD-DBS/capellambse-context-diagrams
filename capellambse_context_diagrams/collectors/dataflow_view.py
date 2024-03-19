@@ -22,6 +22,7 @@ def only_involved(
     functions: cabc.Iterable[fa.FunctionalExchange],
     attributes: tuple[str, str],
 ) -> cabc.Iterable[fa.FunctionalExchange]:
+    """Exchange filter function for collecting edges."""
     src_attr, trg_attr = attributes
     src_getter = operator.attrgetter(src_attr)
     trg_getter = operator.attrgetter(trg_attr)
@@ -44,6 +45,7 @@ def collector(
         cabc.Iterable[fa.FunctionalExchange],
     ] = only_involved,
 ) -> _elkjs.ELKInputData:
+    """Main collector that calls either default or portless collectors."""
     return COLLECTORS[diagram.type](diagram, params, exchange_filter)
 
 
@@ -60,6 +62,7 @@ def collector_portless(
     ],
     attribute: str = "involved_activities",
 ) -> _elkjs.ELKInputData:
+    """Collector function for the operational layer."""
     data = makers.make_diagram(diagram)
     activities = getattr(diagram.target, attribute)
     filter = functools.partial(
@@ -110,6 +113,7 @@ def collector_default(
     ],
     attribute: str = "involved_functions",
 ) -> _elkjs.ELKInputData:
+    """Collector for all other layers than operational architecture."""
     data = makers.make_diagram(diagram)
     functions = getattr(diagram.target, attribute)
     filter = functools.partial(
@@ -153,3 +157,4 @@ COLLECTORS: dict[modeltypes.DiagramType, cabc.Callable] = {
     modeltypes.DiagramType.OAIB: collector_portless,
     modeltypes.DiagramType.SDFB: collector_default,
 }
+"""Collector registry."""

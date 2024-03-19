@@ -17,10 +17,12 @@ PORT_SIZE = 10
 """Default size of ports in pixels."""
 PORT_PADDING = 2
 """Default padding of ports in pixels."""
-LABEL_HPAD = 5
+LABEL_HPAD = 3
 """Horizontal padding left and right of the label."""
 LABEL_VPAD = 1
 """Vertical padding above and below the label."""
+MAX_LABEL_WIDTH = 200
+"""Maximum width for edge labels."""
 NEIGHBOR_VMARGIN = 20
 """Vertical space between two neighboring boxes."""
 EOI_WIDTH = 100
@@ -87,7 +89,7 @@ def make_label(
     [`ELKInputLabel`][capellambse_context_diagrams._elkjs.ELKInputLabel].
     """
     label_width, label_height = chelpers.get_text_extent(text)
-    icon_width, icon_height = icon
+    icon_width, _ = icon
     lines = [text]
     if max_width is not None and label_width > max_width:
         lines, _, _ = svghelpers.check_for_horizontal_overflow(
@@ -105,11 +107,10 @@ def make_label(
             {
                 "text": line,
                 "width": icon_width + label_width + 2 * LABEL_HPAD,
-                "height": icon_height + label_height + 2 * LABEL_VPAD,
+                "height": label_height + 2 * LABEL_VPAD,
                 "layoutOptions": layout_options,
             }
         )
-        icon_height *= 0
     return labels
 
 
@@ -178,7 +179,7 @@ def calculate_height_and_width(
     """Calculate the size (width and height) from given labels for a box."""
     icon = icon_size + icon_padding * 2
     _height = sum(label["height"] + 2 * LABEL_VPAD for label in labels) + icon
-    min_width = max(label["width"] + 2 * LABEL_HPAD for label in labels) + icon
+    min_width = max(label["width"] + 2 * LABEL_HPAD for label in labels)
     width = min_width if slim_width else max(width, min_width)
     return width, max(height, _height)
 

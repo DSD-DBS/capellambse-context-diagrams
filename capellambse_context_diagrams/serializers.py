@@ -180,28 +180,31 @@ class DiagramSerializer:
             self._cache[child["id"]] = element
         elif child["type"] == "label":
             assert parent is not None
-            if isinstance(parent, diagram.Box) and not parent.port:
+            if not parent.port:
                 if parent.JSON_TYPE != "symbol":
                     parent.styleoverrides |= self.get_styleoverrides(child)
 
-                parent.labels.append(
-                    diagram.Box(
-                        ref + (child["position"]["x"], child["position"]["y"]),
-                        (child["size"]["width"], child["size"]["height"]),
-                        labels=[child["text"]],
-                        styleoverrides=self.get_styleoverrides(child),
+                if parent.labels:
+                    label_box = parent.labels[-1]
+                    label_box.labels.append(child["text"])
+                    label_box.size = diagram.Vector2D(
+                        max(label_box.size.x, child["size"]["width"]),
+                        label_box.size.y + child["size"]["height"],
                     )
-                )
-            else:
-                assert isinstance(parent, diagram.Edge)
-                parent.labels.append(
-                    diagram.Box(
-                        ref + (child["position"]["x"], child["position"]["y"]),
-                        (child["size"]["width"], child["size"]["height"]),
-                        labels=[child["text"]],
-                        styleoverrides=self.get_styleoverrides(child),
+                    label_box.pos = diagram.Vector2D(
+                        min(label_box.pos.x, ref.x + child["position"]["x"]),
+                        label_box.pos.y,
                     )
-                )
+                else:
+                    parent.labels.append(
+                        diagram.Box(
+                            ref
+                            + (child["position"]["x"], child["position"]["y"]),
+                            (child["size"]["width"], child["size"]["height"]),
+                            labels=[child["text"]],
+                            styleoverrides=self.get_styleoverrides(child),
+                        )
+                    )
 
             element = parent
         elif child["type"] == "junction":

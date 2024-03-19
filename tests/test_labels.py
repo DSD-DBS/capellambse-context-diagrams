@@ -11,11 +11,13 @@ import pytest
         pytest.param(
             "d817767f-68b7-49a5-aa47-13419d41df0a",
             [
-                ["Really long label"],
-                ["that needs"],
-                ["wrapping else"],
-                ["its parent box is"],
-                ["also very long!"],
+                "Really long",
+                "label that",
+                "needs",
+                "wrapping else",
+                "its parent box",
+                "is also very",
+                "long!",
             ],
             id="LogicalFunction",
         ),
@@ -27,6 +29,5 @@ def test_context_diagrams(
     obj = model.by_uuid(uuid)
 
     diagram = obj.context_diagram.render(None)
-    labels = [label.labels for label in diagram[uuid].labels]
 
-    assert labels == expected_labels
+    assert diagram[uuid].labels[0].labels == expected_labels

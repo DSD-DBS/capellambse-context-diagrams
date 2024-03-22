@@ -59,7 +59,7 @@ class ClassProcessor:
                 self.made_edges.add(edge_id)
                 text = cls.prop.name
                 if cls.multiplicity is None:
-                    start, end = "1", "1"
+                    start = end = "1"
                 else:
                     start, end = cls.multiplicity
 

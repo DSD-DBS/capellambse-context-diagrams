@@ -184,9 +184,15 @@ class DiagramSerializer:
                 if parent.JSON_TYPE != "symbol":
                     parent.styleoverrides |= self.get_styleoverrides(child)
 
-                if parent.labels:
-                    label_box = parent.labels[-1]
-                    label_box.labels.append(child["text"])
+                if isinstance(parent, diagram.Box):
+                    attr_name = "floating_labels"
+                else:
+                    attr_name = "labels"
+
+                labels = getattr(parent, attr_name)
+                if labels:
+                    label_box = labels[-1]
+                    label_box.label += " " + child["text"]
                     label_box.size = diagram.Vector2D(
                         max(label_box.size.x, child["size"]["width"]),
                         label_box.size.y + child["size"]["height"],
@@ -196,12 +202,12 @@ class DiagramSerializer:
                         label_box.pos.y,
                     )
                 else:
-                    parent.labels.append(
+                    labels.append(
                         diagram.Box(
                             ref
                             + (child["position"]["x"], child["position"]["y"]),
                             (child["size"]["width"], child["size"]["height"]),
-                            labels=[child["text"]],
+                            label=child["text"],
                             styleoverrides=self.get_styleoverrides(child),
                         )
                     )

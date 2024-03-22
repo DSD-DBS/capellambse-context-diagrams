@@ -4,6 +4,8 @@
 import capellambse
 import pytest
 
+from capellambse_context_diagrams.collectors import makers
+
 
 @pytest.mark.parametrize(
     "uuid,expected_labels",
@@ -11,13 +13,10 @@ import pytest
         pytest.param(
             "d817767f-68b7-49a5-aa47-13419d41df0a",
             [
-                "Really long",
-                "label that",
-                "needs",
-                "wrapping else",
-                "its parent box",
-                "is also very",
-                "long!",
+                "Really long label that",
+                "needs wrapping else",
+                "its parent box is also",
+                "very long!",
             ],
             id="LogicalFunction",
         ),
@@ -28,6 +27,6 @@ def test_context_diagrams(
 ) -> None:
     obj = model.by_uuid(uuid)
 
-    diagram = obj.context_diagram.render(None)
+    labels = makers.make_label(obj.name, max_width=makers.MAX_LABEL_WIDTH)
 
-    assert diagram[uuid].labels[0].labels == expected_labels
+    assert [label["text"] for label in labels] == expected_labels

@@ -68,7 +68,7 @@ def start_filter_apply_test(
 
 
 def get_ExchangeItems(edge: diagram.Edge) -> list[str]:
-    label = " ".join(edge.labels[0].labels)
+    label = edge.labels[0].label
     assert isinstance(label, str)
     match = EX_PTRN.match(label)
     assert match is not None
@@ -129,8 +129,8 @@ def test_context_diagrams_FEX_EX_ITEMS_is_applied(
 
         assert isinstance(aedge, diagram.Edge)
         assert len(aedge.labels) == 1
-        assert isinstance(aedge.labels[0].labels, list)
-        assert [" ".join(aedge.labels[0].labels)] == [expected_label]
+        assert isinstance(aedge.labels[0].label, str)
+        assert [aedge.labels[0].label] == [expected_label]
 
 
 @pytest.mark.parametrize("uuid", (FNC_UUID, INTERF_UUID))
@@ -146,7 +146,7 @@ def test_context_diagrams_FEX_OR_EX_ITEMS_is_applied(
 
         assert isinstance(aedge, diagram.Edge)
 
-        label = " ".join(aedge.labels[0].labels)
+        label = aedge.labels[0].label
         if edge.exchange_items:
             eitem_label_frag = ", ".join(
                 (exi.name for exi in edge.exchange_items)
@@ -177,7 +177,7 @@ def test_context_diagrams_SYSTEM_EX_RELABEL_is_applied(
 
     for element in diag.render(None):
         if isinstance(element, diagram.Edge):
-            assert element.labels[0].labels[0] in expected
+            assert element.labels[0].label in expected
 
 
 def test_context_diagrams_NO_UUID_is_applied(model: MelodyModel) -> None:
@@ -190,10 +190,7 @@ def test_context_diagrams_NO_UUID_is_applied(model: MelodyModel) -> None:
     aedge = aird_diag[CAP_EXPLOIT]
 
     assert isinstance(aedge, diagram.Edge)
-    assert (
-        " ".join(aedge.labels[0].labels)
-        == "[CapabilityExploitation] to Capability"
-    )
+    assert aedge.labels[0].label == "[CapabilityExploitation] to Capability"
 
 
 def test_context_diagrams_no_edgelabels_render_param_is_applied(

@@ -39,7 +39,7 @@ def collector(
         if not (elements := lay_to_els.get(layer)):  # type: ignore[call-overload]
             continue
 
-        labels = [makers.make_label(layer)]
+        labels = makers.make_label(layer)
         width, height = makers.calculate_height_and_width(labels)
         layer_box: _elkjs.ELKInputChild = {
             "id": elements[0]["layer"].uuid,
@@ -79,7 +79,11 @@ def collector(
                         continue
 
                     if not (owner_box := children.get(owner.uuid)):
-                        owner_box = makers.make_box(owner, no_symbol=True)
+                        owner_box = makers.make_box(
+                            owner,
+                            no_symbol=True,
+                            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+                        )
                         owner_box["height"] += element_box["height"]
                         children[owner.uuid] = owner_box
                         layer_box["children"].append(owner_box)
@@ -87,6 +91,11 @@ def collector(
                     del layer_box["children"][index]
                     owner_box.setdefault("children", []).append(element_box)
                     owner_box["width"] += element_box["width"]
+                    for label in owner_box["labels"]:
+                        label["layoutOptions"].update(
+                            makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+                        )
+
                     if (
                         source is not None
                         and source.owner.uuid in children

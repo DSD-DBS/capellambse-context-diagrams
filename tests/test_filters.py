@@ -68,8 +68,9 @@ def start_filter_apply_test(
 
 
 def get_ExchangeItems(edge: diagram.Edge) -> list[str]:
-    assert isinstance(edge.labels[0].label, str)
-    match = EX_PTRN.match(edge.labels[0].label)
+    label = edge.labels[0].label
+    assert isinstance(label, str)
+    match = EX_PTRN.match(label)
     assert match is not None
     return match.group(1).split(", ")
 
@@ -129,7 +130,7 @@ def test_context_diagrams_FEX_EX_ITEMS_is_applied(
         assert isinstance(aedge, diagram.Edge)
         assert len(aedge.labels) == 1
         assert isinstance(aedge.labels[0].label, str)
-        assert aedge.labels[0].label == expected_label
+        assert [aedge.labels[0].label] == [expected_label]
 
 
 @pytest.mark.parametrize("uuid", (FNC_UUID, INTERF_UUID))

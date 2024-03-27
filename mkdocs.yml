@@ -91,8 +91,10 @@ nav:
       - Styling: extras/styling.md
   - Tree View:
       - Overview: tree_view.md
-  - 🔥Realization View🔥:
+  - Realization View:
       - Overview: realization_view.md
+  - 🔥 DataFlow View 🔥:
+      - Overview: data_flow_view.md
   - Code Reference: reference/
 
 extra_css:

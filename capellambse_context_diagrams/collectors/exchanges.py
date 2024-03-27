@@ -44,8 +44,9 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
 
     def __init__(
         self,
-        diagram: context.InterfaceContextDiagram
-        | context.FunctionalContextDiagram,
+        diagram: (
+            context.InterfaceContextDiagram | context.FunctionalContextDiagram
+        ),
         data: _elkjs.ELKInputData,
         params: dict[str, t.Any],
     ) -> None:
@@ -130,8 +131,9 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
 
 
 def get_elkdata_for_exchanges(
-    diagram: context.InterfaceContextDiagram
-    | context.FunctionalContextDiagram,
+    diagram: (
+        context.InterfaceContextDiagram | context.FunctionalContextDiagram
+    ),
     collector_type: type[ExchangeCollector],
     params: dict[str, t.Any],
 ) -> _elkjs.ELKInputData:
@@ -180,12 +182,20 @@ class InterfaceContextCollector(ExchangeCollector):
             comp: common.GenericElement, functions: list[common.GenericElement]
         ) -> None:
             if comp.uuid not in made_children:
-                box = makers.make_box(comp, no_symbol=True)
-                box["children"] = [
+                children = [
                     makers.make_box(c)
                     for c in functions
                     if c in self.get_alloc_functions(comp)
                 ]
+                if children:
+                    layout_options = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+                else:
+                    layout_options = makers.CENTRIC_LABEL_LAYOUT_OPTIONS
+
+                box = makers.make_box(
+                    comp, no_symbol=True, layout_options=layout_options
+                )
+                box["children"] = children
                 self.data["children"].append(box)
                 made_children.add(comp.uuid)
 
@@ -277,8 +287,14 @@ class FunctionalContextCollector(ExchangeCollector):
                     self.obj, interface
                 )
                 if comp.uuid not in made_children:
-                    box = makers.make_box(comp)
-                    box["children"] = [makers.make_box(c) for c in functions]
+                    children = [makers.make_box(c) for c in functions]
+                    if children:
+                        layout_options = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+                    else:
+                        layout_options = makers.CENTRIC_LABEL_LAYOUT_OPTIONS
+
+                    box = makers.make_box(comp, layout_options=layout_options)
+                    box["children"] = children
                     self.data["children"].append(box)
                     made_children.add(comp.uuid)
 

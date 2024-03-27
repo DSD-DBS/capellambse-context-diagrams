@@ -92,9 +92,11 @@ FILTER_LABEL_ADJUSTERS: dict[
 ] = {
     EX_ITEMS: lambda obj, _: exchange_items(obj),
     FEX_EX_ITEMS: exchange_name_and_items,
-    FEX_OR_EX_ITEMS: lambda obj, label: exchange_items(obj)
-    if getattr(obj, "exchange_items", "")
-    else label or obj.name,
+    FEX_OR_EX_ITEMS: lambda obj, label: (
+        exchange_items(obj)
+        if getattr(obj, "exchange_items", "")
+        else label or obj.name
+    ),
     NO_UUID: uuid_filter,
     SYSTEM_EX_RELABEL: relabel_system_exchange,
 }

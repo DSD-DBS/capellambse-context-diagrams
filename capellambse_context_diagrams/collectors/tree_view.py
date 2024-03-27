@@ -44,7 +44,7 @@ class ClassProcessor:
         objects = self.data["children"] + self.data["edges"]  # type: ignore[operator]
         return uuid in {obj["id"] for obj in objects}
 
-    def process_class(self, cls, params):
+    def process_class(self, cls: ClassInfo, params: dict[str, t.Any]):
         self._process_box(cls.source, cls.partition, params)
 
         if not cls.primitive and isinstance(cls.target, information.Class):
@@ -58,7 +58,11 @@ class ClassProcessor:
             if (edge_id := edges[0].uuid) not in self.made_edges:
                 self.made_edges.add(edge_id)
                 text = cls.prop.name
-                start, end = cls.multiplicity
+                if cls.multiplicity is None:
+                    start = end = "1"
+                else:
+                    start, end = cls.multiplicity
+
                 if start != "1" or end != "1":
                     text = f"[{start}..{end}] {text}"
                 self.data["edges"].append(
@@ -66,7 +70,7 @@ class ClassProcessor:
                         "id": edge_id,
                         "sources": [cls.source.uuid],
                         "targets": [cls.target.uuid],
-                        "labels": [makers.make_label(text)],
+                        "labels": makers.make_label(text),
                     }
                 )
 
@@ -95,7 +99,10 @@ class ClassProcessor:
         self, obj: information.Class, partition: int, params: dict[str, t.Any]
     ) -> _elkjs.ELKInputChild:
         self.made_boxes.add(obj.uuid)
-        box = makers.make_box(obj)
+        box = makers.make_box(
+            obj,
+            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+        )
         self._set_data_types_and_labels(box, obj)
         _set_partitioning(box, partition, params)
         self.data["children"].append(box)
@@ -122,9 +129,12 @@ def collector(
     """Return the class tree data for ELK."""
     assert isinstance(diagram.target, information.Class)
     data = generic.collector(diagram, no_symbol=True)
-    all_associations: cabc.Iterable[
-        information.Association
-    ] = diagram._model.search("Association")
+    data["children"][0]["labels"][0].setdefault("layoutOptions", {}).update(
+        makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+    )
+    all_associations: cabc.Iterable[information.Association] = (
+        diagram._model.search("Association")
+    )
     _set_layout_options(data, params)
     processor = ClassProcessor(data, all_associations)
     processor._set_data_types_and_labels(data["children"][0], diagram.target)
@@ -351,8 +361,10 @@ def _get_all_non_edge_properties(
             continue
 
         text = _get_property_text(prop)
-        label = makers.make_label(text, layout_options=layout_options)
-        properties.append(label)
+        labels = makers.make_label(
+            text, icon=(makers.ICON_WIDTH, 0), layout_options=layout_options
+        )
+        properties.extend(labels)
 
         if prop.type.uuid in data_types:
             continue
@@ -386,7 +398,11 @@ def _get_property_text(prop: information.Property) -> str:
 def _get_legend_labels(
     obj: information.datatype.Enumeration | information.Class,
 ) -> cabc.Iterator[makers._LabelBuilder]:
-    yield {"text": obj.name, "icon": (0, 0), "layout_options": {}}
+    yield {
+        "text": obj.name,
+        "icon": (0, 0),
+        "layout_options": makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+    }
     if isinstance(obj, information.datatype.Enumeration):
         labels = [literal.name for literal in obj.literals]
     elif isinstance(obj, information.Class):
@@ -395,8 +411,4 @@ def _get_legend_labels(
         return
     layout_options = DATA_TYPE_LABEL_LAYOUT_OPTIONS
     for label in labels:
-        yield {
-            "text": label,
-            "icon": (0, 0),
-            "layout_options": layout_options,
-        }
+        yield {"text": label, "icon": (0, 0), "layout_options": layout_options}

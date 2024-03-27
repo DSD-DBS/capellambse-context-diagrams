@@ -54,7 +54,11 @@ class DiagramSerializer:
         self._diagram = elk_diagram
         self._cache: dict[str, diagram.Box | diagram.Edge] = {}
 
-    def make_diagram(self, data: _elkjs.ELKOutputData) -> diagram.Diagram:
+    def make_diagram(
+        self,
+        data: _elkjs.ELKOutputData,
+        **kwargs: dict[str, t.Any],
+    ) -> diagram.Diagram:
         """Transform a layouted diagram into an `diagram.Diagram`.
 
         Parameters
@@ -71,6 +75,7 @@ class DiagramSerializer:
         self.diagram = diagram.Diagram(
             self._diagram.name.replace("/", "\\"),
             styleclass=self._diagram.styleclass,
+            params=kwargs,
         )
         for child in data["children"]:
             self.deserialize_child(child, diagram.Vector2D(), None)
@@ -175,27 +180,37 @@ class DiagramSerializer:
             self._cache[child["id"]] = element
         elif child["type"] == "label":
             assert parent is not None
-            if isinstance(parent, diagram.Box) and not parent.port:
+            if not parent.port:
                 if parent.JSON_TYPE != "symbol":
-                    parent.label = child["text"]
                     parent.styleoverrides |= self.get_styleoverrides(child)
+
+                if isinstance(parent, diagram.Box):
+                    attr_name = "floating_labels"
                 else:
-                    parent.label = diagram.Box(
-                        ref + (child["position"]["x"], child["position"]["y"]),
-                        (child["size"]["width"], child["size"]["height"]),
-                        label=child["text"],
-                        styleoverrides=self.get_styleoverrides(child),
+                    attr_name = "labels"
+
+                labels = getattr(parent, attr_name)
+                if labels:
+                    label_box = labels[-1]
+                    label_box.label += " " + child["text"]
+                    label_box.size = diagram.Vector2D(
+                        max(label_box.size.x, child["size"]["width"]),
+                        label_box.size.y + child["size"]["height"],
                     )
-            else:
-                assert isinstance(parent, diagram.Edge)
-                parent.labels = [
-                    diagram.Box(
-                        ref + (child["position"]["x"], child["position"]["y"]),
-                        (child["size"]["width"], child["size"]["height"]),
-                        label=child["text"],
-                        styleoverrides=self.get_styleoverrides(child),
+                    label_box.pos = diagram.Vector2D(
+                        min(label_box.pos.x, ref.x + child["position"]["x"]),
+                        label_box.pos.y,
                     )
-                ]
+                else:
+                    labels.append(
+                        diagram.Box(
+                            ref
+                            + (child["position"]["x"], child["position"]["y"]),
+                            (child["size"]["width"], child["size"]["height"]),
+                            label=child["text"],
+                            styleoverrides=self.get_styleoverrides(child),
+                        )
+                    )
 
             element = parent
         elif child["type"] == "junction":
@@ -270,7 +285,9 @@ class DiagramSerializer:
     def order_children(self) -> None:
         """Reorder diagram elements such that symbols are drawn last."""
         new_diagram = diagram.Diagram(
-            self.diagram.name, styleclass=self.diagram.styleclass
+            self.diagram.name,
+            styleclass=self.diagram.styleclass,
+            params=self.diagram.params,
         )
         draw_last = list[diagram.DiagramElement]()
         for element in self.diagram:

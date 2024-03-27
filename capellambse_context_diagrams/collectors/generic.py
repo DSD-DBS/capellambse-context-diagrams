@@ -11,7 +11,6 @@ import collections.abc as cabc
 import logging
 import typing as t
 
-from capellambse import helpers
 from capellambse.model import common
 from capellambse.model.crosslayer import interaction
 from capellambse.model.modeltypes import DiagramType as DT
@@ -126,21 +125,12 @@ def exchange_data_collector(
     if data.is_hierarchical:
         target, source = source, target
 
-    label = collect_label(data.exchange)
-    for filter in data.filter_iterable:
-        try:
-            label = filters.FILTER_LABEL_ADJUSTERS[filter](
-                data.exchange, label
-            )
-        except KeyError:
-            logger.exception(
-                "There is no filter labelled: '%s' in filters.FILTER_LABEL_ADJUSTERS",
-                filter,
-            )
-
     params = (data.params or {}).copy()
     # Remove simple render parameters from params
     no_edgelabels: bool = params.pop("no_edgelabels", False)
+    params.pop("transparent_background", False)
+    _ = params.pop("font_family", "Open Sans")
+    _ = params.pop("font_size", 12)
 
     render_adj: dict[str, t.Any] = {}
     for name, value in params.items():
@@ -148,7 +138,8 @@ def exchange_data_collector(
             filters.RENDER_ADJUSTERS[name](value, data.exchange, render_adj)
         except KeyError:
             logger.exception(
-                "There is no render parameter solver labelled: '%s' in filters.RENDER_ADJUSTERS",
+                "There is no render parameter solver labelled: '%s' "
+                "in filters.RENDER_ADJUSTERS",
                 name,
             )
 
@@ -159,19 +150,25 @@ def exchange_data_collector(
             "targets": [render_adj.get("targets", target.uuid)],
         },
     )
+
+    label = collect_label(data.exchange)
+    for filter in data.filter_iterable:
+        try:
+            label = filters.FILTER_LABEL_ADJUSTERS[filter](
+                data.exchange, label
+            )
+        except KeyError:
+            logger.exception(
+                "There is no filter labelled: '%s' in "
+                "filters.FILTER_LABEL_ADJUSTERS",
+                filter,
+            )
+
     if label and not no_edgelabels:
-        width, height = helpers.extent_func(label)
-        data.elkdata["edges"][-1]["labels"] = [
-            {
-                "text": render_adj.get("labels_text", label),
-                "width": render_adj.get(
-                    "labels_width", width + 2 * makers.LABEL_HPAD
-                ),
-                "height": render_adj.get(
-                    "labels_height", height + 2 * makers.LABEL_VPAD
-                ),
-            }
-        ]
+        data.elkdata["edges"][-1]["labels"] = makers.make_label(
+            render_adj.get("labels_text", label),
+            max_width=makers.MAX_LABEL_WIDTH,
+        )
 
     return source, target
 

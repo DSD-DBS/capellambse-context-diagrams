@@ -100,9 +100,9 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
         for child in data["children"]:
             inputs, outputs = [], []
             obj = self.obj._model.by_uuid(child["id"])
+            port_ids = {p.uuid for p in obj.inputs + obj.outputs}
             for ex in exchanges:
                 source, target = ex["sources"][0], ex["targets"][0]
-                port_ids = [p.uuid for p in obj.inputs + obj.outputs]
                 if source in port_ids:
                     outputs.append(source)
                 elif target in port_ids:
@@ -215,6 +215,7 @@ class InterfaceContextCollector(ExchangeCollector):
             _inc_port_ids = set(ex.target.uuid for ex in outs)
             _out_port_ids = set(ex.source.uuid for ex in incs)
             _port_spread = len(_out_port_ids) - len(_inc_port_ids)
+
             functions = get_capella_order(comp, functions)
             _functions = get_capella_order(_comp, _functions)
             if port_spread >= _port_spread:

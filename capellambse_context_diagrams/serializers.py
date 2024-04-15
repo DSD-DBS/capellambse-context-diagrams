@@ -308,9 +308,9 @@ def handle_features(child: _elkjs.ELKOutputNode) -> list[str]:
     if len(child["children"]) <= 1:
         return features
 
-    labels = [child["children"][0]]
-    for c in child["children"][1:]:
-        if not c["type"] == "label":
+    labels: cabc.MutableSequence[_elkjs.ELKOutputChild] = []
+    for c in child["children"]:
+        if c["type"] != "label":
             continue
 
         if ":" not in c["text"]:

@@ -39,6 +39,7 @@ class ClassProcessor:
         self.data_types: set[str] = set()
         self.legend_boxes: list[_elkjs.ELKInputChild] = []
         self.all_associations = all_associations
+        self.edge_counter = 0
 
     def __contains__(self, uuid: str) -> bool:
         objects = self.data["children"] + self.data["edges"]  # type: ignore[operator]
@@ -54,8 +55,12 @@ class ClassProcessor:
                 for assoc in self.all_associations
                 if cls.prop in assoc.navigable_members
             ]
-            assert len(edges) == 1
-            if (edge_id := edges[0].uuid) not in self.made_edges:
+            if len(edges) == 1:
+                edge_id = edges[0].uuid
+            else:
+                edge_id = f"__Association_{self.edge_counter}"
+                self.edge_counter += 1
+            if edge_id not in self.made_edges:
                 self.made_edges.add(edge_id)
                 text = cls.prop.name
                 if cls.multiplicity is None:

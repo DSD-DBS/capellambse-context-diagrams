@@ -106,8 +106,10 @@ def make_label(
         labels.append(
             {
                 "text": line,
-                "width": icon_width + label_width + 2 * LABEL_HPAD,
-                "height": label_height + 2 * LABEL_VPAD,
+                "width": (
+                    (icon_width + label_width + 2 * LABEL_HPAD) if line else 0
+                ),
+                "height": (label_height + 2 * LABEL_VPAD) if line else 0,
                 "layoutOptions": layout_options,
             }
         )

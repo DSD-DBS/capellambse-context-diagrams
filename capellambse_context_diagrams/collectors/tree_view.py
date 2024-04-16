@@ -350,7 +350,14 @@ def _get_all_non_edge_properties(
     obj: information.Class, data_types: set[str]
 ) -> tuple[list[_elkjs.ELKInputLabel], list[_elkjs.ELKInputChild]]:
     layout_options = DATA_TYPE_LABEL_LAYOUT_OPTIONS
-    properties: list[_elkjs.ELKInputLabel] = []
+    properties: list[_elkjs.ELKInputLabel] = [
+        {
+            "text": "",
+            "layoutOptions": makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+            "width": 0,
+            "height": 0,
+        }
+    ]
     legends: list[_elkjs.ELKInputChild] = []
     for prop in obj.properties:
         if prop.type is None:
@@ -362,7 +369,10 @@ def _get_all_non_edge_properties(
 
         text = _get_property_text(prop)
         labels = makers.make_label(
-            text, icon=(makers.ICON_WIDTH, 0), layout_options=layout_options
+            text,
+            icon=(makers.ICON_WIDTH, 0),
+            layout_options=layout_options,
+            max_width=math.inf,
         )
         properties.extend(labels)
 
@@ -374,7 +384,11 @@ def _get_all_non_edge_properties(
         if not is_enum and not (is_class and prop.type.is_primitive):
             continue
 
-        legend = makers.make_box(prop.type, label_getter=_get_legend_labels)
+        legend = makers.make_box(
+            prop.type,
+            label_getter=_get_legend_labels,
+            max_label_width=math.inf,
+        )
         legend["layoutOptions"] = {}
         legend["layoutOptions"]["nodeSize.constraints"] = "NODE_LABELS"
         legends.append(legend)
@@ -400,6 +414,11 @@ def _get_legend_labels(
 ) -> cabc.Iterator[makers._LabelBuilder]:
     yield {
         "text": obj.name,
+        "icon": (0, 0),
+        "layout_options": makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+    }
+    yield {
+        "text": "",
         "icon": (0, 0),
         "layout_options": makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
     }

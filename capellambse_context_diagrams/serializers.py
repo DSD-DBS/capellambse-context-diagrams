@@ -10,6 +10,7 @@ The pre-layouted data was collected with the functions from
 from __future__ import annotations
 
 import collections.abc as cabc
+import itertools
 import logging
 import typing as t
 
@@ -308,17 +309,10 @@ def handle_features(child: _elkjs.ELKOutputNode) -> list[str]:
     if len(child["children"]) <= 1:
         return features
 
-    labels: cabc.MutableSequence[_elkjs.ELKOutputChild] = []
-    for c in child["children"]:
-        if c["type"] != "label":
-            continue
-
-        if ":" not in c["text"]:
-            labels.append(c)
-            continue
-
-        features.append(c["text"])
-    child["children"] = labels
+    all_labels = [i for i in child["children"] if i["type"] == "label"]
+    labels = list(itertools.takewhile(lambda i: i["text"], all_labels))
+    features = [i["text"] for i in all_labels[len(labels) + 1 :]]
+    child["children"] = labels  # type: ignore[typeddict-item]
     return features
 
 

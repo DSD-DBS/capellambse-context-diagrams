@@ -147,6 +147,9 @@ def make_box(
     [`ELKInputChild`][capellambse_context_diagrams._elkjs.ELKInputChild].
     """
     layout_options = layout_options or CENTRIC_LABEL_LAYOUT_OPTIONS
+    if symbol := not no_symbol and is_symbol(obj):
+        max_label_width = 200
+
     labels: list[_elkjs.ELKInputLabel] = []
     for label_builder in label_getter(obj):
         if not label_builder.get("layout_options"):
@@ -156,7 +159,7 @@ def make_box(
 
         labels.extend(make_label(**label_builder, max_width=max_label_width))
 
-    if not no_symbol and is_symbol(obj):
+    if symbol:
         if height < MIN_SYMBOL_HEIGHT:
             height = MIN_SYMBOL_HEIGHT
         elif height > MAX_SYMBOL_HEIGHT:

@@ -11,6 +11,7 @@ import typing as t
 
 from capellambse.model import common, crosslayer
 from capellambse.model.crosslayer import cs, fa
+from capellambse.model.layers import oa
 
 from .. import _elkjs, context
 from . import makers
@@ -172,6 +173,8 @@ def collect_elements(
 
     if isinstance(start, fa.Function):
         attribute_name = f"{attribute_prefix}_functions"
+    elif isinstance(start, oa.OperationalActivity):
+        attribute_name = f"{attribute_prefix}_system_functions"
     else:
         assert isinstance(start, cs.Component)
         attribute_name = f"{attribute_prefix}_components"

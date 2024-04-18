@@ -575,7 +575,7 @@ class DataFlowViewDiagram(ContextDiagram):
     @property
     def name(self) -> str:  # type: ignore
         """Returns the name of the diagram."""
-        return f"DatFlow view of {self.target.name}"
+        return f"DataFlow view of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         params["elkdata"] = dataflow_view.collector(self, params)

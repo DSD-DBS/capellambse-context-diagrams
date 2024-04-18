@@ -10,6 +10,7 @@ The pre-layouted data was collected with the functions from
 from __future__ import annotations
 
 import collections.abc as cabc
+import itertools
 import logging
 import typing as t
 
@@ -111,7 +112,10 @@ class DiagramSerializer:
         [`diagram.Diagram`][capellambse.diagram.Diagram] : Diagram
             class type that stores all previously named classes.
         """
-        styleclass: str | None = self.get_styleclass(child["id"])
+        if child["id"].startswith("__"):
+            styleclass: str | None = child["id"][2:].split("_", 1)[0]
+        else:
+            styleclass = self.get_styleclass(child["id"])
         element: diagram.Box | diagram.Edge | diagram.Circle
         if child["type"] in {"node", "port"}:
             assert parent is None or isinstance(parent, diagram.Box)
@@ -214,9 +218,10 @@ class DiagramSerializer:
 
             element = parent
         elif child["type"] == "junction":
-            uuid = child["id"].split("_", maxsplit=1)[0]
+            uuid = child["id"].rsplit("_", maxsplit=1)[0]
             pos = diagram.Vector2D(**child["position"])
             if self._is_hierarchical(uuid):
+                # FIXME should this use `parent` instead?
                 pos += self.diagram[self._diagram.target.uuid].pos
 
             element = diagram.Circle(
@@ -251,13 +256,14 @@ class DiagramSerializer:
         """Return the style-class string from a given
         [`_elkjs.ELKOutputChild`][capellambse_context_diagrams._elkjs.ELKOutputChild].
         """
-        styleclass: str | None
         try:
             melodyobj = self._diagram._model.by_uuid(uuid)
-            styleclass = diagram.get_styleclass(melodyobj)
         except KeyError:
-            styleclass = None
-        return styleclass
+            if not uuid.startswith("__"):
+                return None
+            return uuid[2:].split("_", 1)[0]
+        else:
+            return diagram.get_styleclass(melodyobj)
 
     def get_styleoverrides(
         self, child: _elkjs.ELKOutputChild
@@ -308,17 +314,10 @@ def handle_features(child: _elkjs.ELKOutputNode) -> list[str]:
     if len(child["children"]) <= 1:
         return features
 
-    labels: cabc.MutableSequence[_elkjs.ELKOutputChild] = []
-    for c in child["children"]:
-        if c["type"] != "label":
-            continue
-
-        if ":" not in c["text"]:
-            labels.append(c)
-            continue
-
-        features.append(c["text"])
-    child["children"] = labels
+    all_labels = [i for i in child["children"] if i["type"] == "label"]
+    labels = list(itertools.takewhile(lambda i: i["text"], all_labels))
+    features = [i["text"] for i in all_labels[len(labels) + 1 :]]
+    child["children"] = labels  # type: ignore[typeddict-item]
     return features
 
 

@@ -307,8 +307,15 @@ def _install_npm_package(npm_pkg_name: str, npm_pkg_version: str) -> None:
 
 
 def _install_required_npm_pkg_versions() -> None:
-    if not NODE_HOME.is_dir():
-        NODE_HOME.mkdir(parents=True)
+    try:
+        NODE_HOME.mkdir(parents=True, exist_ok=True)
+    except OSError as err:
+        raise RuntimeError(
+            f"Cannot create elk.js install directory at: {NODE_HOME}.\n"
+            "Make sure that important environment variables"
+            " like $HOME are set correctly.\n"
+            f"Failed due to {type(err).__name__}: {err}"
+        ) from None
     installed = _get_installed_npm_pkg_versions()
     for pkg_name, pkg_version in REQUIRED_NPM_PKG_VERSIONS.items():
         if installed.get(pkg_name) != pkg_version:

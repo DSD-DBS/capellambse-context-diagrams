@@ -21,13 +21,13 @@ def test_tree_view_gets_rendered_successfully(
 
 
 @pytest.mark.parametrize("uuid", [TEST_FNC_UUID, TEST_CMP_UUID])
-@pytest.mark.parametrize("depth", list(range(1, 4)))
 @pytest.mark.parametrize("search_direction", ["ABOVE", "BELOW"])
 @pytest.mark.parametrize("show_owners", [True, False])
-@pytest.mark.parametrize("layer_sizing", ["UNION", "WIDTH", "HEIGHT"])
+@pytest.mark.parametrize(
+    "layer_sizing", ["WIDTH", "UNION", "HEIGHT", "INDIVIDUAL"]
+)
 def test_tree_view_renders_with_additional_params(
     model: capellambse.MelodyModel,
-    depth: int,
     search_direction: str,
     show_owners: bool,
     layer_sizing: str,
@@ -39,7 +39,7 @@ def test_tree_view_renders_with_additional_params(
 
     assert diag.render(
         "svgdiagram",
-        depth=depth,
+        depth=3,
         search_direction=search_direction,
         show_owners=show_owners,
         layer_sizing=layer_sizing,

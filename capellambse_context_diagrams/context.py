@@ -601,9 +601,9 @@ def adjust_layer_sizing(
     def calculate_min(key: t.Literal["width", "height"] = "width") -> float:
         return max(child["size"][key] for child in layout["children"])  # type: ignore[typeddict-item]
 
-    if layer_sizing not in {"UNION", "WIDTH", "HEIGHT"}:
+    if layer_sizing not in {"UNION", "WIDTH", "HEIGHT", "INDIVIDUAL"}:
         raise NotImplementedError(
-            "For ``layer_sizing`` only UNION, WIDTH or HEIGHT is supported"
+            "For ``layer_sizing`` only UNION, WIDTH, HEIGHT or INDIVIDUAL is supported"
         )
 
     min_w = calculate_min() + 15.0 if layer_sizing in {"UNION", "WIDTH"} else 0

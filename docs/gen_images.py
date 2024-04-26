@@ -130,17 +130,19 @@ def generate_realization_view_images() -> None:
     for uuid in (realization_fnc_uuid, realization_comp_uuid):
         obj = model.by_uuid(uuid)
         diag = obj.realization_view
-        with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
-            print(
-                diag.render(
+        for layer_sizing in ("UNION", "HEIGHT", "WIDTH", "INDIVIDUAL"):
+            with mkdocs_gen_files.open(
+                str(dest / f"{diag.name} {layer_sizing}.svg"), "wb"
+            ) as fd:
+                diag.save(
+                    fd,
                     "svg",
                     depth=3,
                     search_direction="ALL",
                     show_owners=True,
                     transparent_background=False,
-                ),
-                file=fd,
-            )
+                    layer_sizing=layer_sizing,
+                )
 
 
 def generate_data_flow_image() -> None:

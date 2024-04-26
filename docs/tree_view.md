@@ -36,7 +36,7 @@ ELK. The available options are:
     - mr.tree
     - ... Have a look for [all available ELK algorithms](https://eclipse.dev/elk/reference/algorithms.html).
 3. direction - The flow direction for the ELK Layered algortihm.
-    - DOWN (DEFAULT)
+    - DOWN (default)
     - UP
     - RIGHT
     - LEFT

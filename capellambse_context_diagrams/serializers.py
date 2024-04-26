@@ -193,8 +193,7 @@ class DiagramSerializer:
                 else:
                     attr_name = "labels"
 
-                labels = getattr(parent, attr_name)
-                if labels:
+                if labels := getattr(parent, attr_name):
                     label_box = labels[-1]
                     label_box.label += " " + child["text"]
                     label_box.size = diagram.Vector2D(

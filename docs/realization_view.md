@@ -15,7 +15,7 @@ implement currently. The diagram elements are collected from the
 `ABOVE` and `.realizing_components` or `.realizing_functions` for direction
 `BELOW`.
 
-??? example "Realization View Diagram of `LogicalFunction` `advise Harry`"
+??? example "Realization View Diagram of `LogicalFunction` `advise Harry` with `layer_sizing=WIDTH`"
 
     ``` py
     import capellambse
@@ -27,15 +27,116 @@ implement currently. The diagram elements are collected from the
         depth=3, # 1-3
         search_direction="ALL", # BELOW; ABOVE and ALL
         show_owners=True,
-        layer_sizing="UNION", # UNION; WIDTH and HEIGHT
+        layer_sizing="WIDTH", # UNION; WIDTH, HEIGHT and INDIVIDUAL
     ).save(pretty=True)
     ```
     <figure markdown>
-        <img src="../assets/images/Realization view of advise Harry.svg">
+        <img src="../assets/images/Realization view of advise Harry WIDTH.svg">
         <figcaption>[CDB] Realization View Diagram of advise Harry</figcaption>
     </figure>
 
-??? example "Realization View Diagram of `PhysicalComponent` `Physical System`"
+??? example "Realization View Diagram of `PhysicalComponent` `Physical System` with `layer_sizing=WIDTH`"
+
+    ``` py
+    import capellambse
+
+    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+    diag = model.by_uuid("b9f9a83c-fb02-44f7-9123-9d86326de5f1").realization_view
+    diag.render(
+        "svgdiagram",
+        depth=3,
+        search_direction="ALL",
+        show_owners=True,
+        layer_sizing="WIDTH",
+    ).save(pretty=True)
+    ```
+    <figure markdown>
+        <img src="../assets/images/Realization view of Physical System WIDTH.svg">
+        <figcaption>[CDB] Realization View Diagram of Physical System</figcaption>
+    </figure>
+
+Additional rendering parameters enable showing owning functions or components,
+as well as the depth of traversion (i.e. `1`-`3`) and control on sizing of the
+layer boxes. They are put to display the maximum amount of diagram elements per
+default. The available options:
+
+1. search_direction - The direction to traverse the realiz(ing/ed) elements.
+    - ALL (default)
+    - ABOVE
+    - BELOW
+2. show_owners - Collect parent boxes for every realiz(ing/ed) element.
+    - True (default)
+    - False
+3. layer_sizing - Control even layer box sizing.
+    - WIDTH (default)
+    - HEIGHT
+    - UNION - WIDTH + HEIGHT
+    - INDIVIDUAL - Every layer box has minimal size to just contain its
+      children.
+
+## Examples
+
+??? example "Realization View Diagram of `LogicalFunction` `advise Harry` for `layer_sizing=HEIGHT`"
+
+    ``` py
+    import capellambse
+
+    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+    diag = model.by_uuid("beaf5ba4-8fa9-4342-911f-0266bb29be45").realization_view
+    diag.render(
+        "svgdiagram",
+        depth=3,
+        search_direction="ALL",
+        show_owners=True,
+        layer_sizing="HEIGHT",
+    ).save(pretty=True)
+    ```
+    <figure markdown>
+        <img src="../assets/images/Realization view of advise Harry HEIGHT.svg">
+        <figcaption>[CDB] Realization View Diagram of advise Harry</figcaption>
+    </figure>
+
+??? example "Realization View Diagram of `PhysicalComponent` `Physical System` for `layer_sizing=HEIGHT`"
+
+    ``` py
+    import capellambse
+
+    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+    diag = model.by_uuid("b9f9a83c-fb02-44f7-9123-9d86326de5f1").realization_view
+    diag.render(
+        "svgdiagram",
+        depth=3,
+        search_direction="ALL",
+        show_owners=True,
+        layer_sizing="HEIGHT",
+    ).save(pretty=True)
+    ```
+    <figure markdown>
+        <img src="../assets/images/Realization view of Physical System HEIGHT.svg">
+        <figcaption>[CDB] Realization View Diagram of Physical System</figcaption>
+    </figure>
+
+??? example "Realization View Diagram of `LogicalFunction` `advise Harry` for `layer_sizing=UNION`"
+
+    ``` py
+    import capellambse
+
+    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+    diag = model.by_uuid("beaf5ba4-8fa9-4342-911f-0266bb29be45").realization_view
+    diag.render(
+        "svgdiagram",
+        depth=3,
+        search_direction="ALL",
+        show_owners=True,
+        layer_sizing="UNION",
+    ).save(pretty=True)
+    ```
+    <figure markdown>
+        <img src="../assets/images/Realization view of advise Harry UNION.svg">
+        <figcaption>[CDB] Realization View Diagram of advise Harry</figcaption>
+    </figure>
+
+??? example "Realization View Diagram of `PhysicalComponent` `Physical System` for `layer_sizing=UNION`"
 
     ``` py
     import capellambse
@@ -51,14 +152,49 @@ implement currently. The diagram elements are collected from the
     ).save(pretty=True)
     ```
     <figure markdown>
-        <img src="../assets/images/Realization view of Physical System.svg">
+        <img src="../assets/images/Realization view of Physical System UNION.svg">
         <figcaption>[CDB] Realization View Diagram of Physical System</figcaption>
     </figure>
 
-Additional rendering parameters enable showing owning functions or components,
-as well as the depth of traversion (i.e. `1`-`3`) and control on sizing of the
-layer boxes. They are put to display the maximum amount of diagram elements per
-default.
+??? example "Realization View Diagram of `LogicalFunction` `advise Harry` for `layer_sizing=INDIVIDUAL`"
+
+    ``` py
+    import capellambse
+
+    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+    diag = model.by_uuid("beaf5ba4-8fa9-4342-911f-0266bb29be45").realization_view
+    diag.render(
+        "svgdiagram",
+        depth=3,
+        search_direction="ALL",
+        show_owners=True,
+        layer_sizing="INDIVIDUAL",
+    ).save(pretty=True)
+    ```
+    <figure markdown>
+        <img src="../assets/images/Realization view of advise Harry INDIVIDUAL.svg">
+        <figcaption>[CDB] Realization View Diagram of advise Harry</figcaption>
+    </figure>
+
+??? example "Realization View Diagram of `PhysicalComponent` `Physical System` for `layer_sizing=INDIVIDUAL`"
+
+    ``` py
+    import capellambse
+
+    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+    diag = model.by_uuid("b9f9a83c-fb02-44f7-9123-9d86326de5f1").realization_view
+    diag.render(
+        "svgdiagram",
+        depth=3,
+        search_direction="ALL",
+        show_owners=True,
+        layer_sizing="INDIVIDUAL",
+    ).save(pretty=True)
+    ```
+    <figure markdown>
+        <img src="../assets/images/Realization view of Physical System INDIVIDUAL.svg">
+        <figcaption>[CDB] Realization View Diagram of Physical System</figcaption>
+    </figure>
 
 ??? bug "Alignment of diagram elements"
 

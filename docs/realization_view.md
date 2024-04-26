@@ -196,11 +196,9 @@ default. The available options:
         <figcaption>[CDB] Realization View Diagram of Physical System</figcaption>
     </figure>
 
-??? bug "Alignment of diagram elements"
+??? info "Alignment of diagram elements"
 
-    As of [elkjs@0.9.0](https://eclipse.dev/elk/downloads/releasenotes/release-0.9.0.html) ELK's rectpacking algorithm isn't correctly using the
-    content alignment enumeration. While developing the Realization View
-    [a fix for the horizontal alignment was proposed](https://github.com/eclipse/elk/issues/989).
+    With elkjs@0.9.2 ELK's rectpacking algorithm is correctly using the content alignment enumeration.
 
 ## Check out the code
 

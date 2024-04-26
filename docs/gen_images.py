@@ -132,18 +132,16 @@ def generate_realization_view_images() -> None:
         diag = obj.realization_view
         for layer_sizing in ("UNION", "HEIGHT", "WIDTH", "INDIVIDUAL"):
             with mkdocs_gen_files.open(
-                f"{str(dest / diag.name)} {layer_sizing}.svg", "w"
+                str(dest / f"{diag.name} {layer_sizing}.svg"), "wb"
             ) as fd:
-                print(
-                    diag.render(
-                        "svg",
-                        depth=3,
-                        search_direction="ALL",
-                        show_owners=True,
-                        transparent_background=False,
-                        layer_sizing=layer_sizing,
-                    ),
-                    file=fd,
+                diag.save(
+                    fd,
+                    "svg",
+                    depth=3,
+                    search_direction="ALL",
+                    show_owners=True,
+                    transparent_background=False,
+                    layer_sizing=layer_sizing,
                 )
 
 

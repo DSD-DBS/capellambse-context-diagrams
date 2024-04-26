@@ -512,8 +512,8 @@ class RealizationViewDiagram(ContextDiagram):
         params.setdefault(
             "search_direction", params.get("search_direction", "ALL")
         )
-        params.setdefault("show_owners", params.get("show_owners", True))
-        params.setdefault("layer_sizing", params.get("layer_sizing", "WIDTH"))
+        params.setdefault("show_owners", True)
+        params.setdefault("layer_sizing", "WIDTH")
         data, edges = realization_view.collector(self, params)
         layout = try_to_layout(data)
         adjust_layer_sizing(data, layout, params["layer_sizing"])

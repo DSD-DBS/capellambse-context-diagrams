@@ -12,6 +12,7 @@ import typing as t
 from capellambse import helpers
 from capellambse.model import common
 from capellambse.model.crosslayer import cs, fa
+from capellambse.model.layers import ctx, la
 from capellambse.model.modeltypes import DiagramType as DT
 
 from .. import _elkjs, context
@@ -119,6 +120,9 @@ def collector(
             )
 
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
+    if diagram.display_derived_interfaces:
+        add_derived_components_and_interfaces(diagram, data)
+
     return data
 
 
@@ -259,3 +263,75 @@ def port_context_collector(
             info.ports.append(port)
 
     return iter(ctx.values())
+
+
+def add_derived_components_and_interfaces(
+    diagram: context.ContextDiagram, data: _elkjs.ELKInputData
+) -> None:
+    """Add hidden Boxes and Exchanges to ``obj``'s context.
+
+    The derived exchanges are displayed with a dashed line.
+    """
+    if not (derivator := DERIVATORS.get(type(diagram.target))):
+        return
+
+    derivator(diagram, data)
+
+
+def _derive_from_functions(
+    diagram: context.ContextDiagram, data: _elkjs.ELKInputData
+):
+    assert isinstance(diagram.target, cs.Component)
+    ports = []
+    for fnc in diagram.target.allocated_functions:
+        ports.extend(port_collector(fnc, diagram.type))
+
+    components: dict[str, cs.Component] = {}
+    for port in ports:
+        for fex in port.exchanges:
+            if isinstance(port, fa.FunctionOutputPort):
+                attr = "target"
+            else:
+                attr = "source"
+
+            try:
+                derived_comp = getattr(fex, attr).owner.owner
+                if derived_comp.uuid not in components:
+                    components[derived_comp.uuid] = derived_comp
+            except AttributeError:
+                ...
+
+    # TODO: Even out derived interfaces on each side
+
+    for i, (uuid, derived_component) in enumerate(components.items()):
+        box = makers.make_box(
+            derived_component,
+            no_symbol=diagram.display_symbols_as_boxes,
+        )
+        box["id"] = comp_uuid = f"__DerivedBox_{uuid}"
+        data["children"].append(box)
+        if i % 2 == 0:
+            source_id = comp_uuid
+            target_id = diagram.target.uuid
+        else:
+            source_id = diagram.target.uuid
+            target_id = comp_uuid
+
+        data["edges"].append(
+            {
+                "id": f"__DerivedComponentExchange_{i}",
+                "sources": [source_id],
+                "targets": [target_id],
+            }
+        )
+
+    data["children"][0]["height"] += (
+        makers.PORT_PADDING
+        + (makers.PORT_SIZE + makers.PORT_PADDING) * len(components) // 2
+    )
+
+
+DERIVATORS = {
+    la.LogicalComponent: _derive_from_functions,
+    ctx.SystemComponent: _derive_from_functions,
+}

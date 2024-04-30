@@ -21,3 +21,14 @@ def test_interface_diagrams_get_rendered(
     diag = obj.context_diagram
 
     assert diag.nodes
+
+
+def test_interface_diagrams_with_nested_components(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid("fbb7f735-3c1f-48de-9791-179d35ca7b98")
+
+    diag = obj.context_diagram
+    diag.invalidate_cache()
+
+    assert diag.render("svgdiagram")

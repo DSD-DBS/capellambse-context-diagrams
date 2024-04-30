@@ -43,10 +43,6 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
         ),
     }
 
-    """Source or target Component of the interface."""
-    outgoing_edges: dict[str, common.GenericElement]
-    incoming_edges: dict[str, common.GenericElement]
-
     def __init__(
         self,
         diagram: (
@@ -65,8 +61,6 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
         self.get_target = operator.attrgetter(trg)
         self.get_alloc_fex = operator.attrgetter(alloc_fex)
         self.get_alloc_functions = operator.attrgetter(fncs)
-        self.incoming_edges = {}
-        self.outgoing_edges = {}
 
     def get_functions_and_exchanges(
         self, comp: common.GenericElement, interface: common.GenericElement
@@ -78,7 +72,7 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
         """Return `Function`s, incoming and outgoing
         `FunctionalExchange`s for given `Component` and `interface`.
         """
-        functions, outgoings, incomings = [], {}, {}
+        functions, incomings, outgoings = [], {}, {}
         alloc_functions = self.get_alloc_functions(comp)
         for fex in self.get_alloc_fex(interface):
             source = self.get_source(fex)
@@ -99,25 +93,32 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
 
     def collect_context(
         self, comp: common.GenericElement, interface: common.GenericElement
-    ) -> dict[str, t.Any]:
-        functions, outgoings, incomings = self.get_functions_and_exchanges(
+    ) -> tuple[
+        dict[str, t.Any],
+        dict[str, common.GenericElement],
+        dict[str, common.GenericElement],
+    ]:
+        functions, incomings, outgoings = self.get_functions_and_exchanges(
             comp, interface
         )
-        self.outgoing_edges |= outgoings
-        self.incoming_edges |= incomings
         components = []
         for cmp in comp.components:
-            fncs, incs, outs = self.get_functions_and_exchanges(cmp, interface)
+            fncs, _, _ = self.get_functions_and_exchanges(cmp, interface)
             functions.extend(fncs)
-            self.outgoing_edges |= outs
-            self.incoming_edges |= incs
             if fncs:
-                components.append(self.collect_context(cmp, interface))
-        return {
-            "element": comp,
-            "functions": functions,
-            "components": components,
-        }
+                c, incs, outs = self.collect_context(cmp, interface)
+                components.append(c)
+                incomings |= incs
+                outgoings |= outs
+        return (
+            {
+                "element": comp,
+                "functions": functions,
+                "components": components,
+            },
+            incomings,
+            outgoings,
+        )
 
     def make_ports_and_update_children_size(
         self,
@@ -188,6 +189,9 @@ class InterfaceContextCollector(ExchangeCollector):
     left: common.GenericElement
     """Source or target Component of the interface."""
     right: common.GenericElement
+    """Source or target Component of the interface."""
+    outgoing_edges: dict[str, common.GenericElement]
+    incoming_edges: dict[str, common.GenericElement]
 
     def __init__(
         self,
@@ -196,6 +200,8 @@ class InterfaceContextCollector(ExchangeCollector):
         params: dict[str, t.Any],
     ) -> None:
         super().__init__(diagram, data, params)
+        self.incoming_edges = {}
+        self.outgoing_edges = {}
         self.get_left_and_right()
 
     def get_left_and_right(self) -> None:
@@ -235,23 +241,15 @@ class InterfaceContextCollector(ExchangeCollector):
 
         try:
             comp = self.get_source(self.obj)
-            left_context = self.collect_context(comp, self.obj)
-            inc_port_ids = set(
-                ex.target.uuid for ex in self.incoming_edges.values()
-            )
-            out_port_ids = set(
-                ex.source.uuid for ex in self.outgoing_edges.values()
-            )
+            left_context, incs, outs = self.collect_context(comp, self.obj)
+            inc_port_ids = set(ex.target.uuid for ex in incs.values())
+            out_port_ids = set(ex.source.uuid for ex in outs.values())
             port_spread = len(out_port_ids) - len(inc_port_ids)
 
             _comp = self.get_target(self.obj)
-            right_context = self.collect_context(_comp, self.obj)
-            _inc_port_ids = set(
-                ex.target.uuid for ex in self.outgoing_edges.values()
-            )
-            _out_port_ids = set(
-                ex.source.uuid for ex in self.incoming_edges.values()
-            )
+            right_context, _, _ = self.collect_context(_comp, self.obj)
+            _inc_port_ids = set(ex.target.uuid for ex in outs.values())
+            _out_port_ids = set(ex.source.uuid for ex in incs.values())
             _port_spread = len(_out_port_ids) - len(_inc_port_ids)
 
             left_context["functions"] = get_capella_order(
@@ -260,12 +258,13 @@ class InterfaceContextCollector(ExchangeCollector):
             right_context["functions"] = get_capella_order(
                 _comp, right_context["functions"]
             )
-            if port_spread < _port_spread:
+            if port_spread >= _port_spread:
+                self.incoming_edges = incs
+                self.outgoing_edges = outs
+            else:
+                self.incoming_edges = outs
+                self.outgoing_edges = incs
                 left_context, right_context = right_context, left_context
-                self.outgoing_edges, self.incoming_edges = (
-                    self.incoming_edges,
-                    self.outgoing_edges,
-                )
 
             if left_child := make_boxes(left_context):
                 self.data["children"].append(left_child)
@@ -287,7 +286,7 @@ class InterfaceContextCollector(ExchangeCollector):
                 )
                 src, tgt = generic.exchange_data_collector(ex_data)
 
-                if ex in self.incoming_edges:
+                if ex in self.incoming_edges.values():
                     self.data["edges"][-1]["sources"] = [tgt.uuid]
                     self.data["edges"][-1]["targets"] = [src.uuid]
 

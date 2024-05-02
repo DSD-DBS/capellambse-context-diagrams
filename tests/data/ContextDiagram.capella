@@ -253,6 +253,40 @@
               id="14ed11c2-da65-4721-9258-180467c2c376" name="Pooring rain"/>
           <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
               id="8d8d235d-e030-4608-9508-68bb3818e7a4" name="Sun"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="097bb133-abf3-4df0-ae4e-a28378537691" name="Confirm availability for delivery"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="56f47e3e-104a-479f-8226-e149bc18481c" name="Notify customer of upcoming delivery"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="7548f5c0-ceac-4f92-a497-cf0e00405a4a" name="Reroute to neighbor"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="f236bb9a-0cae-482b-896f-54021e2d23f6" name="Reschedule delivery"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="86df271e-7c42-4067-b6fd-1161c3e11891" name="Receive a package for customer"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="5cc0ba13-badb-40b5-9d4c-e4d7b964fb36" name="Prepare delivery"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="2b7515a7-aed4-4272-ba3a-5263735532b6" name="Retrieve package"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="ecf98af6-6648-4552-b5ba-4c86e458ca45" name="Load selected delivery bot"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="b4601205-9104-4e24-bd03-940ca15f6a1e" name="Move for loading"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="c90f731b-0036-47e5-a455-9cf270d6880c" name="Estimate required power and select a delivery bot with enough battery"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="a325cfe4-2cd5-4c1a-9a0a-e4e2dff82f92" name="Store package"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="7d0f5c0c-2ab9-470b-896b-edca5554a310" name="Dispatch for delivery"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="93009deb-9b57-4413-8d70-3877b39125cf" name="Retrieve package"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="ddbfda2c-f5d8-4a07-a765-0b10115ec4f0" name="Notify customer of bot arrival"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="ed548bd5-86e9-44a8-8a22-df30f45b0730" name="Open storage compartment "/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="41bce8af-577d-41a1-abce-2cc74c021713" name="Provide warehouse status"/>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.oa:OperationalActivity"
+              id="dc1f0a7e-0508-4457-9f9f-77fb85f2e897" name="Record delivery plan"/>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
               id="55b90f9a-c5af-47fc-9c1c-48090414d1f1" name="Prepared food" target="#8bcb11e6-443b-4b92-bec2-ff1d87a224e7"
               source="#0e0164c3-076e-42c1-8f82-7a43ab84385c"/>
@@ -289,6 +323,57 @@
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
               id="e3889e88-1d16-44f6-8f38-bb871ed4ace0" name="favours" target="#0e0164c3-076e-42c1-8f82-7a43ab84385c"
               source="#8d8d235d-e030-4608-9508-68bb3818e7a4" exchangedItems="#e6b13a92-4ea7-4d4a-9738-d03d2291b0c5"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="637b02b5-f26d-47e1-94e1-c1cc7bcba150" name="upcoming delivery notification"
+              target="#097bb133-abf3-4df0-ae4e-a28378537691" source="#56f47e3e-104a-479f-8226-e149bc18481c"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="75ef0e4e-733c-4559-ad89-90d582f9134c" name="receive package request"
+              target="#86df271e-7c42-4067-b6fd-1161c3e11891" source="#097bb133-abf3-4df0-ae4e-a28378537691"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="ed43bfdd-1bc1-4c19-9e07-28bb6d41d130" name="reroute request" target="#7548f5c0-ceac-4f92-a497-cf0e00405a4a"
+              source="#097bb133-abf3-4df0-ae4e-a28378537691"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="7439ea66-2562-422d-a5f2-85438c744124" name="alternative delivery date request"
+              target="#f236bb9a-0cae-482b-896f-54021e2d23f6" source="#097bb133-abf3-4df0-ae4e-a28378537691"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="54364f74-f566-4744-bb4e-b96eebcadfc1" name="availability confirmation"
+              target="#5cc0ba13-badb-40b5-9d4c-e4d7b964fb36" source="#097bb133-abf3-4df0-ae4e-a28378537691"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="cc0a5fe7-2e28-4721-a9d1-c434f38e5a22" name="package details" target="#2b7515a7-aed4-4272-ba3a-5263735532b6"
+              source="#5cc0ba13-badb-40b5-9d4c-e4d7b964fb36"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="8db45fd9-fc53-4eec-857f-e642864985d9" name="delivery address" target="#c90f731b-0036-47e5-a455-9cf270d6880c"
+              source="#5cc0ba13-badb-40b5-9d4c-e4d7b964fb36"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="49c6b407-9fab-4c7a-a813-f26d01bdaba2" name="bot identifier" target="#ecf98af6-6648-4552-b5ba-4c86e458ca45"
+              source="#c90f731b-0036-47e5-a455-9cf270d6880c"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="89b4d943-cfd5-4bf1-a381-fa82c925e8e2" name="loading movement command"
+              target="#b4601205-9104-4e24-bd03-940ca15f6a1e" source="#c90f731b-0036-47e5-a455-9cf270d6880c"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="0784b8c1-1bd0-4650-bdc6-744e11352c85" name="package" target="#a325cfe4-2cd5-4c1a-9a0a-e4e2dff82f92"
+              source="#ecf98af6-6648-4552-b5ba-4c86e458ca45"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="9987fa03-b1e0-4e8d-9649-074bbed9f93d" name="storage lock code" target="#a325cfe4-2cd5-4c1a-9a0a-e4e2dff82f92"
+              source="#5cc0ba13-badb-40b5-9d4c-e4d7b964fb36"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="c22f7c0f-f00d-4861-bda4-34216881bf89" name="storage lock code" target="#93009deb-9b57-4413-8d70-3877b39125cf"
+              source="#5cc0ba13-badb-40b5-9d4c-e4d7b964fb36"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="c721e2fe-0583-4fff-9da9-eae1a6c0b5fb" name="arrival notification"
+              target="#93009deb-9b57-4413-8d70-3877b39125cf" source="#ddbfda2c-f5d8-4a07-a765-0b10115ec4f0"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="12b29d02-174a-4cfc-a824-5e54192506e0" name="lock code" target="#ed548bd5-86e9-44a8-8a22-df30f45b0730"
+              source="#93009deb-9b57-4413-8d70-3877b39125cf"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="84cf648b-93ae-4918-a0b5-03e5180d6f91" name="package" target="#93009deb-9b57-4413-8d70-3877b39125cf"
+              source="#ed548bd5-86e9-44a8-8a22-df30f45b0730"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="640dda9f-f968-4b0d-aaf5-ebcc0aa2af1b" name="package readyness status"
+              target="#5cc0ba13-badb-40b5-9d4c-e4d7b964fb36" source="#41bce8af-577d-41a1-abce-2cc74c021713"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="82ce4911-d905-415a-9dbd-31400d85f7a4" name="delivery plan" target="#dc1f0a7e-0508-4457-9f9f-77fb85f2e897"
+              source="#5cc0ba13-badb-40b5-9d4c-e4d7b964fb36"/>
         </ownedOperationalActivities>
       </ownedFunctionPkg>
       <ownedAbstractCapabilityPkg xsi:type="org.polarsys.capella.core.data.oa:OperationalCapabilityPkg"
@@ -1007,6 +1092,14 @@ The predator is far away</bodies>
             name="RightStack" abstractType="#e9a6fd43-88d2-4832-91d5-595b6fbf613d"/>
         <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="e276ccb4-0242-4167-9bc8-acb196463c45"
             name="MiddleStack" abstractType="#a07b7cb1-0424-4261-9980-504dd9c811d4"/>
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="b402764d-cce6-4d6c-bf0a-9ece0fe80779"
+            name="Customer" abstractType="#2668c01d-8ba8-47a9-9acb-33616bcc088d"/>
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="87d0a4a1-c047-4475-b2fe-4897ddee56bc"
+            name="Smart warehouse" abstractType="#8c43d858-bab3-4d1d-afe0-71946d856e24"/>
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="b2e8c620-6cf3-4a63-9830-7ce4b29d3916"
+            name="Neighbor" abstractType="#6329094a-99cc-4d39-a8d6-31e9a8eb4066"/>
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="af5c084f-5afa-4c49-baba-45df105a45a2"
+            name="Delivery Bot" abstractType="#9e7eb78b-f4ad-4762-9f5c-d6f60630b10e"/>
         <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.oa:CommunicationMean"
             id="6638ccd2-61cc-481e-bb23-4c1b147e1dbc" name="Environmental influence"
             convoyedInformations="#571d093a-a87e-4dfc-9f46-62eb7c374f44" source="#e37510b9-3166-4f80-a919-dfaac9b696c7"
@@ -1432,6 +1525,68 @@ The predator is far away</bodies>
             name="RightStack" actor="true" human="true"/>
         <ownedEntities xsi:type="org.polarsys.capella.core.data.oa:Entity" id="a07b7cb1-0424-4261-9980-504dd9c811d4"
             name="MiddleStack"/>
+        <ownedEntities xsi:type="org.polarsys.capella.core.data.oa:Entity" id="2668c01d-8ba8-47a9-9acb-33616bcc088d"
+            name="Customer" actor="true" human="true">
+          <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+              id="58db9156-b4a9-4c43-be4f-c111ed6f54aa" targetElement="#097bb133-abf3-4df0-ae4e-a28378537691"
+              sourceElement="#2668c01d-8ba8-47a9-9acb-33616bcc088d"/>
+          <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+              id="03c9cafd-abe9-4ce6-98cf-d3d2dacf035d" targetElement="#93009deb-9b57-4413-8d70-3877b39125cf"
+              sourceElement="#2668c01d-8ba8-47a9-9acb-33616bcc088d"/>
+        </ownedEntities>
+        <ownedEntities xsi:type="org.polarsys.capella.core.data.oa:Entity" id="8c43d858-bab3-4d1d-afe0-71946d856e24"
+            name="Smart warehouse">
+          <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+              id="ebfccfa8-cee6-4f48-890f-925037838839" targetElement="#56f47e3e-104a-479f-8226-e149bc18481c"
+              sourceElement="#8c43d858-bab3-4d1d-afe0-71946d856e24"/>
+          <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+              id="40cc1772-2bf9-4c27-bb1f-adf7a485ff94" targetElement="#7548f5c0-ceac-4f92-a497-cf0e00405a4a"
+              sourceElement="#8c43d858-bab3-4d1d-afe0-71946d856e24"/>
+          <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+              id="096148cd-ab6d-4fc5-96db-11a159633c8e" targetElement="#f236bb9a-0cae-482b-896f-54021e2d23f6"
+              sourceElement="#8c43d858-bab3-4d1d-afe0-71946d856e24"/>
+          <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+              id="96478f01-fccf-4e94-9170-d3554d9b0c6b" targetElement="#5cc0ba13-badb-40b5-9d4c-e4d7b964fb36"
+              sourceElement="#8c43d858-bab3-4d1d-afe0-71946d856e24"/>
+          <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+              id="af733879-aa04-4cc4-85b4-ba41e6f22d99" targetElement="#c90f731b-0036-47e5-a455-9cf270d6880c"
+              sourceElement="#8c43d858-bab3-4d1d-afe0-71946d856e24"/>
+          <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+              id="d564fc8f-d6d9-45c8-abfa-b229bf4a7f34" targetElement="#ddbfda2c-f5d8-4a07-a765-0b10115ec4f0"
+              sourceElement="#8c43d858-bab3-4d1d-afe0-71946d856e24"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="89608bc2-0514-421c-9e3d-dfc120c116a5"
+              name="Loading Bot" abstractType="#7000b811-c8e8-4060-8f60-c87462046057"/>
+          <ownedEntities xsi:type="org.polarsys.capella.core.data.oa:Entity" id="7000b811-c8e8-4060-8f60-c87462046057"
+              name="Loading Bot" actor="true" human="true">
+            <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                id="091db3aa-bb13-4751-9521-50abe83a821c" targetElement="#2b7515a7-aed4-4272-ba3a-5263735532b6"
+                sourceElement="#7000b811-c8e8-4060-8f60-c87462046057"/>
+            <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                id="254957ca-a3dc-4fa2-b9df-e719863dd399" targetElement="#ecf98af6-6648-4552-b5ba-4c86e458ca45"
+                sourceElement="#7000b811-c8e8-4060-8f60-c87462046057"/>
+          </ownedEntities>
+        </ownedEntities>
+        <ownedEntities xsi:type="org.polarsys.capella.core.data.oa:Entity" id="6329094a-99cc-4d39-a8d6-31e9a8eb4066"
+            name="Neighbor" actor="true" human="true">
+          <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+              id="634d42cc-5366-4ce1-aa8c-c0551ec45f22" targetElement="#86df271e-7c42-4067-b6fd-1161c3e11891"
+              sourceElement="#6329094a-99cc-4d39-a8d6-31e9a8eb4066"/>
+        </ownedEntities>
+        <ownedEntities xsi:type="org.polarsys.capella.core.data.oa:Entity" id="9e7eb78b-f4ad-4762-9f5c-d6f60630b10e"
+            name="Delivery Bot" actor="true">
+          <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+              id="6ed57c6e-58d2-4230-bfde-0ae77294592f" targetElement="#b4601205-9104-4e24-bd03-940ca15f6a1e"
+              sourceElement="#9e7eb78b-f4ad-4762-9f5c-d6f60630b10e"/>
+          <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+              id="39417afa-27e0-4017-9c72-fb836b743b10" targetElement="#a325cfe4-2cd5-4c1a-9a0a-e4e2dff82f92"
+              sourceElement="#9e7eb78b-f4ad-4762-9f5c-d6f60630b10e"/>
+          <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+              id="aec122ec-00ac-44d0-b9da-fb0b16b62276" targetElement="#7d0f5c0c-2ab9-470b-896b-edca5554a310"
+              sourceElement="#9e7eb78b-f4ad-4762-9f5c-d6f60630b10e"/>
+          <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+              id="96b40595-e70e-4d93-a735-ed2b14d30cb4" targetElement="#ed548bd5-86e9-44a8-8a22-df30f45b0730"
+              sourceElement="#9e7eb78b-f4ad-4762-9f5c-d6f60630b10e"/>
+        </ownedEntities>
       </ownedEntityPkg>
     </ownedArchitectures>
     <ownedArchitectures xsi:type="org.polarsys.capella.core.data.ctx:SystemAnalysis"

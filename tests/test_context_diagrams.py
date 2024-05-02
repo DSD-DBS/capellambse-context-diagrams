@@ -12,6 +12,11 @@ TEST_HIERARCHY_CHILDREN_UUIDS = {
     "31bc2326-5a55-45f9-9967-f1957bcd3f89",
     "ad0bdf2f-bd0e-48bc-9296-5be3371a76e2",
 }
+TEST_ACTIVITY_UUIDS = {
+    "097bb133-abf3-4df0-ae4e-a28378537691",
+    "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+    "c90f731b-0036-47e5-a455-9cf270d6880c",
+}
 
 
 @pytest.mark.parametrize(
@@ -148,3 +153,16 @@ def test_context_diagram_pass_params_to_render(
 
         with pytest.raises(KeyError):
             without_hierarchy[uuid]  # pylint: disable=pointless-statement
+
+
+@pytest.mark.parametrize("uuid", TEST_ACTIVITY_UUIDS)
+def test_context_diagram_of_allocated_activities(
+    model: capellambse.MelodyModel, uuid: str
+) -> None:
+    obj = model.by_uuid(uuid)
+
+    diag = obj.context_diagram
+    diag.display_parent_relation = True
+    diag.render("svgdiagram").save(pretty=True)
+
+    assert len(diag.nodes) > 1

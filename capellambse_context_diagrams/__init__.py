@@ -60,7 +60,7 @@ def register_classes() -> None:
     """Add the `context_diagram` property to the relevant model objects."""
     supported_classes: list[SupportedClass] = [
         (oa.Entity, DiagramType.OAB, {}),
-        (oa.OperationalActivity, DiagramType.OAIB, {}),
+        (oa.OperationalActivity, DiagramType.OAB, {}),
         (oa.OperationalCapability, DiagramType.OCB, {}),
         (ctx.Mission, DiagramType.MCB, {}),
         (ctx.Capability, DiagramType.MCB, {"display_symbols_as_boxes": False}),

@@ -31,6 +31,11 @@ Elk types can be one of the following types:
 * `edge`
 * `junction`.
 """
+EdgeContext = tuple[
+    _elkjs.ELKOutputEdge,
+    diagram.Vector2D,
+    diagram.Box | diagram.Edge | None,
+]
 
 REMAP_STYLECLASS: dict[str, str] = {"Unset": "Association"}
 
@@ -54,6 +59,7 @@ class DiagramSerializer:
         self.model = elk_diagram.target._model
         self._diagram = elk_diagram
         self._cache: dict[str, diagram.Box | diagram.Edge] = {}
+        self._edges: list[EdgeContext] = []
 
     def make_diagram(
         self,
@@ -80,6 +86,9 @@ class DiagramSerializer:
         )
         for child in data["children"]:
             self.deserialize_child(child, diagram.Vector2D(), None)
+
+        for edge, ref, parent in self._edges:
+            self.deserialize_child(edge, ref, parent)
 
         self.diagram.calculate_viewport()
         self.order_children()
@@ -116,6 +125,7 @@ class DiagramSerializer:
             styleclass: str | None = child["id"][2:].split("_", 1)[0]
         else:
             styleclass = self.get_styleclass(child["id"])
+
         element: diagram.Box | diagram.Edge | diagram.Circle
         if child["type"] in {"node", "port"}:
             assert parent is None or isinstance(parent, diagram.Box)
@@ -237,7 +247,10 @@ class DiagramSerializer:
             return
 
         for i in child.get("children", []):  # type: ignore
-            self.deserialize_child(i, ref, element)
+            if i["type"] == "edge":
+                self._edges.append((i, ref, parent))
+            else:
+                self.deserialize_child(i, ref, element)
 
     def _is_hierarchical(self, uuid: str) -> bool:
         def is_contained(obj: diagram.Box) -> bool:
@@ -281,6 +294,9 @@ class DiagramSerializer:
                 obj = None
 
             styleoverrides = style_condition(obj, self) or {}
+
+        if child["id"] == self._diagram.target.uuid:
+            styleoverrides["stroke-width"] = "3"
 
         style: dict[str, t.Any]
         if style := child.get("style", {}):

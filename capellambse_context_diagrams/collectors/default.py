@@ -286,6 +286,7 @@ def _derive_from_functions(
     for fnc in diagram.target.allocated_functions:
         ports.extend(port_collector(fnc, diagram.type))
 
+    context_box_ids = {child["id"] for child in data["children"]}
     components: dict[str, cs.Component] = {}
     for port in ports:
         for fex in port.exchanges:
@@ -296,6 +297,12 @@ def _derive_from_functions(
 
             try:
                 derived_comp = getattr(fex, attr).owner.owner
+                if (
+                    derived_comp == diagram.target
+                    or derived_comp.uuid in context_box_ids
+                ):
+                    continue
+
                 if derived_comp.uuid not in components:
                     components[derived_comp.uuid] = derived_comp
             except AttributeError:
@@ -308,7 +315,8 @@ def _derive_from_functions(
             derived_component,
             no_symbol=diagram.display_symbols_as_boxes,
         )
-        box["id"] = comp_uuid = f"__DerivedBox_{uuid}"
+        class_ = type(derived_comp).__name__
+        box["id"] = comp_uuid = f"__Derived-{class_}_{uuid}"
         data["children"].append(box)
         if i % 2 == 0:
             source_id = comp_uuid
@@ -319,7 +327,7 @@ def _derive_from_functions(
 
         data["edges"].append(
             {
-                "id": f"__DerivedComponentExchange_{i}",
+                "id": f"__Derived-ComponentExchange_{i}",
                 "sources": [source_id],
                 "targets": [target_id],
             }

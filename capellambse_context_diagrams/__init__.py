@@ -28,6 +28,7 @@ from capellambse.model import common
 from capellambse.model.crosslayer import fa, information
 from capellambse.model.layers import ctx, la, oa, pa
 from capellambse.model.modeltypes import DiagramType
+from capellambse.svg import decorations
 
 from . import context, styling
 
@@ -127,43 +128,6 @@ def patch_styles(classes: cabc.Iterable[SupportedClass]) -> None:
     circle_style = {"fill": COLORS["_CAP_xAB_Function_Border_Green"]}
     for _, dt, _ in classes:
         capstyle.STYLES[dt.value]["Circle.FunctionalExchange"] = circle_style
-
-    for dt in (DiagramType.SAB, DiagramType.LAB, DiagramType.PAB):
-        text_fill = COLORS["black"]
-        if dt == DiagramType.SAB:
-            fill = [
-                COLORS["_CAP_Component_Blue_min"],
-                COLORS["_CAP_Component_Blue"],
-            ]
-            stroke = COLORS["_CAP_Component_Border_Blue"]
-        elif dt == DiagramType.LAB:
-            fill = [
-                COLORS["_CAP_Component_Blue_min"],
-                COLORS["_CAP_Component_Blue"],
-            ]
-            text_fill = COLORS["_CAP_Component_Label_Blue"]
-        elif dt == DiagramType.PAB:
-            fill = [
-                COLORS["_CAP_Unset_Gray_min"],
-                COLORS["_CAP_Unset_Gray"],
-            ]
-            stroke = COLORS["_CAP_Lifeline_Gray"]
-
-        capstyle.STYLES[dt.value].update(
-            {
-                "Box.DerivedBox": {
-                    "fill": fill,
-                    "stroke": stroke,
-                    "stroke-dasharray": "4",
-                    "text_fill": text_fill,
-                },
-                "Edge.DerivedComponentExchange": {
-                    "stroke": COLORS["_CAP_Component_Border_Blue"],
-                    "stroke-width": 2,
-                    "stroke-dasharray": "4",
-                },
-            }
-        )
 
 
 def register_interface_context() -> None:

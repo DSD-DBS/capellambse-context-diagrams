@@ -114,12 +114,17 @@ class DiagramSerializer:
         """
         uuid: str
         styleclass: str | None
+        derived = False
         if child["id"].startswith("__"):
             styleclass, uuid = child["id"][2:].split("_", 1)
+            if styleclass.startswith("Derived-"):
+                styleclass = styleclass.removeprefix("Derived-")
+                derived = True
         else:
             styleclass = self.get_styleclass(child["id"])
             uuid = child["id"]
 
+        styleoverrides = self.get_styleoverrides(uuid, child, derived=derived)
         element: diagram.Box | diagram.Edge | diagram.Circle
         if child["type"] in {"node", "port"}:
             assert parent is None or isinstance(parent, diagram.Box)
@@ -151,7 +156,7 @@ class DiagramSerializer:
                 parent=parent,
                 port=is_port,
                 styleclass=styleclass,
-                styleoverrides=self.get_styleoverrides(uuid, child),
+                styleoverrides=styleoverrides,
                 features=features,
                 context=child.get("context"),
             )
@@ -183,11 +188,11 @@ class DiagramSerializer:
 
             element = diagram.Edge(
                 refpoints,
-                uuid=uuid,
+                uuid=child["id"],
                 source=self.diagram[source_id],
                 target=self.diagram[target_id],
                 styleclass=styleclass,
-                styleoverrides=self.get_styleoverrides(uuid, child),
+                styleoverrides=styleoverrides,
                 context=child.get("context"),
             )
             self.diagram.add_element(element)
@@ -196,9 +201,7 @@ class DiagramSerializer:
             assert parent is not None
             if not parent.port:
                 if parent.JSON_TYPE != "symbol":
-                    parent.styleoverrides |= self.get_styleoverrides(
-                        uuid, child
-                    )
+                    parent.styleoverrides |= styleoverrides
 
                 if isinstance(parent, diagram.Box):
                     attr_name = "floating_labels"
@@ -223,9 +226,7 @@ class DiagramSerializer:
                             + (child["position"]["x"], child["position"]["y"]),
                             (child["size"]["width"], child["size"]["height"]),
                             label=child["text"],
-                            styleoverrides=self.get_styleoverrides(
-                                uuid, child
-                            ),
+                            styleoverrides=styleoverrides,
                         )
                     )
 
@@ -242,7 +243,7 @@ class DiagramSerializer:
                 5,
                 uuid=child["id"],
                 styleclass=self.get_styleclass(uuid),
-                styleoverrides=self.get_styleoverrides(uuid, child),
+                styleoverrides=styleoverrides,
                 context=child.get("context"),
             )
             self.diagram.add_element(element)
@@ -279,7 +280,7 @@ class DiagramSerializer:
             return diagram.get_styleclass(melodyobj)
 
     def get_styleoverrides(
-        self, uuid: str, child: _elkjs.ELKOutputChild
+        self, uuid: str, child: _elkjs.ELKOutputChild, *, derived: bool = False
     ) -> diagram.StyleOverrides:
         """Return
         [`styling.CSSStyles`][capellambse_context_diagrams.styling.CSSStyles]
@@ -295,6 +296,9 @@ class DiagramSerializer:
                 obj = None
 
             styleoverrides = style_condition(obj, self) or {}
+
+        if derived:
+            styleoverrides["stroke-dasharray"] = "4"
 
         style: dict[str, t.Any]
         if style := child.get("style", {}):

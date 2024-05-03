@@ -81,9 +81,7 @@ def collector(
             made_boxes[i.uuid] = box
 
         if diagram.display_parent_relation:
-            if i == diagram.target.owner:
-                _move_edge_to_local_edges(box, connections, data)
-            elif i.owner is not None:
+            if i.owner is not None:
                 if not (parent_box := made_boxes.get(i.owner.uuid)):
                     parent_box = makers.make_box(
                         i.owner,
@@ -99,13 +97,15 @@ def collector(
                         makers.DEFAULT_LABEL_LAYOUT_OPTIONS
                     )
 
-                _move_edge_to_local_edges(parent_box, connections, data)
-
         stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
 
     del made_boxes[centerbox["id"]]
     data["children"].extend(made_boxes.values())
-    _move_parent_boxes(diagram.target, data)
+
+    if diagram.display_parent_relation:
+        _move_parent_boxes(diagram.target, data)
+        _move_edges(made_boxes, connections, data)
+
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
     if not diagram.display_symbols_as_boxes and makers.is_symbol(
         diagram.target
@@ -225,32 +225,9 @@ def get_exchanges(
     yield from {i.uuid: i for i in filtered}.values()
 
 
-def _move_edge_to_local_edges(
-    owner_box: _elkjs.ELKInputChild,
-    connections: list[common.GenericElement],
-    data: _elkjs.ELKInputData,
-) -> None:
-    edges_to_remove: list[str] = []
-    for c in connections:
-        uuids = set()
-        if source_owner := c.source.owner:
-            uuids.add(source_owner.uuid)
-        if target_owner := c.target.owner:
-            uuids.add(target_owner.uuid)
-
-        if source_owner == target_owner and owner_box["id"] in uuids:
-            for edge in data["edges"]:
-                if edge["id"] == c.uuid:
-                    owner_box.setdefault("edges", []).append(edge)
-                    edges_to_remove.append(edge["id"])
-
-    data["edges"] = [
-        e for e in data["edges"] if e["id"] not in edges_to_remove
-    ]
-
-
 def _move_parent_boxes(
-    obj: common.GenericElement, data: _elkjs.ELKInputData
+    obj: common.GenericElement,
+    data: _elkjs.ELKInputData,
 ) -> None:
     owner_boxes: dict[str, _elkjs.ELKInputChild] = {
         child["id"]: child
@@ -259,7 +236,7 @@ def _move_parent_boxes(
     }
     boxes_to_remove: list[str] = []
     for child in data["children"]:
-        if not (children := child.get("children")):
+        if not child.get("children"):
             continue
 
         owner = obj._model.by_uuid(child["id"])
@@ -272,20 +249,53 @@ def _move_parent_boxes(
 
         oowner_box.setdefault("children", []).append(child)
         boxes_to_remove.append(child["id"])
-        edges_to_move: list[_elkjs.ELKInputEdge] = []
-        for c in children:
-            for e in data["edges"]:
-                if c["id"] not in e["sources"] + e["targets"]:  # type: ignore[operator]
-                    continue
-
-                edges_to_move.append(e)
-
-        oowner_box.setdefault("edges", []).extend(edges_to_move)
-        edges_to_remove = {e["id"] for e in edges_to_move}
-        data["edges"] = [
-            e for e in data["edges"] if e["id"] not in edges_to_remove
-        ]
 
     data["children"] = [
         b for b in data["children"] if b["id"] not in boxes_to_remove
     ]
+
+
+def _move_edges(
+    boxes: dict[str, _elkjs.ELKInputChild],
+    connections: list[common.GenericElement],
+    data: _elkjs.ELKInputData,
+) -> None:
+    owner_boxes: dict[str, _elkjs.ELKInputChild] = {
+        uuid: box for uuid, box in boxes.items() if box.get("children")
+    }
+    edges_to_remove: list[str] = []
+
+    for c in connections:
+        source_owner_uuids = _get_all_owners(c.source)
+        target_owner_uuids = _get_all_owners(c.target)
+        common_owner_uuid = None
+        for owner in source_owner_uuids:
+            if owner in set(target_owner_uuids):
+                common_owner_uuid = owner
+                break
+
+        if not common_owner_uuid or not (
+            owner_box := owner_boxes.get(common_owner_uuid)
+        ):
+            continue
+
+        for edge in data["edges"]:
+            if edge["id"] == c.uuid:
+                owner_box.setdefault("edges", []).append(edge)
+                edges_to_remove.append(edge["id"])
+
+    data["edges"] = [
+        e for e in data["edges"] if e["id"] not in edges_to_remove
+    ]
+
+
+def _get_all_owners(obj: common.GenericElement) -> list[str]:
+    owners = []
+    current = obj
+    while current is not None and not isinstance(current, layers.oa.EntityPkg):
+        owners.append(current.uuid)
+        try:
+            current = current.owner
+        except AttributeError:
+            break
+    return owners

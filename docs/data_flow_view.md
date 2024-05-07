@@ -24,7 +24,7 @@ The diagram elements are collected from the
     diag.as_svgdiagram.save(pretty=True)
     ```
     <figure markdown>
-        <img src="../assets/images/DatFlow view of Eat food.svg">
+        <img src="../assets/images/DataFlow view of Eat food.svg">
         <figcaption>[OAIB] DataFlow View Diagram of Eat food</figcaption>
     </figure>
 

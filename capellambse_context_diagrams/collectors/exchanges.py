@@ -9,6 +9,7 @@ import operator
 import typing as t
 
 from capellambse.model import common
+from capellambse.model.crosslayer import cs
 from capellambse.model.modeltypes import DiagramType as DT
 
 from .. import _elkjs, context
@@ -65,30 +66,59 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
         self, comp: common.GenericElement, interface: common.GenericElement
     ) -> tuple[
         list[common.GenericElement],
-        list[common.GenericElement],
-        list[common.GenericElement],
+        dict[str, common.GenericElement],
+        dict[str, common.GenericElement],
     ]:
         """Return `Function`s, incoming and outgoing
         `FunctionalExchange`s for given `Component` and `interface`.
         """
-        functions, outgoings, incomings = [], [], []
+        functions, incomings, outgoings = [], {}, {}
         alloc_functions = self.get_alloc_functions(comp)
         for fex in self.get_alloc_fex(interface):
             source = self.get_source(fex)
             if source in alloc_functions:
-                if fex not in outgoings:
-                    outgoings.append(fex)
+                if fex.uuid not in outgoings:
+                    outgoings[fex.uuid] = fex
                 if source not in functions:
                     functions.append(source)
 
             target = self.get_target(fex)
             if target in alloc_functions:
-                if fex not in incomings:
-                    incomings.append(fex)
+                if fex.uuid not in incomings:
+                    incomings[fex.uuid] = fex
                 if target not in functions:
                     functions.append(target)
 
         return functions, incomings, outgoings
+
+    def collect_context(
+        self, comp: common.GenericElement, interface: common.GenericElement
+    ) -> tuple[
+        dict[str, t.Any],
+        dict[str, common.GenericElement],
+        dict[str, common.GenericElement],
+    ]:
+        functions, incomings, outgoings = self.get_functions_and_exchanges(
+            comp, interface
+        )
+        components = []
+        for cmp in comp.components:
+            fncs, _, _ = self.get_functions_and_exchanges(cmp, interface)
+            functions.extend(fncs)
+            if fncs:
+                c, incs, outs = self.collect_context(cmp, interface)
+                components.append(c)
+                incomings |= incs
+                outgoings |= outs
+        return (
+            {
+                "element": comp,
+                "functions": functions,
+                "components": components,
+            },
+            incomings,
+            outgoings,
+        )
 
     def make_ports_and_update_children_size(
         self,
@@ -100,6 +130,9 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
         for child in data["children"]:
             inputs, outputs = [], []
             obj = self.obj._model.by_uuid(child["id"])
+            if isinstance(obj, cs.Component):
+                self.make_ports_and_update_children_size(child, exchanges)
+                return
             port_ids = {p.uuid for p in obj.inputs + obj.outputs}
             for ex in exchanges:
                 source, target = ex["sources"][0], ex["targets"][0]
@@ -153,12 +186,12 @@ class InterfaceContextCollector(ExchangeCollector):
     for building the interface context.
     """
 
-    left: common.GenericElement
-    """Source or target Component of the interface."""
-    right: common.GenericElement
-    """Source or target Component of the interface."""
-    outgoing_edges: list[common.GenericElement]
-    incoming_edges: list[common.GenericElement]
+    left: _elkjs.ELKInputChild | None
+    """Left (source) Component Box of the interface."""
+    right: _elkjs.ELKInputChild | None
+    """Right (target) Component Box of the interface."""
+    outgoing_edges: dict[str, common.GenericElement]
+    incoming_edges: dict[str, common.GenericElement]
 
     def __init__(
         self,
@@ -166,8 +199,16 @@ class InterfaceContextCollector(ExchangeCollector):
         data: _elkjs.ELKInputData,
         params: dict[str, t.Any],
     ) -> None:
+        self.left = None
+        self.right = None
+        self.incoming_edges = {}
+        self.outgoing_edges = {}
+
         super().__init__(diagram, data, params)
+
         self.get_left_and_right()
+        if diagram.include_interface:
+            self.add_interface()
 
     def get_left_and_right(self) -> None:
         made_children: set[str] = set()
@@ -178,15 +219,19 @@ class InterfaceContextCollector(ExchangeCollector):
             alloc_functions = self.get_alloc_functions(comp)
             return [fnc for fnc in alloc_functions if fnc in functions]
 
-        def make_boxes(
-            comp: common.GenericElement, functions: list[common.GenericElement]
-        ) -> None:
+        def make_boxes(cntxt: dict[str, t.Any]) -> _elkjs.ELKInputChild | None:
+            comp = cntxt["element"]
+            functions = cntxt["functions"]
+            components = cntxt["components"]
             if comp.uuid not in made_children:
                 children = [
-                    makers.make_box(c)
-                    for c in functions
-                    if c in self.get_alloc_functions(comp)
+                    makers.make_box(fnc)
+                    for fnc in functions
+                    if fnc in self.get_alloc_functions(comp)
                 ]
+                for cmp in components:
+                    if child := make_boxes(cmp):
+                        children.append(child)
                 if children:
                     layout_options = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
                 else:
@@ -196,52 +241,68 @@ class InterfaceContextCollector(ExchangeCollector):
                     comp, no_symbol=True, layout_options=layout_options
                 )
                 box["children"] = children
-                self.data["children"].append(box)
                 made_children.add(comp.uuid)
+                return box
+            return None
 
         try:
             comp = self.get_source(self.obj)
-            functions, incs, outs = self.get_functions_and_exchanges(
-                comp, self.obj
-            )
-            inc_port_ids = set(ex.target.uuid for ex in incs)
-            out_port_ids = set(ex.source.uuid for ex in outs)
+            left_context, incs, outs = self.collect_context(comp, self.obj)
+            inc_port_ids = set(ex.target.uuid for ex in incs.values())
+            out_port_ids = set(ex.source.uuid for ex in outs.values())
             port_spread = len(out_port_ids) - len(inc_port_ids)
 
             _comp = self.get_target(self.obj)
-            _functions, _, _ = self.get_functions_and_exchanges(
-                _comp, self.obj
-            )
-            _inc_port_ids = set(ex.target.uuid for ex in outs)
-            _out_port_ids = set(ex.source.uuid for ex in incs)
+            right_context, _, _ = self.collect_context(_comp, self.obj)
+            _inc_port_ids = set(ex.target.uuid for ex in outs.values())
+            _out_port_ids = set(ex.source.uuid for ex in incs.values())
             _port_spread = len(_out_port_ids) - len(_inc_port_ids)
 
-            functions = get_capella_order(comp, functions)
-            _functions = get_capella_order(_comp, _functions)
+            left_context["functions"] = get_capella_order(
+                comp, left_context["functions"]
+            )
+            right_context["functions"] = get_capella_order(
+                _comp, right_context["functions"]
+            )
             if port_spread >= _port_spread:
-                self.left = comp
-                self.right = _comp
-                self.outgoing_edges = outs
                 self.incoming_edges = incs
-                left_functions = functions
-                right_functions = _functions
+                self.outgoing_edges = outs
             else:
-                self.left = _comp
-                self.right = comp
-                self.outgoing_edges = incs
                 self.incoming_edges = outs
-                left_functions = _functions
-                right_functions = functions
+                self.outgoing_edges = incs
+                left_context, right_context = right_context, left_context
 
-            make_boxes(self.left, left_functions)
-            make_boxes(self.right, right_functions)
+            if left_child := make_boxes(left_context):
+                self.data["children"].append(left_child)
+                self.left = left_child
+            if right_child := make_boxes(right_context):
+                self.data["children"].append(right_child)
+                self.right = right_child
         except AttributeError:
             pass
 
+    def add_interface(self) -> None:
+        ex_data = generic.ExchangeData(
+            self.obj,
+            self.data,
+            self.diagram.filters,
+            self.params,
+            is_hierarchical=False,
+        )
+        src, tgt = generic.exchange_data_collector(ex_data)
+        assert self.right is not None
+        if self.get_source(self.obj).uuid == self.right["id"]:
+            self.data["edges"][-1]["sources"] = [tgt.uuid]
+            self.data["edges"][-1]["targets"] = [src.uuid]
+
+        assert self.left is not None
+        self.left.setdefault("ports", []).append(makers.make_port(src.uuid))
+        self.right.setdefault("ports", []).append(makers.make_port(tgt.uuid))
+
     def collect(self) -> None:
-        """Return all allocated `FunctionalExchange`s in the context."""
+        """Collect all allocated `FunctionalExchange`s in the context."""
         try:
-            for ex in self.incoming_edges + self.outgoing_edges:
+            for ex in (self.incoming_edges | self.outgoing_edges).values():
                 ex_data = generic.ExchangeData(
                     ex,
                     self.data,
@@ -251,7 +312,7 @@ class InterfaceContextCollector(ExchangeCollector):
                 )
                 src, tgt = generic.exchange_data_collector(ex_data)
 
-                if ex in self.incoming_edges:
+                if ex in self.incoming_edges.values():
                     self.data["edges"][-1]["sources"] = [tgt.uuid]
                     self.data["edges"][-1]["targets"] = [src.uuid]
 
@@ -300,7 +361,7 @@ class FunctionalContextCollector(ExchangeCollector):
                     made_children.add(comp.uuid)
 
                 all_functions.extend(functions)
-                functional_exchanges.extend(inc + outs)
+                functional_exchanges.extend(inc | outs)
 
             self.data["children"][0]["children"] = [
                 makers.make_box(c)

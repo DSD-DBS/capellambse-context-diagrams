@@ -56,6 +56,7 @@ LAYOUT_OPTIONS: ImmutableLayoutOptions = {
     "hierarchyHandling": "INCLUDE_CHILDREN",
     "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
     "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+    "layered.considerModelOrder.strategy": "NODES_AND_EDGES",
     "spacing.labelNode": "0.0",
 }
 """

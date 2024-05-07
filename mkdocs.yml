@@ -89,11 +89,12 @@ nav:
   - Extras:
       - Filters: extras/filters.md
       - Styling: extras/styling.md
+      - 🔥 Derived 🔥: extras/derived.md
   - Tree View:
       - Overview: tree_view.md
   - Realization View:
       - Overview: realization_view.md
-  - 🔥 DataFlow View 🔥:
+  - DataFlow View:
       - Overview: data_flow_view.md
   - Code Reference: reference/
 

@@ -282,9 +282,15 @@ def add_derived_components_and_interfaces(
     derivator(diagram, data)
 
 
-def _derive_from_functions(
+def derive_from_functions(
     diagram: context.ContextDiagram, data: _elkjs.ELKInputData
-):
+) -> None:
+    """Derive Components from allocated functions of the context target.
+
+    A Component, a ComponentExchange and two ComponentPorts are added
+    to ``data``. These elements are prefixed with ``Derived-`` to
+    receive special styling in the serialization step.
+    """
     assert isinstance(diagram.target, cs.Component)
     ports = []
     for fnc in diagram.target.allocated_functions:
@@ -345,6 +351,7 @@ def _derive_from_functions(
 
 
 DERIVATORS = {
-    la.LogicalComponent: _derive_from_functions,
-    sa.SystemComponent: _derive_from_functions,
+    la.LogicalComponent: derive_from_functions,
+    sa.SystemComponent: derive_from_functions,
 }
+"""Objects to build derived contexts."""

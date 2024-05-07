@@ -157,7 +157,6 @@ def test_context_diagram_with_derived_interfaces(
     obj = model.by_uuid(TEST_DERIVED_UUID)
 
     diag = obj.context_diagram
-    diag.display_derived_interfaces = True
-    diagram = diag.render(None)
+    diagram = diag.render(None, display_derived_interfaces=True)
 
     assert len(diagram) > 5

@@ -2945,29 +2945,29 @@ The predator is far away</bodies>
                 id="fa1b9f3b-0770-4aab-b5a9-2843af69706f" name="FIP 1"/>
           </ownedFunctions>
           <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
-              id="fc4fa55e-eadc-47bd-9183-260b67b25b1f" name="LogicalFunction 26">
+              id="fc4fa55e-eadc-47bd-9183-260b67b25b1f" name="LFNC 1">
             <outputs xsi:type="org.polarsys.capella.core.data.fa:FunctionOutputPort"
                 id="12ef3c5a-bc14-4360-9c1c-e41d91cd0816" name="FOP 1"/>
           </ownedFunctions>
           <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
-              id="aac8b038-0599-4e03-91a6-d086a4771c18" name="LogicalFunction 27">
+              id="aac8b038-0599-4e03-91a6-d086a4771c18" name="RFNC 3">
             <inputs xsi:type="org.polarsys.capella.core.data.fa:FunctionInputPort"
                 id="d25b87bf-fd4d-42f0-adaf-aaed3b85449d" name="FIP 1"/>
           </ownedFunctions>
           <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
-              id="107e7e08-0bff-4f2f-ad43-e5e480221509" name="LogicalFunction 28">
+              id="107e7e08-0bff-4f2f-ad43-e5e480221509" name="RFNC 2">
             <inputs xsi:type="org.polarsys.capella.core.data.fa:FunctionInputPort"
                 id="ba579db0-fd12-4cbd-a587-fb1942d9dbe5" name="FIP 1"/>
             <outputs xsi:type="org.polarsys.capella.core.data.fa:FunctionOutputPort"
                 id="0176001b-dd38-40e3-a22f-6962847ea827" name="FOP 1"/>
           </ownedFunctions>
           <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
-              id="10cdd24e-60c5-406a-b5bc-c670170504b7" name="LogicalFunction 29">
+              id="10cdd24e-60c5-406a-b5bc-c670170504b7" name="RFNC 1">
             <inputs xsi:type="org.polarsys.capella.core.data.fa:FunctionInputPort"
                 id="35fbc8ac-1932-4a19-bf72-8e79045a4bf7" name="FIP 1"/>
           </ownedFunctions>
           <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
-              id="2ab2690c-f65e-4079-89a3-af333e0dc8fb" name="LogicalFunction 30">
+              id="2ab2690c-f65e-4079-89a3-af333e0dc8fb" name="LFNC 2">
             <inputs xsi:type="org.polarsys.capella.core.data.fa:FunctionInputPort"
                 id="d5853f63-fd74-4db3-a11b-5c02ee103a05" name="FIP 1"/>
             <outputs xsi:type="org.polarsys.capella.core.data.fa:FunctionOutputPort"
@@ -3010,20 +3010,20 @@ The predator is far away</bodies>
               id="0fe9e999-3bd8-4590-9dc2-f51d2c1af173" name="FunctionalExchange 11"
               target="#494979bd-d301-419b-8a91-fd1c28dec21c" source="#aaf1f13c-270f-4d67-bc65-37a1c9afb17a"/>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
-              id="4bc441b9-cb90-46c2-92e4-5d942a41ec66" name="labelsize" target="#dd98c04f-6e47-4989-bccf-7fa6cc51a28f"
+              id="bb4fd29c-9c85-454f-b66a-b8eb9573fba6" name="1" target="#7d477722-a67b-4657-90db-57aef529a7bb"
               source="#6265248f-2ec9-449f-9b07-0614957cbab3"/>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
-              id="bb4fd29c-9c85-454f-b66a-b8eb9573fba6" name="the" target="#7d477722-a67b-4657-90db-57aef529a7bb"
+              id="4bc441b9-cb90-46c2-92e4-5d942a41ec66" name="2" target="#dd98c04f-6e47-4989-bccf-7fa6cc51a28f"
               source="#f4b469c1-2aa0-45ea-b2e8-90bfa6668ee0"/>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
-              id="d7740136-b80e-4f91-a43f-184972eaf1cc" name="The" target="#73fef6c0-53a9-42aa-8527-7a091113f011"
+              id="d7740136-b80e-4f91-a43f-184972eaf1cc" name="3" target="#73fef6c0-53a9-42aa-8527-7a091113f011"
               source="#5f821bbb-724f-4adf-a41f-b612399d32d2"/>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
-              id="ac669503-0a13-431f-b759-f7daf62c4267" name="edgelength" target="#f6146687-79be-44de-8268-587dc2abab11"
-              source="#b7f2d2ef-3aef-43a9-9309-cf172e50ebb7"/>
-          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
-              id="0641d09d-4627-44fc-9926-3978e80e2ca9" name="determines" target="#60fbcf0f-7cbc-4540-a4b0-961c82007924"
+              id="0641d09d-4627-44fc-9926-3978e80e2ca9" name="4" target="#60fbcf0f-7cbc-4540-a4b0-961c82007924"
               source="#aac1f636-44cd-467a-8238-3c383f28351e"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="ac669503-0a13-431f-b759-f7daf62c4267" name="5" target="#f6146687-79be-44de-8268-587dc2abab11"
+              source="#b7f2d2ef-3aef-43a9-9309-cf172e50ebb7"/>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
               id="ed7a3230-f559-4a62-bd8a-745ee5e2faae" name="Uptoleft" target="#8b39d153-234b-4ced-9c0a-af75f79c23ec"
               source="#cd739c16-9f51-42b5-ace1-42e82acbf63a"/>
@@ -3061,17 +3061,17 @@ The predator is far away</bodies>
               id="fe86c5d6-7666-4537-af07-5817b2f12d1c" name="woa" target="#fa1b9f3b-0770-4aab-b5a9-2843af69706f"
               source="#9c2fab55-c507-4250-aaa1-9a3d5111ef43"/>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
-              id="873bca60-e95c-4f5a-91c8-5471a8297c36" name="FunctionalExchange 29"
-              target="#35fbc8ac-1932-4a19-bf72-8e79045a4bf7" source="#12ef3c5a-bc14-4360-9c1c-e41d91cd0816"/>
+              id="873bca60-e95c-4f5a-91c8-5471a8297c36" name="FE 1" target="#35fbc8ac-1932-4a19-bf72-8e79045a4bf7"
+              source="#12ef3c5a-bc14-4360-9c1c-e41d91cd0816"/>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
-              id="b54accf0-12e1-48f2-a7a3-a9ba2d02bf15" name="FunctionalExchange 30"
-              target="#ba579db0-fd12-4cbd-a587-fb1942d9dbe5" source="#12ef3c5a-bc14-4360-9c1c-e41d91cd0816"/>
+              id="b54accf0-12e1-48f2-a7a3-a9ba2d02bf15" name="FE 2" target="#ba579db0-fd12-4cbd-a587-fb1942d9dbe5"
+              source="#12ef3c5a-bc14-4360-9c1c-e41d91cd0816"/>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
-              id="ff019bdb-2e0d-4b2c-8f07-9beb5ff0ceef" name="FunctionalExchange 31"
-              target="#d25b87bf-fd4d-42f0-adaf-aaed3b85449d" source="#2dd6b6db-528e-4fa0-9c07-6094acbd54a8"/>
+              id="ff019bdb-2e0d-4b2c-8f07-9beb5ff0ceef" name="FE 4" target="#d25b87bf-fd4d-42f0-adaf-aaed3b85449d"
+              source="#2dd6b6db-528e-4fa0-9c07-6094acbd54a8"/>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
-              id="e29b4b68-59d5-4acc-8300-75cf95e5db16" name="FunctionalExchange 32"
-              target="#d5853f63-fd74-4db3-a11b-5c02ee103a05" source="#0176001b-dd38-40e3-a22f-6962847ea827"/>
+              id="e29b4b68-59d5-4acc-8300-75cf95e5db16" name="FE 3" target="#d5853f63-fd74-4db3-a11b-5c02ee103a05"
+              source="#0176001b-dd38-40e3-a22f-6962847ea827"/>
         </ownedLogicalFunctions>
       </ownedFunctionPkg>
       <ownedAbstractCapabilityPkg xsi:type="org.polarsys.capella.core.data.la:CapabilityRealizationPkg"
@@ -3348,7 +3348,7 @@ The predator is far away</bodies>
               id="8805a65b-d220-416d-ac04-b614cf7a8456" name="o4" source="#126c2f86-0fd5-4bc7-bdde-db32aadbd69c"
               target="#b557cfc6-ca9a-40f5-b6f7-14e61523bd9a" kind="FLOW"/>
           <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
-              id="fbb7f735-3c1f-48de-9791-179d35ca7b98" name="C 26" source="#d1f36a33-1234-448c-9837-5e747b0a107b"
+              id="fbb7f735-3c1f-48de-9791-179d35ca7b98" name="Interface" source="#d1f36a33-1234-448c-9837-5e747b0a107b"
               target="#4b6eb11c-7121-4e6b-bb71-9fc384425b4a" kind="FLOW">
             <ownedComponentExchangeFunctionalExchangeAllocations xsi:type="org.polarsys.capella.core.data.fa:ComponentExchangeFunctionalExchangeAllocation"
                 id="ee8a9679-f145-4c95-88b8-1a695e4fcc00" targetElement="#ff019bdb-2e0d-4b2c-8f07-9beb5ff0ceef"
@@ -3411,9 +3411,9 @@ The predator is far away</bodies>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="878e9589-a9f7-47b9-8fda-f009184716c5"
               name="Right 2" abstractType="#ea3ff951-47ec-441e-aae6-c5103d47cf1a"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="b7058271-9f31-469c-b913-4f985754bb18"
-              name="LC 16" abstractType="#e5274e82-e283-42de-8419-699f80096d00"/>
+              name="LC 1" abstractType="#e5274e82-e283-42de-8419-699f80096d00"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="80863933-da0f-4792-a88e-4dded08be894"
-              name="LC 17" abstractType="#9cc2ee44-160d-4b4c-ba73-b1277c2091c9"/>
+              name="RC 1" abstractType="#9cc2ee44-160d-4b4c-ba73-b1277c2091c9"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="0f8b10b5-d460-4055-bd34-7e4a33e94b5e" targetElement="#230c4621-7e0a-4d0a-9db2-d4ba5e97b3df"
               sourceElement="#0d2edb8f-fa34-4e73-89ec-fb9a63001440"/>
@@ -3826,12 +3826,12 @@ The predator is far away</bodies>
                 kind="FLOW"/>
           </ownedLogicalComponents>
           <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
-              id="e5274e82-e283-42de-8419-699f80096d00" name="LC 16">
+              id="e5274e82-e283-42de-8419-699f80096d00" name="LC 1">
             <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
                 id="aab17798-f1df-4935-8705-be2b7df00873" targetElement="#fc4fa55e-eadc-47bd-9183-260b67b25b1f"
                 sourceElement="#e5274e82-e283-42de-8419-699f80096d00"/>
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="aaadae72-38cf-4ea0-953c-5dd194e846a2"
-                name="LC 18" abstractType="#360b7e67-c482-412d-b169-de7b68597c28"/>
+                name="LA 1" abstractType="#360b7e67-c482-412d-b169-de7b68597c28"/>
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
                 id="d1f36a33-1234-448c-9837-5e747b0a107b" name="CP 2" orientation="OUT"
                 kind="FLOW">
@@ -3846,19 +3846,19 @@ The predator is far away</bodies>
                   sourceElement="#d1f36a33-1234-448c-9837-5e747b0a107b"/>
             </ownedFeatures>
             <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
-                id="360b7e67-c482-412d-b169-de7b68597c28" name="LC 18">
+                id="360b7e67-c482-412d-b169-de7b68597c28" name="LA 1" actor="true">
               <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
                   id="d19640a2-b64a-4543-991e-50b872f5867e" targetElement="#2ab2690c-f65e-4079-89a3-af333e0dc8fb"
                   sourceElement="#360b7e67-c482-412d-b169-de7b68597c28"/>
             </ownedLogicalComponents>
           </ownedLogicalComponents>
           <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
-              id="9cc2ee44-160d-4b4c-ba73-b1277c2091c9" name="LC 17">
+              id="9cc2ee44-160d-4b4c-ba73-b1277c2091c9" name="RC 1">
             <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
                 id="eb3c82ff-f423-46d4-acf7-9ea429e3ffbe" targetElement="#10cdd24e-60c5-406a-b5bc-c670170504b7"
                 sourceElement="#9cc2ee44-160d-4b4c-ba73-b1277c2091c9"/>
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="4ae1371c-0879-46fb-9083-10c19022ad8b"
-                name="LC 18" abstractType="#c0b88e2b-3f82-4edc-8c99-38c05a8b7e61"/>
+                name="RC 2" abstractType="#c0b88e2b-3f82-4edc-8c99-38c05a8b7e61"/>
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
                 id="4b6eb11c-7121-4e6b-bb71-9fc384425b4a" name="CP 2" orientation="IN"
                 kind="FLOW">
@@ -3876,14 +3876,14 @@ The predator is far away</bodies>
                   sourceElement="#4b6eb11c-7121-4e6b-bb71-9fc384425b4a"/>
             </ownedFeatures>
             <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
-                id="c0b88e2b-3f82-4edc-8c99-38c05a8b7e61" name="LC 18">
+                id="c0b88e2b-3f82-4edc-8c99-38c05a8b7e61" name="RC 2">
               <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
                   id="8c66c047-4d10-4036-8337-6c37b0692a82" targetElement="#107e7e08-0bff-4f2f-ad43-e5e480221509"
                   sourceElement="#c0b88e2b-3f82-4edc-8c99-38c05a8b7e61"/>
               <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="7186fe5c-7c0f-41f6-bb16-5fe85115efe0"
-                  name="LC 15" abstractType="#cbc77c75-ef97-46b5-9803-0f6e10c5e5c6"/>
+                  name="RHC 1" abstractType="#cbc77c75-ef97-46b5-9803-0f6e10c5e5c6"/>
               <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
-                  id="cbc77c75-ef97-46b5-9803-0f6e10c5e5c6" name="LC 15">
+                  id="cbc77c75-ef97-46b5-9803-0f6e10c5e5c6" name="RHC 1" human="true">
                 <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
                     id="e908cf25-6f7f-44dd-bb98-616115414d93" targetElement="#aac8b038-0599-4e03-91a6-d086a4771c18"
                     sourceElement="#cbc77c75-ef97-46b5-9803-0f6e10c5e5c6"/>

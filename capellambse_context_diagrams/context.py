@@ -363,7 +363,14 @@ class InterfaceContextDiagram(ContextDiagram):
     ``ComponentExchange``s.
     """
 
-    def __init__(self, class_: str, obj: common.GenericElement, **kw) -> None:
+    def __init__(
+        self,
+        class_: str,
+        obj: common.GenericElement,
+        include_interface: bool = False,
+        **kw,
+    ) -> None:
+        self.include_interface = include_interface
         super().__init__(class_, obj, **kw, display_symbols_as_boxes=True)
 
     @property

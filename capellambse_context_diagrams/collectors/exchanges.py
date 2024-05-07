@@ -186,10 +186,10 @@ class InterfaceContextCollector(ExchangeCollector):
     for building the interface context.
     """
 
-    left: common.GenericElement
-    """Source or target Component of the interface."""
-    right: common.GenericElement
-    """Source or target Component of the interface."""
+    left: _elkjs.ELKInputChild | None
+    """Left (source) Component Box of the interface."""
+    right: _elkjs.ELKInputChild | None
+    """Right (target) Component Box of the interface."""
     outgoing_edges: dict[str, common.GenericElement]
     incoming_edges: dict[str, common.GenericElement]
 
@@ -199,10 +199,16 @@ class InterfaceContextCollector(ExchangeCollector):
         data: _elkjs.ELKInputData,
         params: dict[str, t.Any],
     ) -> None:
-        super().__init__(diagram, data, params)
+        self.left = None
+        self.right = None
         self.incoming_edges = {}
         self.outgoing_edges = {}
+
+        super().__init__(diagram, data, params)
+
         self.get_left_and_right()
+        if diagram.include_interface:
+            self.add_interface()
 
     def get_left_and_right(self) -> None:
         made_children: set[str] = set()
@@ -268,13 +274,33 @@ class InterfaceContextCollector(ExchangeCollector):
 
             if left_child := make_boxes(left_context):
                 self.data["children"].append(left_child)
+                self.left = left_child
             if right_child := make_boxes(right_context):
                 self.data["children"].append(right_child)
+                self.right = right_child
         except AttributeError:
             pass
 
+    def add_interface(self) -> None:
+        ex_data = generic.ExchangeData(
+            self.obj,
+            self.data,
+            self.diagram.filters,
+            self.params,
+            is_hierarchical=False,
+        )
+        src, tgt = generic.exchange_data_collector(ex_data)
+        assert self.right is not None
+        if self.get_source(self.obj).uuid == self.right["id"]:
+            self.data["edges"][-1]["sources"] = [tgt.uuid]
+            self.data["edges"][-1]["targets"] = [src.uuid]
+
+        assert self.left is not None
+        self.left.setdefault("ports", []).append(makers.make_port(src.uuid))
+        self.right.setdefault("ports", []).append(makers.make_port(tgt.uuid))
+
     def collect(self) -> None:
-        """Return all allocated `FunctionalExchange`s in the context."""
+        """Collect all allocated `FunctionalExchange`s in the context."""
         try:
             for ex in (self.incoming_edges | self.outgoing_edges).values():
                 ex_data = generic.ExchangeData(

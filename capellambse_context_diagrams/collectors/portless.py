@@ -41,11 +41,8 @@ def collector(
         except AttributeError:
             continue
 
-    stack_heights: dict[str, float | int] = {
-        "input": -makers.NEIGHBOR_VMARGIN,
-        "output": -makers.NEIGHBOR_VMARGIN,
-    }
     contexts = context_collector(connections, diagram.target)
+    global_boxes = {centerbox["id"]: centerbox}
     made_boxes = {centerbox["id"]: centerbox}
     if diagram.display_parent_relation and diagram.target.owner is not None:
         box = makers.make_box(
@@ -55,8 +52,13 @@ def collector(
         )
         box["children"] = [centerbox]
         del data["children"][0]
+        global_boxes[diagram.target.owner.uuid] = box
         made_boxes[diagram.target.owner.uuid] = box
 
+    stack_heights: dict[str, float | int] = {
+        "input": -makers.NEIGHBOR_VMARGIN,
+        "output": -makers.NEIGHBOR_VMARGIN,
+    }
     for i, exchanges, side in contexts:
         var_height = generic.MARKER_PADDING + (
             generic.MARKER_SIZE + generic.MARKER_PADDING
@@ -68,7 +70,7 @@ def collector(
         else:
             height = var_height
 
-        if box := made_boxes.get(i.uuid):  # type: ignore[assignment]
+        if box := global_boxes.get(i.uuid):  # type: ignore[assignment]
             if box is centerbox:
                 continue
             box["height"] = height
@@ -78,33 +80,37 @@ def collector(
                 height=height,
                 no_symbol=diagram.display_symbols_as_boxes,
             )
+            global_boxes[i.uuid] = box
             made_boxes[i.uuid] = box
 
-        if diagram.display_parent_relation:
-            if i.owner is not None:
-                if not (parent_box := made_boxes.get(i.owner.uuid)):
-                    parent_box = makers.make_box(
-                        i.owner,
-                        no_symbol=diagram.display_symbols_as_boxes,
-                    )
-                    made_boxes[i.owner.uuid] = parent_box
-
-                parent_box.setdefault("children", []).append(
-                    made_boxes.pop(i.uuid)
+        if diagram.display_parent_relation and i.owner is not None:
+            if not (parent_box := global_boxes.get(i.owner.uuid)):
+                parent_box = makers.make_box(
+                    i.owner,
+                    no_symbol=diagram.display_symbols_as_boxes,
                 )
-                for label in parent_box["labels"]:
-                    label["layoutOptions"] = (
-                        makers.DEFAULT_LABEL_LAYOUT_OPTIONS
-                    )
+                global_boxes[i.owner.uuid] = parent_box
+                made_boxes[i.owner.uuid] = parent_box
+
+            parent_box.setdefault("children", []).append(
+                global_boxes.pop(i.uuid)
+            )
+            for label in parent_box["labels"]:
+                label["layoutOptions"] = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
 
         stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
 
-    del made_boxes[centerbox["id"]]
-    data["children"].extend(made_boxes.values())
+    del global_boxes[centerbox["id"]]
+    data["children"].extend(global_boxes.values())
 
     if diagram.display_parent_relation:
-        _move_parent_boxes(diagram.target, data)
-        _move_edges(made_boxes, connections, data)
+        owner_boxes: dict[str, _elkjs.ELKInputChild] = {
+            uuid: box
+            for uuid, box in made_boxes.items()
+            if box.get("children")
+        }
+        generic.move_parent_boxes_to_owner(owner_boxes, diagram.target, data)
+        generic.move_edges(owner_boxes, connections, data)
 
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
     if not diagram.display_symbols_as_boxes and makers.is_symbol(
@@ -223,79 +229,3 @@ def get_exchanges(
 
     filtered = filter(chain.from_iterable(exchanges))
     yield from {i.uuid: i for i in filtered}.values()
-
-
-def _move_parent_boxes(
-    obj: common.GenericElement,
-    data: _elkjs.ELKInputData,
-) -> None:
-    owner_boxes: dict[str, _elkjs.ELKInputChild] = {
-        child["id"]: child
-        for child in data["children"]
-        if child.get("children")
-    }
-    boxes_to_remove: list[str] = []
-    for child in data["children"]:
-        if not child.get("children"):
-            continue
-
-        owner = obj._model.by_uuid(child["id"])
-        if (
-            not (oowner := owner.owner)
-            or isinstance(oowner, layers.oa.EntityPkg)
-            or not (oowner_box := owner_boxes.get(oowner.uuid))
-        ):
-            continue
-
-        oowner_box.setdefault("children", []).append(child)
-        boxes_to_remove.append(child["id"])
-
-    data["children"] = [
-        b for b in data["children"] if b["id"] not in boxes_to_remove
-    ]
-
-
-def _move_edges(
-    boxes: dict[str, _elkjs.ELKInputChild],
-    connections: list[common.GenericElement],
-    data: _elkjs.ELKInputData,
-) -> None:
-    owner_boxes: dict[str, _elkjs.ELKInputChild] = {
-        uuid: box for uuid, box in boxes.items() if box.get("children")
-    }
-    edges_to_remove: list[str] = []
-
-    for c in connections:
-        source_owner_uuids = _get_all_owners(c.source)
-        target_owner_uuids = _get_all_owners(c.target)
-        common_owner_uuid = None
-        for owner in source_owner_uuids:
-            if owner in set(target_owner_uuids):
-                common_owner_uuid = owner
-                break
-
-        if not common_owner_uuid or not (
-            owner_box := owner_boxes.get(common_owner_uuid)
-        ):
-            continue
-
-        for edge in data["edges"]:
-            if edge["id"] == c.uuid:
-                owner_box.setdefault("edges", []).append(edge)
-                edges_to_remove.append(edge["id"])
-
-    data["edges"] = [
-        e for e in data["edges"] if e["id"] not in edges_to_remove
-    ]
-
-
-def _get_all_owners(obj: common.GenericElement) -> list[str]:
-    owners = []
-    current = obj
-    while current is not None and not isinstance(current, layers.oa.EntityPkg):
-        owners.append(current.uuid)
-        try:
-            current = current.owner
-        except AttributeError:
-            break
-    return owners

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import collections.abc as cabc
 import typing as t
+from itertools import chain
 
 from capellambse import helpers
 from capellambse.model import common
@@ -22,13 +23,22 @@ def collector(
     diagram: context.ContextDiagram, params: dict[str, t.Any] | None = None
 ) -> _elkjs.ELKInputData:
     """Collect context data from ports of centric box."""
+    diagram.display_parent_relation = (params or {}).pop(
+        "display_parent_relation", diagram.display_parent_relation
+    )
+    diagram.include_inner_objects = (params or {}).pop(
+        "include_inner_objects", diagram.include_inner_objects
+    )
     data = generic.collector(diagram, no_symbol=True)
     ports = port_collector(diagram.target, diagram.type)
     centerbox = data["children"][0]
-    centerbox["ports"] = [makers.make_port(i.uuid) for i in ports]
     connections = port_exchange_collector(ports)
+    centerbox["ports"] = [
+        makers.make_port(uuid) for uuid, edges in connections.items() if edges
+    ]
     ex_datas: list[generic.ExchangeData] = []
-    for ex in connections:
+    edges: common.ElementList[fa.AbstractExchange]
+    for ex in (edges := list(chain.from_iterable(connections.values()))):
         if is_hierarchical := exchanges.is_hierarchical(ex, centerbox):
             if not diagram.include_inner_objects:
                 continue
@@ -46,21 +56,22 @@ def collector(
             continue
 
     global_boxes = {centerbox["id"]: centerbox}
-    if diagram.display_parent_relation:
+    made_boxes = {centerbox["id"]: centerbox}
+    if diagram.display_parent_relation and diagram.target.owner:
         box = makers.make_box(
-            diagram.target.parent,
+            diagram.target.owner,
             no_symbol=diagram.display_symbols_as_boxes,
             layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
         )
         box["children"] = [centerbox]
         del data["children"][0]
-        global_boxes[diagram.target.parent.uuid] = box
+        global_boxes[diagram.target.owner.uuid] = box
+        made_boxes[diagram.target.owner.uuid] = box
 
     stack_heights: dict[str, float | int] = {
         "input": -makers.NEIGHBOR_VMARGIN,
         "output": -makers.NEIGHBOR_VMARGIN,
     }
-    child_boxes: list[_elkjs.ELKInputChild] = []
     for child, local_ports, side in port_context_collector(ex_datas, ports):
         _, label_height = helpers.get_text_extent(child.name)
         height = max(
@@ -82,69 +93,45 @@ def collector(
                 no_symbol=diagram.display_symbols_as_boxes,
             )
             box["ports"] = [makers.make_port(j.uuid) for j in local_ports]
-            if child.parent.uuid == centerbox["id"]:
-                child_boxes.append(box)
-            else:
-                global_boxes[child.uuid] = box
+            global_boxes[child.uuid] = box
+            made_boxes[child.uuid] = box
 
-        if diagram.display_parent_relation:
-            if child == diagram.target.parent:
-                _move_edge_to_local_edges(
-                    box, connections, local_ports, diagram, data
-                )
-            elif child.parent == diagram.target.parent:
-                parent_box = global_boxes[child.parent.uuid]
-                parent_box.setdefault("children", []).append(
-                    global_boxes.pop(child.uuid)
-                )
+        if diagram.display_parent_relation and child.owner is not None:
+            child_box = global_boxes.pop(child.uuid)
+            for uuid in generic.get_all_owners(child):
+                owner = diagram.target._model.by_uuid(uuid)
+                assert owner is not None
+                if not (parent_box := global_boxes.get(uuid)):
+                    parent_box = makers.make_box(
+                        owner,
+                        no_symbol=diagram.display_symbols_as_boxes,
+                    )
+                    global_boxes[uuid] = parent_box
+                    made_boxes[uuid] = parent_box
+
+                parent_box.setdefault("children", []).append(child_box)
                 for label in parent_box["labels"]:
                     label["layoutOptions"] = (
-                        makers.CENTRIC_LABEL_LAYOUT_OPTIONS
+                        makers.DEFAULT_LABEL_LAYOUT_OPTIONS
                     )
 
-                _move_edge_to_local_edges(
-                    parent_box, connections, local_ports, diagram, data
-                )
+                child_box = parent_box
 
         stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
 
     del global_boxes[centerbox["id"]]
     data["children"].extend(global_boxes.values())
-    if child_boxes:
-        centerbox["children"] = child_boxes
-        centerbox["width"] = makers.EOI_WIDTH
-        for label in centerbox.get("labels", []):
-            label.setdefault("layoutOptions", {}).update(
-                makers.DEFAULT_LABEL_LAYOUT_OPTIONS
-            )
+    if diagram.display_parent_relation:
+        owner_boxes: dict[str, _elkjs.ELKInputChild] = {
+            uuid: box
+            for uuid, box in made_boxes.items()
+            if box.get("children")
+        }
+        generic.move_parent_boxes_to_owner(owner_boxes, diagram.target, data)
+        generic.move_edges(owner_boxes, edges, data)
 
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
     return data
-
-
-def _move_edge_to_local_edges(
-    box: _elkjs.ELKInputChild,
-    connections: list[common.GenericElement],
-    local_ports: list[common.GenericElement],
-    diagram: context.ContextDiagram,
-    data: _elkjs.ELKInputData,
-) -> None:
-    edges_to_remove: list[str] = []
-    for c in connections:
-        if (
-            c.target in local_ports
-            and c.source in diagram.target.ports
-            or c.source in local_ports
-            and c.target in diagram.target.ports
-        ):
-            for edge in data["edges"]:
-                if edge["id"] == c.uuid:
-                    box.setdefault("edges", []).append(edge)
-                    edges_to_remove.append(edge["id"])
-
-    data["edges"] = [
-        e for e in data["edges"] if e["id"] not in edges_to_remove
-    ]
 
 
 def port_collector(
@@ -182,13 +169,12 @@ def port_exchange_collector(
         [cabc.Iterable[common.GenericElement]],
         cabc.Iterable[common.GenericElement],
     ] = lambda i: i,
-) -> list[common.GenericElement]:
+) -> dict[str, common.ElementList[fa.AbstractExchange]]:
     """Collect exchanges from `ports` savely."""
-    edges: list[common.GenericElement] = []
+    edges: dict[str, common.ElementList[fa.AbstractExchange]] = {}
     for i in ports:
         try:
-            filtered = filter(getattr(i, "exchanges"))
-            edges.extend(filtered)
+            edges[i.uuid] = filter(getattr(i, "exchanges"))
         except AttributeError:
             pass
     return edges

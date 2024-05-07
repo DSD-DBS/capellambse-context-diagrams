@@ -10,12 +10,16 @@ TEST_ACTOR_SIZING_UUID = "6c8f32bf-0316-477f-a23b-b5239624c28d"
 TEST_HIERARCHY_UUID = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
 TEST_HIERARCHY_CHILDREN_UUIDS = {
     "31bc2326-5a55-45f9-9967-f1957bcd3f89",
-    "ad0bdf2f-bd0e-48bc-9296-5be3371a76e2",
+    "99a1d711-74af-4db7-af08-4dbd91c281ce",
 }
 TEST_ACTIVITY_UUIDS = {
     "097bb133-abf3-4df0-ae4e-a28378537691",
     "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
     "c90f731b-0036-47e5-a455-9cf270d6880c",
+}
+TEST_FUNCTION_UUIDS = {
+    "861b9be3-a7b2-4e1d-b34b-8e857062b3df",
+    "f0bc11ba-89aa-4297-98d2-076440e9117f",
 }
 
 
@@ -132,6 +136,7 @@ def test_hierarchy_in_context_diagram(model: capellambse.MelodyModel) -> None:
     expected_children = TEST_HIERARCHY_CHILDREN_UUIDS
 
     adiag = obj.context_diagram.render(None, include_inner_objects=True)
+    obj.context_diagram.render("svgdiagram").save(pretty=True)
 
     children = {obj.uuid for obj in adiag[TEST_HIERARCHY_UUID].children}
 
@@ -157,6 +162,19 @@ def test_context_diagram_pass_params_to_render(
 
 @pytest.mark.parametrize("uuid", TEST_ACTIVITY_UUIDS)
 def test_context_diagram_of_allocated_activities(
+    model: capellambse.MelodyModel, uuid: str
+) -> None:
+    obj = model.by_uuid(uuid)
+
+    diag = obj.context_diagram
+    diag.display_parent_relation = True
+    diag.render("svgdiagram").save(pretty=True)
+
+    assert len(diag.nodes) > 1
+
+
+@pytest.mark.parametrize("uuid", TEST_FUNCTION_UUIDS)
+def test_context_diagram_of_allocated_functions(
     model: capellambse.MelodyModel, uuid: str
 ) -> None:
     obj = model.by_uuid(uuid)

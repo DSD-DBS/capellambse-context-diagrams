@@ -8,6 +8,7 @@ import collections.abc as cabc
 import functools
 import operator
 import typing as t
+from itertools import chain
 
 from capellambse.model import modeltypes
 from capellambse.model.crosslayer import fa
@@ -128,7 +129,7 @@ def collector_default(
         connections = default.port_exchange_collector(_ports, filter=filter)
         in_ports: dict[str, fa.FunctionPort] = {}
         out_ports: dict[str, fa.FunctionPort] = {}
-        for edge in connections:
+        for edge in (edges := list(chain.from_iterable(connections.values()))):
             if edge.source.owner == fnc:
                 out_ports.setdefault(edge.source.uuid, edge.source)
             else:
@@ -142,7 +143,7 @@ def collector_default(
         ) * max(len(in_ports), len(out_ports))
 
         ex_datas: list[generic.ExchangeData] = []
-        for ex in connections:
+        for ex in edges:
             if ex.uuid in made_edges:
                 continue
 

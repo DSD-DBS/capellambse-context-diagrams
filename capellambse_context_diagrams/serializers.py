@@ -17,7 +17,8 @@ import typing as t
 from capellambse import diagram
 from capellambse.svg import decorations
 
-from . import _elkjs, collectors, context
+from . import _elkjs, context
+from .collectors import makers
 
 logger = logging.getLogger(__name__)
 
@@ -116,7 +117,7 @@ class DiagramSerializer:
         styleclass: str | None
         derived = False
         if child["id"].startswith("__"):
-            styleclass, uuid = child["id"][2:].split("_", 1)
+            styleclass, uuid = child["id"][2:].split(":", 1)
             if styleclass.startswith("Derived-"):
                 styleclass = styleclass.removeprefix("Derived-")
                 derived = True
@@ -128,18 +129,12 @@ class DiagramSerializer:
         element: diagram.Box | diagram.Edge | diagram.Circle
         if child["type"] in {"node", "port"}:
             assert parent is None or isinstance(parent, diagram.Box)
-            has_symbol_cls = False
-            try:
-                obj = self.model.by_uuid(uuid)
-                has_symbol_cls = collectors.makers.is_symbol(obj)
-            except KeyError:
-                logger.error("ModelObject could not be found: '%s'", uuid)
-
+            has_symbol_cls = makers.is_symbol(styleclass)
             is_port = child["type"] == "port"
             box_type = ("box", "symbol")[
                 is_port
                 or has_symbol_cls
-                and not self._diagram.target == obj
+                and not self._diagram.target.uuid == uuid
                 and not self._diagram.display_symbols_as_boxes
             ]
 
@@ -170,11 +165,11 @@ class DiagramSerializer:
 
             source_id = child["sourceId"]
             if source_id.startswith("__"):
-                source_id = source_id[2:].split("_", 1)[-1]
+                source_id = source_id[2:].split(":", 1)[-1]
 
             target_id = child["targetId"]
             if target_id.startswith("__"):
-                target_id = target_id[2:].split("_", 1)[-1]
+                target_id = target_id[2:].split(":", 1)[-1]
 
             if child["routingPoints"]:
                 refpoints = [
@@ -275,7 +270,7 @@ class DiagramSerializer:
         except KeyError:
             if not uuid.startswith("__"):
                 return None
-            return uuid[2:].split("_", 1)[0]
+            return uuid[2:].split(":", 1)[0]
         else:
             return diagram.get_styleclass(melodyobj)
 

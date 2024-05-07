@@ -12,7 +12,8 @@ import typing as t
 from capellambse import helpers
 from capellambse.model import common
 from capellambse.model.crosslayer import cs, fa
-from capellambse.model.layers import ctx, la
+from capellambse.model.layers import ctx as sa
+from capellambse.model.layers import la
 from capellambse.model.modeltypes import DiagramType as DT
 
 from .. import _elkjs, context
@@ -23,6 +24,9 @@ def collector(
     diagram: context.ContextDiagram, params: dict[str, t.Any] | None = None
 ) -> _elkjs.ELKInputData:
     """Collect context data from ports of centric box."""
+    diagram.display_derived_interfaces = (params or {}).pop(
+        "display_derived_interfaces", diagram.display_derived_interfaces
+    )
     data = generic.collector(diagram, no_symbol=True)
     ports = port_collector(diagram.target, diagram.type)
     centerbox = data["children"][0]
@@ -310,24 +314,25 @@ def _derive_from_functions(
 
     # TODO: Even out derived interfaces on each side
 
-    for i, (uuid, derived_component) in enumerate(components.items()):
+    centerbox = data["children"][0]
+    for i, (uuid, derived_component) in enumerate(components.items(), 1):
         box = makers.make_box(
             derived_component,
             no_symbol=diagram.display_symbols_as_boxes,
         )
         class_ = type(derived_comp).__name__
-        box["id"] = comp_uuid = f"__Derived-{class_}_{uuid}"
+        box["id"] = f"__Derived-{class_}:{uuid}"
         data["children"].append(box)
+        source_id = f"__Derived-CP_INOUT:{i}"
+        target_id = f"__Derived-CP_INOUT:{-i}"
+        box.setdefault("ports", []).append(makers.make_port(source_id))
+        centerbox.setdefault("ports", []).append(makers.make_port(target_id))
         if i % 2 == 0:
-            source_id = comp_uuid
-            target_id = diagram.target.uuid
-        else:
-            source_id = diagram.target.uuid
-            target_id = comp_uuid
+            source_id, target_id = target_id, source_id
 
         data["edges"].append(
             {
-                "id": f"__Derived-ComponentExchange_{i}",
+                "id": f"__Derived-ComponentExchange:{i}",
                 "sources": [source_id],
                 "targets": [target_id],
             }
@@ -341,5 +346,5 @@ def _derive_from_functions(
 
 DERIVATORS = {
     la.LogicalComponent: _derive_from_functions,
-    ctx.SystemComponent: _derive_from_functions,
+    sa.SystemComponent: _derive_from_functions,
 }

@@ -158,7 +158,6 @@ def test_context_diagram_with_derived_interfaces(
 
     diag = obj.context_diagram
     diag.display_derived_interfaces = True
+    diagram = diag.render(None)
 
-    diag.render("svgdiagram").save(pretty=True)
-
-    assert len(diag.nodes) > 5
+    assert len(diagram) > 5

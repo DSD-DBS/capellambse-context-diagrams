@@ -54,19 +54,22 @@ def collector(
             ex_datas.append(ex_data)
         except AttributeError:
             continue
-
     global_boxes = {centerbox["id"]: centerbox}
     made_boxes = {centerbox["id"]: centerbox}
     if diagram.display_parent_relation and diagram.target.owner:
-        box = makers.make_box(
+        box = _make_box_and_update_globals(
             diagram.target.owner,
+            global_boxes,
+            made_boxes,
             no_symbol=diagram.display_symbols_as_boxes,
             layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
         )
         box["children"] = [centerbox]
         del data["children"][0]
-        global_boxes[diagram.target.owner.uuid] = box
-        made_boxes[diagram.target.owner.uuid] = box
+        all_owners = generic.get_all_owners(diagram.target)
+        start = 0
+        end = len(all_owners) - 1
+        common_owner = diagram.target
 
     stack_heights: dict[str, float | int] = {
         "input": -makers.NEIGHBOR_VMARGIN,
@@ -87,37 +90,68 @@ def collector(
             )
             box["height"] += height
         else:
-            box = makers.make_box(
+            box = _make_box_and_update_globals(
                 child,
+                global_boxes,
+                made_boxes,
                 height=height,
                 no_symbol=diagram.display_symbols_as_boxes,
             )
             box["ports"] = [makers.make_port(j.uuid) for j in local_ports]
-            global_boxes[child.uuid] = box
-            made_boxes[child.uuid] = box
 
-        if diagram.display_parent_relation and child.owner is not None:
-            child_box = global_boxes.pop(child.uuid)
-            for uuid in generic.get_all_owners(child):
-                owner = diagram.target._model.by_uuid(uuid)
-                assert owner is not None
-                if not (parent_box := global_boxes.get(uuid)):
-                    parent_box = makers.make_box(
-                        owner,
+        if diagram.display_parent_relation:
+            current = child
+            while (
+                current
+                and not isinstance(current, generic.PackageTypes)
+                and current.uuid not in all_owners
+            ):
+                if not (parent_box := global_boxes.get(current.owner.uuid)):
+                    parent_box = _make_box_and_update_globals(
+                        current.owner,
+                        global_boxes,
+                        made_boxes,
                         no_symbol=diagram.display_symbols_as_boxes,
+                        layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
                     )
-                    global_boxes[uuid] = parent_box
-                    made_boxes[uuid] = parent_box
-
-                parent_box.setdefault("children", []).append(child_box)
-                for label in parent_box["labels"]:
-                    label["layoutOptions"] = (
-                        makers.DEFAULT_LABEL_LAYOUT_OPTIONS
-                    )
-
-                child_box = parent_box
+                for box in (children := parent_box.setdefault("children", [])):
+                    if box["id"] == current.uuid:
+                        box = global_boxes.pop(current.uuid)
+                        break
+                else:
+                    children.append(global_boxes.pop(current.uuid))
+                current = current.owner
+            try:
+                if all_owners.index(current.uuid, start, end) > start:
+                    common_owner = current
+            except ValueError:
+                pass
 
         stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
+
+    if diagram.display_parent_relation and diagram.target.owner:
+        current = diagram.target.owner
+        while (
+            current
+            and not isinstance(current, generic.PackageTypes)
+            and current != common_owner
+        ):
+            if not (parent_box := global_boxes.get(current.owner.uuid)):
+                parent_box = _make_box_and_update_globals(
+                    current.owner,
+                    global_boxes,
+                    made_boxes,
+                    no_symbol=diagram.display_symbols_as_boxes,
+                    layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+                )
+            for box in (children := parent_box.setdefault("children", [])):
+                if box["id"] == current.uuid:
+                    box = global_boxes.pop(current.uuid)
+                    break
+            else:
+                children.append(global_boxes.pop(current.uuid))
+
+            current = current.owner
 
     del global_boxes[centerbox["id"]]
     data["children"].extend(global_boxes.values())
@@ -132,6 +166,21 @@ def collector(
 
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
     return data
+
+
+def _make_box_and_update_globals(
+    obj: t.Any,
+    global_boxes: dict[str, _elkjs.ELKInputChild],
+    made_boxes: dict[str, _elkjs.ELKInputChild],
+    **kwargs: t.Any,
+) -> _elkjs.ELKInputChild:
+    box = makers.make_box(
+        obj,
+        **kwargs,
+    )
+    global_boxes[obj.uuid] = box
+    made_boxes[obj.uuid] = box
+    return box
 
 
 def port_collector(

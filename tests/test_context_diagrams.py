@@ -8,9 +8,14 @@ TEST_CAP_SIZING_UUID = "b996a45f-2954-4fdd-9141-7934e7687de6"
 TEST_HUMAN_ACTOR_SIZING_UUID = "e95847ae-40bb-459e-8104-7209e86ea2d1"
 TEST_ACTOR_SIZING_UUID = "6c8f32bf-0316-477f-a23b-b5239624c28d"
 TEST_HIERARCHY_UUID = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
+TEST_HIERARCHY_PARENTS_UUIDS = {
+    "84c0978d-9a32-4f5b-8013-5b0b6adbfd73",
+    "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
+    "99a1d711-74af-4db7-af08-4dbd91c281ce",
+    "53558f58-270e-4206-8fc7-3cf9e788fac9",
+}
 TEST_HIERARCHY_CHILDREN_UUIDS = {
     "31bc2326-5a55-45f9-9967-f1957bcd3f89",
-    "99a1d711-74af-4db7-af08-4dbd91c281ce",
 }
 TEST_ACTIVITY_UUIDS = {
     "097bb133-abf3-4df0-ae4e-a28378537691",
@@ -131,12 +136,16 @@ def test_context_diagrams_symbol_sizing(
     assert adiag[TEST_ACTOR_SIZING_UUID].size.y >= 37
 
 
-def test_hierarchy_in_context_diagram(model: capellambse.MelodyModel) -> None:
+def test_include_inner_objects_in_context_diagram(
+    model: capellambse.MelodyModel,
+) -> None:
     obj = model.by_uuid(TEST_HIERARCHY_UUID)
     expected_children = TEST_HIERARCHY_CHILDREN_UUIDS
 
     adiag = obj.context_diagram.render(None, include_inner_objects=True)
-    obj.context_diagram.render("svgdiagram").save(pretty=True)
+    obj.context_diagram.render("svgdiagram", include_inner_objects=True).save(
+        pretty=True
+    )
 
     children = {obj.uuid for obj in adiag[TEST_HIERARCHY_UUID].children}
 
@@ -144,20 +153,45 @@ def test_hierarchy_in_context_diagram(model: capellambse.MelodyModel) -> None:
         assert uuid in children
 
 
-def test_context_diagram_pass_params_to_render(
+def test_exclude_inner_objects_in_context_diagram(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid(TEST_HIERARCHY_UUID)
+    expected_children = TEST_HIERARCHY_CHILDREN_UUIDS
+
+    adiag = obj.context_diagram.render(None, include_inner_objects=False)
+    obj.context_diagram.render("svgdiagram", include_inner_objects=False).save(
+        pretty=True
+    )
+
+    children = {obj.uuid for obj in adiag[TEST_HIERARCHY_UUID].children}
+
+    for uuid in expected_children:
+        assert uuid not in children
+
+
+def test_parent_relation_in_context_diagram(
     model: capellambse.MelodyModel,
 ) -> None:
     obj = model.by_uuid(TEST_HIERARCHY_UUID)
 
     diag = obj.context_diagram
-    without_hierarchy = diag.render(None, include_inner_objects=False)
-    with_hierarchy = diag.render(None, include_inner_objects=True)
+    hide_relation = diag.render(None, display_parent_relation=False)
+    diag.render(
+        "svgdiagram",
+        display_parent_relation=False,
+    ).save(pretty=True)
+    display_relation = diag.render(None, display_parent_relation=True)
+    diag.render(
+        "svgdiagram",
+        display_parent_relation=True,
+    ).save(pretty=True)
 
-    for uuid in TEST_HIERARCHY_CHILDREN_UUIDS:
-        assert with_hierarchy[uuid]
+    for uuid in TEST_HIERARCHY_PARENTS_UUIDS:
+        assert display_relation[uuid]
 
         with pytest.raises(KeyError):
-            without_hierarchy[uuid]  # pylint: disable=pointless-statement
+            hide_relation[uuid]  # pylint: disable=pointless-statement
 
 
 @pytest.mark.parametrize("uuid", TEST_ACTIVITY_UUIDS)

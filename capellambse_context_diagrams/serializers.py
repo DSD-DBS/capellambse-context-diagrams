@@ -59,7 +59,7 @@ class DiagramSerializer:
         self.model = elk_diagram.target._model
         self._diagram = elk_diagram
         self._cache: dict[str, diagram.Box | diagram.Edge] = {}
-        self._edges: list[EdgeContext] = []
+        self._edges: dict[str, EdgeContext] = {}
 
     def make_diagram(
         self,
@@ -87,7 +87,7 @@ class DiagramSerializer:
         for child in data["children"]:
             self.deserialize_child(child, diagram.Vector2D(), None)
 
-        for edge, ref, parent in self._edges:
+        for edge, ref, parent in self._edges.values():
             self.deserialize_child(edge, ref, parent)
 
         self.diagram.calculate_viewport()
@@ -248,7 +248,7 @@ class DiagramSerializer:
 
         for i in child.get("children", []):  # type: ignore
             if i["type"] == "edge":
-                self._edges.append((i, ref, parent))
+                self._edges.setdefault(i["id"], (i, ref, element))
             else:
                 self.deserialize_child(i, ref, element)
 

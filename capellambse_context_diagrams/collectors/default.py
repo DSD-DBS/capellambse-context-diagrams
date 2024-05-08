@@ -39,13 +39,14 @@ def collector(
     ex_datas: list[generic.ExchangeData] = []
     edges: common.ElementList[fa.AbstractExchange]
     for ex in (edges := list(chain.from_iterable(connections.values()))):
-        if is_hierarchical := exchanges.is_hierarchical(ex, centerbox):
-            if not diagram.include_inner_objects:
-                continue
-
-            elkdata: _elkjs.ELKInputData = centerbox
-        else:
+        if (
+            is_hierarchical := exchanges.is_hierarchical(ex, centerbox)
+        ) and not diagram.include_inner_objects:
+            continue
+        if not is_hierarchical or not diagram.display_parent_relation:
             elkdata = data
+        else:
+            elkdata = centerbox
         try:
             ex_data = generic.ExchangeData(
                 ex, elkdata, diagram.filters, params, is_hierarchical
@@ -56,6 +57,8 @@ def collector(
             continue
     global_boxes = {centerbox["id"]: centerbox}
     made_boxes = {centerbox["id"]: centerbox}
+    to_delete = set()
+    to_delete.add(centerbox["id"])
     if diagram.display_parent_relation and diagram.target.owner:
         box = _make_box_and_update_globals(
             diagram.target.owner,
@@ -68,7 +71,6 @@ def collector(
         del data["children"][0]
         all_owners = generic.get_all_owners(diagram.target)
         start = 0
-        end = len(all_owners) - 1
         common_owner = diagram.target
 
     stack_heights: dict[str, float | int] = {
@@ -114,15 +116,17 @@ def collector(
                         no_symbol=diagram.display_symbols_as_boxes,
                         layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
                     )
+                new_box = global_boxes.get(current.uuid, current)
                 for box in (children := parent_box.setdefault("children", [])):
                     if box["id"] == current.uuid:
-                        box = global_boxes.pop(current.uuid)
+                        box = new_box
                         break
                 else:
-                    children.append(global_boxes.pop(current.uuid))
+                    children.append(new_box)
+                to_delete.add(current.uuid)
                 current = current.owner
             try:
-                if all_owners.index(current.uuid, start, end) > start:
+                if all_owners.index(current.uuid, start) > start:
                     common_owner = current
             except ValueError:
                 pass
@@ -153,7 +157,8 @@ def collector(
 
             current = current.owner
 
-    del global_boxes[centerbox["id"]]
+    for uuid in to_delete:
+        del global_boxes[uuid]
     data["children"].extend(global_boxes.values())
     if diagram.display_parent_relation:
         owner_boxes: dict[str, _elkjs.ELKInputChild] = {

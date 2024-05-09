@@ -39,10 +39,13 @@ def collector(
     ex_datas: list[generic.ExchangeData] = []
     edges: common.ElementList[fa.AbstractExchange]
     for ex in (edges := list(chain.from_iterable(connections.values()))):
-        if (
-            is_hierarchical := exchanges.is_hierarchical(ex, centerbox)
-        ) and not diagram.include_inner_objects:
-            continue
+        if is_hierarchical := exchanges.is_hierarchical(ex, centerbox):
+            if diagram.display_parent_relation:
+                centerbox["labels"][0][
+                    "layoutOptions"
+                ] = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+            if not diagram.include_inner_objects:
+                continue
         if not is_hierarchical or not diagram.display_parent_relation:
             elkdata = data
         else:
@@ -59,11 +62,22 @@ def collector(
     made_boxes = {centerbox["id"]: centerbox}
     to_delete = set()
     to_delete.add(centerbox["id"])
+
+    def _make_box_and_update_globals(
+        obj: t.Any,
+        **kwargs: t.Any,
+    ) -> _elkjs.ELKInputChild:
+        box = makers.make_box(
+            obj,
+            **kwargs,
+        )
+        global_boxes[obj.uuid] = box
+        made_boxes[obj.uuid] = box
+        return box
+
     if diagram.display_parent_relation and diagram.target.owner:
         box = _make_box_and_update_globals(
             diagram.target.owner,
-            global_boxes,
-            made_boxes,
             no_symbol=diagram.display_symbols_as_boxes,
             layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
         )
@@ -94,8 +108,6 @@ def collector(
         else:
             box = _make_box_and_update_globals(
                 child,
-                global_boxes,
-                made_boxes,
                 height=height,
                 no_symbol=diagram.display_symbols_as_boxes,
             )
@@ -111,8 +123,6 @@ def collector(
                 if not (parent_box := global_boxes.get(current.owner.uuid)):
                     parent_box = _make_box_and_update_globals(
                         current.owner,
-                        global_boxes,
-                        made_boxes,
                         no_symbol=diagram.display_symbols_as_boxes,
                         layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
                     )
@@ -143,8 +153,6 @@ def collector(
             if not (parent_box := global_boxes.get(current.owner.uuid)):
                 parent_box = _make_box_and_update_globals(
                     current.owner,
-                    global_boxes,
-                    made_boxes,
                     no_symbol=diagram.display_symbols_as_boxes,
                     layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
                 )
@@ -171,21 +179,6 @@ def collector(
 
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
     return data
-
-
-def _make_box_and_update_globals(
-    obj: t.Any,
-    global_boxes: dict[str, _elkjs.ELKInputChild],
-    made_boxes: dict[str, _elkjs.ELKInputChild],
-    **kwargs: t.Any,
-) -> _elkjs.ELKInputChild:
-    box = makers.make_box(
-        obj,
-        **kwargs,
-    )
-    global_boxes[obj.uuid] = box
-    made_boxes[obj.uuid] = box
-    return box
 
 
 def port_collector(

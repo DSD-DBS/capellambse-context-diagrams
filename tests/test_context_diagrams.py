@@ -140,7 +140,6 @@ def test_include_inner_objects_in_context_diagram(
     model: capellambse.MelodyModel,
 ) -> None:
     obj = model.by_uuid(TEST_HIERARCHY_UUID)
-    expected_children = TEST_HIERARCHY_CHILDREN_UUIDS
 
     adiag = obj.context_diagram.render(None, include_inner_objects=True)
     obj.context_diagram.render("svgdiagram", include_inner_objects=True).save(
@@ -149,7 +148,7 @@ def test_include_inner_objects_in_context_diagram(
 
     children = {obj.uuid for obj in adiag[TEST_HIERARCHY_UUID].children}
 
-    for uuid in expected_children:
+    for uuid in TEST_HIERARCHY_CHILDREN_UUIDS:
         assert uuid in children
 
 
@@ -157,7 +156,6 @@ def test_exclude_inner_objects_in_context_diagram(
     model: capellambse.MelodyModel,
 ) -> None:
     obj = model.by_uuid(TEST_HIERARCHY_UUID)
-    expected_children = TEST_HIERARCHY_CHILDREN_UUIDS
 
     adiag = obj.context_diagram.render(None, include_inner_objects=False)
     obj.context_diagram.render("svgdiagram", include_inner_objects=False).save(
@@ -166,8 +164,35 @@ def test_exclude_inner_objects_in_context_diagram(
 
     children = {obj.uuid for obj in adiag[TEST_HIERARCHY_UUID].children}
 
-    for uuid in expected_children:
+    for uuid in TEST_HIERARCHY_CHILDREN_UUIDS:
         assert uuid not in children
+
+
+def test_exclude_inner_objects_and_hide_parent_relation_in_context_diagram(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid(TEST_HIERARCHY_UUID)
+
+    adiag = obj.context_diagram.render(
+        None,
+        display_parent_relation=False,
+        include_inner_objects=False,
+        depth=2,
+    )
+    obj.context_diagram.render(
+        "svgdiagram",
+        display_parent_relation=False,
+        include_inner_objects=False,
+        depth=2,
+    ).save(pretty=True)
+
+    for uuid in TEST_HIERARCHY_CHILDREN_UUIDS:
+        with pytest.raises(KeyError):
+            adiag[uuid]  # pylint: disable=pointless-statement
+
+    for uuid in TEST_HIERARCHY_PARENTS_UUIDS:
+        with pytest.raises(KeyError):
+            adiag[uuid]  # pylint: disable=pointless-statement
 
 
 def test_parent_relation_in_context_diagram(

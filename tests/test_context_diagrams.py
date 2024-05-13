@@ -14,9 +14,6 @@ TEST_HIERARCHY_PARENTS_UUIDS = {
     "99a1d711-74af-4db7-af08-4dbd91c281ce",
     "53558f58-270e-4206-8fc7-3cf9e788fac9",
 }
-TEST_HIERARCHY_CHILDREN_UUIDS = {
-    "31bc2326-5a55-45f9-9967-f1957bcd3f89",
-}
 TEST_ACTIVITY_UUIDS = {
     "097bb133-abf3-4df0-ae4e-a28378537691",
     "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
@@ -134,65 +131,6 @@ def test_context_diagrams_symbol_sizing(
     assert adiag[TEST_CAP_SIZING_UUID].size.y >= 92
     assert adiag[TEST_HUMAN_ACTOR_SIZING_UUID].size.y >= 57
     assert adiag[TEST_ACTOR_SIZING_UUID].size.y >= 37
-
-
-def test_include_inner_objects_in_context_diagram(
-    model: capellambse.MelodyModel,
-) -> None:
-    obj = model.by_uuid(TEST_HIERARCHY_UUID)
-
-    adiag = obj.context_diagram.render(None, include_inner_objects=True)
-    obj.context_diagram.render("svgdiagram", include_inner_objects=True).save(
-        pretty=True
-    )
-
-    children = {obj.uuid for obj in adiag[TEST_HIERARCHY_UUID].children}
-
-    for uuid in TEST_HIERARCHY_CHILDREN_UUIDS:
-        assert uuid in children
-
-
-def test_exclude_inner_objects_in_context_diagram(
-    model: capellambse.MelodyModel,
-) -> None:
-    obj = model.by_uuid(TEST_HIERARCHY_UUID)
-
-    adiag = obj.context_diagram.render(None, include_inner_objects=False)
-    obj.context_diagram.render("svgdiagram", include_inner_objects=False).save(
-        pretty=True
-    )
-
-    children = {obj.uuid for obj in adiag[TEST_HIERARCHY_UUID].children}
-
-    for uuid in TEST_HIERARCHY_CHILDREN_UUIDS:
-        assert uuid not in children
-
-
-def test_exclude_inner_objects_and_hide_parent_relation_in_context_diagram(
-    model: capellambse.MelodyModel,
-) -> None:
-    obj = model.by_uuid(TEST_HIERARCHY_UUID)
-
-    adiag = obj.context_diagram.render(
-        None,
-        display_parent_relation=False,
-        include_inner_objects=False,
-        depth=2,
-    )
-    obj.context_diagram.render(
-        "svgdiagram",
-        display_parent_relation=False,
-        include_inner_objects=False,
-        depth=2,
-    ).save(pretty=True)
-
-    for uuid in TEST_HIERARCHY_CHILDREN_UUIDS:
-        with pytest.raises(KeyError):
-            adiag[uuid]  # pylint: disable=pointless-statement
-
-    for uuid in TEST_HIERARCHY_PARENTS_UUIDS:
-        with pytest.raises(KeyError):
-            adiag[uuid]  # pylint: disable=pointless-statement
 
 
 def test_parent_relation_in_context_diagram(

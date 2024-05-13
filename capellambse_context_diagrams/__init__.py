@@ -74,7 +74,6 @@ def register_classes() -> None:
             {
                 "display_symbols_as_boxes": True,
                 "display_parent_relation": True,
-                "include_inner_objects": True,
                 "render_styles": styling.BLUE_ACTOR_FNCS,
             },
         ),
@@ -88,7 +87,6 @@ def register_classes() -> None:
             DiagramType.LAB,
             {
                 "display_parent_relation": True,
-                "include_inner_objects": True,
                 "render_styles": styling.BLUE_ACTOR_FNCS,
             },
         ),

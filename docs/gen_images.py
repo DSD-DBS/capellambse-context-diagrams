@@ -99,7 +99,9 @@ def generate_hierarchy_image() -> None:
     with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
         print(
             diag.render(
-                "svg", include_inner_objects=True, transparent_background=False
+                "svg",
+                display_parent_relation=True,
+                transparent_background=False,
             ),
             file=fd,
         )

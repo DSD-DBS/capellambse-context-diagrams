@@ -255,7 +255,6 @@ class ContextDiagram(diagram.AbstractDiagram):
         render_styles: dict[str, styling.Styler] | None = None,
         display_symbols_as_boxes: bool = False,
         display_parent_relation: bool = False,
-        include_inner_objects: bool = False,
         slim_center_box: bool = True,
     ) -> None:
         super().__init__(obj._model)
@@ -267,7 +266,6 @@ class ContextDiagram(diagram.AbstractDiagram):
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
         self.display_symbols_as_boxes = display_symbols_as_boxes
         self.display_parent_relation = display_parent_relation
-        self.include_inner_objects = include_inner_objects
         self.slim_center_box = slim_center_box
 
         if standard_filter := STANDARD_FILTERS.get(class_):

@@ -26,9 +26,6 @@ def collector(
     diagram.display_parent_relation = (params or {}).pop(
         "display_parent_relation", diagram.display_parent_relation
     )
-    diagram.include_inner_objects = (params or {}).pop(
-        "include_inner_objects", diagram.include_inner_objects
-    )
     data = generic.collector(diagram, no_symbol=True)
     ports = port_collector(diagram.target, diagram.type)
     centerbox = data["children"][0]
@@ -39,17 +36,16 @@ def collector(
     ex_datas: list[generic.ExchangeData] = []
     edges: common.ElementList[fa.AbstractExchange]
     for ex in (edges := list(chain.from_iterable(connections.values()))):
+
         if is_hierarchical := exchanges.is_hierarchical(ex, centerbox):
-            if diagram.display_parent_relation:
-                centerbox["labels"][0][
-                    "layoutOptions"
-                ] = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
-            if not diagram.include_inner_objects:
+            if not diagram.display_parent_relation:
                 continue
-        if not is_hierarchical or not diagram.display_parent_relation:
-            elkdata = data
+            centerbox["labels"][0][
+                "layoutOptions"
+            ] = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+            elkdata: _elkjs.ELKInputData = centerbox
         else:
-            elkdata = centerbox
+            elkdata = data
         try:
             ex_data = generic.ExchangeData(
                 ex, elkdata, diagram.filters, params, is_hierarchical

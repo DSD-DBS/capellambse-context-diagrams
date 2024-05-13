@@ -29,7 +29,7 @@ from capellambse.model.crosslayer import fa, information
 from capellambse.model.layers import ctx, la, oa, pa
 from capellambse.model.modeltypes import DiagramType
 
-from . import context, styling
+from . import _elkjs, context, styling
 
 try:
     __version__ = metadata.version("capellambse-context-diagrams")
@@ -44,6 +44,18 @@ SupportedClass = tuple[
 logger = logging.getLogger(__name__)
 
 ATTR_NAME = "context_diagram"
+
+
+def install_elk() -> None:
+    """Install elk.js and its dependencies into the local cache directory.
+
+    When rendering a context diagram, elk.js will be installed
+    automatically into a persistent local cache directory. This function
+    may be called while building a container, starting a server or
+    similar tasks in order to prepare the elk.js execution environment
+    ahead of time.
+    """
+    _elkjs._install_required_npm_pkg_versions()
 
 
 def init() -> None:

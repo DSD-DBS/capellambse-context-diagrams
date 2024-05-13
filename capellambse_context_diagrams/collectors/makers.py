@@ -42,10 +42,12 @@ SYMBOL_RATIO = MIN_SYMBOL_WIDTH / MIN_SYMBOL_HEIGHT
 FAULT_PAD = 10
 """Height adjustment for labels."""
 BOX_TO_SYMBOL = (
-    layers.ctx.Capability,
-    layers.oa.OperationalCapability,
-    layers.ctx.Mission,
-    layers.ctx.SystemComponent,
+    layers.ctx.Capability.__name__,
+    layers.oa.OperationalCapability.__name__,
+    layers.ctx.Mission.__name__,
+    layers.ctx.SystemComponent.__name__,
+    "SystemHumanActor",
+    "SystemActor",
 )
 """
 Types that need to be converted to symbols during serialization if
@@ -189,9 +191,13 @@ def calculate_height_and_width(
     return width, max(height, _height)
 
 
-def is_symbol(obj: common.GenericElement) -> bool:
+def is_symbol(obj: str | common.GenericElement | None) -> bool:
     """Check if given `obj` is rendered as a Symbol instead of a Box."""
-    return isinstance(obj, BOX_TO_SYMBOL)
+    if obj is None:
+        return False
+    elif isinstance(obj, str):
+        return obj in BOX_TO_SYMBOL
+    return type(obj).__name__ in BOX_TO_SYMBOL
 
 
 def make_port(uuid: str) -> _elkjs.ELKInputPort:

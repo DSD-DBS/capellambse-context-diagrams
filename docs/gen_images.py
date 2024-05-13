@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import logging
 import pathlib
+import typing as t
 
 import mkdocs_gen_files
 from capellambse import MelodyModel, diagram
@@ -16,19 +17,23 @@ logging.basicConfig()
 dest = pathlib.Path("assets") / "images"
 model_path = pathlib.Path(__file__).parent.parent / "tests" / "data"
 model = MelodyModel(path=model_path, entrypoint="ContextDiagram.aird")
-general_context_diagram_uuids = {
-    "Environment": "e37510b9-3166-4f80-a919-dfaac9b696c7",
-    "Eat": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
-    "Middle": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
-    "Capability": "9390b7d5-598a-42db-bef8-23677e45ba06",
-    "Lost": "a5642060-c9cc-4d49-af09-defaa3024bae",
-    "Left": "f632888e-51bc-4c9f-8e81-73e9404de784",
-    "educate Wizards": "957c5799-1d4a-4ac0-b5de-33a65bf1519c",
-    "Weird guy": "098810d9-0325-4ae8-a111-82202c0d2016",
-    "Top secret": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+general_context_diagram_uuids: dict[str, tuple[str, dict[str, t.Any]]] = {
+    "Environment": ("e37510b9-3166-4f80-a919-dfaac9b696c7", {}),
+    "Eat": ("8bcb11e6-443b-4b92-bec2-ff1d87a224e7", {}),
+    "Middle": ("da08ddb6-92ba-4c3b-956a-017424dbfe85", {}),
+    "Capability": ("9390b7d5-598a-42db-bef8-23677e45ba06", {}),
+    "Lost": ("a5642060-c9cc-4d49-af09-defaa3024bae", {}),
+    "Left": ("f632888e-51bc-4c9f-8e81-73e9404de784", {}),
+    "educate Wizards": ("957c5799-1d4a-4ac0-b5de-33a65bf1519c", {}),
+    "Weird guy": ("098810d9-0325-4ae8-a111-82202c0d2016", {}),
+    "Top secret": ("5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6", {}),
 }
-interface_context_diagram_uuids = {
-    "Left to right": "3ef23099-ce9a-4f7d-812f-935f47e7938d",
+interface_context_diagram_uuids: dict[str, tuple[str, dict[str, t.Any]]] = {
+    "Left to right": ("3ef23099-ce9a-4f7d-812f-935f47e7938d", {}),
+    "Interface": (
+        "fbb7f735-3c1f-48de-9791-179d35ca7b98",
+        {"include_interface": True},
+    ),
 }
 hierarchy_context = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
 diagram_uuids = general_context_diagram_uuids | interface_context_diagram_uuids
@@ -36,18 +41,20 @@ class_tree_uuid = "b7c7f442-377f-492c-90bf-331e66988bda"
 realization_fnc_uuid = "beaf5ba4-8fa9-4342-911f-0266bb29be45"
 realization_comp_uuid = "b9f9a83c-fb02-44f7-9123-9d86326de5f1"
 data_flow_uuid = "3b83b4ba-671a-4de8-9c07-a5c6b1d3c422"
+derived_uuid = "0d18f31b-9a13-4c54-9e63-a13dbf619a69"
 
 
 def generate_index_images() -> None:
-    for uuid in diagram_uuids.values():
+    for uuid, render_params in diagram_uuids.values():
         diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
         with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
-            print(diag.render("svg", transparent_background=False), file=fd)
+            render_params["transparent_background"] = False  # type: ignore[index]
+            print(diag.render("svg", **render_params), file=fd)  # type: ignore[arg-type]
 
 
 def generate_no_symbol_images() -> None:
     for name in ("Capability", "Middle"):
-        uuid = general_context_diagram_uuids[name]
+        uuid, _ = general_context_diagram_uuids[name]
         diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
         diag.display_symbols_as_boxes = True
         diag.invalidate_cache()
@@ -155,27 +162,40 @@ def generate_data_flow_image() -> None:
         print(diag.render("svg", transparent_background=False), file=fd)
 
 
+def generate_derived_image() -> None:
+    diag: context.ContextDiagram = model.by_uuid(derived_uuid).context_diagram
+    params = {
+        "display_derived_interfaces": True,
+        "transparent_background": False,
+    }
+    with mkdocs_gen_files.open(
+        f"{str(dest / diag.name)}-derived.svg", "w"
+    ) as fd:
+        print(diag.render("svg", **params), file=fd)
+
+
 generate_index_images()
 generate_hierarchy_image()
 generate_no_symbol_images()
 
-wizard = general_context_diagram_uuids["educate Wizards"]
-generate_no_edgelabel_image(wizard)
+wizard_uuid = general_context_diagram_uuids["educate Wizards"][0]
+generate_no_edgelabel_image(wizard_uuid)
 
-lost = general_context_diagram_uuids["Lost"]
-generate_filter_image(lost, filters.EX_ITEMS, "ex")
-generate_filter_image(lost, filters.FEX_EX_ITEMS, "fex and ex")
-generate_filter_image(lost, filters.FEX_OR_EX_ITEMS, "fex or ex")
+lost_uuid = general_context_diagram_uuids["Lost"][0]
+generate_filter_image(lost_uuid, filters.EX_ITEMS, "ex")
+generate_filter_image(lost_uuid, filters.FEX_EX_ITEMS, "fex and ex")
+generate_filter_image(lost_uuid, filters.FEX_OR_EX_ITEMS, "fex or ex")
 
 generate_styling_image(
-    lost,
+    lost_uuid,
     dict(
         styling.BLUE_ACTOR_FNCS,
         junction=lambda o, s: {"stroke": diagram.RGB(220, 20, 60)},
     ),
     "red junction",
 )
-generate_styling_image(wizard, {}, "no_styles")
+generate_styling_image(wizard_uuid, {}, "no_styles")
 generate_class_tree_images()
 generate_realization_view_images()
 generate_data_flow_image()
+generate_derived_image()

@@ -257,7 +257,7 @@ def get_all_owners(obj: common.GenericElement) -> list[str]:
     """Return the UUIDs from all owners of ``obj``."""
     owners: list[str] = []
     current = obj
-    while current is not None and not isinstance(current, PackageTypes):
+    while current is not None:
         owners.append(current.uuid)
         try:
             current = current.owner

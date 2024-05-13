@@ -17,7 +17,8 @@ import typing as t
 from capellambse import diagram
 from capellambse.svg import decorations
 
-from . import _elkjs, collectors, context
+from . import _elkjs, context
+from .collectors import makers
 
 logger = logging.getLogger(__name__)
 
@@ -121,28 +122,28 @@ class DiagramSerializer:
         [`diagram.Diagram`][capellambse.diagram.Diagram] : Diagram
             class type that stores all previously named classes.
         """
+        uuid: str
+        styleclass: str | None
+        derived = False
         if child["id"].startswith("__"):
-            styleclass: str | None = child["id"][2:].split("_", 1)[0]
+            styleclass, uuid = child["id"][2:].split(":", 1)
+            if styleclass.startswith("Derived-"):
+                styleclass = styleclass.removeprefix("Derived-")
+                derived = True
         else:
             styleclass = self.get_styleclass(child["id"])
+            uuid = child["id"]
 
+        styleoverrides = self.get_styleoverrides(uuid, child, derived=derived)
         element: diagram.Box | diagram.Edge | diagram.Circle
         if child["type"] in {"node", "port"}:
             assert parent is None or isinstance(parent, diagram.Box)
-            has_symbol_cls = False
-            try:
-                obj = self.model.by_uuid(child["id"])
-                has_symbol_cls = collectors.makers.is_symbol(obj)
-            except KeyError:
-                logger.error(
-                    "ModelObject could not be found: '%s'", child["id"]
-                )
-
+            has_symbol_cls = makers.is_symbol(styleclass)
             is_port = child["type"] == "port"
             box_type = ("box", "symbol")[
                 is_port
                 or has_symbol_cls
-                and not self._diagram.target == obj
+                and not self._diagram.target.uuid == uuid
                 and not self._diagram.display_symbols_as_boxes
             ]
 
@@ -155,21 +156,29 @@ class DiagramSerializer:
             element = diagram.Box(
                 ref,
                 size,
-                uuid=child["id"],
+                uuid=uuid,
                 parent=parent,
                 port=is_port,
                 styleclass=styleclass,
-                styleoverrides=self.get_styleoverrides(child),
+                styleoverrides=styleoverrides,
                 features=features,
                 context=child.get("context"),
             )
             element.JSON_TYPE = box_type
             self.diagram.add_element(element)
-            self._cache[child["id"]] = element
+            self._cache[uuid] = element
         elif child["type"] == "edge":
             styleclass = child.get("styleclass", styleclass)  # type: ignore[assignment]
             styleclass = REMAP_STYLECLASS.get(styleclass, styleclass)  # type: ignore[arg-type]
             EDGE_HANDLER.get(styleclass, lambda c: c)(child)
+
+            source_id = child["sourceId"]
+            if source_id.startswith("__"):
+                source_id = source_id[2:].split(":", 1)[-1]
+
+            target_id = child["targetId"]
+            if target_id.startswith("__"):
+                target_id = target_id[2:].split(":", 1)[-1]
 
             if child["routingPoints"]:
                 refpoints = [
@@ -177,26 +186,26 @@ class DiagramSerializer:
                     for point in child["routingPoints"]
                 ]
             else:
-                source = self._cache[child["sourceId"]]
-                target = self._cache[child["targetId"]]
+                source = self._cache[source_id]
+                target = self._cache[target_id]
                 refpoints = route_shortest_connection(source, target)
 
             element = diagram.Edge(
                 refpoints,
                 uuid=child["id"],
-                source=self.diagram[child["sourceId"]],
-                target=self.diagram[child["targetId"]],
+                source=self.diagram[source_id],
+                target=self.diagram[target_id],
                 styleclass=styleclass,
-                styleoverrides=self.get_styleoverrides(child),
+                styleoverrides=styleoverrides,
                 context=child.get("context"),
             )
             self.diagram.add_element(element)
-            self._cache[child["id"]] = element
+            self._cache[uuid] = element
         elif child["type"] == "label":
             assert parent is not None
             if not parent.port:
                 if parent.JSON_TYPE != "symbol":
-                    parent.styleoverrides |= self.get_styleoverrides(child)
+                    parent.styleoverrides |= styleoverrides
 
                 if isinstance(parent, diagram.Box):
                     attr_name = "floating_labels"
@@ -221,7 +230,7 @@ class DiagramSerializer:
                             + (child["position"]["x"], child["position"]["y"]),
                             (child["size"]["width"], child["size"]["height"]),
                             label=child["text"],
-                            styleoverrides=self.get_styleoverrides(child),
+                            styleoverrides=styleoverrides,
                         )
                     )
 
@@ -238,7 +247,7 @@ class DiagramSerializer:
                 5,
                 uuid=child["id"],
                 styleclass=self.get_styleclass(uuid),
-                styleoverrides=self.get_styleoverrides(child),
+                styleoverrides=styleoverrides,
                 context=child.get("context"),
             )
             self.diagram.add_element(element)
@@ -273,12 +282,12 @@ class DiagramSerializer:
         except KeyError:
             if not uuid.startswith("__"):
                 return None
-            return uuid[2:].split("_", 1)[0]
+            return uuid[2:].split(":", 1)[0]
         else:
             return diagram.get_styleclass(melodyobj)
 
     def get_styleoverrides(
-        self, child: _elkjs.ELKOutputChild
+        self, uuid: str, child: _elkjs.ELKOutputChild, *, derived: bool = False
     ) -> diagram.StyleOverrides:
         """Return
         [`styling.CSSStyles`][capellambse_context_diagrams.styling.CSSStyles]
@@ -289,14 +298,14 @@ class DiagramSerializer:
         styleoverrides: dict[str, t.Any] = {}
         if style_condition is not None:
             if child["type"] != "junction":
-                obj = self._diagram._model.by_uuid(child["id"])
+                obj = self._diagram._model.by_uuid(uuid)
             else:
                 obj = None
 
             styleoverrides = style_condition(obj, self) or {}
 
-        if child["id"] == self._diagram.target.uuid:
-            styleoverrides["stroke-width"] = "3"
+        if derived:
+            styleoverrides["stroke-dasharray"] = "4"
 
         style: dict[str, t.Any]
         if style := child.get("style", {}):

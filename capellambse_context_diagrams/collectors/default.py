@@ -13,6 +13,8 @@ from itertools import chain
 from capellambse import helpers
 from capellambse.model import common
 from capellambse.model.crosslayer import cs, fa
+from capellambse.model.layers import ctx as sa
+from capellambse.model.layers import la
 from capellambse.model.modeltypes import DiagramType as DT
 
 from .. import _elkjs, context
@@ -25,6 +27,9 @@ def collector(
     """Collect context data from ports of centric box."""
     diagram.display_parent_relation = (params or {}).pop(
         "display_parent_relation", diagram.display_parent_relation
+    )
+    diagram.display_derived_interfaces = (params or {}).pop(
+        "display_derived_interfaces", diagram.display_derived_interfaces
     )
     data = generic.collector(diagram, no_symbol=True)
     ports = port_collector(diagram.target, diagram.type)
@@ -71,14 +76,15 @@ def collector(
         made_boxes[obj.uuid] = box
         return box
 
-    if diagram.display_parent_relation and diagram.target.owner:
-        box = _make_box_and_update_globals(
-            diagram.target.owner,
-            no_symbol=diagram.display_symbols_as_boxes,
-            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
-        )
-        box["children"] = [centerbox]
-        del data["children"][0]
+    if diagram.display_parent_relation:
+        if diagram.target.owner:
+            box = _make_box_and_update_globals(
+                diagram.target.owner,
+                no_symbol=diagram.display_symbols_as_boxes,
+                layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+            )
+            box["children"] = [centerbox]
+            del data["children"][0]
         all_owners = generic.get_all_owners(diagram.target)
         start = 0
         common_owner = diagram.target
@@ -174,6 +180,9 @@ def collector(
         generic.move_edges(owner_boxes, edges, data)
 
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
+    if diagram.display_derived_interfaces:
+        add_derived_components_and_interfaces(diagram, data)
+
     return data
 
 
@@ -288,3 +297,91 @@ def port_context_collector(
             info.ports.append(port)
 
     return iter(ctx.values())
+
+
+def add_derived_components_and_interfaces(
+    diagram: context.ContextDiagram, data: _elkjs.ELKInputData
+) -> None:
+    """Add hidden Boxes and Exchanges to ``obj``'s context.
+
+    The derived exchanges are displayed with a dashed line.
+    """
+    if not (derivator := DERIVATORS.get(type(diagram.target))):
+        return
+
+    derivator(diagram, data)
+
+
+def derive_from_functions(
+    diagram: context.ContextDiagram, data: _elkjs.ELKInputData
+) -> None:
+    """Derive Components from allocated functions of the context target.
+
+    A Component, a ComponentExchange and two ComponentPorts are added
+    to ``data``. These elements are prefixed with ``Derived-`` to
+    receive special styling in the serialization step.
+    """
+    assert isinstance(diagram.target, cs.Component)
+    ports = []
+    for fnc in diagram.target.allocated_functions:
+        ports.extend(port_collector(fnc, diagram.type))
+
+    context_box_ids = {child["id"] for child in data["children"]}
+    components: dict[str, cs.Component] = {}
+    for port in ports:
+        for fex in port.exchanges:
+            if isinstance(port, fa.FunctionOutputPort):
+                attr = "target"
+            else:
+                attr = "source"
+
+            try:
+                derived_comp = getattr(fex, attr).owner.owner
+                if (
+                    derived_comp == diagram.target
+                    or derived_comp.uuid in context_box_ids
+                ):
+                    continue
+
+                if derived_comp.uuid not in components:
+                    components[derived_comp.uuid] = derived_comp
+            except AttributeError:
+                ...
+
+    # TODO: Even out derived interfaces on each side
+
+    centerbox = data["children"][0]
+    for i, (uuid, derived_component) in enumerate(components.items(), 1):
+        box = makers.make_box(
+            derived_component,
+            no_symbol=diagram.display_symbols_as_boxes,
+        )
+        class_ = type(derived_comp).__name__
+        box["id"] = f"__Derived-{class_}:{uuid}"
+        data["children"].append(box)
+        source_id = f"__Derived-CP_INOUT:{i}"
+        target_id = f"__Derived-CP_INOUT:{-i}"
+        box.setdefault("ports", []).append(makers.make_port(source_id))
+        centerbox.setdefault("ports", []).append(makers.make_port(target_id))
+        if i % 2 == 0:
+            source_id, target_id = target_id, source_id
+
+        data["edges"].append(
+            {
+                "id": f"__Derived-ComponentExchange:{i}",
+                "sources": [source_id],
+                "targets": [target_id],
+            }
+        )
+
+    data["children"][0]["height"] += (
+        makers.PORT_PADDING
+        + (makers.PORT_SIZE + makers.PORT_PADDING) * len(components) // 2
+    )
+
+
+DERIVATORS = {
+    la.LogicalComponent: derive_from_functions,
+    sa.SystemComponent: derive_from_functions,
+}
+"""Objects to build derived contexts."""

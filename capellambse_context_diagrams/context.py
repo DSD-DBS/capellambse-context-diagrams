@@ -232,6 +232,9 @@ class ContextDiagram(diagram.AbstractDiagram):
     display_parent_relation
         Display objects with a parent relationship to the object of
         interest as the parent box.
+    display_derived_interfaces
+        Display derived objects collected from additional collectors
+        beside the main collector for building the context.
     slim_center_box
         Minimal width for the center box, containing just the icon and
         the label. This is False if hierarchy was identified.
@@ -255,6 +258,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         render_styles: dict[str, styling.Styler] | None = None,
         display_symbols_as_boxes: bool = False,
         display_parent_relation: bool = False,
+        display_derived_interfaces: bool = False,
         slim_center_box: bool = True,
     ) -> None:
         super().__init__(obj._model)
@@ -266,6 +270,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
         self.display_symbols_as_boxes = display_symbols_as_boxes
         self.display_parent_relation = display_parent_relation
+        self.display_derived_interfaces = display_derived_interfaces
         self.slim_center_box = slim_center_box
 
         if standard_filter := STANDARD_FILTERS.get(class_):
@@ -361,7 +366,14 @@ class InterfaceContextDiagram(ContextDiagram):
     ``ComponentExchange``s.
     """
 
-    def __init__(self, class_: str, obj: common.GenericElement, **kw) -> None:
+    def __init__(
+        self,
+        class_: str,
+        obj: common.GenericElement,
+        include_interface: bool = False,
+        **kw,
+    ) -> None:
+        self.include_interface = include_interface
         super().__init__(class_, obj, **kw, display_symbols_as_boxes=True)
 
     @property

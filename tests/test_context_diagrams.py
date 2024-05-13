@@ -23,6 +23,7 @@ TEST_FUNCTION_UUIDS = {
     "861b9be3-a7b2-4e1d-b34b-8e857062b3df",
     "f0bc11ba-89aa-4297-98d2-076440e9117f",
 }
+TEST_DERIVED_UUID = "0d18f31b-9a13-4c54-9e63-a13dbf619a69"
 
 
 @pytest.mark.parametrize(
@@ -181,3 +182,14 @@ def test_context_diagram_of_allocated_functions(
     diag.render("svgdiagram").save(pretty=True)
 
     assert len(diag.nodes) > 1
+
+
+def test_context_diagram_with_derived_interfaces(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid(TEST_DERIVED_UUID)
+
+    diag = obj.context_diagram
+    diagram = diag.render(None, display_derived_interfaces=True)
+
+    assert len(diagram) > 5

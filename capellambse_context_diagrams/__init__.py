@@ -28,6 +28,7 @@ from capellambse.model import common
 from capellambse.model.crosslayer import fa, information
 from capellambse.model.layers import ctx, la, oa, pa
 from capellambse.model.modeltypes import DiagramType
+from capellambse.svg import decorations
 
 from . import context, styling
 
@@ -86,6 +87,7 @@ def register_classes() -> None:
             la.LogicalComponent,
             DiagramType.LAB,
             {
+                "display_symbols_as_boxes": True,
                 "display_parent_relation": True,
                 "render_styles": styling.BLUE_ACTOR_FNCS,
             },
@@ -93,7 +95,11 @@ def register_classes() -> None:
         (
             la.LogicalFunction,
             DiagramType.LAB,
-            {"render_styles": styling.BLUE_ACTOR_FNCS},
+            {
+                "display_symbols_as_boxes": True,
+                "display_parent_relation": True,
+                "render_styles": styling.BLUE_ACTOR_FNCS,
+            },
         ),
         (
             pa.PhysicalComponent,

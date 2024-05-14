@@ -304,6 +304,9 @@ class DiagramSerializer:
 
             styleoverrides = style_condition(obj, self) or {}
 
+        if uuid == self._diagram.target.uuid:
+            styleoverrides["stroke-width"] = "4"
+
         if derived:
             styleoverrides["stroke-dasharray"] = "4"
 

@@ -33,8 +33,10 @@ def collector(
         makers.make_port(uuid) for uuid, edges in connections.items() if edges
     ]
     ex_datas: list[generic.ExchangeData] = []
-    edges: common.ElementList[fa.AbstractExchange]
-    for ex in (edges := list(chain.from_iterable(connections.values()))):
+    edges: common.ElementList[fa.AbstractExchange] = list(
+        chain.from_iterable(connections.values())
+    )
+    for ex in edges:
         if is_hierarchical := exchanges.is_hierarchical(ex, centerbox):
             if not diagram.display_parent_relation:
                 continue
@@ -68,6 +70,22 @@ def collector(
         made_boxes[obj.uuid] = box
         return box
 
+    def _make_owner_box(current: t.Any) -> t.Any:
+        if not (parent_box := global_boxes.get(current.owner.uuid)):
+            parent_box = _make_box_and_update_globals(
+                current.owner,
+                no_symbol=diagram.display_symbols_as_boxes,
+                layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+            )
+        for box in (children := parent_box.setdefault("children", [])):
+            if box["id"] == current.uuid:
+                box = global_boxes.get(current.uuid, current)
+                break
+        else:
+            children.append(global_boxes.get(current.uuid, current))
+        boxes_to_delete.add(current.uuid)
+        return current.owner
+
     if diagram.display_parent_relation:
         try:
             if not isinstance(diagram.target.owner, generic.PackageTypes):
@@ -81,7 +99,7 @@ def collector(
         except AttributeError:
             pass
         diagram_target_owners = generic.get_all_owners(diagram.target)
-        common_owners = []
+        common_owners = set()
 
     stack_heights: dict[str, float | int] = {
         "input": -makers.NEIGHBOR_VMARGIN,
@@ -115,28 +133,10 @@ def collector(
                 try:
                     if isinstance(current.owner, generic.PackageTypes):
                         break
-                    if not (
-                        parent_box := global_boxes.get(current.owner.uuid)
-                    ):
-                        parent_box = _make_box_and_update_globals(
-                            current.owner,
-                            no_symbol=diagram.display_symbols_as_boxes,
-                            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
-                        )
-                    new_box = global_boxes.get(current.uuid, current)
-                    for box in (
-                        children := parent_box.setdefault("children", [])
-                    ):
-                        if box["id"] == current.uuid:
-                            box = new_box
-                            break
-                    else:
-                        children.append(new_box)
-                    boxes_to_delete.add(current.uuid)
-                    current = current.owner
+                    current = _make_owner_box(current)
                 except AttributeError:
                     break
-            common_owners.append(current.uuid)
+            common_owners.add(current.uuid)
 
         stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
 
@@ -151,19 +151,7 @@ def collector(
             try:
                 if isinstance(current.owner, generic.PackageTypes):
                     break
-                if not (parent_box := global_boxes.get(current.owner.uuid)):
-                    parent_box = _make_box_and_update_globals(
-                        current.owner,
-                        no_symbol=diagram.display_symbols_as_boxes,
-                        layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
-                    )
-                for box in (children := parent_box.setdefault("children", [])):
-                    if box["id"] == current.uuid:
-                        box = global_boxes.pop(current.uuid)
-                        break
-                else:
-                    children.append(global_boxes.pop(current.uuid))
-                current = current.owner
+                current = _make_owner_box(current)
             except AttributeError:
                 break
 

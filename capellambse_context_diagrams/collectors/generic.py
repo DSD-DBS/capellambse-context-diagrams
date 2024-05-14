@@ -234,7 +234,7 @@ def move_edges(
         target_owner_uuids = get_all_owners(c.target)
         common_owner_uuid = None
         for owner in source_owner_uuids:
-            if owner in set(target_owner_uuids):
+            if owner in target_owner_uuids:
                 common_owner_uuid = owner
                 break
 
@@ -247,7 +247,6 @@ def move_edges(
             if edge["id"] == c.uuid:
                 owner_box.setdefault("edges", []).append(edge)
                 edges_to_remove.append(edge["id"])
-
     data["edges"] = [
         e for e in data["edges"] if e["id"] not in edges_to_remove
     ]

@@ -25,12 +25,6 @@ def collector(
     diagram: context.ContextDiagram, params: dict[str, t.Any] | None = None
 ) -> _elkjs.ELKInputData:
     """Collect context data from ports of centric box."""
-    diagram.display_parent_relation = (params or {}).pop(
-        "display_parent_relation", diagram.display_parent_relation
-    )
-    diagram.display_derived_interfaces = (params or {}).pop(
-        "display_derived_interfaces", diagram.display_derived_interfaces
-    )
     data = generic.collector(diagram, no_symbol=True)
     ports = port_collector(diagram.target, diagram.type)
     centerbox = data["children"][0]
@@ -41,7 +35,6 @@ def collector(
     ex_datas: list[generic.ExchangeData] = []
     edges: common.ElementList[fa.AbstractExchange]
     for ex in (edges := list(chain.from_iterable(connections.values()))):
-
         if is_hierarchical := exchanges.is_hierarchical(ex, centerbox):
             if not diagram.display_parent_relation:
                 continue
@@ -61,8 +54,7 @@ def collector(
             continue
     global_boxes = {centerbox["id"]: centerbox}
     made_boxes = {centerbox["id"]: centerbox}
-    to_delete = set()
-    to_delete.add(centerbox["id"])
+    boxes_to_delete = {centerbox["id"]}
 
     def _make_box_and_update_globals(
         obj: t.Any,
@@ -77,17 +69,19 @@ def collector(
         return box
 
     if diagram.display_parent_relation:
-        if diagram.target.owner:
-            box = _make_box_and_update_globals(
-                diagram.target.owner,
-                no_symbol=diagram.display_symbols_as_boxes,
-                layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
-            )
-            box["children"] = [centerbox]
-            del data["children"][0]
-        all_owners = generic.get_all_owners(diagram.target)
-        start = 0
-        common_owner = diagram.target
+        try:
+            if not isinstance(diagram.target.owner, generic.PackageTypes):
+                box = _make_box_and_update_globals(
+                    diagram.target.owner,
+                    no_symbol=diagram.display_symbols_as_boxes,
+                    layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+                )
+                box["children"] = [centerbox]
+                del data["children"][0]
+        except AttributeError:
+            pass
+        diagram_target_owners = generic.get_all_owners(diagram.target)
+        common_owners = []
 
     stack_heights: dict[str, float | int] = {
         "input": -makers.NEIGHBOR_VMARGIN,
@@ -117,57 +111,63 @@ def collector(
 
         if diagram.display_parent_relation:
             current = child
-            while (
-                current
-                and not isinstance(current, generic.PackageTypes)
-                and current.uuid not in all_owners
-            ):
+            while current and current.uuid not in diagram_target_owners:
+                try:
+                    if isinstance(current.owner, generic.PackageTypes):
+                        break
+                    if not (
+                        parent_box := global_boxes.get(current.owner.uuid)
+                    ):
+                        parent_box = _make_box_and_update_globals(
+                            current.owner,
+                            no_symbol=diagram.display_symbols_as_boxes,
+                            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+                        )
+                    new_box = global_boxes.get(current.uuid, current)
+                    for box in (
+                        children := parent_box.setdefault("children", [])
+                    ):
+                        if box["id"] == current.uuid:
+                            box = new_box
+                            break
+                    else:
+                        children.append(new_box)
+                    boxes_to_delete.add(current.uuid)
+                    current = current.owner
+                except AttributeError:
+                    break
+            common_owners.append(current.uuid)
+
+        stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
+
+    if diagram.display_parent_relation and diagram.target.owner:
+        current = diagram.target.owner
+        common_owner_uuid = current.uuid
+        for owner in diagram_target_owners[::-1]:
+            if owner in common_owners:
+                common_owner_uuid = owner
+                break
+        while current and current.uuid != common_owner_uuid:
+            try:
+                if isinstance(current.owner, generic.PackageTypes):
+                    break
                 if not (parent_box := global_boxes.get(current.owner.uuid)):
                     parent_box = _make_box_and_update_globals(
                         current.owner,
                         no_symbol=diagram.display_symbols_as_boxes,
                         layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
                     )
-                new_box = global_boxes.get(current.uuid, current)
                 for box in (children := parent_box.setdefault("children", [])):
                     if box["id"] == current.uuid:
-                        box = new_box
+                        box = global_boxes.pop(current.uuid)
                         break
                 else:
-                    children.append(new_box)
-                to_delete.add(current.uuid)
+                    children.append(global_boxes.pop(current.uuid))
                 current = current.owner
-            try:
-                if all_owners.index(current.uuid, start) > start:
-                    common_owner = current
-            except ValueError:
-                pass
+            except AttributeError:
+                break
 
-        stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
-
-    if diagram.display_parent_relation and diagram.target.owner:
-        current = diagram.target.owner
-        while (
-            current
-            and not isinstance(current, generic.PackageTypes)
-            and current != common_owner
-        ):
-            if not (parent_box := global_boxes.get(current.owner.uuid)):
-                parent_box = _make_box_and_update_globals(
-                    current.owner,
-                    no_symbol=diagram.display_symbols_as_boxes,
-                    layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
-                )
-            for box in (children := parent_box.setdefault("children", [])):
-                if box["id"] == current.uuid:
-                    box = global_boxes.pop(current.uuid)
-                    break
-            else:
-                children.append(global_boxes.pop(current.uuid))
-
-            current = current.owner
-
-    for uuid in to_delete:
+    for uuid in boxes_to_delete:
         del global_boxes[uuid]
     data["children"].extend(global_boxes.values())
     if diagram.display_parent_relation:

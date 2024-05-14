@@ -81,7 +81,11 @@ def register_classes() -> None:
         (
             ctx.SystemFunction,
             DiagramType.SAB,
-            {"render_styles": styling.BLUE_ACTOR_FNCS},
+            {
+                "display_symbols_as_boxes": True,
+                "display_parent_relation": True,
+                "render_styles": styling.BLUE_ACTOR_FNCS,
+            },
         ),
         (
             la.LogicalComponent,
@@ -112,7 +116,10 @@ def register_classes() -> None:
         (
             pa.PhysicalFunction,
             DiagramType.PAB,
-            {"render_styles": styling.BLUE_ACTOR_FNCS},
+            {
+                "display_parent_relation": True,
+                "render_styles": styling.BLUE_ACTOR_FNCS,
+            },
         ),
     ]
     patch_styles(supported_classes)

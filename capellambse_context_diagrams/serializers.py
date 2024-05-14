@@ -257,7 +257,7 @@ class DiagramSerializer:
 
         for i in child.get("children", []):  # type: ignore
             if i["type"] == "edge":
-                self._edges.setdefault(i["id"], (i, ref, element))
+                self._edges.setdefault(i["id"], (i, ref, parent))
             else:
                 self.deserialize_child(i, ref, element)
 

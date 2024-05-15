@@ -11,7 +11,7 @@ import collections.abc as cabc
 import logging
 import typing as t
 
-from capellambse.model import common
+from capellambse.model import common, layers
 from capellambse.model.crosslayer import interaction
 from capellambse.model.modeltypes import DiagramType as DT
 
@@ -43,6 +43,12 @@ MARKER_SIZE = 3
 """Default size of marker-ends in pixels."""
 MARKER_PADDING = makers.PORT_PADDING
 """Default padding of markers in pixels."""
+PackageTypes: tuple[type[common.GenericElement], ...] = (
+    layers.oa.EntityPkg,
+    layers.la.LogicalComponentPkg,
+    layers.ctx.SystemComponentPkg,
+    layers.pa.PhysicalComponentPkg,
+)
 
 
 def collector(
@@ -185,3 +191,75 @@ def collect_label(obj: common.GenericElement) -> str | None:
     elif isinstance(obj, interaction.AbstractCapabilityInclude):
         return "« i »"
     return "" if obj.name.startswith("(Unnamed") else obj.name
+
+
+def move_parent_boxes_to_owner(
+    boxes: dict[str, _elkjs.ELKInputChild],
+    obj: common.GenericElement,
+    data: _elkjs.ELKInputData,
+    filter_types: tuple[type, ...] = PackageTypes,
+) -> None:
+    """Move boxes to their owner box."""
+    boxes_to_remove: list[str] = []
+    for child in data["children"]:
+        if not child.get("children"):
+            continue
+
+        owner = obj._model.by_uuid(child["id"])
+        if (
+            isinstance(owner, filter_types)
+            or not (oowner := owner.owner)
+            or isinstance(oowner, filter_types)
+            or not (oowner_box := boxes.get(oowner.uuid))
+        ):
+            continue
+
+        oowner_box.setdefault("children", []).append(child)
+        boxes_to_remove.append(child["id"])
+
+    data["children"] = [
+        b for b in data["children"] if b["id"] not in boxes_to_remove
+    ]
+
+
+def move_edges(
+    boxes: dict[str, _elkjs.ELKInputChild],
+    connections: list[common.GenericElement],
+    data: _elkjs.ELKInputData,
+) -> None:
+    """Move edges to boxes."""
+    edges_to_remove: list[str] = []
+    for c in connections:
+        source_owner_uuids = get_all_owners(c.source)
+        target_owner_uuids = get_all_owners(c.target)
+        common_owner_uuid = None
+        for owner in source_owner_uuids:
+            if owner in target_owner_uuids:
+                common_owner_uuid = owner
+                break
+
+        if not common_owner_uuid or not (
+            owner_box := boxes.get(common_owner_uuid)
+        ):
+            continue
+
+        for edge in data["edges"]:
+            if edge["id"] == c.uuid:
+                owner_box.setdefault("edges", []).append(edge)
+                edges_to_remove.append(edge["id"])
+    data["edges"] = [
+        e for e in data["edges"] if e["id"] not in edges_to_remove
+    ]
+
+
+def get_all_owners(obj: common.GenericElement) -> list[str]:
+    """Return the UUIDs from all owners of ``obj``."""
+    owners: list[str] = []
+    current = obj
+    while current is not None:
+        owners.append(current.uuid)
+        try:
+            current = current.owner
+        except AttributeError:
+            break
+    return owners

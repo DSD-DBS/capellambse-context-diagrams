@@ -73,7 +73,11 @@ def register_classes() -> None:
     """Add the `context_diagram` property to the relevant model objects."""
     supported_classes: list[SupportedClass] = [
         (oa.Entity, DiagramType.OAB, {}),
-        (oa.OperationalActivity, DiagramType.OAIB, {}),
+        (
+            oa.OperationalActivity,
+            DiagramType.OAB,
+            {"display_parent_relation": True},
+        ),
         (oa.OperationalCapability, DiagramType.OCB, {}),
         (ctx.Mission, DiagramType.MCB, {}),
         (ctx.Capability, DiagramType.MCB, {"display_symbols_as_boxes": False}),
@@ -82,33 +86,52 @@ def register_classes() -> None:
             DiagramType.SAB,
             {
                 "display_symbols_as_boxes": True,
+                "display_parent_relation": True,
                 "render_styles": styling.BLUE_ACTOR_FNCS,
             },
         ),
         (
             ctx.SystemFunction,
-            DiagramType.SDFB,
-            {"render_styles": styling.BLUE_ACTOR_FNCS},
+            DiagramType.SAB,
+            {
+                "display_symbols_as_boxes": True,
+                "display_parent_relation": True,
+                "render_styles": styling.BLUE_ACTOR_FNCS,
+            },
         ),
         (
             la.LogicalComponent,
             DiagramType.LAB,
-            {"render_styles": styling.BLUE_ACTOR_FNCS},
+            {
+                "display_symbols_as_boxes": True,
+                "display_parent_relation": True,
+                "render_styles": styling.BLUE_ACTOR_FNCS,
+            },
         ),
         (
             la.LogicalFunction,
-            DiagramType.LDFB,
-            {"render_styles": styling.BLUE_ACTOR_FNCS},
+            DiagramType.LAB,
+            {
+                "display_symbols_as_boxes": True,
+                "display_parent_relation": True,
+                "render_styles": styling.BLUE_ACTOR_FNCS,
+            },
         ),
         (
             pa.PhysicalComponent,
             DiagramType.PAB,
-            {"render_styles": styling.BLUE_ACTOR_FNCS},
+            {
+                "display_parent_relation": True,
+                "render_styles": styling.BLUE_ACTOR_FNCS,
+            },
         ),
         (
             pa.PhysicalFunction,
-            DiagramType.PDFB,
-            {"render_styles": styling.BLUE_ACTOR_FNCS},
+            DiagramType.PAB,
+            {
+                "display_parent_relation": True,
+                "render_styles": styling.BLUE_ACTOR_FNCS,
+            },
         ),
     ]
     patch_styles(supported_classes)

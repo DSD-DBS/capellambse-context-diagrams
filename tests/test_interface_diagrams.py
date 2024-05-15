@@ -4,7 +4,7 @@
 import capellambse
 import pytest
 
-TEST_INTERFACE_UUID = "fbb7f735-3c1f-48de-9791-179d35ca7b98"
+TEST_INTERFACE_UUID = "2f8ed849-fbda-4902-82ec-cbf8104ae686"
 
 
 @pytest.mark.parametrize(

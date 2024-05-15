@@ -31,7 +31,7 @@ general_context_diagram_uuids: dict[str, tuple[str, dict[str, t.Any]]] = {
 interface_context_diagram_uuids: dict[str, tuple[str, dict[str, t.Any]]] = {
     "Left to right": ("3ef23099-ce9a-4f7d-812f-935f47e7938d", {}),
     "Interface": (
-        "fbb7f735-3c1f-48de-9791-179d35ca7b98",
+        "2f8ed849-fbda-4902-82ec-cbf8104ae686",
         {"include_interface": True},
     ),
 }
@@ -41,7 +41,7 @@ class_tree_uuid = "b7c7f442-377f-492c-90bf-331e66988bda"
 realization_fnc_uuid = "beaf5ba4-8fa9-4342-911f-0266bb29be45"
 realization_comp_uuid = "b9f9a83c-fb02-44f7-9123-9d86326de5f1"
 data_flow_uuid = "3b83b4ba-671a-4de8-9c07-a5c6b1d3c422"
-derived_uuid = "0d18f31b-9a13-4c54-9e63-a13dbf619a69"
+derived_uuid = "47c3130b-ec39-4365-a77a-5ab6365d1e2e"
 
 
 def generate_index_images() -> None:
@@ -106,7 +106,9 @@ def generate_hierarchy_image() -> None:
     with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
         print(
             diag.render(
-                "svg", include_inner_objects=True, transparent_background=False
+                "svg",
+                display_parent_relation=True,
+                transparent_background=False,
             ),
             file=fd,
         )

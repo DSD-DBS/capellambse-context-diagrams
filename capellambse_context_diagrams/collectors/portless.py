@@ -41,12 +41,24 @@ def collector(
         except AttributeError:
             continue
 
+    contexts = context_collector(connections, diagram.target)
+    global_boxes = {centerbox["id"]: centerbox}
+    made_boxes = {centerbox["id"]: centerbox}
+    if diagram.display_parent_relation and diagram.target.owner is not None:
+        box = makers.make_box(
+            diagram.target.owner,
+            no_symbol=diagram.display_symbols_as_boxes,
+            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+        )
+        box["children"] = [centerbox]
+        del data["children"][0]
+        global_boxes[diagram.target.owner.uuid] = box
+        made_boxes[diagram.target.owner.uuid] = box
+
     stack_heights: dict[str, float | int] = {
         "input": -makers.NEIGHBOR_VMARGIN,
         "output": -makers.NEIGHBOR_VMARGIN,
     }
-    contexts = context_collector(connections, diagram.target)
-    made_boxes = {centerbox["id"]: centerbox}
     for i, exchanges, side in contexts:
         var_height = generic.MARKER_PADDING + (
             generic.MARKER_SIZE + generic.MARKER_PADDING
@@ -58,7 +70,7 @@ def collector(
         else:
             height = var_height
 
-        if box := made_boxes.get(i.uuid):
+        if box := global_boxes.get(i.uuid):  # type: ignore[assignment]
             if box is centerbox:
                 continue
             box["height"] = height
@@ -68,12 +80,38 @@ def collector(
                 height=height,
                 no_symbol=diagram.display_symbols_as_boxes,
             )
+            global_boxes[i.uuid] = box
             made_boxes[i.uuid] = box
+
+        if diagram.display_parent_relation and i.owner is not None:
+            if not (parent_box := global_boxes.get(i.owner.uuid)):
+                parent_box = makers.make_box(
+                    i.owner,
+                    no_symbol=diagram.display_symbols_as_boxes,
+                )
+                global_boxes[i.owner.uuid] = parent_box
+                made_boxes[i.owner.uuid] = parent_box
+
+            parent_box.setdefault("children", []).append(
+                global_boxes.pop(i.uuid)
+            )
+            for label in parent_box["labels"]:
+                label["layoutOptions"] = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
 
         stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
 
-    del made_boxes[centerbox["id"]]
-    data["children"].extend(made_boxes.values())
+    del global_boxes[centerbox["id"]]
+    data["children"].extend(global_boxes.values())
+
+    if diagram.display_parent_relation:
+        owner_boxes: dict[str, _elkjs.ELKInputChild] = {
+            uuid: box
+            for uuid, box in made_boxes.items()
+            if box.get("children")
+        }
+        generic.move_parent_boxes_to_owner(owner_boxes, diagram.target, data)
+        generic.move_edges(owner_boxes, connections, data)
+
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
     if not diagram.display_symbols_as_boxes and makers.is_symbol(
         diagram.target
@@ -140,7 +178,6 @@ def context_collector(
         info = ctx.setdefault(obj.uuid, info)
         if exchange not in info.connections:
             info.connections.append(exchange)
-
     return iter(ctx.values())
 
 

@@ -259,7 +259,6 @@ class ContextDiagram(diagram.AbstractDiagram):
         display_symbols_as_boxes: bool = False,
         display_parent_relation: bool = False,
         display_derived_interfaces: bool = False,
-        include_inner_objects: bool = False,
         slim_center_box: bool = True,
     ) -> None:
         super().__init__(obj._model)
@@ -272,7 +271,6 @@ class ContextDiagram(diagram.AbstractDiagram):
         self.display_symbols_as_boxes = display_symbols_as_boxes
         self.display_parent_relation = display_parent_relation
         self.display_derived_interfaces = display_derived_interfaces
-        self.include_inner_objects = include_inner_objects
         self.slim_center_box = slim_center_box
 
         if standard_filter := STANDARD_FILTERS.get(class_):
@@ -345,6 +343,18 @@ class ContextDiagram(diagram.AbstractDiagram):
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         transparent_background = params.pop("transparent_background", False)
+        self.display_parent_relation = params.pop(
+            "display_parent_relation", self.display_parent_relation
+        )
+        self.display_derived_interfaces = params.pop(
+            "display_derived_interfaces", self.display_derived_interfaces
+        )
+        self.display_symbols_as_boxes = params.pop(
+            "display_symbols_as_boxes", self.display_symbols_as_boxes
+        )
+        self.slim_center_box = params.pop(
+            "slim_center_box", self.slim_center_box
+        )
         data = params.get("elkdata") or get_elkdata(self, params)
         layout = try_to_layout(data)
         add_context(layout, params.get("is_legend", False))

@@ -35,20 +35,13 @@ def collector(
     diagram: context.ContextDiagram, params: dict[str, t.Any] | None = None
 ) -> _elkjs.ELKInputData:
     """Collect context data from ports of centric box."""
-    diagram.display_derived_interfaces = (params or {}).pop(
-        "display_derived_interfaces", diagram.display_derived_interfaces
-    )
     data = generic.collector(diagram, no_symbol=True)
     ports = port_collector(diagram.target, diagram.type)
     centerbox = data["children"][0]
     connections = port_exchange_collector(ports)
-    centerbox["ports"] = [
-        makers.make_port(uuid) for uuid, edges in connections.items() if edges
-    ]
+    centerbox["ports"] = [makers.make_port(uuid) for uuid in connections]
     ex_datas: list[generic.ExchangeData] = []
-    edges: common.ElementList[fa.AbstractExchange] = list(
-        chain.from_iterable(connections.values())
-    )
+    edges = list(chain.from_iterable(connections.values()))
     for ex in edges:
         if is_hierarchical := exchanges.is_hierarchical(ex, centerbox):
             if not diagram.display_parent_relation:
@@ -83,21 +76,22 @@ def collector(
         made_boxes[obj.uuid] = box
         return box
 
-    def _make_owner_box(current: t.Any) -> t.Any:
-        if not (parent_box := global_boxes.get(current.owner.uuid)):
+    def _make_owner_box(obj: t.Any) -> t.Any:
+        if not (parent_box := global_boxes.get(obj.owner.uuid)):
             parent_box = _make_box_and_update_globals(
-                current.owner,
+                obj.owner,
                 no_symbol=diagram.display_symbols_as_boxes,
                 layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
             )
+        assert (obj_box := global_boxes.get(obj.uuid))
         for box in (children := parent_box.setdefault("children", [])):
-            if box["id"] == current.uuid:
-                box = global_boxes.get(current.uuid, current)
+            if box["id"] == obj.uuid:
+                box = obj_box
                 break
         else:
-            children.append(global_boxes.get(current.uuid, current))
-        boxes_to_delete.add(current.uuid)
-        return current.owner
+            children.append(obj_box)
+        boxes_to_delete.add(obj.uuid)
+        return obj.owner
 
     if diagram.display_parent_relation:
         try:
@@ -155,16 +149,12 @@ def collector(
 
     if diagram.display_parent_relation and diagram.target.owner:
         current = diagram.target.owner
-        common_owner_uuid = current.uuid
-        for owner in diagram_target_owners[::-1]:
-            if owner in common_owners:
-                common_owner_uuid = owner
-                break
-        while current and current.uuid != common_owner_uuid:
+        while current and common_owners:
             try:
                 if isinstance(current.owner, generic.PackageTypes):
                     break
                 current = _make_owner_box(current)
+                common_owners.discard(current.uuid)
             except AttributeError:
                 break
 
@@ -228,7 +218,8 @@ def port_exchange_collector(
     edges: dict[str, common.ElementList[fa.AbstractExchange]] = {}
     for i in ports:
         try:
-            edges[i.uuid] = filter(getattr(i, "exchanges"))
+            if edge := filter(getattr(i, "exchanges")):
+                edges[i.uuid] = edge
         except AttributeError:
             pass
     return edges

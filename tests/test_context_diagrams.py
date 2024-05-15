@@ -140,15 +140,7 @@ def test_parent_relation_in_context_diagram(
 
     diag = obj.context_diagram
     hide_relation = diag.render(None, display_parent_relation=False)
-    diag.render(
-        "svgdiagram",
-        display_parent_relation=False,
-    ).save(pretty=True)
     display_relation = diag.render(None, display_parent_relation=True)
-    diag.render(
-        "svgdiagram",
-        display_parent_relation=True,
-    ).save(pretty=True)
 
     for uuid in TEST_HIERARCHY_PARENTS_UUIDS:
         assert display_relation[uuid]

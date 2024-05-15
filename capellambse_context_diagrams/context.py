@@ -232,6 +232,9 @@ class ContextDiagram(diagram.AbstractDiagram):
     display_parent_relation
         Display objects with a parent relationship to the object of
         interest as the parent box.
+    display_derived_interfaces
+        Display derived objects collected from additional collectors
+        beside the main collector for building the context.
     slim_center_box
         Minimal width for the center box, containing just the icon and
         the label. This is False if hierarchy was identified.
@@ -255,6 +258,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         render_styles: dict[str, styling.Styler] | None = None,
         display_symbols_as_boxes: bool = False,
         display_parent_relation: bool = False,
+        display_derived_interfaces: bool = False,
         include_inner_objects: bool = False,
         slim_center_box: bool = True,
     ) -> None:
@@ -267,6 +271,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
         self.display_symbols_as_boxes = display_symbols_as_boxes
         self.display_parent_relation = display_parent_relation
+        self.display_derived_interfaces = display_derived_interfaces
         self.include_inner_objects = include_inner_objects
         self.slim_center_box = slim_center_box
 

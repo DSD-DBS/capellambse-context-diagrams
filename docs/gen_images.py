@@ -41,6 +41,7 @@ class_tree_uuid = "b7c7f442-377f-492c-90bf-331e66988bda"
 realization_fnc_uuid = "beaf5ba4-8fa9-4342-911f-0266bb29be45"
 realization_comp_uuid = "b9f9a83c-fb02-44f7-9123-9d86326de5f1"
 data_flow_uuid = "3b83b4ba-671a-4de8-9c07-a5c6b1d3c422"
+derived_uuid = "0d18f31b-9a13-4c54-9e63-a13dbf619a69"
 
 
 def generate_index_images() -> None:
@@ -159,6 +160,18 @@ def generate_data_flow_image() -> None:
         print(diag.render("svg", transparent_background=False), file=fd)
 
 
+def generate_derived_image() -> None:
+    diag: context.ContextDiagram = model.by_uuid(derived_uuid).context_diagram
+    params = {
+        "display_derived_interfaces": True,
+        "transparent_background": False,
+    }
+    with mkdocs_gen_files.open(
+        f"{str(dest / diag.name)}-derived.svg", "w"
+    ) as fd:
+        print(diag.render("svg", **params), file=fd)
+
+
 generate_index_images()
 generate_hierarchy_image()
 generate_no_symbol_images()
@@ -183,3 +196,4 @@ generate_styling_image(wizard_uuid, {}, "no_styles")
 generate_class_tree_images()
 generate_realization_view_images()
 generate_data_flow_image()
+generate_derived_image()

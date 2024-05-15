@@ -12,6 +12,7 @@ TEST_HIERARCHY_CHILDREN_UUIDS = {
     "31bc2326-5a55-45f9-9967-f1957bcd3f89",
     "ad0bdf2f-bd0e-48bc-9296-5be3371a76e2",
 }
+TEST_DERIVED_UUID = "0d18f31b-9a13-4c54-9e63-a13dbf619a69"
 
 
 @pytest.mark.parametrize(
@@ -148,3 +149,16 @@ def test_context_diagram_pass_params_to_render(
 
         with pytest.raises(KeyError):
             without_hierarchy[uuid]  # pylint: disable=pointless-statement
+
+
+def test_context_diagram_with_derived_interfaces(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid(TEST_DERIVED_UUID)
+
+    context_diagram = obj.context_diagram
+    derived_diagram = context_diagram.render(
+        None, display_derived_interfaces=True
+    )
+
+    assert len(derived_diagram) > 5

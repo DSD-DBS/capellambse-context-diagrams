@@ -28,6 +28,7 @@ from capellambse.model import common
 from capellambse.model.crosslayer import fa, information
 from capellambse.model.layers import ctx, la, oa, pa
 from capellambse.model.modeltypes import DiagramType
+from capellambse.svg import decorations
 
 from . import _elkjs, context, styling
 

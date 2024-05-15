@@ -165,7 +165,6 @@ def test_context_diagram_of_allocated_activities(
 
     diag = obj.context_diagram
     diag.display_parent_relation = True
-    diag.render("svgdiagram").save(pretty=True)
 
     assert len(diag.nodes) > 1
 
@@ -178,7 +177,6 @@ def test_context_diagram_of_allocated_functions(
 
     diag = obj.context_diagram
     diag.display_parent_relation = True
-    diag.render("svgdiagram").save(pretty=True)
 
     assert len(diag.nodes) > 1
 

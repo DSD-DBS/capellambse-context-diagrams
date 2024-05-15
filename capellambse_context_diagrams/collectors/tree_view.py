@@ -16,6 +16,7 @@ from .. import _elkjs, context
 from . import generic, makers
 
 logger = logging.getLogger(__name__)
+
 DATA_TYPE_LABEL_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
     "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
 }
@@ -25,6 +26,7 @@ DEFAULT_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
     "elk.direction": "DOWN",
     "edgeRouting": "ORTHOGONAL",
 }
+ASSOC_STYLECLASS = "__Association"
 
 
 class ClassProcessor:
@@ -58,7 +60,7 @@ class ClassProcessor:
             if len(edges) == 1:
                 edge_id = edges[0].uuid
             else:
-                edge_id = f"__Association_{self.edge_counter}"
+                edge_id = f"{ASSOC_STYLECLASS}_{self.edge_counter}"
                 self.edge_counter += 1
             if edge_id not in self.made_edges:
                 self.made_edges.add(edge_id)

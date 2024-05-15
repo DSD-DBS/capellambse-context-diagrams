@@ -19,6 +19,8 @@ from capellambse.model.modeltypes import DiagramType as DT
 from .. import _elkjs, context
 from . import exchanges, generic, makers
 
+STYLECLASS_PREFIX = "__Derived"
+
 
 def collector(
     diagram: context.ContextDiagram, params: dict[str, t.Any] | None = None
@@ -276,10 +278,8 @@ def add_derived_components_and_interfaces(
 
     The derived exchanges are displayed with a dashed line.
     """
-    if not (derivator := DERIVATORS.get(type(diagram.target))):
-        return
-
-    derivator(diagram, data)
+    if derivator := DERIVATORS.get(type(diagram.target)):
+        derivator(diagram, data)
 
 
 def derive_from_functions(
@@ -315,10 +315,12 @@ def derive_from_functions(
 
                 if derived_comp.uuid not in components:
                     components[derived_comp.uuid] = derived_comp
-            except AttributeError:
-                ...
+            except AttributeError:  # No owner of owner.
+                pass
 
-    # TODO: Even out derived interfaces on each side
+    # Idea: Include flow direction of derived interfaces from all functional
+    # exchanges. Mixed means bidirectional. Just even out bidirectional
+    # interfaces and keep flow direction of others.
 
     centerbox = data["children"][0]
     for i, (uuid, derived_component) in enumerate(components.items(), 1):
@@ -327,10 +329,10 @@ def derive_from_functions(
             no_symbol=diagram.display_symbols_as_boxes,
         )
         class_ = type(derived_comp).__name__
-        box["id"] = f"__Derived-{class_}:{uuid}"
+        box["id"] = f"{STYLECLASS_PREFIX}-{class_}:{uuid}"
         data["children"].append(box)
-        source_id = f"__Derived-CP_INOUT:{i}"
-        target_id = f"__Derived-CP_INOUT:{-i}"
+        source_id = f"{STYLECLASS_PREFIX}-CP_INOUT:{i}"
+        target_id = f"{STYLECLASS_PREFIX}-CP_INOUT:{-i}"
         box.setdefault("ports", []).append(makers.make_port(source_id))
         centerbox.setdefault("ports", []).append(makers.make_port(target_id))
         if i % 2 == 0:
@@ -338,7 +340,7 @@ def derive_from_functions(
 
         data["edges"].append(
             {
-                "id": f"__Derived-ComponentExchange:{i}",
+                "id": f"{STYLECLASS_PREFIX}-ComponentExchange:{i}",
                 "sources": [source_id],
                 "targets": [target_id],
             }
@@ -354,4 +356,4 @@ DERIVATORS = {
     la.LogicalComponent: derive_from_functions,
     sa.SystemComponent: derive_from_functions,
 }
-"""Objects to build derived contexts."""
+"""Supported objects to build derived contexts for."""

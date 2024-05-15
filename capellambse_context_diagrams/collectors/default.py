@@ -17,8 +17,16 @@ from capellambse.model.layers import ctx as sa
 from capellambse.model.layers import la
 from capellambse.model.modeltypes import DiagramType as DT
 
-from .. import _elkjs, context
+from .. import _elkjs
 from . import exchanges, generic, makers
+
+if t.TYPE_CHECKING:
+    from .. import context
+
+    DerivatorFunction: t.TypeAlias = cabc.Callable[
+        [context.ContextDiagram, _elkjs.ELKInputData, _elkjs.ELKInputChild],
+        None,
+    ]
 
 STYLECLASS_PREFIX = "__Derived"
 
@@ -173,8 +181,9 @@ def collector(
         generic.move_edges(owner_boxes, edges, data)
 
     centerbox["height"] = max(centerbox["height"], *stack_heights.values())
-    if diagram.display_derived_interfaces:
-        add_derived_components_and_interfaces(diagram, data)
+    derivator = DERIVATORS.get(type(diagram.target))
+    if diagram.display_derived_interfaces and derivator is not None:
+        derivator(diagram, data, made_boxes[diagram.target.uuid])
 
     return data
 
@@ -292,19 +301,10 @@ def port_context_collector(
     return iter(ctx.values())
 
 
-def add_derived_components_and_interfaces(
-    diagram: context.ContextDiagram, data: _elkjs.ELKInputData
-) -> None:
-    """Add hidden Boxes and Exchanges to ``obj``'s context.
-
-    The derived exchanges are displayed with a dashed line.
-    """
-    if derivator := DERIVATORS.get(type(diagram.target)):
-        derivator(diagram, data)
-
-
 def derive_from_functions(
-    diagram: context.ContextDiagram, data: _elkjs.ELKInputData
+    diagram: context.ContextDiagram,
+    data: _elkjs.ELKInputData,
+    centerbox: _elkjs.ELKInputChild,
 ) -> None:
     """Derive Components from allocated functions of the context target.
 
@@ -343,7 +343,6 @@ def derive_from_functions(
     # exchanges. Mixed means bidirectional. Just even out bidirectional
     # interfaces and keep flow direction of others.
 
-    centerbox = data["children"][0]
     for i, (uuid, derived_component) in enumerate(components.items(), 1):
         box = makers.make_box(
             derived_component,
@@ -373,7 +372,7 @@ def derive_from_functions(
     )
 
 
-DERIVATORS = {
+DERIVATORS: dict[type[common.GenericElement], DerivatorFunction] = {
     la.LogicalComponent: derive_from_functions,
     sa.SystemComponent: derive_from_functions,
 }

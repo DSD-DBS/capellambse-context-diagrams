@@ -28,8 +28,9 @@ from capellambse.model import common
 from capellambse.model.crosslayer import fa, information
 from capellambse.model.layers import ctx, la, oa, pa
 from capellambse.model.modeltypes import DiagramType
+from capellambse.svg import decorations
 
-from . import context, styling
+from . import _elkjs, context, styling
 
 try:
     __version__ = metadata.version("capellambse-context-diagrams")
@@ -46,6 +47,18 @@ logger = logging.getLogger(__name__)
 ATTR_NAME = "context_diagram"
 
 
+def install_elk() -> None:
+    """Install elk.js and its dependencies into the local cache directory.
+
+    When rendering a context diagram, elk.js will be installed
+    automatically into a persistent local cache directory. This function
+    may be called while building a container, starting a server or
+    similar tasks in order to prepare the elk.js execution environment
+    ahead of time.
+    """
+    _elkjs._install_required_npm_pkg_versions()
+
+
 def init() -> None:
     """Initialize the extension."""
     register_classes()
@@ -60,7 +73,11 @@ def register_classes() -> None:
     """Add the `context_diagram` property to the relevant model objects."""
     supported_classes: list[SupportedClass] = [
         (oa.Entity, DiagramType.OAB, {}),
-        (oa.OperationalActivity, DiagramType.OAIB, {}),
+        (
+            oa.OperationalActivity,
+            DiagramType.OAB,
+            {"display_parent_relation": True},
+        ),
         (oa.OperationalCapability, DiagramType.OCB, {}),
         (ctx.Mission, DiagramType.MCB, {}),
         (ctx.Capability, DiagramType.MCB, {"display_symbols_as_boxes": False}),
@@ -69,33 +86,52 @@ def register_classes() -> None:
             DiagramType.SAB,
             {
                 "display_symbols_as_boxes": True,
+                "display_parent_relation": True,
                 "render_styles": styling.BLUE_ACTOR_FNCS,
             },
         ),
         (
             ctx.SystemFunction,
-            DiagramType.SDFB,
-            {"render_styles": styling.BLUE_ACTOR_FNCS},
+            DiagramType.SAB,
+            {
+                "display_symbols_as_boxes": True,
+                "display_parent_relation": True,
+                "render_styles": styling.BLUE_ACTOR_FNCS,
+            },
         ),
         (
             la.LogicalComponent,
             DiagramType.LAB,
-            {"render_styles": styling.BLUE_ACTOR_FNCS},
+            {
+                "display_symbols_as_boxes": True,
+                "display_parent_relation": True,
+                "render_styles": styling.BLUE_ACTOR_FNCS,
+            },
         ),
         (
             la.LogicalFunction,
-            DiagramType.LDFB,
-            {"render_styles": styling.BLUE_ACTOR_FNCS},
+            DiagramType.LAB,
+            {
+                "display_symbols_as_boxes": True,
+                "display_parent_relation": True,
+                "render_styles": styling.BLUE_ACTOR_FNCS,
+            },
         ),
         (
             pa.PhysicalComponent,
             DiagramType.PAB,
-            {"render_styles": styling.BLUE_ACTOR_FNCS},
+            {
+                "display_parent_relation": True,
+                "render_styles": styling.BLUE_ACTOR_FNCS,
+            },
         ),
         (
             pa.PhysicalFunction,
-            DiagramType.PDFB,
-            {"render_styles": styling.BLUE_ACTOR_FNCS},
+            DiagramType.PAB,
+            {
+                "display_parent_relation": True,
+                "render_styles": styling.BLUE_ACTOR_FNCS,
+            },
         ),
     ]
     patch_styles(supported_classes)
@@ -127,43 +163,6 @@ def patch_styles(classes: cabc.Iterable[SupportedClass]) -> None:
     circle_style = {"fill": COLORS["_CAP_xAB_Function_Border_Green"]}
     for _, dt, _ in classes:
         capstyle.STYLES[dt.value]["Circle.FunctionalExchange"] = circle_style
-
-    for dt in (DiagramType.SAB, DiagramType.LAB, DiagramType.PAB):
-        text_fill = COLORS["black"]
-        if dt == DiagramType.SAB:
-            fill = [
-                COLORS["_CAP_Component_Blue_min"],
-                COLORS["_CAP_Component_Blue"],
-            ]
-            stroke = COLORS["_CAP_Component_Border_Blue"]
-        elif dt == DiagramType.LAB:
-            fill = [
-                COLORS["_CAP_Component_Blue_min"],
-                COLORS["_CAP_Component_Blue"],
-            ]
-            text_fill = COLORS["_CAP_Component_Label_Blue"]
-        elif dt == DiagramType.PAB:
-            fill = [
-                COLORS["_CAP_Unset_Gray_min"],
-                COLORS["_CAP_Unset_Gray"],
-            ]
-            stroke = COLORS["_CAP_Lifeline_Gray"]
-
-        capstyle.STYLES[dt.value].update(
-            {
-                "Box.DerivedBox": {
-                    "fill": fill,
-                    "stroke": stroke,
-                    "stroke-dasharray": "4",
-                    "text_fill": text_fill,
-                },
-                "Edge.DerivedComponentExchange": {
-                    "stroke": COLORS["_CAP_Component_Border_Blue"],
-                    "stroke-width": 2,
-                    "stroke-dasharray": "4",
-                },
-            }
-        )
 
 
 def register_interface_context() -> None:

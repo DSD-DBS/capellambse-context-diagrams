@@ -23,7 +23,7 @@ When the extension is installed you get additional method `.context_diagram` ava
 
 ### Interface context
 
-![Interface context diagram of **Left to right**](https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/main/docs/assets/images/Interface%20Context%20of%20Left%20to%20right.svg "Interface context diagram of **Left to right**")
+![Interface context diagram of **Interface**](https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/main/docs/assets/images/Interface%20Context%20of%20Interface.svg "Interface context diagram of **Interface**")
 
 Have a look at our [documentation](https://dsd-dbs.github.io/capellambse-context-diagrams/) to get started and see the capabilities of this extension.
 

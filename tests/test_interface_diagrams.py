@@ -4,6 +4,8 @@
 import capellambse
 import pytest
 
+TEST_INTERFACE_UUID = "2f8ed849-fbda-4902-82ec-cbf8104ae686"
+
 
 @pytest.mark.parametrize(
     "uuid",
@@ -21,3 +23,23 @@ def test_interface_diagrams_get_rendered(
     diag = obj.context_diagram
 
     assert diag.nodes
+
+
+def test_interface_diagrams_with_nested_components(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid(TEST_INTERFACE_UUID)
+
+    diag = obj.context_diagram
+
+    assert diag.nodes
+
+
+def test_interface_diagram_with_included_interface(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid(TEST_INTERFACE_UUID)
+
+    diag = obj.context_diagram.render(None, include_interface=True)
+
+    assert diag[TEST_INTERFACE_UUID]

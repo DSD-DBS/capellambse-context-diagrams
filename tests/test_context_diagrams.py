@@ -22,7 +22,7 @@ TEST_FUNCTION_UUIDS = {
     "861b9be3-a7b2-4e1d-b34b-8e857062b3df",
     "f0bc11ba-89aa-4297-98d2-076440e9117f",
 }
-TEST_DERIVED_UUID = "0d18f31b-9a13-4c54-9e63-a13dbf619a69"
+TEST_DERIVED_UUID = "dbd99773-efb6-4476-bf5c-270a61f18b09"
 
 
 @pytest.mark.parametrize(

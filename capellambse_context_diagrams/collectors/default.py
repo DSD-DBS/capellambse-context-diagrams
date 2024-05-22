@@ -274,8 +274,14 @@ def port_exchange_collector(
     edges: dict[str, common.ElementList[fa.AbstractExchange]] = {}
     for i in ports:
         try:
-            if edge := filter(getattr(i, "exchanges")):
-                edges[i.uuid] = edge
+            if exs := filter(getattr(i, "exchanges")):
+                edges[i.uuid] = exs
+                continue
+        except AttributeError:
+            pass
+        try:
+            if links := filter(getattr(i, "links")):
+                edges[i.uuid] = links
         except AttributeError:
             pass
     return edges

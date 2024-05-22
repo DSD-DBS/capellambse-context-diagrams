@@ -23,7 +23,6 @@ TEST_FUNCTION_UUIDS = {
     "f0bc11ba-89aa-4297-98d2-076440e9117f",
 }
 TEST_DERIVED_UUID = "dbd99773-efb6-4476-bf5c-270a61f18b09"
-TEST_PHYSICAL_UUID = "fdb34c92-7c49-491d-bf11-dd139930786e"
 
 
 @pytest.mark.parametrize(
@@ -187,9 +186,24 @@ def test_context_diagram_with_derived_interfaces(
     assert len(derived_diagram) > 5
 
 
-def test_context_diagram_of_physical_component(
-    model: capellambse.MelodyModel,
+@pytest.mark.parametrize(
+    "uuid",
+    [
+        pytest.param(
+            "fdb34c92-7c49-491d-bf11-dd139930786e", id="PhysicalNodeComponent"
+        ),
+        pytest.param(
+            "313f48f4-fb7e-47a8-b28a-76440932fcb9",
+            id="PhysicalBehaviorComponent",
+        ),
+    ],
+)
+def test_context_diagram_of_physical_node_component(
+    model: capellambse.MelodyModel, uuid: str
 ) -> None:
-    obj = model.by_uuid(TEST_PHYSICAL_UUID)
+    obj = model.by_uuid(uuid)
 
-    diag = obj.context_diagram.render("svgdiagram").save(pretty=True)
+    diag = obj.context_diagram
+    diag.render("svgdiagram").save(pretty=True)
+
+    assert len(diag.nodes) > 1

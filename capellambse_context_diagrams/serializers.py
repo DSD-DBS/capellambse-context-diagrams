@@ -126,7 +126,10 @@ class DiagramSerializer:
         styleclass: str | None
         derived = False
         if child["id"].startswith("__"):
-            styleclass, uuid = child["id"][2:].split(":", 1)
+            if ":" in child["id"]:
+                styleclass, uuid = child["id"][2:].split(":", 1)
+            else:
+                styleclass = uuid = child["id"][2:]
             if styleclass.startswith("Derived-"):
                 styleclass = styleclass.removeprefix("Derived-")
                 derived = True

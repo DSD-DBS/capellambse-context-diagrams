@@ -349,8 +349,8 @@ class ContextDiagram(diagram.AbstractDiagram):
             "display_symbols_as_boxes",
             "slim_center_box",
         ]:
-            default = getattr(self, param_name)
-            setattr(self, param_name, params.pop(param_name, default))
+            if override := params.pop(param_name, None) is not None:
+                setattr(self, param_name, override)
         data = params.get("elkdata") or get_elkdata(self, params)
         layout = try_to_layout(data)
         add_context(layout, params.get("is_legend", False))

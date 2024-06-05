@@ -59,7 +59,7 @@ def collector(
 ) -> _elkjs.ELKInputData:
     """Returns ``ELKInputData`` with only centerbox in children and config."""
     data = makers.make_diagram(diagram)
-    data["children"] = [
+    data.children = [
         makers.make_box(
             diagram.target,
             width=width,
@@ -108,7 +108,7 @@ def exchange_data_collector(
 ) -> SourceAndTarget:
     """Return source and target port from `exchange`.
 
-    Additionally inflate `elkdata["children"]` with input data for ELK.
+    Additionally inflate `elkdata.children` with input data for ELK.
     You can handover a filter name that corresponds to capellambse
     filters. This will apply filter functionality from
     [`filters.FILTER_LABEL_ADJUSTERS`][capellambse_context_diagrams.filters.FILTER_LABEL_ADJUSTERS].
@@ -149,12 +149,12 @@ def exchange_data_collector(
                 name,
             )
 
-    data.elkdata.setdefault("edges", []).append(
-        {
-            "id": render_adj.get("id", data.exchange.uuid),
-            "sources": [render_adj.get("sources", source.uuid)],
-            "targets": [render_adj.get("targets", target.uuid)],
-        },
+    data.elkdata.edges.append(
+        _elkjs.ELKInputEdge(
+            id=render_adj.get("id", data.exchange.uuid),
+            sources=[render_adj.get("sources", source.uuid)],
+            targets=[render_adj.get("targets", target.uuid)],
+        )
     )
 
     label = collect_label(data.exchange)
@@ -171,7 +171,7 @@ def exchange_data_collector(
             )
 
     if label and not no_edgelabels:
-        data.elkdata["edges"][-1]["labels"] = makers.make_label(
+        data.elkdata.edges[-1].labels = makers.make_label(
             render_adj.get("labels_text", label),
             max_width=makers.MAX_LABEL_WIDTH,
         )
@@ -201,11 +201,11 @@ def move_parent_boxes_to_owner(
 ) -> None:
     """Move boxes to their owner box."""
     boxes_to_remove: list[str] = []
-    for child in data["children"]:
-        if not child.get("children"):
+    for child in data.children:
+        if not child.children:
             continue
 
-        owner = obj._model.by_uuid(child["id"])
+        owner = obj._model.by_uuid(child.id)
         if (
             isinstance(owner, filter_types)
             or not (oowner := owner.owner)
@@ -214,12 +214,10 @@ def move_parent_boxes_to_owner(
         ):
             continue
 
-        oowner_box.setdefault("children", []).append(child)
-        boxes_to_remove.append(child["id"])
+        oowner_box.children.append(child)
+        boxes_to_remove.append(child.id)
 
-    data["children"] = [
-        b for b in data["children"] if b["id"] not in boxes_to_remove
-    ]
+    data.children = [b for b in data.children if b.id not in boxes_to_remove]
 
 
 def move_edges(
@@ -243,13 +241,11 @@ def move_edges(
         ):
             continue
 
-        for edge in data["edges"]:
-            if edge["id"] == c.uuid:
-                owner_box.setdefault("edges", []).append(edge)
-                edges_to_remove.append(edge["id"])
-    data["edges"] = [
-        e for e in data["edges"] if e["id"] not in edges_to_remove
-    ]
+        for edge in data.edges:
+            if edge.id == c.uuid:
+                owner_box.edges.append(edge)
+                edges_to_remove.append(edge.id)
+    data.edges = [e for e in data.edges if e.id not in edges_to_remove]
 
 
 def get_all_owners(obj: common.GenericElement) -> list[str]:

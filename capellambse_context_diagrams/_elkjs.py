@@ -19,7 +19,7 @@ import typing as t
 from pathlib import Path
 
 import capellambse
-import typing_extensions as te
+import pydantic
 
 __all__ = [
     "call_elkjs",
@@ -89,87 +89,96 @@ LABEL_LAYOUT_OPTIONS = {"nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"}
 """Options for labels to configure ELK layouting."""
 
 
-class ELKInputData(te.TypedDict, total=False):
+class BaseELKModel(pydantic.BaseModel):
+    """Base class for ELK models."""
+
+    model_config = pydantic.ConfigDict(
+        extra="allow",
+        arbitrary_types_allowed=True,
+    )
+
+
+class ELKInputData(BaseELKModel):
     """Data that can be fed to ELK."""
 
-    id: te.Required[str]
-    layoutOptions: LayoutOptions
-    children: cabc.MutableSequence[ELKInputChild]  # type: ignore
-    edges: cabc.MutableSequence[ELKInputEdge]
+    id: str
+    layoutOptions: LayoutOptions = {}
+    children: cabc.MutableSequence[ELKInputChild] = []
+    edges: cabc.MutableSequence[ELKInputEdge] = []
 
 
-class ELKInputChild(ELKInputData, total=False):
+class ELKInputChild(ELKInputData):
     """Children of either `ELKInputData` or `ELKInputChild`."""
 
-    labels: cabc.MutableSequence[ELKInputLabel]
-    ports: cabc.MutableSequence[ELKInputPort]
+    labels: cabc.MutableSequence[ELKInputLabel] = []
+    ports: cabc.MutableSequence[ELKInputPort] = []
 
-    width: t.Union[int, float]
-    height: t.Union[int, float]
+    width: t.Union[int, float] = 0
+    height: t.Union[int, float] = 0
 
 
-class ELKInputLabel(te.TypedDict, total=False):
+class ELKInputLabel(BaseELKModel):
     """Label data that can be fed to ELK."""
 
-    text: te.Required[str]
-    layoutOptions: LayoutOptions
-    width: t.Union[int, float]
-    height: t.Union[int, float]
+    text: str
+    layoutOptions: LayoutOptions = {}
+    width: t.Union[int, float] = 0
+    height: t.Union[int, float] = 0
 
 
-class ELKInputPort(t.TypedDict):
+class ELKInputPort(BaseELKModel):
     """Connector data that can be fed to ELK."""
 
     id: str
+    layoutOptions: LayoutOptions = {}
+
     width: t.Union[int, float]
     height: t.Union[int, float]
 
-    layoutOptions: te.NotRequired[cabc.MutableMapping[str, t.Any]]
 
-
-class ELKInputEdge(te.TypedDict):
+class ELKInputEdge(BaseELKModel):
     """Exchange data that can be fed to ELK."""
 
     id: str
     sources: cabc.MutableSequence[str]
     targets: cabc.MutableSequence[str]
-    labels: te.NotRequired[cabc.MutableSequence[ELKInputLabel]]
+    labels: cabc.MutableSequence[ELKInputLabel] = []
 
 
-class ELKPoint(t.TypedDict):
+class ELKPoint(BaseELKModel):
     """Point data in ELK."""
 
     x: t.Union[int, float]
     y: t.Union[int, float]
 
 
-class ELKSize(t.TypedDict):
+class ELKSize(BaseELKModel):
     """Size data in ELK."""
 
     width: t.Union[int, float]
     height: t.Union[int, float]
 
 
-class ELKOutputElement(t.TypedDict):
+class ELKOutputElement(BaseELKModel):
     """Base class for all elements that comes out of ELK."""
 
     id: str
 
-    style: dict[str, t.Any]
+    style: dict[str, t.Any] = {}
 
 
 class ELKOutputData(ELKOutputElement):
     """Data that comes from ELK."""
 
     type: t.Literal["graph"]
-    children: cabc.MutableSequence[ELKOutputChild]  # type: ignore
+    children: cabc.MutableSequence[ELKOutputChild] = []
 
 
 class ELKOutputNode(ELKOutputElement):
     """Node that comes out of ELK."""
 
     type: t.Literal["node"]
-    children: cabc.MutableSequence[ELKOutputChild]  # type: ignore
+    children: cabc.MutableSequence[ELKOutputChild] = []
 
     position: ELKPoint
     size: ELKSize
@@ -179,7 +188,7 @@ class ELKOutputJunction(ELKOutputElement):
     """Exchange-Junction that comes out of ELK."""
 
     type: t.Literal["junction"]
-    children: cabc.MutableSequence[ELKOutputLabel]
+    children: cabc.MutableSequence[ELKOutputLabel] = []
 
     position: ELKPoint
     size: ELKSize
@@ -189,7 +198,7 @@ class ELKOutputPort(ELKOutputElement):
     """Port that comes out of ELK."""
 
     type: t.Literal["port"]
-    children: cabc.MutableSequence[ELKOutputLabel]
+    children: cabc.MutableSequence[ELKOutputLabel] = []
 
     position: ELKPoint
     size: ELKSize
@@ -213,10 +222,10 @@ class ELKOutputEdge(ELKOutputElement):
     sourceId: str
     targetId: str
     routingPoints: cabc.MutableSequence[ELKPoint]
-    children: cabc.MutableSequence[ELKOutputLabel]
+    children: cabc.MutableSequence[ELKOutputLabel] = []
 
 
-ELKOutputChild = t.Union[  # type: ignore
+ELKOutputChild = t.Union[
     ELKOutputEdge,
     ELKOutputJunction,
     ELKOutputLabel,
@@ -344,7 +353,7 @@ def call_elkjs(elk_dict: ELKInputData) -> ELKOutputData:
         executable=shutil.which("node"),
         capture_output=True,
         check=False,
-        input=json.dumps(elk_dict),
+        input=elk_dict.model_dump_json(),
         text=True,
         env={**os.environ, "NODE_PATH": str(NODE_HOME)},
     )
@@ -352,7 +361,7 @@ def call_elkjs(elk_dict: ELKInputData) -> ELKOutputData:
         log.getChild("node").error("%s", proc.stderr)
         raise NodeJSError("elk.js process failed")
 
-    return json.loads(proc.stdout)
+    return ELKOutputData.model_validate_json(proc.stdout)
 
 
 def get_global_layered_layout_options() -> LayoutOptions:

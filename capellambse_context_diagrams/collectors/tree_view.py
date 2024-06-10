@@ -60,7 +60,7 @@ class ClassProcessor:
             if len(edges) == 1:
                 edge_id = edges[0].uuid
             else:
-                edge_id = f"{ASSOC_STYLECLASS}_{self.edge_counter}"
+                edge_id = f"{ASSOC_STYLECLASS}:{self.edge_counter}"
                 self.edge_counter += 1
             if edge_id not in self.made_edges:
                 self.made_edges.add(edge_id)

@@ -60,7 +60,7 @@ class ClassProcessor:
             if len(edges) == 1:
                 edge_id = edges[0].uuid
             else:
-                edge_id = f"{ASSOC_STYLECLASS}_{self.edge_counter}"
+                edge_id = f"{ASSOC_STYLECLASS}:{self.edge_counter}"
                 self.edge_counter += 1
             if edge_id not in self.made_edges:
                 self.made_edges.add(edge_id)
@@ -333,12 +333,11 @@ def _make_class_info(
     partition: int,
     generalizes: information.Class | None = None,
 ) -> ClassInfo:
-    converter = {math.inf: "*"}
     multiplicity = None
     target = None
     if prop is not None:
-        start = converter.get(prop.min_card.value, str(prop.min_card.value))
-        end = converter.get(prop.max_card.value, str(prop.max_card.value))
+        start = getattr(prop.min_card, "value", "1")
+        end = getattr(prop.max_card, "value", "1")
         multiplicity = (start, end)
         target = prop.type
 
@@ -411,8 +410,11 @@ def _get_property_text(prop: information.Property) -> str:
             "Property without abstract type found: %r", prop._short_repr_()
         )
 
-    if prop.min_card.value != "1" or prop.max_card.value != "1":
-        text = f"[{prop.min_card.value}..{prop.max_card.value}] {text}"
+    min_card = getattr(prop.min_card, "value", "1")
+    max_card = getattr(prop.max_card, "value", "1")
+
+    if min_card != "1" or max_card != "1":
+        text = f"[{min_card}..{max_card}] {text}"
     return text
 
 

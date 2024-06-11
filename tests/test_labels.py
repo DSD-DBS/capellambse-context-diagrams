@@ -29,4 +29,4 @@ def test_context_diagrams(
 
     labels = makers.make_label(obj.name, max_width=makers.MAX_LABEL_WIDTH)
 
-    assert [label["text"] for label in labels] == expected_labels
+    assert [label.text for label in labels] == expected_labels

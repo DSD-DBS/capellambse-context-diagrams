@@ -451,10 +451,10 @@ class ClassTreeDiagram(ContextDiagram):
         width, height = class_diagram.viewport.size
         axis: t.Literal["x", "y"]
         if params["elk.direction"] in {"DOWN", "UP"}:
-            legend["layoutOptions"]["aspectRatio"] = width / height
+            legend.layoutOptions["aspectRatio"] = width / height
             axis = "x"
         else:
-            legend["layoutOptions"]["aspectRatio"] = width
+            legend.layoutOptions["aspectRatio"] = width
             axis = "y"
         params["elkdata"] = legend
         params["is_legend"] = True
@@ -466,9 +466,9 @@ class ClassTreeDiagram(ContextDiagram):
 def add_context(data: _elkjs.ELKOutputData, is_legend: bool = False) -> None:
     """Add all connected nodes as context to all elements."""
     if is_legend:
-        for child in data["children"]:
-            if child["type"] == "node":
-                child["context"] = [child["id"]]  # type: ignore[typeddict-unknown-key]
+        for child in data.children:
+            if child.type == "node":
+                child.context = [child.id]
         return
 
     ids: set[str] = set()
@@ -481,27 +481,27 @@ def add_context(data: _elkjs.ELKOutputData, is_legend: bool = False) -> None:
             | _elkjs.ELKOutputEdge
         ),
     ) -> None:
-        if obj["id"] and not obj["id"].startswith("g_"):
-            ids.add(obj["id"])
-        for child in obj.get("children", []):
-            if child["type"] in {"node", "port", "junction", "edge"}:
-                assert child["type"] != "label"
+        if obj.id and not obj.id.startswith("g_"):
+            ids.add(obj.id)
+        for child in getattr(obj, "children", []):
+            if child.type in {"node", "port", "junction", "edge"}:
+                assert child.type != "label"
                 get_ids(child)
 
     def set_ids(
         obj: _elkjs.ELKOutputChild,
         ids: set[str],
     ) -> None:
-        obj["context"] = list(ids)  # type: ignore[typeddict-unknown-key]
-        for child in obj.get("children", []):  # type: ignore[attr-defined]
+        obj.context = list(ids)
+        for child in getattr(obj, "children", []):
             set_ids(child, ids)
 
-    for child in data["children"]:
-        if child["type"] in {"node", "port", "junction", "edge"}:
-            assert child["type"] != "label"
+    for child in data.children:
+        if child.type in {"node", "port", "junction", "edge"}:
+            assert child.type != "label"
             get_ids(child)
 
-    for child in data["children"]:
+    for child in data.children:
         set_ids(child, ids)
 
 
@@ -537,15 +537,15 @@ class RealizationViewDiagram(ContextDiagram):
         adjust_layer_sizing(data, layout, params["layer_sizing"])
         layout = try_to_layout(data)
         for edge in edges:
-            layout["children"].append(
-                {
-                    "id": edge["id"],
-                    "type": "edge",
-                    "sourceId": edge["sources"][0],
-                    "targetId": edge["targets"][0],
-                    "routingPoints": [],
-                    "styleclass": "Realization",
-                }  # type: ignore[arg-type]
+            layout.children.append(
+                _elkjs.ELKOutputEdge(
+                    id=edge.id,
+                    type="edge",
+                    sourceId=edge.sources[0],
+                    targetId=edge.targets[0],
+                    routingPoints=[],
+                    styleclass="Realization",
+                )
             )
         self._add_layer_labels(layout)
         return self.serializer.make_diagram(
@@ -554,29 +554,29 @@ class RealizationViewDiagram(ContextDiagram):
         )
 
     def _add_layer_labels(self, layout: _elkjs.ELKOutputData) -> None:
-        for layer in layout["children"]:
-            if layer["type"] != "node":
+        for layer in layout.children:
+            if layer.type != "node":
                 continue
 
-            layer_obj = self.serializer.model.by_uuid(layer["id"])
+            layer_obj = self.serializer.model.by_uuid(layer.id)
             _, layer_name = realization_view.find_layer(layer_obj)
-            pos = layer["position"]["x"], layer["position"]["y"]
-            size = layer["size"]["width"], layer["size"]["height"]
+            pos = layer.position.x, layer.position.y
+            size = layer.size.width, layer.size.height
             width, height = helpers.get_text_extent(layer_name)
             x, y, tspan_y = calculate_label_position(*pos, *size)
-            label_box: _elkjs.ELKOutputChild = {
-                "type": "label",
-                "id": "None",
-                "text": layer_name,
-                "position": {"x": x, "y": y},
-                "size": {"width": width, "height": height},
-                "style": {
+            label_box = _elkjs.ELKOutputLabel(
+                type="label",
+                id="None",
+                text=layer_name,
+                position=_elkjs.ELKPoint(x=x, y=y),
+                size=_elkjs.ELKSize(width=width, height=height),
+                style={
                     "text_transform": f"rotate(-90, {x}, {y}) {tspan_y}",
                     "text_fill": "grey",
                 },
-            }
-            layer["children"].insert(0, label_box)
-            layer["style"] = {"stroke": "grey", "rx": 5, "ry": 5}
+            )
+            layer.children.insert(0, label_box)
+            layer.style = {"stroke": "grey", "rx": 5, "ry": 5}
 
 
 class DataFlowViewDiagram(ContextDiagram):
@@ -617,7 +617,7 @@ def adjust_layer_sizing(
     """Set `nodeSize.minimum` config in the layoutOptions."""
 
     def calculate_min(key: t.Literal["width", "height"] = "width") -> float:
-        return max(child["size"][key] for child in layout["children"])  # type: ignore[typeddict-item]
+        return max(getattr(child.size, key) for child in layout.children)  # type: ignore[union-attr]
 
     if layer_sizing not in {"UNION", "WIDTH", "HEIGHT", "INDIVIDUAL"}:
         raise NotImplementedError(
@@ -628,8 +628,8 @@ def adjust_layer_sizing(
     min_h = (
         calculate_min("height") if layer_sizing in {"UNION", "HEIGHT"} else 0
     )
-    for layer in data["children"]:
-        layer["layoutOptions"]["nodeSize.minimum"] = f"({min_w},{min_h})"
+    for layer in data.children:
+        layer.layoutOptions["nodeSize.minimum"] = f"({min_w},{min_h})"
 
 
 def stack_diagrams(

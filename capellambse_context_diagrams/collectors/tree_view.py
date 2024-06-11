@@ -36,7 +36,7 @@ class ClassProcessor:
         all_associations: cabc.Iterable[information.Association],
     ) -> None:
         self.data = data
-        self.made_boxes: set[str] = {data["children"][0]["id"]}
+        self.made_boxes: set[str] = {data.children[0].id}
         self.made_edges: set[str] = set()
         self.data_types: set[str] = set()
         self.legend_boxes: list[_elkjs.ELKInputChild] = []
@@ -44,8 +44,8 @@ class ClassProcessor:
         self.edge_counter = 0
 
     def __contains__(self, uuid: str) -> bool:
-        objects = self.data["children"] + self.data["edges"]  # type: ignore[operator]
-        return uuid in {obj["id"] for obj in objects}
+        objects = self.data.children + self.data.edges  # type: ignore[operator]
+        return uuid in {obj.id for obj in objects}
 
     def process_class(self, cls: ClassInfo, params: dict[str, t.Any]):
         self._process_box(cls.source, cls.partition, params)
@@ -60,7 +60,7 @@ class ClassProcessor:
             if len(edges) == 1:
                 edge_id = edges[0].uuid
             else:
-                edge_id = f"{ASSOC_STYLECLASS}_{self.edge_counter}"
+                edge_id = f"{ASSOC_STYLECLASS}:{self.edge_counter}"
                 self.edge_counter += 1
             if edge_id not in self.made_edges:
                 self.made_edges.add(edge_id)
@@ -72,13 +72,13 @@ class ClassProcessor:
 
                 if start != "1" or end != "1":
                     text = f"[{start}..{end}] {text}"
-                self.data["edges"].append(
-                    {
-                        "id": edge_id,
-                        "sources": [cls.source.uuid],
-                        "targets": [cls.target.uuid],
-                        "labels": makers.make_label(text),
-                    }
+                self.data.edges.append(
+                    _elkjs.ELKInputEdge(
+                        id=edge_id,
+                        sources=[cls.source.uuid],
+                        targets=[cls.target.uuid],
+                        labels=makers.make_label(text),
+                    )
                 )
 
         if cls.generalizes:
@@ -88,12 +88,12 @@ class ClassProcessor:
             )
             if edge.uuid not in self.made_edges:
                 self.made_edges.add(edge.uuid)
-                self.data["edges"].append(
-                    {
-                        "id": edge.uuid,
-                        "sources": [cls.source.uuid],
-                        "targets": [cls.generalizes.uuid],
-                    }
+                self.data.edges.append(
+                    _elkjs.ELKInputEdge(
+                        id=edge.uuid,
+                        sources=[cls.source.uuid],
+                        targets=[cls.generalizes.uuid],
+                    )
                 )
 
     def _process_box(
@@ -112,7 +112,7 @@ class ClassProcessor:
         )
         self._set_data_types_and_labels(box, obj)
         _set_partitioning(box, partition, params)
-        self.data["children"].append(box)
+        self.data.children.append(box)
         return box
 
     def _set_data_types_and_labels(
@@ -121,12 +121,12 @@ class ClassProcessor:
         properties, legends = _get_all_non_edge_properties(
             target, self.data_types
         )
-        box["labels"].extend(properties)
-        box["width"], box["height"] = makers.calculate_height_and_width(
-            list(box["labels"])
+        box.labels.extend(properties)
+        box.width, box.height = makers.calculate_height_and_width(
+            list(box.labels)
         )
         for legend in legends:
-            if legend["id"] not in self:
+            if legend.id not in self:
                 self.legend_boxes.append(legend)
 
 
@@ -136,7 +136,7 @@ def collector(
     """Return the class tree data for ELK."""
     assert isinstance(diagram.target, information.Class)
     data = generic.collector(diagram, no_symbol=True)
-    data["children"][0]["labels"][0].setdefault("layoutOptions", {}).update(
+    data.children[0].labels[0].layoutOptions.update(
         makers.DEFAULT_LABEL_LAYOUT_OPTIONS
     )
     all_associations: cabc.Iterable[information.Association] = (
@@ -144,7 +144,7 @@ def collector(
     )
     _set_layout_options(data, params)
     processor = ClassProcessor(data, all_associations)
-    processor._set_data_types_and_labels(data["children"][0], diagram.target)
+    processor._set_data_types_and_labels(data.children[0], diagram.target)
     for _, cls in get_all_classes(
         diagram.target,
         max_partition=params.get("depth"),
@@ -154,8 +154,8 @@ def collector(
         processor.process_class(cls, params)
 
     legend = makers.make_diagram(diagram)
-    legend["layoutOptions"] = copy.deepcopy(_elkjs.RECT_PACKING_LAYOUT_OPTIONS)  # type: ignore[arg-type]
-    legend["children"] = processor.legend_boxes
+    legend.layoutOptions = copy.deepcopy(_elkjs.RECT_PACKING_LAYOUT_OPTIONS)  # type: ignore[arg-type]
+    legend.children = processor.legend_boxes
     return data, legend
 
 
@@ -165,14 +165,16 @@ def _set_layout_options(
     options = {
         k: v for k, v in params.items() if k not in ("depth", "super", "sub")
     }
-    data["layoutOptions"] = {**DEFAULT_LAYOUT_OPTIONS, **options}
-    _set_partitioning(data["children"][0], 0, params)
+    data.layoutOptions = {**DEFAULT_LAYOUT_OPTIONS, **options}
+    _set_partitioning(data.children[0], 0, params)
 
 
-def _set_partitioning(box, partition: int, params: dict[str, t.Any]) -> None:
+def _set_partitioning(
+    box: _elkjs.ELKInputChild, partition: int, params: dict[str, t.Any]
+) -> None:
     if params.get("partitioning", False):
-        box["layoutOptions"] = {}
-        box["layoutOptions"]["elk.partitioning.partition"] = partition
+        box.layoutOptions = {}
+        box.layoutOptions["elk.partitioning.partition"] = partition
 
 
 @dataclasses.dataclass
@@ -333,12 +335,11 @@ def _make_class_info(
     partition: int,
     generalizes: information.Class | None = None,
 ) -> ClassInfo:
-    converter = {math.inf: "*"}
     multiplicity = None
     target = None
     if prop is not None:
-        start = converter.get(prop.min_card.value, str(prop.min_card.value))
-        end = converter.get(prop.max_card.value, str(prop.max_card.value))
+        start = getattr(prop.min_card, "value", "1")
+        end = getattr(prop.max_card, "value", "1")
         multiplicity = (start, end)
         target = prop.type
 
@@ -357,13 +358,13 @@ def _get_all_non_edge_properties(
     obj: information.Class, data_types: set[str]
 ) -> tuple[list[_elkjs.ELKInputLabel], list[_elkjs.ELKInputChild]]:
     layout_options = DATA_TYPE_LABEL_LAYOUT_OPTIONS
-    properties: list[_elkjs.ELKInputLabel] = [
-        {
-            "text": "",
-            "layoutOptions": makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
-            "width": 0,
-            "height": 0,
-        }
+    properties = [
+        _elkjs.ELKInputLabel(
+            text="",
+            layoutOptions=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+            width=0,
+            height=0,
+        )
     ]
     legends: list[_elkjs.ELKInputChild] = []
     for prop in obj.properties:
@@ -396,8 +397,8 @@ def _get_all_non_edge_properties(
             label_getter=_get_legend_labels,
             max_label_width=math.inf,
         )
-        legend["layoutOptions"] = {}
-        legend["layoutOptions"]["nodeSize.constraints"] = "NODE_LABELS"
+        legend.layoutOptions = {}
+        legend.layoutOptions["nodeSize.constraints"] = "NODE_LABELS"
         legends.append(legend)
     return properties, legends
 
@@ -411,8 +412,11 @@ def _get_property_text(prop: information.Property) -> str:
             "Property without abstract type found: %r", prop._short_repr_()
         )
 
-    if prop.min_card.value != "1" or prop.max_card.value != "1":
-        text = f"[{prop.min_card.value}..{prop.max_card.value}] {text}"
+    min_card = getattr(prop.min_card, "value", "1")
+    max_card = getattr(prop.max_card, "value", "1")
+
+    if min_card != "1" or max_card != "1":
+        text = f"[{min_card}..{max_card}] {text}"
     return text
 
 

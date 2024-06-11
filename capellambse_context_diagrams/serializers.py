@@ -38,7 +38,7 @@ EdgeContext = tuple[
     diagram.Box | diagram.Edge | None,
 ]
 
-REMAP_STYLECLASS: dict[str, str] = {"Unset": "Association"}
+REMAP_STYLECLASS: dict[t.Any, str | None] = {"Unset": "Association"}
 
 
 class DiagramSerializer:
@@ -85,7 +85,7 @@ class DiagramSerializer:
             styleclass=self._diagram.styleclass,
             params=kwargs,
         )
-        for child in data["children"]:
+        for child in data.children:
             self.deserialize_child(child, diagram.Vector2D(), None)
 
         for edge, ref, parent in self._edges.values():
@@ -125,21 +125,24 @@ class DiagramSerializer:
         uuid: str
         styleclass: str | None
         derived = False
-        if child["id"].startswith("__"):
-            styleclass, uuid = child["id"][2:].split(":", 1)
+        if child.id.startswith("__"):
+            if ":" in child.id:
+                styleclass, uuid = child.id[2:].split(":", 1)
+            else:
+                styleclass = uuid = child.id[2:]
             if styleclass.startswith("Derived-"):
                 styleclass = styleclass.removeprefix("Derived-")
                 derived = True
         else:
-            styleclass = self.get_styleclass(child["id"])
-            uuid = child["id"]
+            styleclass = self.get_styleclass(child.id)
+            uuid = child.id
 
         styleoverrides = self.get_styleoverrides(uuid, child, derived=derived)
         element: diagram.Box | diagram.Edge | diagram.Circle
-        if child["type"] in {"node", "port"}:
+        if child.type in {"node", "port"}:
             assert parent is None or isinstance(parent, diagram.Box)
             has_symbol_cls = makers.is_symbol(styleclass)
-            is_port = child["type"] == "port"
+            is_port = child.type == "port"
             box_type = ("box", "symbol")[
                 is_port
                 or has_symbol_cls
@@ -147,11 +150,15 @@ class DiagramSerializer:
                 and not self._diagram.display_symbols_as_boxes
             ]
 
-            ref += (child["position"]["x"], child["position"]["y"])  # type: ignore
-            size = (child["size"]["width"], child["size"]["height"])  # type: ignore
+            assert not isinstance(
+                child, (_elkjs.ELKOutputEdge, _elkjs.ELKOutputJunction)
+            )
+            ref += (child.position.x, child.position.y)
+            size = (child.size.width, child.size.height)
             features = []
             if styleclass in decorations.needs_feature_line:
-                features = handle_features(child)  # type: ignore[arg-type]
+                assert isinstance(child, _elkjs.ELKOutputNode)
+                features = handle_features(child)
 
             element = diagram.Box(
                 ref,
@@ -162,28 +169,27 @@ class DiagramSerializer:
                 styleclass=styleclass,
                 styleoverrides=styleoverrides,
                 features=features,
-                context=child.get("context"),
+                context=getattr(child, "context", {}),
             )
             element.JSON_TYPE = box_type
             self.diagram.add_element(element)
             self._cache[uuid] = element
-        elif child["type"] == "edge":
-            styleclass = child.get("styleclass", styleclass)  # type: ignore[assignment]
-            styleclass = REMAP_STYLECLASS.get(styleclass, styleclass)  # type: ignore[arg-type]
+        elif child.type == "edge":
+            styleclass = getattr(child, "styleClass", styleclass)
+            styleclass = REMAP_STYLECLASS.get(styleclass, styleclass)
             EDGE_HANDLER.get(styleclass, lambda c: c)(child)
 
-            source_id = child["sourceId"]
+            source_id = child.sourceId
             if source_id.startswith("__"):
                 source_id = source_id[2:].split(":", 1)[-1]
 
-            target_id = child["targetId"]
+            target_id = child.targetId
             if target_id.startswith("__"):
                 target_id = target_id[2:].split(":", 1)[-1]
 
-            if child["routingPoints"]:
+            if child.routingPoints:
                 refpoints = [
-                    ref + (point["x"], point["y"])
-                    for point in child["routingPoints"]
+                    ref + (point.x, point.y) for point in child.routingPoints
                 ]
             else:
                 source = self._cache[source_id]
@@ -192,16 +198,16 @@ class DiagramSerializer:
 
             element = diagram.Edge(
                 refpoints,
-                uuid=child["id"],
+                uuid=child.id,
                 source=self.diagram[source_id],
                 target=self.diagram[target_id],
                 styleclass=styleclass,
                 styleoverrides=styleoverrides,
-                context=child.get("context"),
+                context=getattr(child, "context", {}),
             )
             self.diagram.add_element(element)
             self._cache[uuid] = element
-        elif child["type"] == "label":
+        elif child.type == "label":
             assert parent is not None
             if not parent.port:
                 if parent.JSON_TYPE != "symbol":
@@ -214,30 +220,29 @@ class DiagramSerializer:
 
                 if labels := getattr(parent, attr_name):
                     label_box = labels[-1]
-                    label_box.label += " " + child["text"]
+                    label_box.label += " " + child.text
                     label_box.size = diagram.Vector2D(
-                        max(label_box.size.x, child["size"]["width"]),
-                        label_box.size.y + child["size"]["height"],
+                        max(label_box.size.x, child.size.width),
+                        label_box.size.y + child.size.height,
                     )
                     label_box.pos = diagram.Vector2D(
-                        min(label_box.pos.x, ref.x + child["position"]["x"]),
+                        min(label_box.pos.x, ref.x + child.position.x),
                         label_box.pos.y,
                     )
                 else:
                     labels.append(
                         diagram.Box(
-                            ref
-                            + (child["position"]["x"], child["position"]["y"]),
-                            (child["size"]["width"], child["size"]["height"]),
-                            label=child["text"],
+                            ref + (child.position.x, child.position.y),
+                            (child.size.width, child.size.height),
+                            label=child.text,
                             styleoverrides=styleoverrides,
                         )
                     )
 
             element = parent
-        elif child["type"] == "junction":
-            uuid = child["id"].rsplit("_", maxsplit=1)[0]
-            pos = diagram.Vector2D(**child["position"])
+        elif child.type == "junction":
+            uuid = child.id.rsplit("_", maxsplit=1)[0]
+            pos = diagram.Vector2D(child.position.x, child.position.y)
             if self._is_hierarchical(uuid):
                 # FIXME should this use `parent` instead?
                 pos += self.diagram[self._diagram.target.uuid].pos
@@ -245,19 +250,19 @@ class DiagramSerializer:
             element = diagram.Circle(
                 ref + pos,
                 5,
-                uuid=child["id"],
+                uuid=child.id,
                 styleclass=self.get_styleclass(uuid),
                 styleoverrides=styleoverrides,
-                context=child.get("context"),
+                context=getattr(child, "context", {}),
             )
             self.diagram.add_element(element)
         else:
-            logger.warning("Received unknown type %s", child["type"])
+            logger.warning("Received unknown type %s", child.type)
             return
 
-        for i in child.get("children", []):  # type: ignore
-            if i["type"] == "edge":
-                self._edges.setdefault(i["id"], (i, ref, parent))
+        for i in getattr(child, "children", []):
+            if i.type == "edge":
+                self._edges.setdefault(i.id, (i, ref, parent))
             else:
                 self.deserialize_child(i, ref, element)
 
@@ -294,10 +299,10 @@ class DiagramSerializer:
         from a given
         [`_elkjs.ELKOutputChild`][capellambse_context_diagrams._elkjs.ELKOutputChild].
         """
-        style_condition = self._diagram.render_styles.get(child["type"])
+        style_condition = self._diagram.render_styles.get(child.type)
         styleoverrides: dict[str, t.Any] = {}
         if style_condition is not None:
-            if child["type"] != "junction":
+            if child.type != "junction":
                 obj = self._diagram._model.by_uuid(uuid)
             else:
                 obj = None
@@ -311,7 +316,7 @@ class DiagramSerializer:
             styleoverrides["stroke-dasharray"] = "4"
 
         style: dict[str, t.Any]
-        if style := child.get("style", {}):
+        if style := child.style:
             styleoverrides |= style
         return styleoverrides
 
@@ -338,13 +343,13 @@ class DiagramSerializer:
 def handle_features(child: _elkjs.ELKOutputNode) -> list[str]:
     """Return all consecutive labels (without first) from the ``child``."""
     features: list[str] = []
-    if len(child["children"]) <= 1:
+    if len(child.children) <= 1:
         return features
 
-    all_labels = [i for i in child["children"] if i["type"] == "label"]
-    labels = list(itertools.takewhile(lambda i: i["text"], all_labels))
-    features = [i["text"] for i in all_labels[len(labels) + 1 :]]
-    child["children"] = labels  # type: ignore[typeddict-item]
+    all_labels = [i for i in child.children if i.type == "label"]
+    labels = list(itertools.takewhile(lambda i: i.text, all_labels))
+    features = [i.text for i in all_labels[len(labels) + 1 :]]
+    child.children = labels  # type: ignore[assignment]
     return features
 
 
@@ -370,13 +375,13 @@ def route_shortest_connection(
 
 
 def reverse_edge_refpoints(child: _elkjs.ELKOutputEdge) -> None:
-    source = child["sourceId"]
-    target = child["targetId"]
-    child["targetId"] = source
-    child["sourceId"] = target
-    child["routingPoints"] = child["routingPoints"][::-1]
+    source = child.sourceId
+    target = child.targetId
+    child.targetId = source
+    child.sourceId = target
+    child.routingPoints = child.routingPoints[::-1]
 
 
-EDGE_HANDLER: dict[str, cabc.Callable[[_elkjs.ELKOutputEdge], None]] = {
+EDGE_HANDLER: dict[str | None, cabc.Callable[[_elkjs.ELKOutputEdge], None]] = {
     "Generalization": reverse_edge_refpoints
 }

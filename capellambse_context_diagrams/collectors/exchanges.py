@@ -127,35 +127,35 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
     ) -> None:
         """Adjust size of functions and make ports."""
         stack_height: int | float = -makers.NEIGHBOR_VMARGIN
-        for child in data["children"]:
+        for child in data.children:
             inputs, outputs = [], []
-            obj = self.obj._model.by_uuid(child["id"])
+            obj = self.obj._model.by_uuid(child.id)
             if isinstance(obj, cs.Component):
                 self.make_ports_and_update_children_size(child, exchanges)
                 return
             port_ids = {p.uuid for p in obj.inputs + obj.outputs}
             for ex in exchanges:
-                source, target = ex["sources"][0], ex["targets"][0]
+                source, target = ex.sources[0], ex.targets[0]
                 if source in port_ids:
                     outputs.append(source)
                 elif target in port_ids:
                     inputs.append(target)
 
             if generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[self.diagram.type]:
-                child["ports"] = [
+                child.ports = [
                     makers.make_port(i) for i in set(inputs + outputs)
                 ]
 
             childnum = max(len(inputs), len(outputs))
             height = max(
-                child["height"] + 2 * makers.LABEL_VPAD,
+                child.height + 2 * makers.LABEL_VPAD,
                 makers.PORT_PADDING
                 + (makers.PORT_SIZE + makers.PORT_PADDING) * childnum,
             )
-            child["height"] = height
+            child.height = height
             stack_height += makers.NEIGHBOR_VMARGIN + height
 
-        data["height"] = stack_height
+        data.height = stack_height
 
     @abc.abstractmethod
     def collect(self) -> None:
@@ -174,8 +174,8 @@ def get_elkdata_for_exchanges(
     data = makers.make_diagram(diagram)
     collector = collector_type(diagram, data, params)
     collector.collect()
-    for comp in data["children"]:
-        collector.make_ports_and_update_children_size(comp, data["edges"])
+    for comp in data.children:
+        collector.make_ports_and_update_children_size(comp, data.edges)
 
     return data
 
@@ -240,7 +240,7 @@ class InterfaceContextCollector(ExchangeCollector):
                 box = makers.make_box(
                     comp, no_symbol=True, layout_options=layout_options
                 )
-                box["children"] = children
+                box.children = children
                 made_children.add(comp.uuid)
                 return box
             return None
@@ -273,10 +273,10 @@ class InterfaceContextCollector(ExchangeCollector):
                 left_context, right_context = right_context, left_context
 
             if left_child := make_boxes(left_context):
-                self.data["children"].append(left_child)
+                self.data.children.append(left_child)
                 self.left = left_child
             if right_child := make_boxes(right_context):
-                self.data["children"].append(right_child)
+                self.data.children.append(right_child)
                 self.right = right_child
         except AttributeError:
             pass
@@ -291,13 +291,13 @@ class InterfaceContextCollector(ExchangeCollector):
         )
         src, tgt = generic.exchange_data_collector(ex_data)
         assert self.right is not None
-        if self.get_source(self.obj).uuid == self.right["id"]:
-            self.data["edges"][-1]["sources"] = [tgt.uuid]
-            self.data["edges"][-1]["targets"] = [src.uuid]
+        if self.get_source(self.obj).uuid == self.right.id:
+            self.data.edges[-1].sources = [tgt.uuid]
+            self.data.edges[-1].targets = [src.uuid]
 
         assert self.left is not None
-        self.left.setdefault("ports", []).append(makers.make_port(src.uuid))
-        self.right.setdefault("ports", []).append(makers.make_port(tgt.uuid))
+        self.left.ports.append(makers.make_port(src.uuid))
+        self.right.ports.append(makers.make_port(tgt.uuid))
 
     def collect(self) -> None:
         """Collect all allocated `FunctionalExchange`s in the context."""
@@ -313,10 +313,10 @@ class InterfaceContextCollector(ExchangeCollector):
                 src, tgt = generic.exchange_data_collector(ex_data)
 
                 if ex in self.incoming_edges.values():
-                    self.data["edges"][-1]["sources"] = [tgt.uuid]
-                    self.data["edges"][-1]["targets"] = [src.uuid]
+                    self.data.edges[-1].sources = [tgt.uuid]
+                    self.data.edges[-1].targets = [src.uuid]
 
-            if not self.data["edges"]:
+            if not self.data.edges:
                 logger.warning(
                     "There are no FunctionalExchanges allocated to '%s'.",
                     self.obj.name,
@@ -356,14 +356,14 @@ class FunctionalContextCollector(ExchangeCollector):
                         layout_options = makers.CENTRIC_LABEL_LAYOUT_OPTIONS
 
                     box = makers.make_box(comp, layout_options=layout_options)
-                    box["children"] = children
-                    self.data["children"].append(box)
+                    box.children = children
+                    self.data.children.append(box)
                     made_children.add(comp.uuid)
 
                 all_functions.extend(functions)
                 functional_exchanges.extend(inc | outs)
 
-            self.data["children"][0]["children"] = [
+            self.data.children[0].children = [
                 makers.make_box(c)
                 for c in all_functions
                 if c in self.obj.functions
@@ -386,9 +386,9 @@ def is_hierarchical(
 ) -> bool:
     """Check if the exchange is hierarchical (nested) inside ``box``."""
     src, trg = generic.collect_exchange_endpoints(ex)
-    objs = {o["id"] for o in box[key]}
+    objs = {o.id for o in getattr(box, key)}
     attr_map = {"children": "parent.uuid", "ports": "parent.parent.uuid"}
     attr_getter = operator.attrgetter(attr_map[key])
-    source_contained = src.uuid in objs or attr_getter(src) == box["id"]
-    target_contained = trg.uuid in objs or attr_getter(trg) == box["id"]
+    source_contained = src.uuid in objs or attr_getter(src) == box.id
+    target_contained = trg.uuid in objs or attr_getter(trg) == box.id
     return source_contained and target_contained

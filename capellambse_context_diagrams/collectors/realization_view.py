@@ -29,7 +29,7 @@ def collector(
     )
     layout_options["elk.contentAlignment"] = "V_CENTER H_CENTER"
     del layout_options["widthApproximation.targetWidth"]
-    data["layoutOptions"] = layout_options
+    data.layoutOptions = layout_options
     _collector = COLLECTORS[params.get("search_direction", "ALL")]
     lay_to_els = _collector(diagram.target, params.get("depth", 1))
     layer_layout_options: _elkjs.LayoutOptions = layout_options | {  # type: ignore[operator]
@@ -42,23 +42,23 @@ def collector(
 
         labels = makers.make_label(layer)
         width, height = makers.calculate_height_and_width(labels)
-        layer_box: _elkjs.ELKInputChild = {
-            "id": elements[0]["layer"].uuid,
-            "children": [],
-            "height": width,
-            "width": height,
-            "layoutOptions": layer_layout_options,
-        }
+        layer_box = _elkjs.ELKInputChild(
+            id=elements[0]["layer"].uuid,
+            children=[],
+            height=width,
+            width=height,
+            layoutOptions=layer_layout_options,
+        )
         children: dict[str, _elkjs.ELKInputChild] = {}
         for elt in elements:
             assert elt["element"] is not None
             if elt["origin"] is not None:
                 edges.append(
-                    {
-                        "id": f'{elt["origin"].uuid}_{elt["element"].uuid}',
-                        "sources": [elt["origin"].uuid],
-                        "targets": [elt["element"].uuid],
-                    }
+                    _elkjs.ELKInputEdge(
+                        id=f'{elt["origin"].uuid}_{elt["element"].uuid}',
+                        sources=[elt["origin"].uuid],
+                        targets=[elt["element"].uuid],
+                    )
                 )
 
             if elt.get("reverse", False):
@@ -71,8 +71,8 @@ def collector(
             if not (element_box := children.get(target.uuid)):
                 element_box = makers.make_box(target, no_symbol=True)
                 children[target.uuid] = element_box
-                layer_box["children"].append(element_box)
-                index = len(layer_box["children"]) - 1
+                layer_box.children.append(element_box)
+                index = len(layer_box.children) - 1
 
                 if params.get("show_owners"):
                     owner = target.owner
@@ -85,15 +85,15 @@ def collector(
                             no_symbol=True,
                             layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
                         )
-                        owner_box["height"] += element_box["height"]
+                        owner_box.height += element_box.height
                         children[owner.uuid] = owner_box
-                        layer_box["children"].append(owner_box)
+                        layer_box.children.append(owner_box)
 
-                    del layer_box["children"][index]
-                    owner_box.setdefault("children", []).append(element_box)
-                    owner_box["width"] += element_box["width"]
-                    for label in owner_box["labels"]:
-                        label["layoutOptions"].update(
+                    del layer_box.children[index]
+                    owner_box.children.append(element_box)
+                    owner_box.width += element_box.width
+                    for label in owner_box.labels:
+                        label.layoutOptions.update(
                             makers.DEFAULT_LABEL_LAYOUT_OPTIONS
                         )
 
@@ -104,14 +104,14 @@ def collector(
                     ):
                         eid = f"{source.owner.uuid}_{owner.uuid}"
                         edges.append(
-                            {
-                                "id": eid,
-                                "sources": [source.owner.uuid],
-                                "targets": [owner.uuid],
-                            }
+                            _elkjs.ELKInputEdge(
+                                id=eid,
+                                sources=[source.owner.uuid],
+                                targets=[owner.uuid],
+                            )
                         )
 
-        data["children"].append(layer_box)
+        data.children.append(layer_box)
     return data, edges
 
 

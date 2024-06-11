@@ -39,4 +39,4 @@ jobs:
           python -m pip install pylint==2.13.9
       - name: Run pylint
         run: |-
-          pylint -dfixme -- capellambse_context_diagrams || exit $(($? & ~24))
+          pylint -dfixme -- capellambse_context_diagrams tests || exit $(($? & ~24))

@@ -73,7 +73,7 @@ def collector_portless(
     )
     made_edges: set[str] = set()
     for act in activities:
-        data["children"].append(act_box := makers.make_box(act))
+        data.children.append(act_box := makers.make_box(act))
         connections = list(portless.get_exchanges(act, filter=filter))
 
         in_act: dict[str, oa.OperationalActivity] = {}
@@ -84,9 +84,9 @@ def collector_portless(
             else:
                 in_act.setdefault(edge.target.uuid, edge.target)
 
-        act_box["height"] += (
-            makers.PORT_SIZE + 2 * makers.PORT_PADDING
-        ) * max(len(in_act), len(out_act))
+        act_box.height += (makers.PORT_SIZE + 2 * makers.PORT_PADDING) * max(
+            len(in_act), len(out_act)
+        )
 
         ex_datas: list[generic.ExchangeData] = []
         for ex in connections:
@@ -124,7 +124,7 @@ def collector_default(
     )
     made_edges: set[str] = set()
     for fnc in functions:
-        data["children"].append(fnc_box := makers.make_box(fnc))
+        data.children.append(fnc_box := makers.make_box(fnc))
         _ports = default.port_collector(fnc, diagram.type)
         connections = default.port_exchange_collector(_ports, filter=filter)
         in_ports: dict[str, fa.FunctionPort] = {}
@@ -135,12 +135,12 @@ def collector_default(
             else:
                 in_ports.setdefault(edge.target.uuid, edge.target)
 
-        fnc_box["ports"] = [
+        fnc_box.ports = [
             makers.make_port(i.uuid) for i in (in_ports | out_ports).values()
         ]
-        fnc_box["height"] += (
-            makers.PORT_SIZE + 2 * makers.PORT_PADDING
-        ) * max(len(in_ports), len(out_ports))
+        fnc_box.height += (makers.PORT_SIZE + 2 * makers.PORT_PADDING) * max(
+            len(in_ports), len(out_ports)
+        )
 
         ex_datas: list[generic.ExchangeData] = []
         for ex in edges:

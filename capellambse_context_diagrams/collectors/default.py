@@ -42,10 +42,10 @@ class ContextProcessor:
         self.diagram = diagram
         self.data = data
         self.params = params or {}
-        self.centerbox = self.data["children"][0]
-        self.global_boxes = {self.centerbox["id"]: self.centerbox}
-        self.made_boxes = {self.centerbox["id"]: self.centerbox}
-        self.boxes_to_delete = {self.centerbox["id"]}
+        self.centerbox = self.data.children[0]
+        self.global_boxes = {self.centerbox.id: self.centerbox}
+        self.made_boxes = {self.centerbox.id: self.centerbox}
+        self.boxes_to_delete = {self.centerbox.id}
         self.edges: list[fa.AbstractExchange] = []
         if self.diagram.display_parent_relation:
             self.diagram_target_owners = generic.get_all_owners(
@@ -64,8 +64,8 @@ class ContextProcessor:
                 no_symbol=self.diagram.display_symbols_as_boxes,
                 layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
             )
-            box["children"] = [self.centerbox]
-            del self.data["children"][0]
+            box.children = [self.centerbox]
+            del self.data.children[0]
 
         stack_heights: dict[str, float | int] = {
             "input": -makers.NEIGHBOR_VMARGIN,
@@ -90,20 +90,20 @@ class ContextProcessor:
         for uuid in self.boxes_to_delete:
             del self.global_boxes[uuid]
 
-        self.data["children"].extend(self.global_boxes.values())
+        self.data.children.extend(self.global_boxes.values())
         if self.diagram.display_parent_relation:
             owner_boxes: dict[str, _elkjs.ELKInputChild] = {
                 uuid: box
                 for uuid, box in self.made_boxes.items()
-                if box.get("children")
+                if box.children
             }
             generic.move_parent_boxes_to_owner(
                 owner_boxes, self.diagram.target, self.data
             )
             generic.move_edges(owner_boxes, self.edges, self.data)
 
-        self.centerbox["height"] = max(
-            self.centerbox["height"], *stack_heights.values()
+        self.centerbox.height = max(
+            self.centerbox.height, *stack_heights.values()
         )
 
     def _process_exchanges(self) -> tuple[
@@ -112,9 +112,7 @@ class ContextProcessor:
     ]:
         ports = port_collector(self.diagram.target, self.diagram.type)
         connections = port_exchange_collector(ports)
-        self.centerbox["ports"] = [
-            makers.make_port(uuid) for uuid in connections
-        ]
+        self.centerbox.ports = [makers.make_port(uuid) for uuid in connections]
         self.edges = list(chain.from_iterable(connections.values()))
         ex_datas: list[generic.ExchangeData] = []
         for ex in self.edges:
@@ -123,9 +121,9 @@ class ContextProcessor:
             ):
                 if not self.diagram.display_parent_relation:
                     continue
-                self.centerbox["labels"][0][
-                    "layoutOptions"
-                ] = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+                self.centerbox.labels[0].layoutOptions = (
+                    makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+                )
                 elkdata: _elkjs.ELKInputData = self.centerbox
             else:
                 elkdata = self.data
@@ -156,17 +154,17 @@ class ContextProcessor:
             if box := self.global_boxes.get(port.uuid):  # type: ignore[assignment]
                 if box is self.centerbox:
                     continue
-                box.setdefault("ports", []).extend(
+                box.ports.extend(
                     [makers.make_port(j.uuid) for j in local_ports]
                 )
-                box["height"] += height
+                box.height += height
             else:
                 box = self._make_box(
                     port,
                     height=height,
                     no_symbol=self.diagram.display_symbols_as_boxes,
                 )
-                box["ports"] = [makers.make_port(j.uuid) for j in local_ports]
+                box.ports = [makers.make_port(j.uuid) for j in local_ports]
 
             if self.diagram.display_parent_relation:
                 current = port
@@ -209,8 +207,8 @@ class ContextProcessor:
                 layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
             )
         assert (obj_box := self.global_boxes.get(obj.uuid))
-        for box in (children := parent_box.setdefault("children", [])):
-            if box["id"] == obj.uuid:
+        for box in (children := parent_box.children):
+            if box.id == obj.uuid:
                 box = obj_box
                 break
         else:
@@ -366,7 +364,7 @@ def derive_from_functions(
     for fnc in diagram.target.allocated_functions:
         ports.extend(port_collector(fnc, diagram.type))
 
-    context_box_ids = {child["id"] for child in data["children"]}
+    context_box_ids = {child.id for child in data.children}
     components: dict[str, cs.Component] = {}
     for port in ports:
         for fex in port.exchanges:
@@ -398,24 +396,24 @@ def derive_from_functions(
             no_symbol=diagram.display_symbols_as_boxes,
         )
         class_ = type(derived_comp).__name__
-        box["id"] = f"{STYLECLASS_PREFIX}-{class_}:{uuid}"
-        data["children"].append(box)
+        box.id = f"{STYLECLASS_PREFIX}-{class_}:{uuid}"
+        data.children.append(box)
         source_id = f"{STYLECLASS_PREFIX}-CP_INOUT:{i}"
         target_id = f"{STYLECLASS_PREFIX}-CP_INOUT:{-i}"
-        box.setdefault("ports", []).append(makers.make_port(source_id))
-        centerbox.setdefault("ports", []).append(makers.make_port(target_id))
+        box.ports.append(makers.make_port(source_id))
+        centerbox.ports.append(makers.make_port(target_id))
         if i % 2 == 0:
             source_id, target_id = target_id, source_id
 
-        data["edges"].append(
-            {
-                "id": f"{STYLECLASS_PREFIX}-ComponentExchange:{i}",
-                "sources": [source_id],
-                "targets": [target_id],
-            }
+        data.edges.append(
+            _elkjs.ELKInputEdge(
+                id=f"{STYLECLASS_PREFIX}-ComponentExchange:{i}",
+                sources=[source_id],
+                targets=[target_id],
+            )
         )
 
-    data["children"][0]["height"] += (
+    data.children[0].height += (
         makers.PORT_PADDING
         + (makers.PORT_SIZE + makers.PORT_PADDING) * len(components) // 2
     )

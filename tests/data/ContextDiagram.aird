@@ -15,7 +15,7 @@
     </ownedViews>
     <ownedViews xmi:type="viewpoint:DView" uid="__FtLQKDzEeqf7Mw7EIo_Ew">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/physical.odesign#//@ownedViewpoints[name='Physical%20Architecture']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_BibvIBgGEe-JL4wlnYCFsA" name="[PAB] Example Physical Component Context Diagram" repPath="#_BiTzUBgGEe-JL4wlnYCFsA" changeId="03e7dd61-a089-4d12-870d-edbfa1780450">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_BibvIBgGEe-JL4wlnYCFsA" name="[PAB] Example Physical Component Context Diagram" repPath="#_BiTzUBgGEe-JL4wlnYCFsA" changeId="7dc2208c-08be-42c0-9bd7-ff2f67a92588">
         <eAnnotations xmi:type="description:DAnnotation" uid="_BinVUBgGEe-JL4wlnYCFsA" source="https://www.polarsys.org/capella/dannotation/DesactivatedFilters">
           <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BinVURgGEe-JL4wlnYCFsA" key="hide.computed.component.exchanges.filter" value="true"/>
           <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BinVUhgGEe-JL4wlnYCFsA" key="hide.computed.physical.links.filter" value="true"/>
@@ -12759,7 +12759,7 @@
         <styles xmi:type="notation:DiagramStyle" xmi:id="_BilgIhgGEe-JL4wlnYCFsA"/>
         <edges xmi:type="notation:Edge" xmi:id="_RS7MYBgGEe-JL4wlnYCFsA" type="4001" element="_RRIcoBgGEe-JL4wlnYCFsA" source="_RSgVoBgGEe-JL4wlnYCFsA" target="_RSlOIxgGEe-JL4wlnYCFsA">
           <children xmi:type="notation:Node" xmi:id="_RS8agBgGEe-JL4wlnYCFsA" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RS8agRgGEe-JL4wlnYCFsA" y="-10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RS8agRgGEe-JL4wlnYCFsA" x="-2" y="-25"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_RS8aghgGEe-JL4wlnYCFsA" type="6002">
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RS8agxgGEe-JL4wlnYCFsA" y="10"/>
@@ -12775,7 +12775,7 @@
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_UFnWcBgGEe-JL4wlnYCFsA" type="4001" element="_UEsJYBgGEe-JL4wlnYCFsA" source="_UFmIUBgGEe-JL4wlnYCFsA" target="_UFk6MBgGEe-JL4wlnYCFsA">
           <children xmi:type="notation:Node" xmi:id="_UFnWdBgGEe-JL4wlnYCFsA" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_UFnWdRgGEe-JL4wlnYCFsA" y="-10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_UFnWdRgGEe-JL4wlnYCFsA" x="7" y="-7"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_UFn9gBgGEe-JL4wlnYCFsA" type="6002">
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_UFn9gRgGEe-JL4wlnYCFsA" y="10"/>
@@ -12810,7 +12810,7 @@
     <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_BjQ1kBgGEe-JL4wlnYCFsA" source="DANNOTATION_CUSTOMIZATION_KEY">
       <data xmi:type="diagram:ComputedStyleDescriptionRegistry" uid="_BjQ1kRgGEe-JL4wlnYCFsA"/>
     </ownedAnnotationEntries>
-    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_CkmWwBgGEe-JL4wlnYCFsA" name="PC 18">
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_CkmWwBgGEe-JL4wlnYCFsA" name="Random Node">
       <target xmi:type="org.polarsys.capella.core.data.cs:Part" href="ContextDiagram.capella#61a54a77-f9c1-4505-963d-99f3ad783354"/>
       <semanticElements xmi:type="org.polarsys.capella.core.data.cs:Part" href="ContextDiagram.capella#61a54a77-f9c1-4505-963d-99f3ad783354"/>
       <semanticElements xmi:type="org.polarsys.capella.core.data.pa:PhysicalComponent" href="ContextDiagram.capella#d5259b69-1473-4b00-bb41-b94eb44abde5"/>
@@ -12840,7 +12840,7 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/physical.odesign#//@ownedViewpoints[name='Physical%20Architecture']/@ownedRepresentations[name='Physical%20Architecture%20Blank']/@defaultLayer/@containerMappings[name='PAB_PC']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_E-rMgBgGEe-JL4wlnYCFsA" name="PA 1">
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_E-rMgBgGEe-JL4wlnYCFsA" name="Physical Actor">
       <target xmi:type="org.polarsys.capella.core.data.cs:Part" href="ContextDiagram.capella#e03b5ea7-c5a9-47a2-86c1-ea4ac2be0ae2"/>
       <semanticElements xmi:type="org.polarsys.capella.core.data.cs:Part" href="ContextDiagram.capella#e03b5ea7-c5a9-47a2-86c1-ea4ac2be0ae2"/>
       <semanticElements xmi:type="org.polarsys.capella.core.data.pa:PhysicalComponent" href="ContextDiagram.capella#307a75e9-642d-4f68-b195-d57dc8dda60d"/>
@@ -12851,7 +12851,7 @@
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/physical.odesign#//@ownedViewpoints[name='Physical%20Architecture']/@ownedRepresentations[name='Physical%20Architecture%20Blank']/@defaultLayer/@containerMappings[name='PAB_PC']/@conditionnalStyles.0/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/physical.odesign#//@ownedViewpoints[name='Physical%20Architecture']/@ownedRepresentations[name='Physical%20Architecture%20Blank']/@defaultLayer/@containerMappings[name='PAB_PC']"/>
-      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_HgPxYBgGEe-JL4wlnYCFsA" name="PC 1">
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_HgPxYBgGEe-JL4wlnYCFsA" name="Physical Component">
         <target xmi:type="org.polarsys.capella.core.data.cs:Part" href="ContextDiagram.capella#a62f79e0-64b6-4f49-83bd-57f12d541ae3"/>
         <semanticElements xmi:type="org.polarsys.capella.core.data.cs:Part" href="ContextDiagram.capella#a62f79e0-64b6-4f49-83bd-57f12d541ae3"/>
         <semanticElements xmi:type="org.polarsys.capella.core.data.pa:PhysicalComponent" href="ContextDiagram.capella#fdb34c92-7c49-491d-bf11-dd139930786e"/>
@@ -12868,7 +12868,7 @@
           <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/physical.odesign#//@ownedViewpoints[name='Physical%20Architecture']/@ownedRepresentations[name='Physical%20Architecture%20Blank']/@defaultLayer/@containerMappings[name='PAB_PC']/@conditionnalStyles.2/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/physical.odesign#//@ownedViewpoints[name='Physical%20Architecture']/@ownedRepresentations[name='Physical%20Architecture%20Blank']/@defaultLayer/@containerMappings[name='PAB_PC']"/>
-        <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_NyJ0UBgGEe-JL4wlnYCFsA" name="PC 20">
+        <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_NyJ0UBgGEe-JL4wlnYCFsA" name="PC Software">
           <target xmi:type="org.polarsys.capella.core.data.cs:Part" href="ContextDiagram.capella#19192603-3708-40fb-b188-276c8bf067b9"/>
           <semanticElements xmi:type="org.polarsys.capella.core.data.cs:Part" href="ContextDiagram.capella#19192603-3708-40fb-b188-276c8bf067b9"/>
           <semanticElements xmi:type="org.polarsys.capella.core.data.pa:PhysicalComponent" href="ContextDiagram.capella#313f48f4-fb7e-47a8-b28a-76440932fcb9"/>
@@ -12889,7 +12889,7 @@
         </ownedDiagramElements>
       </ownedDiagramElements>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_I22_ABgGEe-JL4wlnYCFsA" name="PC 19">
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_I22_ABgGEe-JL4wlnYCFsA" name="Physical Node">
       <target xmi:type="org.polarsys.capella.core.data.cs:Part" href="ContextDiagram.capella#2ab2867b-6d75-456a-a2b2-8b8fb2756fd9"/>
       <semanticElements xmi:type="org.polarsys.capella.core.data.cs:Part" href="ContextDiagram.capella#2ab2867b-6d75-456a-a2b2-8b8fb2756fd9"/>
       <semanticElements xmi:type="org.polarsys.capella.core.data.pa:PhysicalComponent" href="ContextDiagram.capella#4585a509-08e7-4f30-8107-9e70d6dd8ce4"/>
@@ -12906,7 +12906,7 @@
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/physical.odesign#//@ownedViewpoints[name='Physical%20Architecture']/@ownedRepresentations[name='Physical%20Architecture%20Blank']/@defaultLayer/@containerMappings[name='PAB_PC']/@conditionnalStyles.2/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/physical.odesign#//@ownedViewpoints[name='Physical%20Architecture']/@ownedRepresentations[name='Physical%20Architecture%20Blank']/@defaultLayer/@containerMappings[name='PAB_PC']"/>
-      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_O6tX0BgGEe-JL4wlnYCFsA" name="PC 21">
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_O6tX0BgGEe-JL4wlnYCFsA" name="Node Software">
         <target xmi:type="org.polarsys.capella.core.data.cs:Part" href="ContextDiagram.capella#f5525981-b656-45f1-ae91-96ea4a93cd23"/>
         <semanticElements xmi:type="org.polarsys.capella.core.data.cs:Part" href="ContextDiagram.capella#f5525981-b656-45f1-ae91-96ea4a93cd23"/>
         <semanticElements xmi:type="org.polarsys.capella.core.data.pa:PhysicalComponent" href="ContextDiagram.capella#2de65884-8c89-4c55-8941-4aa1a07b8d86"/>
@@ -12926,7 +12926,7 @@
         <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/physical.odesign#//@ownedViewpoints[name='Physical%20Architecture']/@ownedRepresentations[name='Physical%20Architecture%20Blank']/@defaultLayer/@containerMappings[name='PAB_Deployment']"/>
       </ownedDiagramElements>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_RRIcoBgGEe-JL4wlnYCFsA" name="C 11" sourceNode="_RRC9EBgGEe-JL4wlnYCFsA" targetNode="_RREyQBgGEe-JL4wlnYCFsA">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_RRIcoBgGEe-JL4wlnYCFsA" name="Interface" sourceNode="_RRC9EBgGEe-JL4wlnYCFsA" targetNode="_RREyQBgGEe-JL4wlnYCFsA">
       <target xmi:type="org.polarsys.capella.core.data.fa:ComponentExchange" href="ContextDiagram.capella#25f46b82-1bb8-495a-b6bc-3ad086aad02e"/>
       <semanticElements xmi:type="org.polarsys.capella.core.data.fa:ComponentExchange" href="ContextDiagram.capella#25f46b82-1bb8-495a-b6bc-3ad086aad02e"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_RRJqwBgGEe-JL4wlnYCFsA" targetArrow="NoDecoration" centered="Both" strokeColor="74,74,151">
@@ -12935,7 +12935,7 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/physical.odesign#//@ownedViewpoints[name='Physical%20Architecture']/@ownedRepresentations[name='Physical%20Architecture%20Blank']/@defaultLayer/@edgeMappings[name='PAB_Exchange']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_UEsJYBgGEe-JL4wlnYCFsA" name="PL 2" sourceNode="_UEn38BgGEe-JL4wlnYCFsA" targetNode="_UEpGERgGEe-JL4wlnYCFsA" beginLabel="." endLabel=".">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_UEsJYBgGEe-JL4wlnYCFsA" name="Cable 1" sourceNode="_UEn38BgGEe-JL4wlnYCFsA" targetNode="_UEpGERgGEe-JL4wlnYCFsA" beginLabel="." endLabel=".">
       <target xmi:type="org.polarsys.capella.core.data.cs:PhysicalLink" href="ContextDiagram.capella#da949a89-23c0-4487-88e1-f14b33326570"/>
       <semanticElements xmi:type="org.polarsys.capella.core.data.cs:PhysicalLink" href="ContextDiagram.capella#da949a89-23c0-4487-88e1-f14b33326570"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_UEswcBgGEe-JL4wlnYCFsA" targetArrow="NoDecoration" centered="Both" strokeColor="239,41,41">
@@ -12946,7 +12946,7 @@
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/physical.odesign#//@ownedViewpoints[name='Physical%20Architecture']/@ownedRepresentations[name='Physical%20Architecture%20Blank']/@defaultLayer/@edgeMappings[name='PAB_PhysicalLink']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_U8G5kBgGEe-JL4wlnYCFsA" name="PL 2" sourceNode="_U8EdUBgGEe-JL4wlnYCFsA" targetNode="_U8FrcBgGEe-JL4wlnYCFsA" beginLabel="." endLabel=".">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_U8G5kBgGEe-JL4wlnYCFsA" name="Cable 2" sourceNode="_U8EdUBgGEe-JL4wlnYCFsA" targetNode="_U8FrcBgGEe-JL4wlnYCFsA" beginLabel="." endLabel=".">
       <target xmi:type="org.polarsys.capella.core.data.cs:PhysicalLink" href="ContextDiagram.capella#dadc2348-c409-41e3-a017-b0c77cc5376b"/>
       <semanticElements xmi:type="org.polarsys.capella.core.data.cs:PhysicalLink" href="ContextDiagram.capella#dadc2348-c409-41e3-a017-b0c77cc5376b"/>
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_U8HgoBgGEe-JL4wlnYCFsA" targetArrow="NoDecoration" centered="Both" strokeColor="239,41,41">

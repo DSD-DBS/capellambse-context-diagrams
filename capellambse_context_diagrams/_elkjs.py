@@ -163,54 +163,59 @@ class ELKOutputElement(BaseELKModel):
 
     id: str
 
-    style: dict[str, t.Any] = {}
+    style: dict[str, t.Any] = pydantic.Field(default_factory=dict)
+
+
+class ELKOutputDiagramElement(ELKOutputElement):
+    """Class for positioned and sized elements that come out of ELK."""
+
+    position: ELKPoint
+    size: ELKSize
 
 
 class ELKOutputData(ELKOutputElement):
     """Data that comes from ELK."""
 
     type: t.Literal["graph"]
-    children: cabc.MutableSequence[ELKOutputChild] = []
+    children: cabc.MutableSequence[ELKOutputChild] = pydantic.Field(
+        default_factory=list
+    )
 
 
-class ELKOutputNode(ELKOutputElement):
+class ELKOutputNode(ELKOutputDiagramElement):
     """Node that comes out of ELK."""
 
     type: t.Literal["node"]
-    children: cabc.MutableSequence[ELKOutputChild] = []
-
-    position: ELKPoint
-    size: ELKSize
+    children: cabc.MutableSequence[ELKOutputChild] = pydantic.Field(
+        default_factory=list
+    )
 
 
 class ELKOutputJunction(ELKOutputElement):
     """Exchange-Junction that comes out of ELK."""
 
     type: t.Literal["junction"]
-    children: cabc.MutableSequence[ELKOutputLabel] = []
+    children: cabc.MutableSequence[ELKOutputLabel] = pydantic.Field(
+        default_factory=list
+    )
 
     position: ELKPoint
-    size: ELKSize
 
 
-class ELKOutputPort(ELKOutputElement):
+class ELKOutputPort(ELKOutputDiagramElement):
     """Port that comes out of ELK."""
 
     type: t.Literal["port"]
-    children: cabc.MutableSequence[ELKOutputLabel] = []
+    children: cabc.MutableSequence[ELKOutputLabel] = pydantic.Field(
+        default_factory=list
+    )
 
-    position: ELKPoint
-    size: ELKSize
 
-
-class ELKOutputLabel(ELKOutputElement):
+class ELKOutputLabel(ELKOutputDiagramElement):
     """Label that comes out of ELK."""
 
     type: t.Literal["label"]
     text: str
-
-    position: ELKPoint
-    size: ELKSize
 
 
 class ELKOutputEdge(ELKOutputElement):
@@ -221,7 +226,9 @@ class ELKOutputEdge(ELKOutputElement):
     sourceId: str
     targetId: str
     routingPoints: cabc.MutableSequence[ELKPoint]
-    children: cabc.MutableSequence[ELKOutputLabel] = []
+    children: cabc.MutableSequence[
+        t.Union[ELKOutputLabel, ELKOutputJunction]
+    ] = pydantic.Field(default_factory=list)
 
 
 ELKOutputChild = t.Union[

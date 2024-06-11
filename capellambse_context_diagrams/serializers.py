@@ -150,7 +150,9 @@ class DiagramSerializer:
                 and not self._diagram.display_symbols_as_boxes
             ]
 
-            assert not isinstance(child, _elkjs.ELKOutputEdge)
+            assert not isinstance(
+                child, (_elkjs.ELKOutputEdge, _elkjs.ELKOutputJunction)
+            )
             ref += (child.position.x, child.position.y)
             size = (child.size.width, child.size.height)
             features = []
@@ -240,7 +242,7 @@ class DiagramSerializer:
             element = parent
         elif child.type == "junction":
             uuid = child.id.rsplit("_", maxsplit=1)[0]
-            pos = diagram.Vector2D(**child.position)
+            pos = diagram.Vector2D(child.position.x, child.position.y)
             if self._is_hierarchical(uuid):
                 # FIXME should this use `parent` instead?
                 pos += self.diagram[self._diagram.target.uuid].pos

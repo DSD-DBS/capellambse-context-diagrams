@@ -131,7 +131,6 @@ class ELKInputPort(BaseELKModel):
 
     id: str
     layoutOptions: LayoutOptions = {}
-
     width: t.Union[int, float]
     height: t.Union[int, float]
 
@@ -332,7 +331,7 @@ def _install_required_npm_pkg_versions() -> None:
             _install_npm_package(pkg_name, pkg_version)
 
 
-def call_elkjs(elk_dict: ELKInputData) -> ELKOutputData:
+def call_elkjs(elk_model: ELKInputData) -> ELKOutputData:
     """Call into elk.js to auto-layout the ``diagram``.
 
     Parameters
@@ -353,7 +352,7 @@ def call_elkjs(elk_dict: ELKInputData) -> ELKOutputData:
         executable=shutil.which("node"),
         capture_output=True,
         check=False,
-        input=elk_dict.model_dump_json(),
+        input=elk_model.model_dump_json(exclude_defaults=True),
         text=True,
         env={**os.environ, "NODE_PATH": str(NODE_HOME)},
     )
@@ -361,7 +360,7 @@ def call_elkjs(elk_dict: ELKInputData) -> ELKOutputData:
         log.getChild("node").error("%s", proc.stderr)
         raise NodeJSError("elk.js process failed")
 
-    return ELKOutputData.model_validate_json(proc.stdout)
+    return ELKOutputData.model_validate_json(proc.stdout, strict=True)
 
 
 def get_global_layered_layout_options() -> LayoutOptions:

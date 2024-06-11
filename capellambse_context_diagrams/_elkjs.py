@@ -103,15 +103,23 @@ class ELKInputData(BaseELKModel):
 
     id: str
     layoutOptions: LayoutOptions = {}
-    children: cabc.MutableSequence[ELKInputChild] = []
-    edges: cabc.MutableSequence[ELKInputEdge] = []
+    children: cabc.MutableSequence[ELKInputChild] = pydantic.Field(
+        default_factory=list
+    )
+    edges: cabc.MutableSequence[ELKInputEdge] = pydantic.Field(
+        default_factory=list
+    )
 
 
 class ELKInputChild(ELKInputData):
     """Children of either `ELKInputData` or `ELKInputChild`."""
 
-    labels: cabc.MutableSequence[ELKInputLabel] = []
-    ports: cabc.MutableSequence[ELKInputPort] = []
+    labels: cabc.MutableSequence[ELKInputLabel] = pydantic.Field(
+        default_factory=list
+    )
+    ports: cabc.MutableSequence[ELKInputPort] = pydantic.Field(
+        default_factory=list
+    )
 
     width: t.Union[int, float] = 0
     height: t.Union[int, float] = 0
@@ -121,7 +129,7 @@ class ELKInputLabel(BaseELKModel):
     """Label data that can be fed to ELK."""
 
     text: str
-    layoutOptions: LayoutOptions = {}
+    layoutOptions: LayoutOptions = pydantic.Field(default_factory=list)
     width: t.Union[int, float] = 0
     height: t.Union[int, float] = 0
 
@@ -130,7 +138,7 @@ class ELKInputPort(BaseELKModel):
     """Connector data that can be fed to ELK."""
 
     id: str
-    layoutOptions: LayoutOptions = {}
+    layoutOptions: LayoutOptions = pydantic.Field(default_factory=dict)
     width: t.Union[int, float]
     height: t.Union[int, float]
 
@@ -141,7 +149,9 @@ class ELKInputEdge(BaseELKModel):
     id: str
     sources: cabc.MutableSequence[str]
     targets: cabc.MutableSequence[str]
-    labels: cabc.MutableSequence[ELKInputLabel] = []
+    labels: cabc.MutableSequence[ELKInputLabel] = pydantic.Field(
+        default_factory=list
+    )
 
 
 class ELKPoint(BaseELKModel):
@@ -354,6 +364,7 @@ def call_elkjs(elk_model: ELKInputData) -> ELKOutputData:
     _find_node_and_npm()
     _install_required_npm_pkg_versions()
 
+    ELKInputData.model_validate(elk_model, strict=True)
     proc = subprocess.run(
         ["node", str(PATH_TO_ELK_JS)],
         executable=shutil.which("node"),

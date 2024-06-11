@@ -34,6 +34,7 @@ classifiers = [
 dependencies = [
   "capellambse>=0.5.9",
   "typing_extensions",
+  "pydantic>=2.7.3"
 ]
 
 [project.urls]

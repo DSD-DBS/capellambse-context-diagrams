@@ -73,12 +73,12 @@ SYMBOL_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
 
 def make_diagram(diagram: context.ContextDiagram) -> _elkjs.ELKInputData:
     """Return basic skeleton for ``ContextDiagram``s."""
-    return {
-        "id": diagram.uuid,
-        "layoutOptions": _elkjs.get_global_layered_layout_options(),
-        "children": [],
-        "edges": [],
-    }
+    return _elkjs.ELKInputData(
+        id=diagram.uuid,
+        layoutOptions=_elkjs.get_global_layered_layout_options(),
+        children=[],
+        edges=[],
+    )
 
 
 def make_label(
@@ -106,14 +106,14 @@ def make_label(
     for line in lines:
         label_width, label_height = chelpers.get_text_extent(line)
         labels.append(
-            {
-                "text": line,
-                "width": (
+            _elkjs.ELKInputLabel(
+                text=line,
+                width=(
                     (icon_width + label_width + 2 * LABEL_HPAD) if line else 0
                 ),
-                "height": (label_height + 2 * LABEL_VPAD) if line else 0,
-                "layoutOptions": layout_options,
-            }
+                height=(label_height + 2 * LABEL_VPAD) if line else 0,
+                layoutOptions=layout_options,
+            )
         )
     return labels
 
@@ -141,7 +141,7 @@ def make_box(
             "icon": (ICON_WIDTH, 0),
             "layout_options": {},
         }
-    ],  # type: ignore
+    ],
     max_label_width: int | float = MAX_BOX_WIDTH,
     layout_options: _elkjs.LayoutOptions | None = None,
 ) -> _elkjs.ELKInputChild:
@@ -168,12 +168,17 @@ def make_box(
             height = MAX_SYMBOL_HEIGHT
         width = height * SYMBOL_RATIO
         for label in labels:
-            label.setdefault("layoutOptions", {}).update(SYMBOL_LAYOUT_OPTIONS)
+            label.layoutOptions.update(SYMBOL_LAYOUT_OPTIONS)
     else:
         width, height = calculate_height_and_width(
             labels, width=width, height=height, slim_width=slim_width
         )
-    return {"id": obj.uuid, "labels": labels, "width": width, "height": height}
+    return _elkjs.ELKInputChild(
+        id=obj.uuid,
+        labels=labels,
+        width=width,
+        height=height,
+    )
 
 
 def calculate_height_and_width(
@@ -185,8 +190,8 @@ def calculate_height_and_width(
 ) -> tuple[int | float, int | float]:
     """Calculate the size (width and height) from given labels for a box."""
     icon = icon_size + icon_padding * 2
-    _height = sum(label["height"] + 2 * LABEL_VPAD for label in labels) + icon
-    min_width = max(label["width"] + 2 * LABEL_HPAD for label in labels)
+    _height = sum(label.height + 2 * LABEL_VPAD for label in labels) + icon
+    min_width = max(label.width + 2 * LABEL_HPAD for label in labels)
     width = min_width if slim_width else max(width, min_width)
     return width, max(height, _height)
 
@@ -204,9 +209,9 @@ def make_port(uuid: str) -> _elkjs.ELKInputPort:
     """Return an
     [`ELKInputPort`][capellambse_context_diagrams._elkjs.ELKInputPort].
     """
-    return {
-        "id": uuid,
-        "width": 10,
-        "height": 10,
-        "layoutOptions": {"borderOffset": -8},
-    }
+    return _elkjs.ELKInputPort(
+        id=uuid,
+        width=PORT_SIZE,
+        height=PORT_SIZE,
+        layoutOptions={"borderOffset": -4 * PORT_PADDING},
+    )

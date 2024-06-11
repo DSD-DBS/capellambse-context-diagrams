@@ -40,9 +40,9 @@ def collector(
     )
     data = generic.collector(diagram, no_symbol=True)
     ports = port_collector(diagram.target, diagram.type)
-    centerbox = data["children"][0]
+    centerbox = data.children[0]
     connections = port_exchange_collector(ports)
-    centerbox["ports"] = [
+    centerbox.ports = [
         makers.make_port(uuid) for uuid, edges in connections.items() if edges
     ]
     ex_datas: list[generic.ExchangeData] = []
@@ -53,9 +53,9 @@ def collector(
         if is_hierarchical := exchanges.is_hierarchical(ex, centerbox):
             if not diagram.display_parent_relation:
                 continue
-            centerbox["labels"][0][
-                "layoutOptions"
-            ] = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+            centerbox.labels[0].layoutOptions = (
+                makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+            )
             elkdata: _elkjs.ELKInputData = centerbox
         else:
             elkdata = data
@@ -67,9 +67,9 @@ def collector(
             ex_datas.append(ex_data)
         except AttributeError:
             continue
-    global_boxes = {centerbox["id"]: centerbox}
-    made_boxes = {centerbox["id"]: centerbox}
-    boxes_to_delete = {centerbox["id"]}
+    global_boxes = {centerbox.id: centerbox}
+    made_boxes = {centerbox.id: centerbox}
+    boxes_to_delete = {centerbox.id}
 
     def _make_box_and_update_globals(
         obj: t.Any,
@@ -90,8 +90,8 @@ def collector(
                 no_symbol=diagram.display_symbols_as_boxes,
                 layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
             )
-        for box in (children := parent_box.setdefault("children", [])):
-            if box["id"] == current.uuid:
+        for box in (children := parent_box.children):
+            if box.id == current.uuid:
                 box = global_boxes.get(current.uuid, current)
                 break
         else:
@@ -107,8 +107,8 @@ def collector(
                     no_symbol=diagram.display_symbols_as_boxes,
                     layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
                 )
-                box["children"] = [centerbox]
-                del data["children"][0]
+                box.children = [centerbox]
+                del data.children[0]
         except AttributeError:
             pass
         diagram_target_owners = generic.get_all_owners(diagram.target)
@@ -128,17 +128,15 @@ def collector(
         if box := global_boxes.get(child.uuid):  # type: ignore[assignment]
             if box is centerbox:
                 continue
-            box.setdefault("ports", []).extend(
-                [makers.make_port(j.uuid) for j in local_ports]
-            )
-            box["height"] += height
+            box.ports.extend([makers.make_port(j.uuid) for j in local_ports])
+            box.height += height
         else:
             box = _make_box_and_update_globals(
                 child,
                 height=height,
                 no_symbol=diagram.display_symbols_as_boxes,
             )
-            box["ports"] = [makers.make_port(j.uuid) for j in local_ports]
+            box.ports = [makers.make_port(j.uuid) for j in local_ports]
 
         if diagram.display_parent_relation:
             current = child
@@ -170,17 +168,15 @@ def collector(
 
     for uuid in boxes_to_delete:
         del global_boxes[uuid]
-    data["children"].extend(global_boxes.values())
+    data.children.extend(global_boxes.values())
     if diagram.display_parent_relation:
         owner_boxes: dict[str, _elkjs.ELKInputChild] = {
-            uuid: box
-            for uuid, box in made_boxes.items()
-            if box.get("children")
+            uuid: box for uuid, box in made_boxes.items() if box.children
         }
         generic.move_parent_boxes_to_owner(owner_boxes, diagram.target, data)
         generic.move_edges(owner_boxes, edges, data)
 
-    centerbox["height"] = max(centerbox["height"], *stack_heights.values())
+    centerbox.height = max(centerbox.height, *stack_heights.values())
     derivator = DERIVATORS.get(type(diagram.target))
     if diagram.display_derived_interfaces and derivator is not None:
         derivator(diagram, data, made_boxes[diagram.target.uuid])
@@ -317,7 +313,7 @@ def derive_from_functions(
     for fnc in diagram.target.allocated_functions:
         ports.extend(port_collector(fnc, diagram.type))
 
-    context_box_ids = {child["id"] for child in data["children"]}
+    context_box_ids = {child.id for child in data.children}
     components: dict[str, cs.Component] = {}
     for port in ports:
         for fex in port.exchanges:
@@ -349,24 +345,24 @@ def derive_from_functions(
             no_symbol=diagram.display_symbols_as_boxes,
         )
         class_ = type(derived_comp).__name__
-        box["id"] = f"{STYLECLASS_PREFIX}-{class_}:{uuid}"
-        data["children"].append(box)
+        box.id = f"{STYLECLASS_PREFIX}-{class_}:{uuid}"
+        data.children.append(box)
         source_id = f"{STYLECLASS_PREFIX}-CP_INOUT:{i}"
         target_id = f"{STYLECLASS_PREFIX}-CP_INOUT:{-i}"
-        box.setdefault("ports", []).append(makers.make_port(source_id))
-        centerbox.setdefault("ports", []).append(makers.make_port(target_id))
+        box.ports.append(makers.make_port(source_id))
+        centerbox.ports.append(makers.make_port(target_id))
         if i % 2 == 0:
             source_id, target_id = target_id, source_id
 
-        data["edges"].append(
-            {
-                "id": f"{STYLECLASS_PREFIX}-ComponentExchange:{i}",
-                "sources": [source_id],
-                "targets": [target_id],
-            }
+        data.edges.append(
+            _elkjs.ELKInputEdge(
+                id=f"{STYLECLASS_PREFIX}-ComponentExchange:{i}",
+                sources=[source_id],
+                targets=[target_id],
+            )
         )
 
-    data["children"][0]["height"] += (
+    data.children[0].height += (
         makers.PORT_PADDING
         + (makers.PORT_SIZE + makers.PORT_PADDING) * len(components) // 2
     )

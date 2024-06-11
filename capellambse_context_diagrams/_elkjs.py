@@ -102,7 +102,7 @@ class ELKInputData(BaseELKModel):
     """Data that can be fed to ELK."""
 
     id: str
-    layoutOptions: LayoutOptions = {}
+    layoutOptions: LayoutOptions = pydantic.Field(default_factory=dict)
     children: cabc.MutableSequence[ELKInputChild] = pydantic.Field(
         default_factory=list
     )
@@ -129,7 +129,7 @@ class ELKInputLabel(BaseELKModel):
     """Label data that can be fed to ELK."""
 
     text: str
-    layoutOptions: LayoutOptions = pydantic.Field(default_factory=list)
+    layoutOptions: LayoutOptions = pydantic.Field(default_factory=dict)
     width: t.Union[int, float] = 0
     height: t.Union[int, float] = 0
 

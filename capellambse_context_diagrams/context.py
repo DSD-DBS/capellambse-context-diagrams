@@ -343,18 +343,14 @@ class ContextDiagram(diagram.AbstractDiagram):
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         transparent_background = params.pop("transparent_background", False)
-        self.display_parent_relation = params.pop(
-            "display_parent_relation", self.display_parent_relation
-        )
-        self.display_derived_interfaces = params.pop(
-            "display_derived_interfaces", self.display_derived_interfaces
-        )
-        self.display_symbols_as_boxes = params.pop(
-            "display_symbols_as_boxes", self.display_symbols_as_boxes
-        )
-        self.slim_center_box = params.pop(
-            "slim_center_box", self.slim_center_box
-        )
+        for param_name in [
+            "display_parent_relation",
+            "display_derived_interfaces",
+            "display_symbols_as_boxes",
+            "slim_center_box",
+        ]:
+            if override := params.pop(param_name, None) is not None:
+                setattr(self, param_name, override)
         data = params.get("elkdata") or get_elkdata(self, params)
         layout = try_to_layout(data)
         add_context(layout, params.get("is_legend", False))

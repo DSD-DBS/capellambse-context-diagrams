@@ -204,6 +204,5 @@ def test_context_diagram_of_physical_node_component(
     obj = model.by_uuid(uuid)
 
     diag = obj.context_diagram
-    diag.render("svgdiagram").save(pretty=True)
 
     assert len(diag.nodes) > 1

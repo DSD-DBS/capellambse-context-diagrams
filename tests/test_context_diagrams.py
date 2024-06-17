@@ -52,12 +52,16 @@ TEST_DERIVED_UUID = "dbd99773-efb6-4476-bf5c-270a61f18b09"
             "c78b5d7c-be0c-4ed4-9d12-d447cb39304e",
             id="PhysicalBehaviorComponent",
         ),
+        pytest.param("957c5799-1d4a-4ac0-b5de-33a65bf1519c", id="Hey"),
     ],
 )
 def test_context_diagrams(model: capellambse.MelodyModel, uuid: str) -> None:
     obj = model.by_uuid(uuid)
 
     diag = obj.context_diagram
+
+    diag.render("svgdiagram", display_parent_relation=True)
+    diag.render("svgdiagram", display_parent_relation=False)
 
     assert diag.nodes
 

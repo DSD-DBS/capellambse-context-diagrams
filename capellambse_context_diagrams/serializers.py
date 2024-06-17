@@ -93,6 +93,7 @@ class DiagramSerializer:
 
         self.diagram.calculate_viewport()
         self.order_children()
+        self._edges.clear()
         return self.diagram
 
     def deserialize_child(

@@ -230,6 +230,10 @@ def move_edges(
     for c in connections:
         source_owner_uuids = get_all_owners(c.source)
         target_owner_uuids = get_all_owners(c.target)
+        if c.source == c.target:
+            source_owner_uuids.remove(c.source.uuid)
+            target_owner_uuids.remove(c.source.uuid)
+
         common_owner_uuid = None
         for owner in source_owner_uuids:
             if owner in target_owner_uuids:

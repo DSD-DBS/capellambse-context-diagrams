@@ -540,12 +540,11 @@ class RealizationViewDiagram(ContextDiagram):
         for edge in edges:
             layout.children.append(
                 _elkjs.ELKOutputEdge(
-                    id=edge.id,
+                    id=f"__Realization:{edge.id}",
                     type="edge",
                     sourceId=edge.sources[0],
                     targetId=edge.targets[0],
                     routingPoints=[],
-                    styleclass="Realization",
                 )
             )
         self._add_layer_labels(layout)

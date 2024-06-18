@@ -122,7 +122,6 @@ def register_classes() -> None:
             DiagramType.PAB,
             {
                 "display_parent_relation": True,
-                "render_styles": styling.BLUE_ACTOR_FNCS,
             },
         ),
         (
@@ -130,7 +129,6 @@ def register_classes() -> None:
             DiagramType.PAB,
             {
                 "display_parent_relation": True,
-                "render_styles": styling.BLUE_ACTOR_FNCS,
             },
         ),
     ]

@@ -27,6 +27,9 @@ general_context_diagram_uuids: dict[str, tuple[str, dict[str, t.Any]]] = {
     "educate Wizards": ("957c5799-1d4a-4ac0-b5de-33a65bf1519c", {}),
     "Weird guy": ("098810d9-0325-4ae8-a111-82202c0d2016", {}),
     "Top secret": ("5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6", {}),
+    "Physical Node": ("fdb34c92-7c49-491d-bf11-dd139930786e", {}),
+    "Physical Behavior": ("313f48f4-fb7e-47a8-b28a-76440932fcb9", {}),
+    "Maintain": ("ee745644-07d7-40b9-ad7a-910dc8cbb805", {}),
 }
 interface_context_diagram_uuids: dict[str, tuple[str, dict[str, t.Any]]] = {
     "Left to right": ("3ef23099-ce9a-4f7d-812f-935f47e7938d", {}),

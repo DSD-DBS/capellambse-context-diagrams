@@ -184,3 +184,25 @@ def test_context_diagram_with_derived_interfaces(
     )
 
     assert len(derived_diagram) > 5
+
+
+@pytest.mark.parametrize(
+    "uuid",
+    [
+        pytest.param(
+            "fdb34c92-7c49-491d-bf11-dd139930786e", id="PhysicalNodeComponent"
+        ),
+        pytest.param(
+            "313f48f4-fb7e-47a8-b28a-76440932fcb9",
+            id="PhysicalBehaviorComponent",
+        ),
+    ],
+)
+def test_context_diagram_of_physical_node_component(
+    model: capellambse.MelodyModel, uuid: str
+) -> None:
+    obj = model.by_uuid(uuid)
+
+    diag = obj.context_diagram
+
+    assert len(diag.nodes) > 1

@@ -28,6 +28,11 @@ if t.TYPE_CHECKING:
         None,
     ]
 
+    Filter: t.TypeAlias = cabc.Callable[
+        [cabc.Iterable[common.GenericElement]],
+        cabc.Iterable[common.GenericElement],
+    ]
+
 STYLECLASS_PREFIX = "__Derived"
 
 
@@ -263,21 +268,29 @@ def port_collector(
     return all_ports
 
 
+def _extract_edges(
+    obj: common.ElementList[common.GenericElement],
+    attribute: str,
+    filter: Filter,
+) -> common.ElementList[common.GenericElement] | list:
+    return filter(getattr(obj, attribute, []))
+
+
 def port_exchange_collector(
     ports: t.Iterable[common.GenericElement],
-    filter: cabc.Callable[
-        [cabc.Iterable[common.GenericElement]],
-        cabc.Iterable[common.GenericElement],
-    ] = lambda i: i,
+    filter: Filter = lambda i: i,
 ) -> dict[str, common.ElementList[fa.AbstractExchange]]:
     """Collect exchanges from `ports` savely."""
     edges: dict[str, common.ElementList[fa.AbstractExchange]] = {}
-    for i in ports:
-        try:
-            if edge := filter(getattr(i, "exchanges")):
-                edges[i.uuid] = edge
-        except AttributeError:
-            pass
+
+    for port in ports:
+        if exs := _extract_edges(port, "exchanges", filter):
+            edges[port.uuid] = exs
+            continue
+
+        if links := _extract_edges(port, "links", filter):
+            edges[port.uuid] = links
+
     return edges
 
 

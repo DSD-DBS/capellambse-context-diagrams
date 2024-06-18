@@ -150,33 +150,33 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
 
 -   ??? example "[`pa.PhysicalComponent`][capellambse.model.layers.pa.PhysicalComponent] (PAB)"
 
-    -   Physical Node Component
+          `PhysicalNodeComponent`
 
-            ``` py
-            import capellambse
+          ``` py
+          import capellambse
 
-            model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
-            diag = model.by_uuid("fdb34c92-7c49-491d-bf11-dd139930786e").context_diagram
-            diag.render("svgdiagram").save(pretty=True)
-            ```
-            <figure markdown>
-                <img src="assets/images/Context of Physical Component.svg" width="1000000">
-                <figcaption>Context of Physical Component [PAB]</figcaption>
-            </figure>
+          model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+          diag = model.by_uuid("fdb34c92-7c49-491d-bf11-dd139930786e").context_diagram
+          diag.render("svgdiagram").save(pretty=True)
+          ```
+          <figure markdown>
+              <img src="assets/images/Context of Physical Component.svg" width="1000000">
+              <figcaption>Context of Physical Component [PAB]</figcaption>
+          </figure>
 
-    -   Physical Behaviour Component
+          `PhysicalBehaviourComponent`
 
-            ``` py
-            import capellambse
+          ``` py
+          import capellambse
 
-            model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
-            diag = model.by_uuid("313f48f4-fb7e-47a8-b28a-76440932fcb9").context_diagram
-            diag.render("svgdiagram").save(pretty=True)
-            ```
-            <figure markdown>
-                <img src="assets/images/Context of PC Software.svg" width="1000000">
-                <figcaption>Context diagram of PC Software [PAB]</figcaption>
-            </figure>
+          model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+          diag = model.by_uuid("313f48f4-fb7e-47a8-b28a-76440932fcb9").context_diagram
+          diag.render("svgdiagram").save(pretty=True)
+          ```
+          <figure markdown>
+              <img src="assets/images/Context of PC Software.svg" width="1000000">
+              <figcaption>Context diagram of PC Software [PAB]</figcaption>
+          </figure>
 
 *   [`pa.PhysicalFunction`][capellambse.model.layers.pa.PhysicalFunction] (PDFB)
 

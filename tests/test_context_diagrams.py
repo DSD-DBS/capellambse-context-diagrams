@@ -23,12 +23,13 @@ TEST_FUNCTION_UUIDS = {
     "f0bc11ba-89aa-4297-98d2-076440e9117f",
 }
 TEST_DERIVED_UUID = "dbd99773-efb6-4476-bf5c-270a61f18b09"
+TEST_ENTITY_UUID = "e37510b9-3166-4f80-a919-dfaac9b696c7"
 
 
 @pytest.mark.parametrize(
     "uuid",
     [
-        pytest.param("e37510b9-3166-4f80-a919-dfaac9b696c7", id="Entity"),
+        pytest.param(TEST_ENTITY_UUID, id="Entity"),
         pytest.param("8bcb11e6-443b-4b92-bec2-ff1d87a224e7", id="Activity"),
         pytest.param(
             "344a405e-c7e5-4367-8a9a-41d3d9a27f81", id="SystemComponent"
@@ -52,15 +53,35 @@ TEST_DERIVED_UUID = "dbd99773-efb6-4476-bf5c-270a61f18b09"
             "c78b5d7c-be0c-4ed4-9d12-d447cb39304e",
             id="PhysicalBehaviorComponent",
         ),
-        pytest.param("957c5799-1d4a-4ac0-b5de-33a65bf1519c", id="Hey"),
     ],
 )
 def test_context_diagrams(model: capellambse.MelodyModel, uuid: str) -> None:
     obj = model.by_uuid(uuid)
 
     diag = obj.context_diagram
+    diag.render(None, display_parent_relation=True)
+    diag.render(None, display_parent_relation=False)
 
     assert diag.nodes
+
+
+@pytest.mark.parametrize(
+    "parameter",
+    [
+        "display_parent_relation",
+        "display_symbols_as_boxes",
+        "display_derived_interfaces",
+        "slim_center_box",
+    ],
+)
+def test_context_diagrams_rerender_on_parameter_change(
+    model: capellambse.MelodyModel, parameter: str
+) -> None:
+    obj = model.by_uuid(TEST_ENTITY_UUID)
+
+    diag = obj.context_diagram
+    diag.render(None, **{parameter: True})
+    diag.render(None, **{parameter: False})
 
 
 @pytest.mark.parametrize(

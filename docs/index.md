@@ -178,8 +178,6 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
               <figcaption>Context diagram of PC Software [PAB]</figcaption>
           </figure>
 
-*   [`pa.PhysicalFunction`][capellambse.model.layers.pa.PhysicalFunction] (PDFB)
-
 -   ??? example "[`pa.PhysicalFunction`][capellambse.model.layers.pa.PhysicalFunction] (PDFB)"
 
           ``` py

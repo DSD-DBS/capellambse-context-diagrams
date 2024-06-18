@@ -61,7 +61,7 @@ class ContextProcessor:
     def process_context(self):
         if (
             self.diagram.display_parent_relation
-            and hasattr(self.diagram.target, "owner")
+            and getattr(self.diagram.target, "owner", None) is not None
             and not isinstance(self.diagram.target.owner, generic.PackageTypes)
         ):
             box = self._make_box(

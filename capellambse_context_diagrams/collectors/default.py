@@ -176,13 +176,10 @@ class ContextProcessor:
                 while (
                     current
                     and current.uuid not in self.diagram_target_owners
-                    and hasattr(current, "owner")
+                    and getattr(current, "owner", None) is not None
                     and not isinstance(current.owner, generic.PackageTypes)
                 ):
-                    current = self._make_owner_box(
-                        self.diagram,
-                        current,
-                    )
+                    current = self._make_owner_box(self.diagram, current)
                 self.common_owners.add(current.uuid)
 
             stack_heights[side] += makers.NEIGHBOR_VMARGIN + height

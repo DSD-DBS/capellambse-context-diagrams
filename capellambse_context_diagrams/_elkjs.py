@@ -374,8 +374,8 @@ def call_elkjs(elk_model: ELKInputData) -> ELKOutputData:
         text=True,
         env={**os.environ, "NODE_PATH": str(NODE_HOME)},
     )
-    if proc.returncode:
-        log.getChild("node").error("%s", proc.stderr)
+    if proc.returncode or proc.stderr:
+        log.getChild("node").error("%s", proc.stderr.splitlines()[0])
         raise NodeJSError("elk.js process failed")
 
     return ELKOutputData.model_validate_json(proc.stdout, strict=True)

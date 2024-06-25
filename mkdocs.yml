@@ -86,16 +86,18 @@ nav:
       - Quickstart: quickstart.md
       - Credits: credits.md
       - License: license.md
-  - Extras:
-      - Filters: extras/filters.md
-      - Styling: extras/styling.md
-      - 🔥 Derived 🔥: extras/derived.md
+  - Interface Context View:
+      - Overview: interface.md
   - Tree View:
       - Overview: tree_view.md
   - Realization View:
       - Overview: realization_view.md
   - DataFlow View:
       - Overview: data_flow_view.md
+  - Extras:
+      - Filters: extras/filters.md
+      - Styling: extras/styling.md
+      - Derived: extras/derived.md
   - Code Reference: reference/
 
 extra_css:

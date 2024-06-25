@@ -43,3 +43,21 @@ def test_interface_diagram_with_included_interface(
     diag = obj.context_diagram.render(None, include_interface=True)
 
     assert diag[TEST_INTERFACE_UUID]
+
+
+def test_interface_diagram_with_hide_functions(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid(TEST_INTERFACE_UUID)
+
+    diag = obj.context_diagram.render(None, hide_functions=True)
+    obj.context_diagram.render("svgdiagram", hide_functions=True).save(
+        pretty=True
+    )
+
+    for uuid in (
+        "fbfb2b20-b711-4211-9b75-25e38390cdbc",  # LogicalFunction
+        "2b30434f-a087-40f1-917b-c9d0af15be23",  # FunctionalExchange
+    ):
+        with pytest.raises(KeyError):
+            diag[uuid]  # pylint: disable=pointless-statement

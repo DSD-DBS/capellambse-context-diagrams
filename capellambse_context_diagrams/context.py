@@ -380,9 +380,11 @@ class InterfaceContextDiagram(ContextDiagram):
         class_: str,
         obj: common.GenericElement,
         include_interface: bool = False,
+        hide_functions: bool = False,
         **kw,
     ) -> None:
         self.include_interface = include_interface
+        self.hide_functions = hide_functions
         super().__init__(class_, obj, **kw, display_symbols_as_boxes=True)
 
     @property
@@ -390,6 +392,13 @@ class InterfaceContextDiagram(ContextDiagram):
         return f"Interface Context of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
+        for param_name in ("include_interface", "hide_functions"):
+            if override := params.pop(param_name, False):
+                setattr(self, param_name, override)
+
+        if self.hide_functions:
+            self.include_interface = True
+
         params["elkdata"] = exchanges.get_elkdata_for_exchanges(
             self, exchanges.InterfaceContextCollector, params
         )

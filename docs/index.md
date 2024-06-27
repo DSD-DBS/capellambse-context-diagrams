@@ -213,52 +213,19 @@ Hierarchy is identified and supported:
         <figcaption>Context diagram of Hierarchy LogicalComponenet with type [LAB]</figcaption>
     </figure>
 
-### Interfaces (aka ComponentExchanges)
-
-The data is collected by [get_elkdata_for_exchanges][capellambse_context_diagrams.collectors.exchanges.get_elkdata_for_exchanges] which is using the [`InterfaceContextCollector`][capellambse_context_diagrams.collectors.exchanges.InterfaceContextCollector] underneath.
-
-??? example "[`fa.ComponentExchange`][capellambse.model.crosslayer.fa.ComponentExchange]"
-
-    ``` py
-    import capellambse
-
-    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
-    diag = model.by_uuid("3ef23099-ce9a-4f7d-812f-935f47e7938d").context_diagram
-    diag.render("svgdiagram").save(pretty=True)
-    ```
-    <figure markdown>
-        <img src="assets/images/Interface Context of Left to right.svg" width="1000000">
-        <figcaption>Interface context diagram of Left to right LogicalComponentExchange with type [LAB]</figcaption>
-    </figure>
-
-??? example "Include the interface the ([`fa.ComponentExchange`][capellambse.model.crosslayer.fa.ComponentExchange])"
-
-    ``` py
-    import capellambse
-
-    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
-    diag = model.by_uuid("fbb7f735-3c1f-48de-9791-179d35ca7b98").context_diagram
-    diag.render("svgdiagram", include_interface=True).save(pretty=True)
-    ```
-    <figure markdown>
-        <img src="assets/images/Interface Context of Interface.svg" width="1000000">
-        <figcaption>Interface context diagram of Interface LogicalComponentExchange with type [LAB]</figcaption>
-    </figure>
-
-!!! warning "Interface context only supported for the LogicalComponentExchanges"
-
 ### Customized edge routing
 
 !!! note "Custom routing"
-The routing differs from [ELK's Layered Algorithm](https://www.eclipse.org/elk/reference/algorithms/org-eclipse-elk-layered.html): The flow display is disrupted!
-We configure exchanges such that they appear in between the context
-participants. This decision breaks the display of data flow which is one
-of the main aims of ELK's Layered algorithm. However this lets counter
-flow exchanges routes lengths and bendpoints increase.
+
+    The routing differs from [ELK's Layered Algorithm](https://www.eclipse.org/elk/reference/algorithms/org-eclipse-elk-layered.html): The flow display is disrupted!
+    We configure exchanges such that they appear in between the context
+    participants. This decision breaks the display of data flow which is one
+    of the main aims of ELK's Layered algorithm. However this lets counter
+    flow exchanges routes lengths and bendpoints increase.
 
     <figure markdown>
-        <img src="assets/images/Context of Weird guy.svg" width="1000000">
-        <figcaption>Context diagram of Weird guy SystemFunction</figcaption>
+    <img src="assets/images/Context of Weird guy.svg" width="1000000">
+    <figcaption>Context diagram of Weird guy SystemFunction</figcaption>
     </figure>
 
 ---

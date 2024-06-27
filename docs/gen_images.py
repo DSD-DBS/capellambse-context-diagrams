@@ -177,6 +177,16 @@ def generate_derived_image() -> None:
         print(diag.render("svg", **params), file=fd)
 
 
+def generate_interface_with_hide_functions_image():
+    uuid = interface_context_diagram_uuids["Interface"][0]
+    diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
+    params = {"hide_functions": True}
+    with mkdocs_gen_files.open(
+        f"{str(dest / diag.name)}-hide-functions.svg", "w"
+    ) as fd:
+        print(diag.render("svg", **params), file=fd)
+
+
 generate_index_images()
 generate_hierarchy_image()
 generate_no_symbol_images()
@@ -202,3 +212,4 @@ generate_class_tree_images()
 generate_realization_view_images()
 generate_data_flow_image()
 generate_derived_image()
+generate_interface_with_hide_functions_image()

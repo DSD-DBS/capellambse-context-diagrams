@@ -110,15 +110,18 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
                 components.append(c)
                 incomings |= incs
                 outgoings |= outs
-        return (
-            {
-                "element": comp,
-                "functions": functions,
-                "components": components,
-            },
-            incomings,
-            outgoings,
-        )
+
+        start = {
+            "element": comp,
+            "functions": functions,
+            "components": components,
+        }
+        if self.diagram.hide_functions:
+            start["functions"] = []
+            incomings = {}
+            outgoings = {}
+
+        return start, incomings, outgoings
 
     def make_ports_and_update_children_size(
         self,
@@ -155,7 +158,8 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
             child.height = height
             stack_height += makers.NEIGHBOR_VMARGIN + height
 
-        data.height = stack_height
+        if stack_height > 0:
+            data.height = stack_height
 
     @abc.abstractmethod
     def collect(self) -> None:
@@ -222,6 +226,9 @@ class InterfaceContextCollector(ExchangeCollector):
         def make_boxes(cntxt: dict[str, t.Any]) -> _elkjs.ELKInputChild | None:
             comp = cntxt["element"]
             functions = cntxt["functions"]
+            if self.diagram.hide_functions:
+                functions = []
+
             components = cntxt["components"]
             if comp.uuid not in made_children:
                 children = [
@@ -278,8 +285,8 @@ class InterfaceContextCollector(ExchangeCollector):
             if right_child := make_boxes(right_context):
                 self.data.children.append(right_child)
                 self.right = right_child
-        except AttributeError:
-            pass
+        except AttributeError as error:
+            logger.exception("Interface collection failed: \n%r", str(error))
 
     def add_interface(self) -> None:
         ex_data = generic.ExchangeData(

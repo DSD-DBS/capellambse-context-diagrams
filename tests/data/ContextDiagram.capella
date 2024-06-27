@@ -62,7 +62,7 @@
                 definition="#682bd51d-5451-4930-a97e-8bfca6c3a127" value="true"/>
             <ownedAttributes xsi:type="Requirements:DateValueAttribute" id="b97c09b5-948a-46e8-a656-69d764ddce7d"
                 definition="#682bd51d-5451-4930-a97e-8bfca6c3a127" definitionProxy=""
-                value="2021-07-23T15:00:00.000+0200"/>
+                value="2021-07-23T13:00:00.000+0000"/>
             <ownedAttributes xsi:type="Requirements:IntegerValueAttribute" id="85dfd42c-7f6e-4236-a181-bdd784040431"
                 definition="#682bd51d-5451-4930-a97e-8bfca6c3a127" value="10"/>
             <ownedAttributes xsi:type="Requirements:RealValueAttribute" id="d2231d14-854d-4625-b48b-6cf1c2554367"
@@ -3210,6 +3210,39 @@ The predator is far away</bodies>
             <inputs xsi:type="org.polarsys.capella.core.data.fa:FunctionInputPort"
                 id="3f88a495-cc76-4a01-8aae-c79bdb6b22e2" name="FIP 1"/>
           </ownedFunctions>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
+              id="8e921393-f880-4358-acc3-b92ac37c688c" name="Measure Speed">
+            <outputs xsi:type="org.polarsys.capella.core.data.fa:FunctionOutputPort"
+                id="7e0254c0-f288-4822-83e6-da0559b5177c" name="FOP 1"/>
+          </ownedFunctions>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
+              id="1b7482c1-4ab4-4d0b-8e90-5339b3c7dcaa" name="Process Speed Data">
+            <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
+                id="cfd788b1-815c-41b0-8317-97c10b94f5b2" name="Adjust Throttle">
+              <inputs xsi:type="org.polarsys.capella.core.data.fa:FunctionInputPort"
+                  id="227331f8-62b7-49cb-868f-6f6009ed7acb" name="FIP 1"/>
+            </ownedFunctions>
+          </ownedFunctions>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
+              id="c84f8578-2bf1-473f-8910-7f751bf3d7e9" name="Monitor Temperature">
+            <outputs xsi:type="org.polarsys.capella.core.data.fa:FunctionOutputPort"
+                id="4ef0b876-4b9f-4399-9c80-6b294eda2752" name="FOP 1"/>
+          </ownedFunctions>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
+              id="563b447f-0ec5-4613-8a08-c45cce4def57" name="Adjust Heating/Cooling">
+            <outputs xsi:type="org.polarsys.capella.core.data.fa:FunctionOutputPort"
+                id="2eeef519-d4a5-43e9-82ef-a135c29eabe6" name="FOP 1"/>
+          </ownedFunctions>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
+              id="8319057c-8fcf-4d2b-84d9-a000553caf4b" name="Monitor Home Security">
+            <inputs xsi:type="org.polarsys.capella.core.data.fa:FunctionInputPort"
+                id="7e5678a0-f3f9-432a-ab7c-341c72be4ed2" name="FIP 1"/>
+            <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
+                id="f6b1d923-2b9b-43c3-a779-8ef77045b5cb" name="Alert Homeowner">
+              <inputs xsi:type="org.polarsys.capella.core.data.fa:FunctionInputPort"
+                  id="3fedd678-a60a-4b68-abb4-5cc13192eeb5" name="FIP 1"/>
+            </ownedFunctions>
+          </ownedFunctions>
           <ownedFunctionRealizations xsi:type="org.polarsys.capella.core.data.fa:FunctionRealization"
               id="6a78f907-3b22-436f-8762-8d576723773a" targetElement="#1eee3b81-41ef-4b56-8018-b8e421a5a2bc"
               sourceElement="#f28ec0f8-f3b3-43a0-8af7-79f194b29a2d"/>
@@ -3342,6 +3375,15 @@ The predator is far away</bodies>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
               id="2b30434f-a087-40f1-917b-c9d0af15be23" name="FE 4" target="#3f88a495-cc76-4a01-8aae-c79bdb6b22e2"
               source="#c9b687d0-6134-4de8-99e6-929f2810ca58"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="d545fbd8-7179-4b5c-b390-b0cf2356cadd" name="Speed Data Exchange"
+              target="#227331f8-62b7-49cb-868f-6f6009ed7acb" source="#7e0254c0-f288-4822-83e6-da0559b5177c"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="ed2babac-03de-414b-841d-18b54b7fb1c8" name="Temperature Alert" target="#3fedd678-a60a-4b68-abb4-5cc13192eeb5"
+              source="#4ef0b876-4b9f-4399-9c80-6b294eda2752"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="c3bea52b-8850-404f-87b5-b2529bc81e67" name="Security System Coordination"
+              target="#7e5678a0-f3f9-432a-ab7c-341c72be4ed2" source="#2eeef519-d4a5-43e9-82ef-a135c29eabe6"/>
         </ownedLogicalFunctions>
       </ownedFunctionPkg>
       <ownedAbstractCapabilityPkg xsi:type="org.polarsys.capella.core.data.la:CapabilityRealizationPkg"
@@ -3645,6 +3687,21 @@ The predator is far away</bodies>
                 id="c92eb72c-69ad-4bb0-b5ef-6b00f8716222" targetElement="#5f67436c-9742-4b84-b99e-7ee719ff02a0"
                 sourceElement="#2f8ed849-fbda-4902-82ec-cbf8104ae686"/>
           </ownedComponentExchanges>
+          <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+              id="2726252b-9fa7-468a-9faa-2e875e57968b" name="Speed Data Transmission"
+              source="#701c42f8-eaa1-46ee-be9f-82d9eb98628c" target="#a5bda2d9-1671-41b8-86e6-c0d2cb639c2e"
+              kind="FLOW">
+            <ownedComponentExchangeFunctionalExchangeAllocations xsi:type="org.polarsys.capella.core.data.fa:ComponentExchangeFunctionalExchangeAllocation"
+                id="fbc8c423-e369-49e7-a66d-dc8052d6814f" targetElement="#d545fbd8-7179-4b5c-b390-b0cf2356cadd"
+                sourceElement="#2726252b-9fa7-468a-9faa-2e875e57968b"/>
+          </ownedComponentExchanges>
+          <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+              id="d9432ccb-9b09-43b5-9369-e3a961fb1aeb" name="Data Transmission" source="#78439b44-41d0-4f83-9792-5428e7af5eaf"
+              target="#e9f5c988-bd91-443b-a183-c415a44b460b" kind="FLOW">
+            <ownedComponentExchangeFunctionalExchangeAllocations xsi:type="org.polarsys.capella.core.data.fa:ComponentExchangeFunctionalExchangeAllocation"
+                id="3c6fbff5-bca7-4e55-abc6-e9591e02476c" targetElement="#c3bea52b-8850-404f-87b5-b2529bc81e67"
+                sourceElement="#d9432ccb-9b09-43b5-9369-e3a961fb1aeb"/>
+          </ownedComponentExchanges>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="a3194240-cd17-4998-8f8b-785233487ec3"
               name="Campus" abstractType="#6583b560-6d2f-4190-baa2-94eef179c8ea"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
@@ -3704,6 +3761,14 @@ The predator is far away</bodies>
               name="LC 1" abstractType="#44d051f2-875d-4a51-93f0-6c7b20a45842"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="4f98980c-4855-4b7b-95e6-9693c735c618"
               name="LC 20" abstractType="#7f375127-f08a-4deb-8fb6-97c955840f89"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="e021a1b6-3d89-4940-b094-7cc02c7334ca"
+              name="Speed Censor" abstractType="#1c171ae0-c331-4e00-a253-b36cc2ba42de"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="27b5fed7-f528-4083-84ef-a9e21c5f804b"
+              name="Cruise Control Module" abstractType="#2b641f00-1da1-4fd7-b9f6-2d937c659794"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="f832e718-d36c-49b8-afab-f2d68bac9225"
+              name="Smart Thermostat" abstractType="#32b814e0-2efd-47b4-bab1-cbf88c569c3e"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="ce24d942-6385-4d5b-a80c-76a3ee186831"
+              name="Home Security System" abstractType="#b5ea6b26-fa3b-4a67-bb66-10382f2729db"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="0f8b10b5-d460-4055-bd34-7e4a33e94b5e" targetElement="#230c4621-7e0a-4d0a-9db2-d4ba5e97b3df"
               sourceElement="#0d2edb8f-fa34-4e73-89ec-fb9a63001440"/>
@@ -4257,6 +4322,67 @@ The predator is far away</bodies>
                     sourceElement="#8d24bd39-a7c4-4b2e-93c4-b63088a83248"/>
               </ownedLogicalComponents>
             </ownedLogicalComponents>
+          </ownedLogicalComponents>
+          <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+              id="1c171ae0-c331-4e00-a253-b36cc2ba42de" name="Speed Censor">
+            <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                id="c99d7a5e-cb1e-4330-a8ba-4292195e2ca5" targetElement="#8e921393-f880-4358-acc3-b92ac37c688c"
+                sourceElement="#1c171ae0-c331-4e00-a253-b36cc2ba42de"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="701c42f8-eaa1-46ee-be9f-82d9eb98628c" name="CP 1" orientation="OUT"
+                kind="FLOW">
+              <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
+                  id="13ab7f8b-cb09-44a4-883e-2c96f8034e38" targetElement="#7e0254c0-f288-4822-83e6-da0559b5177c"
+                  sourceElement="#701c42f8-eaa1-46ee-be9f-82d9eb98628c"/>
+            </ownedFeatures>
+          </ownedLogicalComponents>
+          <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+              id="2b641f00-1da1-4fd7-b9f6-2d937c659794" name="Cruise Control Module">
+            <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                id="bb5e1d5c-63e2-4987-b336-0cb03a174135" targetElement="#1b7482c1-4ab4-4d0b-8e90-5339b3c7dcaa"
+                sourceElement="#2b641f00-1da1-4fd7-b9f6-2d937c659794"/>
+            <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                id="1d9e4ce1-7ece-4355-9c7a-9f2002463141" targetElement="#cfd788b1-815c-41b0-8317-97c10b94f5b2"
+                sourceElement="#2b641f00-1da1-4fd7-b9f6-2d937c659794"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="a5bda2d9-1671-41b8-86e6-c0d2cb639c2e" name="CP 1" orientation="IN"
+                kind="FLOW">
+              <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
+                  id="53458624-5e35-488a-8494-c921650d049a" targetElement="#227331f8-62b7-49cb-868f-6f6009ed7acb"
+                  sourceElement="#a5bda2d9-1671-41b8-86e6-c0d2cb639c2e"/>
+            </ownedFeatures>
+          </ownedLogicalComponents>
+          <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+              id="32b814e0-2efd-47b4-bab1-cbf88c569c3e" name="Smart Thermostat">
+            <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                id="17d360a5-ba12-4510-a634-69f1513b3407" targetElement="#c84f8578-2bf1-473f-8910-7f751bf3d7e9"
+                sourceElement="#32b814e0-2efd-47b4-bab1-cbf88c569c3e"/>
+            <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                id="656bd731-f354-4504-8a58-ae4830bb2db9" targetElement="#563b447f-0ec5-4613-8a08-c45cce4def57"
+                sourceElement="#32b814e0-2efd-47b4-bab1-cbf88c569c3e"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="78439b44-41d0-4f83-9792-5428e7af5eaf" name="CP 1" orientation="OUT"
+                kind="FLOW">
+              <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
+                  id="188ce78a-8f23-4686-8689-e2d06382ee84" targetElement="#2eeef519-d4a5-43e9-82ef-a135c29eabe6"
+                  sourceElement="#78439b44-41d0-4f83-9792-5428e7af5eaf"/>
+            </ownedFeatures>
+          </ownedLogicalComponents>
+          <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+              id="b5ea6b26-fa3b-4a67-bb66-10382f2729db" name="Home Security System">
+            <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                id="9bd96904-b41a-44f8-aff6-40ccf702ba39" targetElement="#8319057c-8fcf-4d2b-84d9-a000553caf4b"
+                sourceElement="#b5ea6b26-fa3b-4a67-bb66-10382f2729db"/>
+            <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                id="c6dbdf1d-e1c6-4d5b-b7b9-1abc97f1bd3c" targetElement="#f6b1d923-2b9b-43c3-a779-8ef77045b5cb"
+                sourceElement="#b5ea6b26-fa3b-4a67-bb66-10382f2729db"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="e9f5c988-bd91-443b-a183-c415a44b460b" name="CP 1" orientation="IN"
+                kind="FLOW">
+              <ownedPortAllocations xsi:type="org.polarsys.capella.core.data.information:PortAllocation"
+                  id="58a69882-e306-4021-a0e6-f68547798ec2" targetElement="#7e5678a0-f3f9-432a-ab7c-341c72be4ed2"
+                  sourceElement="#e9f5c988-bd91-443b-a183-c415a44b460b"/>
+            </ownedFeatures>
           </ownedLogicalComponents>
           <ownedLogicalComponentPkgs xsi:type="org.polarsys.capella.core.data.la:LogicalComponentPkg"
               id="83d80c8a-e845-4fd9-bb6f-91fc32145785" name="LogicalComponents">

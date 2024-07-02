@@ -24,6 +24,7 @@ TEST_FUNCTION_UUIDS = {
 }
 TEST_DERIVED_UUID = "dbd99773-efb6-4476-bf5c-270a61f18b09"
 TEST_ENTITY_UUID = "e37510b9-3166-4f80-a919-dfaac9b696c7"
+TEST_DERIVATION_UUID = "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c"
 
 
 @pytest.mark.parametrize(
@@ -63,6 +64,16 @@ def test_context_diagrams(model: capellambse.MelodyModel, uuid: str) -> None:
     diag.render(None, display_parent_relation=False)
 
     assert diag.nodes
+
+
+def test_context_is_collected_again_with_derivated(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid(TEST_DERIVATION_UUID)
+
+    diagram = obj.context_diagram.render(None)
+
+    assert len(diagram) > 1
 
 
 @pytest.mark.parametrize(

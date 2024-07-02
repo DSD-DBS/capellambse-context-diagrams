@@ -353,6 +353,10 @@ class ContextDiagram(diagram.AbstractDiagram):
                 setattr(self, param_name, override)
 
         data = params.get("elkdata") or get_elkdata(self, params)
+        if has_single_child(data):
+            self.display_derived_interfaces = True
+            data = get_elkdata(self, params)
+
         layout = try_to_layout(data)
         add_context(layout, params.get("is_legend", False))
         return self.serializer.make_diagram(
@@ -687,3 +691,15 @@ def calculate_label_position(
     center_y = y + height / 2
     tspan_y = center_y - width / 2 + padding
     return (x + width / 2, center_y, tspan_y)
+
+
+def has_single_child(data: _elkjs.ELKInputData | _elkjs.ELKInputChild) -> bool:
+    """Checks if ``data`` has a single or no child."""
+    if not data.children:
+        return True
+
+    for child in data.children:
+        if not has_single_child(child):
+            return False
+
+    return len(data.children) == 1

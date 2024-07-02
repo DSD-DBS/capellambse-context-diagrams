@@ -79,11 +79,13 @@ def _collect_data(
     data = makers.make_diagram(diagram)
     elements = getattr(diagram.target, attribute)
     src_attr, trg_attr = filter_attrs
+    source_getter = operator.attrgetter(src_attr)
     filter = functools.partial(
         exchange_filter,
         functions=elements,
         attributes=(src_attr, trg_attr),
     )
+
     made_edges: set[str] = set()
     for elem in elements:
         data.children.append(box := makers.make_box(elem))
@@ -95,10 +97,11 @@ def _collect_data(
             edges = list(chain.from_iterable(connections.values()))
         else:
             edges = list(portless.get_exchanges(elem, filter=filter))
+
         in_elems: dict[str, fa.FunctionPort | oa.OperationalActivity] = {}
         out_elems: dict[str, fa.FunctionPort | oa.OperationalActivity] = {}
         for edge in edges:
-            if operator.attrgetter(src_attr) == elem:
+            if source_getter(edge) == elem:
                 out_elems.setdefault(edge.source.uuid, edge.source)
             else:
                 in_elems.setdefault(edge.target.uuid, edge.target)
@@ -108,6 +111,7 @@ def _collect_data(
                 makers.make_port(i.uuid)
                 for i in (in_elems | out_elems).values()
             ]
+
         box.height += (makers.PORT_SIZE + 2 * makers.PORT_PADDING) * max(
             len(in_elems), len(out_elems)
         )

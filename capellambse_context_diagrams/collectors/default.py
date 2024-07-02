@@ -52,6 +52,10 @@ class ContextProcessor:
         self.made_boxes = {self.centerbox.id: self.centerbox}
         self.boxes_to_delete = {self.centerbox.id}
         self.edges: list[fa.AbstractExchange] = []
+        self.stack_heights: dict[str, float | int] = {
+            "input": -makers.NEIGHBOR_VMARGIN,
+            "output": -makers.NEIGHBOR_VMARGIN,
+        }
         if self.diagram.display_parent_relation:
             self.diagram_target_owners = generic.get_all_owners(
                 self.diagram.target
@@ -72,11 +76,7 @@ class ContextProcessor:
             box.children = [self.centerbox]
             del self.data.children[0]
 
-        stack_heights: dict[str, float | int] = {
-            "input": -makers.NEIGHBOR_VMARGIN,
-            "output": -makers.NEIGHBOR_VMARGIN,
-        }
-        self._process_ports(stack_heights)
+        self._process_ports()
 
         if self.diagram.display_parent_relation and self.diagram.target.owner:
             current = self.diagram.target.owner
@@ -108,7 +108,7 @@ class ContextProcessor:
             generic.move_edges(owner_boxes, self.edges, self.data)
 
         self.centerbox.height = max(
-            self.centerbox.height, *stack_heights.values()
+            self.centerbox.height, *self.stack_heights.values()
         )
 
     def _process_exchanges(self) -> tuple[
@@ -147,7 +147,7 @@ class ContextProcessor:
 
         return ports, ex_datas
 
-    def _process_ports(self, stack_heights: dict[str, float | int]) -> None:
+    def _process_ports(self) -> None:
         ports, ex_datas = self._process_exchanges()
         for port, local_ports, side in port_context_collector(ex_datas, ports):
             _, label_height = helpers.get_text_extent(port.name)
@@ -182,7 +182,7 @@ class ContextProcessor:
                     current = self._make_owner_box(self.diagram, current)
                 self.common_owners.add(current.uuid)
 
-            stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
+            self.stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
 
     def _make_box(
         self,

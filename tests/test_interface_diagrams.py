@@ -43,3 +43,27 @@ def test_interface_diagram_with_included_interface(
     diag = obj.context_diagram.render(None, include_interface=True)
 
     assert diag[TEST_INTERFACE_UUID]
+
+
+@pytest.mark.parametrize(
+    "uuid",
+    [
+        pytest.param("2726252b-9fa7-468a-9faa-2e875e57968b", id="Scenario 1"),
+        pytest.param(
+            "d9432ccb-9b09-43b5-9369-e3a961fb1aeb",
+            id="Scenario 2",
+        ),
+    ],
+)
+def test_interface_diagram_of_mixed_component_exchanges(
+    model: capellambse.MelodyModel, uuid: str
+) -> None:
+    obj = model.by_uuid(uuid)
+
+    diag = obj.context_diagram
+    diag.render(
+        "svgdiagram",
+        include_interface=True,
+    ).save(pretty=True)
+
+    assert len(diag.nodes) > 1

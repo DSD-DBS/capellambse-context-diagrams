@@ -102,7 +102,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/v')
     environment:
       name: pypi
-      url: https://pypi.org/project/capella-polarion
+      url: https://pypi.org/project/capellambse-context-diagrams
     permissions:
       id-token: write
     steps:

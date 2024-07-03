@@ -172,7 +172,8 @@ def register_interface_context() -> None:
             {
                 oa.EntityPkg: DiagramType.OAB.value,
                 oa.Entity: DiagramType.OAB.value,
-            }
+            },
+            {"include_interface": True},
         ),
     )
     common.set_accessor(
@@ -187,6 +188,7 @@ def register_interface_context() -> None:
                 pa.PhysicalComponentPkg: DiagramType.PAB.value,
                 pa.PhysicalComponent: DiagramType.PAB.value,
             },
+            {"include_interface": True},
         ),
     )
 

@@ -68,10 +68,13 @@ def start_filter_apply_test(
 
 
 def get_ExchangeItems(edge: diagram.Edge) -> list[str]:
+    if not edge.labels:
+        return []
     label = edge.labels[0].label
     assert isinstance(label, str)
     match = EX_PTRN.match(label)
-    assert match is not None
+    if match is None:
+        return []
     return match.group(1).split(", ")
 
 
@@ -86,11 +89,11 @@ def test_EX_ITEMS_is_applied(model: MelodyModel, uuid: str) -> None:
 
     for edge in edges:
         aedge = aird_diag[edge.uuid]
-        expected = (ex.name for ex in edge.exchange_items)
+        expected = [ex.name for ex in edge.exchange_items]
 
         assert isinstance(aedge, diagram.Edge)
         if aedge.labels:
-            assert get_ExchangeItems(aedge) == list(expected)
+            assert get_ExchangeItems(aedge) == expected
 
 
 @pytest.mark.parametrize("sort,uuid", [(False, FNC_UUID), (True, INTERF_UUID)])
@@ -101,23 +104,18 @@ def test_context_diagrams_ExchangeItems_sorting(
         model, uuid, filters.EX_ITEMS, sorted_exchangedItems=sort
     )
 
-    all_sorted = True
     for edge in edges:
         aedge = aird_diag[edge.uuid]
         assert isinstance(aedge, diagram.Edge)
-        if aedge.labels and not has_sorted_ExchangeItems(aedge):
-            all_sorted = False
-            break
-
-    assert all_sorted == sort
+        assert has_sorted_ExchangeItems(aedge)
 
 
 @pytest.mark.parametrize("uuid", (FNC_UUID, INTERF_UUID))
-def test_context_diagrams_FEX_EX_ITEMS_is_applied(
+def test_context_diagrams_SHOW_EX_ITEMS_is_applied(
     model: MelodyModel, uuid: str
 ) -> None:
     edges, aird_diag = start_filter_apply_test(
-        model, uuid, filters.FEX_EX_ITEMS
+        model, uuid, filters.SHOW_EX_ITEMS
     )
 
     for edge in edges:
@@ -130,7 +128,7 @@ def test_context_diagrams_FEX_EX_ITEMS_is_applied(
         assert isinstance(aedge, diagram.Edge)
         assert len(aedge.labels) == 1
         assert isinstance(aedge.labels[0].label, str)
-        assert [aedge.labels[0].label] == [expected_label]
+        assert aedge.labels[0].label == expected_label
 
 
 @pytest.mark.parametrize("uuid", (FNC_UUID, INTERF_UUID))
@@ -138,7 +136,7 @@ def test_context_diagrams_FEX_OR_EX_ITEMS_is_applied(
     model: MelodyModel, uuid: str
 ) -> None:
     edges, aird_diag = start_filter_apply_test(
-        model, uuid, filters.FEX_OR_EX_ITEMS
+        model, uuid, filters.EXCH_OR_EX_ITEMS
     )
 
     for edge in edges:
@@ -163,8 +161,7 @@ def test_context_diagrams_FEX_OR_EX_ITEMS_is_applied(
 def test_context_diagrams_SYSTEM_EX_RELABEL_is_applied(
     model: MelodyModel, uuid: str
 ) -> None:
-    element = model.by_uuid(uuid)
-    diag: context.ContextDiagram = element.context_diagram
+    diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
     expected = {
         "« exploits »",
         "« extends »",

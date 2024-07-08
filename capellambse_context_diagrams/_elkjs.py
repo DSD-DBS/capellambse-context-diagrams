@@ -110,6 +110,16 @@ class ELKInputData(BaseELKModel):
         default_factory=list
     )
 
+    def get_children_by_id(self, search_id: str) -> ELKInputChild | None:
+        """Recursively search for a child with the given id."""
+        for child in self.children:
+            if child.id == search_id:
+                return child
+
+            if found_child := child.get_children_by_id(search_id):
+                return found_child
+        return None
+
 
 class ELKInputChild(ELKInputData):
     """Children of either `ELKInputData` or `ELKInputChild`."""

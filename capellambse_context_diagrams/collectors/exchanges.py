@@ -24,20 +24,20 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
     intermap: dict[str, DT] = {
         DT.OAB: ("source", "target", "allocated_interactions", "activities"),
         DT.SAB: (
-            "source.parent",
-            "target.parent",
+            "source.owner",
+            "target.owner",
             "allocated_functional_exchanges",
             "allocated_functions",
         ),
         DT.LAB: (
-            "source.parent",
-            "target.parent",
+            "source.owner",
+            "target.owner",
             "allocated_functional_exchanges",
             "allocated_functions",
         ),
         DT.PAB: (
-            "source.parent",
-            "target.parent",
+            "source.owner",
+            "target.owner",
             "allocated_functional_exchanges",
             "allocated_functions",
         ),
@@ -62,104 +62,14 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
         self.get_alloc_fex = operator.attrgetter(alloc_fex)
         self.get_alloc_functions = operator.attrgetter(fncs)
 
-    def get_functions_and_exchanges(
-        self, comp: common.GenericElement, interface: common.GenericElement
-    ) -> tuple[
-        list[common.GenericElement],
-        dict[str, common.GenericElement],
-        dict[str, common.GenericElement],
-    ]:
-        """Return `Function`s, incoming and outgoing
-        `FunctionalExchange`s for given `Component` and `interface`.
-        """
-        functions, incomings, outgoings = [], {}, {}
-        alloc_functions = self.get_alloc_functions(comp)
-        for fex in self.get_alloc_fex(interface):
-            source = self.get_source(fex)
-            if source in alloc_functions:
-                if fex.uuid not in outgoings:
-                    outgoings[fex.uuid] = fex
-                if source not in functions:
-                    functions.append(source)
-
-            target = self.get_target(fex)
-            if target in alloc_functions:
-                if fex.uuid not in incomings:
-                    incomings[fex.uuid] = fex
-                if target not in functions:
-                    functions.append(target)
-
-        return functions, incomings, outgoings
-
-    def collect_context(
-        self, comp: common.GenericElement, interface: common.GenericElement
-    ) -> tuple[
-        dict[str, t.Any],
-        dict[str, common.GenericElement],
-        dict[str, common.GenericElement],
-    ]:
-        functions, incomings, outgoings = self.get_functions_and_exchanges(
-            comp, interface
-        )
-        components = []
-        for cmp in comp.components:
-            fncs, _, _ = self.get_functions_and_exchanges(cmp, interface)
-            functions.extend(fncs)
-            if fncs:
-                c, incs, outs = self.collect_context(cmp, interface)
-                components.append(c)
-                incomings |= incs
-                outgoings |= outs
-
-        start = {
-            "element": comp,
-            "functions": functions,
-            "components": components,
-        }
-        if self.diagram.hide_functions:
-            start["functions"] = []
-            incomings = {}
-            outgoings = {}
-
-        return start, incomings, outgoings
-
+    @abc.abstractmethod
     def make_ports_and_update_children_size(
         self,
         data: _elkjs.ELKInputChild,
         exchanges: t.Sequence[_elkjs.ELKInputEdge],
     ) -> None:
-        """Adjust size of functions and make ports."""
-        stack_height: int | float = -makers.NEIGHBOR_VMARGIN
-        for child in data.children:
-            inputs, outputs = [], []
-            obj = self.obj._model.by_uuid(child.id)
-            if isinstance(obj, cs.Component):
-                self.make_ports_and_update_children_size(child, exchanges)
-                return
-            port_ids = {p.uuid for p in obj.inputs + obj.outputs}
-            for ex in exchanges:
-                source, target = ex.sources[0], ex.targets[0]
-                if source in port_ids:
-                    outputs.append(source)
-                elif target in port_ids:
-                    inputs.append(target)
-
-            if generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[self.diagram.type]:
-                child.ports = [
-                    makers.make_port(i) for i in set(inputs + outputs)
-                ]
-
-            childnum = max(len(inputs), len(outputs))
-            height = max(
-                child.height + 2 * makers.LABEL_VPAD,
-                makers.PORT_PADDING
-                + (makers.PORT_SIZE + makers.PORT_PADDING) * childnum,
-            )
-            child.height = height
-            stack_height += makers.NEIGHBOR_VMARGIN + height
-
-        if stack_height > 0:
-            data.height = stack_height
+        """Populate the elkdata container."""
+        raise NotImplementedError
 
     @abc.abstractmethod
     def collect(self) -> None:
@@ -203,15 +113,26 @@ class InterfaceContextCollector(ExchangeCollector):
         data: _elkjs.ELKInputData,
         params: dict[str, t.Any],
     ) -> None:
-        self.left = None
-        self.right = None
         self.incoming_edges = {}
         self.outgoing_edges = {}
 
         super().__init__(diagram, data, params)
 
+        self._functional_exchanges: common.ElementList[
+            common.GenericElement
+        ] = self.get_alloc_fex(diagram.target)
+        self._derived_functional_exchanges: dict[
+            str, common.GenericElement
+        ] = {}
+        self._ex_validity: dict[
+            str, dict[str, common.GenericElement | None]
+        ] = {
+            fex.uuid: {"source": None, "target": None}
+            for fex in self._functional_exchanges
+        }
+
         self.get_left_and_right()
-        if diagram.include_interface:
+        if diagram._include_interface:
             self.add_interface()
 
     def get_left_and_right(self) -> None:
@@ -226,7 +147,7 @@ class InterfaceContextCollector(ExchangeCollector):
         def make_boxes(cntxt: dict[str, t.Any]) -> _elkjs.ELKInputChild | None:
             comp = cntxt["element"]
             functions = cntxt["functions"]
-            if self.diagram.hide_functions:
+            if self.diagram._hide_functions:
                 functions = []
 
             components = cntxt["components"]
@@ -254,13 +175,15 @@ class InterfaceContextCollector(ExchangeCollector):
 
         try:
             comp = self.get_source(self.obj)
-            left_context, incs, outs = self.collect_context(comp, self.obj)
+            left_context, incs, outs = self.collect_context(comp)
+            _comp = self.get_target(self.obj)
+            right_context, _, _ = self.collect_context(_comp)
+            self.remove_dangling_functional_exchanges(incs, outs)
+
             inc_port_ids = set(ex.target.uuid for ex in incs.values())
             out_port_ids = set(ex.source.uuid for ex in outs.values())
             port_spread = len(out_port_ids) - len(inc_port_ids)
 
-            _comp = self.get_target(self.obj)
-            right_context, _, _ = self.collect_context(_comp, self.obj)
             _inc_port_ids = set(ex.target.uuid for ex in outs.values())
             _out_port_ids = set(ex.source.uuid for ex in incs.values())
             _port_spread = len(_out_port_ids) - len(_inc_port_ids)
@@ -288,6 +211,99 @@ class InterfaceContextCollector(ExchangeCollector):
         except AttributeError as error:
             logger.exception("Interface collection failed: \n%r", str(error))
 
+    def collect_context(self, comp: common.GenericElement) -> tuple[
+        dict[str, t.Any],
+        dict[str, common.GenericElement],
+        dict[str, common.GenericElement],
+    ]:
+        functions, incomings, outgoings = self.get_functions_and_exchanges(
+            comp
+        )
+        components = []
+        for cmp in comp.components:
+            fncs, _, _ = self.get_functions_and_exchanges(cmp)
+            functions.extend(fncs)
+            if fncs:
+                c, incs, outs = self.collect_context(cmp)
+                components.append(c)
+                incomings |= incs
+                outgoings |= outs
+
+        start = {
+            "element": comp,
+            "functions": functions,
+            "components": components,
+        }
+        if self.diagram._hide_functions:
+            start["functions"] = []
+            incomings = {}
+            outgoings = {}
+
+        return start, incomings, outgoings
+
+    def get_functions_and_exchanges(
+        self, comp: common.GenericElement
+    ) -> tuple[
+        list[common.GenericElement],
+        dict[str, common.GenericElement],
+        dict[str, common.GenericElement],
+    ]:
+        """Return `Function`s, incoming and outgoing
+        `FunctionalExchange`s for given `Component` and `interface`.
+        """
+        functions, incomings, outgoings = [], {}, {}
+        alloc_functions = self.get_alloc_functions(comp)
+        fexes = alloc_functions.map("inputs.exchanges") + alloc_functions.map(
+            "outputs.exchanges"
+        )
+        ex_template = {"source": None, "target": None}
+        for fex in fexes:
+            if fex not in self._functional_exchanges:
+                # fex not allocated to interface
+                if not self.diagram._display_derived_exchanges:
+                    continue
+
+                self._derived_functional_exchanges[fex.uuid] = fex
+
+            if (source := self.get_source(fex)) in alloc_functions:
+                self._ex_validity.setdefault(fex.uuid, ex_template.copy())[
+                    "source"
+                ] = source
+                outgoings[fex.uuid] = fex
+                if source not in functions:
+                    functions.append(source)
+
+            if (target := self.get_target(fex)) in alloc_functions:
+                self._ex_validity.setdefault(fex.uuid, ex_template.copy())[
+                    "target"
+                ] = target
+                incomings[fex.uuid] = fex
+                if target not in functions:
+                    functions.append(target)
+
+        return functions, incomings, outgoings
+
+    def remove_dangling_functional_exchanges(
+        self,
+        incoming: dict[str, common.GenericElement],
+        outgoing: dict[str, common.GenericElement],
+    ) -> tuple[
+        dict[str, common.GenericElement], dict[str, common.GenericElement]
+    ]:
+        for uuid in self._ex_validity:
+            if not self.found_source_and_target(uuid):
+                incoming.pop(uuid, None)
+                outgoing.pop(uuid, None)
+
+                fex = self.obj._model.by_uuid(uuid)
+                self.diagram.dangling_functional_exchanges.append(fex)
+
+        return incoming, outgoing
+
+    def found_source_and_target(self, uuid: str) -> bool:
+        fex = self._ex_validity[uuid]
+        return None not in (fex["source"], fex["target"])
+
     def add_interface(self) -> None:
         ex_data = generic.ExchangeData(
             self.obj,
@@ -298,10 +314,6 @@ class InterfaceContextCollector(ExchangeCollector):
         )
         src, tgt = generic.exchange_data_collector(ex_data)
         assert self.right is not None
-        if self.get_source(self.obj).uuid == self.right.id:
-            self.data.edges[-1].sources = [tgt.uuid]
-            self.data.edges[-1].targets = [src.uuid]
-
         assert self.left is not None
         self.left.ports.append(makers.make_port(src.uuid))
         self.right.ports.append(makers.make_port(tgt.uuid))
@@ -318,6 +330,11 @@ class InterfaceContextCollector(ExchangeCollector):
                     is_hierarchical=False,
                 )
                 src, tgt = generic.exchange_data_collector(ex_data)
+                if ex.uuid in self._derived_functional_exchanges:
+                    class_ = type(ex).__name__
+                    self.data.edges[-1].id = (
+                        f"{makers.STYLECLASS_PREFIX}-{class_}:{ex.uuid}"
+                    )
 
                 if ex in self.incoming_edges.values():
                     self.data.edges[-1].sources = [tgt.uuid]
@@ -331,7 +348,69 @@ class InterfaceContextCollector(ExchangeCollector):
         except AttributeError:
             pass
 
+    def make_ports_and_update_children_size(
+        self,
+        data: _elkjs.ELKInputChild,
+        exchanges: t.Sequence[_elkjs.ELKInputEdge],
+    ) -> None:
+        """Adjust size of functions and make ports."""
+        stack_height: int | float = -makers.NEIGHBOR_VMARGIN
+        to_remove: list[_elkjs.ELKInputChild] = []
+        for child in data.children:
+            inputs, outputs = [], []
+            obj = self.obj._model.by_uuid(child.id)
+            if isinstance(obj, cs.Component):
+                self.make_ports_and_update_children_size(child, exchanges)
+                return
 
+            port_ids = {p.uuid for p in obj.inputs + obj.outputs}
+            for ex in exchanges:
+                source, target = ex.sources[0], ex.targets[0]
+                if source in port_ids:
+                    outputs.append(source)
+                elif target in port_ids:
+                    inputs.append(target)
+
+            if generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[self.diagram.type]:
+                child.ports = [
+                    makers.make_port(i) for i in set(inputs + outputs)
+                ]
+
+            if not inputs + outputs:
+                to_remove.append(child)
+
+            childnum = max(len(inputs), len(outputs))
+            height = max(
+                child.height + 2 * makers.LABEL_VPAD,
+                makers.PORT_PADDING
+                + (makers.PORT_SIZE + makers.PORT_PADDING) * childnum,
+            )
+            child.height = height
+            stack_height += makers.NEIGHBOR_VMARGIN + height
+
+        if stack_height > 0:
+            data.height = stack_height
+
+        for child in to_remove:
+            data.children.remove(child)
+
+        if not data.children:
+            try:
+                parent_obj = self.obj._model.by_uuid(data.id)
+                assert isinstance(parent_obj, cs.Component)
+                assert parent_obj not in (self.left, self.right)
+                assert parent_obj.owner is not None
+                parent_owner = self.data.get_children_by_id(
+                    parent_obj.owner.uuid
+                )
+                assert parent_owner is not None
+                parent_owner.children.remove(data)
+            except (KeyError, AssertionError):
+                pass
+
+
+# pylint: disable
+@t.no_type_check
 class FunctionalContextCollector(ExchangeCollector):
     def __init__(
         self,
@@ -352,8 +431,8 @@ class FunctionalContextCollector(ExchangeCollector):
                 else:
                     comp = self.get_source(interface)
 
-                functions, inc, outs = self.get_functions_and_exchanges(
-                    self.obj, interface
+                functions, inc, outs = self.get_functions_and_exchanges(  # type: ignore
+                    interface
                 )
                 if comp.uuid not in made_children:
                     children = [makers.make_box(c) for c in functions]
@@ -384,6 +463,17 @@ class FunctionalContextCollector(ExchangeCollector):
                     ex, self.data, set(), is_hierarchical=False
                 )
             )
+
+    def get_functions_and_exchanges(  # type: ignore
+        self, _: common.GenericElement
+    ) -> tuple[
+        list[common.GenericElement],
+        dict[str, common.GenericElement],
+        dict[str, common.GenericElement],
+    ]: ...
+
+
+# pylint: enable
 
 
 def is_hierarchical(

@@ -64,7 +64,7 @@ def collector(
             diagram.target,
             width=width,
             no_symbol=no_symbol,
-            slim_width=diagram.slim_center_box,
+            slim_width=diagram._slim_center_box,
         )
     ]
     return data

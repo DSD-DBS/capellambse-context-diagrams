@@ -33,10 +33,7 @@ general_context_diagram_uuids: dict[str, tuple[str, dict[str, t.Any]]] = {
 }
 interface_context_diagram_uuids: dict[str, tuple[str, dict[str, t.Any]]] = {
     "Left to right": ("3ef23099-ce9a-4f7d-812f-935f47e7938d", {}),
-    "Interface": (
-        "2f8ed849-fbda-4902-82ec-cbf8104ae686",
-        {"include_interface": True},
-    ),
+    "Interface": ("2f8ed849-fbda-4902-82ec-cbf8104ae686", {}),
 }
 hierarchy_context = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
 diagram_uuids = general_context_diagram_uuids | interface_context_diagram_uuids
@@ -55,13 +52,13 @@ def generate_index_images() -> None:
             print(diag.render("svg", **render_params), file=fd)  # type: ignore[arg-type]
 
 
-def generate_no_symbol_images() -> None:
+def generate_symbol_images() -> None:
     for name in ("Capability", "Middle"):
         uuid, _ = general_context_diagram_uuids[name]
         diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
-        diag.display_symbols_as_boxes = True
+        diag._display_symbols_as_boxes = True
         diag.invalidate_cache()
-        filepath = f"{str(dest / diag.name)} no_symbols.svg"
+        filepath = f"{str(dest / diag.name)} symbols.svg"
         with mkdocs_gen_files.open(filepath, "w") as fd:
             print(diag.render("svg", transparent_background=False), file=fd)
 
@@ -187,9 +184,29 @@ def generate_interface_with_hide_functions_image():
         print(diag.render("svg", **params), file=fd)
 
 
+def generate_interface_with_hide_interface_image():
+    uuid = interface_context_diagram_uuids["Interface"][0]
+    diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
+    params = {"include_interface": False}
+    with mkdocs_gen_files.open(
+        f"{str(dest / diag.name)}-hide-interface.svg", "w"
+    ) as fd:
+        print(diag.render("svg", **params), file=fd)
+
+
+def generate_interface_with_display_derived_exchanges_image():
+    uuid = "86a1afc2-b7fd-4023-bbd5-ab44f5dc2c28"
+    diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
+    params = {"display_derived_exchanges": True}
+    with mkdocs_gen_files.open(
+        f"{str(dest / diag.name)}-derived-exchanges.svg", "w"
+    ) as fd:
+        print(diag.render("svg", **params), file=fd)
+
+
 generate_index_images()
 generate_hierarchy_image()
-generate_no_symbol_images()
+generate_symbol_images()
 
 wizard_uuid = general_context_diagram_uuids["educate Wizards"][0]
 generate_no_edgelabel_image(wizard_uuid)
@@ -212,4 +229,6 @@ generate_class_tree_images()
 generate_realization_view_images()
 generate_data_flow_image()
 generate_derived_image()
-generate_interface_with_hide_functions_image()
+# generate_interface_with_hide_functions_image()
+generate_interface_with_hide_interface_image()
+generate_interface_with_display_derived_exchanges_image()

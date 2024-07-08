@@ -15,6 +15,7 @@ import typing as t
 from capellambse import diagram as cdiagram
 from capellambse import helpers
 from capellambse.model import common, diagram, modeltypes
+from capellambse.model.crosslayer import fa
 
 from . import _elkjs, filters, serializers, styling
 from .collectors import (
@@ -93,7 +94,9 @@ class ContextAccessor(common.Accessor):
             pass
 
         new_diagram = diagram_class(
-            self._dgcls, obj, **self._default_render_params
+            self._dgcls,
+            obj,
+            default_render_parameters=self._default_render_params,
         )
         new_diagram.filters.add(filters.NO_UUID)
         cache[diagram_id] = new_diagram
@@ -223,21 +226,6 @@ class ContextDiagram(diagram.AbstractDiagram):
         Dictionary with the `ElkChildType` in str format as keys and
         `styling.Styler` functions as values. An example is given by:
         [`styling.BLUE_ACTOR_FNCS`][capellambse_context_diagrams.styling.BLUE_ACTOR_FNCS]
-    display_symbols_as_boxes
-        Display objects that are normally displayed as symbol as a
-        simple box instead, with the symbol being the box' icon. This
-        avoids the object of interest to become one giant, oversized
-        symbol in the middle of the diagram, and instead keeps the
-        symbol small and only enlarges the surrounding box.
-    display_parent_relation
-        Display objects with a parent relationship to the object of
-        interest as the parent box.
-    display_derived_interfaces
-        Display derived objects collected from additional collectors
-        beside the main collector for building the context.
-    slim_center_box
-        Minimal width for the center box, containing just the icon and
-        the label. This is False if hierarchy was identified.
     serializer
         The serializer builds a `diagram.Diagram` via
         [`serializers.DiagramSerializer.make_diagram`][capellambse_context_diagrams.serializers.DiagramSerializer.make_diagram]
@@ -248,7 +236,29 @@ class ContextDiagram(diagram.AbstractDiagram):
         A list of filter names that are applied during collection of
         context. Currently this is only done in
         [`collectors.exchange_data_collector`][capellambse_context_diagrams.collectors.generic.exchange_data_collector].
+
+    Notes
+    -----
+    * display_symbols_as_boxes — Display objects that are normally
+      displayed as symbol as a simple box instead, with the symbol
+      being the box' icon. This avoids the object of interest to
+      become one giant, oversized symbol in the middle of the diagram,
+      and instead keeps the symbol small and only enlarges the
+      surrounding box.
+    * display_parent_relation — Display objects with a parent
+      relationship to the object of interest as the parent box.
+    * display_derived_interfaces — Display derived objects collected
+      from additional collectors beside the main collector for building
+      the context.
+    * slim_center_box — Minimal width for the center box, containing
+      just the icon and the label. This is False if hierarchy was
+      identified.
     """
+
+    _display_symbols_as_boxes: bool
+    _display_parent_relation: bool
+    _display_derived_interfaces: bool
+    _slim_center_box: bool
 
     def __init__(
         self,
@@ -256,10 +266,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         obj: common.GenericElement,
         *,
         render_styles: dict[str, styling.Styler] | None = None,
-        display_symbols_as_boxes: bool = False,
-        display_parent_relation: bool = False,
-        display_derived_interfaces: bool = False,
-        slim_center_box: bool = True,
+        default_render_parameters: dict[str, t.Any],
     ) -> None:
         super().__init__(obj._model)
         self.target = obj
@@ -268,10 +275,12 @@ class ContextDiagram(diagram.AbstractDiagram):
         self.render_styles = render_styles or {}
         self.serializer = serializers.DiagramSerializer(self)
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
-        self.display_symbols_as_boxes = display_symbols_as_boxes
-        self.display_parent_relation = display_parent_relation
-        self.display_derived_interfaces = display_derived_interfaces
-        self.slim_center_box = slim_center_box
+        self._default_render_parameters = {
+            "display_symbols_as_boxes": False,
+            "display_parent_relation": False,
+            "display_derived_interfaces": False,
+            "slim_center_box": True,
+        } | default_render_parameters
 
         if standard_filter := STANDARD_FILTERS.get(class_):
             self.filters.add(standard_filter)
@@ -329,28 +338,11 @@ class ContextDiagram(diagram.AbstractDiagram):
         def __len__(self) -> int:
             return self._set.__len__()
 
-    def render(self, fmt: str | None, /, **params) -> t.Any:
-        """Render the diagram in the given format."""
-        rparams = params.copy()
-        for attr, value in params.items():
-            attribute = getattr(self, attr, "NOT_FOUND")
-            if attribute not in {"NOT_FOUND", value}:
-                self.invalidate_cache()
-
-                setattr(self, attr, value)
-                del rparams[attr]
-        return super().render(fmt, **rparams)
-
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
+        params = self._default_render_parameters | params
         transparent_background = params.pop("transparent_background", False)
-        for param_name in [
-            "display_parent_relation",
-            "display_derived_interfaces",
-            "display_symbols_as_boxes",
-            "slim_center_box",
-        ]:
-            if (override := params.pop(param_name, None)) is not None:
-                setattr(self, param_name, override)
+        for param_name in self._default_render_parameters:
+            setattr(self, f"_{param_name}", params.pop(param_name))
 
         data = params.get("elkdata") or get_elkdata(self, params)
         if not isinstance(
@@ -379,28 +371,65 @@ class ContextDiagram(diagram.AbstractDiagram):
 class InterfaceContextDiagram(ContextDiagram):
     """An automatically generated Context Diagram exclusively for
     ``ComponentExchange``s.
+
+    Attributes
+    ----------
+    dangling_functional_exchanges: list[fa.AbstractExchange]
+        A list of ``dangling`` functional exchanges for which either the
+        source or target function were not allocated to a Component,
+        part of the context.
+
+    Notes
+    -----
+    The following render parameters are available:
+
+    * include_interface — Boolean flag to enable inclusion of the
+      context diagram target: The interface ComponentExchange.
+    * hide_functions — Boolean flag to enable white box view: Only
+      displaying Components or Entities.
+    * display_derived_exchanges — Boolean flag to enable inclusion of
+      functional exchanges that are not allocated to the interface but
+      connect allocated functions of collected components.
+
+    In addition to all other render parameters of
+    [`ContextDiagram`][capellambse_context_diagrams.context.ContextDiagram].
     """
+
+    _include_interface: bool
+    _hide_functions: bool
+    _display_derived_exchanges: bool
 
     def __init__(
         self,
         class_: str,
         obj: common.GenericElement,
-        include_interface: bool = False,
-        hide_functions: bool = False,
-        **kw,
+        *,
+        render_styles: dict[str, styling.Styler] | None = None,
+        default_render_parameters: dict[str, t.Any],
     ) -> None:
-        self.include_interface = include_interface
-        self.hide_functions = hide_functions
-        super().__init__(class_, obj, **kw, display_symbols_as_boxes=True)
+        default_render_parameters = {
+            "include_interface": False,
+            "hide_functions": False,
+            "display_derived_exchanges": False,
+            "display_symbols_as_boxes": True,
+        } | default_render_parameters
+        super().__init__(
+            class_,
+            obj,
+            render_styles=render_styles,
+            default_render_parameters=default_render_parameters,
+        )
+
+        self.dangling_functional_exchanges: list[fa.AbstractExchange] = []
 
     @property
     def name(self) -> str:  # type: ignore
         return f"Interface Context of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        for param_name in ("include_interface", "hide_functions"):
-            if override := params.pop(param_name, False):
-                setattr(self, param_name, override)
+        params = self._default_render_parameters | params
+        for param_name in self._default_render_parameters:
+            setattr(self, f"_{param_name}", params.pop(param_name))
 
         params["elkdata"] = exchanges.get_elkdata_for_exchanges(
             self, exchanges.InterfaceContextCollector, params
@@ -419,7 +448,7 @@ class FunctionalContextDiagram(ContextDiagram):
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         params["elkdata"] = exchanges.get_elkdata_for_exchanges(
-            self, exchanges.FunctionalContextCollector, params
+            self, exchanges.FunctionalContextCollector, params  # type: ignore
         )
         return super()._create_diagram(params)
 
@@ -430,8 +459,25 @@ class ClassTreeDiagram(ContextDiagram):
     This diagram is exclusively for ``Class``es.
     """
 
-    def __init__(self, class_: str, obj: common.GenericElement, **kw) -> None:
-        super().__init__(class_, obj, **kw, display_symbols_as_boxes=True)
+    _display_symbols_as_boxes: bool
+
+    def __init__(
+        self,
+        class_: str,
+        obj: common.GenericElement,
+        *,
+        render_styles: dict[str, styling.Styler] | None = None,
+        default_render_parameters: dict[str, t.Any],
+    ) -> None:
+        default_render_parameters = {
+            "display_symbols_as_boxes": True,
+        } | default_render_parameters
+        super().__init__(
+            class_,
+            obj,
+            render_styles=render_styles,
+            default_render_parameters=default_render_parameters,
+        )
 
     @property
     def uuid(self) -> str:  # type: ignore
@@ -444,9 +490,16 @@ class ClassTreeDiagram(ContextDiagram):
         return f"Tree view of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params.setdefault("algorithm", params.get("algorithm", "layered"))
+        params = {
+            **self._default_render_parameters,
+            "algorithm": "layered",
+            "edgeRouting": "POLYLINE",
+            **params,
+        }
+        for param_name in self._default_render_parameters:
+            setattr(self, f"_{param_name}", params.pop(param_name))
+
         params.setdefault("elk.direction", params.pop("direction", "DOWN"))
-        params.setdefault("edgeRouting", params.get("edgeRouting", "POLYLINE"))
         params.setdefault(
             "nodeSize.constraints",
             params.pop("nodeSizeConstraints", "NODE_LABELS"),
@@ -525,8 +578,25 @@ class RealizationViewDiagram(ContextDiagram):
     ``Entity`` and ``Components`` of all layers.
     """
 
-    def __init__(self, class_: str, obj: common.GenericElement, **kw) -> None:
-        super().__init__(class_, obj, **kw, display_symbols_as_boxes=True)
+    _display_symbols_as_boxes: bool
+
+    def __init__(
+        self,
+        class_: str,
+        obj: common.GenericElement,
+        *,
+        render_styles: dict[str, styling.Styler] | None = None,
+        default_render_parameters: dict[str, t.Any],
+    ) -> None:
+        default_render_parameters = {
+            "display_symbols_as_boxes": True,
+        } | default_render_parameters
+        super().__init__(
+            class_,
+            obj,
+            render_styles=render_styles,
+            default_render_parameters=default_render_parameters,
+        )
 
     @property
     def uuid(self) -> str:  # type: ignore
@@ -539,13 +609,19 @@ class RealizationViewDiagram(ContextDiagram):
         return f"Realization view of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params.setdefault("depth", params.get("depth", 1))
-        params.setdefault(
-            "search_direction", params.get("search_direction", "ALL")
-        )
-        params.setdefault("show_owners", True)
-        params.setdefault("layer_sizing", "WIDTH")
+        params = {
+            **self._default_render_parameters,
+            "depth": 1,
+            "search_direction": "ALL",
+            "show_owners": True,
+            "layer_sizing": "WIDTH",
+            **params,
+        }
+        for param_name in self._default_render_parameters:
+            setattr(self, f"_{param_name}", params.pop(param_name))
+
         data, edges = realization_view.collector(self, params)
+
         layout = try_to_layout(data)
         adjust_layer_sizing(data, layout, params["layer_sizing"])
         layout = try_to_layout(data)
@@ -594,8 +670,25 @@ class RealizationViewDiagram(ContextDiagram):
 class DataFlowViewDiagram(ContextDiagram):
     """An automatically generated DataFlowViewDiagram."""
 
-    def __init__(self, class_: str, obj: common.GenericElement, **kw) -> None:
-        super().__init__(class_, obj, **kw, display_symbols_as_boxes=True)
+    _display_symbols_as_boxes: bool
+
+    def __init__(
+        self,
+        class_: str,
+        obj: common.GenericElement,
+        *,
+        render_styles: dict[str, styling.Styler] | None = None,
+        default_render_parameters: dict[str, t.Any],
+    ) -> None:
+        default_render_parameters = {
+            "display_symbols_as_boxes": True,
+        } | default_render_parameters
+        super().__init__(
+            class_,
+            obj,
+            render_styles=render_styles,
+            default_render_parameters=default_render_parameters,
+        )
 
     @property
     def uuid(self) -> str:  # type: ignore

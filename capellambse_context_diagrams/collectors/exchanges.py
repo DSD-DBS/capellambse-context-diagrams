@@ -144,6 +144,19 @@ class InterfaceContextCollector(ExchangeCollector):
 
         super().__init__(diagram, data, params)
 
+        self._functional_exchanges: common.ElementList[
+            common.GenericElement
+        ] = self.get_alloc_fex(diagram.target)
+        self._derived_functional_exchanges: dict[
+            str, common.GenericElement
+        ] = {}
+        self._ex_validity: dict[
+            str, dict[str, common.GenericElement | None]
+        ] = {
+            fex.uuid: {"source": None, "target": None}
+            for fex in self._functional_exchanges
+        }
+
         self.get_left_and_right()
         if diagram.hide_functions:
             assert self.left is not None
@@ -257,6 +270,11 @@ class InterfaceContextCollector(ExchangeCollector):
                     is_hierarchical=False,
                 )
                 src, tgt = generic.exchange_data_collector(ex_data)
+                if ex.uuid in self._derived_functional_exchanges:
+                    class_ = type(ex).__name__
+                    self.data.edges[-1].id = (
+                        f"{makers.STYLECLASS_PREFIX}-{class_}:{ex.uuid}"
+                    )
 
                 if ex in self.incoming_edges.values():
                     self.data.edges[-1].sources = [tgt.uuid]

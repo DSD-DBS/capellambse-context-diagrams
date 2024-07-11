@@ -353,7 +353,9 @@ class ContextDiagram(diagram.AbstractDiagram):
                 setattr(self, param_name, override)
 
         data = params.get("elkdata") or get_elkdata(self, params)
-        if has_single_child(data):
+        if not isinstance(
+            self, (ClassTreeDiagram, InterfaceContextDiagram)
+        ) and has_single_child(data):
             self.display_derived_interfaces = True
             data = get_elkdata(self, params)
 

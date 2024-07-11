@@ -51,9 +51,6 @@ def test_interface_diagram_with_hide_functions(
     obj = model.by_uuid(TEST_INTERFACE_UUID)
 
     diag = obj.context_diagram.render(None, hide_functions=True)
-    obj.context_diagram.render("svgdiagram", hide_functions=True).save(
-        pretty=True
-    )
 
     for uuid in (
         "fbfb2b20-b711-4211-9b75-25e38390cdbc",  # LogicalFunction

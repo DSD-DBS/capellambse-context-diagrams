@@ -402,9 +402,6 @@ class InterfaceContextDiagram(ContextDiagram):
             if override := params.pop(param_name, False):
                 setattr(self, param_name, override)
 
-        if self.hide_functions:
-            self.include_interface = True
-
         params["elkdata"] = exchanges.get_elkdata_for_exchanges(
             self, exchanges.InterfaceContextCollector, params
         )

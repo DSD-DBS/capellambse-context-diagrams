@@ -298,10 +298,6 @@ class InterfaceContextCollector(ExchangeCollector):
         )
         src, tgt = generic.exchange_data_collector(ex_data)
         assert self.right is not None
-        if self.get_source(self.obj).uuid == self.right.id:
-            self.data.edges[-1].sources = [tgt.uuid]
-            self.data.edges[-1].targets = [src.uuid]
-
         assert self.left is not None
         self.left.ports.append(makers.make_port(src.uuid))
         self.right.ports.append(makers.make_port(tgt.uuid))

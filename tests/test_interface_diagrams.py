@@ -5,14 +5,13 @@ import capellambse
 import pytest
 
 TEST_INTERFACE_UUID = "2f8ed849-fbda-4902-82ec-cbf8104ae686"
-TEST_SA_INTERFACE_UUID = "86a1afc2-b7fd-4023-bbd5-ab44f5dc2c28"
 
 
 @pytest.mark.parametrize(
     "uuid",
     [
         # pytest.param("3c9764aa-4981-44ef-8463-87a053016635", id="OA"),
-        pytest.param(TEST_SA_INTERFACE_UUID, id="SA"),
+        pytest.param("86a1afc2-b7fd-4023-bbd5-ab44f5dc2c28", id="SA"),
         pytest.param("3ef23099-ce9a-4f7d-812f-935f47e7938d", id="LA"),
     ],
 )
@@ -41,12 +40,6 @@ def test_interface_diagram_with_included_interface(
 ) -> None:
     obj = model.by_uuid(TEST_INTERFACE_UUID)
 
-    obj.context_diagram.render("svgdiagram", hide_functions=True).save(
-        pretty=True
-    )
-    obj.context_diagram.render("svgdiagram", include_interface=False).save(
-        pretty=True
-    )
     diag = obj.context_diagram.render(None, include_interface=False)
 
     with pytest.raises(KeyError):
@@ -68,16 +61,19 @@ def test_interface_diagram_with_hide_functions(
             diag[uuid]  # pylint: disable=pointless-statement
 
 
-def test_interface_diagram_with_derived_exchanges(
+def test_interface_diagram_with_nested_functions(
     model: capellambse.MelodyModel,
 ) -> None:
-    obj = model.by_uuid(TEST_SA_INTERFACE_UUID)
-    expected_derived_exchanges = (
-        "d69dcf31-a7d4-40c5-8dd4-b4747aa3ece7",
-        "7a61fcb7-aae5-4698-86de-8b0d70d8c09b",
-    )
+    obj = model.by_uuid(TEST_INTERFACE_UUID)
+    fex = model.by_uuid("2b30434f-a087-40f1-917b-c9d0af15be23")
+    fnc = fex.target.owner
+    obj.target.owner.allocated_functions.append(fnc)
+    obj.allocated_functional_exchanges.append(fex)
+    expected_uuids = {
+        "f713ba11-b18c-48f8-aabf-5ee57d5c87b7",
+        "7cd5ae5b-6de7-42f6-8a35-9375dd5bbde8",
+    }
 
-    diag = obj.context_diagram.render(None, display_derived_exchanges=True)
+    diag = obj.context_diagram.render(None)
 
-    for uuid in expected_derived_exchanges:
-        assert diag[f"__Derived-FunctionalExchange:{uuid}"]
+    assert {b.uuid for b in diag[fnc.uuid].children} >= expected_uuids

@@ -144,31 +144,6 @@ class InterfaceContextCollector(ExchangeCollector):
 
         super().__init__(diagram, data, params)
 
-        self._functional_exchanges: common.ElementList[
-            common.GenericElement
-        ] = self.get_alloc_fex(diagram.target)
-        self._derived_functional_exchanges: dict[
-            str, common.GenericElement
-        ] = {}
-        self._ex_validity: dict[
-            str, dict[str, common.GenericElement | None]
-        ] = {
-            fex.uuid: {"source": None, "target": None}
-            for fex in self._functional_exchanges
-        }
-
-        self.get_left_and_right()
-        if diagram.hide_functions:
-            assert self.left is not None
-            self.left.children = []  # type: ignore[unreachable]
-            assert self.right is not None
-            self.right.children = []
-            self.incoming_edges = {}
-            self.outgoing_edges = {}
-
-        if diagram.include_interface or diagram.hide_functions:
-            self.add_interface()
-
     def get_left_and_right(self) -> None:
         try:
             self.collect_context()
@@ -197,12 +172,35 @@ class InterfaceContextCollector(ExchangeCollector):
             self.right.id: self.right,
         }
         for fex in self.get_alloc_fex(self.obj):
-            srid = self.make_all_owners(fex.source, boxes)
-            trid = self.make_all_owners(fex.target, boxes)
-            if [srid, trid] == [self.right.id, self.left.id]:
+            try:
+                src_id = self.make_all_owners(fex.source, boxes)
+            except ValueError as error:
+                logger.warning(error.args[0])
+                continue
+
+            try:
+                trg_id = self.make_all_owners(fex.target, boxes)
+            except ValueError as error:
+                src_port = boxes[fex.source.owner.uuid].ports.pop()
+                assert src_port.id == fex.source.uuid
+                logger.warning(error.args[0])
+                continue
+
+            if [src_id, trg_id] == [self.right.id, self.left.id]:
                 self.incoming_edges[fex.uuid] = fex
-            elif [srid, trid] == [self.left.id, self.right.id]:
+            elif [src_id, trg_id] == [self.left.id, self.right.id]:
                 self.outgoing_edges[fex.uuid] = fex
+
+        for uuid, box in boxes.items():
+            element = self.obj._model.by_uuid(uuid)
+            if isinstance(element, fa.AbstractFunction) and (
+                parent_box := boxes.get(element.parent.uuid)
+            ):
+                owner_box = boxes[element.owner.uuid]
+                owner_box.children.remove(box)
+                parent_box.children.append(box)
+                for label in parent_box.labels:
+                    label.layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
 
         if self.left.children:
             for label in self.left.labels:
@@ -212,7 +210,9 @@ class InterfaceContextCollector(ExchangeCollector):
                 label.layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
 
     def make_all_owners(
-        self, obj: fa.AbstractFunction, boxes: dict[str, _elkjs.ELKInputChild]
+        self,
+        obj: fa.AbstractFunction | fa.FunctionPort,
+        boxes: dict[str, _elkjs.ELKInputChild],
     ) -> str:
         owners: list[fa.AbstractFunction | cs.Component] = []
         assert self.right is not None and self.left is not None
@@ -225,10 +225,15 @@ class InterfaceContextCollector(ExchangeCollector):
 
             owners.append(element)
 
-        assert root is not None, f"No root found for {obj._short_repr_()}"
+        if root is None:
+            raise ValueError(f"No root found for {obj._short_repr_()}")
+
         owner_box: common.GenericElement = root
-        for owner in owners[::-1]:
+        for owner in reversed(owners):
             if isinstance(owner, fa.FunctionPort):
+                if owner.uuid in (p.id for p in owner_box.ports):
+                    continue
+
                 owner_box.ports.append(makers.make_port(owner.uuid))
             else:
                 if owner.uuid in (b.id for b in owner_box.children):
@@ -242,6 +247,7 @@ class InterfaceContextCollector(ExchangeCollector):
                 for label in owner_box.labels:
                     label.layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
                 owner_box = box
+
         return root.id
 
     def add_interface(self) -> None:
@@ -260,6 +266,18 @@ class InterfaceContextCollector(ExchangeCollector):
 
     def collect(self) -> None:
         """Collect all allocated `FunctionalExchange`s in the context."""
+        self.get_left_and_right()
+        if self.diagram._hide_functions:
+            assert self.left is not None
+            self.left.children = []
+            assert self.right is not None
+            self.right.children = []
+            self.incoming_edges = {}
+            self.outgoing_edges = {}
+
+        if self.diagram._include_interface or self.diagram._hide_functions:
+            self.add_interface()
+
         try:
             for ex in (self.incoming_edges | self.outgoing_edges).values():
                 ex_data = generic.ExchangeData(
@@ -270,12 +288,6 @@ class InterfaceContextCollector(ExchangeCollector):
                     is_hierarchical=False,
                 )
                 src, tgt = generic.exchange_data_collector(ex_data)
-                if ex.uuid in self._derived_functional_exchanges:
-                    class_ = type(ex).__name__
-                    self.data.edges[-1].id = (
-                        f"{makers.STYLECLASS_PREFIX}-{class_}:{ex.uuid}"
-                    )
-
                 if ex in self.incoming_edges.values():
                     self.data.edges[-1].sources = [tgt.uuid]
                     self.data.edges[-1].targets = [src.uuid]

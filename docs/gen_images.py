@@ -17,26 +17,26 @@ logging.basicConfig()
 dest = pathlib.Path("assets") / "images"
 model_path = pathlib.Path(__file__).parent.parent / "tests" / "data"
 model = MelodyModel(path=model_path, entrypoint="ContextDiagram.aird")
-general_context_diagram_uuids: dict[str, tuple[str, dict[str, t.Any]]] = {
-    "Environment": ("e37510b9-3166-4f80-a919-dfaac9b696c7", {}),
-    "Eat": ("8bcb11e6-443b-4b92-bec2-ff1d87a224e7", {}),
-    "Middle": ("da08ddb6-92ba-4c3b-956a-017424dbfe85", {}),
-    "Capability": ("9390b7d5-598a-42db-bef8-23677e45ba06", {}),
-    "Lost": ("a5642060-c9cc-4d49-af09-defaa3024bae", {}),
-    "Left": ("f632888e-51bc-4c9f-8e81-73e9404de784", {}),
-    "educate Wizards": ("957c5799-1d4a-4ac0-b5de-33a65bf1519c", {}),
-    "Weird guy": ("098810d9-0325-4ae8-a111-82202c0d2016", {}),
-    "Top secret": ("5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6", {}),
-    "Physical Node": ("fdb34c92-7c49-491d-bf11-dd139930786e", {}),
-    "Physical Behavior": ("313f48f4-fb7e-47a8-b28a-76440932fcb9", {}),
-    "Maintain": ("ee745644-07d7-40b9-ad7a-910dc8cbb805", {}),
+general_context_diagram_uuids: dict[str, str] = {
+    "Environment": "e37510b9-3166-4f80-a919-dfaac9b696c7",
+    "Eat": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
+    "Middle": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+    "Capability": "9390b7d5-598a-42db-bef8-23677e45ba06",
+    "Lost": "a5642060-c9cc-4d49-af09-defaa3024bae",
+    "Left": "f632888e-51bc-4c9f-8e81-73e9404de784",
+    "educate Wizards": "957c5799-1d4a-4ac0-b5de-33a65bf1519c",
+    "Weird guy": "098810d9-0325-4ae8-a111-82202c0d2016",
+    "Top secret": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+    "Physical Node": "fdb34c92-7c49-491d-bf11-dd139930786e",
+    "Physical Behavior": "313f48f4-fb7e-47a8-b28a-76440932fcb9",
+    "Maintain": "ee745644-07d7-40b9-ad7a-910dc8cbb805",
 }
-interface_context_diagram_uuids: dict[str, tuple[str, dict[str, t.Any]]] = {
-    "Left to right": ("3ef23099-ce9a-4f7d-812f-935f47e7938d", {}),
-    "Interface": ("2f8ed849-fbda-4902-82ec-cbf8104ae686", {}),
+interface_context_diagram_uuids: dict[str, str] = {
+    "Left to right": "3ef23099-ce9a-4f7d-812f-935f47e7938d",
+    "Interface": "2f8ed849-fbda-4902-82ec-cbf8104ae686",
 }
 hierarchy_context = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
-diagram_uuids = general_context_diagram_uuids | interface_context_diagram_uuids
+diagram_uuids = interface_context_diagram_uuids
 class_tree_uuid = "b7c7f442-377f-492c-90bf-331e66988bda"
 realization_fnc_uuid = "beaf5ba4-8fa9-4342-911f-0266bb29be45"
 realization_comp_uuid = "b9f9a83c-fb02-44f7-9123-9d86326de5f1"
@@ -45,16 +45,15 @@ derived_uuid = "47c3130b-ec39-4365-a77a-5ab6365d1e2e"
 
 
 def generate_index_images() -> None:
-    for uuid, render_params in diagram_uuids.values():
+    for uuid in diagram_uuids.values():
         diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
         with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
-            render_params["transparent_background"] = False  # type: ignore[index]
-            print(diag.render("svg", **render_params), file=fd)  # type: ignore[arg-type]
+            print(diag.render("svg", transparent_background=False), file=fd)  # type: ignore[arg-type]
 
 
 def generate_symbol_images() -> None:
     for name in ("Capability", "Middle"):
-        uuid, _ = general_context_diagram_uuids[name]
+        uuid = general_context_diagram_uuids[name]
         diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
         diag._display_symbols_as_boxes = True
         diag.invalidate_cache()
@@ -175,17 +174,16 @@ def generate_derived_image() -> None:
 
 
 def generate_interface_with_hide_functions_image():
-    uuid = interface_context_diagram_uuids["Interface"][0]
+    uuid = interface_context_diagram_uuids["Interface"]
     diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
-    params = {"hide_functions": True}
     with mkdocs_gen_files.open(
         f"{str(dest / diag.name)}-hide-functions.svg", "w"
     ) as fd:
-        print(diag.render("svg", **params), file=fd)
+        print(diag.render("svg", hide_functions=True), file=fd)
 
 
 def generate_interface_with_hide_interface_image():
-    uuid = interface_context_diagram_uuids["Interface"][0]
+    uuid = interface_context_diagram_uuids["Interface"]
     diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
     params = {"include_interface": False}
     with mkdocs_gen_files.open(
@@ -194,24 +192,14 @@ def generate_interface_with_hide_interface_image():
         print(diag.render("svg", **params), file=fd)
 
 
-def generate_interface_with_display_derived_exchanges_image():
-    uuid = "86a1afc2-b7fd-4023-bbd5-ab44f5dc2c28"
-    diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
-    params = {"display_derived_exchanges": True}
-    with mkdocs_gen_files.open(
-        f"{str(dest / diag.name)}-derived-exchanges.svg", "w"
-    ) as fd:
-        print(diag.render("svg", **params), file=fd)
-
-
 generate_index_images()
 generate_hierarchy_image()
 generate_symbol_images()
 
-wizard_uuid = general_context_diagram_uuids["educate Wizards"][0]
+wizard_uuid = general_context_diagram_uuids["educate Wizards"]
 generate_no_edgelabel_image(wizard_uuid)
 
-lost_uuid = general_context_diagram_uuids["Lost"][0]
+lost_uuid = general_context_diagram_uuids["Lost"]
 generate_filter_image(lost_uuid, filters.EX_ITEMS, "ex")
 generate_filter_image(lost_uuid, filters.SHOW_EX_ITEMS, "fex and ex")
 generate_filter_image(lost_uuid, filters.EXCH_OR_EX_ITEMS, "fex or ex")
@@ -229,6 +217,5 @@ generate_class_tree_images()
 generate_realization_view_images()
 generate_data_flow_image()
 generate_derived_image()
-# generate_interface_with_hide_functions_image()
+generate_interface_with_hide_functions_image()
 generate_interface_with_hide_interface_image()
-generate_interface_with_display_derived_exchanges_image()

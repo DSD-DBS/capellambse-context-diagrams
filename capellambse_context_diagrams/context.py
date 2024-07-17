@@ -76,30 +76,12 @@ class ContextAccessor(common.Accessor):
         diagram_class: type[ContextDiagram],
         diagram_id: str = "{}_context",
     ) -> common.Accessor | ContextDiagram:
-        try:
-            cache = getattr(
-                obj._model, ".".join((__name__, diagram_class.__qualname__))
-            )
-        except AttributeError:
-            cache = {}
-            setattr(
-                obj._model,
-                ".".join((__name__, diagram_class.__qualname__)),
-                cache,
-            )
-        diagram_id = diagram_id.format(obj.uuid)
-        try:
-            return cache[diagram_id]
-        except KeyError:
-            pass
-
         new_diagram = diagram_class(
             self._dgcls,
             obj,
             default_render_parameters=self._default_render_params,
         )
         new_diagram.filters.add(filters.NO_UUID)
-        cache[diagram_id] = new_diagram
         return new_diagram
 
 
@@ -348,7 +330,7 @@ class ContextDiagram(diagram.AbstractDiagram):
         if not isinstance(
             self, (ClassTreeDiagram, InterfaceContextDiagram)
         ) and has_single_child(data):
-            self.display_derived_interfaces = True
+            self._display_derived_interfaces = True
             data = get_elkdata(self, params)
 
         layout = try_to_layout(data)
@@ -387,9 +369,6 @@ class InterfaceContextDiagram(ContextDiagram):
       context diagram target: The interface ComponentExchange.
     * hide_functions — Boolean flag to enable white box view: Only
       displaying Components or Entities.
-    * display_derived_exchanges — Boolean flag to enable inclusion of
-      functional exchanges that are not allocated to the interface but
-      connect allocated functions of collected components.
 
     In addition to all other render parameters of
     [`ContextDiagram`][capellambse_context_diagrams.context.ContextDiagram].
@@ -397,7 +376,6 @@ class InterfaceContextDiagram(ContextDiagram):
 
     _include_interface: bool
     _hide_functions: bool
-    _display_derived_exchanges: bool
 
     def __init__(
         self,
@@ -410,7 +388,6 @@ class InterfaceContextDiagram(ContextDiagram):
         default_render_parameters = {
             "include_interface": False,
             "hide_functions": False,
-            "display_derived_exchanges": False,
             "display_symbols_as_boxes": True,
         } | default_render_parameters
         super().__init__(
@@ -420,21 +397,20 @@ class InterfaceContextDiagram(ContextDiagram):
             default_render_parameters=default_render_parameters,
         )
 
-        self.dangling_functional_exchanges: list[fa.AbstractExchange] = []
-
     @property
     def name(self) -> str:  # type: ignore
         return f"Interface Context of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
+        super_params = params.copy()
         params = self._default_render_parameters | params
         for param_name in self._default_render_parameters:
             setattr(self, f"_{param_name}", params.pop(param_name))
 
-        params["elkdata"] = exchanges.get_elkdata_for_exchanges(
+        super_params["elkdata"] = exchanges.get_elkdata_for_exchanges(
             self, exchanges.InterfaceContextCollector, params
         )
-        return super()._create_diagram(params)
+        return super()._create_diagram(super_params)
 
 
 class FunctionalContextDiagram(ContextDiagram):

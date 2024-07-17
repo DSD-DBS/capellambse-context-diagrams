@@ -51,8 +51,8 @@ class ContextProcessor:
         self.boxes_to_delete = {self.centerbox.id}
         self.edges: list[fa.AbstractExchange] = []
         if self.diagram._display_parent_relation:
-            self.diagram_target_owners = generic.get_all_owners(
-                self.diagram.target
+            self.diagram_target_owners = list(
+                generic.get_all_owners(self.diagram.target)
             )
             self.common_owners: set[str] = set()
 

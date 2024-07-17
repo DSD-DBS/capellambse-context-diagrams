@@ -15,7 +15,6 @@ import typing as t
 from capellambse import diagram as cdiagram
 from capellambse import helpers
 from capellambse.model import common, diagram, modeltypes
-from capellambse.model.crosslayer import fa
 
 from . import _elkjs, filters, serializers, styling
 from .collectors import (
@@ -71,10 +70,7 @@ class ContextAccessor(common.Accessor):
         return self._get(obj, ContextDiagram)
 
     def _get(
-        self,
-        obj: common.GenericElement,
-        diagram_class: type[ContextDiagram],
-        diagram_id: str = "{}_context",
+        self, obj: common.GenericElement, diagram_class: type[ContextDiagram]
     ) -> common.Accessor | ContextDiagram:
         new_diagram = diagram_class(
             self._dgcls,
@@ -108,7 +104,7 @@ class InterfaceContextAccessor(ContextAccessor):
         assert isinstance(obj, common.GenericElement)
         assert isinstance(obj.parent, common.GenericElement)
         self._dgcls = self.__dgclasses[obj.parent.__class__]
-        return self._get(obj, InterfaceContextDiagram, "{}_interface_context")
+        return self._get(obj, InterfaceContextDiagram)
 
 
 class FunctionalContextAccessor(ContextAccessor):
@@ -122,9 +118,7 @@ class FunctionalContextAccessor(ContextAccessor):
         if obj is None:  # pragma: no cover
             return self
         assert isinstance(obj, common.GenericElement)
-        return self._get(
-            obj, FunctionalContextDiagram, "{}_functional_context"
-        )
+        return self._get(obj, FunctionalContextDiagram)
 
 
 class ClassTreeAccessor(ContextAccessor):
@@ -147,7 +141,7 @@ class ClassTreeAccessor(ContextAccessor):
         if obj is None:  # pragma: no cover
             return self
         assert isinstance(obj, common.GenericElement)
-        return self._get(obj, ClassTreeDiagram, "{}_class_tree")
+        return self._get(obj, ClassTreeDiagram)
 
 
 class RealizationViewContextAccessor(ContextAccessor):
@@ -170,7 +164,7 @@ class RealizationViewContextAccessor(ContextAccessor):
         if obj is None:  # pragma: no cover
             return self
         assert isinstance(obj, common.GenericElement)
-        return self._get(obj, RealizationViewDiagram, "{}_realization_view")
+        return self._get(obj, RealizationViewDiagram)
 
 
 class DataFlowAccessor(ContextAccessor):
@@ -191,7 +185,7 @@ class DataFlowAccessor(ContextAccessor):
         if obj is None:  # pragma: no cover
             return self
         assert isinstance(obj, common.GenericElement)
-        return self._get(obj, DataFlowViewDiagram, "{}_data_flow_view")
+        return self._get(obj, DataFlowViewDiagram)
 
 
 class ContextDiagram(diagram.AbstractDiagram):

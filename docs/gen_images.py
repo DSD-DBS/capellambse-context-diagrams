@@ -36,7 +36,7 @@ interface_context_diagram_uuids: dict[str, str] = {
     "Interface": "2f8ed849-fbda-4902-82ec-cbf8104ae686",
 }
 hierarchy_context = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
-diagram_uuids = interface_context_diagram_uuids
+diagram_uuids = general_context_diagram_uuids | interface_context_diagram_uuids
 class_tree_uuid = "b7c7f442-377f-492c-90bf-331e66988bda"
 realization_fnc_uuid = "beaf5ba4-8fa9-4342-911f-0266bb29be45"
 realization_comp_uuid = "b9f9a83c-fb02-44f7-9123-9d86326de5f1"

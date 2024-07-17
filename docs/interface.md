@@ -53,19 +53,4 @@ diag.render("svgdiagram").save(pretty=True)
         <figcaption>Interface context diagram of `Interface` Logical ComponentExchange with type [LAB]</figcaption>
     </figure>
 
-## Display derived functional exchanges in the context
-??? example "Display derived functional exchanges in the Interface Context"
-
-    ``` py
-    import capellambse
-
-    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
-    diag = model.by_uuid("fbb7f735-3c1f-48de-9791-179d35ca7b98").context_diagram
-    diag.render("svgdiagram", display_derived_exchanges=True).save(pretty=True)
-    ```
-    <figure markdown>
-        <img src="../assets/images/Interface Context of afflecks-derived-exchanges.svg" width="1000000">
-        <figcaption>Interface context diagram of `afflecks` System ComponentExchange with type [SAB]</figcaption>
-    </figure>
-
 !!! warning "Interface context only supported for System and Logical ComponentExchanges"

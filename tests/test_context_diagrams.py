@@ -24,6 +24,7 @@ TEST_FUNCTION_UUIDS = {
 }
 TEST_DERIVED_UUID = "dbd99773-efb6-4476-bf5c-270a61f18b09"
 TEST_ENTITY_UUID = "e37510b9-3166-4f80-a919-dfaac9b696c7"
+TEST_SYS_FNC_UUID = "a5642060-c9cc-4d49-af09-defaa3024bae"
 TEST_DERIVATION_UUID = "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c"
 
 
@@ -38,9 +39,7 @@ TEST_DERIVATION_UUID = "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c"
         pytest.param(
             "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df", id="SystemComponent Root"
         ),
-        pytest.param(
-            "a5642060-c9cc-4d49-af09-defaa3024bae", id="SystemFunction"
-        ),
+        pytest.param(TEST_SYS_FNC_UUID, id="SystemFunction"),
         pytest.param(
             "f632888e-51bc-4c9f-8e81-73e9404de784", id="LogicalComponent"
         ),
@@ -85,10 +84,17 @@ def test_context_is_collected_again_with_derivated(
         "slim_center_box",
     ],
 )
+@pytest.mark.parametrize(
+    "uuid",
+    [
+        pytest.param(TEST_ENTITY_UUID, id="Entity"),
+        pytest.param(TEST_SYS_FNC_UUID, id="SystemFunction"),
+    ],
+)
 def test_context_diagrams_rerender_on_parameter_change(
-    model: capellambse.MelodyModel, parameter: str
+    model: capellambse.MelodyModel, parameter: str, uuid: str
 ) -> None:
-    obj = model.by_uuid(TEST_ENTITY_UUID)
+    obj = model.by_uuid(uuid)
 
     diag = obj.context_diagram
     diag.render(None, **{parameter: True})

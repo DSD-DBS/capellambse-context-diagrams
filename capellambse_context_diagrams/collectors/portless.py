@@ -44,10 +44,10 @@ def collector(
     contexts = context_collector(connections, diagram.target)
     global_boxes = {centerbox.id: centerbox}
     made_boxes = {centerbox.id: centerbox}
-    if diagram.display_parent_relation and diagram.target.owner is not None:
+    if diagram._display_parent_relation and diagram.target.owner is not None:
         box = makers.make_box(
             diagram.target.owner,
-            no_symbol=diagram.display_symbols_as_boxes,
+            no_symbol=diagram._display_symbols_as_boxes,
             layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
         )
         box.children = [centerbox]
@@ -63,7 +63,7 @@ def collector(
         var_height = generic.MARKER_PADDING + (
             generic.MARKER_SIZE + generic.MARKER_PADDING
         ) * len(exchanges)
-        if not diagram.display_symbols_as_boxes and makers.is_symbol(
+        if not diagram._display_symbols_as_boxes and makers.is_symbol(
             diagram.target
         ):
             height = makers.MIN_SYMBOL_HEIGHT + var_height
@@ -78,16 +78,16 @@ def collector(
             box = makers.make_box(
                 i,
                 height=height,
-                no_symbol=diagram.display_symbols_as_boxes,
+                no_symbol=diagram._display_symbols_as_boxes,
             )
             global_boxes[i.uuid] = box
             made_boxes[i.uuid] = box
 
-        if diagram.display_parent_relation and i.owner is not None:
+        if diagram._display_parent_relation and i.owner is not None:
             if not (parent_box := global_boxes.get(i.owner.uuid)):
                 parent_box = makers.make_box(
                     i.owner,
-                    no_symbol=diagram.display_symbols_as_boxes,
+                    no_symbol=diagram._display_symbols_as_boxes,
                 )
                 global_boxes[i.owner.uuid] = parent_box
                 made_boxes[i.owner.uuid] = parent_box
@@ -101,7 +101,7 @@ def collector(
     del global_boxes[centerbox.id]
     data.children.extend(global_boxes.values())
 
-    if diagram.display_parent_relation:
+    if diagram._display_parent_relation:
         owner_boxes: dict[str, _elkjs.ELKInputChild] = {
             uuid: box for uuid, box in made_boxes.items() if box.children
         }
@@ -109,7 +109,7 @@ def collector(
         generic.move_edges(owner_boxes, connections, data)
 
     centerbox.height = max(centerbox.height, *stack_heights.values())
-    if not diagram.display_symbols_as_boxes and makers.is_symbol(
+    if not diagram._display_symbols_as_boxes and makers.is_symbol(
         diagram.target
     ):
         data.layoutOptions["spacing.labelNode"] = 5.0

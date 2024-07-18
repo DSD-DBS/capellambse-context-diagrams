@@ -25,7 +25,7 @@ def test_interface_diagrams_get_rendered(
     assert diag.nodes
 
 
-def test_interface_diagrams_with_nested_components(
+def test_interface_diagrams_with_nested_components_and_functions(
     model: capellambse.MelodyModel,
 ) -> None:
     obj = model.by_uuid(TEST_INTERFACE_UUID)
@@ -40,9 +40,10 @@ def test_interface_diagram_with_included_interface(
 ) -> None:
     obj = model.by_uuid(TEST_INTERFACE_UUID)
 
-    diag = obj.context_diagram.render(None, include_interface=True)
+    diag = obj.context_diagram.render(None, include_interface=False)
 
-    assert diag[TEST_INTERFACE_UUID]
+    with pytest.raises(KeyError):
+        diag[TEST_INTERFACE_UUID]  # pylint: disable=pointless-statement
 
 
 def test_interface_diagram_with_hide_functions(
@@ -58,3 +59,21 @@ def test_interface_diagram_with_hide_functions(
     ):
         with pytest.raises(KeyError):
             diag[uuid]  # pylint: disable=pointless-statement
+
+
+def test_interface_diagram_with_nested_functions(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid(TEST_INTERFACE_UUID)
+    fex = model.by_uuid("2b30434f-a087-40f1-917b-c9d0af15be23")
+    fnc = fex.target.owner
+    obj.target.owner.allocated_functions.append(fnc)
+    obj.allocated_functional_exchanges.append(fex)
+    expected_uuids = {
+        "f713ba11-b18c-48f8-aabf-5ee57d5c87b7",
+        "7cd5ae5b-6de7-42f6-8a35-9375dd5bbde8",
+    }
+
+    diag = obj.context_diagram.render(None)
+
+    assert {b.uuid for b in diag[fnc.uuid].children} >= expected_uuids

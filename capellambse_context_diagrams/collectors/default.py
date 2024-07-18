@@ -33,8 +33,6 @@ if t.TYPE_CHECKING:
         cabc.Iterable[common.GenericElement],
     ]
 
-STYLECLASS_PREFIX = "__Derived"
-
 
 class ContextProcessor:
     def __init__(
@@ -52,21 +50,21 @@ class ContextProcessor:
         self.made_boxes = {self.centerbox.id: self.centerbox}
         self.boxes_to_delete = {self.centerbox.id}
         self.edges: list[fa.AbstractExchange] = []
-        if self.diagram.display_parent_relation:
-            self.diagram_target_owners = generic.get_all_owners(
-                self.diagram.target
+        if self.diagram._display_parent_relation:
+            self.diagram_target_owners = list(
+                generic.get_all_owners(self.diagram.target)
             )
             self.common_owners: set[str] = set()
 
     def process_context(self):
         if (
-            self.diagram.display_parent_relation
+            self.diagram._display_parent_relation
             and getattr(self.diagram.target, "owner", None) is not None
             and not isinstance(self.diagram.target.owner, generic.PackageTypes)
         ):
             box = self._make_box(
                 self.diagram.target.owner,
-                no_symbol=self.diagram.display_symbols_as_boxes,
+                no_symbol=self.diagram._display_symbols_as_boxes,
                 layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
             )
             box.children = [self.centerbox]
@@ -78,7 +76,7 @@ class ContextProcessor:
         }
         self._process_ports(stack_heights)
 
-        if self.diagram.display_parent_relation and self.diagram.target.owner:
+        if self.diagram._display_parent_relation and self.diagram.target.owner:
             current = self.diagram.target.owner
             while (
                 current
@@ -96,7 +94,7 @@ class ContextProcessor:
             del self.global_boxes[uuid]
 
         self.data.children.extend(self.global_boxes.values())
-        if self.diagram.display_parent_relation:
+        if self.diagram._display_parent_relation:
             owner_boxes: dict[str, _elkjs.ELKInputChild] = {
                 uuid: box
                 for uuid, box in self.made_boxes.items()
@@ -124,7 +122,7 @@ class ContextProcessor:
             if is_hierarchical := exchanges.is_hierarchical(
                 ex, self.centerbox
             ):
-                if not self.diagram.display_parent_relation:
+                if not self.diagram._display_parent_relation:
                     continue
                 self.centerbox.labels[0].layoutOptions = (
                     makers.DEFAULT_LABEL_LAYOUT_OPTIONS
@@ -167,11 +165,11 @@ class ContextProcessor:
                 box = self._make_box(
                     port,
                     height=height,
-                    no_symbol=self.diagram.display_symbols_as_boxes,
+                    no_symbol=self.diagram._display_symbols_as_boxes,
                 )
                 box.ports = [makers.make_port(j.uuid) for j in local_ports]
 
-            if self.diagram.display_parent_relation:
+            if self.diagram._display_parent_relation:
                 current = port
                 while (
                     current
@@ -205,7 +203,7 @@ class ContextProcessor:
         if not (parent_box := self.global_boxes.get(obj.owner.uuid)):
             parent_box = self._make_box(
                 obj.owner,
-                no_symbol=diagram.display_symbols_as_boxes,
+                no_symbol=diagram._display_symbols_as_boxes,
                 layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
             )
         assert (obj_box := self.global_boxes.get(obj.uuid))
@@ -227,7 +225,7 @@ def collector(
     processor = ContextProcessor(diagram, data, params=params)
     processor.process_context()
     derivator = DERIVATORS.get(type(diagram.target))
-    if diagram.display_derived_interfaces and derivator is not None:
+    if diagram._display_derived_interfaces and derivator is not None:
         derivator(
             diagram,
             data,
@@ -403,13 +401,13 @@ def derive_from_functions(
     for i, (uuid, derived_component) in enumerate(components.items(), 1):
         box = makers.make_box(
             derived_component,
-            no_symbol=diagram.display_symbols_as_boxes,
+            no_symbol=diagram._display_symbols_as_boxes,
         )
         class_ = type(derived_comp).__name__
-        box.id = f"{STYLECLASS_PREFIX}-{class_}:{uuid}"
+        box.id = f"{makers.STYLECLASS_PREFIX}-{class_}:{uuid}"
         data.children.append(box)
-        source_id = f"{STYLECLASS_PREFIX}-CP_INOUT:{i}"
-        target_id = f"{STYLECLASS_PREFIX}-CP_INOUT:{-i}"
+        source_id = f"{makers.STYLECLASS_PREFIX}-CP_INOUT:{i}"
+        target_id = f"{makers.STYLECLASS_PREFIX}-CP_INOUT:{-i}"
         box.ports.append(makers.make_port(source_id))
         centerbox.ports.append(makers.make_port(target_id))
         if i % 2 == 0:
@@ -417,7 +415,7 @@ def derive_from_functions(
 
         data.edges.append(
             _elkjs.ELKInputEdge(
-                id=f"{STYLECLASS_PREFIX}-ComponentExchange:{i}",
+                id=f"{makers.STYLECLASS_PREFIX}-ComponentExchange:{i}",
                 sources=[source_id],
                 targets=[target_id],
             )

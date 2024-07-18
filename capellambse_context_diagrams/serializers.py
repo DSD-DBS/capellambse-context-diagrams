@@ -61,6 +61,7 @@ class DiagramSerializer:
         self._diagram = elk_diagram
         self._cache: dict[str, diagram.Box | diagram.Edge] = {}
         self._edges: dict[str, EdgeContext] = {}
+        self._junctions: dict[str, EdgeContext] = {}
 
     def make_diagram(
         self,
@@ -91,9 +92,13 @@ class DiagramSerializer:
         for edge, ref, parent in self._edges.values():
             self.deserialize_child(edge, ref, parent)
 
+        for junction, ref, parent in self._junctions.values():
+            self.deserialize_child(junction, ref, parent)
+
         self.diagram.calculate_viewport()
         self.order_children()
         self._edges.clear()
+        self._junctions.clear()
         return self.diagram
 
     def deserialize_child(
@@ -148,7 +153,7 @@ class DiagramSerializer:
                 is_port
                 or has_symbol_cls
                 and not self._diagram.target.uuid == uuid
-                and not self._diagram.display_symbols_as_boxes
+                and not self._diagram._display_symbols_as_boxes
             ]
 
             assert not isinstance(
@@ -242,7 +247,7 @@ class DiagramSerializer:
 
             element = parent
         elif child.type == "junction":
-            uuid = child.id.rsplit("_", maxsplit=1)[0]
+            uuid = uuid.rsplit("_", maxsplit=1)[0]
             pos = diagram.Vector2D(child.position.x, child.position.y)
             if self._is_hierarchical(uuid):
                 # FIXME should this use `parent` instead?
@@ -257,6 +262,7 @@ class DiagramSerializer:
                 context=getattr(child, "context", {}),
             )
             self.diagram.add_element(element)
+            self._cache[uuid] = element
         else:
             logger.warning("Received unknown type %s", child.type)
             return
@@ -264,6 +270,8 @@ class DiagramSerializer:
         for i in getattr(child, "children", []):
             if i.type == "edge":
                 self._edges.setdefault(i.id, (i, ref, parent))
+            elif i.type == "junction":
+                self._junctions.setdefault(i.id, (i, ref, parent))
             else:
                 self.deserialize_child(i, ref, element)
 

@@ -36,9 +36,9 @@ py-capellambse.
 # No symbol rendering
 
 There are some ModelObjects that are displayed as symbols in a diagram (e.g.
-Capabilities or Missions). The `.display_symbols_as_boxes` attribute gives you
+Capabilities or Missions). The `.display_symbols_as_boxes` parameter gives you
 the control to render these as boxes such that the symbol is displayed as an
-icon beside the box-label. Per default this attribute is set to `True`.
+icon beside the box-label. Per default it is set to `True`.
 
 ??? example "Box-only style for Context diagram of Middle OperationalCapability [OCB]"
 
@@ -46,12 +46,11 @@ icon beside the box-label. Per default this attribute is set to `True`.
     from capellambse import aird
 
     diag = model.by_uuid("da08ddb6-92ba-4c3b-956a-017424dbfe85").context_diagram
-    diag.display_symbols_as_boxes = True # per default
-    diag.render("svgdiagram").save(pretty=True)
+    diag.render("svgdiagram", display_symbols_as_boxes=False).save(pretty=True)
     ```
     produces
     <figure markdown>
-        <img src="../../assets/images/Context of Middle no_symbols.svg" width="1000000">
+        <img src="../../assets/images/Context of Middle symbols.svg" width="1000000">
         <figcaption>Context of Middle OperationalCapability [OCB] no-symbols</figcaption>
     </figure>
 
@@ -61,12 +60,11 @@ icon beside the box-label. Per default this attribute is set to `True`.
     from capellambse import aird
 
     diag = model.by_uuid("9390b7d5-598a-42db-bef8-23677e45ba06").context_diagram
-    diag.display_symbols_as_boxes = True # per default
-    diag.render("svgdiagram").save(pretty=True)
+    diag.render("svgdiagram", display_symbols_as_boxes=False).save(pretty=True)
     ```
     produces
     <figure markdown>
-        <img src="../../assets/images/Context of Capability no_symbols.svg" width="1000000">
+        <img src="../../assets/images/Context of Capability symbols.svg" width="1000000">
         <figcaption>Context of Capability Capability [MCB] no-symbols</figcaption>
     </figure>
 

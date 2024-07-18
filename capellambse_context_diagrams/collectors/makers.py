@@ -70,6 +70,8 @@ SYMBOL_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
 }
 """Layout options for a symbol label."""
 
+STYLECLASS_PREFIX = "__Derived"
+
 
 def make_diagram(diagram: context.ContextDiagram) -> _elkjs.ELKInputData:
     """Return basic skeleton for ``ContextDiagram``s."""

@@ -64,7 +64,7 @@ def collector(
             diagram.target,
             width=width,
             no_symbol=no_symbol,
-            slim_width=diagram.slim_center_box,
+            slim_width=diagram._slim_center_box,
         )
     ]
     return data
@@ -228,8 +228,8 @@ def move_edges(
     """Move edges to boxes."""
     edges_to_remove: list[str] = []
     for c in connections:
-        source_owner_uuids = get_all_owners(c.source)
-        target_owner_uuids = get_all_owners(c.target)
+        source_owner_uuids = list(get_all_owners(c.source))
+        target_owner_uuids = list(get_all_owners(c.target))
         if c.source == c.target:
             source_owner_uuids.remove(c.source.uuid)
             target_owner_uuids.remove(c.source.uuid)
@@ -252,14 +252,9 @@ def move_edges(
     data.edges = [e for e in data.edges if e.id not in edges_to_remove]
 
 
-def get_all_owners(obj: common.GenericElement) -> list[str]:
+def get_all_owners(obj: common.GenericElement) -> cabc.Iterator[str]:
     """Return the UUIDs from all owners of ``obj``."""
-    owners: list[str] = []
     current = obj
     while current is not None:
-        owners.append(current.uuid)
-        try:
-            current = current.owner
-        except AttributeError:
-            break
-    return owners
+        yield current.uuid
+        current = getattr(current, "owner", None)

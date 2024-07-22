@@ -32,7 +32,7 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-  "capellambse>=0.5.9",
+  "capellambse>=0.5.9,<0.6",
   "typing_extensions",
   "pydantic>=2.7.3"
 ]

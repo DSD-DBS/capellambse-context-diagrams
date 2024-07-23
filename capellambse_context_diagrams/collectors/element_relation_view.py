@@ -17,12 +17,10 @@ from . import generic, makers, tree_view
 logger = logging.getLogger(__name__)
 
 DEFAULT_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
-    "algorithm": "sporeOverlap",
-    "elk.underlyingLayoutAlgorithm": "radial",
+    "algorithm": "radial",
     "elk.spacing.nodeNode": 20,
     "elk.spacing.edgeNode": 10,
     "elk.edgeLabels.inline": True,
-    "elk.radial.compactor": "WEDGE_COMPACTION",
 }
 
 
@@ -60,9 +58,10 @@ class ElementRelationProcessor:
                     self.classes.setdefault(
                         elem.abstract_type.uuid, elem.abstract_type
                     )
+                    eid = f"__ExchangeItemElement:{item.uuid}_{elem.abstract_type.uuid}"
                     self.data.edges.append(
                         _elkjs.ELKInputEdge(
-                            id=f"__ExchangeItemElement:{elem.uuid}",
+                            id=eid,
                             sources=[item.uuid],
                             targets=[elem.abstract_type.uuid],
                             labels=makers.make_label(elem.name),
@@ -71,11 +70,12 @@ class ElementRelationProcessor:
         for cls in self.classes.values():
             self.global_boxes.setdefault(cls.uuid, self._make_class_box(cls))
             if cls.super and cls.super.uuid in self.classes:
+                eid = f"__Generalization:{cls.super.uuid}_{cls.uuid}"
                 self.data.edges.append(
                     _elkjs.ELKInputEdge(
-                        id=f"__Generalization:{cls.uuid}",
-                        sources=[cls.uuid],
-                        targets=[cls.super.uuid],
+                        id=eid,
+                        sources=[cls.super.uuid],
+                        targets=[cls.uuid],
                     )
                 )
         if not self.global_boxes:
@@ -96,13 +96,9 @@ class ElementRelationProcessor:
             )
         ]
         for prop in cls.properties:
-            if (
-                prop.type is None
-                or (
-                    isinstance(prop.type, information.Class)
-                    or isinstance(prop.type, information.datatype.Enumeration)
-                )
-                and prop.type.is_primitive
+            if prop.type is None or (
+                isinstance(prop.type, information.Class)
+                and not prop.type.is_primitive
             ):
                 continue
 

@@ -19,6 +19,7 @@ from capellambse.model import common, diagram, modeltypes
 from . import _elkjs, filters, serializers, styling
 from .collectors import (
     dataflow_view,
+    element_relation_view,
     exchanges,
     get_elkdata,
     realization_view,
@@ -124,13 +125,6 @@ class FunctionalContextAccessor(ContextAccessor):
 class ClassTreeAccessor(ContextAccessor):
     """Provides access to the tree view diagrams."""
 
-    # pylint: disable=super-init-not-called
-    def __init__(
-        self, diagclass: str, render_params: dict[str, t.Any] | None = None
-    ) -> None:
-        self._dgcls = diagclass
-        self._default_render_params = render_params or {}
-
     def __get__(  # type: ignore
         self,
         obj: common.T | None,
@@ -147,13 +141,6 @@ class ClassTreeAccessor(ContextAccessor):
 class RealizationViewContextAccessor(ContextAccessor):
     """Provides access to the realization view diagrams."""
 
-    # pylint: disable=super-init-not-called
-    def __init__(
-        self, diagclass: str, render_params: dict[str, t.Any] | None = None
-    ) -> None:
-        self._dgcls = diagclass
-        self._default_render_params = render_params or {}
-
     def __get__(  # type: ignore
         self,
         obj: common.T | None,
@@ -168,12 +155,6 @@ class RealizationViewContextAccessor(ContextAccessor):
 
 
 class DataFlowAccessor(ContextAccessor):
-    # pylint: disable=super-init-not-called
-    def __init__(
-        self, diagclass: str, render_params: dict[str, t.Any] | None = None
-    ) -> None:
-        self._dgcls = diagclass
-        self._default_render_params = render_params or {}
 
     def __get__(  # type: ignore
         self,
@@ -186,6 +167,20 @@ class DataFlowAccessor(ContextAccessor):
             return self
         assert isinstance(obj, common.GenericElement)
         return self._get(obj, DataFlowViewDiagram)
+
+
+class ElementRelationAccessor(ContextAccessor):
+    def __get__(  # type: ignore
+        self,
+        obj: common.T | None,
+        objtype: type | None = None,
+    ) -> common.Accessor | ContextDiagram:
+        """Make a ElementRelationViewDiagram for the given model object."""
+        del objtype
+        if obj is None:  # pragma: no cover
+            return self
+        assert isinstance(obj, common.GenericElement)
+        return self._get(obj, ElementRelationViewDiagram)
 
 
 class ContextDiagram(diagram.AbstractDiagram):
@@ -673,6 +668,26 @@ class DataFlowViewDiagram(ContextDiagram):
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         params["elkdata"] = dataflow_view.collector(self, params)
         return super()._create_diagram(params)
+
+
+class ElementRelationViewDiagram(ContextDiagram):
+
+    @property
+    def uuid(self) -> str:  # type: ignore
+        """Returns the UUID of the diagram."""
+        return f"{self.target.uuid}_element_relation_view"
+
+    @property
+    def name(self) -> str:  # type: ignore
+        return f"Element Relation View of {self.target.name}"
+
+    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
+        data = element_relation_view.collector(self, params)
+        layout = try_to_layout(data)
+        return self.serializer.make_diagram(
+            layout,
+            transparent_background=params.get("transparent_background", False),
+        )
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:

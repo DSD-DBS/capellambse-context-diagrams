@@ -131,6 +131,14 @@ class DiagramSerializer:
         uuid: str
         styleclass: str | None
         derived = False
+
+        if child.id.startswith("__HideElement"):
+            if hasattr(child, "position"):
+                ref = ref + (child.position.x, child.position.y)
+            for i in getattr(child, "children", []):
+                self.deserialize_child(i, ref, parent)
+            return
+
         if child.id.startswith("__"):
             if ":" in child.id:
                 styleclass, uuid = child.id[2:].split(":", 1)

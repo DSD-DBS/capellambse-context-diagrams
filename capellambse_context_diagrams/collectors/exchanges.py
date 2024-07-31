@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import abc
+import copy
 import logging
 import operator
 import typing as t
@@ -111,6 +112,7 @@ def get_elkdata_for_exchanges(
 ) -> _elkjs.ELKInputData:
     """Return exchange data for ELK."""
     data = makers.make_diagram(diagram)
+    data.layoutOptions["layered.nodePlacement.strategy"] = "NETWORK_SIMPLEX"
     collector = collector_type(diagram, data, params)
     collector.collect()
     for comp in data.children:
@@ -251,6 +253,7 @@ class InterfaceContextCollector(ExchangeCollector):
         return root.id
 
     def add_interface(self) -> None:
+        """Add the ComponentExchange (interface) to the collected data."""
         ex_data = generic.ExchangeData(
             self.obj,
             self.data,
@@ -259,6 +262,9 @@ class InterfaceContextCollector(ExchangeCollector):
             is_hierarchical=False,
         )
         src, tgt = generic.exchange_data_collector(ex_data)
+        self.data.edges[-1].layoutOptions = copy.deepcopy(
+            _elkjs.EDGE_STRAIGHTENING_LAYOUT_OPTIONS
+        )
         assert self.right is not None
         assert self.left is not None
         self.left.ports.append(makers.make_port(src.uuid))

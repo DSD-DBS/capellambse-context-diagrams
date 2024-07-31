@@ -112,6 +112,7 @@ def get_elkdata_for_exchanges(
 ) -> _elkjs.ELKInputData:
     """Return exchange data for ELK."""
     data = makers.make_diagram(diagram)
+    data.layoutOptions["layered.nodePlacement.strategy"] = "NETWORK_SIMPLEX"
     collector = collector_type(diagram, data, params)
     collector.collect()
     for comp in data.children:

@@ -55,7 +55,7 @@ LAYOUT_OPTIONS: ImmutableLayoutOptions = {
     "elk.direction": "RIGHT",
     "hierarchyHandling": "INCLUDE_CHILDREN",
     "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
-    "layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
+    "layered.nodePlacement.strategy": "BRANDES_KOEPF",
     "spacing.labelNode": "0.0",
 }
 """

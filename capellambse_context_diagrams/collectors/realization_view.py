@@ -99,6 +99,7 @@ def collector(
 
                     if (
                         source is not None
+                        and source.owner is not None
                         and source.owner.uuid in children
                         and owner.uuid in children
                     ):

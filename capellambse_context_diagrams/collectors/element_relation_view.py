@@ -16,24 +16,27 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
     "algorithm": "layered",
-    "edgeRouting": "ORTHOGONAL",
-    "elk.direction": "RIGHT",
-    "hierarchyHandling": "INCLUDE_CHILDREN",
-    "layered.edgeLabels.sideSelection": "SMART_DOWN",
     "layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
     "spacing.labelNode": "0.0",
-    "partitioning.active": "True",
     "nodeSize.constraints": "NODE_LABELS",
+    "aspectRatio": 1000,
+    "layered.considerModelOrder.strategy": "PREFER_NODES",
+    "layered.considerModelOrder.components": "MODEL_ORDER",
+    "edgeRouting": "ORTHOGONAL",
+}
+
+DEFAULT_EDGE_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
+    "spacing.edgeLabel": "0.0",
+    "layered.edgeLabels.sideSelection": "SMART_DOWN",
 }
 
 DEFAULT_TREE_VIEW_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
-    "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
     "algorithm": "layered",
     "elk.direction": "DOWN",
+    "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
     "edgeRouting": "POLYLINE",
     "nodeSize.constraints": "NODE_LABELS",
-    "partitioning.active": "True",
-    "partitioning.partition": 1,
+    "partitioning.active": True,
 }
 
 
@@ -41,12 +44,12 @@ class ElementRelationProcessor:
     def __init__(
         self,
         diagram: context.ElementRelationViewDiagram,
-        data: _elkjs.ELKInputData,
         *,
         params: dict[str, t.Any] | None = None,
     ) -> None:
         self.diagram = diagram
-        self.data = data
+        self.data = makers.make_diagram(diagram)
+        self.data.layoutOptions = DEFAULT_LAYOUT_OPTIONS
         self.params = params or {}
         self.tree_view_box = _elkjs.ELKInputChild(
             id="__HideElement:tree-view",
@@ -54,8 +57,20 @@ class ElementRelationProcessor:
             children=[],
             edges=[],
         )
+        self.left_box = _elkjs.ELKInputChild(
+            id="__HideElement:left",
+            layoutOptions=_elkjs.get_global_layered_layout_options(),
+            children=[],
+            edges=[],
+        )
+        self.right_box = _elkjs.ELKInputChild(
+            id="__HideElement:right",
+            layoutOptions=_elkjs.get_global_layered_layout_options(),
+            children=[],
+            edges=[],
+        )
+        self.left_boxes_n = 0
         self.global_boxes: dict[str, _elkjs.ELKInputChild] = {}
-        self.stack_height = 0.0
         self.classes: dict[str, information.Class] = {}
 
     def process(self) -> None:
@@ -68,13 +83,13 @@ class ElementRelationProcessor:
                         layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
                     ),
                 )
-                parent_box.layoutOptions["partitioning.partition"] = 0
-                self.stack_height += parent_box.height
+                self.left_box.children.append(parent_box)
 
             if item.uuid in (i.id for i in parent_box.children):
                 continue
             box = makers.make_box(item)
             parent_box.children.append(box)
+            self.left_boxes_n += 1
 
             for elem in item.elements:
                 if elem.abstract_type:
@@ -85,6 +100,7 @@ class ElementRelationProcessor:
                     self.data.edges.append(
                         _elkjs.ELKInputEdge(
                             id=eid,
+                            layoutOptions=DEFAULT_EDGE_LAYOUT_OPTIONS,
                             sources=[item.uuid],
                             targets=[elem.abstract_type.uuid],
                             labels=makers.make_label(elem.name),
@@ -109,18 +125,20 @@ class ElementRelationProcessor:
                     )
                 )
 
-        mid_height = self.stack_height / 2
-        for box in self.global_boxes.values():
-            if self.stack_height < mid_height:
-                break
-            box.layoutOptions["partitioning.partition"] = 2
-            self.stack_height -= box.height
+        right_boxes_n = 0
+        while self.left_boxes_n > right_boxes_n:
+            box = self.left_box.children.pop()
+            self.right_box.children.append(box)
+            n = len(box.children)
+            self.left_boxes_n -= n
+            right_boxes_n += n
 
-        self.global_boxes["__HideElement:tree-view"] = self.tree_view_box
         if not self.global_boxes:
             logger.warning("Nothing to see here")
             return
-        self.data.children.extend(self.global_boxes.values())
+        self.data.children.extend(
+            [self.left_box, self.tree_view_box, self.right_box]
+        )
 
     def _make_class_box(self, cls: information.Class) -> _elkjs.ELKInputChild:
         box = makers.make_box(
@@ -159,8 +177,6 @@ class ElementRelationProcessor:
 def collector(
     diagram: context.ElementRelationViewDiagram, params: dict[str, t.Any]
 ) -> _elkjs.ELKInputData:
-    data = makers.make_diagram(diagram)
-    data.layoutOptions = DEFAULT_LAYOUT_OPTIONS
-    processor = ElementRelationProcessor(diagram, data, params=params)
+    processor = ElementRelationProcessor(diagram, params=params)
     processor.process()
-    return data
+    return processor.data

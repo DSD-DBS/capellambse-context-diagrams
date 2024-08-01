@@ -147,6 +147,7 @@ class ELKInputEdge(BaseELKModel):
     """Exchange data that can be fed to ELK."""
 
     id: str
+    layoutOptions: LayoutOptions = pydantic.Field(default_factory=dict)
     sources: cabc.MutableSequence[str]
     targets: cabc.MutableSequence[str]
     labels: cabc.MutableSequence[ELKInputLabel] = pydantic.Field(

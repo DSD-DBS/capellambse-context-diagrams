@@ -103,7 +103,8 @@ class ElementRelationProcessor:
                             layoutOptions=DEFAULT_EDGE_LAYOUT_OPTIONS,
                             sources=[item.uuid],
                             targets=[elem.abstract_type.uuid],
-                            labels=makers.make_label(elem.name),
+                            # Add back labels once edge label issue is fixed
+                            # labels=makers.make_label(elem.name),
                         )
                     )
         for cls in self.classes.values():

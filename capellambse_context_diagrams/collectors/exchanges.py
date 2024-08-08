@@ -9,9 +9,9 @@ import logging
 import operator
 import typing as t
 
-from capellambse.model import common
-from capellambse.model.crosslayer import cs, fa
-from capellambse.model.modeltypes import DiagramType as DT
+import capellambse.metamodel as mm
+import capellambse.model as m
+from capellambse.model import DiagramType as DT
 
 from .. import _elkjs, context
 from . import generic, makers
@@ -22,8 +22,13 @@ logger = logging.getLogger(__name__)
 class ExchangeCollector(metaclass=abc.ABCMeta):
     """Base class for context collection on Exchanges."""
 
-    intermap: dict[str, DT] = {
-        DT.OAB: ("source", "target", "allocated_interactions", "activities"),
+    intermap: dict[DT, tuple[str, str, str, str]] = {
+        DT.OAB: (
+            "source",
+            "target",
+            "allocated_interactions",
+            "activities",
+        ),
         DT.SAB: (
             "source.owner",
             "target.owner",
@@ -73,7 +78,7 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
         for child in data.children:
             inputs, outputs = [], []
             obj = self.obj._model.by_uuid(child.id)
-            if isinstance(obj, cs.Component):
+            if isinstance(obj, mm.cs.Component):
                 self.update_children_size(child, exchanges)
                 return
 
@@ -130,8 +135,8 @@ class InterfaceContextCollector(ExchangeCollector):
     """Left (source) Component Box of the interface."""
     right: _elkjs.ELKInputChild | None
     """Right (target) Component Box of the interface."""
-    outgoing_edges: dict[str, common.GenericElement]
-    incoming_edges: dict[str, common.GenericElement]
+    outgoing_edges: dict[str, m.GenericElement]
+    incoming_edges: dict[str, m.GenericElement]
 
     def __init__(
         self,
@@ -195,7 +200,7 @@ class InterfaceContextCollector(ExchangeCollector):
 
         for uuid, box in boxes.items():
             element = self.obj._model.by_uuid(uuid)
-            if isinstance(element, fa.AbstractFunction) and (
+            if isinstance(element, mm.fa.AbstractFunction) and (
                 parent_box := boxes.get(element.parent.uuid)
             ):
                 owner_box = boxes[element.owner.uuid]
@@ -213,12 +218,12 @@ class InterfaceContextCollector(ExchangeCollector):
 
     def make_all_owners(
         self,
-        obj: fa.AbstractFunction | fa.FunctionPort,
+        obj: mm.fa.AbstractFunction | mm.fa.FunctionPort,
         boxes: dict[str, _elkjs.ELKInputChild],
     ) -> str:
-        owners: list[fa.AbstractFunction | cs.Component] = []
+        owners: list[mm.fa.AbstractFunction | mm.cs.Component] = []
         assert self.right is not None and self.left is not None
-        root: cs.Component | None = None
+        root: _elkjs.ELKInputChild | None = None
         for uuid in generic.get_all_owners(obj):
             element = self.obj._model.by_uuid(uuid)
             if uuid in {self.right.id, self.left.id}:
@@ -230,9 +235,9 @@ class InterfaceContextCollector(ExchangeCollector):
         if root is None:
             raise ValueError(f"No root found for {obj._short_repr_()}")
 
-        owner_box: common.GenericElement = root
+        owner_box: _elkjs.ELKInputChild = root
         for owner in reversed(owners):
-            if isinstance(owner, fa.FunctionPort):
+            if isinstance(owner, mm.fa.FunctionPort):
                 if owner.uuid in (p.id for p in owner_box.ports):
                     continue
 
@@ -321,7 +326,7 @@ class FunctionalContextCollector(ExchangeCollector):
 
 
 def is_hierarchical(
-    ex: common.GenericElement,
+    ex: m.GenericElement,
     box: _elkjs.ELKInputChild,
     key: t.Literal["ports"] | t.Literal["children"] = "ports",
 ) -> bool:

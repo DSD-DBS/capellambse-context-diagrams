@@ -10,16 +10,15 @@ import operator
 import typing as t
 from itertools import chain
 
-from capellambse.model import modeltypes
-from capellambse.model.crosslayer import fa
-from capellambse.model.layers import oa
+import capellambse.metamodel as mm
+import capellambse.model as m
 
 from .. import _elkjs, context
 from . import default, generic, makers, portless
 
-COLLECTOR_PARAMS: dict[modeltypes.DiagramType, dict[str, t.Any]] = {
-    modeltypes.DiagramType.OAIB: {"attribute": "involved_activities"},
-    modeltypes.DiagramType.SDFB: {
+COLLECTOR_PARAMS: dict[m.DiagramType, dict[str, t.Any]] = {
+    m.DiagramType.OAIB: {"attribute": "involved_activities"},
+    m.DiagramType.SDFB: {
         "attribute": "involved_functions",
         "filter_attrs": ("source.owner", "target.owner"),
         "port_collector": default.port_collector,
@@ -28,10 +27,10 @@ COLLECTOR_PARAMS: dict[modeltypes.DiagramType, dict[str, t.Any]] = {
 
 
 def only_involved(
-    exchanges: cabc.Iterable[fa.FunctionalExchange],
-    functions: cabc.Iterable[fa.FunctionalExchange],
+    exchanges: cabc.Iterable[mm.fa.FunctionalExchange],
+    functions: cabc.Iterable[mm.fa.FunctionalExchange],
     attributes: tuple[str, str],
-) -> cabc.Iterable[fa.FunctionalExchange]:
+) -> cabc.Iterable[mm.fa.FunctionalExchange]:
     """Exchange filter function for collecting edges."""
     src_attr, trg_attr = attributes
     src_getter = operator.attrgetter(src_attr)
@@ -48,11 +47,11 @@ def collector(
     params: dict[str, t.Any],
     exchange_filter: cabc.Callable[
         [
-            cabc.Iterable[fa.FunctionalExchange],
-            cabc.Iterable[fa.FunctionalExchange],
+            cabc.Iterable[mm.fa.FunctionalExchange],
+            cabc.Iterable[mm.fa.FunctionalExchange],
             tuple[str, str],
         ],
-        cabc.Iterable[fa.FunctionalExchange],
+        cabc.Iterable[mm.fa.FunctionalExchange],
     ] = only_involved,
 ) -> _elkjs.ELKInputData:
     """Main collector that calls either default or portless collectors."""
@@ -66,11 +65,11 @@ def _collect_data(
     params: dict[str, t.Any],
     exchange_filter: cabc.Callable[
         [
-            cabc.Iterable[fa.FunctionalExchange],
-            cabc.Iterable[fa.FunctionalExchange],
+            cabc.Iterable[mm.fa.FunctionalExchange],
+            cabc.Iterable[mm.fa.FunctionalExchange],
             tuple[str, str],
         ],
-        cabc.Iterable[fa.FunctionalExchange],
+        cabc.Iterable[mm.fa.FunctionalExchange],
     ],
     attribute: str,
     filter_attrs: tuple[str, str] = ("source", "target"),
@@ -98,8 +97,12 @@ def _collect_data(
         else:
             edges = list(portless.get_exchanges(elem, filter=filter))
 
-        in_elems: dict[str, fa.FunctionPort | oa.OperationalActivity] = {}
-        out_elems: dict[str, fa.FunctionPort | oa.OperationalActivity] = {}
+        in_elems: dict[str, mm.fa.FunctionPort | mm.oa.OperationalActivity] = (
+            {}
+        )
+        out_elems: dict[
+            str, mm.fa.FunctionPort | mm.oa.OperationalActivity
+        ] = {}
         for edge in edges:
             if source_getter(edge) == elem:
                 out_elems.setdefault(edge.source.uuid, edge.source)

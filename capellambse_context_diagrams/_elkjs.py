@@ -206,6 +206,7 @@ class ELKOutputNode(ELKOutputDiagramElement):
     children: cabc.MutableSequence[ELKOutputChild] = pydantic.Field(
         default_factory=list
     )
+    context: list[str] = pydantic.Field(default_factory=list)
 
 
 class ELKOutputJunction(ELKOutputElement):
@@ -217,6 +218,7 @@ class ELKOutputJunction(ELKOutputElement):
     )
 
     position: ELKPoint
+    context: list[str] = pydantic.Field(default_factory=list)
 
 
 class ELKOutputPort(ELKOutputDiagramElement):
@@ -226,6 +228,7 @@ class ELKOutputPort(ELKOutputDiagramElement):
     children: cabc.MutableSequence[ELKOutputLabel] = pydantic.Field(
         default_factory=list
     )
+    context: list[str] = pydantic.Field(default_factory=list)
 
 
 class ELKOutputLabel(ELKOutputDiagramElement):
@@ -233,6 +236,7 @@ class ELKOutputLabel(ELKOutputDiagramElement):
 
     type: t.Literal["label"]
     text: str
+    context: list[str] = pydantic.Field(default_factory=list)
 
 
 class ELKOutputEdge(ELKOutputElement):
@@ -246,6 +250,7 @@ class ELKOutputEdge(ELKOutputElement):
     children: cabc.MutableSequence[
         t.Union[ELKOutputLabel, ELKOutputJunction]
     ] = pydantic.Field(default_factory=list)
+    context: list[str] = pydantic.Field(default_factory=list)
 
 
 ELKOutputChild = t.Union[

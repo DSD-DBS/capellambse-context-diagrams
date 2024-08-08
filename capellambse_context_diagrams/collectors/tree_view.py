@@ -10,8 +10,8 @@ import logging
 import math
 import typing as t
 
-from capellambse.model import common
-from capellambse.model.crosslayer import information
+import capellambse.model as m
+from capellambse.metamodel import information
 
 from .. import _elkjs, context
 from . import generic, makers
@@ -54,7 +54,7 @@ class ClassProcessor:
             edges = [
                 assoc
                 for assoc in self.all_associations
-                if cls.prop in list(assoc.navigable_members)
+                if cls.prop in assoc.navigable_members  # type: ignore[attr-defined]
             ]
             edge_id = edges[0].uuid
             if edge_id not in self.made_edges:
@@ -92,13 +92,19 @@ class ClassProcessor:
                 )
 
     def _process_box(
-        self, obj: information.Class, partition: int, params: dict[str, t.Any]
+        self,
+        obj: information.Class,
+        partition: int,
+        params: dict[str, t.Any],
     ) -> None:
         if obj.uuid not in self.made_boxes:
             self._make_box(obj, partition, params)
 
     def _make_box(
-        self, obj: information.Class, partition: int, params: dict[str, t.Any]
+        self,
+        obj: information.Class,
+        partition: int,
+        params: dict[str, t.Any],
     ) -> _elkjs.ELKInputChild:
         self.made_boxes.add(obj.uuid)
         box = makers.make_box(
@@ -268,7 +274,7 @@ def get_all_classes(
             for prop in root.super.owned_properties:
                 process_property(
                     _PropertyInfo(
-                        root.super,
+                        root.super,  # type: ignore[arg-type]
                         prop,
                         partition + 1,
                         classes,
@@ -282,11 +288,14 @@ def get_all_classes(
             edge_id = f"{root.uuid} {root.super.uuid}"
             if edge_id not in classes:
                 classes[edge_id] = _make_class_info(
-                    root.super, None, partition, generalizes=root
+                    root.super,  # type: ignore[arg-type]
+                    None,
+                    partition,
+                    generalizes=root,
                 )
                 classes.update(
                     get_all_classes(
-                        root.super,
+                        root.super,  # type: ignore[arg-type]
                         partition,
                         classes,
                         max_partition,
@@ -344,7 +353,7 @@ def _make_class_info(
     return ClassInfo(
         source=source,
         target=target,
-        prop=prop,
+        prop=prop,  # type: ignore[arg-type]
         partition=partition,
         multiplicity=multiplicity,
         generalizes=generalizes,
@@ -419,7 +428,7 @@ def _get_property_text(prop: information.Property) -> str:
 
 
 def _get_legend_labels(
-    obj: common.GenericElement,
+    obj: m.ModelElement,
 ) -> cabc.Iterator[makers._LabelBuilder]:
     yield {
         "text": obj.name,

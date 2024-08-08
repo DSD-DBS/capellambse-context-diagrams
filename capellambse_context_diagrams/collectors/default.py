@@ -10,12 +10,10 @@ import collections.abc as cabc
 import typing as t
 from itertools import chain
 
+import capellambse.model as m
 from capellambse import helpers
-from capellambse.model import common
-from capellambse.model.crosslayer import cs, fa
-from capellambse.model.layers import ctx as sa
-from capellambse.model.layers import la
-from capellambse.model.modeltypes import DiagramType as DT
+from capellambse.metamodel import cs, fa, la, sa
+from capellambse.model import DiagramType as DT
 
 from .. import _elkjs
 from . import exchanges, generic, makers
@@ -29,8 +27,8 @@ if t.TYPE_CHECKING:
     ]
 
     Filter: t.TypeAlias = cabc.Callable[
-        [cabc.Iterable[common.GenericElement]],
-        cabc.Iterable[common.GenericElement],
+        [cabc.Iterable[m.ModelElement]],
+        cabc.Iterable[m.ModelElement],
     ]
 
 
@@ -134,7 +132,7 @@ class ContextProcessor:
             port_spread[owner] += inc
 
     def _process_exchanges(self) -> tuple[
-        list[common.GenericElement],
+        list[m.ModelElement],
         list[generic.ExchangeData],
     ]:
         inc, out = port_collector(self.diagram.target, self.diagram.type)
@@ -285,13 +283,13 @@ def collector(
 
 
 def port_collector(
-    target: common.GenericElement | common.ElementList, diagram_type: DT
-) -> tuple[list[common.GenericElement], list[common.GenericElement]]:
+    target: m.ModelElement | m.ElementList, diagram_type: DT
+) -> tuple[list[m.ModelElement], list[m.ModelElement]]:
     """Savely collect ports from `target`."""
 
     def __collect(target):
-        incoming_ports: list[common.GenericElement] = []
-        outgoing_ports: list[common.GenericElement] = []
+        incoming_ports: list[m.ModelElement] = []
+        outgoing_ports: list[m.ModelElement] = []
         for attr in generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[diagram_type]:
             try:
                 ports = getattr(target, attr)
@@ -315,9 +313,9 @@ def port_collector(
         return incoming_ports, outgoing_ports
 
     if isinstance(target, cabc.Iterable):
-        assert not isinstance(target, common.GenericElement)
-        incoming_ports: list[common.GenericElement] = []
-        outgoing_ports: list[common.GenericElement] = []
+        assert not isinstance(target, m.ModelElement)
+        incoming_ports: list[m.ModelElement] = []
+        outgoing_ports: list[m.ModelElement] = []
         for obj in target:
             inc, out = __collect(obj)
             incoming_ports.extend(inc)
@@ -328,27 +326,27 @@ def port_collector(
 
 
 def _extract_edges(
-    obj: common.GenericElement,
+    obj: m.ModelElement,
     attribute: str,
     filter: Filter,
-) -> cabc.Iterable[common.GenericElement]:
+) -> cabc.Iterable[m.ModelElement]:
     return filter(getattr(obj, attribute, []))
 
 
 def port_exchange_collector(
-    ports: t.Iterable[common.GenericElement],
+    ports: t.Iterable[m.ModelElement],
     filter: Filter = lambda i: i,
-) -> dict[str, common.ElementList[fa.AbstractExchange]]:
+) -> dict[str, list[fa.AbstractExchange]]:
     """Collect exchanges from `ports` savely."""
-    edges: dict[str, common.ElementList[fa.AbstractExchange]] = {}
+    edges: dict[str, list[fa.AbstractExchange]] = {}
 
     for port in ports:
         if exs := _extract_edges(port, "exchanges", filter):
-            edges[port.uuid] = exs
+            edges[port.uuid] = t.cast(list[fa.AbstractExchange], exs)
             continue
 
         if links := _extract_edges(port, "links", filter):
-            edges[port.uuid] = links
+            edges[port.uuid] = t.cast(list[fa.AbstractExchange], links)
 
     return edges
 
@@ -356,9 +354,9 @@ def port_exchange_collector(
 class ContextInfo(t.NamedTuple):
     """ContextInfo data."""
 
-    element: common.GenericElement
+    element: m.ModelElement
     """An element of context."""
-    ports: list[common.GenericElement]
+    ports: list[m.ModelElement]
     """The context element's relevant ports.
 
     This list only contains ports that at least one of the exchanges
@@ -370,7 +368,7 @@ class ContextInfo(t.NamedTuple):
 
 def port_context_collector(
     exchange_datas: t.Iterable[generic.ExchangeData],
-    local_ports: t.Container[common.GenericElement],
+    local_ports: t.Container[m.ModelElement],
 ) -> t.Iterator[ContextInfo]:
     """Collect the context objects.
 
@@ -492,7 +490,7 @@ def derive_from_functions(
     )
 
 
-DERIVATORS: dict[type[common.GenericElement], DerivatorFunction] = {
+DERIVATORS: dict[type[m.ModelElement], DerivatorFunction] = {
     la.LogicalComponent: derive_from_functions,
     sa.SystemComponent: derive_from_functions,
 }

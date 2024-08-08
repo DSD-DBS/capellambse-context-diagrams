@@ -10,16 +10,15 @@ import operator
 import typing as t
 from itertools import chain
 
-from capellambse.model import modeltypes
-from capellambse.model.crosslayer import fa
-from capellambse.model.layers import oa
+import capellambse.model as m
+from capellambse.metamodel import fa, oa
 
 from .. import _elkjs, context
 from . import default, generic, makers, portless
 
-COLLECTOR_PARAMS: dict[modeltypes.DiagramType, dict[str, t.Any]] = {
-    modeltypes.DiagramType.OAIB: {"attribute": "involved_activities"},
-    modeltypes.DiagramType.SDFB: {
+COLLECTOR_PARAMS: dict[m.DiagramType, dict[str, t.Any]] = {
+    m.DiagramType.OAIB: {"attribute": "involved_activities"},
+    m.DiagramType.SDFB: {
         "attribute": "involved_functions",
         "filter_attrs": ("source.owner", "target.owner"),
         "port_collector": default.port_collector,

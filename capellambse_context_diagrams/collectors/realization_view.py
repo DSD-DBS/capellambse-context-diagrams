@@ -9,9 +9,8 @@ import copy
 import re
 import typing as t
 
-from capellambse.model import common, crosslayer
-from capellambse.model.crosslayer import cs, fa
-from capellambse.model.layers import oa
+import capellambse.model as m
+from capellambse.metamodel import cs, fa, oa
 
 from .. import _elkjs, context
 from . import makers
@@ -117,21 +116,21 @@ def collector(
 
 
 def collect_realized(
-    start: common.GenericElement, depth: int
+    start: m.ModelElement, depth: int
 ) -> dict[LayerLiteral, list[dict[str, t.Any]]]:
     """Collect all elements from ``realized_`` attributes up to depth."""
     return collect_elements(start, depth, "ABOVE", "realized")
 
 
 def collect_realizing(
-    start: common.GenericElement, depth: int
+    start: m.ModelElement, depth: int
 ) -> dict[LayerLiteral, list[dict[str, t.Any]]]:
     """Collect all elements from ``realizing_`` attributes down to depth."""
     return collect_elements(start, depth, "BELOW", "realizing")
 
 
 def collect_all(
-    start: common.GenericElement, depth: int
+    start: m.ModelElement, depth: int
 ) -> dict[LayerLiteral, list[dict[str, t.Any]]]:
     """Collect all elements in both ABOVE and BELOW directions."""
     above = collect_realized(start, depth)
@@ -140,11 +139,11 @@ def collect_all(
 
 
 def collect_elements(
-    start: common.GenericElement,
+    start: m.ModelElement,
     depth: int,
     direction: str,
     attribute_prefix: str,
-    origin: common.GenericElement | None = None,
+    origin: m.ModelElement | None = None,
 ) -> dict[LayerLiteral, list[dict[str, t.Any]]]:
     """Collect elements based on the specified direction and attribute name."""
     layer_obj, layer = find_layer(start)
@@ -198,8 +197,8 @@ LayerLiteral = t.Union[
 
 
 def find_layer(
-    obj: common.GenericElement,
-) -> tuple[crosslayer.BaseArchitectureLayer, LayerLiteral]:
+    obj: m.ModelElement,
+) -> tuple[cs.ComponentArchitecture, LayerLiteral]:
     """Return the layer object and its literal.
 
     Return either one of the following:
@@ -209,7 +208,7 @@ def find_layer(
       * ``Physical``
     """
     parent = obj
-    while not isinstance(parent, crosslayer.BaseArchitectureLayer):
+    while not isinstance(parent, cs.ComponentArchitecture):
         parent = parent.parent
     if not (match := RE_LAYER_PTRN.match(type(parent).__name__)):
         raise ValueError("No layer was found.")
@@ -217,7 +216,7 @@ def find_layer(
 
 
 Collector = cabc.Callable[
-    [common.GenericElement, int], dict[LayerLiteral, list[dict[str, t.Any]]]
+    [m.ModelElement, int], dict[LayerLiteral, list[dict[str, t.Any]]]
 ]
 COLLECTORS: dict[str, Collector] = {
     "ALL": collect_all,

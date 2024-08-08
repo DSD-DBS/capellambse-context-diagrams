@@ -5,9 +5,10 @@ from __future__ import annotations
 
 import collections.abc as cabc
 
+import capellambse.model as m
 import typing_extensions as te
 from capellambse import helpers as chelpers
-from capellambse.model import common, layers
+from capellambse.metamodel import oa, sa
 from capellambse.svg import helpers as svghelpers
 from capellambse.svg.decorations import icon_padding, icon_size
 
@@ -42,10 +43,10 @@ SYMBOL_RATIO = MIN_SYMBOL_WIDTH / MIN_SYMBOL_HEIGHT
 FAULT_PAD = 10
 """Height adjustment for labels."""
 BOX_TO_SYMBOL = (
-    layers.ctx.Capability.__name__,
-    layers.oa.OperationalCapability.__name__,
-    layers.ctx.Mission.__name__,
-    layers.ctx.SystemComponent.__name__,
+    sa.Capability.__name__,
+    oa.OperationalCapability.__name__,
+    sa.Mission.__name__,
+    sa.SystemComponent.__name__,
     "SystemHumanActor",
     "SystemActor",
 )
@@ -94,7 +95,7 @@ def make_label(
     """
     label_width, label_height = chelpers.get_text_extent(text)
     icon_width, _ = icon
-    lines = [text]
+    lines: cabc.Sequence[str] = [text]
     if max_width is not None and label_width > max_width:
         lines, _, _ = svghelpers.check_for_horizontal_overflow(
             text,
@@ -129,14 +130,14 @@ class _LabelBuilder(te.TypedDict, total=True):
 
 
 def make_box(
-    obj: common.GenericElement,
+    obj: m.ModelElement,
     *,
     width: int | float = 0,
     height: int | float = 0,
     no_symbol: bool = False,
     slim_width: bool = True,
     label_getter: cabc.Callable[
-        [common.GenericElement], cabc.Iterable[_LabelBuilder]
+        [m.ModelElement], cabc.Iterable[_LabelBuilder]
     ] = lambda i: [
         {
             "text": i.name,
@@ -198,7 +199,7 @@ def calculate_height_and_width(
     return width, max(height, _height)
 
 
-def is_symbol(obj: str | common.GenericElement | None) -> bool:
+def is_symbol(obj: str | m.ModelElement | None) -> bool:
     """Check if given `obj` is rendered as a Symbol instead of a Box."""
     if obj is None:
         return False

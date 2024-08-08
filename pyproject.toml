@@ -32,7 +32,7 @@ classifiers = [
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-  "capellambse>=0.5.9,<0.6",
+  "capellambse>=0.6.5,<0.7",
   "typing_extensions",
   "pydantic>=2.7.3"
 ]
@@ -78,8 +78,8 @@ python_version = "3.11"
 
 [[tool.mypy.overrides]]
 module = ["tests.*"]
-allow_incomplete_defs = true
-allow_untyped_defs = true
+disallow_incomplete_defs = false
+disallow_untyped_defs = false
 
 [tool.pydocstyle]
 convention = "numpy"

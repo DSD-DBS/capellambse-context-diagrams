@@ -11,7 +11,8 @@ import collections.abc as cabc
 import typing as t
 from itertools import chain
 
-from capellambse.model import common, layers
+import capellambse.model as m
+from capellambse.metamodel import oa, sa
 
 from .. import _elkjs, context
 from . import generic, makers
@@ -117,17 +118,15 @@ def collector(
 
 
 def collect_exchange_endpoints(
-    e: common.GenericElement,
-) -> tuple[common.GenericElement, common.GenericElement]:
+    e: m.ModelElement,
+) -> tuple[m.ModelElement, m.ModelElement]:
     """Safely collect exchange endpoints from `e`."""
 
-    def _get(
-        e: common.GenericElement, attrs: t.FrozenSet[str]
-    ) -> common.GenericElement:
+    def _get(e: m.ModelElement, attrs: frozenset[str]) -> m.ModelElement:
         for attr in attrs:
             try:
                 obj = getattr(e, attr)
-                assert isinstance(obj, common.GenericElement)
+                assert isinstance(obj, m.ModelElement)
                 return obj
             except AttributeError:
                 continue
@@ -143,17 +142,17 @@ def collect_exchange_endpoints(
 class ContextInfo(t.NamedTuple):
     """ContextInfo data."""
 
-    element: common.GenericElement
+    element: m.ModelElement
     """An element of context."""
-    connections: list[common.GenericElement]
+    connections: list[m.ModelElement]
     """The context element's relevant exchanges."""
     side: t.Literal["input", "output"]
     """Whether this is an input or output to the element of interest."""
 
 
 def context_collector(
-    exchanges: t.Iterable[common.GenericElement],
-    obj_oi: common.GenericElement,
+    exchanges: t.Iterable[m.ModelElement],
+    obj_oi: m.ModelElement,
 ) -> t.Iterator[ContextInfo]:
     ctx: dict[str, ContextInfo] = {}
     side: t.Literal["input", "output"]
@@ -178,12 +177,12 @@ def context_collector(
 
 
 def get_exchanges(
-    obj: common.GenericElement,
+    obj: m.ModelElement,
     filter: cabc.Callable[
-        [cabc.Iterable[common.GenericElement]],
-        cabc.Iterable[common.GenericElement],
+        [cabc.Iterable[m.ModelElement]],
+        cabc.Iterable[m.ModelElement],
     ] = lambda i: i,
-) -> t.Iterator[common.GenericElement]:
+) -> t.Iterator[t.Any]:
     """Yield exchanges safely.
 
     Yields exchanges from ``.related_exchanges`` or exclusively by
@@ -202,8 +201,8 @@ def get_exchanges(
             * ``.involvements`` and
             * ``.exploitations``.
     """
-    is_op_capability = isinstance(obj, layers.oa.OperationalCapability)
-    is_capability = isinstance(obj, layers.ctx.Capability)
+    is_op_capability = isinstance(obj, oa.OperationalCapability)
+    is_capability = isinstance(obj, sa.Capability)
     if is_op_capability or is_capability:
         exchanges = [
             obj.includes,
@@ -213,7 +212,7 @@ def get_exchanges(
             obj.extended_by,
             obj.generalized_by,
         ]
-    elif isinstance(obj, layers.ctx.Mission):
+    elif isinstance(obj, sa.Mission):
         exchanges = [obj.involvements, obj.exploitations]
     else:
         exchanges = [obj.related_exchanges]

@@ -9,9 +9,9 @@ import logging
 import operator
 import typing as t
 
-from capellambse.model import common
-from capellambse.model.crosslayer import cs, fa
-from capellambse.model.modeltypes import DiagramType as DT
+import capellambse.model as m
+from capellambse.metamodel import cs, fa
+from capellambse.model import DiagramType as DT
 
 from .. import _elkjs, context
 from . import generic, makers
@@ -130,8 +130,8 @@ class InterfaceContextCollector(ExchangeCollector):
     """Left (source) Component Box of the interface."""
     right: _elkjs.ELKInputChild | None
     """Right (target) Component Box of the interface."""
-    outgoing_edges: dict[str, common.GenericElement]
-    incoming_edges: dict[str, common.GenericElement]
+    outgoing_edges: dict[str, m.ModelElement]
+    incoming_edges: dict[str, m.ModelElement]
 
     def __init__(
         self,
@@ -216,7 +216,7 @@ class InterfaceContextCollector(ExchangeCollector):
         obj: fa.AbstractFunction | fa.FunctionPort,
         boxes: dict[str, _elkjs.ELKInputChild],
     ) -> str:
-        owners: list[common.GenericElement] = []
+        owners: list[m.ModelElement] = []
         assert self.right is not None and self.left is not None
         root: _elkjs.ELKInputChild | None = None
         for uuid in generic.get_all_owners(obj):
@@ -230,7 +230,7 @@ class InterfaceContextCollector(ExchangeCollector):
         if root is None:
             raise ValueError(f"No root found for {obj._short_repr_()}")
 
-        owner_box = root
+        owner_box: _elkjs.ELKInputChild = root
         for owner in reversed(owners):
             if isinstance(owner, fa.FunctionPort):
                 if owner.uuid in (p.id for p in owner_box.ports):
@@ -321,7 +321,7 @@ class FunctionalContextCollector(ExchangeCollector):
 
 
 def is_hierarchical(
-    ex: common.GenericElement,
+    ex: m.ModelElement,
     box: _elkjs.ELKInputChild,
     key: t.Literal["ports"] | t.Literal["children"] = "ports",
 ) -> bool:

@@ -14,7 +14,7 @@ import itertools
 import logging
 import typing as t
 
-from capellambse import diagram
+from capellambse import diagram as cdiagram
 from capellambse.svg import decorations
 
 from . import _elkjs, context
@@ -34,8 +34,8 @@ Elk types can be one of the following types:
 """
 EdgeContext = tuple[
     _elkjs.ELKOutputEdge,
-    diagram.Vector2D,
-    diagram.Box | diagram.Edge | None,
+    cdiagram.Vector2D,
+    cdiagram.DiagramElement | None,
 ]
 
 REMAP_STYLECLASS: dict[t.Any, str | None] = {"Unset": "Association"}
@@ -54,12 +54,12 @@ class DiagramSerializer:
         instance.
     """
 
-    diagram: diagram.Diagram
+    diagram: cdiagram.Diagram
 
     def __init__(self, elk_diagram: context.ContextDiagram) -> None:
         self.model = elk_diagram.target._model
         self._diagram = elk_diagram
-        self._cache: dict[str, diagram.Box | diagram.Edge] = {}
+        self._cache: dict[str, cdiagram.DiagramElement] = {}
         self._edges: dict[str, EdgeContext] = {}
         self._junctions: dict[str, EdgeContext] = {}
 
@@ -67,8 +67,8 @@ class DiagramSerializer:
         self,
         data: _elkjs.ELKOutputData,
         **kwargs: dict[str, t.Any],
-    ) -> diagram.Diagram:
-        """Transform a layouted diagram into an `diagram.Diagram`.
+    ) -> cdiagram.Diagram:
+        """Transform a layouted diagram into a `diagram.Diagram`.
 
         Parameters
         ----------
@@ -81,13 +81,13 @@ class DiagramSerializer:
             A [`diagram.Diagram`][capellambse.diagram.Diagram] constructed
             from the input data.
         """
-        self.diagram = diagram.Diagram(
+        self.diagram = cdiagram.Diagram(
             self._diagram.name.replace("/", "\\"),
             styleclass=self._diagram.styleclass,
             params=kwargs,
         )
         for child in data.children:
-            self.deserialize_child(child, diagram.Vector2D(), None)
+            self.deserialize_child(child, cdiagram.Vector2D(), None)
 
         for edge, ref, parent in self._edges.values():
             self.deserialize_child(edge, ref, parent)
@@ -104,8 +104,8 @@ class DiagramSerializer:
     def deserialize_child(
         self,
         child: _elkjs.ELKOutputChild,
-        ref: diagram.Vector2D,
-        parent: diagram.Box | diagram.Edge | None,
+        ref: cdiagram.Vector2D,
+        parent: cdiagram.DiagramElement | None,
     ) -> None:
         """Converts a `child` into aird elements and adds it to the
         diagram.
@@ -144,9 +144,9 @@ class DiagramSerializer:
             uuid = child.id
 
         styleoverrides = self.get_styleoverrides(uuid, child, derived=derived)
-        element: diagram.Box | diagram.Edge | diagram.Circle
+        element: cdiagram.Box | cdiagram.Edge | cdiagram.Circle
         if child.type in {"node", "port"}:
-            assert parent is None or isinstance(parent, diagram.Box)
+            assert parent is None or isinstance(parent, cdiagram.Box)
             has_symbol_cls = makers.is_symbol(styleclass)
             is_port = child.type == "port"
             box_type = ("box", "symbol")[
@@ -166,7 +166,7 @@ class DiagramSerializer:
                 assert isinstance(child, _elkjs.ELKOutputNode)
                 features = handle_features(child)
 
-            element = diagram.Box(
+            element = cdiagram.Box(
                 ref,
                 size,
                 uuid=uuid,
@@ -200,9 +200,11 @@ class DiagramSerializer:
             else:
                 source = self._cache[source_id]
                 target = self._cache[target_id]
+                assert isinstance(source, cdiagram.Box)
+                assert isinstance(target, cdiagram.Box)
                 refpoints = route_shortest_connection(source, target)
 
-            element = diagram.Edge(
+            element = cdiagram.Edge(
                 refpoints,
                 uuid=child.id,
                 source=self.diagram[source_id],
@@ -217,9 +219,9 @@ class DiagramSerializer:
             assert parent is not None
             if not parent.port:
                 if parent.JSON_TYPE != "symbol":
-                    parent.styleoverrides |= styleoverrides
+                    parent.styleoverrides.update(styleoverrides)
 
-                if isinstance(parent, diagram.Box):
+                if isinstance(parent, cdiagram.Box):
                     attr_name = "floating_labels"
                 else:
                     attr_name = "labels"
@@ -227,17 +229,17 @@ class DiagramSerializer:
                 if labels := getattr(parent, attr_name):
                     label_box = labels[-1]
                     label_box.label += " " + child.text
-                    label_box.size = diagram.Vector2D(
+                    label_box.size = cdiagram.Vector2D(
                         max(label_box.size.x, child.size.width),
                         label_box.size.y + child.size.height,
                     )
-                    label_box.pos = diagram.Vector2D(
+                    label_box.pos = cdiagram.Vector2D(
                         min(label_box.pos.x, ref.x + child.position.x),
                         label_box.pos.y,
                     )
                 else:
                     labels.append(
-                        diagram.Box(
+                        cdiagram.Box(
                             ref + (child.position.x, child.position.y),
                             (child.size.width, child.size.height),
                             label=child.text,
@@ -248,12 +250,14 @@ class DiagramSerializer:
             element = parent
         elif child.type == "junction":
             uuid = uuid.rsplit("_", maxsplit=1)[0]
-            pos = diagram.Vector2D(child.position.x, child.position.y)
+            pos = cdiagram.Vector2D(child.position.x, child.position.y)
             if self._is_hierarchical(uuid):
                 # FIXME should this use `parent` instead?
-                pos += self.diagram[self._diagram.target.uuid].pos
+                target_box = self.diagram[self._diagram.target.uuid]
+                assert isinstance(target_box, cdiagram.Box)
+                pos += target_box.pos
 
-            element = diagram.Circle(
+            element = cdiagram.Circle(
                 ref + pos,
                 5,
                 uuid=child.id,
@@ -276,15 +280,18 @@ class DiagramSerializer:
                 self.deserialize_child(i, ref, element)
 
     def _is_hierarchical(self, uuid: str) -> bool:
-        def is_contained(obj: diagram.Box) -> bool:
-            if obj.port and obj.parent and obj.parent.parent:
-                parent = obj.parent.parent
-            else:
-                parent = obj.parent
+        def is_contained(obj: cdiagram.Box) -> bool:
+            parent: cdiagram.DiagramElement | None = obj.parent
+            assert isinstance(parent, cdiagram.Box)
+            if obj.port and parent.parent:
+                parent = parent.parent
 
             return parent.uuid == self._diagram.target.uuid
 
         exchange = self.diagram[uuid]
+        assert isinstance(exchange, cdiagram.Edge)
+        assert isinstance(exchange.source, cdiagram.Box)
+        assert isinstance(exchange.target, cdiagram.Box)
         return is_contained(exchange.source) and is_contained(exchange.target)
 
     def get_styleclass(self, uuid: str) -> str | None:
@@ -298,18 +305,18 @@ class DiagramSerializer:
                 return None
             return uuid[2:].split(":", 1)[0]
         else:
-            return diagram.get_styleclass(melodyobj)
+            return melodyobj._get_styleclass()
 
     def get_styleoverrides(
         self, uuid: str, child: _elkjs.ELKOutputChild, *, derived: bool = False
-    ) -> diagram.StyleOverrides:
+    ) -> cdiagram.StyleOverrides:
         """Return
         [`styling.CSSStyles`][capellambse_context_diagrams.styling.CSSStyles]
         from a given
         [`_elkjs.ELKOutputChild`][capellambse_context_diagrams._elkjs.ELKOutputChild].
         """
         style_condition = self._diagram.render_styles.get(child.type)
-        styleoverrides: dict[str, t.Any] = {}
+        styleoverrides: cdiagram.StyleOverrides = {}
         if style_condition is not None:
             if child.type != "junction":
                 obj = self._diagram._model.by_uuid(uuid)
@@ -326,17 +333,17 @@ class DiagramSerializer:
 
         style: dict[str, t.Any]
         if style := child.style:
-            styleoverrides |= style
+            styleoverrides.update(style)
         return styleoverrides
 
     def order_children(self) -> None:
         """Reorder diagram elements such that symbols are drawn last."""
-        new_diagram = diagram.Diagram(
+        new_diagram = cdiagram.Diagram(
             self.diagram.name,
             styleclass=self.diagram.styleclass,
             params=self.diagram.params,
         )
-        draw_last = list[diagram.DiagramElement]()
+        draw_last = list[cdiagram.DiagramElement]()
         for element in self.diagram:
             if element.JSON_TYPE in {"symbol", "circle"}:
                 draw_last.append(element)
@@ -363,9 +370,9 @@ def handle_features(child: _elkjs.ELKOutputNode) -> list[str]:
 
 
 def route_shortest_connection(
-    source: diagram.Box,
-    target: diagram.Box,
-) -> list[diagram.Vector2D]:
+    source: cdiagram.Box,
+    target: cdiagram.Box,
+) -> list[cdiagram.Vector2D]:
     """Calculate shortest path between boxes with 'Oblique' style.
 
     Calculate the intersection points of the line from source.center to
@@ -375,10 +382,10 @@ def route_shortest_connection(
     line_end = target.center
 
     source_intersection = source.vector_snap(
-        line_start, source=line_end, style=diagram.RoutingStyle.OBLIQUE
+        line_start, source=line_end, style=cdiagram.RoutingStyle.OBLIQUE
     )
     target_intersection = target.vector_snap(
-        line_end, source=line_start, style=diagram.RoutingStyle.OBLIQUE
+        line_end, source=line_start, style=cdiagram.RoutingStyle.OBLIQUE
     )
     return [source_intersection, target_intersection]
 

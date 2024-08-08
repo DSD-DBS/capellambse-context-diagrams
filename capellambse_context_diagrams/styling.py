@@ -6,8 +6,8 @@ from __future__ import annotations
 import typing as t
 
 from capellambse import diagram
+from capellambse import model as m
 from capellambse.diagram import capstyle
-from capellambse.model import common
 
 if t.TYPE_CHECKING:
     from . import serializers
@@ -25,14 +25,14 @@ See also
 [parent_is_actor_fills_blue][capellambse_context_diagrams.styling.parent_is_actor_fills_blue]
 """
 Styler = t.Callable[
-    [common.GenericElement, "serializers.DiagramSerializer"],
+    [m.GenericElement, "serializers.DiagramSerializer"],
     t.Union[diagram.StyleOverrides, None],
 ]
 """Function that produces `CSSStyles` for given obj."""
 
 
 def parent_is_actor_fills_blue(
-    obj: common.GenericElement, serializer: serializers.DiagramSerializer
+    obj: m.GenericElement, serializer: serializers.DiagramSerializer
 ) -> CSSStyles:
     """Return ``CSSStyles`` for given ``obj`` rendering it blue."""
     del serializer
@@ -52,7 +52,7 @@ def parent_is_actor_fills_blue(
 
 
 def style_center_symbol(
-    obj: common.GenericElement, serializer: serializers.DiagramSerializer
+    obj: m.GenericElement, serializer: serializers.DiagramSerializer
 ) -> CSSStyles:
     """Return ``CSSStyles`` for given ``obj``."""
     if obj != serializer._diagram.target:  # type: ignore[has-type]
@@ -60,7 +60,7 @@ def style_center_symbol(
     return {
         "fill": capstyle.COLORS["white"],
         "stroke": capstyle.COLORS["gray"],
-        "stroke-dasharray": 3,
+        "stroke-dasharray": "3",
     }
 
 

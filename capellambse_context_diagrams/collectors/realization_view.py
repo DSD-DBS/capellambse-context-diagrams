@@ -9,9 +9,8 @@ import copy
 import re
 import typing as t
 
-from capellambse.model import common, crosslayer
-from capellambse.model.crosslayer import cs, fa
-from capellambse.model.layers import oa
+import capellambse.metamodel as mm
+import capellambse.model as m
 
 from .. import _elkjs, context
 from . import makers
@@ -76,7 +75,9 @@ def collector(
 
                 if params.get("show_owners"):
                     owner = target.owner
-                    if not isinstance(owner, (fa.Function, cs.Component)):
+                    if not isinstance(
+                        owner, (mm.fa.Function, mm.cs.Component)
+                    ):
                         continue
 
                     if not (owner_box := children.get(owner.uuid)):
@@ -117,21 +118,21 @@ def collector(
 
 
 def collect_realized(
-    start: common.GenericElement, depth: int
+    start: m.GenericElement, depth: int
 ) -> dict[LayerLiteral, list[dict[str, t.Any]]]:
     """Collect all elements from ``realized_`` attributes up to depth."""
     return collect_elements(start, depth, "ABOVE", "realized")
 
 
 def collect_realizing(
-    start: common.GenericElement, depth: int
+    start: m.GenericElement, depth: int
 ) -> dict[LayerLiteral, list[dict[str, t.Any]]]:
     """Collect all elements from ``realizing_`` attributes down to depth."""
     return collect_elements(start, depth, "BELOW", "realizing")
 
 
 def collect_all(
-    start: common.GenericElement, depth: int
+    start: m.GenericElement, depth: int
 ) -> dict[LayerLiteral, list[dict[str, t.Any]]]:
     """Collect all elements in both ABOVE and BELOW directions."""
     above = collect_realized(start, depth)
@@ -140,11 +141,11 @@ def collect_all(
 
 
 def collect_elements(
-    start: common.GenericElement,
+    start: m.GenericElement,
     depth: int,
     direction: str,
     attribute_prefix: str,
-    origin: common.GenericElement | None = None,
+    origin: m.GenericElement | None = None,
 ) -> dict[LayerLiteral, list[dict[str, t.Any]]]:
     """Collect elements based on the specified direction and attribute name."""
     layer_obj, layer = find_layer(start)
@@ -172,12 +173,12 @@ def collect_elements(
     ):
         return collected_elements
 
-    if isinstance(start, fa.Function):
+    if isinstance(start, mm.fa.Function):
         attribute_name = f"{attribute_prefix}_functions"
-    elif isinstance(start, oa.OperationalActivity):
+    elif isinstance(start, mm.oa.OperationalActivity):
         attribute_name = f"{attribute_prefix}_system_functions"
     else:
-        assert isinstance(start, cs.Component)
+        assert isinstance(start, mm.cs.Component)
         attribute_name = f"{attribute_prefix}_components"
 
     for element in getattr(start, attribute_name, []):
@@ -198,8 +199,8 @@ LayerLiteral = t.Union[
 
 
 def find_layer(
-    obj: common.GenericElement,
-) -> tuple[crosslayer.BaseArchitectureLayer, LayerLiteral]:
+    obj: m.GenericElement,
+) -> tuple[mm.cs.ComponentArchitecture, LayerLiteral]:
     """Return the layer object and its literal.
 
     Return either one of the following:
@@ -209,7 +210,7 @@ def find_layer(
       * ``Physical``
     """
     parent = obj
-    while not isinstance(parent, crosslayer.BaseArchitectureLayer):
+    while not isinstance(parent, mm.cs.ComponentArchitecture):
         parent = parent.parent
     if not (match := RE_LAYER_PTRN.match(type(parent).__name__)):
         raise ValueError("No layer was found.")
@@ -217,7 +218,7 @@ def find_layer(
 
 
 Collector = cabc.Callable[
-    [common.GenericElement, int], dict[LayerLiteral, list[dict[str, t.Any]]]
+    [m.GenericElement, int], dict[LayerLiteral, list[dict[str, t.Any]]]
 ]
 COLLECTORS: dict[str, Collector] = {
     "ALL": collect_all,

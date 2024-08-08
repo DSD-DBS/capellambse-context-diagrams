@@ -8,7 +8,8 @@ import logging
 import re
 import typing as t
 
-from capellambse.model import common, fa
+import capellambse.metamodel as mm
+import capellambse.model as m
 
 SHOW_EX_ITEMS = "show.functional.exchanges.exchange.items.filter"
 """Show the name of `ComponentExchange` or `FunctionalExchange` and its
@@ -54,18 +55,18 @@ LABEL_CONVERSION: t.Final[dict[str, str]] = {
 """A map that for relabelling specific ModelObject types."""
 
 
-def exchange_items(obj: common.GenericElement) -> str:
+def exchange_items(obj: m.GenericElement) -> str:
     """Return `obj`'s `ExchangeItem`s wrapped in [E1,...] and separated
     by ','.
     """
-    assert isinstance(obj, (fa.FunctionalExchange, fa.ComponentExchange))
+    assert isinstance(obj, (mm.fa.FunctionalExchange, mm.fa.ComponentExchange))
     if items := ", ".join(item.name for item in obj.exchange_items):
         return f"[{items}]"
     return ""
 
 
 def exchange_name_and_items(
-    obj: common.GenericElement, label: str | None = None
+    obj: m.GenericElement, label: str | None = None
 ) -> str:
     """Return `obj`'s name and `ExchangeItem`s if there are any."""
     label = label or obj.name
@@ -74,16 +75,14 @@ def exchange_name_and_items(
     return label
 
 
-def uuid_filter(obj: common.GenericElement, label: str | None = None) -> str:
+def uuid_filter(obj: m.GenericElement, label: str | None = None) -> str:
     """Return `obj`'s name or `obj` if string w/o UUIDs in it."""
     filtered_label = label if label is not None else obj.name
     assert isinstance(filtered_label, str)
     return UUID_PTRN.sub("", filtered_label)
 
 
-def relabel_system_exchange(
-    obj: common.GenericElement, label: str | None
-) -> str:
+def relabel_system_exchange(obj: m.GenericElement, label: str | None) -> str:
     """Return converted label from obj, a system exchanges."""
     label_map = LABEL_CONVERSION
     if patch := label_map.get(type(obj).__name__):
@@ -92,7 +91,7 @@ def relabel_system_exchange(
 
 
 FILTER_LABEL_ADJUSTERS: dict[
-    str, cabc.Callable[[common.GenericElement, str | None], str]
+    str, cabc.Callable[[m.GenericElement, str | None], str]
 ] = {
     EX_ITEMS: lambda obj, _: exchange_items(obj),
     SHOW_EX_ITEMS: exchange_name_and_items,
@@ -109,7 +108,7 @@ FILTER_LABEL_ADJUSTERS: dict[
 
 def sort_exchange_items_label(
     value: bool,
-    exchange: common.GenericElement,
+    exchange: m.GenericElement,
     adjustments: dict[str, t.Any],
 ) -> None:
     """Sort the exchange items in the exchange label if value is true."""
@@ -120,6 +119,6 @@ def sort_exchange_items_label(
 
 
 RENDER_ADJUSTERS: dict[
-    str, cabc.Callable[[bool, common.GenericElement, dict[str, t.Any]], None]
+    str, cabc.Callable[[bool, m.GenericElement, dict[str, t.Any]], None]
 ] = {"sorted_exchangedItems": sort_exchange_items_label}
 """Available custom render parameter-solvers registry."""

@@ -10,7 +10,8 @@ import logging
 import math
 import typing as t
 
-from capellambse.model.crosslayer import information
+import capellambse.metamodel as mm
+import capellambse.model as m
 
 from .. import _elkjs, context
 from . import generic, makers
@@ -33,7 +34,7 @@ class ClassProcessor:
     def __init__(
         self,
         data: _elkjs.ELKInputData,
-        all_associations: cabc.Iterable[information.Association],
+        all_associations: cabc.Iterable[mm.information.Association],
     ) -> None:
         self.data = data
         self.made_boxes: set[str] = {data.children[0].id}
@@ -50,12 +51,12 @@ class ClassProcessor:
     def process_class(self, cls: ClassInfo, params: dict[str, t.Any]):
         self._process_box(cls.source, cls.partition, params)
 
-        if not cls.primitive and isinstance(cls.target, information.Class):
+        if not cls.primitive and isinstance(cls.target, mm.information.Class):
             self._process_box(cls.target, cls.partition, params)
             edges = [
                 assoc
                 for assoc in self.all_associations
-                if cls.prop in assoc.navigable_members
+                if cls.prop in assoc.navigable_members  # type: ignore[attr-defined]
             ]
             if len(edges) == 1:
                 edge_id = edges[0].uuid
@@ -97,13 +98,19 @@ class ClassProcessor:
                 )
 
     def _process_box(
-        self, obj: information.Class, partition: int, params: dict[str, t.Any]
+        self,
+        obj: mm.information.Class,
+        partition: int,
+        params: dict[str, t.Any],
     ) -> None:
         if obj.uuid not in self.made_boxes:
             self._make_box(obj, partition, params)
 
     def _make_box(
-        self, obj: information.Class, partition: int, params: dict[str, t.Any]
+        self,
+        obj: mm.information.Class,
+        partition: int,
+        params: dict[str, t.Any],
     ) -> _elkjs.ELKInputChild:
         self.made_boxes.add(obj.uuid)
         box = makers.make_box(
@@ -116,7 +123,7 @@ class ClassProcessor:
         return box
 
     def _set_data_types_and_labels(
-        self, box: _elkjs.ELKInputChild, target: information.Class
+        self, box: _elkjs.ELKInputChild, target: mm.information.Class
     ) -> None:
         properties, legends = _get_all_non_edge_properties(
             target, self.data_types
@@ -134,12 +141,12 @@ def collector(
     diagram: context.ContextDiagram, params: dict[str, t.Any]
 ) -> tuple[_elkjs.ELKInputData, _elkjs.ELKInputData]:
     """Return the class tree data for ELK."""
-    assert isinstance(diagram.target, information.Class)
+    assert isinstance(diagram.target, mm.information.Class)
     data = generic.collector(diagram, no_symbol=True)
     data.children[0].labels[0].layoutOptions.update(
         makers.DEFAULT_LABEL_LAYOUT_OPTIONS
     )
-    all_associations: cabc.Iterable[information.Association] = (
+    all_associations: cabc.Iterable[mm.information.Association] = (
         diagram._model.search("Association")
     )
     _set_layout_options(data, params)
@@ -181,12 +188,12 @@ def _set_partitioning(
 class ClassInfo:
     """All information needed for a ``Class`` box."""
 
-    source: information.Class
-    target: information.Class | None
-    prop: information.Property
+    source: mm.information.Class
+    target: mm.information.Class | None
+    prop: mm.information.Property
     partition: int
     multiplicity: tuple[str, str] | None
-    generalizes: information.Class | None = None
+    generalizes: mm.information.Class | None = None
     primitive: bool = False
 
 
@@ -194,11 +201,11 @@ class ClassInfo:
 class _PropertyInfo:
     """Builder dataclass for properties."""
 
-    source: information.Class
-    prop: information.Property
+    source: mm.information.Class
+    prop: mm.information.Property
     partition: int
     classes: dict[str, ClassInfo] = dataclasses.field(default_factory=dict)
-    generalizes: information.Class | None = None
+    generalizes: mm.information.Class | None = None
     max_partition: int | None = None
     super: t.Literal["ROOT"] | t.Literal["ALL"] = "ALL"
     sub: t.Literal["ROOT"] | t.Literal["ALL"] = "ALL"
@@ -246,7 +253,7 @@ def process_property(
 
 
 def get_all_classes(
-    root: information.Class,
+    root: mm.information.Class,
     partition: int = 0,
     classes: dict[str, ClassInfo] | None = None,
     max_partition: int | None = None,
@@ -270,7 +277,7 @@ def get_all_classes(
             for prop in root.super.owned_properties:
                 process_property(
                     _PropertyInfo(
-                        root.super,
+                        root.super,  # type: ignore[arg-type]
                         prop,
                         partition + 1,
                         classes,
@@ -284,11 +291,14 @@ def get_all_classes(
             edge_id = f"{root.uuid} {root.super.uuid}"
             if edge_id not in classes:
                 classes[edge_id] = _make_class_info(
-                    root.super, None, partition, generalizes=root
+                    root.super,  # type: ignore[arg-type]
+                    None,
+                    partition,
+                    generalizes=root,
                 )
                 classes.update(
                     get_all_classes(
-                        root.super,
+                        root.super,  # type: ignore[arg-type]
                         partition,
                         classes,
                         max_partition,
@@ -330,10 +340,10 @@ def get_all_classes(
 
 
 def _make_class_info(
-    source: information.Class,
-    prop: information.Property | None,
+    source: mm.information.Class,
+    prop: mm.information.Property | None,
     partition: int,
-    generalizes: information.Class | None = None,
+    generalizes: mm.information.Class | None = None,
 ) -> ClassInfo:
     multiplicity = None
     target = None
@@ -346,7 +356,7 @@ def _make_class_info(
     return ClassInfo(
         source=source,
         target=target,
-        prop=prop,
+        prop=prop,  # type: ignore[arg-type]
         partition=partition,
         multiplicity=multiplicity,
         generalizes=generalizes,
@@ -355,7 +365,7 @@ def _make_class_info(
 
 
 def _get_all_non_edge_properties(
-    obj: information.Class, data_types: set[str]
+    obj: mm.information.Class, data_types: set[str]
 ) -> tuple[list[_elkjs.ELKInputLabel], list[_elkjs.ELKInputChild]]:
     layout_options = DATA_TYPE_LABEL_LAYOUT_OPTIONS
     properties = [
@@ -371,7 +381,7 @@ def _get_all_non_edge_properties(
         if prop.type is None:
             continue
 
-        is_class = isinstance(prop.type, information.Class)
+        is_class = isinstance(prop.type, mm.information.Class)
         if is_class and not prop.type.is_primitive:
             continue
 
@@ -388,7 +398,7 @@ def _get_all_non_edge_properties(
             continue
 
         data_types.add(prop.type.uuid)
-        is_enum = isinstance(prop.type, information.datatype.Enumeration)
+        is_enum = isinstance(prop.type, mm.information.datatype.Enumeration)
         if not is_enum and not (is_class and prop.type.is_primitive):
             continue
 
@@ -403,7 +413,7 @@ def _get_all_non_edge_properties(
     return properties, legends
 
 
-def _get_property_text(prop: information.Property) -> str:
+def _get_property_text(prop: mm.information.Property) -> str:
     text = prop.name
     if prop.type is not None:
         text = f"{prop.name}: {prop.type.name}"
@@ -421,7 +431,7 @@ def _get_property_text(prop: information.Property) -> str:
 
 
 def _get_legend_labels(
-    obj: information.datatype.Enumeration | information.Class,
+    obj: m.GenericElement,
 ) -> cabc.Iterator[makers._LabelBuilder]:
     yield {
         "text": obj.name,
@@ -433,9 +443,9 @@ def _get_legend_labels(
         "icon": (0, 0),
         "layout_options": makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
     }
-    if isinstance(obj, information.datatype.Enumeration):
+    if isinstance(obj, mm.information.datatype.Enumeration):
         labels = [literal.name for literal in obj.literals]
-    elif isinstance(obj, information.Class):
+    elif isinstance(obj, mm.information.Class):
         labels = [_get_property_text(prop) for prop in obj.owned_properties]
     else:
         return

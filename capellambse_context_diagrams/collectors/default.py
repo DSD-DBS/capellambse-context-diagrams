@@ -10,12 +10,10 @@ import collections.abc as cabc
 import typing as t
 from itertools import chain
 
+import capellambse.metamodel as mm
+import capellambse.model as m
 from capellambse import helpers
-from capellambse.model import common
-from capellambse.model.crosslayer import cs, fa
-from capellambse.model.layers import ctx as sa
-from capellambse.model.layers import la
-from capellambse.model.modeltypes import DiagramType as DT
+from capellambse.model import DiagramType as DT
 
 from .. import _elkjs
 from . import exchanges, generic, makers
@@ -29,8 +27,8 @@ if t.TYPE_CHECKING:
     ]
 
     Filter: t.TypeAlias = cabc.Callable[
-        [cabc.Iterable[common.GenericElement]],
-        cabc.Iterable[common.GenericElement],
+        [cabc.Iterable[m.GenericElement]],
+        cabc.Iterable[m.GenericElement],
     ]
 
 
@@ -49,7 +47,7 @@ class ContextProcessor:
         self.global_boxes = {self.centerbox.id: self.centerbox}
         self.made_boxes = {self.centerbox.id: self.centerbox}
         self.boxes_to_delete = {self.centerbox.id}
-        self.edges: list[fa.AbstractExchange] = []
+        self.edges: list[mm.fa.AbstractExchange] = []
         if self.diagram._display_parent_relation:
             self.diagram_target_owners = list(
                 generic.get_all_owners(self.diagram.target)
@@ -110,7 +108,7 @@ class ContextProcessor:
         )
 
     def _process_exchanges(self) -> tuple[
-        list[common.GenericElement],
+        list[m.GenericElement],
         list[generic.ExchangeData],
     ]:
         ports = port_collector(self.diagram.target, self.diagram.type)
@@ -235,18 +233,22 @@ def collector(
 
 
 def port_collector(
-    target: common.GenericElement | common.ElementList, diagram_type: DT
-) -> list[common.GenericElement]:
-    """Savely collect ports from `target`."""
+    target: m.GenericElement | m.ElementList, diagram_type: DT
+) -> list[m.GenericElement]:
+    """Safely collect ports from `target`."""
 
     def __collect(target):
-        all_ports: list[common.GenericElement] = []
+        all_ports: list[m.GenericElement] = []
         for attr in generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[diagram_type]:
             try:
                 ports = getattr(target, attr)
                 if ports and isinstance(
                     ports[0],
-                    (fa.FunctionPort, fa.ComponentPort, cs.PhysicalPort),
+                    (
+                        mm.fa.FunctionPort,
+                        mm.fa.ComponentPort,
+                        mm.cs.PhysicalPort,
+                    ),
                 ):
                     all_ports.extend(ports)
             except AttributeError:
@@ -254,8 +256,8 @@ def port_collector(
         return all_ports
 
     if isinstance(target, cabc.Iterable):
-        assert not isinstance(target, common.GenericElement)
-        all_ports: list[common.GenericElement] = []
+        assert not isinstance(target, m.GenericElement)
+        all_ports: list[m.GenericElement] = []
         for obj in target:
             all_ports.extend(__collect(obj))
     else:
@@ -264,27 +266,27 @@ def port_collector(
 
 
 def _extract_edges(
-    obj: common.ElementList[common.GenericElement],
+    obj: m.GenericElement,
     attribute: str,
     filter: Filter,
-) -> common.ElementList[common.GenericElement] | list:
-    return filter(getattr(obj, attribute, []))
+) -> list[m.GenericElement]:
+    return list(filter(getattr(obj, attribute, [])))
 
 
 def port_exchange_collector(
-    ports: t.Iterable[common.GenericElement],
+    ports: t.Iterable[m.GenericElement],
     filter: Filter = lambda i: i,
-) -> dict[str, common.ElementList[fa.AbstractExchange]]:
+) -> dict[str, list[mm.fa.AbstractExchange]]:
     """Collect exchanges from `ports` savely."""
-    edges: dict[str, common.ElementList[fa.AbstractExchange]] = {}
+    edges: dict[str, list[mm.fa.AbstractExchange]] = {}
 
     for port in ports:
         if exs := _extract_edges(port, "exchanges", filter):
-            edges[port.uuid] = exs
+            edges[port.uuid] = t.cast(list[mm.fa.AbstractExchange], exs)
             continue
 
         if links := _extract_edges(port, "links", filter):
-            edges[port.uuid] = links
+            edges[port.uuid] = t.cast(list[mm.fa.AbstractExchange], links)
 
     return edges
 
@@ -292,9 +294,9 @@ def port_exchange_collector(
 class ContextInfo(t.NamedTuple):
     """ContextInfo data."""
 
-    element: common.GenericElement
+    element: m.GenericElement
     """An element of context."""
-    ports: list[common.GenericElement]
+    ports: list[m.GenericElement]
     """The context element's relevant ports.
 
     This list only contains ports that at least one of the exchanges
@@ -306,7 +308,7 @@ class ContextInfo(t.NamedTuple):
 
 def port_context_collector(
     exchange_datas: t.Iterable[generic.ExchangeData],
-    local_ports: t.Container[common.GenericElement],
+    local_ports: t.Container[m.GenericElement],
 ) -> t.Iterator[ContextInfo]:
     """Collect the context objects.
 
@@ -367,16 +369,16 @@ def derive_from_functions(
     to ``data``. These elements are prefixed with ``Derived-`` to
     receive special styling in the serialization step.
     """
-    assert isinstance(diagram.target, cs.Component)
+    assert isinstance(diagram.target, mm.cs.Component)
     ports = []
     for fnc in diagram.target.allocated_functions:
         ports.extend(port_collector(fnc, diagram.type))
 
     context_box_ids = {child.id for child in data.children}
-    components: dict[str, cs.Component] = {}
+    components: dict[str, mm.cs.Component] = {}
     for port in ports:
         for fex in port.exchanges:
-            if isinstance(port, fa.FunctionOutputPort):
+            if isinstance(port, mm.fa.FunctionOutputPort):
                 attr = "target"
             else:
                 attr = "source"
@@ -427,8 +429,8 @@ def derive_from_functions(
     )
 
 
-DERIVATORS: dict[type[common.GenericElement], DerivatorFunction] = {
-    la.LogicalComponent: derive_from_functions,
-    sa.SystemComponent: derive_from_functions,
+DERIVATORS: dict[type[m.GenericElement], DerivatorFunction] = {
+    mm.la.LogicalComponent: derive_from_functions,
+    mm.sa.SystemComponent: derive_from_functions,
 }
 """Supported objects to build derived contexts for."""

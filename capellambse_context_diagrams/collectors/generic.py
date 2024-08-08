@@ -11,16 +11,16 @@ import collections.abc as cabc
 import logging
 import typing as t
 
-from capellambse.model import common, layers
-from capellambse.model.crosslayer import interaction
-from capellambse.model.modeltypes import DiagramType as DT
+import capellambse.metamodel as mm
+import capellambse.model as m
+from capellambse.model import DiagramType as DT
 
 from .. import _elkjs, context, filters
 from . import makers
 
 logger = logging.getLogger(__name__)
 
-SourceAndTarget = tuple[common.GenericElement, common.GenericElement]
+SourceAndTarget = tuple[m.GenericElement, m.GenericElement]
 
 PHYSICAL_CONNECTOR_ATTR_NAMES = {"physical_ports"}
 """Attribute of PhysicalComponents for receiving connections."""
@@ -43,11 +43,11 @@ MARKER_SIZE = 3
 """Default size of marker-ends in pixels."""
 MARKER_PADDING = makers.PORT_PADDING
 """Default padding of markers in pixels."""
-PackageTypes: tuple[type[common.GenericElement], ...] = (
-    layers.oa.EntityPkg,
-    layers.la.LogicalComponentPkg,
-    layers.ctx.SystemComponentPkg,
-    layers.pa.PhysicalComponentPkg,
+PackageTypes: tuple[type[m.GenericElement], ...] = (
+    mm.oa.EntityPkg,
+    mm.la.LogicalComponentPkg,
+    mm.sa.SystemComponentPkg,
+    mm.pa.PhysicalComponentPkg,
 )
 
 
@@ -71,7 +71,7 @@ def collector(
 
 
 def collect_exchange_endpoints(
-    ex: ExchangeData | common.GenericElement,
+    ex: ExchangeData | m.GenericElement,
 ) -> SourceAndTarget:
     """Safely collect exchange endpoints from ``ex``."""
     if isinstance(ex, ExchangeData):
@@ -84,7 +84,7 @@ def collect_exchange_endpoints(
 class ExchangeData(t.NamedTuple):
     """Exchange data for ELK."""
 
-    exchange: common.GenericElement
+    exchange: m.GenericElement
     """An exchange from the capellambse model."""
     elkdata: _elkjs.ELKInputData
     """The collected elkdata to add the edges in there."""
@@ -103,7 +103,7 @@ class ExchangeData(t.NamedTuple):
 def exchange_data_collector(
     data: ExchangeData,
     endpoint_collector: cabc.Callable[
-        [common.GenericElement], SourceAndTarget
+        [m.GenericElement], SourceAndTarget
     ] = collect_exchange_endpoints,
 ) -> SourceAndTarget:
     """Return source and target port from `exchange`.
@@ -179,23 +179,23 @@ def exchange_data_collector(
     return source, target
 
 
-def collect_label(obj: common.GenericElement) -> str | None:
+def collect_label(obj: m.GenericElement) -> str | None:
     """Return the label of a given object.
 
     The label usually comes from the `.name` attribute. Special handling
     for [`interaction.AbstractCapabilityExtend`][capellambse.model.crosslayer.interaction.AbstractCapabilityExtend]
     and [interaction.AbstractCapabilityInclude`][capellambse.model.crosslayer.interaction.AbstractCapabilityInclude].
     """
-    if isinstance(obj, interaction.AbstractCapabilityExtend):
+    if isinstance(obj, mm.interaction.AbstractCapabilityExtend):
         return "« e »"
-    elif isinstance(obj, interaction.AbstractCapabilityInclude):
+    elif isinstance(obj, mm.interaction.AbstractCapabilityInclude):
         return "« i »"
     return "" if obj.name.startswith("(Unnamed") else obj.name
 
 
 def move_parent_boxes_to_owner(
     boxes: dict[str, _elkjs.ELKInputChild],
-    obj: common.GenericElement,
+    obj: m.GenericElement,
     data: _elkjs.ELKInputData,
     filter_types: tuple[type, ...] = PackageTypes,
 ) -> None:
@@ -221,8 +221,8 @@ def move_parent_boxes_to_owner(
 
 
 def move_edges(
-    boxes: dict[str, _elkjs.ELKInputChild],
-    connections: list[common.GenericElement],
+    boxes: cabc.Mapping[str, _elkjs.ELKInputChild],
+    connections: cabc.Sequence[m.GenericElement],
     data: _elkjs.ELKInputData,
 ) -> None:
     """Move edges to boxes."""
@@ -252,9 +252,9 @@ def move_edges(
     data.edges = [e for e in data.edges if e.id not in edges_to_remove]
 
 
-def get_all_owners(obj: common.GenericElement) -> cabc.Iterator[str]:
+def get_all_owners(obj: m.GenericElement) -> cabc.Iterator[str]:
     """Return the UUIDs from all owners of ``obj``."""
-    current = obj
+    current: m.GenericElement | None = obj
     while current is not None:
         yield current.uuid
         current = getattr(current, "owner", None)

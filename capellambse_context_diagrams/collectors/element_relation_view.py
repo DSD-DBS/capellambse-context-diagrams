@@ -178,6 +178,7 @@ class ElementRelationProcessor:
 def collector(
     diagram: context.ElementRelationViewDiagram, params: dict[str, t.Any]
 ) -> _elkjs.ELKInputData:
+    """Return ExchangeElement data for ELK."""
     processor = ElementRelationProcessor(diagram, params=params)
     processor.process()
     return processor.data

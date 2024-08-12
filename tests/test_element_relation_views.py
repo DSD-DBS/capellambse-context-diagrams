@@ -19,4 +19,4 @@ def test_element_relation_views(
     diag = obj.element_relation_view
     diag.render("svgdiagram").save(pretty=True)
 
-    assert True
+    assert diag.nodes

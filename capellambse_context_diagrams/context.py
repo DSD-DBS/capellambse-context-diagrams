@@ -671,7 +671,7 @@ class DataFlowViewDiagram(ContextDiagram):
 
 
 class ElementRelationViewDiagram(ContextDiagram):
-
+    """An automatically generated ExchangeElementRelationViewDiagram."""
     @property
     def uuid(self) -> str:  # type: ignore
         """Returns the UUID of the diagram."""

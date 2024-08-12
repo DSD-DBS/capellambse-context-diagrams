@@ -40,10 +40,10 @@ DEFAULT_TREE_VIEW_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
 }
 
 
-class ElementRelationProcessor:
+class ExchangeItemClassTreeCollector:
     def __init__(
         self,
-        diagram: context.ElementRelationViewDiagram,
+        diagram: context.ExchangeItemClassTreeViewDiagram,
         *,
         params: dict[str, t.Any] | None = None,
     ) -> None:
@@ -73,7 +73,10 @@ class ElementRelationProcessor:
         self.global_boxes: dict[str, _elkjs.ELKInputChild] = {}
         self.classes: dict[str, information.Class] = {}
 
-    def process(self) -> None:
+    def __call__(self) -> _elkjs.ELKInputData:
+        if not self.diagram.target.allocated_exchange_items:
+            logger.warning("No exchange items to display")
+            return self.data
         for item in self.diagram.target.allocated_exchange_items:
             if not (parent_box := self.global_boxes.get(item.parent.uuid)):
                 parent_box = self.global_boxes.setdefault(
@@ -126,20 +129,14 @@ class ElementRelationProcessor:
                     )
                 )
 
-        right_boxes_n = 0
-        while self.left_boxes_n > right_boxes_n:
+        while len(self.left_box.children) > len(self.right_box.children):
             box = self.left_box.children.pop()
             self.right_box.children.append(box)
-            n = len(box.children)
-            self.left_boxes_n -= n
-            right_boxes_n += n
 
-        if not self.global_boxes:
-            logger.warning("Nothing to see here")
-            return
         self.data.children.extend(
             [self.left_box, self.tree_view_box, self.right_box]
         )
+        return self.data
 
     def _make_class_box(self, cls: information.Class) -> _elkjs.ELKInputChild:
         box = makers.make_box(
@@ -171,14 +168,11 @@ class ElementRelationProcessor:
 
         box.labels.extend(properties)
         box.width, box.height = makers.calculate_height_and_width(properties)
-
         return box
 
 
 def collector(
-    diagram: context.ElementRelationViewDiagram, params: dict[str, t.Any]
+    diagram: context.ExchangeItemClassTreeViewDiagram, params: dict[str, t.Any]
 ) -> _elkjs.ELKInputData:
     """Return ExchangeElement data for ELK."""
-    processor = ElementRelationProcessor(diagram, params=params)
-    processor.process()
-    return processor.data
+    return ExchangeItemClassTreeCollector(diagram, params=params)()

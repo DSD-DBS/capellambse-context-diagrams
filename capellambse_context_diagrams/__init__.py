@@ -66,7 +66,7 @@ def init() -> None:
     register_tree_view()
     register_realization_view()
     register_data_flow_view()
-    register_element_relation_view()
+    register_exchange_item_class_tree_view()
     # register_functional_context() XXX: Future
 
 
@@ -275,36 +275,30 @@ def register_data_flow_view() -> None:
         common.set_accessor(class_, "data_flow_view", accessor)
 
 
-def register_element_relation_view() -> None:
+def register_exchange_item_class_tree_view() -> None:
 
-    supported_classes = [
-        (
-            oa.CommunicationMean,
-            {
-                DiagramType.OAB,
-            },
-        ),
+    supported_classes: list[SupportedClass] = [
+        (oa.CommunicationMean, {DiagramType.OAB}, {}),
         (
             fa.ComponentExchange,
-            {
-                DiagramType.SAB,
-                DiagramType.LAB,
-                DiagramType.PAB,
-            },
+            {DiagramType.SAB, DiagramType.LAB, DiagramType.PAB},
+            {},
         ),
     ]
 
     styles: dict[str, dict[str, capstyle.CSSdef]] = {}
-    for _class, _diagclasses in supported_classes:
+    for _class, _diagclasses, render_params in supported_classes:
         common.set_accessor(
             _class,
-            "element_relation_view",
-            context.ElementRelationAccessor("ElementRelationView Diagram"),
+            "exchange_item_class_tree_view",
+            context.ExchangeItemClassTreeAccessor(
+                "ExchangeItemClassTreeView Diagram", render_params
+            ),
         )
         for dgcls in _diagclasses:
             styles.update(capstyle.STYLES.get(dgcls.value, {}))
 
-    capstyle.STYLES["ElementRelationView Diagram"] = styles
-    capstyle.STYLES["ElementRelationView Diagram"].update(
+    capstyle.STYLES["ExchangeItemClassTreeView Diagram"] = styles
+    capstyle.STYLES["ExchangeItemClassTreeView Diagram"].update(
         capstyle.STYLES["Class Diagram Blank"]
     )

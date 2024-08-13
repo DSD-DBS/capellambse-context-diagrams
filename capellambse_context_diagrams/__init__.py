@@ -277,7 +277,9 @@ def register_data_flow_view() -> None:
 
 def register_exchange_item_class_tree_view() -> None:
 
-    supported_classes: list[SupportedClass] = [
+    supported_classes: list[
+        tuple[type[common.GenericElement], set[DiagramType], dict[str, t.Any]]
+    ] = [
         (oa.CommunicationMean, {DiagramType.OAB}, {}),
         (
             fa.ComponentExchange,

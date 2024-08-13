@@ -13,6 +13,5 @@ def test_exchange_item_class_tree_views(
     obj = model.by_uuid(uuid)
 
     diag = obj.exchange_item_class_tree_view
-    diag.render("svgdiagram").save(pretty=True)
 
     assert diag.render(fmt)

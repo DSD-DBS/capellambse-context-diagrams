@@ -691,7 +691,7 @@ class DataFlowViewDiagram(ContextDiagram):
 
 
 class ExchangeItemClassTreeViewDiagram(ContextDiagram):
-    """An automatically generated ExchangeExchangeItemClassTreeViewDiagram."""
+    """An automatically generated ExchangeItemClassTreeViewDiagram."""
 
     @property
     def uuid(self) -> str:  # type: ignore
@@ -700,7 +700,7 @@ class ExchangeItemClassTreeViewDiagram(ContextDiagram):
 
     @property
     def name(self) -> str:  # type: ignore
-        return f"Element Relation View of {self.target.name}"
+        return f"Exchange Item Class Tree View of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         data = exchange_item_class_tree_view.collector(self, params)

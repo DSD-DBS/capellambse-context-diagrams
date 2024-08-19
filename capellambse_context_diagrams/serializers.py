@@ -370,8 +370,7 @@ def handle_features(child: _elkjs.ELKOutputNode) -> list[str]:
 
 
 def route_shortest_connection(
-    source: cdiagram.Box,
-    target: cdiagram.Box,
+    source: cdiagram.Box, target: cdiagram.Box
 ) -> list[cdiagram.Vector2D]:
     """Calculate shortest path between boxes with 'Oblique' style.
 

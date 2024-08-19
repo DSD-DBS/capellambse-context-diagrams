@@ -49,7 +49,7 @@ class ContextProcessor:
         self.global_boxes = {self.centerbox.id: self.centerbox}
         self.made_boxes = {self.centerbox.id: self.centerbox}
         self.boxes_to_delete = {self.centerbox.id}
-        self.edges: list[fa.AbstractExchange] = []
+        self.exchanges: list[fa.AbstractExchange] = []
         if self.diagram._display_parent_relation:
             self.diagram_target_owners = list(
                 generic.get_all_owners(self.diagram.target)
@@ -103,7 +103,7 @@ class ContextProcessor:
             generic.move_parent_boxes_to_owner(
                 owner_boxes, self.diagram.target, self.data
             )
-            generic.move_edges(owner_boxes, self.edges, self.data)
+            generic.move_edges(owner_boxes, self.exchanges, self.data)
 
         self.centerbox.height = max(
             self.centerbox.height, *stack_heights.values()
@@ -113,12 +113,21 @@ class ContextProcessor:
         list[common.GenericElement],
         list[generic.ExchangeData],
     ]:
-        ports = port_collector(self.diagram.target, self.diagram.type)
-        connections = port_exchange_collector(ports)
-        self.centerbox.ports = [makers.make_port(uuid) for uuid in connections]
-        self.edges = list(chain.from_iterable(connections.values()))
+        inc, out = port_collector(self.diagram.target, self.diagram.type)
+        port_spread: dict[str, int] = {}
+        inc_c = port_exchange_collector(inc)
+        out_c = port_exchange_collector(out)
+        inc_exchanges = list(chain.from_iterable(inc_c.values()))
+        out_exchanges = list(chain.from_iterable(out_c.values()))
+        for ex in inc_exchanges:
+            port_spread.setdefault(ex.source.owner.uuid, 0)
+            port_spread[ex.source.owner.uuid] += 1
+        for ex in out_exchanges:
+            port_spread.setdefault(ex.target.owner.uuid, 0)
+            port_spread[ex.target.owner.uuid] -= 1
+        self.exchanges = inc_exchanges + out_exchanges
         ex_datas: list[generic.ExchangeData] = []
-        for ex in self.edges:
+        for ex in self.exchanges:
             if is_hierarchical := exchanges.is_hierarchical(
                 ex, self.centerbox
             ):
@@ -138,23 +147,37 @@ class ContextProcessor:
                     self.params,
                     is_hierarchical,
                 )
-                generic.exchange_data_collector(ex_data)
+                src, tgt = generic.exchange_data_collector(ex_data)
+                if (
+                    (src.parent == self.diagram.target)
+                    and (port_spread.get(tgt.parent.uuid, 0) > 0)
+                ) or (
+                    (tgt.parent == self.diagram.target)
+                    and (port_spread.get(src.parent.uuid, 0) <= 0)
+                ):
+                    elkdata.edges[-1].sources = [tgt.uuid]
+                    elkdata.edges[-1].targets = [src.uuid]
                 ex_datas.append(ex_data)
             except AttributeError:
                 continue
 
-        return ports, ex_datas
+        self.centerbox.ports = [
+            makers.make_port(uuid) for uuid in {**inc_c, **out_c}
+        ]
+        return (inc + out), ex_datas
 
     def _process_ports(self, stack_heights: dict[str, float | int]) -> None:
         ports, ex_datas = self._process_exchanges()
-        for port, local_ports, side in port_context_collector(ex_datas, ports):
-            _, label_height = helpers.get_text_extent(port.name)
+        for owner, local_ports, side in port_context_collector(
+            ex_datas, ports
+        ):
+            _, label_height = helpers.get_text_extent(owner.name)
             height = max(
                 label_height + 2 * makers.LABEL_VPAD,
                 makers.PORT_PADDING
                 + (makers.PORT_SIZE + makers.PORT_PADDING) * len(local_ports),
             )
-            if box := self.global_boxes.get(port.uuid):  # type: ignore[assignment]
+            if box := self.global_boxes.get(owner.uuid):  # type: ignore[assignment]
                 if box is self.centerbox:
                     continue
                 box.ports.extend(
@@ -163,14 +186,14 @@ class ContextProcessor:
                 box.height += height
             else:
                 box = self._make_box(
-                    port,
+                    owner,
                     height=height,
                     no_symbol=self.diagram._display_symbols_as_boxes,
                 )
                 box.ports = [makers.make_port(j.uuid) for j in local_ports]
 
             if self.diagram._display_parent_relation:
-                current = port
+                current = owner
                 while (
                     current
                     and current.uuid not in self.diagram_target_owners
@@ -236,38 +259,52 @@ def collector(
 
 def port_collector(
     target: common.GenericElement | common.ElementList, diagram_type: DT
-) -> list[common.GenericElement]:
+) -> tuple[list[common.GenericElement], list[common.GenericElement]]:
     """Savely collect ports from `target`."""
 
     def __collect(target):
-        all_ports: list[common.GenericElement] = []
+        incoming_ports: list[common.GenericElement] = []
+        outgoing_ports: list[common.GenericElement] = []
         for attr in generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[diagram_type]:
             try:
                 ports = getattr(target, attr)
-                if ports and isinstance(
+                if not ports or not isinstance(
                     ports[0],
                     (fa.FunctionPort, fa.ComponentPort, cs.PhysicalPort),
                 ):
-                    all_ports.extend(ports)
+                    continue
+                if attr == "inputs":
+                    incoming_ports.extend(ports)
+                elif attr == "ports":
+                    for port in ports:
+                        if port.direction == "IN":
+                            incoming_ports.append(port)
+                        else:
+                            outgoing_ports.append(port)
+                else:
+                    outgoing_ports.extend(ports)
             except AttributeError:
                 pass
-        return all_ports
+        return incoming_ports, outgoing_ports
 
     if isinstance(target, cabc.Iterable):
         assert not isinstance(target, common.GenericElement)
-        all_ports: list[common.GenericElement] = []
+        incoming_ports: list[common.GenericElement] = []
+        outgoing_ports: list[common.GenericElement] = []
         for obj in target:
-            all_ports.extend(__collect(obj))
+            inc, out = __collect(obj)
+            incoming_ports.extend(inc)
+            outgoing_ports.extend(out)
     else:
-        all_ports = __collect(target)
-    return all_ports
+        incoming_ports, outgoing_ports = __collect(target)
+    return incoming_ports, outgoing_ports
 
 
 def _extract_edges(
-    obj: common.ElementList[common.GenericElement],
+    obj: common.GenericElement,
     attribute: str,
     filter: Filter,
-) -> common.ElementList[common.GenericElement] | list:
+) -> cabc.Iterable[common.GenericElement]:
     return filter(getattr(obj, attribute, []))
 
 
@@ -370,7 +407,8 @@ def derive_from_functions(
     assert isinstance(diagram.target, cs.Component)
     ports = []
     for fnc in diagram.target.allocated_functions:
-        ports.extend(port_collector(fnc, diagram.type))
+        inc, out = port_collector(fnc, diagram.type)
+        ports.extend(inc + out)
 
     context_box_ids = {child.id for child in data.children}
     components: dict[str, cs.Component] = {}

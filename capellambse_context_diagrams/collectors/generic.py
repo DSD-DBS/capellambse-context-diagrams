@@ -254,7 +254,7 @@ def move_edges(
 
 def get_all_owners(obj: common.GenericElement) -> cabc.Iterator[str]:
     """Return the UUIDs from all owners of ``obj``."""
-    current = obj
+    current: common.GenericElement | None = obj
     while current is not None:
         yield current.uuid
         current = getattr(current, "owner", None)

@@ -109,22 +109,35 @@ class ContextProcessor:
             self.centerbox.height, *stack_heights.values()
         )
 
+    def _process_port_spread(self, exs, attr, port_spread, owners) -> None:
+        for ex in exs:
+            elem = getattr(ex, attr).owner
+            if (owner := owners.get(elem.uuid)) is None:
+                try:
+                    owner = [
+                        uuid
+                        for uuid in generic.get_all_owners(elem)
+                        if uuid not in self.diagram_target_owners
+                    ][-1]
+                except (IndexError, AttributeError):
+                    owner = elem.uuid
+                owners[elem.uuid] = owner
+            port_spread.setdefault(owner, 0)
+            port_spread[owner] += 1
+
     def _process_exchanges(self) -> tuple[
         list[common.GenericElement],
         list[generic.ExchangeData],
     ]:
         inc, out = port_collector(self.diagram.target, self.diagram.type)
-        port_spread: dict[str, int] = {}
         inc_c = port_exchange_collector(inc)
         out_c = port_exchange_collector(out)
         inc_exchanges = list(chain.from_iterable(inc_c.values()))
         out_exchanges = list(chain.from_iterable(out_c.values()))
-        for ex in inc_exchanges:
-            port_spread.setdefault(ex.source.owner.uuid, 0)
-            port_spread[ex.source.owner.uuid] += 1
-        for ex in out_exchanges:
-            port_spread.setdefault(ex.target.owner.uuid, 0)
-            port_spread[ex.target.owner.uuid] -= 1
+        port_spread: dict[str, int] = {}
+        owners: dict[str, str] = {}
+        self._process_port_spread(inc_exchanges, "source", port_spread, owners)
+        self._process_port_spread(out_exchanges, "target", port_spread, owners)
         self.exchanges = inc_exchanges + out_exchanges
         ex_datas: list[generic.ExchangeData] = []
         for ex in self.exchanges:
@@ -148,12 +161,14 @@ class ContextProcessor:
                     is_hierarchical,
                 )
                 src, tgt = generic.exchange_data_collector(ex_data)
+                src_owner = owners.get(src.owner.uuid, "-1")
+                tgt_owner = owners.get(tgt.owner.uuid, "-1")
                 if (
                     (src.parent == self.diagram.target)
-                    and (port_spread.get(tgt.parent.uuid, 0) > 0)
+                    and (port_spread.get(tgt_owner, 0) > 0)
                 ) or (
                     (tgt.parent == self.diagram.target)
-                    and (port_spread.get(src.parent.uuid, 0) <= 0)
+                    and (port_spread.get(src_owner, 0) <= 0)
                 ):
                     elkdata.edges[-1].sources = [tgt.uuid]
                     elkdata.edges[-1].targets = [src.uuid]

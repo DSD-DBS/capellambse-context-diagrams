@@ -109,7 +109,14 @@ class ContextProcessor:
             self.centerbox.height, *stack_heights.values()
         )
 
-    def _process_port_spread(self, exs, attr, port_spread, owners) -> None:
+    def _process_port_spread(
+        self,
+        exs: list[fa.AbstractExchange],
+        attr: str,
+        inc: int,
+        port_spread: dict[str, int],
+        owners: dict[str, str],
+    ) -> None:
         for ex in exs:
             elem = getattr(ex, attr).owner
             if (owner := owners.get(elem.uuid)) is None:
@@ -121,9 +128,10 @@ class ContextProcessor:
                     ][-1]
                 except (IndexError, AttributeError):
                     owner = elem.uuid
+                assert owner is not None
                 owners[elem.uuid] = owner
             port_spread.setdefault(owner, 0)
-            port_spread[owner] += 1
+            port_spread[owner] += inc
 
     def _process_exchanges(self) -> tuple[
         list[common.GenericElement],
@@ -136,8 +144,12 @@ class ContextProcessor:
         out_exchanges = list(chain.from_iterable(out_c.values()))
         port_spread: dict[str, int] = {}
         owners: dict[str, str] = {}
-        self._process_port_spread(inc_exchanges, "source", port_spread, owners)
-        self._process_port_spread(out_exchanges, "target", port_spread, owners)
+        self._process_port_spread(
+            inc_exchanges, "source", 1, port_spread, owners
+        )
+        self._process_port_spread(
+            out_exchanges, "target", -1, port_spread, owners
+        )
         self.exchanges = inc_exchanges + out_exchanges
         ex_datas: list[generic.ExchangeData] = []
         for ex in self.exchanges:
@@ -161,14 +173,14 @@ class ContextProcessor:
                     is_hierarchical,
                 )
                 src, tgt = generic.exchange_data_collector(ex_data)
-                src_owner = owners.get(src.owner.uuid, "-1")
-                tgt_owner = owners.get(tgt.owner.uuid, "-1")
-                if (
-                    (src.parent == self.diagram.target)
-                    and (port_spread.get(tgt_owner, 0) > 0)
-                ) or (
-                    (tgt.parent == self.diagram.target)
-                    and (port_spread.get(src_owner, 0) <= 0)
+                src_owner = owners.get(src.owner.uuid, "")
+                tgt_owner = owners.get(tgt.owner.uuid, "")
+                is_inc = tgt.parent == self.diagram.target
+                is_out = src.parent == self.diagram.target
+                if is_inc and is_out:
+                    pass
+                elif (is_out and (port_spread.get(tgt_owner, 0) > 0)) or (
+                    is_inc and (port_spread.get(src_owner, 0) <= 0)
                 ):
                     elkdata.edges[-1].sources = [tgt.uuid]
                     elkdata.edges[-1].targets = [src.uuid]

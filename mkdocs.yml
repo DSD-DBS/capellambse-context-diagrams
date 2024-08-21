@@ -94,8 +94,8 @@ nav:
       - Overview: realization_view.md
   - DataFlow View:
       - Overview: data_flow_view.md
-  - Exchange Item Class Tree View:
-      - Overview: exchange_item_class_tree_view.md
+  - Exchange Item Relation View:
+      - Overview: exchange_item_relation_view.md
   - Extras:
       - Filters: extras/filters.md
       - Styling: extras/styling.md

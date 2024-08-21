@@ -40,10 +40,10 @@ DEFAULT_TREE_VIEW_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
 }
 
 
-class ExchangeItemClassTreeCollector:
+class ExchangeItemRelationCollector:
     def __init__(
         self,
-        diagram: context.ExchangeItemClassTreeViewDiagram,
+        diagram: context.ExchangeItemRelationViewDiagram,
         *,
         params: dict[str, t.Any] | None = None,
     ) -> None:
@@ -172,7 +172,7 @@ class ExchangeItemClassTreeCollector:
 
 
 def collector(
-    diagram: context.ExchangeItemClassTreeViewDiagram, params: dict[str, t.Any]
+    diagram: context.ExchangeItemRelationViewDiagram, params: dict[str, t.Any]
 ) -> _elkjs.ELKInputData:
     """Return ExchangeElement data for ELK."""
-    return ExchangeItemClassTreeCollector(diagram, params=params)()
+    return ExchangeItemRelationCollector(diagram, params=params)()

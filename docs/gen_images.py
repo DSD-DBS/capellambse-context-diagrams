@@ -195,7 +195,7 @@ def generate_interface_with_hide_interface_image():
 
 def generate_exchange_item_class_tree_images() -> None:
     obj = model.by_uuid(exchange_item_class_tree_uuid)
-    diag = obj.exchange_item_class_tree_view
+    diag = obj.exchange_item_relation_view
     with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
         print(diag.render("svg", transparent_background=False), file=fd)
 

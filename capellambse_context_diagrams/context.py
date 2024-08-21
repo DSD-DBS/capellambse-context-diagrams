@@ -19,7 +19,7 @@ from capellambse.model import common, diagram, modeltypes
 from . import _elkjs, filters, serializers, styling
 from .collectors import (
     dataflow_view,
-    exchange_item_class_tree_view,
+    exchange_item_relation_view,
     exchanges,
     get_elkdata,
     realization_view,
@@ -189,18 +189,18 @@ class DataFlowAccessor(ContextAccessor):
         return self._get(obj, DataFlowViewDiagram)
 
 
-class ExchangeItemClassTreeAccessor(ContextAccessor):
+class ExchangeItemRelationAccessor(ContextAccessor):
     def __get__(  # type: ignore
         self,
         obj: common.T | None,
         objtype: type | None = None,
     ) -> common.Accessor | ContextDiagram:
-        """Make a ExchangeItemClassTreeViewDiagram for the given model object."""
+        """Make a ExchangeItemRelationViewDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
             return self
         assert isinstance(obj, common.GenericElement)
-        return self._get(obj, ExchangeItemClassTreeViewDiagram)
+        return self._get(obj, ExchangeItemRelationViewDiagram)
 
 
 class ContextDiagram(diagram.AbstractDiagram):
@@ -690,20 +690,20 @@ class DataFlowViewDiagram(ContextDiagram):
         return super()._create_diagram(params)
 
 
-class ExchangeItemClassTreeViewDiagram(ContextDiagram):
-    """An automatically generated ExchangeItemClassTreeViewDiagram."""
+class ExchangeItemRelationViewDiagram(ContextDiagram):
+    """An automatically generated ExchangeItemRelationViewDiagram."""
 
     @property
     def uuid(self) -> str:  # type: ignore
         """Returns the UUID of the diagram."""
-        return f"{self.target.uuid}_exchange_item_class_tree_view"
+        return f"{self.target.uuid}_exchange_item_relation_view"
 
     @property
     def name(self) -> str:  # type: ignore
-        return f"Exchange Item Class Tree View of {self.target.name}"
+        return f"Exchange Item Relation View of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        data = exchange_item_class_tree_view.collector(self, params)
+        data = exchange_item_relation_view.collector(self, params)
         layout = try_to_layout(data)
         return self.serializer.make_diagram(
             layout,

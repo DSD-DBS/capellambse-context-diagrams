@@ -3,22 +3,22 @@
  ~ SPDX-License-Identifier: Apache-2.0
  -->
 
-# Exchange Item Class Tree View
+# Exchange Item Relation View
 
-The `ExchangeItemClassTreeView` visualizes the hierarchical structure of exchange items and the relationships between their associated classes in a tree view. You can access `.exchange_item_class_tree_view` on any `fa.ComponentExchange`. Data collection starts on the allocated exchange items and collects the associated classes through their exchange item elements.
+The `ExchangeItemRelationView` visualizes the hierarchical structure of exchange items and the relationships between their associated classes in a tree view. You can access `.exchange_item_relation_view` on any `fa.ComponentExchange`. Data collection starts on the allocated exchange items and collects the associated classes through their exchange item elements.
 
-??? example "Exchange Item Class Tree View of C 28"
+??? example "Exchange Item Relation View of C 28"
 
     ``` py
     import capellambse
 
     model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
-    diag = model.by_uuid("0ab202d7-6497-4b78-9d13-fd7c9a75486c").exchange_item_class_tree_view
+    diag = model.by_uuid("0ab202d7-6497-4b78-9d13-fd7c9a75486c").exchange_item_relation_view
     diag.render("svgdiagram").save(pretty=True)
     ```
     <figure markdown>
-        <img src="../assets/images/Exchange Item Class Tree View of C 28.svg">
-        <figcaption>[LAB] Exchange Item Class Tree View of C 28</figcaption>
+        <img src="../assets/images/Exchange Item Relation View of C 28.svg">
+        <figcaption>[LAB] Exchange Item Relation View of C 28</figcaption>
     </figure>
 
 ## Known Issues
@@ -30,5 +30,5 @@ This issue could potentially be resolved when Libavoid for ELK becomes publicly 
 ## Check out the code
 
 To understand the collection have a look into the
-[`exchange_item_class_tree_view`][capellambse_context_diagrams.collectors.exchange_item_class_tree_view]
+[`exchange_item_relation_view`][capellambse_context_diagrams.collectors.exchange_item_relation_view]
 module.

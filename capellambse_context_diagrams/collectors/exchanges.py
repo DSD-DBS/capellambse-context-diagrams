@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 class ExchangeCollector(metaclass=abc.ABCMeta):
     """Base class for context collection on Exchanges."""
 
-    intermap: dict[str, DT] = {
+    intermap: dict[DT, tuple[str, str, str, str]] = {
         DT.OAB: ("source", "target", "allocated_interactions", "activities"),
         DT.SAB: (
             "source.owner",
@@ -216,9 +216,9 @@ class InterfaceContextCollector(ExchangeCollector):
         obj: fa.AbstractFunction | fa.FunctionPort,
         boxes: dict[str, _elkjs.ELKInputChild],
     ) -> str:
-        owners: list[fa.AbstractFunction | cs.Component] = []
+        owners: list[common.GenericElement] = []
         assert self.right is not None and self.left is not None
-        root: cs.Component | None = None
+        root: _elkjs.ELKInputChild | None = None
         for uuid in generic.get_all_owners(obj):
             element = self.obj._model.by_uuid(uuid)
             if uuid in {self.right.id, self.left.id}:
@@ -230,7 +230,7 @@ class InterfaceContextCollector(ExchangeCollector):
         if root is None:
             raise ValueError(f"No root found for {obj._short_repr_()}")
 
-        owner_box: common.GenericElement = root
+        owner_box = root
         for owner in reversed(owners):
             if isinstance(owner, fa.FunctionPort):
                 if owner.uuid in (p.id for p in owner_box.ports):

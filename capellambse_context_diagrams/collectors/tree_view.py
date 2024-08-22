@@ -10,6 +10,7 @@ import logging
 import math
 import typing as t
 
+from capellambse.model import common
 from capellambse.model.crosslayer import information
 
 from .. import _elkjs, context
@@ -26,7 +27,6 @@ DEFAULT_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
     "elk.direction": "DOWN",
     "edgeRouting": "ORTHOGONAL",
 }
-ASSOC_STYLECLASS = "__Association"
 
 
 class ClassProcessor:
@@ -41,7 +41,6 @@ class ClassProcessor:
         self.data_types: set[str] = set()
         self.legend_boxes: list[_elkjs.ELKInputChild] = []
         self.all_associations = all_associations
-        self.edge_counter = 0
 
     def __contains__(self, uuid: str) -> bool:
         objects = self.data.children + self.data.edges  # type: ignore[operator]
@@ -55,16 +54,12 @@ class ClassProcessor:
             edges = [
                 assoc
                 for assoc in self.all_associations
-                if cls.prop in assoc.navigable_members
+                if cls.prop in list(assoc.navigable_members)
             ]
-            if len(edges) == 1:
-                edge_id = edges[0].uuid
-            else:
-                edge_id = f"{ASSOC_STYLECLASS}:{self.edge_counter}"
-                self.edge_counter += 1
+            edge_id = edges[0].uuid
             if edge_id not in self.made_edges:
                 self.made_edges.add(edge_id)
-                text = cls.prop.name
+                text = cls.prop.name if cls.prop else ""
                 if cls.multiplicity is None:
                     start = end = "1"
                 else:
@@ -183,7 +178,7 @@ class ClassInfo:
 
     source: information.Class
     target: information.Class | None
-    prop: information.Property
+    prop: information.Property | None
     partition: int
     multiplicity: tuple[str, str] | None
     generalizes: information.Class | None = None
@@ -266,7 +261,10 @@ def get_all_classes(
         process_property(property)
 
     if super == "ALL" or (super == "ROOT" and partition == 1):
-        if root.super and not root.super.is_primitive:
+        if (
+            isinstance(root.super, information.Class)
+            and not root.super.is_primitive
+        ):
             for prop in root.super.owned_properties:
                 process_property(
                     _PropertyInfo(
@@ -421,7 +419,7 @@ def _get_property_text(prop: information.Property) -> str:
 
 
 def _get_legend_labels(
-    obj: information.datatype.Enumeration | information.Class,
+    obj: common.GenericElement,
 ) -> cabc.Iterator[makers._LabelBuilder]:
     yield {
         "text": obj.name,
@@ -438,7 +436,7 @@ def _get_legend_labels(
     elif isinstance(obj, information.Class):
         labels = [_get_property_text(prop) for prop in obj.owned_properties]
     else:
-        return
+        labels = []
     layout_options = DATA_TYPE_LABEL_LAYOUT_OPTIONS
     for label in labels:
         yield {"text": label, "icon": (0, 0), "layout_options": layout_options}

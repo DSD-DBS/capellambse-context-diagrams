@@ -9,8 +9,8 @@ import logging
 import operator
 import typing as t
 
-from capellambse.metamodel import cs, fa
 from capellambse.model import common
+from capellambse.model.crosslayer import cs, fa
 from capellambse.model.modeltypes import DiagramType as DT
 
 from .. import _elkjs, context

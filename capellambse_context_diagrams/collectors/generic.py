@@ -11,8 +11,8 @@ import collections.abc as cabc
 import logging
 import typing as t
 
-from capellambse.metamodel import interaction
 from capellambse.model import common, layers
+from capellambse.model.crosslayer import interaction
 from capellambse.model.modeltypes import DiagramType as DT
 
 from .. import _elkjs, context, filters

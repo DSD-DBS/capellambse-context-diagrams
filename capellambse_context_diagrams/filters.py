@@ -14,19 +14,17 @@ SHOW_EX_ITEMS = "show.functional.exchanges.exchange.items.filter"
 """Show the name of `ComponentExchange` or `FunctionalExchange` and its
 `ExchangeItems` wrapped in [E1,...] and separated by ',' - filter in Capella.
 """
-FEX_EX_ITEMS = SHOW_EX_ITEMS  # legacy name
 EX_ITEMS = "show.exchange.items.filter"
 """Show `ExchangeItems` wrapped in [E1,...] and separated by ',' - filter
 in Capella.
 """
-EXCH_OR_EX_ITEMS = (
+EX_ITEMS_OR_EXCH = (
     "capellambse_context_diagrams-show.exchanges.or.exchange.items.filter"
 )
-"""Show either the name of the `ComponentExchange` or `FunctionalExchange`, or
-its `ExchangeItems` wrapped in [E1,...] and separated by ',' - Custom filter,
+"""Show the names of `ExchangeItem`s wrapped in [E1,...] and separated by ','
+- Custom filter or the name of the `ComponentExchange` or `FunctionalExchange`,
 not available in Capella.
 """
-FEX_OR_EX_ITEMS = EXCH_OR_EX_ITEMS  # legacy name
 NO_UUID = "capellambse_context_diagrams-hide.uuids.filter"
 """Filter out UUIDs from label text."""
 SYSTEM_EX_RELABEL = (
@@ -96,7 +94,7 @@ FILTER_LABEL_ADJUSTERS: dict[
 ] = {
     EX_ITEMS: lambda obj, _: exchange_items(obj),
     SHOW_EX_ITEMS: exchange_name_and_items,
-    EXCH_OR_EX_ITEMS: lambda obj, label: (
+    EX_ITEMS_OR_EXCH: lambda obj, label: (
         exchange_items(obj)
         if getattr(obj, "exchange_items", "")
         else label or obj.name

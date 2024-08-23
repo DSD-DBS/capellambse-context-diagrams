@@ -68,17 +68,19 @@ plugins:
           paths: [capellambse_context_diagrams]
           import:
             - https://dsd-dbs.github.io/py-capellambse/objects.inv
-          selection:
+          enable_inventory: yes
+          options:
             docstring_style: numpy
-          rendering:
-            show_root_full_path: no
+            docstring_section_style: spacy
+            show_docstring_attributes: true
             merge_init_into_class: yes
             show_submodules: no
-            show_signature_annotations: yes
+            show_root_full_path: no
+            group_by_category: true
             separate_signature: yes
-          enable_inventory: yes
-      watch:
-        - capellambse_context_diagrams
+            line_length: 79
+            show_signature_annotations: yes
+            annotations_path: brief
 
 nav:
   - Home:

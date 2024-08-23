@@ -24,8 +24,8 @@ import typing as t
 from importlib import metadata
 
 from capellambse.diagram import COLORS, CSSdef, capstyle
+from capellambse.metamodel import fa, information
 from capellambse.model import common
-from capellambse.model.crosslayer import fa, information
 from capellambse.model.layers import ctx, la, oa, pa
 from capellambse.model.modeltypes import DiagramType
 from capellambse.svg import decorations
@@ -144,7 +144,7 @@ def patch_styles(classes: cabc.Iterable[SupportedClass]) -> None:
 
     See Also
     --------
-    [capstyle.get_style][capellambse.aird.capstyle.get_style] : Default
+    [capstyle.get_style][capellambse.diagram.get_style] : Default
         style getter.
     """
     cap: dict[str, CSSdef] = {

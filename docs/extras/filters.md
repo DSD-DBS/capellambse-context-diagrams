@@ -16,7 +16,7 @@ adjusted without needing diagram elements from within the .aird file.
 
 Currently the supported filters are:
 
-??? success "Show [`ExchangeItem`][capellambse.model.crosslayer.information.ExchangeItem]s"
+??? success "Show [`ExchangeItem`][capellambse.metamodel.information.ExchangeItem]s"
 
     ```py
     from capellambse import MelodyModel
@@ -33,7 +33,7 @@ Currently the supported filters are:
         <figcaption>Context diagram of Lost SystemFunction with applied filter [`EX_ITEMS_FILTER`][capellambse_context_diagrams.filters.EX_ITEMS]</figcaption>
     </figure>
 
-??? success "Show [`FunctionalExchange`][capellambse.model.crosslayer.fa.FunctionalExchange]s and [`ExchangeItem`][capellambse.model.crosslayer.information.ExchangeItem]s"
+??? success "Show [`FunctionalExchange`][capellambse.metamodel.fa.FunctionalExchange]s and [`ExchangeItem`][capellambse.metamodel.information.ExchangeItem]s"
 
     ```py
     from capellambse import MelodyModel
@@ -41,18 +41,18 @@ Currently the supported filters are:
 
     lost = model.by_uuid("a5642060-c9cc-4d49-af09-defaa3024bae")
     diag = obj.context_diagram
-    assert filters.FEX_EX_ITEMS == "show.functional.exchanges.exchange.items.filter"
-    filters.filters = {filters.FEX_EX_ITEMS}
+    assert filters.SHOW_EX_ITEMS == "show.functional.exchanges.exchange.items.filter"
+    diag.filters = {filters.SHOW_EX_ITEMS}
     diag.render("svgdiagram").save(pretty=True)
     ```
     <figure markdown>
         <img src="../../assets/images/Context of Lost fex and ex.svg" width="1000000">
-        <figcaption>Context diagram of Lost SystemFunction with applied filter [`FEX_EX_ITEMS_FILTER`][capellambse_context_diagrams.filters.FEX_EX_ITEMS]</figcaption>
+        <figcaption>Context diagram of Lost SystemFunction with applied filter [`SHOW_EX_ITEMS`][capellambse_context_diagrams.filters.SHOW_EX_ITEMS]</figcaption>
     </figure>
 
 ## Custom filters
 
-??? tip "Custom Filter - Show [`FunctionalExchange`][capellambse.model.crosslayer.fa.FunctionalExchange]s **or** [`ExchangeItem`][capellambse.model.crosslayer.information.ExchangeItem]s"
+??? tip "Custom Filter - Show [`FunctionalExchange`][capellambse.metamodel.fa.FunctionalExchange]s **or** [`ExchangeItem`][capellambse.metamodel.information.ExchangeItem]s"
 
     ```py
     from capellambse import MelodyModel
@@ -60,13 +60,13 @@ Currently the supported filters are:
 
     lost = model.by_uuid("a5642060-c9cc-4d49-af09-defaa3024bae")
     diag = obj.context_diagram
-    assert filters.FEX_OR_EX_ITEMS == "capellambse_context_diagrams-show.functional.exchanges.or.exchange.items.filter"
-    filters.filters.add(filters.FEX_OR_EX_ITEMS)
+    assert filters.EX_ITEMS_OR_EXCH == "capellambse_context_diagrams-show.functional.exchanges.or.exchange.items.filter"
+    diag.filters.add(filters.EX_ITEMS_OR_EXCH)
     diag.render("svgdiagram").save(pretty=True)
     ```
     <figure markdown>
-        <img src="../../assets/images/Context of Lost fex or ex.svg" width="1000000">
-        <figcaption>Context diagram of Lost SystemFunction with applied filter [`FEX_OR_EX_ITEMS_FILTER`][capellambse_context_diagrams.filters.FEX_OR_EX_ITEMS]</figcaption>
+        <img src="../../assets/images/Context of Lost ex or fex.svg" width="1000000">
+        <figcaption>Context diagram of Lost SystemFunction with applied filter [`EX_ITEMS_OR_EXCH`][capellambse_context_diagrams.filters.EX_ITEMS_OR_EXCH]</figcaption>
     </figure>
 
 Make sure to check out our [**Stylings**][capellambse_context_diagrams.styling] feature as well.

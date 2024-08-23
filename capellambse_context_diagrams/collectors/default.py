@@ -11,8 +11,8 @@ import typing as t
 from itertools import chain
 
 from capellambse import helpers
+from capellambse.metamodel import cs, fa
 from capellambse.model import common
-from capellambse.model.crosslayer import cs, fa
 from capellambse.model.layers import ctx as sa
 from capellambse.model.layers import la
 from capellambse.model.modeltypes import DiagramType as DT

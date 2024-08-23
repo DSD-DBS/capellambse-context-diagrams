@@ -360,7 +360,7 @@ def call_elkjs(elk_model: ELKInputData) -> ELKOutputData:
 
     Parameters
     ----------
-    elk_dict
+    elk_model
         The diagram data, sans layouting information
 
     Returns

@@ -9,8 +9,8 @@ import copy
 import re
 import typing as t
 
+from capellambse.metamodel import cs, fa
 from capellambse.model import common, crosslayer
-from capellambse.model.crosslayer import cs, fa
 from capellambse.model.layers import oa
 
 from .. import _elkjs, context

@@ -10,8 +10,8 @@ import operator
 import typing as t
 from itertools import chain
 
+from capellambse.metamodel import fa
 from capellambse.model import modeltypes
-from capellambse.model.crosslayer import fa
 from capellambse.model.layers import oa
 
 from .. import _elkjs, context

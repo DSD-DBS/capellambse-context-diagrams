@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 """
 Definitions of Custom Accessor- and Diagram-Classtypes based on
-[`Accessor`][capellambse.model.common.accessors.Accessor] and [`AbstractDiagram`][capellambse.model.diagram.AbstractDiagram].
+[`Accessor`][capellambse.model.Accessor] and [`AbstractDiagram`][capellambse.model.diagram.AbstractDiagram].
 """
 from __future__ import annotations
 
@@ -731,7 +731,7 @@ def calculate_label_position(
     y: float,
     width: float,
     height: float,
-    padding: float = 10,
+    padding: float = 10.0,
 ) -> tuple[float, float, float]:
     """Calculate the position of the label and tspan.
 
@@ -743,10 +743,20 @@ def calculate_label_position(
 
     Parameters
     ----------
+    x
+        The x coordinate of the label position.
+    y
+        The y coordinate of the label position.
+    width
+        Width of the label.
+    height
+        Height of the label
+    padding
+        The padding for the label.
 
     Returns
     -------
-    tuple
+    position
         A tuple containing the x- and y-coordinate for the text element
         and the adjusted y-coordinate for the tspan element.
     """

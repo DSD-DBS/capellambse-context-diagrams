@@ -11,8 +11,8 @@ import collections.abc as cabc
 import logging
 import typing as t
 
+from capellambse.metamodel import interaction
 from capellambse.model import common, layers
-from capellambse.model.crosslayer import interaction
 from capellambse.model.modeltypes import DiagramType as DT
 
 from .. import _elkjs, context, filters
@@ -183,8 +183,8 @@ def collect_label(obj: common.GenericElement) -> str | None:
     """Return the label of a given object.
 
     The label usually comes from the `.name` attribute. Special handling
-    for [`interaction.AbstractCapabilityExtend`][capellambse.model.crosslayer.interaction.AbstractCapabilityExtend]
-    and [interaction.AbstractCapabilityInclude`][capellambse.model.crosslayer.interaction.AbstractCapabilityInclude].
+    for [`interaction.AbstractCapabilityExtend`][capellambse.metamodel.interaction.AbstractCapabilityExtend]
+    and [interaction.AbstractCapabilityInclude`][capellambse.metamodel.interaction.AbstractCapabilityInclude].
     """
     if isinstance(obj, interaction.AbstractCapabilityExtend):
         return "« e »"

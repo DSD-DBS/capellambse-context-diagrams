@@ -17,8 +17,7 @@ CSSStyles = t.Union[diagram.StyleOverrides, None]
 A dictionary with CSS styles. The keys are the attribute names and the
 values can be of the types `str`, `aird.RGB` and even
 `t.Sequence[aird.RGB]` for coloring a
-[`common.GenericElement`][capellambse.model.common.element.GenericElement]
-with a gradient.
+[`ModelElement`][capellambse.model.ModelElement] with a gradient.
 
 See also
 --------

@@ -183,8 +183,8 @@ def collect_label(obj: common.GenericElement) -> str | None:
     """Return the label of a given object.
 
     The label usually comes from the `.name` attribute. Special handling
-    for [`interaction.AbstractCapabilityExtend`][capellambse.model.crosslayer.interaction.AbstractCapabilityExtend]
-    and [interaction.AbstractCapabilityInclude`][capellambse.model.crosslayer.interaction.AbstractCapabilityInclude].
+    for [`interaction.AbstractCapabilityExtend`][capellambse.metamodel.interaction.AbstractCapabilityExtend]
+    and [interaction.AbstractCapabilityInclude`][capellambse.metamodel.interaction.AbstractCapabilityInclude].
     """
     if isinstance(obj, interaction.AbstractCapabilityExtend):
         return "« e »"

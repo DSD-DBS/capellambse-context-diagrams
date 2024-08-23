@@ -8,7 +8,7 @@
 The data is collected by [get_elkdata_for_exchanges][capellambse_context_diagrams.collectors.exchanges.get_elkdata_for_exchanges] which is using the [`InterfaceContextCollector`][capellambse_context_diagrams.collectors.exchanges.InterfaceContextCollector] underneath.
 
 You can render an interface context view just with `context_diagram` on any
-[`fa.ComponentExchange`][capellambse.model.crosslayer.fa.ComponentExchange]:
+[`fa.ComponentExchange`][capellambse.metamodel.fa.ComponentExchange]:
 
 ``` py
 import capellambse

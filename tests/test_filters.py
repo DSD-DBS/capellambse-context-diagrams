@@ -136,7 +136,7 @@ def test_context_diagrams_FEX_OR_EX_ITEMS_is_applied(
     model: MelodyModel, uuid: str
 ) -> None:
     edges, aird_diag = start_filter_apply_test(
-        model, uuid, filters.EXCH_OR_EX_ITEMS
+        model, uuid, filters.EX_ITEMS_OR_EXCH
     )
 
     for edge in edges:

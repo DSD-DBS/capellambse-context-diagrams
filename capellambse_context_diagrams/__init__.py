@@ -143,7 +143,7 @@ def patch_styles(classes: cabc.Iterable[SupportedClass]) -> None:
 
     See Also
     --------
-    [capstyle.get_style][capellambse.aird.capstyle.get_style] : Default
+    [capstyle.get_style][capellambse.diagram.get_style] : Default
         style getter.
     """
     cap: dict[str, CSSdef] = {

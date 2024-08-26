@@ -84,7 +84,7 @@ def _collect_data(
         exchange_filter,
         functions=elements,
         attributes=(src_attr, trg_attr),
-    )
+    )  # type:ignore[call-arg]
 
     made_edges: set[str] = set()
     for elem in elements:

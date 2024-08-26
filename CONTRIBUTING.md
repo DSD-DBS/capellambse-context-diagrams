@@ -143,7 +143,7 @@ Example:
 >
 > Documentation can look like this `docs/index.md`:
 > ```markdown
-> - ??? example "[`ctx.Mission`][capellambse.model.layers.ctx.Mission] (MCB)"
+> - ??? example "[`ctx.Mission`][capellambse.metamodel.sa.Mission] (MCB)"
 >
 >         ``` py
 >         import capellambse

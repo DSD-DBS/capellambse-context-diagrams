@@ -210,7 +210,7 @@ generate_no_edgelabel_image(wizard_uuid)
 lost_uuid = general_context_diagram_uuids["Lost"]
 generate_filter_image(lost_uuid, filters.EX_ITEMS, "ex")
 generate_filter_image(lost_uuid, filters.SHOW_EX_ITEMS, "fex and ex")
-generate_filter_image(lost_uuid, filters.EXCH_OR_EX_ITEMS, "fex or ex")
+generate_filter_image(lost_uuid, filters.EX_ITEMS_OR_EXCH, "ex or fex")
 
 generate_styling_image(
     lost_uuid,

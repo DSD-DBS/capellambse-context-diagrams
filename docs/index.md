@@ -27,14 +27,14 @@ Generate **Context Diagrams** from your model data!
 
 The data is collected by either
 
--   [portless_collector][capellambse_context_diagrams.collectors.portless.collector] for [`ModelObject`s][capellambse.model.common.element.ModelObject] from the Operational Architecture Layer
+-   [portless_collector][capellambse_context_diagrams.collectors.portless.collector] for [`ModelObject`s][capellambse.model.ModelObject] from the Operational Architecture Layer
 -   [with_port_collector][capellambse_context_diagrams.collectors.default.collector] for all other Architecture Layers that use ports as connectors of exchanges.
 
 It is served conveniently by [get_elkdata][capellambse_context_diagrams.collectors.get_elkdata].
 
-Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.element.ModelObject] with (diagram-class):
+Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObject] with (diagram-class):
 
--   ??? example "[`oa.Entity`][capellambse.model.layers.oa.Entity] (OAB)"
+-   ??? example "[`oa.Entity`][capellambse.metamodel.oa.Entity] (OAB)"
 
           ``` py
           import capellambse
@@ -48,7 +48,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
               <figcaption>Context diagram of Environment Entity with type [OAB]</figcaption>
           </figure>
 
--   ??? example "[`oa.OperationalActivity`][capellambse.model.layers.oa.OperationalActivity] (OAIB)"
+-   ??? example "[`oa.OperationalActivity`][capellambse.metamodel.oa.OperationalActivity] (OAIB)"
 
           ``` py
           import capellambse
@@ -62,7 +62,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
               <figcaption>Context diagram of Activity Eat with type [OAIB]</figcaption>
           </figure>
 
--   ??? example "[`oa.OperationalCapability`][capellambse.model.layers.oa.OperationalCapability] (OCB)"
+-   ??? example "[`oa.OperationalCapability`][capellambse.metamodel.oa.OperationalCapability] (OCB)"
 
           ``` py
           import capellambse
@@ -76,7 +76,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
               <figcaption>Context diagram of Middle OperationalCapability with type [OCB]</figcaption>
           </figure>
 
--   ??? example "[`ctx.Mission`][capellambse.model.layers.ctx.Mission] (MCB)"
+-   ??? example "[`ctx.Mission`][capellambse.metamodel.sa.Mission] (MCB)"
 
           ``` py
           import capellambse
@@ -90,7 +90,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
               <figcaption>Context diagram of Mission Top secret with type [MCB]</figcaption>
           </figure>
 
--   ??? example "[`ctx.Capability`][capellambse.model.layers.ctx.Capability] (MCB)"
+-   ??? example "[`ctx.Capability`][capellambse.metamodel.sa.Capability] (MCB)"
 
           ``` py
           import capellambse
@@ -104,9 +104,9 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
               <figcaption>Context diagram of Capability Capability with type [MCB]</figcaption>
           </figure>
 
--   [`ctx.SystemComponent`][capellambse.model.layers.ctx.SystemComponent] (SAB)
+-   [`ctx.SystemComponent`][capellambse.metamodel.sa.SystemComponent] (SAB)
 
--   ??? example "[`ctx.SystemFunction`][capellambse.model.layers.ctx.SystemFunction] (SDFB)"
+-   ??? example "[`ctx.SystemFunction`][capellambse.metamodel.sa.SystemFunction] (SDFB)"
 
           ``` py
           import capellambse
@@ -120,7 +120,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
               <figcaption>Context diagram of Lost SystemFunction with type [SDFB]</figcaption>
           </figure>
 
--   ??? example "[`la.LogicalComponent`][capellambse.model.layers.la.LogicalComponent] (LAB)"
+-   ??? example "[`la.LogicalComponent`][capellambse.metamodel.la.LogicalComponent] (LAB)"
 
           ``` py
           import capellambse
@@ -134,7 +134,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
               <figcaption>Context diagram of Left LogicalComponent with type [LAB]</figcaption>
           </figure>
 
--   ??? example "[`la.LogicalFunction`][capellambse.model.layers.la.LogicalFunction] (LDFB)"
+-   ??? example "[`la.LogicalFunction`][capellambse.metamodel.la.LogicalFunction] (LDFB)"
 
           ``` py
           import capellambse
@@ -148,7 +148,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
               <figcaption>Context diagram of educate Wizards LogicalFunction with type [LDFB]</figcaption>
           </figure>
 
--   ??? example "[`pa.PhysicalComponent`][capellambse.model.layers.pa.PhysicalComponent] (PAB)"
+-   ??? example "[`pa.PhysicalComponent`][capellambse.metamodel.pa.PhysicalComponent] (PAB)"
 
           `PhysicalNodeComponent`
 
@@ -178,7 +178,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.common.e
               <figcaption>Context diagram of PC Software [PAB]</figcaption>
           </figure>
 
--   ??? example "[`pa.PhysicalFunction`][capellambse.model.layers.pa.PhysicalFunction] (PDFB)"
+-   ??? example "[`pa.PhysicalFunction`][capellambse.metamodel.pa.PhysicalFunction] (PDFB)"
 
           ``` py
           import capellambse

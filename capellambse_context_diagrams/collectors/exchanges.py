@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import abc
+import copy
 import logging
 import operator
 import typing as t
@@ -21,7 +22,7 @@ logger = logging.getLogger(__name__)
 class ExchangeCollector(metaclass=abc.ABCMeta):
     """Base class for context collection on Exchanges."""
 
-    intermap: dict[str, DT] = {
+    intermap: dict[DT, tuple[str, str, str, str]] = {
         DT.OAB: ("source", "target", "allocated_interactions", "activities"),
         DT.SAB: (
             "source.owner",
@@ -111,6 +112,7 @@ def get_elkdata_for_exchanges(
 ) -> _elkjs.ELKInputData:
     """Return exchange data for ELK."""
     data = makers.make_diagram(diagram)
+    data.layoutOptions["layered.nodePlacement.strategy"] = "NETWORK_SIMPLEX"
     collector = collector_type(diagram, data, params)
     collector.collect()
     for comp in data.children:
@@ -214,9 +216,9 @@ class InterfaceContextCollector(ExchangeCollector):
         obj: fa.AbstractFunction | fa.FunctionPort,
         boxes: dict[str, _elkjs.ELKInputChild],
     ) -> str:
-        owners: list[fa.AbstractFunction | cs.Component] = []
+        owners: list[common.GenericElement] = []
         assert self.right is not None and self.left is not None
-        root: cs.Component | None = None
+        root: _elkjs.ELKInputChild | None = None
         for uuid in generic.get_all_owners(obj):
             element = self.obj._model.by_uuid(uuid)
             if uuid in {self.right.id, self.left.id}:
@@ -228,7 +230,7 @@ class InterfaceContextCollector(ExchangeCollector):
         if root is None:
             raise ValueError(f"No root found for {obj._short_repr_()}")
 
-        owner_box: common.GenericElement = root
+        owner_box = root
         for owner in reversed(owners):
             if isinstance(owner, fa.FunctionPort):
                 if owner.uuid in (p.id for p in owner_box.ports):
@@ -251,6 +253,7 @@ class InterfaceContextCollector(ExchangeCollector):
         return root.id
 
     def add_interface(self) -> None:
+        """Add the ComponentExchange (interface) to the collected data."""
         ex_data = generic.ExchangeData(
             self.obj,
             self.data,
@@ -259,6 +262,9 @@ class InterfaceContextCollector(ExchangeCollector):
             is_hierarchical=False,
         )
         src, tgt = generic.exchange_data_collector(ex_data)
+        self.data.edges[-1].layoutOptions = copy.deepcopy(
+            _elkjs.EDGE_STRAIGHTENING_LAYOUT_OPTIONS
+        )
         assert self.right is not None
         assert self.left is not None
         self.left.ports.append(makers.make_port(src.uuid))

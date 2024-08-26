@@ -22,21 +22,21 @@ logger = logging.getLogger(__name__)
 
 SourceAndTarget = tuple[common.GenericElement, common.GenericElement]
 
-PHYSICAL_CONNECTOR_ATTR_NAMES = {"physical_ports"}
+PHYSICAL_CONNECTOR_ATTR_NAMES = ("physical_ports",)
 """Attribute of PhysicalComponents for receiving connections."""
-CONNECTOR_ATTR_NAMES = {"ports", "inputs", "outputs"}
+CONNECTOR_ATTR_NAMES = ("ports", "inputs", "outputs")
 """Attribute of GenericElements for receiving connections."""
-DIAGRAM_TYPE_TO_CONNECTOR_NAMES: dict[DT, set[str]] = {
-    DT.OAB: set(),
-    DT.OAIB: set(),
-    DT.OCB: set(),
-    DT.MCB: set(),
+DIAGRAM_TYPE_TO_CONNECTOR_NAMES: dict[DT, tuple[str, ...]] = {
+    DT.OAB: (),
+    DT.OAIB: (),
+    DT.OCB: (),
+    DT.MCB: (),
     DT.SAB: CONNECTOR_ATTR_NAMES,
     DT.SDFB: CONNECTOR_ATTR_NAMES,
     DT.LAB: CONNECTOR_ATTR_NAMES,
     DT.LDFB: CONNECTOR_ATTR_NAMES,
-    DT.PAB: CONNECTOR_ATTR_NAMES | PHYSICAL_CONNECTOR_ATTR_NAMES,
-    DT.PDFB: CONNECTOR_ATTR_NAMES | PHYSICAL_CONNECTOR_ATTR_NAMES,
+    DT.PAB: CONNECTOR_ATTR_NAMES + PHYSICAL_CONNECTOR_ATTR_NAMES,
+    DT.PDFB: CONNECTOR_ATTR_NAMES + PHYSICAL_CONNECTOR_ATTR_NAMES,
 }
 """Supported diagram types mapping to the attribute name of connectors."""
 MARKER_SIZE = 3
@@ -183,8 +183,8 @@ def collect_label(obj: common.GenericElement) -> str | None:
     """Return the label of a given object.
 
     The label usually comes from the `.name` attribute. Special handling
-    for [`interaction.AbstractCapabilityExtend`][capellambse.model.crosslayer.interaction.AbstractCapabilityExtend]
-    and [interaction.AbstractCapabilityInclude`][capellambse.model.crosslayer.interaction.AbstractCapabilityInclude].
+    for [`interaction.AbstractCapabilityExtend`][capellambse.metamodel.interaction.AbstractCapabilityExtend]
+    and [interaction.AbstractCapabilityInclude`][capellambse.metamodel.interaction.AbstractCapabilityInclude].
     """
     if isinstance(obj, interaction.AbstractCapabilityExtend):
         return "« e »"
@@ -254,7 +254,7 @@ def move_edges(
 
 def get_all_owners(obj: common.GenericElement) -> cabc.Iterator[str]:
     """Return the UUIDs from all owners of ``obj``."""
-    current = obj
+    current: common.GenericElement | None = obj
     while current is not None:
         yield current.uuid
         current = getattr(current, "owner", None)

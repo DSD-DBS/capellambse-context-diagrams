@@ -56,7 +56,6 @@ LAYOUT_OPTIONS: ImmutableLayoutOptions = {
     "hierarchyHandling": "INCLUDE_CHILDREN",
     "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
     "layered.nodePlacement.strategy": "BRANDES_KOEPF",
-    "layered.considerModelOrder.strategy": "NODES_AND_EDGES",
     "spacing.labelNode": "0.0",
 }
 """
@@ -85,8 +84,14 @@ RECT_PACKING_LAYOUT_OPTIONS: ImmutableLayoutOptions = {
     "widthApproximation.targetWidth": 1,  # width / height
     "elk.contentAlignment": "V_TOP H_CENTER",
 }
-LABEL_LAYOUT_OPTIONS = {"nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"}
+LABEL_LAYOUT_OPTIONS: LayoutOptions = {
+    "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+}
 """Options for labels to configure ELK layouting."""
+EDGE_STRAIGHTENING_LAYOUT_OPTIONS: LayoutOptions = {
+    "layered.priority.straightness": "10"
+}
+"""Options for increasing the edge straightness priority."""
 
 
 class BaseELKModel(pydantic.BaseModel):
@@ -354,7 +359,7 @@ def call_elkjs(elk_model: ELKInputData) -> ELKOutputData:
 
     Parameters
     ----------
-    elk_dict
+    elk_model
         The diagram data, sans layouting information
 
     Returns

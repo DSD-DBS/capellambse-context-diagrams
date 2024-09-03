@@ -69,7 +69,6 @@ class ExchangeItemRelationCollector:
             children=[],
             edges=[],
         )
-        self.left_boxes_n = 0
         self.global_boxes: dict[str, _elkjs.ELKInputChild] = {}
         self.classes: dict[str, information.Class] = {}
 
@@ -92,7 +91,6 @@ class ExchangeItemRelationCollector:
                 continue
             box = makers.make_box(item)
             parent_box.children.append(box)
-            self.left_boxes_n += 1
 
             for elem in item.elements:
                 if elem.abstract_type:

@@ -221,12 +221,14 @@ class ContextDiagram(m.AbstractDiagram):
     * slim_center_box — Minimal width for the center box, containing
       just the icon and the label. This is False if hierarchy was
       identified.
+    * display_port_labels — Display port labels on the diagram.
     """
 
     _display_symbols_as_boxes: bool
     _display_parent_relation: bool
     _display_derived_interfaces: bool
     _slim_center_box: bool
+    _display_port_labels: bool
 
     def __init__(
         self,
@@ -248,6 +250,7 @@ class ContextDiagram(m.AbstractDiagram):
             "display_parent_relation": False,
             "display_derived_interfaces": False,
             "slim_center_box": True,
+            "display_port_labels": False,
         } | default_render_parameters
 
         if standard_filter := STANDARD_FILTERS.get(class_):

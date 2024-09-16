@@ -186,9 +186,13 @@ class ContextProcessor:
             except AttributeError:
                 continue
 
-        self.centerbox.ports = [
-            makers.make_port(uuid) for uuid in {**inc_c, **out_c}
-        ]
+        for p in inc + out:
+            port = makers.make_port(p.uuid)
+            if self.diagram._display_port_labels:
+                port.labels = makers.make_label(p.name)
+            self.centerbox.ports.append(port)
+        self.centerbox.layoutOptions["portLabels.placement"] = "OUTSIDE"
+
         return (inc + out), ex_datas
 
     def _process_ports(self, stack_heights: dict[str, float | int]) -> None:
@@ -202,12 +206,17 @@ class ContextProcessor:
                 makers.PORT_PADDING
                 + (makers.PORT_SIZE + makers.PORT_PADDING) * len(local_ports),
             )
+            local_port_objs = []
+            for j in local_ports:
+                port = makers.make_port(j.uuid)
+                if self.diagram._display_port_labels:
+                    port.labels = makers.make_label(j.name)
+                local_port_objs.append(port)
+
             if box := self.global_boxes.get(owner.uuid):  # type: ignore[assignment]
                 if box is self.centerbox:
                     continue
-                box.ports.extend(
-                    [makers.make_port(j.uuid) for j in local_ports]
-                )
+                box.ports.extend(local_port_objs)
                 box.height += height
             else:
                 box = self._make_box(
@@ -215,7 +224,9 @@ class ContextProcessor:
                     height=height,
                     no_symbol=self.diagram._display_symbols_as_boxes,
                 )
-                box.ports = [makers.make_port(j.uuid) for j in local_ports]
+                box.ports = local_port_objs
+
+            box.layoutOptions["portLabels.placement"] = "OUTSIDE"
 
             if self.diagram._display_parent_relation:
                 current = owner

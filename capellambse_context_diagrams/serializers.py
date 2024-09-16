@@ -217,35 +217,34 @@ class DiagramSerializer:
             self._cache[uuid] = element
         elif child.type == "label":
             assert parent is not None
-            if not parent.port:
-                if parent.JSON_TYPE != "symbol":
-                    parent.styleoverrides.update(styleoverrides)
+            if parent.JSON_TYPE != "symbol":
+                parent.styleoverrides.update(styleoverrides)
 
-                if isinstance(parent, cdiagram.Box):
-                    attr_name = "floating_labels"
-                else:
-                    attr_name = "labels"
+            if isinstance(parent, cdiagram.Box):
+                attr_name = "floating_labels"
+            else:
+                attr_name = "labels"
 
-                if labels := getattr(parent, attr_name):
-                    label_box = labels[-1]
-                    label_box.label += " " + child.text
-                    label_box.size = cdiagram.Vector2D(
-                        max(label_box.size.x, child.size.width),
-                        label_box.size.y + child.size.height,
+            if labels := getattr(parent, attr_name):
+                label_box = labels[-1]
+                label_box.label += " " + child.text
+                label_box.size = cdiagram.Vector2D(
+                    max(label_box.size.x, child.size.width),
+                    label_box.size.y + child.size.height,
+                )
+                label_box.pos = cdiagram.Vector2D(
+                    min(label_box.pos.x, ref.x + child.position.x),
+                    label_box.pos.y,
+                )
+            else:
+                labels.append(
+                    cdiagram.Box(
+                        ref + (child.position.x, child.position.y),
+                        (child.size.width, child.size.height),
+                        label=child.text,
+                        styleoverrides=styleoverrides,
                     )
-                    label_box.pos = cdiagram.Vector2D(
-                        min(label_box.pos.x, ref.x + child.position.x),
-                        label_box.pos.y,
-                    )
-                else:
-                    labels.append(
-                        cdiagram.Box(
-                            ref + (child.position.x, child.position.y),
-                            (child.size.width, child.size.height),
-                            label=child.text,
-                            styleoverrides=styleoverrides,
-                        )
-                    )
+                )
 
             element = parent
         elif child.type == "junction":

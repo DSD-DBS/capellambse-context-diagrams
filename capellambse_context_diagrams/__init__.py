@@ -25,7 +25,7 @@ from importlib import metadata
 
 import capellambse.model as m
 from capellambse.diagram import COLORS, CSSdef, capstyle
-from capellambse.metamodel import fa, information, la, oa, pa, sa
+from capellambse.metamodel import cs, fa, information, la, oa, pa, sa
 from capellambse.model import DiagramType
 
 from . import _elkjs, context, styling
@@ -191,6 +191,17 @@ def register_interface_context() -> None:
                 pa.PhysicalComponent: DiagramType.PAB.value,
             },
             {"include_interface": True},
+        ),
+    )
+    m.set_accessor(
+        cs.PhysicalLink,
+        ATTR_NAME,
+        context.InterfaceContextAccessor(
+            {
+                pa.PhysicalComponentPkg: DiagramType.PAB.value,
+                pa.PhysicalComponent: DiagramType.PAB.value,
+            },
+            {"include_interface": True, "display_port_labels": True},
         ),
     )
 

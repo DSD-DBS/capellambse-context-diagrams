@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import collections.abc as cabc
 import copy
+import enum
 import json
 import logging
 import os
@@ -92,6 +93,17 @@ EDGE_STRAIGHTENING_LAYOUT_OPTIONS: LayoutOptions = {
     "layered.priority.straightness": "10"
 }
 """Options for increasing the edge straightness priority."""
+
+
+class PORT_LABEL_POSITION(enum.Enum):
+    """Position of port labels."""
+
+    OUTSIDE = enum.auto()
+    INSIDE = enum.auto()
+    NEXT_TO_PORT_IF_POSSIBLE = enum.auto()
+    ALWAYS_SAME_SIDE = enum.auto()
+    ALWAYS_OTHER_SAME_SIDE = enum.auto()
+    SPACE_EFFICIENT = enum.auto()
 
 
 class BaseELKModel(pydantic.BaseModel):

@@ -15,6 +15,7 @@ import typing as t
 from capellambse import diagram as cdiagram
 from capellambse import helpers
 from capellambse import model as m
+from capellambse.metamodel import cs
 
 from . import _elkjs, filters, serializers, styling
 from .collectors import (
@@ -358,6 +359,9 @@ class InterfaceContextDiagram(ContextDiagram):
       context diagram target: The interface ComponentExchange.
     * hide_functions — Boolean flag to enable white box view: Only
       displaying Components or Entities.
+    * display_port_labels — Display port labels on the diagram.
+    * port_label_position — Position of the port labels. See
+      [`PORT_LABEL_POSITION`][capellambse_context_diagrams.context._elkjs.PORT_LABEL_POSITION].
 
     In addition to all other render parameters of
     [`ContextDiagram`][capellambse_context_diagrams.context.ContextDiagram].
@@ -365,6 +369,8 @@ class InterfaceContextDiagram(ContextDiagram):
 
     _include_interface: bool
     _hide_functions: bool
+    _display_port_labels: bool
+    _port_label_position: str
 
     def __init__(
         self,
@@ -378,6 +384,8 @@ class InterfaceContextDiagram(ContextDiagram):
             "include_interface": False,
             "hide_functions": False,
             "display_symbols_as_boxes": True,
+            "display_port_labels": False,
+            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
         } | default_render_parameters
         super().__init__(
             class_,
@@ -396,8 +404,14 @@ class InterfaceContextDiagram(ContextDiagram):
         for param_name in self._default_render_parameters:
             setattr(self, f"_{param_name}", params.pop(param_name))
 
+        collector: t.Type[exchanges.ExchangeCollector]
+        if isinstance(self.target, cs.PhysicalLink):
+            collector = exchanges.PhysicalLinkContextCollector
+        else:
+            collector = exchanges.InterfaceContextCollector
+
         super_params["elkdata"] = exchanges.get_elkdata_for_exchanges(
-            self, exchanges.InterfaceContextCollector, params
+            self, collector, params
         )
         return super()._create_diagram(super_params)
 

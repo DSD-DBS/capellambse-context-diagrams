@@ -39,7 +39,7 @@ repos:
       - id: mypy
         args: [--follow-imports=silent]
         additional_dependencies:
-          - capellambse==0.6.5
+          - capellambse==0.6.6
           - mkdocs
           - mkdocs-gen-files
           - mkdocs-literate-nav

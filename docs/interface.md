@@ -8,20 +8,41 @@
 The data is collected by [get_elkdata_for_exchanges][capellambse_context_diagrams.collectors.exchanges.get_elkdata_for_exchanges] which is using the [`InterfaceContextCollector`][capellambse_context_diagrams.collectors.exchanges.InterfaceContextCollector] underneath.
 
 You can render an interface context view just with `context_diagram` on any
-[`fa.ComponentExchange`][capellambse.metamodel.fa.ComponentExchange]:
+of the following Model elements:
 
-``` py
-import capellambse
+-   ??? example "[`fa.ComponentExchange`][capellambse.metamodel.fa.ComponentExchange]:"
 
-model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
-diag = model.by_uuid("3ef23099-ce9a-4f7d-812f-935f47e7938d").context_diagram
-diag.render("svgdiagram").save(pretty=True)
-```
+          ``` py
+          import capellambse
 
-<figure markdown>
-<img src="../assets/images/Interface Context of Left to right.svg" width="1000000">
-<figcaption>Interface context diagram of `Left to right` Logical ComponentExchange with type [LAB]</figcaption>
-</figure>
+          model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+          diag = model.by_uuid("3ef23099-ce9a-4f7d-812f-935f47e7938d").context_diagram
+          diag.render("svgdiagram").save(pretty=True)
+          ```
+
+          <figure markdown>
+              <img src="../assets/images/Interface Context of Left to right.svg" width="1000000">
+              <figcaption>Interface context diagram of `Left to right` Logical ComponentExchange with type [LAB]</figcaption>
+          </figure>
+
+-   ??? example "[`cs.PhysicalLink`][capellambse.metamodel.cs.PhysicalLink]:"
+
+          Per default port labels are enabled with port label position set to
+          ``OUTSIDE``. See [`PORT_LABEL_POSITION`][capellambse_context_diagrams._elkjs.PORT_LABEL_POSITION] for more information about the available options
+          for port label positioning.
+
+          ``` py
+          import capellambse
+
+          model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+          diag = model.by_uuid("da949a89-23c0-4487-88e1-f14b33326570").context_diagram
+          diag.render("svgdiagram").save(pretty=True)
+          ```
+
+          <figure markdown>
+              <img src="../assets/images/Interface Context of Cable 1.svg" width="1000000">
+              <figcaption>Interface context diagram of `Cable 1` PhysicalLink with type [PAB]</figcaption>
+          </figure>
 
 ## Exclude the interface itself in the context
 ??? example "Exclude the interface in the Interface Context"

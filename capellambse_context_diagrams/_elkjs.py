@@ -96,7 +96,24 @@ EDGE_STRAIGHTENING_LAYOUT_OPTIONS: LayoutOptions = {
 
 
 class PORT_LABEL_POSITION(enum.Enum):
-    """Position of port labels."""
+    """Position of port labels.
+
+    Attributes
+    ----------
+    OUTSIDE
+        The label is placed outside the port.
+    INSIDE
+        The label is placed inside the port owner box.
+    NEXT_TO_PORT_IF_POSSIBLE
+        The label is placed next to the port if space allows.
+    ALWAYS_SAME_SIDE
+        The label is always placed on the same side of the port.
+    ALWAYS_OTHER_SAME_SIDE
+        The label is always placed on the opposite side, but on the same
+        axis.
+    SPACE_EFFICIENT
+        The label is positioned in the most space-efficient location.
+    """
 
     OUTSIDE = enum.auto()
     INSIDE = enum.auto()

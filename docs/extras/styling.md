@@ -147,6 +147,6 @@ The `display_port_labels` render parameter allows you to display the port labels
     diagram.save(pretty=True)
     ```
     <figure markdown>
-        <img src="assets/images/Context of Hierarchy display_port_labels.svg" width="1000000">
+        <img src="../../assets/images/Context of Hierarchy display_port_labels.svg" width="1000000">
         <figcaption>Context diagram of Hierarchy LogicalComponenet with type [LAB] display_port_labels</figcaption>
     </figure>

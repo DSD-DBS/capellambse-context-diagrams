@@ -5,14 +5,17 @@ import capellambse
 import pytest
 
 TEST_INTERFACE_UUID = "2f8ed849-fbda-4902-82ec-cbf8104ae686"
+TEST_PA_INTERFACE_UUID = "25f46b82-1bb8-495a-b6bc-3ad086aad02e"
+TEST_CABLE_UUID = "da949a89-23c0-4487-88e1-f14b33326570"
 
 
 @pytest.mark.parametrize(
     "uuid",
     [
-        # pytest.param("3c9764aa-4981-44ef-8463-87a053016635", id="OA"),
         pytest.param("86a1afc2-b7fd-4023-bbd5-ab44f5dc2c28", id="SA"),
         pytest.param("3ef23099-ce9a-4f7d-812f-935f47e7938d", id="LA"),
+        pytest.param(TEST_PA_INTERFACE_UUID, id="PA - ComponentExchange"),
+        pytest.param(TEST_CABLE_UUID, id="PA - PhysicalLink"),
     ],
 )
 def test_interface_diagrams_get_rendered(
@@ -77,3 +80,27 @@ def test_interface_diagram_with_nested_functions(
     diag = obj.context_diagram.render(None)
 
     assert {b.uuid for b in diag[fnc.uuid].children} >= expected_uuids
+
+
+@pytest.mark.parametrize(
+    "port_label_position",
+    [
+        "OUTSIDE",
+        "INSIDE",
+        "NEXT_TO_PORT_IF_POSSIBLE",
+        "ALWAYS_SAME_SIDE",
+        "ALWAYS_OTHER_SAME_SIDE",
+        "SPACE_EFFICIENT",
+    ],
+)
+def test_interface_diagram_with_label_positions(
+    model: capellambse.MelodyModel, port_label_position: str
+) -> None:
+    obj = model.by_uuid(TEST_CABLE_UUID)
+
+    diag = obj.context_diagram.render(
+        None, port_label_position=port_label_position
+    )
+
+    assert diag["f3722f0a-c7de-421d-b4aa-fea6f5278672"]
+    assert diag["682edffb-6b44-48c0-826b-32eb217eb81c"]

@@ -64,9 +64,7 @@ class DiagramSerializer:
         self._junctions: dict[str, EdgeContext] = {}
 
     def make_diagram(
-        self,
-        data: _elkjs.ELKOutputData,
-        **kwargs: dict[str, t.Any],
+        self, data: _elkjs.ELKOutputData, **kwargs: t.Any
     ) -> cdiagram.Diagram:
         """Transform a layouted diagram into a `diagram.Diagram`.
 
@@ -224,6 +222,13 @@ class DiagramSerializer:
                 attr_name = "floating_labels"
             else:
                 attr_name = "labels"
+
+            if (
+                parent.port
+                and self._diagram._port_label_position
+                == _elkjs.PORT_LABEL_POSITION.OUTSIDE.name
+            ):
+                bring_labels_closer_to_port(child)
 
             if labels := getattr(parent, attr_name):
                 label_box = labels[-1]
@@ -394,6 +399,15 @@ def reverse_edge_refpoints(child: _elkjs.ELKOutputEdge) -> None:
     child.targetId = source
     child.sourceId = target
     child.routingPoints = child.routingPoints[::-1]
+
+
+def bring_labels_closer_to_port(child: _elkjs.ELKOutputLabel) -> None:
+    """Move labels closer to the port."""
+    if child.position.x > 1:
+        child.position.x = -5
+
+    if child.position.x < -11:
+        child.position.x += 18
 
 
 EDGE_HANDLER: dict[str | None, cabc.Callable[[_elkjs.ELKOutputEdge], None]] = {

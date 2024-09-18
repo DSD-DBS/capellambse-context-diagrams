@@ -13,7 +13,7 @@ import capellambse.model as m
 from capellambse.metamodel import cs, fa
 from capellambse.model import DiagramType as DT
 
-from .. import _elkjs, context
+from .. import _elkjs, context, errors
 from . import generic, makers
 
 logger = logging.getLogger(__name__)
@@ -305,6 +305,104 @@ class InterfaceContextCollector(ExchangeCollector):
                 )
         except AttributeError:
             pass
+
+
+class PhysicalLinkContextCollector(ExchangeCollector):
+    """Collect necessary
+    [`_elkjs.ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData]
+    for building the ``PhysicalLink`` context.
+    """
+
+    left: _elkjs.ELKInputChild | None
+    """Left partner of the interface."""
+    right: _elkjs.ELKInputChild | None
+    """Right partner of the interface."""
+
+    def __init__(
+        self,
+        diagram: context.InterfaceContextDiagram,
+        data: _elkjs.ELKInputData,
+        params: dict[str, t.Any],
+    ) -> None:
+        self.left: _elkjs.ELKInputChild | None = None
+        self.right: _elkjs.ELKInputChild | None = None
+
+        super().__init__(diagram, data, params)
+
+    def get_owner_savely(self, attr_getter: t.Callable) -> m.ModelElement:
+        try:
+            owner = attr_getter(self.obj)
+            return owner
+        except RuntimeError:
+            # pylint: disable-next=raise-missing-from
+            raise errors.CapellambseError(
+                f"Failed to collect source of '{self.obj.name}'"
+            )
+        except AttributeError:
+            assert owner is None
+            # pylint: disable-next=raise-missing-from
+            raise errors.CapellambseError(
+                f"Port has no owner: '{self.obj.name}'"
+            )
+
+    def get_left_and_right(self) -> None:
+        source = self.get_owner_savely(self.get_source)
+        target = self.get_owner_savely(self.get_target)
+        self.left = makers.make_box(source, no_symbol=True)
+        self.right = makers.make_box(target, no_symbol=True)
+        self.data.children.extend([self.left, self.right])
+
+    def add_interface(self) -> None:
+        """Add the ComponentExchange (interface) to the collected data."""
+        ex_data = generic.ExchangeData(
+            self.obj,
+            self.data,
+            self.diagram.filters,
+            self.params,
+            is_hierarchical=False,
+        )
+        src, tgt = generic.exchange_data_collector(ex_data)
+        self.data.edges[-1].layoutOptions = copy.deepcopy(
+            _elkjs.EDGE_STRAIGHTENING_LAYOUT_OPTIONS
+        )
+        assert self.right is not None
+        assert self.left is not None
+        left_port, right_port = self.get_source_and_target_ports(src, tgt)
+        self.left.ports.append(left_port)
+        self.right.ports.append(right_port)
+
+    def get_source_and_target_ports(
+        self, src: m.ModelElement, tgt: m.ModelElement
+    ) -> tuple[_elkjs.ELKInputPort, _elkjs.ELKInputPort]:
+        """Return the source and target ports of the interface."""
+        left_port = makers.make_port(src.uuid)
+        right_port = makers.make_port(tgt.uuid)
+        if self.diagram._display_port_labels:
+            left_port.labels = makers.make_label(src.name)
+            right_port.labels = makers.make_label(tgt.name)
+
+            _plp = self.diagram._port_label_position
+            if not (plp := getattr(_elkjs.PORT_LABEL_POSITION, _plp, None)):
+                raise ValueError(f"Invalid port label position '{_plp}'.")
+
+            assert isinstance(plp, _elkjs.PORT_LABEL_POSITION)
+            port_label_position = plp.name
+
+            assert self.left is not None
+            self.left.layoutOptions["portLabels.placement"] = (
+                port_label_position
+            )
+            assert self.right is not None
+            self.right.layoutOptions["portLabels.placement"] = (
+                port_label_position
+            )
+        return left_port, right_port
+
+    def collect(self) -> None:
+        """Collect all allocated `PhysicalLink`s in the context."""
+        self.get_left_and_right()
+        if self.diagram._include_interface:
+            self.add_interface()
 
 
 class FunctionalContextCollector(ExchangeCollector):

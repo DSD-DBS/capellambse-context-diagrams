@@ -4783,6 +4783,12 @@ The predator is far away</bodies>
               name="Node Software" abstractType="#2de65884-8c89-4c55-8941-4aa1a07b8d86"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="b935d1e4-285c-4dc0-b982-4fafa031a3cd"
               name="Infotainment System" abstractType="#643069e4-aad0-4477-832d-d11913d87730"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="583931bc-2449-4120-aceb-13b8249bc320"
+              name="PC 22" abstractType="#3b232b37-2aad-4753-a520-9f9369ef20ba"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="9cc3c38f-567e-4d21-93ca-a06ba31ba367"
+              name="PC 23" abstractType="#76219da8-157b-429c-87fb-e1cef944ae3d"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="d09f949a-8b1d-4a6d-b4f6-f2829332b190"
+              name="PC 24" abstractType="#d17f82db-f394-4454-beee-b48f5162d180"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="7aaa4d4d-741f-4b58-a782-2dce998ccf0e" targetElement="#0d2edb8f-fa34-4e73-89ec-fb9a63001440"
               sourceElement="#b9f9a83c-fb02-44f7-9123-9d86326de5f1"/>
@@ -4812,6 +4818,12 @@ The predator is far away</bodies>
           </ownedPhysicalLinks>
           <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
               id="dadc2348-c409-41e3-a017-b0c77cc5376b" name="Cable 2" linkEnds="#3ae9dd17-913d-4ca7-aff8-b241e167926b #62659f95-965b-4cf0-ae3a-89815c6e7b11"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="b79c4fb0-cf3b-4161-8ca7-7daf7e39f53d" name="PL 3" linkEnds="#3ae9dd17-913d-4ca7-aff8-b241e167926b #ed650208-c575-43fb-aa69-aa56ae7f3829"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="0386b680-150e-451a-aae1-91c82f3baedc" name="PL 4" linkEnds="#3ae9dd17-913d-4ca7-aff8-b241e167926b #eb33f35f-1dbf-42a6-af7f-57edc71fcb57"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="520cd4a2-274c-426e-b799-75058f05ec10" name="PL 5" linkEnds="#3ae9dd17-913d-4ca7-aff8-b241e167926b #0ce8c144-a2d8-4a60-bbe1-07bd8c08718a"/>
           <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
               id="8a6d68c8-ac3d-4654-a07e-ada7adeed09f" name="PC 1" nature="NODE"/>
           <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
@@ -5163,7 +5175,7 @@ The predator is far away</bodies>
           <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
               id="d5259b69-1473-4b00-bb41-b94eb44abde5" name="Random Node" nature="NODE">
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
-                id="682edffb-6b44-48c0-826b-32eb217eb81c" name="PP 1"/>
+                id="682edffb-6b44-48c0-826b-32eb217eb81c" name="Cable 1 Target"/>
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
                 id="3ae9dd17-913d-4ca7-aff8-b241e167926b" name="PP 2"/>
           </ownedPhysicalComponents>
@@ -5190,6 +5202,21 @@ The predator is far away</bodies>
             <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
                 id="3438195c-9a99-4328-8c56-6f6a2cb37cb7" targetElement="#02a8c8c8-5d86-4559-81da-76c5d37d5e74"
                 sourceElement="#643069e4-aad0-4477-832d-d11913d87730"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="3b232b37-2aad-4753-a520-9f9369ef20ba" name="PC 22" nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="ed650208-c575-43fb-aa69-aa56ae7f3829" name="PP 1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="76219da8-157b-429c-87fb-e1cef944ae3d" name="PC 23" nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="eb33f35f-1dbf-42a6-af7f-57edc71fcb57" name="PP 1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="d17f82db-f394-4454-beee-b48f5162d180" name="PC 24" nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="0ce8c144-a2d8-4a60-bbe1-07bd8c08718a" name="PP 1"/>
           </ownedPhysicalComponents>
         </ownedPhysicalComponents>
         <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
@@ -5227,7 +5254,7 @@ The predator is far away</bodies>
               id="fdb34c92-7c49-491d-bf11-dd139930786e" name="Physical Component"
               nature="NODE">
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
-                id="f3722f0a-c7de-421d-b4aa-fea6f5278672" name="PP 1"/>
+                id="f3722f0a-c7de-421d-b4aa-fea6f5278672" name="Cable 1 Source"/>
           </ownedPhysicalComponents>
         </ownedPhysicalComponents>
       </ownedPhysicalComponentPkg>

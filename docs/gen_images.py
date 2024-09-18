@@ -34,6 +34,7 @@ general_context_diagram_uuids: dict[str, str] = {
 interface_context_diagram_uuids: dict[str, str] = {
     "Left to right": "3ef23099-ce9a-4f7d-812f-935f47e7938d",
     "Interface": "2f8ed849-fbda-4902-82ec-cbf8104ae686",
+    "Cable 1": "da949a89-23c0-4487-88e1-f14b33326570",
 }
 hierarchy_context = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
 diagram_uuids = general_context_diagram_uuids | interface_context_diagram_uuids

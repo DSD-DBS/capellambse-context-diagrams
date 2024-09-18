@@ -75,6 +75,19 @@ def generate_no_edgelabel_image(uuid: str) -> None:
         )
 
 
+def generate_display_port_labels_image(uuid: str) -> None:
+    cdiagram: context.ContextDiagram = model.by_uuid(uuid).context_diagram
+    cdiagram.invalidate_cache()
+    filename = " ".join((str(dest / cdiagram.name), "display_port_labels"))
+    with mkdocs_gen_files.open(f"{filename}.svg", "w") as fd:
+        print(
+            cdiagram.render(
+                "svg", display_port_labels=True, transparent_background=False
+            ),
+            file=fd,
+        )
+
+
 def generate_filter_image(
     uuid: str, filter_name: str, suffix: str = ""
 ) -> None:
@@ -198,6 +211,7 @@ generate_symbol_images()
 
 wizard_uuid = general_context_diagram_uuids["educate Wizards"]
 generate_no_edgelabel_image(wizard_uuid)
+generate_display_port_labels_image(hierarchy_context)
 
 lost_uuid = general_context_diagram_uuids["Lost"]
 generate_filter_image(lost_uuid, filters.EX_ITEMS, "ex")

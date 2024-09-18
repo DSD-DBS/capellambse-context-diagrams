@@ -131,3 +131,22 @@ Style your diagram elements ([ElkChildType][capellambse_context_diagrams.seriali
         <img src="../../assets/images/Context of Lost red junction.svg" width="1000000">
         <figcaption>Context diagram of Lost SystemFunction with junction point styling</figcaption>
     </figure>
+
+# Display Port Labels
+
+The `display_port_labels` render parameter allows you to display the port labels and `port_label_position` allows you to set the position of the port labels.
+
+??? example display port labels for "Hierarchical diagram"
+
+    ``` py
+    import capellambse
+
+    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+    obj = model.by_uuid("16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb")
+    diagram = obj.context_diagram.render("svgdiagram", display_port_labels=True)
+    diagram.save(pretty=True)
+    ```
+    <figure markdown>
+        <img src="assets/images/Context of Hierarchy display_port_labels.svg" width="1000000">
+        <figcaption>Context diagram of Hierarchy LogicalComponenet with type [LAB] display_port_labels</figcaption>
+    </figure>

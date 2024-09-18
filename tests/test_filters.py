@@ -6,9 +6,9 @@ from __future__ import annotations
 import re
 import typing as t
 
+import capellambse.metamodel as mm
 import pytest
 from capellambse import MelodyModel, diagram
-from capellambse.model import crosslayer
 
 from capellambse_context_diagrams import context, filters
 
@@ -20,9 +20,7 @@ CAP_EXPLOIT = "4513c8cd-b94b-4bde-bd00-4c18aaf600ff"
 FNC_UUID = "a5642060-c9cc-4d49-af09-defaa3024bae"
 INTERF_UUID = "9cbdd233-aff5-47dd-9bef-9be1277c77c3"
 
-Types = list[
-    t.Union[crosslayer.fa.FunctionalExchange, crosslayer.fa.ComponentExchange]
-]
+Types = list[t.Union[mm.fa.FunctionalExchange, mm.fa.ComponentExchange]]
 
 
 @pytest.mark.parametrize(
@@ -58,10 +56,7 @@ def start_filter_apply_test(
         for elt in diag.nodes
         if isinstance(
             elt,
-            (
-                crosslayer.fa.FunctionalExchange,
-                crosslayer.fa.ComponentExchange,
-            ),
+            (mm.fa.FunctionalExchange, mm.fa.ComponentExchange),
         )
     ]
     return edges, diag.render(None, **render_params)

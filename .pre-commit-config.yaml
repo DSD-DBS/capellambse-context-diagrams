@@ -37,6 +37,15 @@ repos:
     rev: v1.11.1
     hooks:
       - id: mypy
+        args: [--follow-imports=silent]
+        additional_dependencies:
+          - capellambse==0.6.6
+          - mkdocs
+          - mkdocs-gen-files
+          - mkdocs-literate-nav
+          - pydantic==2.7.3
+          - pytest
+          - types-setuptools
   - repo: https://github.com/Lucas-C/pre-commit-hooks
     rev: v1.5.5
     hooks:

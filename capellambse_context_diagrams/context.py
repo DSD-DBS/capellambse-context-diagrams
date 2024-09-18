@@ -14,7 +14,7 @@ import typing as t
 
 from capellambse import diagram as cdiagram
 from capellambse import helpers
-from capellambse.model import common, diagram, modeltypes
+from capellambse import model as m
 
 from . import _elkjs, filters, serializers, styling
 from .collectors import (
@@ -37,7 +37,7 @@ STANDARD_STYLES = {
 }
 
 
-class ContextAccessor(common.Accessor):
+class ContextAccessor(m.Accessor):
     """Provides access to the context diagrams."""
 
     def __init__(
@@ -49,29 +49,23 @@ class ContextAccessor(common.Accessor):
 
     @t.overload
     def __get__(self, obj: None, objtype: type[t.Any]) -> ContextAccessor: ...
-
     @t.overload
     def __get__(
-        self,
-        obj: common.T,
-        objtype: type[common.T] | None = None,
+        self, obj: m.T, objtype: type[m.T] | None = None
     ) -> ContextDiagram: ...
-
     def __get__(
-        self,
-        obj: common.T | None,
-        objtype: type | None = None,
-    ) -> common.Accessor | ContextDiagram:
+        self, obj: m.T | None, objtype: type | None = None
+    ) -> m.Accessor | ContextDiagram:
         """Make a ContextDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
             return self
-        assert isinstance(obj, common.GenericElement)
+        assert isinstance(obj, m.ModelElement)
         return self._get(obj, ContextDiagram)
 
     def _get(
-        self, obj: common.GenericElement, diagram_class: type[ContextDiagram]
-    ) -> common.Accessor | ContextDiagram:
+        self, obj: m.ModelElement, diagram_class: type[ContextDiagram]
+    ) -> m.Accessor | ContextDiagram:
         new_diagram = diagram_class(
             self._dgcls,
             obj,
@@ -86,23 +80,21 @@ class InterfaceContextAccessor(ContextAccessor):
 
     def __init__(  # pylint: disable=super-init-not-called
         self,
-        diagclass: dict[type[common.GenericElement], str],
+        diagclass: dict[type[m.ModelElement], str],
         render_params: dict[str, t.Any] | None = None,
     ) -> None:
         self.__dgclasses = diagclass
         self._default_render_params = render_params or {}
 
     def __get__(  # type: ignore
-        self,
-        obj: common.T | None,
-        objtype: type | None = None,
-    ) -> common.Accessor | ContextDiagram:
+        self, obj: m.T | None, objtype: type | None = None
+    ) -> m.Accessor | ContextDiagram:
         """Make a ContextDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
             return self
-        assert isinstance(obj, common.GenericElement)
-        assert isinstance(obj.parent, common.GenericElement)
+        assert isinstance(obj, m.ModelElement)
+        assert isinstance(obj.parent, m.ModelElement)
         self._dgcls = self.__dgclasses[obj.parent.__class__]
         return self._get(obj, InterfaceContextDiagram)
 
@@ -110,14 +102,14 @@ class InterfaceContextAccessor(ContextAccessor):
 class FunctionalContextAccessor(ContextAccessor):
     def __get__(  # type: ignore
         self,
-        obj: common.T | None,
+        obj: m.T | None,
         objtype: type | None = None,
-    ) -> common.Accessor | ContextDiagram:
+    ) -> m.Accessor | ContextDiagram:
         """Make a ContextDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
             return self
-        assert isinstance(obj, common.GenericElement)
+        assert isinstance(obj, m.ModelElement)
         return self._get(obj, FunctionalContextDiagram)
 
 
@@ -133,14 +125,14 @@ class ClassTreeAccessor(ContextAccessor):
 
     def __get__(  # type: ignore
         self,
-        obj: common.T | None,
+        obj: m.T | None,
         objtype: type | None = None,
-    ) -> common.Accessor | ContextDiagram:
+    ) -> m.Accessor | ContextDiagram:
         """Make a ClassTreeDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
             return self
-        assert isinstance(obj, common.GenericElement)
+        assert isinstance(obj, m.ModelElement)
         return self._get(obj, ClassTreeDiagram)
 
 
@@ -156,14 +148,14 @@ class RealizationViewContextAccessor(ContextAccessor):
 
     def __get__(  # type: ignore
         self,
-        obj: common.T | None,
+        obj: m.T | None,
         objtype: type | None = None,
-    ) -> common.Accessor | ContextDiagram:
+    ) -> m.Accessor | ContextDiagram:
         """Make a RealizationViewDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
             return self
-        assert isinstance(obj, common.GenericElement)
+        assert isinstance(obj, m.ModelElement)
         return self._get(obj, RealizationViewDiagram)
 
 
@@ -177,24 +169,24 @@ class DataFlowAccessor(ContextAccessor):
 
     def __get__(  # type: ignore
         self,
-        obj: common.T | None,
+        obj: m.T | None,
         objtype: type | None = None,
-    ) -> common.Accessor | ContextDiagram:
+    ) -> m.Accessor | ContextDiagram:
         """Make a DataFlowViewDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
             return self
-        assert isinstance(obj, common.GenericElement)
+        assert isinstance(obj, m.ModelElement)
         return self._get(obj, DataFlowViewDiagram)
 
 
-class ContextDiagram(diagram.AbstractDiagram):
+class ContextDiagram(m.AbstractDiagram):
     """An automatically generated context diagram.
 
     Attributes
     ----------
     target
-        The `common.GenericElement` from which the context is collected
+        The `m.ModelElement` from which the context is collected
         from.
     styleclass
         The diagram class (for e.g. [LAB]).
@@ -203,11 +195,11 @@ class ContextDiagram(diagram.AbstractDiagram):
         `styling.Styler` functions as values. An example is given by:
         [`styling.BLUE_ACTOR_FNCS`][capellambse_context_diagrams.styling.BLUE_ACTOR_FNCS]
     serializer
-        The serializer builds a `diagram.Diagram` via
+        The serializer builds a `Diagram` via
         [`serializers.DiagramSerializer.make_diagram`][capellambse_context_diagrams.serializers.DiagramSerializer.make_diagram]
         by converting every
         [`_elkjs.ELKOutputChild`][capellambse_context_diagrams._elkjs.ELKOutputChild]
-        into a `diagram.Box`, `diagram.Edge` or `diagram.Circle`.
+        into a `Box`, `Edge` or `Circle`.
     filters
         A list of filter names that are applied during collection of
         context. Currently this is only done in
@@ -239,13 +231,13 @@ class ContextDiagram(diagram.AbstractDiagram):
     def __init__(
         self,
         class_: str,
-        obj: common.GenericElement,
+        obj: m.ModelElement,
         *,
         render_styles: dict[str, styling.Styler] | None = None,
         default_render_parameters: dict[str, t.Any],
     ) -> None:
         super().__init__(obj._model)
-        self.target = obj
+        self.target = obj  # type: ignore[misc]
         self.styleclass = class_
 
         self.render_styles = render_styles or {}
@@ -274,20 +266,20 @@ class ContextDiagram(diagram.AbstractDiagram):
         return f"Context of {self.target.name.replace('/', '- or -')}"
 
     @property
-    def type(self) -> modeltypes.DiagramType:
+    def type(self) -> m.DiagramType:
         """Return the type of this diagram."""
         try:
-            return modeltypes.DiagramType(self.styleclass)
+            return m.DiagramType(self.styleclass)
         except ValueError:  # pragma: no cover
             logger.warning("Unknown diagram type %r", self.styleclass)
-            return modeltypes.DiagramType.UNKNOWN
+            return m.DiagramType.UNKNOWN
 
     class FilterSet(cabc.MutableSet):
         """A set that stores filter_names and invalidates diagram cache."""
 
         def __init__(
             self,
-            diagram: diagram.AbstractDiagram,  # pylint: disable=redefined-outer-name
+            diagram: m.AbstractDiagram,
         ) -> None:
             self._set: set[str] = set()
             self._diagram = diagram
@@ -374,7 +366,7 @@ class InterfaceContextDiagram(ContextDiagram):
     def __init__(
         self,
         class_: str,
-        obj: common.GenericElement,
+        obj: m.ModelElement,
         *,
         render_styles: dict[str, styling.Styler] | None = None,
         default_render_parameters: dict[str, t.Any],
@@ -418,7 +410,7 @@ class FunctionalContextDiagram(ContextDiagram):
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         params["elkdata"] = exchanges.get_elkdata_for_exchanges(
-            self, exchanges.FunctionalContextCollector, params  # type: ignore
+            self, exchanges.FunctionalContextCollector, params
         )
         return super()._create_diagram(params)
 
@@ -434,7 +426,7 @@ class ClassTreeDiagram(ContextDiagram):
     def __init__(
         self,
         class_: str,
-        obj: common.GenericElement,
+        obj: m.ModelElement,
         *,
         render_styles: dict[str, styling.Styler] | None = None,
         default_render_parameters: dict[str, t.Any],
@@ -484,6 +476,7 @@ class ClassTreeDiagram(ContextDiagram):
         data, legend = tree_view.collector(self, params)
         params["elkdata"] = data
         class_diagram = super()._create_diagram(params)
+        assert class_diagram.viewport is not None
         width, height = class_diagram.viewport.size
         axis: t.Literal["x", "y"]
         if params["elk.direction"] in {"DOWN", "UP"}:
@@ -553,7 +546,7 @@ class RealizationViewDiagram(ContextDiagram):
     def __init__(
         self,
         class_: str,
-        obj: common.GenericElement,
+        obj: m.ModelElement,
         *,
         render_styles: dict[str, styling.Styler] | None = None,
         default_render_parameters: dict[str, t.Any],
@@ -645,7 +638,7 @@ class DataFlowViewDiagram(ContextDiagram):
     def __init__(
         self,
         class_: str,
-        obj: common.GenericElement,
+        obj: m.ModelElement,
         *,
         render_styles: dict[str, styling.Styler] | None = None,
         default_render_parameters: dict[str, t.Any],

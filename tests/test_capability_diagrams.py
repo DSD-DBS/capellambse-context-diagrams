@@ -2,13 +2,13 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import capellambse
+import capellambse.metamodel as mm
 import pytest
-from capellambse.model.layers import ctx, oa
 
 # pylint: disable-next=relative-beyond-top-level, useless-suppression
 from .conftest import SYSTEM_ANALYSIS_PARAMS  # type: ignore[import]
 
-TEST_TYPES = (oa.OperationalCapability, ctx.Capability, ctx.Mission)
+TEST_TYPES = (mm.oa.OperationalCapability, mm.sa.Capability, mm.sa.Mission)
 
 
 @pytest.mark.parametrize("uuid", SYSTEM_ANALYSIS_PARAMS)

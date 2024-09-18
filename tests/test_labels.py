@@ -13,10 +13,9 @@ from capellambse_context_diagrams.collectors import makers
         pytest.param(
             "d817767f-68b7-49a5-aa47-13419d41df0a",
             [
-                "Really long label that",
-                "needs wrapping else",
-                "its parent box is also",
-                "very long!",
+                "Really long label that needs",
+                "wrapping else its parent box is",
+                "also very long!",
             ],
             id="LogicalFunction",
         ),
@@ -29,4 +28,5 @@ def test_context_diagrams(
 
     labels = makers.make_label(obj.name, max_width=makers.MAX_LABEL_WIDTH)
 
-    assert [label.text for label in labels] == expected_labels
+    actual = [label.text for label in labels]
+    assert actual == expected_labels

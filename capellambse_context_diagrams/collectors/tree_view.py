@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 """This submodule defines the collector for the Class-Tree diagram."""
+
 from __future__ import annotations
 
 import collections.abc as cabc
@@ -211,13 +212,11 @@ def process_property(
     """Process a single property for class information."""
     prop = property.prop
     if not prop.type:
-        logger.warning(
-            "Property without abstract type found: %r", prop._short_repr_()
-        )
+        logger.debug("Ignoring property without type: %s", prop._short_repr_())
         return
 
     if not prop.type.xtype.endswith("Class") or prop.type.is_primitive:
-        logger.debug("Ignoring non-class property: %r", prop._short_repr_())
+        logger.debug("Ignoring non-class property: %s", prop._short_repr_())
         return
 
     if (
@@ -411,13 +410,10 @@ def _get_all_non_edge_properties(
 
 
 def _get_property_text(prop: information.Property) -> str:
-    text = prop.name
     if prop.type is not None:
         text = f"{prop.name}: {prop.type.name}"
     else:
-        logger.warning(
-            "Property without abstract type found: %r", prop._short_repr_()
-        )
+        text = f"{prop.name}: <untyped>"
 
     min_card = getattr(prop.min_card, "value", "1")
     max_card = getattr(prop.max_card, "value", "1")

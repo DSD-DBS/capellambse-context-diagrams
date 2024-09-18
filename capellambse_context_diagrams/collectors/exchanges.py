@@ -13,7 +13,7 @@ import capellambse.model as m
 from capellambse.metamodel import cs, fa
 from capellambse.model import DiagramType as DT
 
-from .. import _elkjs, context
+from .. import _elkjs, context, errors
 from . import generic, makers
 
 logger = logging.getLogger(__name__)
@@ -329,9 +329,27 @@ class PhysicalLinkContextCollector(ExchangeCollector):
 
         super().__init__(diagram, data, params)
 
+    def get_owner_savely(self, attr_getter: t.Callable) -> m.ModelElement:
+        try:
+            owner = attr_getter(self.obj)
+            return owner
+        except RuntimeError:
+            # pylint: disable-next=raise-missing-from
+            raise errors.CapellambseError(
+                f"Failed to collect source of '{self.obj.name}'"
+            )
+        except AttributeError:
+            assert owner is None
+            # pylint: disable-next=raise-missing-from
+            raise errors.CapellambseError(
+                f"Port has no owner: '{self.obj.name}'"
+            )
+
     def get_left_and_right(self) -> None:
-        self.left = makers.make_box(self.get_source(self.obj), no_symbol=True)
-        self.right = makers.make_box(self.get_target(self.obj), no_symbol=True)
+        source = self.get_owner_savely(self.get_source)
+        target = self.get_owner_savely(self.get_target)
+        self.left = makers.make_box(source, no_symbol=True)
+        self.right = makers.make_box(target, no_symbol=True)
         self.data.children.extend([self.left, self.right])
 
     def add_interface(self) -> None:

@@ -64,9 +64,7 @@ class DiagramSerializer:
         self._junctions: dict[str, EdgeContext] = {}
 
     def make_diagram(
-        self,
-        data: _elkjs.ELKOutputData,
-        **kwargs: dict[str, t.Any],
+        self, data: _elkjs.ELKOutputData, **kwargs: t.Any
     ) -> cdiagram.Diagram:
         """Transform a layouted diagram into a `diagram.Diagram`.
 

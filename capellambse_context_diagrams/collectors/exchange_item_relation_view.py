@@ -16,27 +16,15 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
     "algorithm": "layered",
-    "layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
+    "elk.direction": "RIGHT",
+    "layered.nodePlacement.strategy": "LINEAR_SEGMENTS",
+    "edgeStraightening": "NONE",
     "spacing.labelNode": "0.0",
-    "nodeSize.constraints": "NODE_LABELS",
-    "aspectRatio": 1000,
-    "layered.considerModelOrder.strategy": "PREFER_NODES",
-    "layered.considerModelOrder.components": "MODEL_ORDER",
-    "edgeRouting": "ORTHOGONAL",
-}
-
-DEFAULT_EDGE_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
-    "spacing.edgeLabel": "0.0",
-    "layered.edgeLabels.sideSelection": "SMART_DOWN",
-}
-
-DEFAULT_TREE_VIEW_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
-    "algorithm": "layered",
-    "elk.direction": "DOWN",
     "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
     "edgeRouting": "POLYLINE",
     "nodeSize.constraints": "NODE_LABELS",
-    "partitioning.active": True,
+    "hierarchyHandling": "INCLUDE_CHILDREN",
+    "layered.spacing.edgeEdgeBetweenLayers": "2.0",
 }
 
 
@@ -51,32 +39,15 @@ class ExchangeItemRelationCollector:
         self.data = makers.make_diagram(diagram)
         self.data.layoutOptions = DEFAULT_LAYOUT_OPTIONS
         self.params = params or {}
-        self.tree_view_box = _elkjs.ELKInputChild(
-            id="__HideElement:tree-view",
-            layoutOptions=DEFAULT_TREE_VIEW_LAYOUT_OPTIONS,
-            children=[],
-            edges=[],
-        )
-        self.left_box = _elkjs.ELKInputChild(
-            id="__HideElement:left",
-            layoutOptions=_elkjs.get_global_layered_layout_options(),
-            children=[],
-            edges=[],
-        )
-        self.right_box = _elkjs.ELKInputChild(
-            id="__HideElement:right",
-            layoutOptions=_elkjs.get_global_layered_layout_options(),
-            children=[],
-            edges=[],
-        )
         self.global_boxes: dict[str, _elkjs.ELKInputChild] = {}
         self.classes: dict[str, information.Class] = {}
+        self.edges: dict[str, list[_elkjs.ELKInputEdge]] = {}
 
     def __call__(self) -> _elkjs.ELKInputData:
-        if not self.diagram.target.allocated_exchange_items:
+        if not self.diagram.target.exchange_items:
             logger.warning("No exchange items to display")
             return self.data
-        for item in self.diagram.target.allocated_exchange_items:
+        for item in self.diagram.target.exchange_items:
             if not (parent_box := self.global_boxes.get(item.parent.uuid)):
                 parent_box = self.global_boxes.setdefault(
                     item.parent.uuid,
@@ -85,7 +56,6 @@ class ExchangeItemRelationCollector:
                         layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
                     ),
                 )
-                self.left_box.children.append(parent_box)
 
             if item.uuid in (i.id for i in parent_box.children):
                 continue
@@ -93,33 +63,29 @@ class ExchangeItemRelationCollector:
             parent_box.children.append(box)
 
             for elem in item.elements:
-                if elem.abstract_type:
-                    self.classes.setdefault(
-                        elem.abstract_type.uuid, elem.abstract_type
-                    )
-                    eid = f"__ExchangeItemElement:{item.uuid}_{elem.abstract_type.uuid}"
-                    self.data.edges.append(
-                        _elkjs.ELKInputEdge(
-                            id=eid,
-                            layoutOptions=DEFAULT_EDGE_LAYOUT_OPTIONS,
-                            sources=[item.uuid],
-                            targets=[elem.abstract_type.uuid],
-                            # Add back labels once edge label issue is fixed
-                            # labels=makers.make_label(elem.name),
-                        )
-                    )
+                if elem.abstract_type is None:
+                    continue
+                self.classes.setdefault(
+                    elem.abstract_type.uuid, elem.abstract_type
+                )
+                eid = f"__ExchangeItemElement:{item.uuid}_{elem.abstract_type.uuid}"
+                edge = _elkjs.ELKInputEdge(
+                    id=eid,
+                    sources=[item.uuid],
+                    targets=[elem.abstract_type.uuid],
+                    labels=makers.make_label(
+                        elem.name,
+                    ),
+                )
+                self.data.edges.append(edge)
+                self.edges.setdefault(item.parent.uuid, []).append(edge)
+
         for cls in self.classes.values():
             box = self._make_class_box(cls)
-            partition = 0
-            current = cls
-            while current.super and current.super.uuid in self.classes:
-                partition += 1
-                current = current.super
-            box.layoutOptions["partitioning.partition"] = partition
-            self.tree_view_box.children.append(box)
-            if partition > 0:
+            self.data.children.append(box)
+            if cls.super:
                 eid = f"__Generalization:{cls.super.uuid}_{cls.uuid}"
-                self.tree_view_box.edges.append(
+                self.data.edges.append(
                     _elkjs.ELKInputEdge(
                         id=eid,
                         sources=[cls.super.uuid],
@@ -127,13 +93,25 @@ class ExchangeItemRelationCollector:
                     )
                 )
 
-        while len(self.left_box.children) > len(self.right_box.children):
-            box = self.left_box.children.pop()
-            self.right_box.children.append(box)
+        top = sum(len(box.children) for box in self.global_boxes.values())
+        mid = top / 2
+        ordered = list(self.global_boxes.keys())
+        for uuid in ordered:
+            if top < mid:
+                break
+            self.data.edges.append(
+                _elkjs.ELKInputEdge(
+                    id=f"__Hide{uuid}",
+                    sources=[uuid],
+                    targets=[ordered[-1]],
+                )
+            )
+            for edge in self.edges.get(uuid, []):
+                edge.sources, edge.targets = edge.targets, edge.sources
+                edge.id = f"__Reverse-{edge.id[2:]}"
+            top -= len(self.global_boxes[uuid].children)
 
-        self.data.children.extend(
-            [self.left_box, self.tree_view_box, self.right_box]
-        )
+        self.data.children.extend(self.global_boxes.values())
         return self.data
 
     def _make_class_box(self, cls: information.Class) -> _elkjs.ELKInputChild:

@@ -131,8 +131,9 @@ class DiagramSerializer:
         uuid: str
         styleclass: str | None
         derived = False
+        reverse = False
 
-        if child.id.startswith("__HideElement"):
+        if child.id.startswith("__Hide"):
             if hasattr(child, "position"):
                 ref = ref + (child.position.x, child.position.y)
             for i in getattr(child, "children", []):
@@ -147,6 +148,9 @@ class DiagramSerializer:
             if styleclass.startswith("Derived-"):
                 styleclass = styleclass.removeprefix("Derived-")
                 derived = True
+            elif styleclass.startswith("Reverse-"):
+                styleclass = styleclass.removeprefix("Reverse-")
+                reverse = True
         else:
             styleclass = self.get_styleclass(child.id)
             uuid = child.id
@@ -200,6 +204,9 @@ class DiagramSerializer:
             target_id = child.targetId
             if target_id.startswith("__"):
                 target_id = target_id[2:].split(":", 1)[-1]
+
+            if reverse:
+                source_id, target_id = target_id, source_id
 
             if child.routingPoints:
                 refpoints = [

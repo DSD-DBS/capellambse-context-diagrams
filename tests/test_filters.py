@@ -19,6 +19,7 @@ EX_PTRN = re.compile(r"\[(.*?)\]")
 CAP_EXPLOIT = "4513c8cd-b94b-4bde-bd00-4c18aaf600ff"
 FNC_UUID = "a5642060-c9cc-4d49-af09-defaa3024bae"
 INTERF_UUID = "9cbdd233-aff5-47dd-9bef-9be1277c77c3"
+HIERARCHY_UUID = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
 
 Types = list[t.Union[mm.fa.FunctionalExchange, mm.fa.ComponentExchange]]
 
@@ -196,3 +197,16 @@ def test_context_diagrams_no_edgelabels_render_param_is_applied(
     for aedge in adiag:
         if isinstance(aedge, diagram.Edge):
             assert not aedge.labels
+
+
+def test_context_diagrams_display_port_labels_render_param_is_applied(
+    model: MelodyModel,
+) -> None:
+    obj = model.by_uuid(HIERARCHY_UUID)
+    diag: context.ContextDiagram = obj.context_diagram
+
+    adiag = diag.render(None, display_port_labels=True)
+
+    for aport in adiag:
+        if isinstance(aport, diagram.Box) and aport.port:
+            assert aport.floating_labels

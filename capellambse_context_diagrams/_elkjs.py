@@ -146,6 +146,9 @@ class ELKInputPort(BaseELKModel):
     layoutOptions: LayoutOptions = pydantic.Field(default_factory=dict)
     width: t.Union[int, float]
     height: t.Union[int, float]
+    labels: cabc.MutableSequence[ELKInputLabel] = pydantic.Field(
+        default_factory=list
+    )
 
 
 class ELKInputEdge(BaseELKModel):

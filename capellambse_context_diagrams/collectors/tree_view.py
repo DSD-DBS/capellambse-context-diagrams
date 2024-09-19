@@ -12,7 +12,7 @@ import math
 import typing as t
 
 import capellambse.model as m
-from capellambse.metamodel import information
+from capellambse.metamodel import information, modeltypes
 
 from .. import _elkjs, context
 from . import generic, makers
@@ -31,17 +31,14 @@ DEFAULT_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
 
 
 class ClassProcessor:
-    def __init__(
-        self,
-        data: _elkjs.ELKInputData,
-        all_associations: cabc.Iterable[information.Association],
-    ) -> None:
+    def __init__(self, data: _elkjs.ELKInputData) -> None:
         self.data = data
         self.made_boxes: set[str] = {data.children[0].id}
         self.made_edges: set[str] = set()
         self.data_types: set[str] = set()
         self.legend_boxes: list[_elkjs.ELKInputChild] = []
-        self.all_associations = all_associations
+
+        self._edge_count: dict[str, int] = {}
 
     def __contains__(self, uuid: str) -> bool:
         objects = self.data.children + self.data.edges  # type: ignore[operator]
@@ -51,13 +48,29 @@ class ClassProcessor:
         self._process_box(cls.source, cls.partition, params)
 
         if not cls.primitive and isinstance(cls.target, information.Class):
+            assert cls.prop is not None
             self._process_box(cls.target, cls.partition, params)
-            edges = [
-                assoc
-                for assoc in self.all_associations
-                if cls.prop in assoc.navigable_members  # type: ignore[attr-defined]
-            ]
-            edge_id = edges[0].uuid
+
+            aggregation_kind_excludes = {
+                None,
+                modeltypes.AggregationKind.UNSET,
+            }
+            if cls.prop.association is not None:
+                edge_id = cls.prop.association.uuid
+            else:
+                logger.warning(
+                    "No Association found for %s set on 'navigable_members'",
+                    cls.prop._short_repr_(),
+                )
+                if cls.prop.kind not in aggregation_kind_excludes:
+                    styleclass = cls.prop.kind.name.capitalize()
+                else:
+                    styleclass = "Association"
+
+                i = self._edge_count.setdefault(cls.prop.uuid, 0)
+                i += 1
+                edge_id = f"__{styleclass}:{cls.prop.uuid}-{i}"
+
             if edge_id not in self.made_edges:
                 self.made_edges.add(edge_id)
                 text = cls.prop.name if cls.prop else ""
@@ -68,6 +81,7 @@ class ClassProcessor:
 
                 if start != "1" or end != "1":
                     text = f"[{start}..{end}] {text}"
+
                 self.data.edges.append(
                     _elkjs.ELKInputEdge(
                         id=edge_id,
@@ -141,11 +155,8 @@ def collector(
     data.children[0].labels[0].layoutOptions.update(
         makers.DEFAULT_LABEL_LAYOUT_OPTIONS
     )
-    all_associations: cabc.Iterable[information.Association] = (
-        diagram._model.search("Association")
-    )
     _set_layout_options(data, params)
-    processor = ClassProcessor(data, all_associations)
+    processor = ClassProcessor(data)
     processor._set_data_types_and_labels(data.children[0], diagram.target)
     for _, cls in get_all_classes(
         diagram.target,

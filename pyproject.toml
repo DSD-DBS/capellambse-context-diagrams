@@ -182,7 +182,7 @@ zip-safe = false
 "*" = ["py.typed", "*.js"]
 
 [tool.setuptools.packages.find]
-exclude = ["LICENSES"]
+include = ["capellambse_context_diagrams", "capellambse_context_diagrams.*"]
 
 [tool.setuptools_scm]
 # This section must exist for setuptools_scm to work

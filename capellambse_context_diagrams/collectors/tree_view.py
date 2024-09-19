@@ -4,6 +4,7 @@
 
 from __future__ import annotations
 
+import collections
 import collections.abc as cabc
 import copy
 import dataclasses
@@ -38,7 +39,7 @@ class ClassProcessor:
         self.data_types: set[str] = set()
         self.legend_boxes: list[_elkjs.ELKInputChild] = []
 
-        self._edge_count: dict[str, int] = {}
+        self._edge_count: dict[str, int] = collections.defaultdict(int)
 
     def __contains__(self, uuid: str) -> bool:
         objects = self.data.children + self.data.edges  # type: ignore[operator]
@@ -51,10 +52,6 @@ class ClassProcessor:
             assert cls.prop is not None
             self._process_box(cls.target, cls.partition, params)
 
-            aggregation_kind_excludes = {
-                None,
-                modeltypes.AggregationKind.UNSET,
-            }
             if cls.prop.association is not None:
                 edge_id = cls.prop.association.uuid
             else:
@@ -62,13 +59,14 @@ class ClassProcessor:
                     "No Association found for %s set on 'navigable_members'",
                     cls.prop._short_repr_(),
                 )
-                if cls.prop.kind not in aggregation_kind_excludes:
+                if cls.prop.kind != modeltypes.AggregationKind.UNSET:
                     styleclass = cls.prop.kind.name.capitalize()
                 else:
                     styleclass = "Association"
 
-                i = self._edge_count.setdefault(cls.prop.uuid, 0)
-                i += 1
+                self._edge_count.setdefault(cls.prop.uuid, 0)
+                self._edge_count[cls.prop.uuid] += 1
+                i = self._edge_count[cls.prop.uuid]
                 edge_id = f"__{styleclass}:{cls.prop.uuid}-{i}"
 
             if edge_id not in self.made_edges:

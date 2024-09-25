@@ -19,6 +19,7 @@ from capellambse.metamodel import cs
 
 from . import _elkjs, filters, serializers, styling
 from .collectors import (
+    cable_tree,
     dataflow_view,
     exchanges,
     get_elkdata,
@@ -179,6 +180,22 @@ class DataFlowAccessor(ContextAccessor):
             return self
         assert isinstance(obj, m.ModelElement)
         return self._get(obj, DataFlowViewDiagram)
+
+
+class CableTreeAccessor(ContextAccessor):
+    """Provides access to the cable tree diagrams."""
+
+    def __get__(  # type: ignore
+        self,
+        obj: m.T | None,
+        objtype: type | None = None,
+    ) -> m.Accessor | ContextDiagram:
+        """Make a CableTreeView for the given model object."""
+        del objtype
+        if obj is None:  # pragma: no cover
+            return self
+        assert isinstance(obj, m.ModelElement)
+        return self._get(obj, CableTreeViewDiagram)
 
 
 class ContextDiagram(m.AbstractDiagram):
@@ -692,6 +709,27 @@ class DataFlowViewDiagram(ContextDiagram):
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         params["elkdata"] = dataflow_view.collector(self, params)
         return super()._create_diagram(params)
+
+
+class CableTreeViewDiagram(ContextDiagram):
+    """An automatically generated CableTreeView."""
+
+    @property
+    def uuid(self) -> str:  # type: ignore
+        """Returns the UUID of the diagram."""
+        return f"{self.target.uuid}_cable_tree"
+
+    @property
+    def name(self) -> str:  # type: ignore
+        return f"Cable Tree View of {self.target.name}"
+
+    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
+        data = cable_tree.collector(self, params)
+        layout = try_to_layout(data)
+        return self.serializer.make_diagram(
+            layout,
+            transparent_background=params.get("transparent_background", False),
+        )
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:

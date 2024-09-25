@@ -64,7 +64,6 @@ class ClassProcessor:
                 else:
                     styleclass = "Association"
 
-                self._edge_count.setdefault(cls.prop.uuid, 0)
                 self._edge_count[cls.prop.uuid] += 1
                 i = self._edge_count[cls.prop.uuid]
                 edge_id = f"__{styleclass}:{cls.prop.uuid}-{i}"

@@ -21,13 +21,13 @@ DEFAULT_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
 
 class CableTreeCollector:
     """Collect the context for ``PhysicalLink`` trees."""
+
     def __init__(
         self,
         diagram: context.ContextDiagram,
         params: dict[str, t.Any],
     ) -> None:
         self.diagram = diagram
-        self.diagram._port_label_position = "OUTSIDE"
         self.obj: m.ModelElement = self.diagram.target
         self.data = makers.make_diagram(diagram)
         self.data.layoutOptions = DEFAULT_LAYOUT_OPTIONS
@@ -97,7 +97,8 @@ class CableTreeCollector:
         if port := self.ports.get(port_obj.uuid):
             return box
         port = makers.make_port(port_obj.uuid)
-        port.labels = makers.make_label(port_obj.name)
+        if self.diagram._display_port_labels:
+            port.labels = makers.make_label(port_obj.name)
         box.ports.append(port)
         self.ports[port_obj.uuid] = port
         return box

@@ -714,6 +714,28 @@ class DataFlowViewDiagram(ContextDiagram):
 class CableTreeViewDiagram(ContextDiagram):
     """An automatically generated CableTreeView."""
 
+    _display_port_labels: bool
+    _port_label_position: str
+
+    def __init__(
+        self,
+        class_: str,
+        obj: m.ModelElement,
+        *,
+        render_styles: dict[str, styling.Styler] | None = None,
+        default_render_parameters: dict[str, t.Any],
+    ) -> None:
+        default_render_parameters = {
+            "display_port_labels": False,
+            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
+        } | default_render_parameters
+        super().__init__(
+            class_,
+            obj,
+            render_styles=render_styles,
+            default_render_parameters=default_render_parameters,
+        )
+
     @property
     def uuid(self) -> str:  # type: ignore
         """Returns the UUID of the diagram."""
@@ -724,12 +746,11 @@ class CableTreeViewDiagram(ContextDiagram):
         return f"Cable Tree View of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        data = cable_tree.collector(self, params)
-        layout = try_to_layout(data)
-        return self.serializer.make_diagram(
-            layout,
-            transparent_background=params.get("transparent_background", False),
-        )
+        params = self._default_render_parameters | params
+        for param_name in self._default_render_parameters:
+            setattr(self, f"_{param_name}", params.pop(param_name))
+        params["elkdata"] = cable_tree.collector(self, params)
+        return super()._create_diagram(params)
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:

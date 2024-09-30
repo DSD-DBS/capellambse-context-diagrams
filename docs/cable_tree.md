@@ -5,7 +5,9 @@
 
 # Cable Tree View Diagram
 
-The `Cable Tree View` diagram visualizes the cable connections between ports. You can access `.cable_tree` on any `pa.PhysicalLink` element.
+The `Cable Tree View` diagram visualizes the cable connections between ports.
+You can access `.cable_tree` on any
+[`pa.PhysicalLink`][capellambse.metamodel.pa.PhysicalFunction] element.
 
 ??? example "Cable Tree View of Control Signal"
 

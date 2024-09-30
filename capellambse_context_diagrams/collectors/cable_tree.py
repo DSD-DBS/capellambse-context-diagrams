@@ -20,6 +20,7 @@ DEFAULT_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
 
 
 class CableTreeCollector:
+    """Collect the context for ``PhysicalLink`` trees."""
     def __init__(
         self,
         diagram: context.ContextDiagram,

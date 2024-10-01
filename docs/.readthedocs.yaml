@@ -9,6 +9,7 @@ version: 2
 build:
   os: ubuntu-22.04
   tools:
+    nodejs: "20"
     python: "3.12"
 
 mkdocs:

@@ -183,9 +183,11 @@ class InterfaceContextCollector(ExchangeCollector):
             try:
                 trg_id = self.make_all_owners(fex.target, boxes)
             except ValueError as error:
-                src_port = boxes[fex.source.owner.uuid].ports.pop()
-                assert src_port.id == fex.source.uuid
-                logger.debug("%s", error)
+                src_port = boxes[fex.source.owner.uuid].ports[-1]
+                if src_port.id == fex.source.uuid:
+                    boxes[fex.source.owner.uuid].ports.remove(src_port)
+                    logger.debug("%s", error)
+
                 continue
 
             if [src_id, trg_id] == [self.right.id, self.left.id]:

@@ -726,7 +726,7 @@ class CableTreeViewDiagram(ContextDiagram):
         default_render_parameters: dict[str, t.Any],
     ) -> None:
         default_render_parameters = {
-            "display_port_labels": False,
+            "display_port_labels": True,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
         } | default_render_parameters
         super().__init__(

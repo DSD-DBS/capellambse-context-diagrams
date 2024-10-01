@@ -98,7 +98,8 @@ class CableTreeCollector:
             return box
         port = makers.make_port(port_obj.uuid)
         if self.diagram._display_port_labels:
-            port.labels = makers.make_label(port_obj.name)
+            text = port_obj.name or "UNKNOWN"
+            port.labels = makers.make_label(text)
         box.ports.append(port)
         self.ports[port_obj.uuid] = port
         return box

@@ -62,6 +62,7 @@ def init() -> None:
     register_tree_view()
     register_realization_view()
     register_data_flow_view()
+    register_cable_tree_view()
     # register_functional_context() XXX: Future
 
 
@@ -283,3 +284,15 @@ def register_data_flow_view() -> None:
     for class_, dgcls, default_render_params in supported_classes:
         accessor = context.DataFlowAccessor(dgcls.value, default_render_params)
         m.set_accessor(class_, "data_flow_view", accessor)
+
+
+def register_cable_tree_view() -> None:
+    """Add the `cable_tree_view` attribute to `PhysicalLink`s."""
+    m.set_accessor(
+        cs.PhysicalLink,
+        "cable_tree",
+        context.CableTreeAccessor(
+            DiagramType.PAB.value,
+            {},
+        ),
+    )

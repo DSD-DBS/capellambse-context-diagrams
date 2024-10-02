@@ -62,7 +62,7 @@
                 definition="#682bd51d-5451-4930-a97e-8bfca6c3a127" value="true"/>
             <ownedAttributes xsi:type="Requirements:DateValueAttribute" id="b97c09b5-948a-46e8-a656-69d764ddce7d"
                 definition="#682bd51d-5451-4930-a97e-8bfca6c3a127" definitionProxy=""
-                value="2021-07-23T15:00:00.000+0200"/>
+                value="2021-07-23T13:00:00.000+0000"/>
             <ownedAttributes xsi:type="Requirements:IntegerValueAttribute" id="85dfd42c-7f6e-4236-a181-bdd784040431"
                 definition="#682bd51d-5451-4930-a97e-8bfca6c3a127" value="10"/>
             <ownedAttributes xsi:type="Requirements:RealValueAttribute" id="d2231d14-854d-4625-b48b-6cf1c2554367"
@@ -4789,6 +4789,26 @@ The predator is far away</bodies>
               name="PC 23" abstractType="#76219da8-157b-429c-87fb-e1cef944ae3d"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="d09f949a-8b1d-4a6d-b4f6-f2829332b190"
               name="PC 24" abstractType="#d17f82db-f394-4454-beee-b48f5162d180"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="0dbf851e-d4e5-41cb-9951-4efa944e8553"
+              name="Main Control Station" abstractType="#07ba7c6c-3a3e-4817-967d-a30a34808089"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="aebdb057-9adb-400e-b8f8-22702d7fbb53"
+              name="Train Signal Controller" abstractType="#2c2888dc-4e8f-4d07-aca9-9f4de004266b"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="afba093f-fa4d-49df-b7f6-c651c9a5e96d"
+              name="Level Crossing Barrier Control" abstractType="#a4cb3ff6-1289-4e27-91f2-4291cabe9db2"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="d52fff16-52b2-4611-bc4b-6d43dbcc7cea"
+              name="Train Detection Sensor" abstractType="#57325353-a19c-4dec-8f6f-05a214eac1c5"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="b87a2622-548d-44f3-976a-29aae0664fbb"
+              name="Track Circuit" abstractType="#2c907e35-bf5a-4421-ba51-5191af0a30f8"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="5b4465f5-d1be-4aca-b352-affb0e750a19"
+              name="Signal Relay Box" abstractType="#954d934f-8804-454b-9ef2-ced201640891"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="21a3c535-ef54-48a9-b10a-9a2ba5551825"
+              name="Communication Hub" abstractType="#7ae1d744-67b8-4506-8e39-be3006b0e5b9"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="39c7e225-04a4-408c-b8b6-835ab911fa6c"
+              name="Trackside Signal Light" abstractType="#7b78da30-7f39-4000-a2d6-3f7c1b56a5f5"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="991a3c90-27fc-40c9-82c8-11f5fd9266c1"
+              name="Emergency Stop Button" abstractType="#3924460c-321e-4300-8788-a6713dd64456"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="2bac1e59-870e-4e1a-bb93-3e9782307525"
+              name="Train Speed Monitoring Unit" abstractType="#23faf496-7a2d-4a41-b92a-fc240d9b5924"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="7aaa4d4d-741f-4b58-a782-2dce998ccf0e" targetElement="#0d2edb8f-fa34-4e73-89ec-fb9a63001440"
               sourceElement="#b9f9a83c-fb02-44f7-9123-9d86326de5f1"/>
@@ -4824,6 +4844,32 @@ The predator is far away</bodies>
               id="0386b680-150e-451a-aae1-91c82f3baedc" name="PL 4" linkEnds="#3ae9dd17-913d-4ca7-aff8-b241e167926b #eb33f35f-1dbf-42a6-af7f-57edc71fcb57"/>
           <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
               id="520cd4a2-274c-426e-b799-75058f05ec10" name="PL 5" linkEnds="#3ae9dd17-913d-4ca7-aff8-b241e167926b #0ce8c144-a2d8-4a60-bbe1-07bd8c08718a"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="5c55b11b-4911-40fb-9c4c-f1363dad846e" name="Control Signal" linkEnds="#c403d4f4-9633-42a2-a5d6-9e1df2655146 #6ae29909-b358-4964-9d56-412a5dc4b2f2"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="aaec4139-9982-4abb-b27f-df3ceaf8e0a8" name="Signal Transmission Link"
+              linkEnds="#781b3eb5-ab04-4677-a704-f42a987bef5a #c403d4f4-9633-42a2-a5d6-9e1df2655146"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="4205ee10-8afd-45da-83db-0be04100b8fa" name="Communication Link"
+              linkEnds="#c403d4f4-9633-42a2-a5d6-9e1df2655146 #6eed2367-eb48-4bf0-a1c8-bfd2f245bd3d"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="58e19655-0094-49c1-bf73-aaddf1f60cff" name="Signal Control Link"
+              linkEnds="#1f4ae78e-0602-4313-a9b7-60ec607141f8 #781b3eb5-ab04-4677-a704-f42a987bef5a"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="c619ff57-aad7-4ad7-928a-77160235198a" name="Emergency Control Link"
+              linkEnds="#781b3eb5-ab04-4677-a704-f42a987bef5a #a9554c35-de02-4c68-90fc-e3bcba791654"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="890dc479-062c-416d-955f-b78e083e0e48" name="Detection Signal Link"
+              linkEnds="#6ae29909-b358-4964-9d56-412a5dc4b2f2 #161568d6-9907-4c34-b9cc-a46fe81442a1"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="0397b675-e78b-41a3-bf96-f2ae6cf7adde" name="Level Crossing Link"
+              linkEnds="#6ae29909-b358-4964-9d56-412a5dc4b2f2 #1604610c-c437-40fc-ba61-d01431b1d961"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="4a4be6cc-973e-4d2a-bf4e-3d5aad9f73e3" name="Track Circuit Link"
+              linkEnds="#6ae29909-b358-4964-9d56-412a5dc4b2f2 #ef739eb8-10c2-4b27-aa76-636c89e2403b"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="93b6d377-0718-4c5b-8bc0-b020122beb83" name="Track Monitoring Link"
+              linkEnds="#5cbec23a-3f3e-4828-8f14-1be0c09e1b54 #ef739eb8-10c2-4b27-aa76-636c89e2403b"/>
           <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
               id="8a6d68c8-ac3d-4654-a07e-ada7adeed09f" name="PC 1" nature="NODE"/>
           <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
@@ -5217,6 +5263,63 @@ The predator is far away</bodies>
               id="d17f82db-f394-4454-beee-b48f5162d180" name="PC 24" nature="NODE">
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
                 id="0ce8c144-a2d8-4a60-bbe1-07bd8c08718a" name="PP 1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="07ba7c6c-3a3e-4817-967d-a30a34808089" name="Main Control Station"
+              nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="c403d4f4-9633-42a2-a5d6-9e1df2655146" name="PP 1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="2c2888dc-4e8f-4d07-aca9-9f4de004266b" name="Train Signal Controller"
+              nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="6ae29909-b358-4964-9d56-412a5dc4b2f2" name="PP 2"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="a4cb3ff6-1289-4e27-91f2-4291cabe9db2" name="Level Crossing Barrier Control"
+              nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="1604610c-c437-40fc-ba61-d01431b1d961" name="PP 1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="57325353-a19c-4dec-8f6f-05a214eac1c5" name="Train Detection Sensor"
+              nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="161568d6-9907-4c34-b9cc-a46fe81442a1" name="PP 1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="2c907e35-bf5a-4421-ba51-5191af0a30f8" name="Track Circuit" nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="ef739eb8-10c2-4b27-aa76-636c89e2403b" name="PP 1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="954d934f-8804-454b-9ef2-ced201640891" name="Signal Relay Box" nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="781b3eb5-ab04-4677-a704-f42a987bef5a" name="PP 1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="7ae1d744-67b8-4506-8e39-be3006b0e5b9" name="Communication Hub" nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="6eed2367-eb48-4bf0-a1c8-bfd2f245bd3d" name="PP 1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="7b78da30-7f39-4000-a2d6-3f7c1b56a5f5" name="Trackside Signal Light"
+              nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="1f4ae78e-0602-4313-a9b7-60ec607141f8" name="PP 1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="3924460c-321e-4300-8788-a6713dd64456" name="Emergency Stop Button"
+              nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="a9554c35-de02-4c68-90fc-e3bcba791654" name="PP 1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="23faf496-7a2d-4a41-b92a-fc240d9b5924" name="Train Speed Monitoring Unit"
+              nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="5cbec23a-3f3e-4828-8f14-1be0c09e1b54" name="PP 1"/>
           </ownedPhysicalComponents>
         </ownedPhysicalComponents>
         <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"

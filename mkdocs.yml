@@ -96,6 +96,8 @@ nav:
       - Overview: realization_view.md
   - DataFlow View:
       - Overview: data_flow_view.md
+  - Cable Tree View:
+      - Overview: cable_tree.md
   - Extras:
       - Filters: extras/filters.md
       - Styling: extras/styling.md

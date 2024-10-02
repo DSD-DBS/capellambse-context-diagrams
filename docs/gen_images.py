@@ -43,6 +43,7 @@ realization_fnc_uuid = "beaf5ba4-8fa9-4342-911f-0266bb29be45"
 realization_comp_uuid = "b9f9a83c-fb02-44f7-9123-9d86326de5f1"
 data_flow_uuid = "3b83b4ba-671a-4de8-9c07-a5c6b1d3c422"
 derived_uuid = "47c3130b-ec39-4365-a77a-5ab6365d1e2e"
+cable_tree_uuid = "5c55b11b-4911-40fb-9c4c-f1363dad846e"
 
 
 def generate_index_images() -> None:
@@ -206,6 +207,14 @@ def generate_interface_with_hide_interface_image():
         print(diag.render("svg", **params), file=fd)
 
 
+def generate_cable_tree_image():
+    diag: context.CableTreeViewDiagram = model.by_uuid(
+        cable_tree_uuid
+    ).cable_tree
+    with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
+        print(diag.render("svg", transparent_background=False), file=fd)
+
+
 generate_index_images()
 generate_hierarchy_image()
 generate_symbol_images()
@@ -234,3 +243,4 @@ generate_data_flow_image()
 generate_derived_image()
 generate_interface_with_hide_functions_image()
 generate_interface_with_hide_interface_image()
+generate_cable_tree_image()

@@ -280,6 +280,9 @@ class ContextProcessor:
                 break
         else:
             children.append(obj_box)
+            for label in parent_box.labels:
+                label.layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+
         self.boxes_to_delete.add(obj.uuid)
         return obj.owner
 

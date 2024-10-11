@@ -4,6 +4,7 @@
 Definitions of Custom Accessor- and Diagram-Classtypes based on
 [`Accessor`][capellambse.model.Accessor] and [`AbstractDiagram`][capellambse.model.diagram.AbstractDiagram].
 """
+
 from __future__ import annotations
 
 import collections.abc as cabc
@@ -250,6 +251,7 @@ class ContextDiagram(m.AbstractDiagram):
     _slim_center_box: bool
     _display_port_labels: bool
     _port_label_position: str
+    _transparent_background: bool
 
     def __init__(
         self,
@@ -265,6 +267,12 @@ class ContextDiagram(m.AbstractDiagram):
 
         self.render_styles = render_styles or {}
         self.serializer = serializers.DiagramSerializer(self)
+
+        self._elk_input_data: (
+            _elkjs.ELKInputData
+            | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData]
+            | None
+        ) = None
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
         self._default_render_parameters = {
             "display_symbols_as_boxes": False,
@@ -273,6 +281,7 @@ class ContextDiagram(m.AbstractDiagram):
             "slim_center_box": True,
             "display_port_labels": False,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
+            "transparent_background": False,
         } | default_render_parameters
 
         if standard_filter := STANDARD_FILTERS.get(class_):
@@ -298,6 +307,32 @@ class ContextDiagram(m.AbstractDiagram):
         except ValueError:  # pragma: no cover
             logger.warning("Unknown diagram type %r", self.styleclass)
             return m.DiagramType.UNKNOWN
+
+    def elk_input_data(
+        self,
+        params: dict[str, t.Any],
+        collector: cabc.Callable[
+            [ContextDiagram, dict[str, t.Any]],
+            _elkjs.ELKInputData
+            | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData],
+        ] = get_elkdata,
+    ) -> _elkjs.ELKInputData | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData]:
+        """Returns the ELK input data."""
+        params = self._default_render_parameters | params
+        for param_name in self._default_render_parameters:
+            setattr(self, f"_{param_name}", params.pop(param_name))
+
+        if data := params.get("elkdata", None):
+            self._elk_input_data = data  # type: ignore[assignment]
+
+        if self._elk_input_data is None:
+            self._elk_input_data = collector(self, params)  # type: ignore[assignment]
+
+        return self._elk_input_data
+
+    def invalidate_cache(self) -> None:
+        super().invalidate_cache()
+        self._elk_input_data = None
 
     class FilterSet(cabc.MutableSet):
         """A set that stores filter_names and invalidates diagram cache."""
@@ -332,16 +367,8 @@ class ContextDiagram(m.AbstractDiagram):
             return self._set.__len__()
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params = self._default_render_parameters | params
-        transparent_background: bool = params.pop(  # type: ignore[assignment]
-            "transparent_background", False
-        )
-        for param_name in self._default_render_parameters:
-            setattr(self, f"_{param_name}", params.pop(param_name))
-
-        data: _elkjs.ELKInputData = params.get("elkdata") or get_elkdata(
-            self, params
-        )  # type: ignore[assignment]
+        data = self.elk_input_data(params)
+        assert not isinstance(data, tuple)
         if not isinstance(
             self, (ClassTreeDiagram, InterfaceContextDiagram)
         ) and has_single_child(data):
@@ -353,7 +380,7 @@ class ContextDiagram(m.AbstractDiagram):
         add_context(layout, is_legend)
         return self.serializer.make_diagram(
             layout,
-            transparent_background=transparent_background,
+            transparent_background=self._transparent_background,
         )
 
     @property  # type: ignore
@@ -425,21 +452,24 @@ class InterfaceContextDiagram(ContextDiagram):
         return f"Interface Context of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        super_params = params.copy()
-        params = self._default_render_parameters | params
-        for param_name in self._default_render_parameters:
-            setattr(self, f"_{param_name}", params.pop(param_name))
-
         collector: t.Type[exchanges.ExchangeCollector]
         if isinstance(self.target, cs.PhysicalLink):
             collector = exchanges.PhysicalLinkContextCollector
         else:
             collector = exchanges.InterfaceContextCollector
 
-        super_params["elkdata"] = exchanges.get_elkdata_for_exchanges(
-            self, collector, params
-        )
-        return super()._create_diagram(super_params)
+        def collect_exchange_data(
+            diagram: InterfaceContextDiagram, pars: dict[str, t.Any]
+        ) -> (
+            _elkjs.ELKInputData
+            | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData]
+        ):
+            return exchanges.get_elkdata_for_exchanges(
+                diagram, collector, pars
+            )
+
+        params["elkdata"] = self.elk_input_data(params, collector=collect_exchange_data)  # type: ignore[arg-type]
+        return super()._create_diagram(params)
 
 
 class FunctionalContextDiagram(ContextDiagram):
@@ -452,9 +482,14 @@ class FunctionalContextDiagram(ContextDiagram):
         return f"Interface Context of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params["elkdata"] = exchanges.get_elkdata_for_exchanges(
-            self, exchanges.FunctionalContextCollector, params
-        )
+        def collect_exchange_data(
+            diagram: FunctionalContextDiagram, pars: dict[str, t.Any]
+        ):
+            return exchanges.get_elkdata_for_exchanges(
+                diagram, exchanges.FunctionalContextCollector, pars
+            )
+
+        params["elkdata"] = self.elk_input_data(params, collector=collect_exchange_data)  # type: ignore[arg-type]
         return super()._create_diagram(params)
 
 
@@ -496,14 +531,10 @@ class ClassTreeDiagram(ContextDiagram):
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         params = {
-            **self._default_render_parameters,
             "algorithm": "layered",
             "edgeRouting": "POLYLINE",
             **params,
         }
-        for param_name in self._default_render_parameters:
-            setattr(self, f"_{param_name}", params.pop(param_name))
-
         params.setdefault("elk.direction", params.pop("direction", "DOWN"))
         params.setdefault(
             "nodeSize.constraints",
@@ -516,7 +547,12 @@ class ClassTreeDiagram(ContextDiagram):
             "layered.edgeLabels.sideSelection",
             params.pop("edgeLabelsSide", "SMART_DOWN"),
         )
-        data, legend = tree_view.collector(self, params)
+
+        data, legend = self.elk_input_data(
+            params, collector=tree_view.collector
+        )
+        assert isinstance(data, _elkjs.ELKInputData)
+        assert isinstance(legend, _elkjs.ELKInputData)
         params["elkdata"] = data
         class_diagram = super()._create_diagram(params)
         assert class_diagram.viewport is not None
@@ -528,6 +564,7 @@ class ClassTreeDiagram(ContextDiagram):
         else:
             legend.layoutOptions["aspectRatio"] = width
             axis = "y"
+
         params["elkdata"] = legend
         params["is_legend"] = True
         legend_diagram = super()._create_diagram(params)
@@ -616,22 +653,20 @@ class RealizationViewDiagram(ContextDiagram):
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         params = {
-            **self._default_render_parameters,
             "depth": 1,
             "search_direction": "ALL",
             "show_owners": True,
             "layer_sizing": "WIDTH",
             **params,
         }
-        for param_name in self._default_render_parameters:
-            setattr(self, f"_{param_name}", params.pop(param_name))
-
-        data, edges = realization_view.collector(self, params)
-
-        layout = try_to_layout(data)
+        data, edges = self.elk_input_data(params, collector=realization_view.collector)  # type: ignore[arg-type]
+        assert isinstance(data, _elkjs.ELKInputData)
+        assert isinstance(edges, list)
+        layout = try_to_layout(data)  # type: ignore[unreachable]
         adjust_layer_sizing(data, layout, params["layer_sizing"])
         layout = try_to_layout(data)
         for edge in edges:
+            assert isinstance(edge, _elkjs.ELKInputEdge)
             layout.children.append(
                 _elkjs.ELKOutputEdge(
                     id=f"__Realization:{edge.id}",
@@ -707,7 +742,9 @@ class DataFlowViewDiagram(ContextDiagram):
         return f"DataFlow view of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params["elkdata"] = dataflow_view.collector(self, params)
+        params["elkdata"] = self.elk_input_data(
+            params, collector=dataflow_view.collector
+        )  # type: ignore[arg-type]
         return super()._create_diagram(params)
 
 

@@ -4,6 +4,7 @@
 Collection of [`ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData]
 on diagrams that involve ports.
 """
+
 from __future__ import annotations
 
 import collections.abc as cabc
@@ -106,6 +107,11 @@ class ContextProcessor:
         self.centerbox.height = max(
             self.centerbox.height, *stack_heights.values()
         )
+        if self.diagram._hide_direct_children:
+            self.centerbox.children = []
+            self.centerbox.edges = []
+            for label in self.centerbox.labels:
+                label.layoutOptions = makers.CENTRIC_LABEL_LAYOUT_OPTIONS
 
     def _process_port_spread(
         self,
@@ -131,7 +137,9 @@ class ContextProcessor:
             port_spread.setdefault(owner, 0)
             port_spread[owner] += inc
 
-    def _process_exchanges(self) -> tuple[
+    def _process_exchanges(
+        self,
+    ) -> tuple[
         list[m.ModelElement],
         list[generic.ExchangeData],
     ]:

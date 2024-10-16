@@ -246,6 +246,7 @@ class ContextDiagram(m.AbstractDiagram):
 
     _display_symbols_as_boxes: bool
     _display_parent_relation: bool
+    _hide_direct_children: bool
     _display_derived_interfaces: bool
     _slim_center_box: bool
     _display_port_labels: bool
@@ -269,6 +270,7 @@ class ContextDiagram(m.AbstractDiagram):
         self._default_render_parameters = {
             "display_symbols_as_boxes": False,
             "display_parent_relation": False,
+            "hide_direct_children": False,
             "display_derived_interfaces": False,
             "slim_center_box": True,
             "display_port_labels": False,

@@ -16,6 +16,7 @@ The element of interest uses the regular styling (configurable via
 function), other elements use a white background color to distinguish
 them.
 """
+
 from __future__ import annotations
 
 import collections.abc as cabc
@@ -199,6 +200,10 @@ def register_interface_context() -> None:
         ATTR_NAME,
         context.InterfaceContextAccessor(
             {
+                sa.SystemComponentPkg: DiagramType.SAB.value,
+                sa.SystemComponent: DiagramType.SAB.value,
+                la.LogicalComponentPkg: DiagramType.LAB.value,
+                la.LogicalComponent: DiagramType.LAB.value,
                 pa.PhysicalComponentPkg: DiagramType.PAB.value,
                 pa.PhysicalComponent: DiagramType.PAB.value,
             },

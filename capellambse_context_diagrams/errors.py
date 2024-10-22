@@ -6,3 +6,7 @@
 
 class CapellambseError(Exception):
     """Error raised by capellambse."""
+
+
+class CycleError(CapellambseError):
+    """Error raised when a cycle is detected."""

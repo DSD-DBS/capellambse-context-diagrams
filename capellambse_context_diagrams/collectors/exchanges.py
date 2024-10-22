@@ -163,6 +163,12 @@ class InterfaceContextCollector(ExchangeCollector):
             self.data.children.append(self.left)
             assert self.right is not None
             self.data.children.append(self.right)
+            if self.left == self.right:
+                raise errors.CycleError(
+                    "The interface is a cycle, connecting the same "
+                    "source and target."
+                )
+
         except AttributeError as error:
             logger.exception("Interface collection failed: \n%r", str(error))
 

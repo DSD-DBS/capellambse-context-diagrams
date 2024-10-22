@@ -1,0 +1,24 @@
+/*
+ * SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+.md-main__inner {
+    margin-bottom: 1.5rem;
+}
+
+/* Indentation. */
+div.doc-contents:not(.first) {
+    padding-left: 25px;
+    border-left: .05rem solid var(--md-typeset-table-color);
+}
+
+/* Navigation */
+.md-sidebar--primary {
+    width: 7rem;
+}
+
+/* Table of contents */
+.md-sidebar--secondary {
+    width: 10rem;
+}

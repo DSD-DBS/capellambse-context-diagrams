@@ -4,6 +4,7 @@
 Definitions of Custom Accessor- and Diagram-Classtypes based on
 [`Accessor`][capellambse.model.Accessor] and [`AbstractDiagram`][capellambse.model.diagram.AbstractDiagram].
 """
+
 from __future__ import annotations
 
 import collections.abc as cabc
@@ -242,6 +243,8 @@ class ContextDiagram(m.AbstractDiagram):
     * display_port_labels — Display port labels on the diagram.
     * port_label_position - Position of the port labels. See
       [`PORT_LABEL_POSITION`][capellambse_context_diagrams.context._elkjs.PORT_LABEL_POSITION].
+    * hide_direct_children - Hide direct children of the object of
+      interest.
     """
 
     _display_symbols_as_boxes: bool
@@ -341,9 +344,7 @@ class ContextDiagram(m.AbstractDiagram):
         for param_name in self._default_render_parameters:
             setattr(self, f"_{param_name}", params.pop(param_name))
 
-        data: _elkjs.ELKInputData = params.get("elkdata") or get_elkdata(
-            self, params
-        )  # type: ignore[assignment]
+        data: _elkjs.ELKInputData = params.get("elkdata") or get_elkdata(self, params)  # type: ignore[assignment]
         if not isinstance(
             self, (ClassTreeDiagram, InterfaceContextDiagram)
         ) and has_single_child(data):

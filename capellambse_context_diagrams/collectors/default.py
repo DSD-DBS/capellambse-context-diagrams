@@ -171,7 +171,12 @@ class ContextProcessor:
         )
         self.exchanges = inc_exchanges + out_exchanges
         ex_datas: list[generic.ExchangeData] = []
+        seen_exchanges: set[str] = set()
         for ex in self.exchanges:
+            if ex.uuid in seen_exchanges:
+                continue
+
+            seen_exchanges.add(ex.uuid)
             if is_hierarchical := exchanges.is_hierarchical(
                 ex, self.centerbox
             ):

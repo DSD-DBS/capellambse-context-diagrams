@@ -62,7 +62,7 @@
                 definition="#682bd51d-5451-4930-a97e-8bfca6c3a127" value="true"/>
             <ownedAttributes xsi:type="Requirements:DateValueAttribute" id="b97c09b5-948a-46e8-a656-69d764ddce7d"
                 definition="#682bd51d-5451-4930-a97e-8bfca6c3a127" definitionProxy=""
-                value="2021-07-23T13:00:00.000+0000"/>
+                value="2021-07-23T15:00:00.000+0200"/>
             <ownedAttributes xsi:type="Requirements:IntegerValueAttribute" id="85dfd42c-7f6e-4236-a181-bdd784040431"
                 definition="#682bd51d-5451-4930-a97e-8bfca6c3a127" value="10"/>
             <ownedAttributes xsi:type="Requirements:RealValueAttribute" id="d2231d14-854d-4625-b48b-6cf1c2554367"
@@ -3501,6 +3501,10 @@ The predator is far away</bodies>
             name="LA 9" abstractType="#b3d9d50e-7592-4689-8ba7-e50f082cd71c"/>
         <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="5c8880bd-1514-4820-a1af-33bf06f9d8b7"
             name="Derivation Example" abstractType="#4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c"/>
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="5cfde561-79ca-431b-add1-8ffa27c0c56d"
+            name="LA 11" abstractType="#92baed36-9319-42bf-86db-0089a77dd1db"/>
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="cba308b2-df36-4786-8c12-771bc4ff10ff"
+            name="LA 12" abstractType="#07c19a9f-153d-4b4a-9f02-014d916f3f1d"/>
         <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
             id="c0bc49e1-8043-4418-8c0a-de6c6b749eab" name="Headmaster Responsibilities"
             convoyedInformations="#408f9055-bdcf-4181-865c-db3e823bd93d" source="#fcbf6881-720c-421f-9fe9-12fc3dfefe9c"
@@ -3550,6 +3554,12 @@ The predator is far away</bodies>
               id="062c9593-1fc9-43ce-aac5-4f37d0a9c346" targetElement="#5f31bf59-316e-4844-b44d-a38adba22313"
               sourceElement="#dbd99773-efb6-4476-bf5c-270a61f18b09"/>
         </ownedComponentExchanges>
+        <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+            id="ce8b8c68-1b47-44b6-aed4-f38ec6338a7a" name="C 8" source="#70c2b985-2e9f-4c3a-be43-39f9b960966d"
+            target="#19a0b136-2baa-48a2-a979-f5de806fac1d" kind="FLOW"/>
+        <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+            id="9b5563f8-d714-4063-9587-0cdcac9095bd" name="C 9" source="#4b3ba1cd-4201-46bb-bcd6-33c9604494a2"
+            target="#33a19dd9-7fe2-4173-84b2-09942ca69f41" kind="FLOW"/>
         <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
             id="0d2edb8f-fa34-4e73-89ec-fb9a63001440" name="Hogwarts" description="&lt;p>This instance is the mighty Hogwarts. Do you really need a description? Then maybe read the books or watch atleast the epic movies.&lt;/p>&#xA;">
           <ownedExtensions xsi:type="CapellaRequirements:CapellaOutgoingRelation"
@@ -3749,6 +3759,8 @@ The predator is far away</bodies>
               name="Derived Target" abstractType="#7cde329d-0f47-4eaa-a1ae-dc6ede90af57"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="c434697d-9eae-4dd8-b15d-57d429eb1ddf"
               name="Derived Source" abstractType="#aad1bc27-e66c-4b38-a54a-b2de4a73a3b4"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="cdec5944-fa51-4a2b-a4ad-29e66987821e"
+              name="SysParent" abstractType="#1921eeeb-f2fd-4b8a-9f79-0e369e7cc29c"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="0f8b10b5-d460-4055-bd34-7e4a33e94b5e" targetElement="#230c4621-7e0a-4d0a-9db2-d4ba5e97b3df"
               sourceElement="#0d2edb8f-fa34-4e73-89ec-fb9a63001440"/>
@@ -4321,6 +4333,76 @@ The predator is far away</bodies>
                 id="1f1545b8-04b8-4bd1-9009-c9d514155660" targetElement="#8b3b14d5-ed06-48fe-acd7-354657944e54"
                 sourceElement="#aad1bc27-e66c-4b38-a54a-b2de4a73a3b4"/>
           </ownedLogicalComponents>
+          <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+              id="1921eeeb-f2fd-4b8a-9f79-0e369e7cc29c" name="SysParent">
+            <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+                id="ce2cd80a-5e81-40a2-ac7c-e99e28833058" name="C 1" source="#d6c8ed3c-42ab-4eea-8381-40bc29ddb7ca"
+                target="#7608e831-578d-4b98-97eb-9ffc6eb18306" kind="FLOW"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="0bc9ada9-2366-44eb-82f1-385c07f4c37e"
+                name="System" abstractType="#eca84d5c-fdcd-4cbe-90d5-7d00a256c62b"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="f168fd0a-544a-460a-b7c0-4375f3cbe330"
+                name="LC 2" abstractType="#e456876f-a01d-44f8-b1b2-429dab94f698"/>
+            <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+                id="eca84d5c-fdcd-4cbe-90d5-7d00a256c62b" name="System">
+              <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+                  id="32483de8-abd5-4e50-811b-407fad44defa" name="C 1" source="#19a0b136-2baa-48a2-a979-f5de806fac1d"
+                  target="#b0a53a15-3fcc-463c-b8bb-3fac145cd1bb" kind="FLOW"/>
+              <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+                  id="6a557565-c9d4-4216-8e9e-03539c0e6095" name="C 2" source="#9d766929-c218-40e5-b6c7-b343678b9e2e"
+                  target="#33a19dd9-7fe2-4173-84b2-09942ca69f41" kind="FLOW"/>
+              <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+                  id="727b7d69-3cd2-45cc-b423-1e7b93c83f5b" name="C 3" source="#3d560581-2804-4b72-bbdf-f86038e9a69b"
+                  target="#d6c8ed3c-42ab-4eea-8381-40bc29ddb7ca" kind="FLOW"/>
+              <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+                  id="3e66b559-eea0-40af-b18c-0328ee10add7" name="C 4" source="#5ca1c86d-c76b-4514-b060-0b161a7d688e"
+                  target="#1b978e1e-1368-44a2-a9e6-12818614b23e" kind="FLOW"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="a34300ee-6e63-4c72-b210-2adee00478f8"
+                  name="SysChild 1" abstractType="#1508c5e1-b895-4287-9711-d2e803c82358"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="e786b912-51ed-4bb8-b03c-acb05c48f0c8"
+                  name="SysChild 2" abstractType="#2069b6e3-40f2-4bd7-b16e-900e23bd8d19"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                  id="19a0b136-2baa-48a2-a979-f5de806fac1d" name="CP 5" orientation="IN"
+                  kind="FLOW"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                  id="33a19dd9-7fe2-4173-84b2-09942ca69f41" name="CP 4" orientation="IN"
+                  kind="FLOW"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                  id="d6c8ed3c-42ab-4eea-8381-40bc29ddb7ca" name="CP 6" orientation="OUT"
+                  kind="FLOW"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="c0a2ae6d-ac5e-4a73-84ef-b7b9df344170"
+                  name="LC 3" abstractType="#de3d9413-5576-4841-bef0-e2e890a5ec22"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                  id="1b978e1e-1368-44a2-a9e6-12818614b23e" name="CP 7" orientation="IN"
+                  kind="FLOW"/>
+              <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+                  id="1508c5e1-b895-4287-9711-d2e803c82358" name="SysChild 1">
+                <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                    id="9d766929-c218-40e5-b6c7-b343678b9e2e" name="CP 1" orientation="IN"
+                    kind="FLOW"/>
+              </ownedLogicalComponents>
+              <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+                  id="2069b6e3-40f2-4bd7-b16e-900e23bd8d19" name="SysChild 2">
+                <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                    id="b0a53a15-3fcc-463c-b8bb-3fac145cd1bb" name="CP 1" orientation="IN"
+                    kind="FLOW"/>
+                <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                    id="3d560581-2804-4b72-bbdf-f86038e9a69b" name="CP 2" orientation="OUT"
+                    kind="FLOW"/>
+              </ownedLogicalComponents>
+              <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+                  id="de3d9413-5576-4841-bef0-e2e890a5ec22" name="LC 3">
+                <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                    id="5ca1c86d-c76b-4514-b060-0b161a7d688e" name="CP 1" orientation="IN"
+                    kind="FLOW"/>
+              </ownedLogicalComponents>
+            </ownedLogicalComponents>
+            <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+                id="e456876f-a01d-44f8-b1b2-429dab94f698" name="LC 2">
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                  id="7608e831-578d-4b98-97eb-9ffc6eb18306" name="CP 1" orientation="IN"
+                  kind="FLOW"/>
+            </ownedLogicalComponents>
+          </ownedLogicalComponents>
           <ownedLogicalComponentPkgs xsi:type="org.polarsys.capella.core.data.la:LogicalComponentPkg"
               id="83d80c8a-e845-4fd9-bb6f-91fc32145785" name="LogicalComponents">
             <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
@@ -4496,6 +4578,18 @@ The predator is far away</bodies>
           <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
               id="3d101a29-abb8-4510-956c-ab02e0f1b03c" targetElement="#83ba0220-54f2-48f7-bca1-cd87e39639f2"
               sourceElement="#4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c"/>
+        </ownedLogicalComponents>
+        <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+            id="92baed36-9319-42bf-86db-0089a77dd1db" name="LA 11" actor="true">
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="4b3ba1cd-4201-46bb-bcd6-33c9604494a2" name="CP 1" orientation="OUT"
+              kind="FLOW"/>
+        </ownedLogicalComponents>
+        <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+            id="07c19a9f-153d-4b4a-9f02-014d916f3f1d" name="LA 12" actor="true">
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="70c2b985-2e9f-4c3a-be43-39f9b960966d" name="CP 1" orientation="OUT"
+              kind="FLOW"/>
         </ownedLogicalComponents>
       </ownedLogicalComponentPkg>
       <ownedSystemAnalysisRealizations xsi:type="org.polarsys.capella.core.data.la:SystemAnalysisRealization"

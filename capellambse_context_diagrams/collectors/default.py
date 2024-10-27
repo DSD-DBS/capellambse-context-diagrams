@@ -109,7 +109,20 @@ class ContextProcessor:
         )
         if self.diagram._hide_direct_children:
             self.centerbox.children = []
+            hidden = set(edge.id for edge in self.centerbox.edges)
+            centerbox_ports = set(port.id for port in self.centerbox.ports)
+            port_uuids = set()
+            for ex in self.exchanges:
+                if ex.uuid not in hidden:
+                    if ex.source.uuid in centerbox_ports:
+                        port_uuids.add(ex.source.uuid)
+                    if ex.target.uuid in centerbox_ports:
+                        port_uuids.add(ex.target.uuid)
+
             self.centerbox.edges = []
+            self.centerbox.ports = [
+                p for p in self.centerbox.ports if p.id in port_uuids
+            ]
             for label in self.centerbox.labels:
                 label.layoutOptions = makers.CENTRIC_LABEL_LAYOUT_OPTIONS
 

@@ -16,7 +16,6 @@ import typing as t
 from capellambse import diagram as cdiagram
 from capellambse import helpers
 from capellambse import model as m
-from capellambse.metamodel import cs
 
 from . import _elkjs, filters, serializers, styling
 from .collectors import (
@@ -289,6 +288,12 @@ class ContextDiagram(m.AbstractDiagram):
         if standard_styles := STANDARD_STYLES.get(class_):
             self.render_styles = standard_styles
 
+        self.collector: cabc.Callable[
+            [ContextDiagram, dict[str, t.Any]],
+            _elkjs.ELKInputData
+            | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData],
+        ] = get_elkdata
+
     @property
     def uuid(self) -> str:  # type: ignore
         """Returns diagram UUID."""
@@ -311,11 +316,6 @@ class ContextDiagram(m.AbstractDiagram):
     def elk_input_data(
         self,
         params: dict[str, t.Any],
-        collector: cabc.Callable[
-            [ContextDiagram, dict[str, t.Any]],
-            _elkjs.ELKInputData
-            | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData],
-        ] = get_elkdata,
     ) -> _elkjs.ELKInputData | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData]:
         """Returns the ELK input data."""
         params = self._default_render_parameters | params
@@ -326,7 +326,7 @@ class ContextDiagram(m.AbstractDiagram):
             self._elk_input_data = data  # type: ignore[assignment]
 
         if self._elk_input_data is None:
-            self._elk_input_data = collector(self, params)  # type: ignore[assignment]
+            self._elk_input_data = self.collector(self, params)  # type: ignore[assignment]
 
         return self._elk_input_data
 
@@ -446,29 +446,18 @@ class InterfaceContextDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
+        self.collector: cabc.Callable[
+            [InterfaceContextDiagram, dict[str, t.Any]],
+            _elkjs.ELKInputData
+            | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData],
+        ] = exchanges.interface_context_collector
 
     @property
     def name(self) -> str:  # type: ignore
         return f"Interface Context of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        collector: t.Type[exchanges.ExchangeCollector]
-        if isinstance(self.target, cs.PhysicalLink):
-            collector = exchanges.PhysicalLinkContextCollector
-        else:
-            collector = exchanges.InterfaceContextCollector
-
-        def collect_exchange_data(
-            diagram: InterfaceContextDiagram, pars: dict[str, t.Any]
-        ) -> (
-            _elkjs.ELKInputData
-            | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData]
-        ):
-            return exchanges.get_elkdata_for_exchanges(
-                diagram, collector, pars
-            )
-
-        params["elkdata"] = self.elk_input_data(params, collector=collect_exchange_data)  # type: ignore[arg-type]
+        params["elkdata"] = self.elk_input_data(params)
         return super()._create_diagram(params)
 
 
@@ -477,19 +466,29 @@ class FunctionalContextDiagram(ContextDiagram):
     Components.
     """
 
+    def __init__(
+        self,
+        class_: str,
+        obj: m.ModelElement,
+        *,
+        default_render_parameters: dict[str, t.Any],
+    ):
+        super().__init__(
+            class_, obj, default_render_parameters=default_render_parameters
+        )
+
+        self.collector: cabc.Callable[
+            [FunctionalContextDiagram, dict[str, t.Any]],
+            _elkjs.ELKInputData
+            | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData],
+        ] = exchanges.functional_context_collector
+
     @property
     def name(self) -> str:  # type: ignore
         return f"Interface Context of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        def collect_exchange_data(
-            diagram: FunctionalContextDiagram, pars: dict[str, t.Any]
-        ):
-            return exchanges.get_elkdata_for_exchanges(
-                diagram, exchanges.FunctionalContextCollector, pars
-            )
-
-        params["elkdata"] = self.elk_input_data(params, collector=collect_exchange_data)  # type: ignore[arg-type]
+        params["elkdata"] = self.elk_input_data(params)
         return super()._create_diagram(params)
 
 
@@ -518,6 +517,7 @@ class ClassTreeDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
+        self.collector = tree_view.collector
 
     @property
     def uuid(self) -> str:  # type: ignore
@@ -548,9 +548,7 @@ class ClassTreeDiagram(ContextDiagram):
             params.pop("edgeLabelsSide", "SMART_DOWN"),
         )
 
-        data, legend = self.elk_input_data(
-            params, collector=tree_view.collector
-        )
+        data, legend = self.elk_input_data(params)
         assert isinstance(data, _elkjs.ELKInputData)
         assert isinstance(legend, _elkjs.ELKInputData)
         params["elkdata"] = data
@@ -640,6 +638,7 @@ class RealizationViewDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
+        self.collector = realization_view.collector  # type: ignore[assignment]
 
     @property
     def uuid(self) -> str:  # type: ignore
@@ -659,7 +658,7 @@ class RealizationViewDiagram(ContextDiagram):
             "layer_sizing": "WIDTH",
             **params,
         }
-        data, edges = self.elk_input_data(params, collector=realization_view.collector)  # type: ignore[arg-type]
+        data, edges = self.elk_input_data(params)
         assert isinstance(data, _elkjs.ELKInputData)
         assert isinstance(edges, list)
         layout = try_to_layout(data)  # type: ignore[unreachable]
@@ -730,6 +729,7 @@ class DataFlowViewDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
+        self.collector = dataflow_view.collector
 
     @property
     def uuid(self) -> str:  # type: ignore
@@ -742,9 +742,7 @@ class DataFlowViewDiagram(ContextDiagram):
         return f"DataFlow view of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params["elkdata"] = self.elk_input_data(
-            params, collector=dataflow_view.collector
-        )  # type: ignore[arg-type]
+        params["elkdata"] = self.elk_input_data(params)
         return super()._create_diagram(params)
 
 
@@ -772,6 +770,7 @@ class CableTreeViewDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
+        self.collector = cable_tree.collector
 
     @property
     def uuid(self) -> str:  # type: ignore
@@ -781,13 +780,6 @@ class CableTreeViewDiagram(ContextDiagram):
     @property
     def name(self) -> str:  # type: ignore
         return f"Cable Tree View of {self.target.name}"
-
-    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params = self._default_render_parameters | params
-        for param_name in self._default_render_parameters:
-            setattr(self, f"_{param_name}", params.pop(param_name))
-        params["elkdata"] = cable_tree.collector(self, params)
-        return super()._create_diagram(params)
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:

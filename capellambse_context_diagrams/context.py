@@ -381,8 +381,7 @@ class ContextDiagram(m.AbstractDiagram):
         is_legend: bool = params.get("is_legend", False)  # type: ignore[assignment]
         add_context(layout, is_legend)
         return self.serializer.make_diagram(
-            layout,
-            transparent_background=self._transparent_background,
+            layout, transparent_background=self._transparent_background
         )
 
     @property  # type: ignore
@@ -489,6 +488,20 @@ class ClassTreeDiagram(ContextDiagram):
     """
 
     _display_symbols_as_boxes: bool
+    _edgeRouting: t.Literal["UNDEFINED", "POLYLINE", "ORTHOGONAL", "SPLINES"]
+    _direction: t.Literal["DOWN", "UP", "LEFT", "RIGHT"]
+    _nodeSizeConstraints: t.Literal[
+        "PORTS", "PORT_LABELS", "NODE_LABELS", "MINIMUM_SIZE"
+    ]
+    _edgeLabelsSide: t.Literal[
+        "ALWAYS_UP",
+        "ALWAYS_DOWN",
+        "DIRECTION_UP",
+        "DIRECTION_DOWN",
+        "SMART_UP",
+        "SMART_DOWN",
+    ]
+    _partitioning: bool
 
     def __init__(
         self,
@@ -500,6 +513,11 @@ class ClassTreeDiagram(ContextDiagram):
     ) -> None:
         default_render_parameters = {
             "display_symbols_as_boxes": True,
+            "edgeRouting": "POLYLINE",
+            "direction": "DOWN",
+            "nodeSizeConstraints": "NODE_LABELS",
+            "edgeLabelsSide": "SMART_DOWN",
+            "partitioning": False,
         } | default_render_parameters
         super().__init__(
             class_,
@@ -520,24 +538,6 @@ class ClassTreeDiagram(ContextDiagram):
         return f"Tree view of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params = {
-            "algorithm": "layered",
-            "edgeRouting": "POLYLINE",
-            **params,
-        }
-        params.setdefault("elk.direction", params.pop("direction", "DOWN"))
-        params.setdefault(
-            "nodeSize.constraints",
-            params.pop("nodeSizeConstraints", "NODE_LABELS"),
-        )
-        params.setdefault(
-            "partitioning.activate", params.pop("partitioning", False)
-        )
-        params.setdefault(
-            "layered.edgeLabels.sideSelection",
-            params.pop("edgeLabelsSide", "SMART_DOWN"),
-        )
-
         data, legend = self.elk_input_data(params)
         assert isinstance(data, _elkjs.ELKInputData)
         assert isinstance(legend, _elkjs.ELKInputData)
@@ -546,7 +546,7 @@ class ClassTreeDiagram(ContextDiagram):
         assert class_diagram.viewport is not None
         width, height = class_diagram.viewport.size
         axis: t.Literal["x", "y"]
-        if params["elk.direction"] in {"DOWN", "UP"}:
+        if self._direction in {"DOWN", "UP"}:
             legend.layoutOptions["aspectRatio"] = width / height
             axis = "x"
         else:
@@ -610,6 +610,10 @@ class RealizationViewDiagram(ContextDiagram):
     """
 
     _display_symbols_as_boxes: bool
+    _depth: int
+    _search_direction: t.Literal["ALL", "ABOVE", "BELOW"]
+    _show_owners: bool
+    _layer_sizing: t.Literal["UNION", "HEIGHT", "WIDTH", "INDIVIDUAL"]
 
     def __init__(
         self,
@@ -621,6 +625,10 @@ class RealizationViewDiagram(ContextDiagram):
     ) -> None:
         default_render_parameters = {
             "display_symbols_as_boxes": True,
+            "depth": 1,
+            "search_direction": "ALL",
+            "show_owners": True,
+            "layer_sizing": "WIDTH",
         } | default_render_parameters
         super().__init__(
             class_,
@@ -641,18 +649,11 @@ class RealizationViewDiagram(ContextDiagram):
         return f"Realization view of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params = {
-            "depth": 1,
-            "search_direction": "ALL",
-            "show_owners": True,
-            "layer_sizing": "WIDTH",
-            **params,
-        }
         data, edges = self.elk_input_data(params)
         assert isinstance(data, _elkjs.ELKInputData)
         assert isinstance(edges, list)
         layout = try_to_layout(data)  # type: ignore[unreachable]
-        adjust_layer_sizing(data, layout, params["layer_sizing"])
+        adjust_layer_sizing(data, layout, self._layer_sizing)
         layout = try_to_layout(data)
         for edge in edges:
             assert isinstance(edge, _elkjs.ELKInputEdge)
@@ -667,8 +668,7 @@ class RealizationViewDiagram(ContextDiagram):
             )
         self._add_layer_labels(layout)
         return self.serializer.make_diagram(
-            layout,
-            transparent_background=params.get("transparent_background", False),
+            layout, transparent_background=self._transparent_background
         )
 
     def _add_layer_labels(self, layout: _elkjs.ELKOutputData) -> None:
@@ -731,10 +731,6 @@ class DataFlowViewDiagram(ContextDiagram):
         """Returns the name of the diagram."""
         return f"DataFlow view of {self.target.name}"
 
-    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params["elkdata"] = self.elk_input_data(params)
-        return super()._create_diagram(params)
-
 
 class CableTreeViewDiagram(ContextDiagram):
     """An automatically generated CableTreeView."""
@@ -784,7 +780,7 @@ def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:
 def adjust_layer_sizing(
     data: _elkjs.ELKInputData,
     layout: _elkjs.ELKOutputData,
-    layer_sizing: t.Literal["UNION", "WIDTH", "HEIGHT"],
+    layer_sizing: t.Literal["UNION", "WIDTH", "HEIGHT", "INDIVIDUAL"],
 ) -> None:
     """Set `nodeSize.minimum` config in the layoutOptions."""
 

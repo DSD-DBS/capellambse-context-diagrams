@@ -456,10 +456,6 @@ class InterfaceContextDiagram(ContextDiagram):
     def name(self) -> str:  # type: ignore
         return f"Interface Context of {self.target.name}"
 
-    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params["elkdata"] = self.elk_input_data(params)
-        return super()._create_diagram(params)
-
 
 class FunctionalContextDiagram(ContextDiagram):
     """An automatically generated Context Diagram exclusively for
@@ -484,10 +480,6 @@ class FunctionalContextDiagram(ContextDiagram):
     @property
     def name(self) -> str:  # type: ignore
         return f"Interface Context of {self.target.name}"
-
-    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params["elkdata"] = self.elk_input_data(params)
-        return super()._create_diagram(params)
 
 
 class ClassTreeDiagram(ContextDiagram):

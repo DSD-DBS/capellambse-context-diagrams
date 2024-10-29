@@ -437,13 +437,13 @@ def is_hierarchical(
 
 def functional_context_collector(
     diagram: context.FunctionalContextDiagram, pars: dict[str, t.Any]
-):
+) -> _elkjs.ELKInputData:
     return get_elkdata_for_exchanges(diagram, FunctionalContextCollector, pars)
 
 
 def interface_context_collector(
     diagram: context.InterfaceContextDiagram, pars: dict[str, t.Any]
-) -> _elkjs.ELKInputData | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData]:
+) -> _elkjs.ELKInputData:
     collector: t.Type[ExchangeCollector]
     if isinstance(diagram.target, cs.PhysicalLink):
         collector = PhysicalLinkContextCollector

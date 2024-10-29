@@ -449,9 +449,7 @@ class InterfaceContextDiagram(ContextDiagram):
             default_render_parameters=default_render_parameters,
         )
         self.collector: cabc.Callable[
-            [InterfaceContextDiagram, dict[str, t.Any]],
-            _elkjs.ELKInputData
-            | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData],
+            [InterfaceContextDiagram, dict[str, t.Any]], _elkjs.ELKInputData
         ] = exchanges.interface_context_collector
 
     @property
@@ -480,9 +478,7 @@ class FunctionalContextDiagram(ContextDiagram):
         )
 
         self.collector: cabc.Callable[
-            [FunctionalContextDiagram, dict[str, t.Any]],
-            _elkjs.ELKInputData
-            | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData],
+            [FunctionalContextDiagram, dict[str, t.Any]], _elkjs.ELKInputData
         ] = exchanges.functional_context_collector
 
     @property

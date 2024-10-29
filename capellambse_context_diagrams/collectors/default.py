@@ -4,6 +4,7 @@
 Collection of [`ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData]
 on diagrams that involve ports.
 """
+
 from __future__ import annotations
 
 import collections.abc as cabc
@@ -106,6 +107,24 @@ class ContextProcessor:
         self.centerbox.height = max(
             self.centerbox.height, *stack_heights.values()
         )
+        if self.diagram._hide_direct_children:
+            self.centerbox.children = []
+            hidden = set(edge.id for edge in self.centerbox.edges)
+            centerbox_ports = set(port.id for port in self.centerbox.ports)
+            port_uuids = set()
+            for ex in self.exchanges:
+                if ex.uuid not in hidden:
+                    if ex.source.uuid in centerbox_ports:
+                        port_uuids.add(ex.source.uuid)
+                    if ex.target.uuid in centerbox_ports:
+                        port_uuids.add(ex.target.uuid)
+
+            self.centerbox.edges = []
+            self.centerbox.ports = [
+                p for p in self.centerbox.ports if p.id in port_uuids
+            ]
+            for label in self.centerbox.labels:
+                label.layoutOptions = makers.CENTRIC_LABEL_LAYOUT_OPTIONS
 
     def _process_port_spread(
         self,
@@ -131,7 +150,9 @@ class ContextProcessor:
             port_spread.setdefault(owner, 0)
             port_spread[owner] += inc
 
-    def _process_exchanges(self) -> tuple[
+    def _process_exchanges(
+        self,
+    ) -> tuple[
         list[m.ModelElement],
         list[generic.ExchangeData],
     ]:
@@ -150,7 +171,12 @@ class ContextProcessor:
         )
         self.exchanges = inc_exchanges + out_exchanges
         ex_datas: list[generic.ExchangeData] = []
+        seen_exchanges: set[str] = set()
         for ex in self.exchanges:
+            if ex.uuid in seen_exchanges:
+                continue
+
+            seen_exchanges.add(ex.uuid)
             if is_hierarchical := exchanges.is_hierarchical(
                 ex, self.centerbox
             ):
@@ -272,6 +298,9 @@ class ContextProcessor:
                 break
         else:
             children.append(obj_box)
+            for label in parent_box.labels:
+                label.layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+
         self.boxes_to_delete.add(obj.uuid)
         return obj.owner
 

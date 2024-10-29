@@ -249,10 +249,13 @@ class ContextDiagram(m.AbstractDiagram):
     * display_port_labels — Display port labels on the diagram.
     * port_label_position - Position of the port labels. See
       [`PORT_LABEL_POSITION`][capellambse_context_diagrams.context._elkjs.PORT_LABEL_POSITION].
+    * hide_direct_children - Hide direct children of the object of
+      interest.
     """
 
     _display_symbols_as_boxes: bool
     _display_parent_relation: bool
+    _hide_direct_children: bool
     _display_derived_interfaces: bool
     _slim_center_box: bool
     _display_port_labels: bool
@@ -279,6 +282,7 @@ class ContextDiagram(m.AbstractDiagram):
         self._default_render_parameters = {
             "display_symbols_as_boxes": False,
             "display_parent_relation": False,
+            "hide_direct_children": False,
             "display_derived_interfaces": False,
             "slim_center_box": True,
             "display_port_labels": False,

@@ -163,6 +163,12 @@ class InterfaceContextCollector(ExchangeCollector):
             self.data.children.append(self.left)
             assert self.right is not None
             self.data.children.append(self.right)
+            if self.left == self.right:
+                raise errors.CycleError(
+                    "The interface is a cycle, connecting the same "
+                    "source and target."
+                )
+
         except AttributeError as error:
             logger.exception("Interface collection failed: \n%r", str(error))
 
@@ -433,3 +439,21 @@ def is_hierarchical(
     source_contained = src.uuid in objs or attr_getter(src) == box.id
     target_contained = trg.uuid in objs or attr_getter(trg) == box.id
     return source_contained and target_contained
+
+
+def functional_context_collector(
+    diagram: context.FunctionalContextDiagram, pars: dict[str, t.Any]
+) -> _elkjs.ELKInputData:
+    return get_elkdata_for_exchanges(diagram, FunctionalContextCollector, pars)
+
+
+def interface_context_collector(
+    diagram: context.InterfaceContextDiagram, pars: dict[str, t.Any]
+) -> _elkjs.ELKInputData:
+    collector: t.Type[ExchangeCollector]
+    if isinstance(diagram.target, cs.PhysicalLink):
+        collector = PhysicalLinkContextCollector
+    else:
+        collector = InterfaceContextCollector
+
+    return get_elkdata_for_exchanges(diagram, collector, pars)

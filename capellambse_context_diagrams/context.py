@@ -16,7 +16,6 @@ import typing as t
 from capellambse import diagram as cdiagram
 from capellambse import helpers
 from capellambse import model as m
-from capellambse.metamodel import cs
 
 from . import _elkjs, filters, serializers, styling
 from .collectors import (
@@ -38,6 +37,13 @@ STANDARD_STYLES = {
     "Operational Capabilities Blank": styling.SYSTEM_CAP_STYLING,
     "Missions Capabilities Blank": styling.SYSTEM_CAP_STYLING,
 }
+
+CollectorOutputData: t.TypeAlias = (
+    _elkjs.ELKInputData
+    | tuple[
+        _elkjs.ELKInputData, _elkjs.ELKInputData | list[_elkjs.ELKInputEdge]
+    ]
+)
 
 
 class ContextAccessor(m.Accessor):
@@ -254,6 +260,7 @@ class ContextDiagram(m.AbstractDiagram):
     _slim_center_box: bool
     _display_port_labels: bool
     _port_label_position: str
+    _transparent_background: bool
 
     def __init__(
         self,
@@ -269,6 +276,8 @@ class ContextDiagram(m.AbstractDiagram):
 
         self.render_styles = render_styles or {}
         self.serializer = serializers.DiagramSerializer(self)
+
+        self._elk_input_data: CollectorOutputData | None = None
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
         self._default_render_parameters = {
             "display_symbols_as_boxes": False,
@@ -278,12 +287,17 @@ class ContextDiagram(m.AbstractDiagram):
             "slim_center_box": True,
             "display_port_labels": False,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
+            "transparent_background": False,
         } | default_render_parameters
 
         if standard_filter := STANDARD_FILTERS.get(class_):
             self.filters.add(standard_filter)
         if standard_styles := STANDARD_STYLES.get(class_):
             self.render_styles = standard_styles
+
+        self.collector: cabc.Callable[
+            [ContextDiagram, dict[str, t.Any]], CollectorOutputData
+        ] = get_elkdata
 
     @property
     def uuid(self) -> str:  # type: ignore
@@ -303,6 +317,28 @@ class ContextDiagram(m.AbstractDiagram):
         except ValueError:  # pragma: no cover
             logger.warning("Unknown diagram type %r", self.styleclass)
             return m.DiagramType.UNKNOWN
+
+    def elk_input_data(
+        self,
+        params: dict[str, t.Any],
+    ) -> CollectorOutputData:
+        """Returns the ELK input data."""
+        params = self._default_render_parameters | params
+        for param_name in self._default_render_parameters:
+            setattr(self, f"_{param_name}", params.pop(param_name))
+
+        data: CollectorOutputData
+        if data := params.get("elkdata", None):  # type: ignore[assignment]
+            self._elk_input_data = data
+
+        if self._elk_input_data is None:
+            self._elk_input_data = self.collector(self, params)
+
+        return self._elk_input_data
+
+    def invalidate_cache(self) -> None:
+        super().invalidate_cache()
+        self._elk_input_data = None
 
     class FilterSet(cabc.MutableSet):
         """A set that stores filter_names and invalidates diagram cache."""
@@ -337,14 +373,8 @@ class ContextDiagram(m.AbstractDiagram):
             return self._set.__len__()
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params = self._default_render_parameters | params
-        transparent_background: bool = params.pop(  # type: ignore[assignment]
-            "transparent_background", False
-        )
-        for param_name in self._default_render_parameters:
-            setattr(self, f"_{param_name}", params.pop(param_name))
-
-        data: _elkjs.ELKInputData = params.get("elkdata") or get_elkdata(self, params)  # type: ignore[assignment]
+        data = self.elk_input_data(params)
+        assert not isinstance(data, tuple)
         if not isinstance(
             self, (ClassTreeDiagram, InterfaceContextDiagram)
         ) and has_single_child(data):
@@ -355,8 +385,7 @@ class ContextDiagram(m.AbstractDiagram):
         is_legend: bool = params.get("is_legend", False)  # type: ignore[assignment]
         add_context(layout, is_legend)
         return self.serializer.make_diagram(
-            layout,
-            transparent_background=transparent_background,
+            layout, transparent_background=self._transparent_background
         )
 
     @property  # type: ignore
@@ -422,27 +451,13 @@ class InterfaceContextDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
+        self.collector: cabc.Callable[
+            [InterfaceContextDiagram, dict[str, t.Any]], _elkjs.ELKInputData
+        ] = exchanges.interface_context_collector
 
     @property
     def name(self) -> str:  # type: ignore
         return f"Interface Context of {self.target.name}"
-
-    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        super_params = params.copy()
-        params = self._default_render_parameters | params
-        for param_name in self._default_render_parameters:
-            setattr(self, f"_{param_name}", params.pop(param_name))
-
-        collector: t.Type[exchanges.ExchangeCollector]
-        if isinstance(self.target, cs.PhysicalLink):
-            collector = exchanges.PhysicalLinkContextCollector
-        else:
-            collector = exchanges.InterfaceContextCollector
-
-        super_params["elkdata"] = exchanges.get_elkdata_for_exchanges(
-            self, collector, params
-        )
-        return super()._create_diagram(super_params)
 
 
 class FunctionalContextDiagram(ContextDiagram):
@@ -450,15 +465,24 @@ class FunctionalContextDiagram(ContextDiagram):
     Components.
     """
 
+    def __init__(
+        self,
+        class_: str,
+        obj: m.ModelElement,
+        *,
+        default_render_parameters: dict[str, t.Any],
+    ):
+        super().__init__(
+            class_, obj, default_render_parameters=default_render_parameters
+        )
+
+        self.collector: cabc.Callable[
+            [FunctionalContextDiagram, dict[str, t.Any]], _elkjs.ELKInputData
+        ] = exchanges.functional_context_collector
+
     @property
     def name(self) -> str:  # type: ignore
         return f"Interface Context of {self.target.name}"
-
-    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params["elkdata"] = exchanges.get_elkdata_for_exchanges(
-            self, exchanges.FunctionalContextCollector, params
-        )
-        return super()._create_diagram(params)
 
 
 class ClassTreeDiagram(ContextDiagram):
@@ -468,6 +492,20 @@ class ClassTreeDiagram(ContextDiagram):
     """
 
     _display_symbols_as_boxes: bool
+    _edgeRouting: t.Literal["UNDEFINED", "POLYLINE", "ORTHOGONAL", "SPLINES"]
+    _direction: t.Literal["DOWN", "UP", "LEFT", "RIGHT"]
+    _nodeSizeConstraints: t.Literal[
+        "PORTS", "PORT_LABELS", "NODE_LABELS", "MINIMUM_SIZE"
+    ]
+    _edgeLabelsSide: t.Literal[
+        "ALWAYS_UP",
+        "ALWAYS_DOWN",
+        "DIRECTION_UP",
+        "DIRECTION_DOWN",
+        "SMART_UP",
+        "SMART_DOWN",
+    ]
+    _partitioning: bool
 
     def __init__(
         self,
@@ -479,6 +517,11 @@ class ClassTreeDiagram(ContextDiagram):
     ) -> None:
         default_render_parameters = {
             "display_symbols_as_boxes": True,
+            "edgeRouting": "POLYLINE",
+            "direction": "DOWN",
+            "nodeSizeConstraints": "NODE_LABELS",
+            "edgeLabelsSide": "SMART_DOWN",
+            "partitioning": False,
         } | default_render_parameters
         super().__init__(
             class_,
@@ -486,6 +529,7 @@ class ClassTreeDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
+        self.collector = tree_view.collector
 
     @property
     def uuid(self) -> str:  # type: ignore
@@ -498,39 +542,21 @@ class ClassTreeDiagram(ContextDiagram):
         return f"Tree view of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params = {
-            **self._default_render_parameters,
-            "algorithm": "layered",
-            "edgeRouting": "POLYLINE",
-            **params,
-        }
-        for param_name in self._default_render_parameters:
-            setattr(self, f"_{param_name}", params.pop(param_name))
-
-        params.setdefault("elk.direction", params.pop("direction", "DOWN"))
-        params.setdefault(
-            "nodeSize.constraints",
-            params.pop("nodeSizeConstraints", "NODE_LABELS"),
-        )
-        params.setdefault(
-            "partitioning.activate", params.pop("partitioning", False)
-        )
-        params.setdefault(
-            "layered.edgeLabels.sideSelection",
-            params.pop("edgeLabelsSide", "SMART_DOWN"),
-        )
-        data, legend = tree_view.collector(self, params)
+        data, legend = self.elk_input_data(params)
+        assert isinstance(data, _elkjs.ELKInputData)
+        assert isinstance(legend, _elkjs.ELKInputData)
         params["elkdata"] = data
         class_diagram = super()._create_diagram(params)
         assert class_diagram.viewport is not None
         width, height = class_diagram.viewport.size
         axis: t.Literal["x", "y"]
-        if params["elk.direction"] in {"DOWN", "UP"}:
+        if self._direction in {"DOWN", "UP"}:
             legend.layoutOptions["aspectRatio"] = width / height
             axis = "x"
         else:
             legend.layoutOptions["aspectRatio"] = width
             axis = "y"
+
         params["elkdata"] = legend
         params["is_legend"] = True
         legend_diagram = super()._create_diagram(params)
@@ -588,6 +614,10 @@ class RealizationViewDiagram(ContextDiagram):
     """
 
     _display_symbols_as_boxes: bool
+    _depth: int
+    _search_direction: t.Literal["ALL", "ABOVE", "BELOW"]
+    _show_owners: bool
+    _layer_sizing: t.Literal["UNION", "HEIGHT", "WIDTH", "INDIVIDUAL"]
 
     def __init__(
         self,
@@ -599,6 +629,10 @@ class RealizationViewDiagram(ContextDiagram):
     ) -> None:
         default_render_parameters = {
             "display_symbols_as_boxes": True,
+            "depth": 1,
+            "search_direction": "ALL",
+            "show_owners": True,
+            "layer_sizing": "WIDTH",
         } | default_render_parameters
         super().__init__(
             class_,
@@ -606,6 +640,7 @@ class RealizationViewDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
+        self.collector = realization_view.collector
 
     @property
     def uuid(self) -> str:  # type: ignore
@@ -618,23 +653,14 @@ class RealizationViewDiagram(ContextDiagram):
         return f"Realization view of {self.target.name}"
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params = {
-            **self._default_render_parameters,
-            "depth": 1,
-            "search_direction": "ALL",
-            "show_owners": True,
-            "layer_sizing": "WIDTH",
-            **params,
-        }
-        for param_name in self._default_render_parameters:
-            setattr(self, f"_{param_name}", params.pop(param_name))
-
-        data, edges = realization_view.collector(self, params)
-
-        layout = try_to_layout(data)
-        adjust_layer_sizing(data, layout, params["layer_sizing"])
+        data, edges = self.elk_input_data(params)
+        assert isinstance(data, _elkjs.ELKInputData)
+        assert isinstance(edges, list)
+        layout = try_to_layout(data)  # type: ignore[unreachable]
+        adjust_layer_sizing(data, layout, self._layer_sizing)
         layout = try_to_layout(data)
         for edge in edges:
+            assert isinstance(edge, _elkjs.ELKInputEdge)
             layout.children.append(
                 _elkjs.ELKOutputEdge(
                     id=f"__Realization:{edge.id}",
@@ -646,8 +672,7 @@ class RealizationViewDiagram(ContextDiagram):
             )
         self._add_layer_labels(layout)
         return self.serializer.make_diagram(
-            layout,
-            transparent_background=params.get("transparent_background", False),
+            layout, transparent_background=self._transparent_background
         )
 
     def _add_layer_labels(self, layout: _elkjs.ELKOutputData) -> None:
@@ -698,6 +723,7 @@ class DataFlowViewDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
+        self.collector = dataflow_view.collector
 
     @property
     def uuid(self) -> str:  # type: ignore
@@ -708,10 +734,6 @@ class DataFlowViewDiagram(ContextDiagram):
     def name(self) -> str:  # type: ignore
         """Returns the name of the diagram."""
         return f"DataFlow view of {self.target.name}"
-
-    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params["elkdata"] = dataflow_view.collector(self, params)
-        return super()._create_diagram(params)
 
 
 class CableTreeViewDiagram(ContextDiagram):
@@ -738,6 +760,7 @@ class CableTreeViewDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
+        self.collector = cable_tree.collector
 
     @property
     def uuid(self) -> str:  # type: ignore
@@ -747,13 +770,6 @@ class CableTreeViewDiagram(ContextDiagram):
     @property
     def name(self) -> str:  # type: ignore
         return f"Cable Tree View of {self.target.name}"
-
-    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
-        params = self._default_render_parameters | params
-        for param_name in self._default_render_parameters:
-            setattr(self, f"_{param_name}", params.pop(param_name))
-        params["elkdata"] = cable_tree.collector(self, params)
-        return super()._create_diagram(params)
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:
@@ -768,7 +784,7 @@ def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:
 def adjust_layer_sizing(
     data: _elkjs.ELKInputData,
     layout: _elkjs.ELKOutputData,
-    layer_sizing: t.Literal["UNION", "WIDTH", "HEIGHT"],
+    layer_sizing: t.Literal["UNION", "WIDTH", "HEIGHT", "INDIVIDUAL"],
 ) -> None:
     """Set `nodeSize.minimum` config in the layoutOptions."""
 

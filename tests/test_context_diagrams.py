@@ -179,6 +179,7 @@ def test_parent_relation_in_context_diagram(
 
     diag = obj.context_diagram
     hide_relation = diag.render(None, display_parent_relation=False)
+    diag.invalidate_cache()
     display_relation = diag.render(None, display_parent_relation=True)
 
     for uuid in TEST_HIERARCHY_PARENTS_UUIDS:

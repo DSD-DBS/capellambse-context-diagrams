@@ -38,6 +38,13 @@ STANDARD_STYLES = {
     "Missions Capabilities Blank": styling.SYSTEM_CAP_STYLING,
 }
 
+CollectorOutputData: t.TypeAlias = (
+    _elkjs.ELKInputData
+    | tuple[
+        _elkjs.ELKInputData, _elkjs.ELKInputData | list[_elkjs.ELKInputEdge]
+    ]
+)
+
 
 class ContextAccessor(m.Accessor):
     """Provides access to the context diagrams."""
@@ -267,11 +274,7 @@ class ContextDiagram(m.AbstractDiagram):
         self.render_styles = render_styles or {}
         self.serializer = serializers.DiagramSerializer(self)
 
-        self._elk_input_data: (
-            _elkjs.ELKInputData
-            | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData]
-            | None
-        ) = None
+        self._elk_input_data: CollectorOutputData | None = None
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
         self._default_render_parameters = {
             "display_symbols_as_boxes": False,
@@ -289,9 +292,7 @@ class ContextDiagram(m.AbstractDiagram):
             self.render_styles = standard_styles
 
         self.collector: cabc.Callable[
-            [ContextDiagram, dict[str, t.Any]],
-            _elkjs.ELKInputData
-            | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData],
+            [ContextDiagram, dict[str, t.Any]], CollectorOutputData
         ] = get_elkdata
 
     @property
@@ -316,17 +317,18 @@ class ContextDiagram(m.AbstractDiagram):
     def elk_input_data(
         self,
         params: dict[str, t.Any],
-    ) -> _elkjs.ELKInputData | tuple[_elkjs.ELKInputData, _elkjs.ELKInputData]:
+    ) -> CollectorOutputData:
         """Returns the ELK input data."""
         params = self._default_render_parameters | params
         for param_name in self._default_render_parameters:
             setattr(self, f"_{param_name}", params.pop(param_name))
 
-        if data := params.get("elkdata", None):
-            self._elk_input_data = data  # type: ignore[assignment]
+        data: CollectorOutputData
+        if data := params.get("elkdata", None):  # type: ignore[assignment]
+            self._elk_input_data = data
 
         if self._elk_input_data is None:
-            self._elk_input_data = self.collector(self, params)  # type: ignore[assignment]
+            self._elk_input_data = self.collector(self, params)
 
         return self._elk_input_data
 
@@ -638,7 +640,7 @@ class RealizationViewDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
-        self.collector = realization_view.collector  # type: ignore[assignment]
+        self.collector = realization_view.collector
 
     @property
     def uuid(self) -> str:  # type: ignore

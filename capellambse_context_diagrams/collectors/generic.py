@@ -234,11 +234,15 @@ def move_edges(
             source_owner_uuids.remove(c.source.uuid)
             target_owner_uuids.remove(c.source.uuid)
 
+        cycle_detected = c.source.owner.uuid == c.target.owner.uuid
         common_owner_uuid = None
         for owner in source_owner_uuids:
             if owner in target_owner_uuids:
                 common_owner_uuid = owner
-                break
+                if cycle_detected:
+                    cycle_detected = False
+                else:
+                    break
 
         if not common_owner_uuid or not (
             owner_box := boxes.get(common_owner_uuid)
@@ -249,6 +253,7 @@ def move_edges(
             if edge.id == c.uuid:
                 owner_box.edges.append(edge)
                 edges_to_remove.append(edge.id)
+
     data.edges = [e for e in data.edges if e.id not in edges_to_remove]
 
 

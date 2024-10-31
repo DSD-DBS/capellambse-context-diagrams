@@ -7,6 +7,7 @@ on diagrams that involve ports.
 
 from __future__ import annotations
 
+import collections
 import collections.abc as cabc
 import typing as t
 from itertools import chain
@@ -74,6 +75,7 @@ class ContextProcessor:
             "output": -makers.NEIGHBOR_VMARGIN,
         }
         self._process_ports(stack_heights)
+        self._process_cycles()
 
         if self.diagram._display_parent_relation and self.diagram.target.owner:
             current = self.diagram.target.owner
@@ -95,9 +97,7 @@ class ContextProcessor:
         self.data.children.extend(self.global_boxes.values())
         if self.diagram._display_parent_relation:
             owner_boxes: dict[str, _elkjs.ELKInputChild] = {
-                uuid: box
-                for uuid, box in self.made_boxes.items()
-                if box.children
+                uuid: box for uuid, box in self.made_boxes.items()
             }
             generic.move_parent_boxes_to_owner(
                 owner_boxes, self.diagram.target, self.data
@@ -266,6 +266,16 @@ class ContextProcessor:
                 self.common_owners.add(current.uuid)
 
             stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
+
+    def _process_cycles(self) -> None:
+        ex_count = collections.Counter([ex.uuid for ex in self.exchanges])
+        cycles = set(uuid for uuid, count in ex_count.items() if count == 2)
+        for ex in self.exchanges[:]:
+            if ex.uuid in cycles:
+                self.exchanges.remove(ex)
+                cycles.remove(ex.uuid)
+                if not cycles:
+                    break
 
     def _make_box(
         self,

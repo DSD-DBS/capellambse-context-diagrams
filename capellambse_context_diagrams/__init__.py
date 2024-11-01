@@ -38,7 +38,12 @@ except metadata.PackageNotFoundError:
 del metadata
 
 DefaultRenderParams = dict[str, t.Any]
-SupportedClass = tuple[type[m.ModelElement], DiagramType, DefaultRenderParams]
+SupportedContextClass = tuple[
+    type[m.ModelElement], DiagramType, DefaultRenderParams
+]
+SupportedInterfaceContextClass = tuple[
+    type[m.ModelElement], dict[type[m.ModelElement], str], DefaultRenderParams
+]
 logger = logging.getLogger(__name__)
 
 ATTR_NAME = "context_diagram"
@@ -69,7 +74,7 @@ def init() -> None:
 
 def register_classes() -> None:
     """Add the `context_diagram` property to the relevant model objects."""
-    supported_classes: list[SupportedClass] = [
+    supported_classes: list[SupportedContextClass] = [
         (oa.Entity, DiagramType.OAB, {}),
         (
             oa.OperationalActivity,
@@ -134,21 +139,6 @@ def register_classes() -> None:
             },
         ),
     ]
-    patch_styles(supported_classes)
-    class_: type[m.ModelElement]
-    for class_, dgcls, default_render_params in supported_classes:
-        accessor = context.ContextAccessor(dgcls.value, default_render_params)
-        m.set_accessor(class_, ATTR_NAME, accessor)
-
-
-def patch_styles(classes: cabc.Iterable[SupportedClass]) -> None:
-    """Add missing default styling to default styles.
-
-    See Also
-    --------
-    [capstyle.get_style][capellambse.diagram.get_style] : Default
-        style getter.
-    """
     cap: dict[str, CSSdef] = {
         "fill": [COLORS["_CAP_Entity_Gray_min"], COLORS["_CAP_Entity_Gray"]],
         "stroke": COLORS["dark_gray"],
@@ -163,27 +153,28 @@ def patch_styles(classes: cabc.Iterable[SupportedClass]) -> None:
     circle_style: dict[str, CSSdef] = {
         "fill": COLORS["_CAP_xAB_Function_Border_Green"],
     }
-    for _, dt, _ in classes:
-        capstyle.STYLES[dt.value]["Circle.FunctionalExchange"] = circle_style
+    class_: type[m.ModelElement]
+    for class_, dgcls, default_render_params in supported_classes:
+        accessor = context.ContextAccessor(dgcls.value, default_render_params)
+        m.set_accessor(class_, ATTR_NAME, accessor)
+        capstyle.STYLES[dgcls.value][
+            "Circle.FunctionalExchange"
+        ] = circle_style
 
 
 def register_interface_context() -> None:
     """Add the `context_diagram` property to interface model objects."""
-    m.set_accessor(
-        oa.CommunicationMean,
-        ATTR_NAME,
-        context.InterfaceContextAccessor(
+    supported_classes: list[SupportedInterfaceContextClass] = [
+        (
+            oa.CommunicationMean,
             {
                 oa.EntityPkg: DiagramType.OAB.value,
                 oa.Entity: DiagramType.OAB.value,
             },
             {"include_interface": True},
         ),
-    )
-    m.set_accessor(
-        fa.ComponentExchange,
-        ATTR_NAME,
-        context.InterfaceContextAccessor(
+        (
+            fa.ComponentExchange,
             {
                 sa.SystemComponentPkg: DiagramType.SAB.value,
                 sa.SystemComponent: DiagramType.SAB.value,
@@ -192,13 +183,10 @@ def register_interface_context() -> None:
                 pa.PhysicalComponentPkg: DiagramType.PAB.value,
                 pa.PhysicalComponent: DiagramType.PAB.value,
             },
-            {"include_interface": True},
+            {"include_interface": True, "include_port_allocations": True},
         ),
-    )
-    m.set_accessor(
-        cs.PhysicalLink,
-        ATTR_NAME,
-        context.InterfaceContextAccessor(
+        (
+            cs.PhysicalLink,
             {
                 sa.SystemComponentPkg: DiagramType.SAB.value,
                 sa.SystemComponent: DiagramType.SAB.value,
@@ -209,7 +197,33 @@ def register_interface_context() -> None:
             },
             {"include_interface": True, "display_port_labels": True},
         ),
-    )
+    ]
+    class_: type[m.ModelElement]
+    for class_, dgclasses, default_render_params in supported_classes:
+        accessor = context.InterfaceContextAccessor(
+            dgclasses, default_render_params
+        )
+        m.set_accessor(class_, ATTR_NAME, accessor)
+
+    port_alloc_output_style: dict[str, CSSdef] = {
+        "fill": COLORS["_CAP_xAB_Function_Border_Green"],
+        "stroke": COLORS["_CAP_xAB_Function_Border_Green"],
+        "stroke-dasharray": "2",
+        "text_fill": COLORS["black"],
+    }
+    port_alloc_input_style: dict[str, CSSdef] = {
+        "fill": COLORS["dark_orange"],
+        "stroke": COLORS["dark_orange"],
+        "stroke-dasharray": "2",
+        "text_fill": COLORS["black"],
+    }
+    for dt in (DiagramType.SAB, DiagramType.LAB, DiagramType.PAB):
+        capstyle.STYLES[dt.value][
+            "Edge.PortInputAllocation"
+        ] = port_alloc_input_style
+        capstyle.STYLES[dt.value][
+            "Edge.PortOutputAllocation"
+        ] = port_alloc_output_style
 
 
 def register_functional_context() -> None:
@@ -250,7 +264,7 @@ def register_realization_view() -> None:
     Adds ``realization_view`` to Activities, Functions and Components
     of all layers.
     """
-    supported_classes: list[SupportedClass] = [
+    supported_classes: list[SupportedContextClass] = [
         (oa.Entity, DiagramType.OAB, {}),
         (oa.OperationalActivity, DiagramType.OAIB, {}),
         (sa.SystemComponent, DiagramType.SAB, {}),
@@ -281,7 +295,7 @@ def register_realization_view() -> None:
 
 
 def register_data_flow_view() -> None:
-    supported_classes: list[SupportedClass] = [
+    supported_classes: list[SupportedContextClass] = [
         (oa.OperationalCapability, DiagramType.OAIB, {}),  # portless
         (sa.Capability, DiagramType.SDFB, {}),  # default
     ]

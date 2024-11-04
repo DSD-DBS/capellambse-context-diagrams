@@ -270,3 +270,13 @@ def test_context_diagram_hide_direct_children(
 
     assert not set(element.uuid for element in grey) & expected_hidden_uuids
     assert set(element.uuid for element in white) & expected_hidden_uuids
+
+
+def test_context_diagram_detects_and_handles_cycles(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid("98bbf6ec-161a-4332-a95e-e6990df868ad")
+
+    diag = obj.context_diagram
+
+    assert diag.nodes

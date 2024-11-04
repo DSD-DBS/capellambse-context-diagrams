@@ -7,7 +7,6 @@ on diagrams that involve ports.
 
 from __future__ import annotations
 
-import collections
 import collections.abc as cabc
 import typing as t
 from itertools import chain
@@ -49,7 +48,7 @@ class ContextProcessor:
         self.global_boxes = {self.centerbox.id: self.centerbox}
         self.made_boxes = {self.centerbox.id: self.centerbox}
         self.boxes_to_delete = {self.centerbox.id}
-        self.exchanges: list[fa.AbstractExchange] = []
+        self.exchanges: dict[str, fa.AbstractExchange] = {}
         if self.diagram._display_parent_relation:
             self.diagram_target_owners = list(
                 generic.get_all_owners(self.diagram.target)
@@ -75,7 +74,6 @@ class ContextProcessor:
             "output": -makers.NEIGHBOR_VMARGIN,
         }
         self._process_ports(stack_heights)
-        self._process_cycles()
 
         if self.diagram._display_parent_relation and self.diagram.target.owner:
             current = self.diagram.target.owner
@@ -102,7 +100,7 @@ class ContextProcessor:
             generic.move_parent_boxes_to_owner(
                 owner_boxes, self.diagram.target, self.data
             )
-            generic.move_edges(owner_boxes, self.exchanges, self.data)
+            generic.move_edges(owner_boxes, self.exchanges.values(), self.data)
 
         self.centerbox.height = max(
             self.centerbox.height, *stack_heights.values()
@@ -112,7 +110,7 @@ class ContextProcessor:
             hidden = set(edge.id for edge in self.centerbox.edges)
             centerbox_ports = set(port.id for port in self.centerbox.ports)
             port_uuids = set()
-            for ex in self.exchanges:
+            for ex in self.exchanges.values():
                 if ex.uuid not in hidden:
                     if ex.source.uuid in centerbox_ports:
                         port_uuids.add(ex.source.uuid)
@@ -169,10 +167,10 @@ class ContextProcessor:
         self._process_port_spread(
             out_exchanges, "target", -1, port_spread, owners
         )
-        self.exchanges = inc_exchanges + out_exchanges
+        self.exchanges = {ex.uuid: ex for ex in inc_exchanges + out_exchanges}
         ex_datas: list[generic.ExchangeData] = []
         seen_exchanges: set[str] = set()
-        for ex in self.exchanges:
+        for ex in self.exchanges.values():
             if ex.uuid in seen_exchanges:
                 continue
 
@@ -216,6 +214,7 @@ class ContextProcessor:
             port = makers.make_port(p.uuid)
             if self.diagram._display_port_labels:
                 port.labels = makers.make_label(p.name)
+
             self.centerbox.ports.append(port)
         self.centerbox.layoutOptions["portLabels.placement"] = "OUTSIDE"
 
@@ -266,16 +265,6 @@ class ContextProcessor:
                 self.common_owners.add(current.uuid)
 
             stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
-
-    def _process_cycles(self) -> None:
-        ex_count = collections.Counter([ex.uuid for ex in self.exchanges])
-        cycles = set(uuid for uuid, count in ex_count.items() if count == 2)
-        for ex in self.exchanges[:]:
-            if ex.uuid in cycles:
-                self.exchanges.remove(ex)
-                cycles.remove(ex.uuid)
-                if not cycles:
-                    break
 
     def _make_box(
         self,

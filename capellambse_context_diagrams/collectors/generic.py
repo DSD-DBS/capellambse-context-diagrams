@@ -222,7 +222,7 @@ def move_parent_boxes_to_owner(
 
 def move_edges(
     boxes: cabc.Mapping[str, _elkjs.ELKInputChild],
-    connections: cabc.Sequence[m.ModelElement],
+    connections: cabc.Iterable[m.ModelElement],
     data: _elkjs.ELKInputData,
 ) -> None:
     """Move edges to boxes."""
@@ -234,7 +234,11 @@ def move_edges(
             source_owner_uuids.remove(c.source.uuid)
             target_owner_uuids.remove(c.source.uuid)
 
-        cycle_detected = c.source.owner.uuid == c.target.owner.uuid
+        if c.source.owner is not None and c.target.owner is not None:
+            cycle_detected = c.source.owner.uuid == c.target.owner.uuid
+        else:
+            cycle_detected = False
+
         common_owner_uuid = None
         for owner in source_owner_uuids:
             if owner in target_owner_uuids:

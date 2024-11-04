@@ -318,6 +318,21 @@ class ContextDiagram(m.AbstractDiagram):
             logger.warning("Unknown diagram type %r", self.styleclass)
             return m.DiagramType.UNKNOWN
 
+    @property
+    def nodes(self) -> m.MixedElementList:
+        """Return a list of all nodes visible in this diagram."""
+        allids = {e.uuid for e in self.render(None) if not e.hidden}
+        elems = []
+        for elemid in allids:
+            assert elemid is not None
+            try:
+                elem = self._model.by_uuid(elemid)
+            except (KeyError, ValueError):
+                continue
+
+            elems.append(elem._element)
+        return m.MixedElementList(self._model, elems, m.ModelElement)
+
     def elk_input_data(
         self,
         params: dict[str, t.Any],
@@ -375,9 +390,7 @@ class ContextDiagram(m.AbstractDiagram):
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         data = self.elk_input_data(params)
         assert not isinstance(data, tuple)
-        if not isinstance(
-            self, (ClassTreeDiagram, InterfaceContextDiagram)
-        ) and has_single_child(data):
+        if not isinstance(self, ClassTreeDiagram) and has_single_child(data):
             self._display_derived_interfaces = True
             data = get_elkdata(self, params)
 
@@ -415,6 +428,8 @@ class InterfaceContextDiagram(ContextDiagram):
 
     * include_interface — Boolean flag to enable inclusion of the
       context diagram target: The interface ComponentExchange.
+    * include_port_allocations — Boolean flag to enable rendering of
+      port allocations.
     * hide_functions — Boolean flag to enable white box view: Only
       displaying Components or Entities.
     * display_port_labels — Display port labels on the diagram.
@@ -426,6 +441,7 @@ class InterfaceContextDiagram(ContextDiagram):
     """
 
     _include_interface: bool
+    _include_port_allocations: bool
     _hide_functions: bool
     _display_port_labels: bool
     _port_label_position: str
@@ -440,6 +456,7 @@ class InterfaceContextDiagram(ContextDiagram):
     ) -> None:
         default_render_parameters = {
             "include_interface": False,
+            "include_port_allocations": False,
             "hide_functions": False,
             "display_symbols_as_boxes": True,
             "display_port_labels": False,
@@ -454,6 +471,74 @@ class InterfaceContextDiagram(ContextDiagram):
         self.collector: cabc.Callable[
             [InterfaceContextDiagram, dict[str, t.Any]], _elkjs.ELKInputData
         ] = exchanges.interface_context_collector
+
+    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
+        data = self.elk_input_data(params)
+        assert not isinstance(data, tuple)
+        layout = try_to_layout(data)
+        if self._include_interface and self._include_port_allocations:
+            self._add_port_allocations(layout)
+
+        is_legend: bool = params.get("is_legend", False)  # type: ignore[assignment]
+        add_context(layout, is_legend)
+        return self.serializer.make_diagram(
+            layout, transparent_background=self._transparent_background
+        )
+
+    def _add_port_allocations(self, layout: _elkjs.ELKOutputData) -> None:
+        for i, uuid in enumerate(
+            (self.target.source.uuid, self.target.target.uuid)
+        ):
+            node = layout.children[i]
+            assert isinstance(node, _elkjs.ELKOutputNode)
+            port = next((p for p in node.children if p.id == uuid), None)
+            assert isinstance(port, _elkjs.ELKOutputPort)
+            if port is not None:
+                layout.children.extend(
+                    self._yield_port_allocations(node, port)
+                )
+
+    def _yield_port_allocations(
+        self, node: _elkjs.ELKOutputNode, interface_port: _elkjs.ELKOutputPort
+    ) -> cabc.Iterator[_elkjs.ELKOutputEdge]:
+        ref = cdiagram.Vector2D(node.position.x, node.position.y)
+        for position, port in _get_all_ports(node, ref=ref):
+            if port == interface_port:
+                continue
+
+            port_middle = _calculate_middle(position, port.size)
+            interface_middle = _calculate_middle(
+                interface_port.position, interface_port.size, node.position
+            )
+            styleclass = self.serializer.get_styleclass(port.id)
+            if styleclass in {"FIP", "FOP"}:
+                yield self._create_edge(
+                    styleclass,
+                    port.id,
+                    interface_port.id,
+                    port_middle,
+                    interface_middle,
+                )
+
+    def _create_edge(
+        self, styleclass, port_id, interface_id, port_middle, interface_middle
+    ) -> _elkjs.ELKOutputEdge:
+        if styleclass == "FIP":
+            eid = f"__PortInputAllocation:{port_id}"
+            src_id, trg_id = port_id, interface_id
+            routing_points = [port_middle, interface_middle]
+        elif styleclass == "FOP":
+            eid = f"__PortOutputAllocation:{port_id}"
+            src_id, trg_id = interface_id, port_id
+            routing_points = [interface_middle, port_middle]
+
+        return _elkjs.ELKOutputEdge(
+            id=eid,
+            type="edge",
+            routingPoints=routing_points,
+            sourceId=src_id,
+            targetId=trg_id,
+        )
 
     @property
     def name(self) -> str:  # type: ignore
@@ -872,3 +957,26 @@ def has_single_child(data: _elkjs.ELKInputData | _elkjs.ELKInputChild) -> bool:
             return False
 
     return len(data.children) == 1
+
+
+def _get_all_ports(
+    node: _elkjs.ELKOutputNode, ref: cdiagram.Vector2D
+) -> cabc.Iterator[tuple[cdiagram.Vector2D, _elkjs.ELKOutputPort]]:
+    """Yield all ports from"""
+    for child in node.children:
+        if isinstance(child, _elkjs.ELKOutputPort):
+            yield ref + (child.position.x, child.position.y), child
+
+        if isinstance(child, _elkjs.ELKOutputNode):
+            yield from _get_all_ports(
+                child, ref=ref + (child.position.x, child.position.y)
+            )
+
+
+def _calculate_middle(position, size, offset=None) -> _elkjs.ELKPoint:
+    x = position.x + size.width / 2
+    y = position.y + size.height / 2
+    if offset:
+        x += offset.x
+        y += offset.y
+    return _elkjs.ELKPoint(x=x, y=y)

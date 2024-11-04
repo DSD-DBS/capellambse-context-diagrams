@@ -127,9 +127,7 @@ def register_classes() -> None:
         (
             pa.PhysicalComponent,
             DiagramType.PAB,
-            {
-                "display_parent_relation": True,
-            },
+            {"display_parent_relation": True, "display_port_labels": True},
         ),
         (
             pa.PhysicalFunction,

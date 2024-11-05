@@ -62,7 +62,7 @@
                 definition="#682bd51d-5451-4930-a97e-8bfca6c3a127" value="true"/>
             <ownedAttributes xsi:type="Requirements:DateValueAttribute" id="b97c09b5-948a-46e8-a656-69d764ddce7d"
                 definition="#682bd51d-5451-4930-a97e-8bfca6c3a127" definitionProxy=""
-                value="2021-07-23T15:00:00.000+0200"/>
+                value="2021-07-23T13:00:00.000+0000"/>
             <ownedAttributes xsi:type="Requirements:IntegerValueAttribute" id="85dfd42c-7f6e-4236-a181-bdd784040431"
                 definition="#682bd51d-5451-4930-a97e-8bfca6c3a127" value="10"/>
             <ownedAttributes xsi:type="Requirements:RealValueAttribute" id="d2231d14-854d-4625-b48b-6cf1c2554367"
@@ -3234,6 +3234,18 @@ The predator is far away</bodies>
             <outputs xsi:type="org.polarsys.capella.core.data.fa:FunctionOutputPort"
                 id="61327b3c-ed26-40d2-b51c-73c718c6cb1d" name="FOP 1"/>
           </ownedFunctions>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
+              id="446d3f9f-644d-41ee-bd57-8ae0f7662db2" name="LogicalFunction 45">
+            <inputs xsi:type="org.polarsys.capella.core.data.fa:FunctionInputPort"
+                id="5cbc4d2d-1b9c-4e10-914e-44d4526e4a2f" name="FIP 1"/>
+            <outputs xsi:type="org.polarsys.capella.core.data.fa:FunctionOutputPort"
+                id="69b7bf16-cc96-4350-af06-03dec94922c2" name="FOP 1"/>
+          </ownedFunctions>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
+              id="906e7244-3d1c-4787-8cfc-afc0efe02f06" name="LogicalFunction 46">
+            <inputs xsi:type="org.polarsys.capella.core.data.fa:FunctionInputPort"
+                id="e8989230-d770-449e-84cc-aad7ceffaed2" name="FIP 1"/>
+          </ownedFunctions>
           <ownedFunctionRealizations xsi:type="org.polarsys.capella.core.data.fa:FunctionRealization"
               id="6a78f907-3b22-436f-8762-8d576723773a" targetElement="#1eee3b81-41ef-4b56-8018-b8e421a5a2bc"
               sourceElement="#f28ec0f8-f3b3-43a0-8af7-79f194b29a2d"/>
@@ -3378,6 +3390,9 @@ The predator is far away</bodies>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
               id="cb1e41b1-744b-43ea-89d2-d7c54dff4606" name="FE 6" target="#5267b95c-9f78-40d6-88b3-6e390bd31526"
               source="#3d2f4e3d-19c3-4cb7-aa90-a5c2f7568677"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="507f5460-b07c-49e2-8565-2d6a7c228674" name="FunctionalExchange 48"
+              target="#e8989230-d770-449e-84cc-aad7ceffaed2" source="#69b7bf16-cc96-4350-af06-03dec94922c2"/>
         </ownedLogicalFunctions>
       </ownedFunctionPkg>
       <ownedAbstractCapabilityPkg xsi:type="org.polarsys.capella.core.data.la:CapabilityRealizationPkg"
@@ -3773,6 +3788,8 @@ The predator is far away</bodies>
               name="SysParent" abstractType="#1921eeeb-f2fd-4b8a-9f79-0e369e7cc29c"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="18a2e280-9047-4d7b-9bfe-06a5ce890e55"
               name="Cycle Parent" abstractType="#57bcce8e-e1fb-45dc-aaa1-4c5748b02b5d"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="f6763b23-b5cc-491c-a428-a004cf9963fe"
+              name="LC 25" abstractType="#d6eb2818-656a-4a5b-b2f3-0792211fa6c0"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="0f8b10b5-d460-4055-bd34-7e4a33e94b5e" targetElement="#230c4621-7e0a-4d0a-9db2-d4ba5e97b3df"
               sourceElement="#0d2edb8f-fa34-4e73-89ec-fb9a63001440"/>
@@ -4437,6 +4454,15 @@ The predator is far away</bodies>
                   id="11f4a3d8-756d-4f76-9270-7974624d4caa" name="CP 4" orientation="OUT"
                   kind="FLOW"/>
             </ownedLogicalComponents>
+          </ownedLogicalComponents>
+          <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+              id="d6eb2818-656a-4a5b-b2f3-0792211fa6c0" name="LC 25">
+            <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                id="31ef4c91-379a-467d-9ea0-26fa1b78a53b" targetElement="#446d3f9f-644d-41ee-bd57-8ae0f7662db2"
+                sourceElement="#d6eb2818-656a-4a5b-b2f3-0792211fa6c0"/>
+            <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                id="84fe724d-e9a7-4cda-b886-6e393e72d086" targetElement="#906e7244-3d1c-4787-8cfc-afc0efe02f06"
+                sourceElement="#d6eb2818-656a-4a5b-b2f3-0792211fa6c0"/>
           </ownedLogicalComponents>
           <ownedLogicalComponentPkgs xsi:type="org.polarsys.capella.core.data.la:LogicalComponentPkg"
               id="83d80c8a-e845-4fd9-bb6f-91fc32145785" name="LogicalComponents">

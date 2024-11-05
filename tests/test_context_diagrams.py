@@ -106,58 +106,66 @@ def test_context_diagrams_rerender_on_parameter_change(
     [
         pytest.param(
             [
-                ("e9a6fd43-88d2-4832-91d5-595b6fbf613d", 42),
-                ("a4f69ce4-2f3f-40d4-af58-423388df449f", 72),
-                ("a07b7cb1-0424-4261-9980-504dd9c811d4", 72),
+                ("e9a6fd43-88d2-4832-91d5-595b6fbf613d", 42, 42),
+                ("a4f69ce4-2f3f-40d4-af58-423388df449f", 72, 72),
+                ("a07b7cb1-0424-4261-9980-504dd9c811d4", 72, 72),
             ],
             id="Entity",
         ),
         pytest.param(
             [
-                (TEST_ACTOR_SIZING_UUID, 37),
-                (TEST_HUMAN_ACTOR_SIZING_UUID, 57),
-                (TEST_CAP_SIZING_UUID, 92),
+                (TEST_ACTOR_SIZING_UUID, 41, 41),
+                (TEST_HUMAN_ACTOR_SIZING_UUID, 43, 43),
+                (TEST_CAP_SIZING_UUID, 141, 141),
             ],
             id="Capability",
         ),
         pytest.param(
             [
-                ("e1e48763-7479-4f3a-8134-c82bb6705d58", 98),
-                ("8df45b70-15cc-4d3a-99e4-593516392c5a", 122),
-                ("74af6883-25a0-446a-80f3-656f8a490b11", 122),
+                ("e1e48763-7479-4f3a-8134-c82bb6705d58", 126, 201),
+                ("8df45b70-15cc-4d3a-99e4-593516392c5a", 154, 248),
+                ("74af6883-25a0-446a-80f3-656f8a490b11", 266, 435),
             ],
             id="LogicalComponent",
         ),
         pytest.param(
             [
-                ("0c06cc88-8c77-46f2-8542-c08b1e8edd18", 86),
-                ("9f1e1875-9ead-4af2-b428-c390786a436a", 86),
+                ("0c06cc88-8c77-46f2-8542-c08b1e8edd18", 112, 177),
+                ("9f1e1875-9ead-4af2-b428-c390786a436a", 112, 177),
             ],
             id="LogicalFunction",
         ),
         pytest.param(
             [
-                ("6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6", 17),
-                ("344a405e-c7e5-4367-8a9a-41d3d9a27f81", 17),
-                ("230c4621-7e0a-4d0a-9db2-d4ba5e97b3df", 37),
+                ("6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6", 37, 37),
+                ("344a405e-c7e5-4367-8a9a-41d3d9a27f81", 41, 41),
+                ("230c4621-7e0a-4d0a-9db2-d4ba5e97b3df", 42, 60),
             ],
             id="SystemComponent Root",
         ),
     ],
 )
 def test_context_diagrams_box_sizing(
-    model: capellambse.MelodyModel, diagram_elements: list[tuple[str, int]]
+    model: capellambse.MelodyModel,
+    diagram_elements: list[tuple[str, int, int]],
 ) -> None:
-    uuid, min_size = diagram_elements.pop()
+    uuid, min_size, min_size_labels = diagram_elements.pop()
     obj = model.by_uuid(uuid)
 
-    adiag = obj.context_diagram.render(None, display_symbols_as_boxes=True)
+    adiag = obj.context_diagram.render(
+        None, display_symbols_as_boxes=True, display_port_labels=False
+    )
+    bdiag = obj.context_diagram.render(
+        None, display_symbols_as_boxes=True, display_port_labels=True
+    )
 
     assert adiag[uuid].size.y >= min_size
-    for uuid, min_size in diagram_elements:
+    assert bdiag[uuid].size.y >= min_size_labels
+    for uuid, min_size, min_size_labels in diagram_elements:
         obj = model.by_uuid(uuid)
 
         assert adiag[uuid].size.y >= min_size
+        assert bdiag[uuid].size.y >= min_size_labels
 
 
 def test_context_diagrams_symbol_sizing(
@@ -280,3 +288,20 @@ def test_context_diagram_detects_and_handles_cycles(
     diag = obj.context_diagram
 
     assert diag.nodes
+
+
+def test_context_diagram_display_unused_ports(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid("446d3f9f-644d-41ee-bd57-8ae0f7662db2")
+    unused_port_uuid = "5cbc4d2d-1b9c-4e10-914e-44d4526e4a2f"
+
+    obj.context_diagram.render("svgdiagram", display_unused_ports=True).save(
+        pretty=True
+    )
+
+    adiag = obj.context_diagram.render(None, display_unused_ports=False)
+    bdiag = obj.context_diagram.render(None, display_unused_ports=True)
+
+    assert unused_port_uuid not in set(element.uuid for element in adiag)
+    assert unused_port_uuid in set(element.uuid for element in bdiag)

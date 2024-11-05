@@ -69,11 +69,7 @@ class ContextProcessor:
             box.children = [self.centerbox]
             del self.data.children[0]
 
-        stack_heights: dict[str, float | int] = {
-            "input": -makers.NEIGHBOR_VMARGIN,
-            "output": -makers.NEIGHBOR_VMARGIN,
-        }
-        self._process_ports(stack_heights)
+        self._process_ports()
 
         if self.diagram._display_parent_relation and self.diagram.target.owner:
             current = self.diagram.target.owner
@@ -102,9 +98,6 @@ class ContextProcessor:
             )
             generic.move_edges(owner_boxes, self.exchanges.values(), self.data)
 
-        self.centerbox.height = max(
-            self.centerbox.height, *stack_heights.values()
-        )
         if self.diagram._hide_direct_children:
             self.centerbox.children = []
             hidden = set(edge.id for edge in self.centerbox.edges)
@@ -210,32 +203,38 @@ class ContextProcessor:
             except AttributeError:
                 continue
 
-        for p in inc + out:
-            port = makers.make_port(p.uuid)
-            if self.diagram._display_port_labels:
-                port.labels = makers.make_label(p.name)
+        ports = inc + out
+        if not self.diagram._display_unused_ports:
+            ports = [
+                p for p in ports if (inc_c.get(p.uuid) or out_c.get(p.uuid))
+            ]
+
+        self.centerbox.height = max(
+            self.centerbox.height,
+            (makers.PORT_SIZE + 2 * makers.PORT_PADDING) * (len(ports) + 1),
+        )
+        for p in ports:
+            port, height = self._make_port(p)
+            self.centerbox.height += height
 
             self.centerbox.ports.append(port)
         self.centerbox.layoutOptions["portLabels.placement"] = "OUTSIDE"
 
-        return (inc + out), ex_datas
+        return ports, ex_datas
 
-    def _process_ports(self, stack_heights: dict[str, float | int]) -> None:
+    def _process_ports(self) -> None:
         ports, ex_datas = self._process_exchanges()
-        for owner, local_ports, side in port_context_collector(
-            ex_datas, ports
-        ):
+        for owner, local_ports in port_context_collector(ex_datas, ports):
             _, label_height = helpers.get_text_extent(owner.name)
             height = max(
                 label_height + 2 * makers.LABEL_VPAD,
-                makers.PORT_PADDING
-                + (makers.PORT_SIZE + makers.PORT_PADDING) * len(local_ports),
+                (makers.PORT_SIZE + 2 * makers.PORT_PADDING)
+                * (len(local_ports) + 1),
             )
             local_port_objs = []
             for j in local_ports:
-                port = makers.make_port(j.uuid)
-                if self.diagram._display_port_labels:
-                    port.labels = makers.make_label(j.name)
+                port, label_heights = self._make_port(j)
+                height += label_heights
                 local_port_objs.append(port)
 
             if box := self.global_boxes.get(owner.uuid):  # type: ignore[assignment]
@@ -264,7 +263,19 @@ class ContextProcessor:
                     current = self._make_owner_box(self.diagram, current)
                 self.common_owners.add(current.uuid)
 
-            stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
+    def _make_port(
+        self, port_obj: t.Any
+    ) -> tuple[_elkjs.ELKInputPort, int | float]:
+        port = makers.make_port(port_obj.uuid)
+        height = 0.0
+        if self.diagram._display_port_labels:
+            port.labels = makers.make_label(port_obj.name)
+            height += max(
+                0,
+                sum(label.height for label in port.labels)
+                - 2 * makers.PORT_PADDING,
+            )
+        return port, height
 
     def _make_box(
         self,
@@ -401,8 +412,6 @@ class ContextInfo(t.NamedTuple):
     This list only contains ports that at least one of the exchanges
     passed into ``collect_exchanges`` sees.
     """
-    side: t.Literal["input", "output"]
-    """Whether this is an input or output to the element of interest."""
 
 
 def port_context_collector(
@@ -428,7 +437,6 @@ def port_context_collector(
     """
 
     ctx: dict[str, ContextInfo] = {}
-    side: t.Literal["input", "output"]
     for exd in exchange_datas:
         try:
             source, target = generic.collect_exchange_endpoints(exd)
@@ -437,10 +445,8 @@ def port_context_collector(
 
         if source in local_ports:
             port = target
-            side = "output"
         elif target in local_ports:
             port = source
-            side = "input"
         else:
             continue
 
@@ -449,7 +455,7 @@ def port_context_collector(
         except AttributeError:
             continue
 
-        info = ContextInfo(owner, [], side)
+        info = ContextInfo(owner, [])
         info = ctx.setdefault(owner.uuid, info)
         if port not in info.ports:
             info.ports.append(port)

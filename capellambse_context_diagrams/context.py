@@ -251,6 +251,7 @@ class ContextDiagram(m.AbstractDiagram):
       [`PORT_LABEL_POSITION`][capellambse_context_diagrams.context._elkjs.PORT_LABEL_POSITION].
     * hide_direct_children - Hide direct children of the object of
       interest.
+    * display_unused_ports - Display ports that are not connected to an edge.
     """
 
     _display_symbols_as_boxes: bool
@@ -261,6 +262,7 @@ class ContextDiagram(m.AbstractDiagram):
     _display_port_labels: bool
     _port_label_position: str
     _transparent_background: bool
+    _display_unused_ports: bool
 
     def __init__(
         self,
@@ -288,6 +290,7 @@ class ContextDiagram(m.AbstractDiagram):
             "display_port_labels": False,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
             "transparent_background": False,
+            "display_unused_ports": False,
         } | default_render_parameters
 
         if standard_filter := STANDARD_FILTERS.get(class_):

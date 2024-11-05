@@ -217,11 +217,8 @@ class ContextProcessor:
             (makers.PORT_SIZE + 2 * makers.PORT_PADDING) * (len(ports) + 1),
         )
         for p in ports:
-            port = makers.make_port(p.uuid)
-            if self.diagram._display_port_labels:
-                port.labels = makers.make_label(p.name)
-                label_height = sum(label.height for label in port.labels)
-                self.centerbox.height += label_height
+            port, height = self._make_port(p)
+            self.centerbox.height += height
 
             self.centerbox.ports.append(port)
         self.centerbox.layoutOptions["portLabels.placement"] = "OUTSIDE"
@@ -239,10 +236,8 @@ class ContextProcessor:
             )
             local_port_objs = []
             for j in local_ports:
-                port = makers.make_port(j.uuid)
-                if self.diagram._display_port_labels:
-                    port.labels = makers.make_label(j.name)
-                    height += sum(label.height for label in port.labels)
+                port, label_heights = self._make_port(j)
+                height += label_heights
                 local_port_objs.append(port)
 
             if box := self.global_boxes.get(owner.uuid):  # type: ignore[assignment]
@@ -270,6 +265,20 @@ class ContextProcessor:
                 ):
                     current = self._make_owner_box(self.diagram, current)
                 self.common_owners.add(current.uuid)
+
+    def _make_port(
+        self, port_obj: t.Any
+    ) -> tuple[_elkjs.ELKInputPort, int | float]:
+        port = makers.make_port(port_obj.uuid)
+        height = 0.0
+        if self.diagram._display_port_labels:
+            port.labels = makers.make_label(port_obj.name)
+            height += max(
+                0,
+                sum(label.height for label in port.labels)
+                - 2 * makers.PORT_PADDING,
+            )
+        return port, height
 
     def _make_box(
         self,

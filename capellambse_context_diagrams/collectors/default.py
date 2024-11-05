@@ -203,14 +203,11 @@ class ContextProcessor:
             except AttributeError:
                 continue
 
+        ports = inc + out
         if not self.diagram._display_unused_ports:
             ports = [
-                p
-                for p in inc + out
-                if (inc_c.get(p.uuid) or out_c.get(p.uuid))
+                p for p in ports if (inc_c.get(p.uuid) or out_c.get(p.uuid))
             ]
-        else:
-            ports = inc + out
 
         self.centerbox.height = max(
             self.centerbox.height,

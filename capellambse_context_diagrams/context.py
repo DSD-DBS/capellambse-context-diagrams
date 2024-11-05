@@ -289,8 +289,8 @@ class ContextDiagram(m.AbstractDiagram):
             "slim_center_box": True,
             "display_port_labels": False,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
-            "transparent_background": False,
             "display_unused_ports": False,
+            "transparent_background": False,
         } | default_render_parameters
 
         if standard_filter := STANDARD_FILTERS.get(class_):

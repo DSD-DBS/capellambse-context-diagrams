@@ -20,6 +20,7 @@ from capellambse import model as m
 from . import _elkjs, filters, serializers, styling
 from .collectors import (
     cable_tree,
+    custom,
     dataflow_view,
     exchanges,
     get_elkdata,
@@ -205,6 +206,22 @@ class CableTreeAccessor(ContextAccessor):
         return self._get(obj, CableTreeViewDiagram)
 
 
+class CustomContextAccessor(ContextAccessor):
+    """Provides access to the custom context diagrams."""
+
+    def __get__(  # type: ignore
+        self,
+        obj: m.T | None,
+        objtype: type | None = None,
+    ) -> m.Accessor | ContextDiagram:
+        """Make a CustomDiagram for the given model object."""
+        del objtype
+        if obj is None:  # pragma: no cover
+            return self
+        assert isinstance(obj, m.ModelElement)
+        return self._get(obj, CustomDiagram)
+
+
 class ContextDiagram(m.AbstractDiagram):
     """An automatically generated context diagram.
 
@@ -254,6 +271,7 @@ class ContextDiagram(m.AbstractDiagram):
     * display_unused_ports - Display ports that are not connected to an edge.
     """
 
+    _collect: dict[str, t.Any]
     _display_symbols_as_boxes: bool
     _display_parent_relation: bool
     _hide_direct_children: bool
@@ -263,6 +281,7 @@ class ContextDiagram(m.AbstractDiagram):
     _port_label_position: str
     _transparent_background: bool
     _display_unused_ports: bool
+    _unify_edge_direction: bool
 
     def __init__(
         self,
@@ -282,6 +301,7 @@ class ContextDiagram(m.AbstractDiagram):
         self._elk_input_data: CollectorOutputData | None = None
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
         self._default_render_parameters = {
+            "collect": {},
             "display_symbols_as_boxes": False,
             "display_parent_relation": False,
             "hide_direct_children": False,
@@ -291,6 +311,7 @@ class ContextDiagram(m.AbstractDiagram):
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
             "display_unused_ports": False,
             "transparent_background": False,
+            "unify_edge_direction": False,
         } | default_render_parameters
 
         if standard_filter := STANDARD_FILTERS.get(class_):
@@ -855,6 +876,58 @@ class CableTreeViewDiagram(ContextDiagram):
     @property
     def name(self) -> str:  # type: ignore
         return f"Cable Tree View of {self.target.name}"
+
+
+class CustomDiagram(ContextDiagram):
+    """An automatically generated CustomDiagram Diagram."""
+
+    _collect: dict[str, t.Any]
+    _display_symbols_as_boxes: bool
+    _display_parent_relation: bool
+    _hide_direct_children: bool
+    _slim_center_box: bool
+    _display_port_labels: bool
+    _port_label_position: str
+    _transparent_background: bool
+    _display_unused_ports: bool
+    _unify_edge_direction: bool
+
+    def __init__(
+        self,
+        class_: str,
+        obj: m.ModelElement,
+        *,
+        render_styles: dict[str, styling.Styler] | None = None,
+        default_render_parameters: dict[str, t.Any],
+    ) -> None:
+        default_render_parameters = {
+            "collect": {},
+            "display_symbols_as_boxes": False,
+            "display_parent_relation": False,
+            "hide_direct_children": False,
+            "slim_center_box": True,
+            "display_port_labels": False,
+            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
+            "transparent_background": False,
+            "display_unused_ports": False,
+            "unify_edge_direction": False,
+        } | default_render_parameters
+        super().__init__(
+            class_,
+            obj,
+            render_styles=render_styles,
+            default_render_parameters=default_render_parameters,
+        )
+        self.collector = custom.collector
+
+    @property
+    def uuid(self) -> str:  # type: ignore
+        """Returns the UUID of the diagram."""
+        return f"{self.target.uuid}_custom_diagram"
+
+    @property
+    def name(self) -> str:  # type: ignore
+        return f"Custom Diagram of {self.target.name}"
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:

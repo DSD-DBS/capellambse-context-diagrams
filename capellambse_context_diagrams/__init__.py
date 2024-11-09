@@ -69,6 +69,7 @@ def init() -> None:
     register_realization_view()
     register_data_flow_view()
     register_cable_tree_view()
+    register_custom_diagram()
     # register_functional_context() XXX: Future
 
 
@@ -312,4 +313,13 @@ def register_cable_tree_view() -> None:
             DiagramType.PAB.value,
             {},
         ),
+    )
+
+
+def register_custom_diagram() -> None:
+    """Add the `custom_diagram` attribute to `ModelObject`s."""
+    m.set_accessor(
+        sa.SystemFunction,
+        "custom_diagram",
+        context.CustomContextAccessor(DiagramType.SAB.value, {}),
     )

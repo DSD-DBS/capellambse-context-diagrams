@@ -902,10 +902,10 @@ class CustomDiagram(ContextDiagram):
     ) -> None:
         default_render_parameters = {
             "collect": {},
-            "display_symbols_as_boxes": False,
+            "display_symbols_as_boxes": True,
             "display_parent_relation": False,
             "hide_direct_children": False,
-            "slim_center_box": True,
+            "slim_center_box": False,
             "display_port_labels": False,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
             "transparent_background": False,

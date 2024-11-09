@@ -323,3 +323,8 @@ def register_custom_diagram() -> None:
         "custom_diagram",
         context.CustomContextAccessor(DiagramType.SAB.value, {}),
     )
+    m.set_accessor(
+        cs.PhysicalLink,
+        "custom_diagram",
+        context.CustomContextAccessor(DiagramType.PAB.value, {}),
+    )

@@ -40,15 +40,20 @@ class CustomCollector:
 
     def __call__(self) -> _elkjs.ELKInputData:
         self._make_target(self.obj)
+        if self.diagram._unify_edge_direction:
+            if len(self.boxes) > 0:
+                self.dicrections[self.obj.uuid] = False
+            else:
+                self.dicrections[self.obj.source.owner.uuid] = False
         if not self.instructions:
             return self._get_data()
         self._perform_get(self.obj, self.instructions)
-        if self.diagram._display_parent_relation and self.obj.owner:
-            current = self.obj.owner
+        if self.diagram._display_parent_relation:
+            current = self.obj
             while (
                 current
                 and self.common_owners
-                and hasattr(current, "owner")
+                and getattr(current, "owner", None) is not None
                 and not isinstance(current.owner, generic.PackageTypes)
             ):
                 current = self._make_owner_box(
@@ -104,7 +109,7 @@ class CustomCollector:
     def _make_target(
         self, obj: m.ModelElement
     ) -> _elkjs.ELKInputChild | _elkjs.ELKInputEdge | None:
-        if _is_edge(obj):
+        if hasattr(obj, "source") and hasattr(obj, "target"):
             return self._make_edge_and_ports(obj)
         return self._make_box(obj, slim_width=self.diagram._slim_center_box)
 
@@ -215,14 +220,6 @@ class CustomCollector:
         box.ports.append(port)
         self.ports[port_obj.uuid] = port
         return port
-
-
-def _is_edge(obj: m.ModelElement) -> bool:
-    styleclass = obj.xtype.rsplit(":", 1)[-1]
-    for sub_str in ("Link", "Exchange"):
-        if sub_str in styleclass:
-            return True
-    return False
 
 
 def collector(

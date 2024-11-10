@@ -13,6 +13,12 @@ from .. import _elkjs, context
 from . import generic, makers
 
 
+def _is_edge(obj: m.ModelElement) -> bool:
+    if hasattr(obj, "source") and hasattr(obj, "target"):
+        return True
+    return False
+
+
 class CustomCollector:
     """Collect the context for a custom diagram."""
 
@@ -22,34 +28,40 @@ class CustomCollector:
         params: dict[str, t.Any],
     ) -> None:
         self.diagram = diagram
-        self.obj: m.ModelElement = self.diagram.target
+        self.target: m.ModelElement = self.diagram.target
+        self.boxable_target = (
+            self.target.source.owner if _is_edge(self.target) else self.target
+        )
         self.data = makers.make_diagram(diagram)
         self.params = params
         self.instructions = self.diagram._collect
+        self.repeat_instructions: dict[str, t.Any] | None = None
+        self.visited: set[str] = set()
         self.boxes: dict[str, _elkjs.ELKInputChild] = {}
         self.edges: dict[str, _elkjs.ELKInputEdge] = {}
         self.ports: dict[str, _elkjs.ELKInputPort] = {}
         self.boxes_to_delete: set[str] = set()
         if self.diagram._display_parent_relation:
             self.diagram_target_owners = list(
-                generic.get_all_owners(self.diagram.target)
+                generic.get_all_owners(self.boxable_target)
             )
             self.common_owners: set[str] = set()
         if self.diagram._unify_edge_direction:
             self.dicrections: dict[str, bool] = {}
+        self.min_heights: dict[str, dict[str, float]] = {}
 
     def __call__(self) -> _elkjs.ELKInputData:
-        self._make_target(self.obj)
+        self._make_target(self.target)
         if self.diagram._unify_edge_direction:
             if len(self.boxes) > 0:
-                self.dicrections[self.obj.uuid] = False
+                self.dicrections[self.target.uuid] = False
             else:
-                self.dicrections[self.obj.source.owner.uuid] = False
+                self.dicrections[self.target.source.owner.uuid] = False
         if not self.instructions:
             return self._get_data()
-        self._perform_get(self.obj, self.instructions)
+        self._perform_get(self.target, self.instructions)
         if self.diagram._display_parent_relation:
-            current = self.obj
+            current = self.boxable_target
             while (
                 current
                 and self.common_owners
@@ -60,6 +72,7 @@ class CustomCollector:
                     current,
                 )
                 self.common_owners.discard(current.uuid)
+        self._fix_box_heights()
         for uuid in self.boxes_to_delete:
             del self.boxes[uuid]
         return self._get_data()
@@ -68,6 +81,16 @@ class CustomCollector:
         self.data.children = list(self.boxes.values())
         self.data.edges = list(self.edges.values())
         return self.data
+
+    def _fix_box_heights(self) -> None:
+        if self.diagram._unify_edge_direction:
+            for uuid, min_heights in self.min_heights.items():
+                box = self.boxes[uuid]
+                box.height = max(box.height, sum(min_heights.values()))
+        else:
+            for uuid, min_heights in self.min_heights.items():
+                box = self.boxes[uuid]
+                box.height = max([box.height] + list(min_heights.values()))
 
     def _matches_filters(
         self, obj: m.ModelElement, filters: dict[str, t.Any]
@@ -80,11 +103,15 @@ class CustomCollector:
     def _perform_get(
         self, obj: m.ModelElement, instructions: dict[str, t.Any]
     ) -> None:
+        if instructions.pop("repeat", False):
+            self.repeat_instructions = instructions
         if insts := instructions.get("get"):
             create = False
         elif insts := instructions.get("include"):
             create = True
         if not insts:
+            if self.repeat_instructions:
+                self._perform_get(obj, self.repeat_instructions)
             return
         if isinstance(insts, dict):
             insts = [insts]
@@ -96,12 +123,18 @@ class CustomCollector:
             if isinstance(target, cabc.Iterable):
                 filters = i.get("filter", {})
                 for item in target:
+                    if item.uuid in self.visited:
+                        continue
+                    self.visited.add(item.uuid)
                     if not self._matches_filters(item, filters):
                         continue
                     if create:
                         self._make_target(item)
                     self._perform_get(item, i)
             elif isinstance(target, m.ModelElement):
+                if target.uuid in self.visited:
+                    continue
+                self.visited.add(target.uuid)
                 if create:
                     self._make_target(target)
                 self._perform_get(target, i)
@@ -109,7 +142,7 @@ class CustomCollector:
     def _make_target(
         self, obj: m.ModelElement
     ) -> _elkjs.ELKInputChild | _elkjs.ELKInputEdge | None:
-        if hasattr(obj, "source") and hasattr(obj, "target"):
+        if _is_edge(obj):
             return self._make_edge_and_ports(obj)
         return self._make_box(obj, slim_width=self.diagram._slim_center_box)
 
@@ -173,8 +206,8 @@ class CustomCollector:
         tgt_owner = tgt_obj.owner
         if self.diagram._hide_direct_children:
             if (
-                getattr(src_owner, "owner", None) == self.obj
-                or getattr(tgt_owner, "owner", None) == self.obj
+                getattr(src_owner, "owner", None) == self.boxable_target
+                or getattr(tgt_owner, "owner", None) == self.boxable_target
             ):
                 return None
         if self.diagram._unify_edge_direction:
@@ -189,8 +222,24 @@ class CustomCollector:
                 self.dicrections[tgt_owner.uuid] = not src_dir
             if self.dicrections[src_owner.uuid]:
                 src_obj, tgt_obj = tgt_obj, src_obj
-        self._make_port_and_owner(src_obj)
-        self._make_port_and_owner(tgt_obj)
+
+        if not self.ports.get(src_obj.uuid):
+            port = self._make_port_and_owner(src_obj)
+            self.min_heights.setdefault(
+                src_owner.uuid, {"left": 0.0, "right": 0.0}
+            )["right"] += makers.PORT_SIZE + max(
+                2 * makers.PORT_PADDING,
+                sum(label.height for label in port.labels),
+            )
+        if not self.ports.get(tgt_obj.uuid):
+            port = self._make_port_and_owner(tgt_obj)
+            self.min_heights.setdefault(
+                tgt_owner.uuid, {"left": 0.0, "right": 0.0}
+            )["left"] += makers.PORT_SIZE + max(
+                2 * makers.PORT_PADDING,
+                sum(label.height for label in port.labels),
+            )
+
         edge = _elkjs.ELKInputEdge(
             id=edge_obj.uuid,
             sources=[src_obj.uuid],
@@ -217,6 +266,7 @@ class CustomCollector:
         if self.diagram._display_port_labels:
             text = port_obj.name or "UNKNOWN"
             port.labels = makers.make_label(text)
+
         box.ports.append(port)
         self.ports[port_obj.uuid] = port
         return port

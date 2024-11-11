@@ -281,7 +281,7 @@ class ContextDiagram(m.AbstractDiagram):
     _port_label_position: str
     _transparent_background: bool
     _display_unused_ports: bool
-    _unify_edge_direction: bool
+    _unify_edge_direction: str
 
     def __init__(
         self,
@@ -311,7 +311,7 @@ class ContextDiagram(m.AbstractDiagram):
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
             "display_unused_ports": False,
             "transparent_background": False,
-            "unify_edge_direction": False,
+            "unify_edge_direction": "NONE",
         } | default_render_parameters
 
         if standard_filter := STANDARD_FILTERS.get(class_):
@@ -890,7 +890,7 @@ class CustomDiagram(ContextDiagram):
     _port_label_position: str
     _transparent_background: bool
     _display_unused_ports: bool
-    _unify_edge_direction: bool
+    _unify_edge_direction: str
 
     def __init__(
         self,
@@ -902,7 +902,7 @@ class CustomDiagram(ContextDiagram):
     ) -> None:
         default_render_parameters = {
             "collect": {},
-            "display_symbols_as_boxes": True,
+            "display_symbols_as_boxes": False,
             "display_parent_relation": False,
             "hide_direct_children": False,
             "slim_center_box": False,
@@ -910,7 +910,7 @@ class CustomDiagram(ContextDiagram):
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
             "transparent_background": False,
             "display_unused_ports": False,
-            "unify_edge_direction": False,
+            "unify_edge_direction": str,
         } | default_render_parameters
         super().__init__(
             class_,

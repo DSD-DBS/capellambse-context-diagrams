@@ -42,23 +42,21 @@ class CustomCollector:
         self.ports: dict[str, _elkjs.ELKInputPort] = {}
         self.boxes_to_delete: set[str] = set()
         if self.diagram._display_parent_relation:
+            self.edge_owners: dict[str, str] = {}
             self.diagram_target_owners = list(
                 generic.get_all_owners(self.boxable_target)
             )
             self.common_owners: set[str] = set()
-        if self.diagram._unify_edge_direction:
-            self.dicrections: dict[str, bool] = {}
+        if self.diagram._unify_edge_direction != "NONE":
+            self.directions: dict[str, bool] = {}
         self.min_heights: dict[str, dict[str, float]] = {}
 
     def __call__(self) -> _elkjs.ELKInputData:
         self._make_target(self.target)
-        if self.diagram._unify_edge_direction:
-            if len(self.boxes) > 0:
-                self.dicrections[self.target.uuid] = False
-            else:
-                self.dicrections[self.target.source.owner.uuid] = False
         if not self.instructions:
             return self._get_data()
+        if self.diagram._unify_edge_direction == "UNIFORM":
+            self.directions[self.boxable_target.uuid] = False
         self._perform_get(self.target, self.instructions)
         if self.diagram._display_parent_relation:
             current = self.boxable_target
@@ -72,6 +70,10 @@ class CustomCollector:
                     current,
                 )
                 self.common_owners.discard(current.uuid)
+            for edge_uuid, box_uuid in self.edge_owners.items():
+                if box := self.boxes.get(box_uuid):
+                    box.edges.append(self.edges.pop(edge_uuid))
+
         self._fix_box_heights()
         for uuid in self.boxes_to_delete:
             del self.boxes[uuid]
@@ -83,7 +85,7 @@ class CustomCollector:
         return self.data
 
     def _fix_box_heights(self) -> None:
-        if self.diagram._unify_edge_direction:
+        if self.diagram._unify_edge_direction != "NONE":
             for uuid, min_heights in self.min_heights.items():
                 box = self.boxes[uuid]
                 box.height = max(box.height, sum(min_heights.values()))
@@ -210,18 +212,22 @@ class CustomCollector:
                 or getattr(tgt_owner, "owner", None) == self.boxable_target
             ):
                 return None
-        if self.diagram._unify_edge_direction:
-            src_dir = self.dicrections.get(src_owner.uuid)
-            tgt_dir = self.dicrections.get(tgt_owner.uuid)
-            if (src_dir is None) and (tgt_dir is None):
-                self.dicrections[src_owner.uuid] = False
-                self.dicrections[tgt_owner.uuid] = True
-            elif src_dir is None:
-                self.dicrections[src_owner.uuid] = not tgt_dir
-            elif tgt_dir is None:
-                self.dicrections[tgt_owner.uuid] = not src_dir
-            if self.dicrections[src_owner.uuid]:
-                src_obj, tgt_obj = tgt_obj, src_obj
+        src_owners = list(generic.get_all_owners(src_obj))
+        tgt_owners = list(generic.get_all_owners(tgt_obj))
+        if self.diagram._display_parent_relation:
+            common_owner = None
+            for owner in src_owners:
+                if owner in tgt_owners:
+                    common_owner = owner
+                    break
+            if common_owner:
+                self.edge_owners[edge_obj.uuid] = common_owner
+
+        if self._need_switch(
+            src_owners, tgt_owners, src_owner.uuid, tgt_owner.uuid
+        ):
+            src_obj, tgt_obj = tgt_obj, src_obj
+            src_owner, tgt_owner = tgt_owner, src_owner
 
         if not self.ports.get(src_obj.uuid):
             port = self._make_port_and_owner(src_obj)
@@ -249,7 +255,46 @@ class CustomCollector:
             ),
         )
         self.edges[edge_obj.uuid] = edge
+
         return edge
+
+    def _need_switch(
+        self,
+        src_owners: list[str],
+        tgt_owners: list[str],
+        src_uuid: str,
+        tgt_uuid: str,
+    ) -> bool:
+        if self.diagram._unify_edge_direction == "SMART":
+            if src_uuid != self.boxable_target.uuid:
+                src_uncommon = [
+                    owner for owner in src_owners if owner not in tgt_owners
+                ][-1]
+                src_dir = self.directions.setdefault(src_uncommon, False)
+            else:
+                src_dir = None
+            if tgt_uuid != self.boxable_target.uuid:
+                tgt_uncommon = [
+                    owner for owner in tgt_owners if owner not in src_owners
+                ][-1]
+                tgt_dir = self.directions.setdefault(tgt_uncommon, True)
+            else:
+                tgt_dir = None
+            if (src_dir is True) or (tgt_dir is False):
+                return True
+        elif self.diagram._unify_edge_direction == "UNIFORM":
+            src_dir = self.directions.get(src_uuid)
+            tgt_dir = self.directions.get(tgt_uuid)
+            if (src_dir is None) and (tgt_dir is None):
+                self.directions[src_uuid] = False
+                self.directions[tgt_uuid] = True
+            elif src_dir is None:
+                self.directions[src_uuid] = not tgt_dir
+            elif tgt_dir is None:
+                self.directions[tgt_uuid] = not src_dir
+            if self.directions[src_uuid]:
+                return True
+        return False
 
     def _make_port_and_owner(
         self, port_obj: m.ModelElement

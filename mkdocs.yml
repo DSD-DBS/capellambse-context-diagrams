@@ -98,6 +98,8 @@ nav:
       - Overview: data_flow_view.md
   - Cable Tree View:
       - Overview: cable_tree.md
+  - Custom Diagram:
+      - Overview: custom_diagram.md
   - Extras:
       - Filters: extras/filters.md
       - Styling: extras/styling.md

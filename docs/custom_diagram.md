@@ -5,28 +5,51 @@
 
 # Custom Diagram
 
-`Custom diagram`s let's you create custom diagrams based on the data in the model. You define the data collection using a YAML-based declarative language.
+`Custom diagram`s let's you create custom diagrams based on the data in the model. You define the data collection using a dictionary.
 You can access `.custom_diagram` on any supported model element.
 
 ## Example
 
-Here is an example YAML file that declares a context diagram:
+Here are example collection definitions in YAML format for different diagrams:
 
-```yaml
-get:
-    - name: inputs
+??? example "Custom diagram for context"
+
+    ```yaml
+    get:
+        - name: inputs
+        include:
+            - name: exchanges
+            - name: links
+        - name: outputs
+        include:
+            - name: exchanges
+            - name: links
+        - name: ports
+        include:
+            - name: exchanges
+            - name: links
+    ```
+
+??? example "Custom diagram for cable tree"
+
+    ```yaml
+    repeat: -1
+    get:
+        - name: source
+        include:
+            name: links
+        - name: target
+        include:
+            name: links
+    ```
+
+??? example "Custom diagram for exchanges"
+
+    ```yaml
     include:
-        - name: exchanges
-        - name: links
-    - name: outputs
-    include:
-        - name: exchanges
-        - name: links
-    - name: ports
-    include:
-        - name: exchanges
-        - name: links
-```
+        - name: allocated_functional_exchanges
+        - name: allocated_interactions
+    ```
 
 ## Collector definition
 

@@ -35,7 +35,8 @@ class CustomCollector:
         self.data = makers.make_diagram(diagram)
         self.params = params
         self.instructions = self.diagram._collect
-        self.repeat_instructions: dict[str, t.Any] | None = None
+        self.repeat_instructions: list[dict[str, t.Any]] = []
+        self.repeat_depth: list[int] = []
         self.visited: set[str] = set()
         self.boxes: dict[str, _elkjs.ELKInputChild] = {}
         self.edges: dict[str, _elkjs.ELKInputEdge] = {}
@@ -105,15 +106,21 @@ class CustomCollector:
     def _perform_get(
         self, obj: m.ModelElement, instructions: dict[str, t.Any]
     ) -> None:
-        if instructions.pop("repeat", False):
-            self.repeat_instructions = instructions
+        if max_depth := instructions.get("repeat", None):
+            if self.repeat_instructions:
+                self.repeat_depth[-1] -= 1
+                if self.repeat_depth[-1] == 0:
+                    self.repeat_instructions.pop()
+            else:
+                self.repeat_instructions.append(instructions)
+                self.repeat_depth.append(max_depth)
         if insts := instructions.get("get"):
             create = False
         elif insts := instructions.get("include"):
             create = True
         if not insts:
             if self.repeat_instructions:
-                self._perform_get(obj, self.repeat_instructions)
+                self._perform_get(obj, self.repeat_instructions[-1])
             return
         if isinstance(insts, dict):
             insts = [insts]
@@ -206,14 +213,14 @@ class CustomCollector:
         tgt_obj = edge_obj.target
         src_owner = src_obj.owner
         tgt_owner = tgt_obj.owner
-        if self.diagram._hide_direct_children:
-            if (
-                getattr(src_owner, "owner", None) == self.boxable_target
-                or getattr(tgt_owner, "owner", None) == self.boxable_target
-            ):
-                return None
         src_owners = list(generic.get_all_owners(src_obj))
         tgt_owners = list(generic.get_all_owners(tgt_obj))
+        if self.diagram._hide_direct_children:
+            if (
+                self.boxable_target.uuid in src_owners
+                or self.boxable_target.uuid in tgt_owners
+            ):
+                return None
         if self.diagram._display_parent_relation:
             common_owner = None
             for owner in src_owners:

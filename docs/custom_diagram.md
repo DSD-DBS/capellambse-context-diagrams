@@ -31,8 +31,9 @@ get:
 ## Collector definition
 
 -   `get` element at attribute defined in `name`
--   `include` element at attribute defined in `name`
+-   `include` element at attribute defined in `name` or all elements if element is a list as boxes or edges
 -   `filter` elements if element is a list
+-   `repeat` elements if for n times
 
 ## API Usage
 

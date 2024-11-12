@@ -271,7 +271,6 @@ class ContextDiagram(m.AbstractDiagram):
     * display_unused_ports - Display ports that are not connected to an edge.
     """
 
-    _collect: dict[str, t.Any]
     _display_symbols_as_boxes: bool
     _display_parent_relation: bool
     _hide_direct_children: bool
@@ -281,7 +280,6 @@ class ContextDiagram(m.AbstractDiagram):
     _port_label_position: str
     _transparent_background: bool
     _display_unused_ports: bool
-    _unify_edge_direction: str
 
     def __init__(
         self,
@@ -301,7 +299,6 @@ class ContextDiagram(m.AbstractDiagram):
         self._elk_input_data: CollectorOutputData | None = None
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
         self._default_render_parameters = {
-            "collect": {},
             "display_symbols_as_boxes": False,
             "display_parent_relation": False,
             "hide_direct_children": False,
@@ -311,7 +308,6 @@ class ContextDiagram(m.AbstractDiagram):
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
             "display_unused_ports": False,
             "transparent_background": False,
-            "unify_edge_direction": "NONE",
         } | default_render_parameters
 
         if standard_filter := STANDARD_FILTERS.get(class_):

@@ -292,8 +292,7 @@ def get_all_classes(
                     )
                 )
 
-            edge_id = f"{root.uuid} {root.super.uuid}"
-            if edge_id not in classes:
+            if (edge_id := f"{root.uuid} {root.super.uuid}") not in classes:
                 classes[edge_id] = _make_class_info(
                     root.super,  # type: ignore[arg-type]
                     None,
@@ -319,11 +318,11 @@ def get_all_classes(
             for prop in cls.owned_properties:
                 process_property(
                     _PropertyInfo(
-                        root,
+                        cls,
                         prop,
                         partition,
                         classes,
-                        cls,
+                        None,
                         max_partition,
                         super,
                         sub,

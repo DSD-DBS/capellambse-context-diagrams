@@ -35,8 +35,8 @@ class CustomCollector:
         self.data = makers.make_diagram(diagram)
         self.params = params
         self.instructions = self.diagram._collect
-        self.repeat_instructions: list[dict[str, t.Any]] = []
-        self.repeat_depth: list[int] = []
+        self.repeat_instructions: dict[str, t.Any] = {}
+        self.repeat_depth: int = 0
         self.visited: set[str] = set()
         self.boxes: dict[str, _elkjs.ELKInputChild] = {}
         self.edges: dict[str, _elkjs.ELKInputEdge] = {}
@@ -58,7 +58,7 @@ class CustomCollector:
             return self._get_data()
         if self.diagram._unify_edge_direction == "UNIFORM":
             self.directions[self.boxable_target.uuid] = False
-        self._perform_get(self.target, self.instructions)
+        self._perform_instructions(self.target, self.instructions)
         if self.diagram._display_parent_relation:
             current = self.boxable_target
             while (
@@ -103,29 +103,33 @@ class CustomCollector:
                 return False
         return True
 
-    def _perform_get(
+    def _perform_instructions(
         self, obj: m.ModelElement, instructions: dict[str, t.Any]
     ) -> None:
-        if max_depth := instructions.get("repeat", None):
-            if self.repeat_instructions:
-                self.repeat_depth[-1] -= 1
-                if self.repeat_depth[-1] == 0:
-                    self.repeat_instructions.pop()
-            else:
-                self.repeat_instructions.append(instructions)
-                self.repeat_depth.append(max_depth)
-        if insts := instructions.get("get"):
-            create = False
-        elif insts := instructions.get("include"):
-            create = True
-        if not insts:
-            if self.repeat_instructions:
-                self._perform_get(obj, self.repeat_instructions[-1])
-            return
-        if isinstance(insts, dict):
-            insts = [insts]
-        assert isinstance(insts, list)
-        for i in insts:
+        if max_depth := instructions.pop("repeat", None):
+            self.repeat_instructions = instructions
+            self.repeat_depth = max_depth
+        if get_targets := instructions.get("get"):
+            self._perform_get_or_include(obj, get_targets, False)
+        elif include_targets := instructions.get("include"):
+            self._perform_get_or_include(obj, include_targets, True)
+        if not get_targets and not include_targets:
+            if self.repeat_depth != 0:
+                self.repeat_depth -= 1
+                self._perform_instructions(obj, self.repeat_instructions)
+
+    def _perform_get_or_include(
+        self,
+        obj: m.ModelElement,
+        targets: dict[str, t.Any] | list[dict[str, t.Any]],
+        create: bool,
+    ) -> None:
+        if isinstance(targets, dict):
+            targets = [targets]
+        assert isinstance(targets, list)
+        if self.repeat_depth > 0:
+            self.repeat_depth += len(targets)
+        for i in targets:
             attr = i.get("name")
             assert attr, "Attribute name is required."
             target = getattr(obj, attr, None)
@@ -139,14 +143,14 @@ class CustomCollector:
                         continue
                     if create:
                         self._make_target(item)
-                    self._perform_get(item, i)
+                    self._perform_instructions(item, i)
             elif isinstance(target, m.ModelElement):
                 if target.uuid in self.visited:
                     continue
                 self.visited.add(target.uuid)
                 if create:
                     self._make_target(target)
-                self._perform_get(target, i)
+                self._perform_instructions(target, i)
 
     def _make_target(
         self, obj: m.ModelElement

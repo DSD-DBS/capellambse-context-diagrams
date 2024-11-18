@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import collections.abc as cabc
+import copy
 import typing as t
 
 import capellambse.model as m
@@ -54,6 +55,10 @@ class CustomCollector:
 
     def __call__(self) -> _elkjs.ELKInputData:
         self._make_target(self.target)
+        if target_edge := self.edges.get(self.target.uuid):
+            target_edge.layoutOptions = copy.deepcopy(
+                _elkjs.EDGE_STRAIGHTENING_LAYOUT_OPTIONS
+            )
         if not self.instructions:
             return self._get_data()
         if self.diagram._unify_edge_direction == "UNIFORM":

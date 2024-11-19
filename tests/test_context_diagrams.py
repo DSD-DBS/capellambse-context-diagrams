@@ -114,7 +114,7 @@ def test_context_diagrams_rerender_on_parameter_change(
         ),
         pytest.param(
             [
-                (TEST_ACTOR_SIZING_UUID, 41, 41),
+                (TEST_ACTOR_SIZING_UUID, 40, 40),
                 (TEST_HUMAN_ACTOR_SIZING_UUID, 43, 43),
                 (TEST_CAP_SIZING_UUID, 141, 141),
             ],
@@ -122,23 +122,23 @@ def test_context_diagrams_rerender_on_parameter_change(
         ),
         pytest.param(
             [
-                ("e1e48763-7479-4f3a-8134-c82bb6705d58", 126, 201),
-                ("8df45b70-15cc-4d3a-99e4-593516392c5a", 154, 248),
-                ("74af6883-25a0-446a-80f3-656f8a490b11", 266, 435),
+                ("e1e48763-7479-4f3a-8134-c82bb6705d58", 126, 190),
+                ("8df45b70-15cc-4d3a-99e4-593516392c5a", 154, 234),
+                ("74af6883-25a0-446a-80f3-656f8a490b11", 266, 412),
             ],
             id="LogicalComponent",
         ),
         pytest.param(
             [
-                ("0c06cc88-8c77-46f2-8542-c08b1e8edd18", 112, 177),
-                ("9f1e1875-9ead-4af2-b428-c390786a436a", 112, 177),
+                ("0c06cc88-8c77-46f2-8542-c08b1e8edd18", 112, 168),
+                ("9f1e1875-9ead-4af2-b428-c390786a436a", 112, 168),
             ],
             id="LogicalFunction",
         ),
         pytest.param(
             [
-                ("6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6", 37, 37),
-                ("344a405e-c7e5-4367-8a9a-41d3d9a27f81", 41, 41),
+                ("6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6", 36, 36),
+                ("344a405e-c7e5-4367-8a9a-41d3d9a27f81", 40, 40),
                 ("230c4621-7e0a-4d0a-9db2-d4ba5e97b3df", 42, 60),
             ],
             id="SystemComponent Root",

@@ -62,7 +62,7 @@
                 definition="#682bd51d-5451-4930-a97e-8bfca6c3a127" value="true"/>
             <ownedAttributes xsi:type="Requirements:DateValueAttribute" id="b97c09b5-948a-46e8-a656-69d764ddce7d"
                 definition="#682bd51d-5451-4930-a97e-8bfca6c3a127" definitionProxy=""
-                value="2021-07-23T13:00:00.000+0000"/>
+                value="2021-07-23T15:00:00.000+0200"/>
             <ownedAttributes xsi:type="Requirements:IntegerValueAttribute" id="85dfd42c-7f6e-4236-a181-bdd784040431"
                 definition="#682bd51d-5451-4930-a97e-8bfca6c3a127" value="10"/>
             <ownedAttributes xsi:type="Requirements:RealValueAttribute" id="d2231d14-854d-4625-b48b-6cf1c2554367"
@@ -4259,7 +4259,7 @@ The predator is far away</bodies>
             </ownedFeatures>
           </ownedLogicalComponents>
           <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
-              id="ce793e72-8a7b-4b03-b45f-90051a82a943" name="LC 16">
+              id="ce793e72-8a7b-4b03-b45f-90051a82a943" name="LC 16" human="true">
             <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
                 id="c7ceb3a4-8f9a-42f8-b897-a1a6e0156990" targetElement="#64cbd0b1-3dc5-4c04-8906-993efa1058c7"
                 sourceElement="#ce793e72-8a7b-4b03-b45f-90051a82a943"/>

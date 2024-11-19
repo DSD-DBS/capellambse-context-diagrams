@@ -511,7 +511,7 @@ def derive_from_functions(
             derived_component,
             no_symbol=diagram._display_symbols_as_boxes,
         )
-        class_ = type(derived_comp).__name__
+        class_ = diagram.serializer.get_styleclass(derived_component.uuid)
         box.id = f"{makers.STYLECLASS_PREFIX}-{class_}:{uuid}"
         data.children.append(box)
         source_id = f"{makers.STYLECLASS_PREFIX}-CP_INOUT:{i}"

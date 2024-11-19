@@ -10,7 +10,7 @@ import typing as t
 import capellambse.model as m
 
 from .. import _elkjs, context
-from . import makers
+from . import generic, makers
 
 DEFAULT_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
     "algorithm": "layered",
@@ -35,14 +35,14 @@ class CableTreeCollector:
         self.boxes: dict[str, _elkjs.ELKInputChild] = {}
         self.edges: dict[str, _elkjs.ELKInputEdge] = {}
         self.ports: dict[str, _elkjs.ELKInputPort] = {}
+        self.common_owner: str | None = None
 
     def __call__(self) -> _elkjs.ELKInputData:
         src_obj = self.obj.source
         tgt_obj = self.obj.target
-        target_link = self._make_edge(self.obj, src_obj, tgt_obj)
-        target_link.layoutOptions = copy.deepcopy(
-            _elkjs.EDGE_STRAIGHTENING_LAYOUT_OPTIONS
-        )
+        src_owners = list(generic.get_all_owners(src_obj))
+        tgt_owners = list(generic.get_all_owners(tgt_obj))
+        self.common_owner = [o for o in src_owners if o in tgt_owners][0]
         self._make_tree(src_obj)
         self._make_tree(tgt_obj, reverse=True)
         return self.data
@@ -58,6 +58,8 @@ class CableTreeCollector:
                 obj = link.target
             else:
                 obj = link.source
+            if self.common_owner not in set(generic.get_all_owners(obj)):
+                continue
             if reverse:
                 self._make_edge(link, obj, port_obj)
             else:

@@ -20,6 +20,12 @@ def _is_edge(obj: m.ModelElement) -> bool:
     return False
 
 
+def _is_port(obj: m.ModelElement) -> bool:
+    if obj.xtype.endswith("Port"):
+        return True
+    return False
+
+
 class CustomCollector:
     """Collect the context for a custom diagram."""
 
@@ -30,9 +36,12 @@ class CustomCollector:
     ) -> None:
         self.diagram = diagram
         self.target: m.ModelElement = self.diagram.target
-        self.boxable_target = (
-            self.target.source.owner if _is_edge(self.target) else self.target
-        )
+        if _is_port(self.target):
+            self.boxable_target = self.target.owner
+        elif _is_edge(self.target):
+            self.boxable_target = self.target.source.owner
+        else:
+            self.boxable_target = self.target
         self.data = makers.make_diagram(diagram)
         self.params = params
         self.instructions = self.diagram._collect
@@ -54,7 +63,10 @@ class CustomCollector:
         self.min_heights: dict[str, dict[str, float]] = {}
 
     def __call__(self) -> _elkjs.ELKInputData:
-        self._make_target(self.target)
+        if _is_port(self.target):
+            self._make_port_and_owner(self.target)
+        else:
+            self._make_target(self.target)
         if target_edge := self.edges.get(self.target.uuid):
             target_edge.layoutOptions = copy.deepcopy(
                 _elkjs.EDGE_STRAIGHTENING_LAYOUT_OPTIONS
@@ -116,7 +128,7 @@ class CustomCollector:
             self.repeat_depth = max_depth
         if get_targets := instructions.get("get"):
             self._perform_get_or_include(obj, get_targets, False)
-        elif include_targets := instructions.get("include"):
+        if include_targets := instructions.get("include"):
             self._perform_get_or_include(obj, include_targets, True)
         if not get_targets and not include_targets:
             if self.repeat_depth != 0:
@@ -310,6 +322,17 @@ class CustomCollector:
                 self.directions[tgt_uuid] = not src_dir
             if self.directions[src_uuid]:
                 return True
+        elif self.diagram._unify_edge_direction == "TREE":
+            src_dir = self.directions.get(src_uuid)
+            tgt_dir = self.directions.get(tgt_uuid)
+            if (src_dir is None) and (tgt_dir is None):
+                self.directions[src_uuid] = True
+                self.directions[tgt_uuid] = True
+            elif src_dir is None:
+                self.directions[src_uuid] = True
+                return True
+            elif tgt_dir is None:
+                self.directions[tgt_uuid] = True
         return False
 
     def _make_port_and_owner(

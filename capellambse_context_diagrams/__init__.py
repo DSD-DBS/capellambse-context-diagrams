@@ -65,6 +65,7 @@ def init() -> None:
     """Initialize the extension."""
     register_classes()
     register_interface_context()
+    register_physical_port_context()
     register_tree_view()
     register_realization_view()
     register_data_flow_view()
@@ -248,6 +249,18 @@ def register_functional_context() -> None:
         )
 
 
+def register_physical_port_context() -> None:
+    """Add the `context_diagram` attribute to `PhysicalPort`s."""
+    m.set_accessor(
+        cs.PhysicalPort,
+        ATTR_NAME,
+        context.PhysicalPortContextAccessor(
+            DiagramType.PAB.value,
+            {},
+        ),
+    )
+
+
 def register_tree_view() -> None:
     """Add the ``tree_view`` attribute to ``Class``es."""
     m.set_accessor(
@@ -324,6 +337,7 @@ def register_custom_diagram() -> None:
         (la.LogicalFunction, DiagramType.LAB),
         (pa.PhysicalFunction, DiagramType.PAB),
         (fa.ComponentExchange, DiagramType.SAB),
+        (cs.PhysicalPort, DiagramType.PAB),
     ]
     for class_, dgcls in supported_classes:
         m.set_accessor(

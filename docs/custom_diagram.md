@@ -78,6 +78,7 @@ my_element.custom_diagram(collect=yaml.safe_load(my_yaml)).render("svgdiagram").
 -   [`la.LogicalFunction`][capellambse.metamodel.la.LogicalFunction]
 -   [`pa.PhysicalFunction`][capellambse.metamodel.pa.PhysicalFunction]
 -   [`fa.ComponentExchange`][capellambse.metamodel.fa.ComponentExchange]
+-   [`cs.PhysicalPort`][capellambse.metamodel.cs.PhysicalPort]
 
 ## Check out the code
 

@@ -953,7 +953,7 @@ class PhysicalPortContextDiagram(ContextDiagram):
                 },
             },
             "display_parent_relation": True,
-            "unify_edge_direction": "TREE",
+            "unify_edge_direction": "UNIFORM",
             "display_port_labels": True,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
         } | default_render_parameters

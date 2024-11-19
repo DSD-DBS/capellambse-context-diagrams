@@ -4,7 +4,6 @@
 """This module defines the collector for the CableTreeDiagram."""
 from __future__ import annotations
 
-import copy
 import typing as t
 
 import capellambse.model as m

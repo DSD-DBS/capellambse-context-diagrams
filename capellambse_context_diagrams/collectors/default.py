@@ -90,13 +90,12 @@ class ContextProcessor:
 
         self.data.children.extend(self.global_boxes.values())
         if self.diagram._display_parent_relation:
-            owner_boxes: dict[str, _elkjs.ELKInputChild] = {
-                uuid: box for uuid, box in self.made_boxes.items()
-            }
             generic.move_parent_boxes_to_owner(
-                owner_boxes, self.diagram.target, self.data
+                self.made_boxes, self.diagram.target, self.data
             )
-            generic.move_edges(owner_boxes, self.exchanges.values(), self.data)
+            generic.move_edges(
+                self.made_boxes, self.exchanges.values(), self.data
+            )
 
         if self.diagram._hide_direct_children:
             self.centerbox.children = []

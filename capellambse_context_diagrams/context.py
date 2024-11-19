@@ -515,7 +515,7 @@ class InterfaceContextDiagram(ContextDiagram):
             )
             styleclass = self.serializer.get_styleclass(port.id)
             if styleclass in {"FIP", "FOP"}:
-                yield self._create_edge(
+                yield _create_edge(
                     styleclass,
                     port.id,
                     interface_port.id,
@@ -523,29 +523,31 @@ class InterfaceContextDiagram(ContextDiagram):
                     interface_middle,
                 )
 
-    def _create_edge(
-        self, styleclass, port_id, interface_id, port_middle, interface_middle
-    ) -> _elkjs.ELKOutputEdge:
-        if styleclass == "FIP":
-            eid = f"__PortInputAllocation:{port_id}"
-            src_id, trg_id = port_id, interface_id
-            routing_points = [port_middle, interface_middle]
-        elif styleclass == "FOP":
-            eid = f"__PortOutputAllocation:{port_id}"
-            src_id, trg_id = interface_id, port_id
-            routing_points = [interface_middle, port_middle]
-
-        return _elkjs.ELKOutputEdge(
-            id=eid,
-            type="edge",
-            routingPoints=routing_points,
-            sourceId=src_id,
-            targetId=trg_id,
-        )
-
     @property
     def name(self) -> str:  # type: ignore
         return f"Interface Context of {self.target.name}"
+
+
+def _create_edge(
+    styleclass, port_id, interface_id, port_middle, interface_middle
+) -> _elkjs.ELKOutputEdge:
+    if styleclass == "FIP":
+        eid = f"__PortInputAllocation:{port_id}"
+        src_id, trg_id = port_id, interface_id
+        routing_points = [port_middle, interface_middle]
+    else:
+        # styleclass == "FOP"
+        eid = f"__PortOutputAllocation:{port_id}"
+        src_id, trg_id = interface_id, port_id
+        routing_points = [interface_middle, port_middle]
+
+    return _elkjs.ELKOutputEdge(
+        id=eid,
+        type="edge",
+        routingPoints=routing_points,
+        sourceId=src_id,
+        targetId=trg_id,
+    )
 
 
 class FunctionalContextDiagram(ContextDiagram):

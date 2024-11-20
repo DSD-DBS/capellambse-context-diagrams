@@ -135,11 +135,7 @@ def register_classes() -> None:
                 "display_derived_interfaces": True,
             },
         ),
-        (
-            pa.PhysicalFunction,
-            DiagramType.PAB,
-            {"display_parent_relation": True},
-        ),
+        (pa.PhysicalFunction, DiagramType.PAB, {}),
     ]
     cap: dict[str, CSSdef] = {
         "fill": [COLORS["_CAP_Entity_Gray_min"], COLORS["_CAP_Entity_Gray"]],

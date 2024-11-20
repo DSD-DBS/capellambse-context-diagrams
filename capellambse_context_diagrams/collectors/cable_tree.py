@@ -27,7 +27,10 @@ class CableTreeCollector:
         params: dict[str, t.Any],
     ) -> None:
         self.diagram = diagram
-        self.obj: m.ModelElement = self.diagram.target
+        self.src_port_obj: m.ModelElement = self.diagram.target.source
+        self.tgt_port_obj: m.ModelElement = self.diagram.target.target
+        self.src_obj: m.ModelElement = self.src_port_obj.owner
+        self.tgt_obj: m.ModelElement = self.tgt_port_obj.owner
         self.data = makers.make_diagram(diagram)
         self.data.layoutOptions = DEFAULT_LAYOUT_OPTIONS
         self.params = params
@@ -37,13 +40,12 @@ class CableTreeCollector:
         self.common_owner: str | None = None
 
     def __call__(self) -> _elkjs.ELKInputData:
-        src_obj = self.obj.source
-        tgt_obj = self.obj.target
-        src_owners = list(generic.get_all_owners(src_obj))
-        tgt_owners = list(generic.get_all_owners(tgt_obj))
-        self.common_owner = [o for o in src_owners if o in tgt_owners][0]
-        self._make_tree(src_obj)
-        self._make_tree(tgt_obj, reverse=True)
+        if self.src_obj.uuid in set(generic.get_all_owners(self.tgt_obj)):
+            self.common_owner = self.src_obj.uuid
+        elif self.tgt_obj.uuid in set(generic.get_all_owners(self.src_obj)):
+            self.common_owner = self.tgt_obj.uuid
+        self._make_tree(self.src_port_obj)
+        self._make_tree(self.tgt_port_obj, reverse=True)
         return self.data
 
     def _make_tree(
@@ -57,8 +59,15 @@ class CableTreeCollector:
                 obj = link.target
             else:
                 obj = link.source
-            if self.common_owner not in set(generic.get_all_owners(obj)):
-                continue
+            owners = list(generic.get_all_owners(obj))[2:]
+            if self.common_owner:
+                if self.common_owner not in owners:
+                    continue
+            else:
+                if (self.src_obj.uuid in owners) or (
+                    self.tgt_obj.uuid in owners
+                ):
+                    continue
             if reverse:
                 self._make_edge(link, obj, port_obj)
             else:

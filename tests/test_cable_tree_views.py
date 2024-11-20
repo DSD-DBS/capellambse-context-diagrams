@@ -5,13 +5,26 @@ import capellambse
 import pytest
 
 
-@pytest.mark.parametrize("uuid", ["5c55b11b-4911-40fb-9c4c-f1363dad846e"])
-@pytest.mark.parametrize("fmt", ["svgdiagram", "svg", None])
+@pytest.mark.parametrize(
+    "diagram_elements",
+    [
+        pytest.param(
+            ("5c55b11b-4911-40fb-9c4c-f1363dad846e", 29), id="Full Tree"
+        ),
+        pytest.param(
+            ("39e96ffc-2f32-41b9-b406-ba82c78fe451", 8), id="Inside Tree"
+        ),
+        pytest.param(
+            ("6c607b75-504a-4d68-966b-0982fde3275e", 20), id="Outside Tree"
+        ),
+    ],
+)
 def test_cable_tree_views(
-    model: capellambse.MelodyModel, uuid: str, fmt: str
+    model: capellambse.MelodyModel, diagram_elements: tuple[str, int]
 ) -> None:
+    uuid, elements_n = diagram_elements
     obj = model.by_uuid(uuid)
 
     diag = obj.cable_tree
 
-    assert diag.render(fmt)
+    assert len(diag.nodes) == elements_n

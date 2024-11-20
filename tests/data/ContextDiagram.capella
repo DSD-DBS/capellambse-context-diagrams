@@ -4976,6 +4976,16 @@ The predator is far away</bodies>
               name="Emergency Stop Button" abstractType="#3924460c-321e-4300-8788-a6713dd64456"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="2bac1e59-870e-4e1a-bb93-3e9782307525"
               name="Train Speed Monitoring Unit" abstractType="#23faf496-7a2d-4a41-b92a-fc240d9b5924"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="f96fa4e8-6cd8-4385-85bf-ef9b3315be53"
+              name="PC 35" abstractType="#dcad75de-d7d5-4f28-9fb2-b084c150eb30"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="3db53d71-799e-414d-be24-de061dc4ab9e"
+              name="PC 36" abstractType="#d52fa55a-9952-47ca-bdcc-57a5e667469d"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="5075abd7-d5cd-4d0e-aff2-01f298bd30e7"
+              name="PC 37" abstractType="#d4985173-656f-4327-95a8-2e7397729af9"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="651b384d-b3fd-4ca2-b8b6-71ac7eec9da2"
+              name="PC 38" abstractType="#085ccdd7-5c9f-4c49-97e5-260c0a976d92"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="62a383f5-ae63-4887-bd35-d4a32e2cc67c"
+              name="PC 39" abstractType="#161058ab-e831-44ba-a08b-34cc8a3c511e"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="7aaa4d4d-741f-4b58-a782-2dce998ccf0e" targetElement="#0d2edb8f-fa34-4e73-89ec-fb9a63001440"
               sourceElement="#b9f9a83c-fb02-44f7-9123-9d86326de5f1"/>
@@ -5037,6 +5047,14 @@ The predator is far away</bodies>
           <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
               id="93b6d377-0718-4c5b-8bc0-b020122beb83" name="Track Monitoring Link"
               linkEnds="#5cbec23a-3f3e-4828-8f14-1be0c09e1b54 #ef739eb8-10c2-4b27-aa76-636c89e2403b"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="6c607b75-504a-4d68-966b-0982fde3275e" name="PL 15" linkEnds="#9e155e28-d27a-4e07-89a3-0e67f54641cc #9e6265f2-df65-4535-a282-0e0780c94d32"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="43a18315-8129-4f91-83de-c592ecea50ef" name="PL 16" linkEnds="#9e6265f2-df65-4535-a282-0e0780c94d32 #c3ffa5ba-bd4b-455e-b8a5-f98ae21f6a2b"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="ace2d90c-9dc4-4279-a9c9-d84d1a490184" name="PL 17" linkEnds="#9e6265f2-df65-4535-a282-0e0780c94d32 #7eddc1b7-ebb3-43e9-ace0-095bc63ae89e"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="b1cb63be-f670-4856-87ed-bf4305570457" name="PL 18" linkEnds="#c3ffa5ba-bd4b-455e-b8a5-f98ae21f6a2b #8bdff57a-971a-4c95-8ec9-5380c2c58c82"/>
           <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
               id="8a6d68c8-ac3d-4654-a07e-ada7adeed09f" name="PC 1" nature="NODE"/>
           <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
@@ -5487,6 +5505,54 @@ The predator is far away</bodies>
               nature="NODE">
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
                 id="5cbec23a-3f3e-4828-8f14-1be0c09e1b54" name="PP 1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="dcad75de-d7d5-4f28-9fb2-b084c150eb30" name="PC 35" nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="97f64e03-6c35-4b40-93b4-435287486326"
+                name="PC 1" abstractType="#c9cf644e-a97b-4c5b-81d4-bf052ab52f35"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="b0a3ecf1-7827-46da-9207-d8c0c25b4053"
+                name="PC 2" abstractType="#86268c87-29d1-4427-af68-bcd88779ce8e"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="9e155e28-d27a-4e07-89a3-0e67f54641cc" name="PP 3"/>
+            <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+                id="39e96ffc-2f32-41b9-b406-ba82c78fe451" name="PL 1" linkEnds="#1ceea88f-63fe-4015-b73e-94ebcea67e1b #9e155e28-d27a-4e07-89a3-0e67f54641cc"/>
+            <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+                id="e3fa2759-4508-4b9b-b2e3-c5b39f3b9cdb" name="PL 2" linkEnds="#0adba03e-922d-4e0f-9637-d5d20533cc59 #9e155e28-d27a-4e07-89a3-0e67f54641cc"/>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="c9cf644e-a97b-4c5b-81d4-bf052ab52f35" name="PC 1" nature="NODE">
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="dcef6050-426e-4ab7-94c7-2d75f6ee2c90"
+                  name="PC 1" abstractType="#54039718-8e47-442e-98ad-44d0459a5170"/>
+              <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                  id="54039718-8e47-442e-98ad-44d0459a5170" name="PC 1" nature="NODE">
+                <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                    id="1ceea88f-63fe-4015-b73e-94ebcea67e1b" name="PP 1"/>
+              </ownedPhysicalComponents>
+            </ownedPhysicalComponents>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="86268c87-29d1-4427-af68-bcd88779ce8e" name="PC 2" nature="NODE">
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="0adba03e-922d-4e0f-9637-d5d20533cc59" name="PP 1"/>
+            </ownedPhysicalComponents>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="d52fa55a-9952-47ca-bdcc-57a5e667469d" name="PC 36" nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="9e6265f2-df65-4535-a282-0e0780c94d32" name="PP 1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="d4985173-656f-4327-95a8-2e7397729af9" name="PC 37" nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="c3ffa5ba-bd4b-455e-b8a5-f98ae21f6a2b" name="PP 1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="085ccdd7-5c9f-4c49-97e5-260c0a976d92" name="PC 38" nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="7eddc1b7-ebb3-43e9-ace0-095bc63ae89e" name="PP 1"/>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="161058ab-e831-44ba-a08b-34cc8a3c511e" name="PC 39" nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="8bdff57a-971a-4c95-8ec9-5380c2c58c82" name="PP 1"/>
           </ownedPhysicalComponents>
         </ownedPhysicalComponents>
         <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"

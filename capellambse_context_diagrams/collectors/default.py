@@ -23,7 +23,11 @@ if t.TYPE_CHECKING:
     from .. import context
 
     DerivatorFunction: t.TypeAlias = cabc.Callable[
-        [context.ContextDiagram, _elkjs.ELKInputData, _elkjs.ELKInputChild],
+        [
+            context.ContextDiagram,
+            _elkjs.ELKInputData,
+            dict[str, _elkjs.ELKInputChild],
+        ],
         None,
     ]
 
@@ -90,13 +94,12 @@ class ContextProcessor:
 
         self.data.children.extend(self.global_boxes.values())
         if self.diagram._display_parent_relation:
-            owner_boxes: dict[str, _elkjs.ELKInputChild] = {
-                uuid: box for uuid, box in self.made_boxes.items()
-            }
             generic.move_parent_boxes_to_owner(
-                owner_boxes, self.diagram.target, self.data
+                self.made_boxes, self.diagram.target, self.data
             )
-            generic.move_edges(owner_boxes, self.exchanges.values(), self.data)
+            generic.move_edges(
+                self.made_boxes, self.exchanges.values(), self.data
+            )
 
         if self.diagram._hide_direct_children:
             self.centerbox.children = []
@@ -327,7 +330,7 @@ def collector(
         derivator(
             diagram,
             data,
-            processor.made_boxes[diagram.target.uuid],
+            processor.made_boxes,
         )
     return data
 
@@ -466,7 +469,7 @@ def port_context_collector(
 def derive_from_functions(
     diagram: context.ContextDiagram,
     data: _elkjs.ELKInputData,
-    centerbox: _elkjs.ELKInputChild,
+    boxes: dict[str, _elkjs.ELKInputChild],
 ) -> None:
     """Derive Components from allocated functions of the context target.
 
@@ -480,8 +483,7 @@ def derive_from_functions(
         inc, out = port_collector(fnc, diagram.type)
         ports.extend(inc + out)
 
-    context_box_ids = {child.id for child in data.children}
-    components: dict[str, cs.Component] = {}
+    derived_components: dict[str, cs.Component] = {}
     for port in ports:
         for fex in port.exchanges:
             if isinstance(port, fa.FunctionOutputPort):
@@ -493,12 +495,12 @@ def derive_from_functions(
                 derived_comp = getattr(fex, attr).owner.owner
                 if (
                     derived_comp == diagram.target
-                    or derived_comp.uuid in context_box_ids
+                    or derived_comp.uuid in boxes
                 ):
                     continue
 
-                if derived_comp.uuid not in components:
-                    components[derived_comp.uuid] = derived_comp
+                if derived_comp.uuid not in derived_components:
+                    derived_components[derived_comp.uuid] = derived_comp
             except AttributeError:  # No owner of owner.
                 pass
 
@@ -506,12 +508,16 @@ def derive_from_functions(
     # exchanges. Mixed means bidirectional. Just even out bidirectional
     # interfaces and keep flow direction of others.
 
-    for i, (uuid, derived_component) in enumerate(components.items(), 1):
+    centerbox = boxes[diagram.target.uuid]
+    i = 0
+    for i, (uuid, derived_component) in enumerate(
+        derived_components.items(), 1
+    ):
         box = makers.make_box(
             derived_component,
             no_symbol=diagram._display_symbols_as_boxes,
         )
-        class_ = type(derived_comp).__name__
+        class_ = diagram.serializer.get_styleclass(derived_component.uuid)
         box.id = f"{makers.STYLECLASS_PREFIX}-{class_}:{uuid}"
         data.children.append(box)
         source_id = f"{makers.STYLECLASS_PREFIX}-CP_INOUT:{i}"
@@ -529,9 +535,8 @@ def derive_from_functions(
             )
         )
 
-    data.children[0].height += (
-        makers.PORT_PADDING
-        + (makers.PORT_SIZE + makers.PORT_PADDING) * len(components) // 2
+    centerbox.height += (
+        makers.PORT_PADDING + (makers.PORT_SIZE + makers.PORT_PADDING) * i // 2
     )
 
 

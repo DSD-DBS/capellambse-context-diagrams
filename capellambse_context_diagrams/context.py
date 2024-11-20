@@ -393,10 +393,6 @@ class ContextDiagram(m.AbstractDiagram):
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         data = self.elk_input_data(params)
         assert not isinstance(data, tuple)
-        if not isinstance(self, ClassTreeDiagram) and has_single_child(data):
-            self._display_derived_interfaces = True
-            data = get_elkdata(self, params)
-
         layout = try_to_layout(data)
         is_legend: bool = params.get("is_legend", False)  # type: ignore[assignment]
         add_context(layout, is_legend)
@@ -948,18 +944,6 @@ def calculate_label_position(
     center_y = y + height / 2
     tspan_y = center_y - width / 2 + padding
     return (x + width / 2, center_y, tspan_y)
-
-
-def has_single_child(data: _elkjs.ELKInputData | _elkjs.ELKInputChild) -> bool:
-    """Checks if ``data`` has a single or no child."""
-    if not data.children:
-        return True
-
-    for child in data.children:
-        if not has_single_child(child):
-            return False
-
-    return len(data.children) == 1
 
 
 def _get_all_ports(

@@ -94,6 +94,7 @@ def register_classes() -> None:
             {
                 "display_symbols_as_boxes": True,
                 "display_parent_relation": True,
+                "display_derived_interfaces": True,
                 "render_styles": styling.BLUE_ACTOR_FNCS,
             },
         ),
@@ -112,6 +113,7 @@ def register_classes() -> None:
             {
                 "display_symbols_as_boxes": True,
                 "display_parent_relation": True,
+                "display_derived_interfaces": True,
                 "render_styles": styling.BLUE_ACTOR_FNCS,
             },
         ),
@@ -127,15 +129,13 @@ def register_classes() -> None:
         (
             pa.PhysicalComponent,
             DiagramType.PAB,
-            {"display_parent_relation": True, "display_port_labels": True},
-        ),
-        (
-            pa.PhysicalFunction,
-            DiagramType.PAB,
             {
                 "display_parent_relation": True,
+                "display_port_labels": True,
+                "display_derived_interfaces": True,
             },
         ),
+        (pa.PhysicalFunction, DiagramType.PAB, {}),
     ]
     cap: dict[str, CSSdef] = {
         "fill": [COLORS["_CAP_Entity_Gray_min"], COLORS["_CAP_Entity_Gray"]],

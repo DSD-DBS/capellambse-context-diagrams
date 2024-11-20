@@ -536,7 +536,6 @@ def _create_edge(
         src_id, trg_id = port_id, interface_id
         routing_points = [port_middle, interface_middle]
     else:
-        # styleclass == "FOP"
         eid = f"__PortOutputAllocation:{port_id}"
         src_id, trg_id = interface_id, port_id
         routing_points = [interface_middle, port_middle]

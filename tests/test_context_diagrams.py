@@ -64,7 +64,6 @@ def test_context_diagrams(model: capellambse.MelodyModel, uuid: str) -> None:
     obj = model.by_uuid(uuid)
 
     diag = obj.context_diagram
-    diag.render("svgdiagram", display_parent_relation=True).save(pretty=True)
     diag.render(None, display_parent_relation=False)
 
     assert diag.nodes

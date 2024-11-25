@@ -31,7 +31,7 @@ class CustomCollector:
 
     def __init__(
         self,
-        diagram: context.ContextDiagram,
+        diagram: context.CustomDiagram,
         params: dict[str, t.Any],
     ) -> None:
         self.diagram = diagram
@@ -89,9 +89,7 @@ class CustomCollector:
                 and getattr(current, "owner", None) is not None
                 and not isinstance(current.owner, generic.PackageTypes)
             ):
-                current = self._make_owner_box(
-                    current,
-                )
+                current = self._make_owner_box(current)
                 self.common_owners.discard(current.uuid)
             for edge_uuid, box_uuid in self.edge_owners.items():
                 if box := self.boxes.get(box_uuid):
@@ -288,7 +286,6 @@ class CustomCollector:
             ),
         )
         self.edges[edge_obj.uuid] = edge
-
         return edge
 
     def _need_switch(

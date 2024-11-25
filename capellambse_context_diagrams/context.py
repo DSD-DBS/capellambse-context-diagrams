@@ -892,14 +892,6 @@ class CustomDiagram(ContextDiagram):
     """An automatically generated CustomDiagram Diagram."""
 
     _collect: dict[str, t.Any]
-    _display_symbols_as_boxes: bool
-    _display_parent_relation: bool
-    _hide_direct_children: bool
-    _slim_center_box: bool
-    _display_port_labels: bool
-    _port_label_position: str
-    _transparent_background: bool
-    _display_unused_ports: bool
     _unify_edge_direction: str
 
     def __init__(
@@ -912,14 +904,7 @@ class CustomDiagram(ContextDiagram):
     ) -> None:
         default_render_parameters = {
             "collect": {},
-            "display_symbols_as_boxes": False,
-            "display_parent_relation": False,
-            "hide_direct_children": False,
             "slim_center_box": False,
-            "display_port_labels": False,
-            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
-            "transparent_background": False,
-            "display_unused_ports": False,
             "unify_edge_direction": str,
         } | default_render_parameters
         super().__init__(
@@ -931,7 +916,7 @@ class CustomDiagram(ContextDiagram):
         self.collector = custom.collector
 
 
-class PhysicalPortContextDiagram(ContextDiagram):
+class PhysicalPortContextDiagram(CustomDiagram):
     """An automatically generated Context Diagram exclusively for
     PhysicalPorts.
     """
@@ -963,7 +948,6 @@ class PhysicalPortContextDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
-        self.collector = custom.collector
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:

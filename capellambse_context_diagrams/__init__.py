@@ -254,10 +254,7 @@ def register_physical_port_context() -> None:
     m.set_accessor(
         cs.PhysicalPort,
         ATTR_NAME,
-        context.PhysicalPortContextAccessor(
-            DiagramType.PAB.value,
-            {},
-        ),
+        context.PhysicalPortContextAccessor(DiagramType.PAB.value, {}),
     )
 
 

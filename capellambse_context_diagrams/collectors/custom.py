@@ -36,12 +36,15 @@ class CustomCollector:
     ) -> None:
         self.diagram = diagram
         self.target: m.ModelElement = self.diagram.target
+
+        self.boxable_target: m.ModelElement
         if _is_port(self.target):
             self.boxable_target = self.target.owner
         elif _is_edge(self.target):
             self.boxable_target = self.target.source.owner
         else:
             self.boxable_target = self.target
+
         self.data = makers.make_diagram(diagram)
         self.params = params
         self.instructions = self.diagram._collect
@@ -52,12 +55,14 @@ class CustomCollector:
         self.edges: dict[str, _elkjs.ELKInputEdge] = {}
         self.ports: dict[str, _elkjs.ELKInputPort] = {}
         self.boxes_to_delete: set[str] = set()
+
         if self.diagram._display_parent_relation:
             self.edge_owners: dict[str, str] = {}
             self.diagram_target_owners = list(
                 generic.get_all_owners(self.boxable_target)
             )
             self.common_owners: set[str] = set()
+
         if self.diagram._unify_edge_direction != "NONE":
             self.directions: dict[str, bool] = {}
         self.min_heights: dict[str, dict[str, float]] = {}
@@ -350,7 +355,11 @@ class CustomCollector:
         if self.diagram._display_port_labels:
             text = port_obj.name or "UNKNOWN"
             port.labels = makers.make_label(text)
-
+            _plp = self.diagram._port_label_position
+            if not (plp := getattr(_elkjs.PORT_LABEL_POSITION, _plp, None)):
+                raise ValueError(f"Invalid port label position '{_plp}'.")
+            assert isinstance(plp, _elkjs.PORT_LABEL_POSITION)
+            box.layoutOptions["portLabels.placement"] = plp.name
         box.ports.append(port)
         self.ports[port_obj.uuid] = port
         return port

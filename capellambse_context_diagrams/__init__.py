@@ -329,12 +329,21 @@ def register_cable_tree_view() -> None:
 def register_custom_diagram() -> None:
     """Add the `custom_diagram` attribute to `ModelObject`s."""
     supported_classes: list[tuple[type[m.ModelElement], DiagramType]] = [
+        (oa.Entity, DiagramType.OAB),
+        (oa.OperationalActivity, DiagramType.OAB),
+        (oa.OperationalCapability, DiagramType.OCB),
+        (oa.CommunicationMean, DiagramType.OAB),
+        (sa.Mission, DiagramType.MCB),
+        (sa.Capability, DiagramType.MCB),
+        (sa.SystemComponent, DiagramType.SAB),
         (sa.SystemFunction, DiagramType.SAB),
-        (cs.PhysicalLink, DiagramType.PAB),
+        (la.LogicalComponent, DiagramType.LAB),
         (la.LogicalFunction, DiagramType.LAB),
+        (pa.PhysicalComponent, DiagramType.PAB),
         (pa.PhysicalFunction, DiagramType.PAB),
-        (fa.ComponentExchange, DiagramType.SAB),
+        (cs.PhysicalLink, DiagramType.PAB),
         (cs.PhysicalPort, DiagramType.PAB),
+        (fa.ComponentExchange, DiagramType.SAB),
     ]
     for class_, dgcls in supported_classes:
         m.set_accessor(

@@ -74,17 +74,8 @@ my_model = capellambse.MelodyModel(...)
 my_element = my_model.by_uuid(...)
 my_yaml = "..."
 
-my_element.custom_diagram(collect=yaml.safe_load(my_yaml)).render("svgdiagram").save(pretty=True)
+my_element.custom_diagram.render("svgdiagram", collect=yaml.safe_load(my_yaml)).save(pretty=True)
 ```
-
-## Supported Elements
-
--   [`sa.SystemFunction`][capellambse.metamodel.sa.SystemFunction]
--   [`cs.PhysicalLink`][capellambse.metamodel.cs.PhysicalFunction]
--   [`la.LogicalFunction`][capellambse.metamodel.la.LogicalFunction]
--   [`pa.PhysicalFunction`][capellambse.metamodel.pa.PhysicalFunction]
--   [`fa.ComponentExchange`][capellambse.metamodel.fa.ComponentExchange]
--   [`cs.PhysicalPort`][capellambse.metamodel.cs.PhysicalPort]
 
 ## Check out the code
 

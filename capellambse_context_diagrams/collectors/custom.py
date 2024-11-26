@@ -89,6 +89,7 @@ class CustomCollector:
                 and getattr(current, "owner", None) is not None
                 and not isinstance(current.owner, generic.PackageTypes)
             ):
+                self.common_owners.discard(current.uuid)
                 current = self._make_owner_box(current)
                 self.common_owners.discard(current.uuid)
             for edge_uuid, box_uuid in self.edge_owners.items():
@@ -224,6 +225,10 @@ class CustomCollector:
                 break
         else:
             children.append(obj_box)
+            obj_box.width = max(
+                obj_box.width,
+                parent_box.width,
+            )
             for label in parent_box.labels:
                 label.layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
         self.boxes_to_delete.add(obj.uuid)

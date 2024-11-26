@@ -198,15 +198,11 @@ class CustomCollector:
                 for port in getattr(obj, attr, []):
                     self._make_port_and_owner(port)
         if self.diagram._display_parent_relation:
-            current = obj
-            while (
-                current
-                and current.uuid not in self.diagram_target_owners
-                and getattr(current, "owner", None) is not None
-                and not isinstance(current.owner, generic.PackageTypes)
-            ):
-                current = self._make_owner_box(current)
-            self.common_owners.add(current.uuid)
+            self.common_owners.add(
+                generic.make_owner_boxes(
+                    obj, self.diagram_target_owners, self._make_owner_box
+                )
+            )
         return box
 
     def _make_owner_box(

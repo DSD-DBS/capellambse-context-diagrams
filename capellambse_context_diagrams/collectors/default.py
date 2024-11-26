@@ -84,7 +84,6 @@ class ContextProcessor:
                 and not isinstance(current.owner, generic.PackageTypes)
             ):
                 current = self._make_owner_box(
-                    self.diagram,
                     current,
                 )
                 self.common_owners.discard(current.uuid)
@@ -256,15 +255,11 @@ class ContextProcessor:
             box.layoutOptions["portLabels.placement"] = "OUTSIDE"
 
             if self.diagram._display_parent_relation:
-                current = owner
-                while (
-                    current
-                    and current.uuid not in self.diagram_target_owners
-                    and getattr(current, "owner", None) is not None
-                    and not isinstance(current.owner, generic.PackageTypes)
-                ):
-                    current = self._make_owner_box(self.diagram, current)
-                self.common_owners.add(current.uuid)
+                self.common_owners.add(
+                    generic.make_owner_boxes(
+                        owner, self.diagram_target_owners, self._make_owner_box
+                    )
+                )
 
     def _make_port(
         self, port_obj: t.Any
@@ -295,13 +290,12 @@ class ContextProcessor:
 
     def _make_owner_box(
         self,
-        diagram: context.ContextDiagram,
         obj: t.Any,
     ) -> t.Any:
         if not (parent_box := self.global_boxes.get(obj.owner.uuid)):
             parent_box = self._make_box(
                 obj.owner,
-                no_symbol=diagram._display_symbols_as_boxes,
+                no_symbol=self.diagram._display_symbols_as_boxes,
                 layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
             )
         assert (obj_box := self.global_boxes.get(obj.uuid))

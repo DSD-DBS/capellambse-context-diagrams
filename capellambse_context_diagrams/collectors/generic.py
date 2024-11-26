@@ -267,3 +267,18 @@ def get_all_owners(obj: m.ModelElement) -> cabc.Iterator[str]:
     while current is not None:
         yield current.uuid
         current = getattr(current, "owner", None)
+
+
+def make_owner_boxes(
+    obj: m.ModelElement, excluded: list[str], make_func: t.Callable
+) -> str:
+    """Create owner boxes for all owners of ``obj``."""
+    current = obj
+    while (
+        current
+        and current.uuid not in excluded
+        and getattr(current, "owner", None) is not None
+        and not isinstance(current.owner, PackageTypes)
+    ):
+        current = make_func(current)
+    return current.uuid

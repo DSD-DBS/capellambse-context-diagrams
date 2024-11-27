@@ -34,7 +34,7 @@ In the example above, we first `get` all the inputs of our target element and it
 
 ### `filter`
 
-Whenever you have a list of elements and you want to filter them, you can use the `filter` keyword. The `filter` keyword takes a dictionary as an argument. The dictionary should have the key as the attribute name and the value as the value you want to filter on.
+Whenever you have a list of elements and you want to filter them, you can use the `filter` keyword. The `filter` keyword takes a dictionary or a string as an argument. The dictionary should have the key as the attribute name and the value as the value you want to filter on.
 
 ```yaml
 get:
@@ -46,6 +46,18 @@ get:
 ```
 
 In the example above, we get all the inputs of our target element and include all the exchanges that are of kind `FunctionalExchange` in the resulting diagram.
+
+For a string, the filter should be a lambda expression that takes the element as an argument and returns a boolean.
+
+```yaml
+get:
+    - name: inputs
+      filter: "lambda x: isinstance(x, capellambse.metamodel.fa.FunctionPort)"
+      include:
+          - name: exchanges
+```
+
+In the example above, we get all the inputs that are of type `FunctionPort` and include all it's exchanges in the resulting diagram.
 
 ### `repeat`
 

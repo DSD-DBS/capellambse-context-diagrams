@@ -4,10 +4,12 @@
 """This module defines the collector for the CustomDiagram."""
 from __future__ import annotations
 
+import builtins
 import collections.abc as cabc
 import copy
 import typing as t
 
+import capellambse
 import capellambse.model as m
 
 from .. import _elkjs, context
@@ -116,9 +118,98 @@ class CustomCollector:
                 box = self.boxes[uuid]
                 box.height = max([box.height] + list(min_heights.values()))
 
+    def _safely_eval_filter(self, obj: m.ModelElement, filter: str) -> bool:
+        if not filter.startswith("lambda"):
+            raise ValueError(f"Filter '{filter}' is not a lambda expression.")
+
+        safe_builtins = {
+            "abs",
+            "all",
+            "any",
+            "ascii",
+            "bin",
+            "bool",
+            "bytearray",
+            "bytes",
+            "callable",
+            "chr",
+            "classmethod",
+            "complex",
+            "dict",
+            "divmod",
+            "enumerate",
+            "filter",
+            "float",
+            "format",
+            "frozenset",
+            "getattr",
+            "hasattr",
+            "hash",
+            "hex",
+            "id",
+            "int",
+            "isinstance",
+            "issubclass",
+            "iter",
+            "len",
+            "list",
+            "map",
+            "max",
+            "memoryview",
+            "min",
+            "next",
+            "object",
+            "oct",
+            "ord",
+            "pow",
+            "print",
+            "property",
+            "range",
+            "repr",
+            "reversed",
+            "round",
+            "set",
+            "slice",
+            "sorted",
+            "staticmethod",
+            "str",
+            "sum",
+            "tuple",
+            "type",
+            "vars",
+            "zip",
+        }
+        allowed_builtins = {
+            name: getattr(builtins, name) for name in safe_builtins
+        }
+        allowed_builtins.update(
+            {
+                "True": True,
+                "False": False,
+                "capellambse": capellambse,
+            }
+        )
+
+        try:
+            # pylint: disable=eval-used
+            result = eval(filter, {"__builtins__": allowed_builtins})(obj)
+        except Exception as e:
+            raise ValueError(
+                f"Filter '{filter}' raised an exception: {e}"
+            ) from e
+
+        if not isinstance(result, bool):
+            raise ValueError(
+                f"Filter '{filter}' did not return a boolean value."
+            )
+
+        return result
+
     def _matches_filters(
-        self, obj: m.ModelElement, filters: dict[str, t.Any]
+        self, obj: m.ModelElement, filters: dict[str, t.Any] | str
     ) -> bool:
+        if isinstance(filters, str):
+            return self._safely_eval_filter(obj, filters)
         for key, value in filters.items():
             if getattr(obj, key) != value:
                 return False

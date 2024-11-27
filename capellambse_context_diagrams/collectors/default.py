@@ -280,6 +280,8 @@ class ContextProcessor:
         obj: t.Any,
         **kwargs: t.Any,
     ) -> _elkjs.ELKInputChild:
+        if box := self.global_boxes.get(obj.uuid):
+            return box
         box = makers.make_box(
             obj,
             **kwargs,
@@ -292,16 +294,14 @@ class ContextProcessor:
         self,
         obj: t.Any,
     ) -> t.Any:
-        if not (parent_box := self.global_boxes.get(obj.owner.uuid)):
-            parent_box = self._make_box(
-                obj.owner,
-                no_symbol=self.diagram._display_symbols_as_boxes,
-                layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
-            )
+        parent_box = self._make_box(
+            obj.owner,
+            no_symbol=self.diagram._display_symbols_as_boxes,
+            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+        )
         assert (obj_box := self.global_boxes.get(obj.uuid))
         for box in (children := parent_box.children):
             if box.id == obj.uuid:
-                box = obj_box
                 break
         else:
             children.append(obj_box)

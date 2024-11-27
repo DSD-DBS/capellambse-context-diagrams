@@ -185,6 +185,8 @@ class CustomCollector:
         obj: m.ModelElement,
         **kwargs: t.Any,
     ) -> _elkjs.ELKInputChild:
+        if box := self.boxes.get(obj.uuid):
+            return box
         box = makers.make_box(
             obj,
             no_symbol=self.diagram._display_symbols_as_boxes,
@@ -209,15 +211,13 @@ class CustomCollector:
         self,
         obj: t.Any,
     ) -> t.Any:
-        if not (parent_box := self.boxes.get(obj.owner.uuid)):
-            parent_box = self._make_box(
-                obj.owner,
-                layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
-            )
+        parent_box = self._make_box(
+            obj.owner,
+            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+        )
         assert (obj_box := self.boxes.get(obj.uuid))
         for box in (children := parent_box.children):
             if box.id == obj.uuid:
-                box = obj_box
                 break
         else:
             children.append(obj_box)
@@ -234,6 +234,8 @@ class CustomCollector:
         self,
         edge_obj: m.ModelElement,
     ) -> _elkjs.ELKInputEdge | None:
+        if self.edges.get(edge_obj.uuid):
+            return None
         src_obj = edge_obj.source
         tgt_obj = edge_obj.target
         src_owner = src_obj.owner
@@ -263,20 +265,10 @@ class CustomCollector:
 
         if not self.ports.get(src_obj.uuid):
             port = self._make_port_and_owner(src_obj)
-            self.min_heights.setdefault(
-                src_owner.uuid, {"left": 0.0, "right": 0.0}
-            )["right"] += makers.PORT_SIZE + max(
-                2 * makers.PORT_PADDING,
-                sum(label.height for label in port.labels),
-            )
+            self._update_min_heights(src_owner.uuid, "right", port)
         if not self.ports.get(tgt_obj.uuid):
             port = self._make_port_and_owner(tgt_obj)
-            self.min_heights.setdefault(
-                tgt_owner.uuid, {"left": 0.0, "right": 0.0}
-            )["left"] += makers.PORT_SIZE + max(
-                2 * makers.PORT_PADDING,
-                sum(label.height for label in port.labels),
-            )
+            self._update_min_heights(tgt_owner.uuid, "left", port)
 
         edge = _elkjs.ELKInputEdge(
             id=edge_obj.uuid,
@@ -288,6 +280,16 @@ class CustomCollector:
         )
         self.edges[edge_obj.uuid] = edge
         return edge
+
+    def _update_min_heights(
+        self, owner_uuid: str, side: str, port: _elkjs.ELKInputPort
+    ) -> None:
+        self.min_heights.setdefault(owner_uuid, {"left": 0.0, "right": 0.0})[
+            side
+        ] += makers.PORT_SIZE + max(
+            2 * makers.PORT_PADDING,
+            sum(label.height for label in port.labels),
+        )
 
     def _need_switch(
         self,
@@ -342,11 +344,10 @@ class CustomCollector:
         self, port_obj: m.ModelElement
     ) -> _elkjs.ELKInputPort:
         owner_obj = port_obj.owner
-        if not (box := self.boxes.get(owner_obj.uuid)):
-            box = self._make_box(
-                owner_obj,
-                layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
-            )
+        box = self._make_box(
+            owner_obj,
+            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+        )
         if port := self.ports.get(port_obj.uuid):
             return port
         port = makers.make_port(port_obj.uuid)

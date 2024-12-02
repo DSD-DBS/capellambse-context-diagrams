@@ -344,6 +344,7 @@ def register_custom_diagram() -> None:
         (cs.PhysicalLink, DiagramType.PAB),
         (cs.PhysicalPort, DiagramType.PAB),
         (fa.ComponentExchange, DiagramType.SAB),
+        (information.Class, DiagramType.CDB),
     ]
     for class_, dgcls in supported_classes:
         m.set_accessor(

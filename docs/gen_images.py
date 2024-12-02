@@ -30,6 +30,7 @@ general_context_diagram_uuids: dict[str, str] = {
     "Physical Node": "fdb34c92-7c49-491d-bf11-dd139930786e",
     "Physical Behavior": "313f48f4-fb7e-47a8-b28a-76440932fcb9",
     "Maintain": "ee745644-07d7-40b9-ad7a-910dc8cbb805",
+    "Physical Port": "c403d4f4-9633-42a2-a5d6-9e1df2655146",
 }
 interface_context_diagram_uuids: dict[str, str] = {
     "Left to right": "3ef23099-ce9a-4f7d-812f-935f47e7938d",

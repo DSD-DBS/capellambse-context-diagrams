@@ -192,6 +192,20 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
               <figcaption>Context of Maintain Switch Firmware [PDFB]</figcaption>
           </figure>
 
+-   ??? example "[`pa.PhysicalPort`][capellambse.metamodel.pa.PhysicalPort] (PAB)"
+
+          ``` py
+          import capellambse
+
+          model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+          diag = model.by_uuid("c403d4f4-9633-42a2-a5d6-9e1df2655146").context_diagram
+          diag.render("svgdiagram").save(pretty=True)
+          ```
+          <figure markdown>
+              <img src="assets/images/Context of PP 1svg" width="1000000">
+              <figcaption>Context of PP 1 [PAB]</figcaption>
+          </figure>
+
 #### Hierarchy in diagrams
 
 Hierarchical diagrams are diagrams where boxes have child boxes and edges

@@ -7,6 +7,7 @@ according to [_elkjs.ELKInputData][capellambse_context_diagrams._elkjs.ELKInputD
 The pre-layouted data was collected with the functions from
 [collectors][capellambse_context_diagrams.collectors].
 """
+
 from __future__ import annotations
 
 import collections.abc as cabc
@@ -15,6 +16,7 @@ import logging
 import typing as t
 
 from capellambse import diagram as cdiagram
+from capellambse import model as m
 from capellambse.svg import decorations
 
 from . import _elkjs, context
@@ -303,12 +305,16 @@ class DiagramSerializer:
         [`_elkjs.ELKOutputChild`][capellambse_context_diagrams._elkjs.ELKOutputChild].
         """
         try:
-            melodyobj = self._diagram._model.by_uuid(uuid)
+            melodyobj: m.ModelElement | m.Diagram = (
+                self._diagram._model.by_uuid(uuid)
+            )
         except KeyError:
             if not uuid.startswith("__"):
                 return None
             return uuid[2:].split(":", 1)[0]
         else:
+            if isinstance(melodyobj, m.Diagram):
+                return melodyobj.type.value
             return melodyobj._get_styleclass()
 
     def get_styleoverrides(

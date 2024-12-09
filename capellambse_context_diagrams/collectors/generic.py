@@ -269,8 +269,38 @@ def get_all_owners(obj: m.ModelElement) -> cabc.Iterator[str]:
         current = getattr(current, "owner", None)
 
 
+def make_owner_box(
+    obj: t.Any,
+    make_box_func: t.Callable,
+    boxes: dict[str, _elkjs.ELKInputChild],
+    boxes_to_delete: set[str],
+) -> t.Any:
+    parent_box = make_box_func(
+        obj.owner,
+        layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+    )
+    assert (obj_box := boxes.get(obj.uuid))
+    for box in (children := parent_box.children):
+        if box.id == obj.uuid:
+            break
+    else:
+        children.append(obj_box)
+        obj_box.width = max(
+            obj_box.width,
+            parent_box.width,
+        )
+        for label in parent_box.labels:
+            label.layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+    boxes_to_delete.add(obj.uuid)
+    return obj.owner
+
+
 def make_owner_boxes(
-    obj: m.ModelElement, excluded: list[str], make_func: t.Callable
+    obj: m.ModelElement,
+    excluded: list[str],
+    make_box_func: t.Callable,
+    boxes: dict[str, _elkjs.ELKInputChild],
+    boxes_to_delete: set[str],
 ) -> str:
     """Create owner boxes for all owners of ``obj``."""
     current = obj
@@ -280,5 +310,7 @@ def make_owner_boxes(
         and getattr(current, "owner", None) is not None
         and not isinstance(current.owner, PackageTypes)
     ):
-        current = make_func(current)
+        current = make_owner_box(
+            current, make_box_func, boxes, boxes_to_delete
+        )
     return current.uuid

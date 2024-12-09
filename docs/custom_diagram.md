@@ -17,17 +17,17 @@ At every step of the collection, you can either `get` or `include` elements. `ge
 ```yaml
 get:
     - name: inputs
-    include:
-        - name: exchanges
-        - name: links
+      include:
+          - name: exchanges
+          - name: links
     - name: outputs
-    include:
-        - name: exchanges
-        - name: links
+      include:
+          - name: exchanges
+          - name: links
     - name: ports
-    include:
-        - name: exchanges
-        - name: links
+      include:
+          - name: exchanges
+          - name: links
 ```
 
 In the example above, we first `get` all the inputs of our target element and iterate over them. For each input, we include all the exchanges and links in the resulting diagram. We do the same for outputs and ports. Note that `get` does not include the element in the diagram, it just gets the element, but calling `include` on an edge will also include the edge's source and target ports.

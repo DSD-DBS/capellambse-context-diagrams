@@ -67,7 +67,6 @@ class ContextProcessor:
         ):
             box = self._make_box(
                 self.diagram.target.owner,
-                no_symbol=self.diagram._display_symbols_as_boxes,
                 layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
             )
             box.children = [self.centerbox]
@@ -83,8 +82,11 @@ class ContextProcessor:
                 and hasattr(current, "owner")
                 and not isinstance(current.owner, generic.PackageTypes)
             ):
-                current = self._make_owner_box(
+                current = generic.make_owner_box(
                     current,
+                    self._make_box,
+                    self.global_boxes,
+                    self.boxes_to_delete,
                 )
                 self.common_owners.discard(current.uuid)
 
@@ -248,7 +250,6 @@ class ContextProcessor:
                 box = self._make_box(
                     owner,
                     height=height,
-                    no_symbol=self.diagram._display_symbols_as_boxes,
                 )
                 box.ports = local_port_objs
 
@@ -257,7 +258,11 @@ class ContextProcessor:
             if self.diagram._display_parent_relation:
                 self.common_owners.add(
                     generic.make_owner_boxes(
-                        owner, self.diagram_target_owners, self._make_owner_box
+                        owner,
+                        self.diagram_target_owners,
+                        self._make_box,
+                        self.global_boxes,
+                        self.boxes_to_delete,
                     )
                 )
 
@@ -284,32 +289,12 @@ class ContextProcessor:
             return box
         box = makers.make_box(
             obj,
+            no_symbol=self.diagram._display_symbols_as_boxes,
             **kwargs,
         )
         self.global_boxes[obj.uuid] = box
         self.made_boxes[obj.uuid] = box
         return box
-
-    def _make_owner_box(
-        self,
-        obj: t.Any,
-    ) -> t.Any:
-        parent_box = self._make_box(
-            obj.owner,
-            no_symbol=self.diagram._display_symbols_as_boxes,
-            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
-        )
-        assert (obj_box := self.global_boxes.get(obj.uuid))
-        for box in (children := parent_box.children):
-            if box.id == obj.uuid:
-                break
-        else:
-            children.append(obj_box)
-            for label in parent_box.labels:
-                label.layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
-
-        self.boxes_to_delete.add(obj.uuid)
-        return obj.owner
 
 
 def collector(

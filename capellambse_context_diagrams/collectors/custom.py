@@ -92,7 +92,9 @@ class CustomCollector:
                 and not isinstance(current.owner, generic.PackageTypes)
             ):
                 self.common_owners.discard(current.uuid)
-                current = self._make_owner_box(current)
+                current = generic.make_owner_box(
+                    current, self._make_box, self.boxes, self.boxes_to_delete
+                )
                 self.common_owners.discard(current.uuid)
             for edge_uuid, box_uuid in self.edge_owners.items():
                 if box := self.boxes.get(box_uuid):
@@ -293,33 +295,14 @@ class CustomCollector:
         if self.diagram._display_parent_relation:
             self.common_owners.add(
                 generic.make_owner_boxes(
-                    obj, self.diagram_target_owners, self._make_owner_box
+                    obj,
+                    self.diagram_target_owners,
+                    self._make_box,
+                    self.boxes,
+                    self.boxes_to_delete,
                 )
             )
         return box
-
-    def _make_owner_box(
-        self,
-        obj: t.Any,
-    ) -> t.Any:
-        parent_box = self._make_box(
-            obj.owner,
-            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
-        )
-        assert (obj_box := self.boxes.get(obj.uuid))
-        for box in (children := parent_box.children):
-            if box.id == obj.uuid:
-                break
-        else:
-            children.append(obj_box)
-            obj_box.width = max(
-                obj_box.width,
-                parent_box.width,
-            )
-            for label in parent_box.labels:
-                label.layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
-        self.boxes_to_delete.add(obj.uuid)
-        return obj.owner
 
     def _make_edge_and_ports(
         self,

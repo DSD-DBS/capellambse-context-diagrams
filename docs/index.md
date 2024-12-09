@@ -202,7 +202,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
           diag.render("svgdiagram").save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of PP 1svg" width="1000000">
+              <img src="assets/images/Context of PP 1.svg" width="1000000">
               <figcaption>Context of PP 1 [PAB]</figcaption>
           </figure>
 

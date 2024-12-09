@@ -24,6 +24,7 @@ from .collectors import (
     cable_tree,
     custom,
     dataflow_view,
+    diagram_view,
     exchanges,
     get_elkdata,
     realization_view,
@@ -975,6 +976,52 @@ class PhysicalPortContextDiagram(ContextDiagram):
             default_render_parameters=default_render_parameters,
         )
         self.collector = custom.collector
+
+
+class ELKDiagram(ContextDiagram):
+    """A former diagram layouted by ELKJS."""
+
+    _hide_elements: set[str]
+
+    def __init__(
+        self,
+        class_: str,
+        obj: m.Diagram,
+        *,
+        render_styles: dict[str, styling.Styler] | None = None,
+        default_render_parameters: dict[str, t.Any],
+    ) -> None:
+        default_render_parameters = {
+            "hide_elements": set()
+        } | default_render_parameters
+        super().__init__(
+            class_,
+            obj,
+            render_styles=render_styles,
+            default_render_parameters=default_render_parameters,
+        )
+        self.collector = diagram_view.collect_from_diagram
+        self.target: m.Diagram = obj
+
+        self.__nodes: m.MixedElementList | None = None
+
+    @property
+    def uuid(self) -> str:  # type: ignore
+        """Returns diagram UUID."""
+        return f"{self.target.uuid}_elk"
+
+    @property
+    def name(self) -> str:  # type: ignore
+        """Returns the diagram name."""
+        return f"ELK layout of {self.target.name.replace('/', '- or -')}"
+
+    @property
+    def nodes(self) -> m.MixedElementList:
+        """Return a list of all nodes visible in this diagram."""
+        if not self.__nodes:
+            self.__nodes = super().nodes
+        assert self.__nodes is not None
+        return self.__nodes
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:

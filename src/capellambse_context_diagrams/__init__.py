@@ -75,6 +75,7 @@ def init() -> None:
     register_data_flow_view()
     register_cable_tree_view()
     register_custom_diagram()
+    register_diagram_layout_accessor()
     # register_functional_context() XXX: Future
 
 
@@ -362,3 +363,8 @@ def register_custom_diagram() -> None:
             "custom_diagram",
             context.CustomAccessor(dgcls.value, {}),
         )
+
+
+def register_diagram_layout_accessor() -> None:
+    """Add the `auto_layout` attribute to `Diagram`s."""
+    m.set_accessor(m.Diagram, "auto_layout", context.DiagramLayoutAccessor())

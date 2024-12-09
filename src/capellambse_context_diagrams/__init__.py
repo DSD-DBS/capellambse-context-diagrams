@@ -26,7 +26,6 @@ from importlib import metadata
 import capellambse.model as m
 from capellambse.diagram import COLORS, CSSdef, capstyle
 from capellambse.metamodel import cs, fa, information, la, oa, pa, sa
-from capellambse.model import DiagramType
 
 from . import _elkjs, context, styling
 
@@ -38,7 +37,7 @@ except metadata.PackageNotFoundError:
 
 DefaultRenderParams = dict[str, t.Any]
 SupportedContextClass = tuple[
-    type[m.ModelElement], DiagramType, DefaultRenderParams
+    type[m.ModelElement], m.DiagramType, DefaultRenderParams
 ]
 SupportedInterfaceContextClass = tuple[
     type[m.ModelElement], dict[type[m.ModelElement], str], DefaultRenderParams
@@ -82,22 +81,22 @@ def init() -> None:
 def register_classes() -> None:
     """Add the `context_diagram` property to the relevant model objects."""
     supported_classes: list[SupportedContextClass] = [
-        (oa.Entity, DiagramType.OAB, {}),
+        (oa.Entity, m.DiagramType.OAB, {}),
         (
             oa.OperationalActivity,
-            DiagramType.OAB,
+            m.DiagramType.OAB,
             {"display_parent_relation": True},
         ),
-        (oa.OperationalCapability, DiagramType.OCB, {}),
-        (sa.Mission, DiagramType.MCB, {}),
+        (oa.OperationalCapability, m.DiagramType.OCB, {}),
+        (sa.Mission, m.DiagramType.MCB, {}),
         (
             sa.Capability,
-            DiagramType.MCB,
+            m.DiagramType.MCB,
             {"display_symbols_as_boxes": False},
         ),
         (
             sa.SystemComponent,
-            DiagramType.SAB,
+            m.DiagramType.SAB,
             {
                 "display_symbols_as_boxes": True,
                 "display_parent_relation": True,
@@ -107,7 +106,7 @@ def register_classes() -> None:
         ),
         (
             sa.SystemFunction,
-            DiagramType.SAB,
+            m.DiagramType.SAB,
             {
                 "display_symbols_as_boxes": True,
                 "display_parent_relation": True,
@@ -116,7 +115,7 @@ def register_classes() -> None:
         ),
         (
             la.LogicalComponent,
-            DiagramType.LAB,
+            m.DiagramType.LAB,
             {
                 "display_symbols_as_boxes": True,
                 "display_parent_relation": True,
@@ -126,7 +125,7 @@ def register_classes() -> None:
         ),
         (
             la.LogicalFunction,
-            DiagramType.LAB,
+            m.DiagramType.LAB,
             {
                 "display_symbols_as_boxes": True,
                 "display_parent_relation": True,
@@ -135,7 +134,7 @@ def register_classes() -> None:
         ),
         (
             pa.PhysicalComponent,
-            DiagramType.PAB,
+            m.DiagramType.PAB,
             {
                 "display_parent_relation": True,
                 "display_port_labels": True,
@@ -144,7 +143,7 @@ def register_classes() -> None:
         ),
         (
             pa.PhysicalFunction,
-            DiagramType.PAB,
+            m.DiagramType.PAB,
             {
                 "display_parent_relation": True,
             },
@@ -179,32 +178,32 @@ def register_interface_context() -> None:
         (
             oa.CommunicationMean,
             {
-                oa.EntityPkg: DiagramType.OAB.value,
-                oa.Entity: DiagramType.OAB.value,
+                oa.EntityPkg: m.DiagramType.OAB.value,
+                oa.Entity: m.DiagramType.OAB.value,
             },
             {"include_interface": True},
         ),
         (
             fa.ComponentExchange,
             {
-                sa.SystemComponentPkg: DiagramType.SAB.value,
-                sa.SystemComponent: DiagramType.SAB.value,
-                la.LogicalComponentPkg: DiagramType.LAB.value,
-                la.LogicalComponent: DiagramType.LAB.value,
-                pa.PhysicalComponentPkg: DiagramType.PAB.value,
-                pa.PhysicalComponent: DiagramType.PAB.value,
+                sa.SystemComponentPkg: m.DiagramType.SAB.value,
+                sa.SystemComponent: m.DiagramType.SAB.value,
+                la.LogicalComponentPkg: m.DiagramType.LAB.value,
+                la.LogicalComponent: m.DiagramType.LAB.value,
+                pa.PhysicalComponentPkg: m.DiagramType.PAB.value,
+                pa.PhysicalComponent: m.DiagramType.PAB.value,
             },
             {"include_interface": True, "include_port_allocations": True},
         ),
         (
             cs.PhysicalLink,
             {
-                sa.SystemComponentPkg: DiagramType.SAB.value,
-                sa.SystemComponent: DiagramType.SAB.value,
-                la.LogicalComponentPkg: DiagramType.LAB.value,
-                la.LogicalComponent: DiagramType.LAB.value,
-                pa.PhysicalComponentPkg: DiagramType.PAB.value,
-                pa.PhysicalComponent: DiagramType.PAB.value,
+                sa.SystemComponentPkg: m.DiagramType.SAB.value,
+                sa.SystemComponent: m.DiagramType.SAB.value,
+                la.LogicalComponentPkg: m.DiagramType.LAB.value,
+                la.LogicalComponent: m.DiagramType.LAB.value,
+                pa.PhysicalComponentPkg: m.DiagramType.PAB.value,
+                pa.PhysicalComponent: m.DiagramType.PAB.value,
             },
             {"include_interface": True, "display_port_labels": True},
         ),
@@ -228,7 +227,7 @@ def register_interface_context() -> None:
         "stroke-dasharray": "2",
         "text_fill": COLORS["black"],
     }
-    for dt in (DiagramType.SAB, DiagramType.LAB, DiagramType.PAB):
+    for dt in (m.DiagramType.SAB, m.DiagramType.LAB, m.DiagramType.PAB):
         capstyle.STYLES[dt.value]["Edge.PortInputAllocation"] = (
             port_alloc_input_style
         )
@@ -245,11 +244,11 @@ def register_functional_context() -> None:
     The functional context diagrams will be available soon.
     """
     attr_name = f"functional_{ATTR_NAME}"
-    supported_classes: list[tuple[type[m.ModelElement], DiagramType]] = [
-        (oa.Entity, DiagramType.OAB),
-        (sa.SystemComponent, DiagramType.SAB),
-        (la.LogicalComponent, DiagramType.LAB),
-        (pa.PhysicalComponent, DiagramType.PAB),
+    supported_classes: list[tuple[type[m.ModelElement], m.DiagramType]] = [
+        (oa.Entity, m.DiagramType.OAB),
+        (sa.SystemComponent, m.DiagramType.SAB),
+        (la.LogicalComponent, m.DiagramType.LAB),
+        (pa.PhysicalComponent, m.DiagramType.PAB),
     ]
     class_: type[m.ModelElement]
     for class_, dgcls in supported_classes:
@@ -274,7 +273,7 @@ def register_tree_view() -> None:
     m.set_accessor(
         information.Class,
         "tree_view",
-        context.ClassTreeAccessor(DiagramType.CDB.value),
+        context.ClassTreeAccessor(m.DiagramType.CDB.value),
     )
 
 
@@ -285,14 +284,14 @@ def register_realization_view() -> None:
     of all layers.
     """
     supported_classes: list[SupportedContextClass] = [
-        (oa.Entity, DiagramType.OAB, {}),
-        (oa.OperationalActivity, DiagramType.OAIB, {}),
-        (sa.SystemComponent, DiagramType.SAB, {}),
-        (sa.SystemFunction, DiagramType.SDFB, {}),
-        (la.LogicalComponent, DiagramType.LAB, {}),
-        (la.LogicalFunction, DiagramType.LDFB, {}),
-        (pa.PhysicalComponent, DiagramType.PAB, {}),
-        (pa.PhysicalFunction, DiagramType.PDFB, {}),
+        (oa.Entity, m.DiagramType.OAB, {}),
+        (oa.OperationalActivity, m.DiagramType.OAIB, {}),
+        (sa.SystemComponent, m.DiagramType.SAB, {}),
+        (sa.SystemFunction, m.DiagramType.SDFB, {}),
+        (la.LogicalComponent, m.DiagramType.LAB, {}),
+        (la.LogicalFunction, m.DiagramType.LDFB, {}),
+        (pa.PhysicalComponent, m.DiagramType.PAB, {}),
+        (pa.PhysicalFunction, m.DiagramType.PDFB, {}),
     ]
     styles: dict[str, dict[str, capstyle.CSSdef]] = {}
     for class_, dgcls, _ in supported_classes:
@@ -316,8 +315,8 @@ def register_realization_view() -> None:
 
 def register_data_flow_view() -> None:
     supported_classes: list[SupportedContextClass] = [
-        (oa.OperationalCapability, DiagramType.OAIB, {}),  # portless
-        (sa.Capability, DiagramType.SDFB, {}),  # default
+        (oa.OperationalCapability, m.DiagramType.OAIB, {}),  # portless
+        (sa.Capability, m.DiagramType.SDFB, {}),  # default
     ]
     class_: type[m.ModelElement]
     for class_, dgcls, default_render_params in supported_classes:
@@ -331,7 +330,7 @@ def register_cable_tree_view() -> None:
         cs.PhysicalLink,
         "cable_tree",
         context.CableTreeAccessor(
-            DiagramType.PAB.value,
+            m.DiagramType.PAB.value,
             {},
         ),
     )
@@ -367,4 +366,14 @@ def register_custom_diagram() -> None:
 
 def register_diagram_layout_accessor() -> None:
     """Add the `auto_layout` attribute to `Diagram`s."""
-    m.set_accessor(m.Diagram, "auto_layout", context.DiagramLayoutAccessor())
+    render_params = {
+        m.DiagramType.SAB: {"display_symbols_as_boxes": True},
+        m.DiagramType.LAB: {"display_symbols_as_boxes": True},
+        m.DiagramType.PAB: {"display_port_labels": True},
+    }
+
+    m.set_accessor(
+        m.Diagram,
+        "auto_layout",
+        context.DiagramLayoutAccessor(render_params),
+    )

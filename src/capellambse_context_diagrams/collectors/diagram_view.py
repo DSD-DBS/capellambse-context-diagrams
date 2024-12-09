@@ -21,6 +21,11 @@ from . import generic, makers
 logger = logging.getLogger(__name__)
 
 
+def is_function(node: m.ModelElement) -> bool:
+    """Check if the ``node`` is a function."""
+    return isinstance(node, fa.Function)
+
+
 def is_part(node: m.ModelElement) -> bool:
     """Check if the ``node`` is a part."""
     return node.xtype.endswith("Part")
@@ -29,6 +34,11 @@ def is_part(node: m.ModelElement) -> bool:
 def is_exchange(node: m.ModelElement) -> bool:
     """Check if the ``node`` is an exchange."""
     return hasattr(node, "source") and hasattr(node, "target")
+
+
+def is_allocation(node: m.ModelElement) -> bool:
+    """Check if the ``node`` is an allocation."""
+    return node.xtype.endswith("PortAllocation")
 
 
 def is_port(node: m.ModelElement) -> bool:
@@ -65,9 +75,11 @@ class Collector:
     def _get_data(self, params: dict[str, t.Any]):
         del params  # No use for it now
         for node in self._diagram.nodes:
-            if is_part(node):
+            if is_function(node):
+                self.make_all_owner_boxes(node)
+            elif is_part(node):
                 self.make_all_owner_boxes(node.type)
-            elif is_exchange(node):
+            elif is_exchange(node) and not is_allocation(node):
                 self.exchanges[node.uuid] = node
                 edge = _elkjs.ELKInputEdge(
                     id=node.uuid,
@@ -81,12 +93,7 @@ class Collector:
                 self.ports[node.target.uuid] = node.target
                 self.data.edges.append(edge)
             elif is_port(node):
-                port = makers.make_port(node.uuid)
-                if self.diagram._display_port_labels:
-                    text = node.name or "UNKNOWN"
-                    port.labels = makers.make_label(text)
-
-                self.made_ports[node.uuid] = port
+                self.made_ports[node.uuid] = (port := self._make_port(node))
                 self.made_boxes[node.owner.uuid].ports.append(port)
 
         if leftover_ports := set(self.ports) - set(self.made_ports):
@@ -96,7 +103,7 @@ class Collector:
             )
             for uuid in leftover_ports:
                 port_obj = self.ports[uuid]
-                self.made_ports[uuid] = (port := makers.make_port(uuid))
+                self.made_ports[uuid] = (port := self._make_port(port_obj))
                 self.made_boxes[port_obj.owner.uuid].ports.append(port)
 
         for uuid in self.boxes_to_delete:
@@ -146,11 +153,21 @@ class Collector:
         self.boxes_to_delete.add(obj.uuid)
         return obj.owner
 
-    def _make_box(self, obj: t.Any, **kwargs: t.Any) -> _elkjs.ELKInputChild:
+    def _make_box(
+        self, obj: m.ModelElement, **kwargs: t.Any
+    ) -> _elkjs.ELKInputChild:
         box = makers.make_box(obj, **kwargs)
         self.global_boxes[obj.uuid] = box
         self.made_boxes[obj.uuid] = box
         return box
+
+    def _make_port(self, obj: m.ModelElement) -> _elkjs.ELKInputPort:
+        if self.diagram._display_port_labels:
+            label = obj.name or "UNKNOWN"
+        else:
+            label = ""
+
+        return makers.make_port(obj.uuid, label=label)
 
     def _adjust_box_sizes(self, params: dict[str, t.Any]):
         del params  # No use for it now

@@ -4,7 +4,11 @@
 import sys
 
 import capellambse
+import capellambse.metamodel as mm
 import pytest
+
+# pylint: disable-next=relative-beyond-top-level, useless-suppression
+from .conftest import SYSTEM_ANALYSIS_PARAMS  # type: ignore[import]
 
 TEST_CAP_SIZING_UUID = "b996a45f-2954-4fdd-9141-7934e7687de6"
 TEST_HUMAN_ACTOR_SIZING_UUID = "e95847ae-40bb-459e-8104-7209e86ea2d1"
@@ -28,6 +32,20 @@ TEST_ENTITY_UUID = "e37510b9-3166-4f80-a919-dfaac9b696c7"
 TEST_SYS_FNC_UUID = "a5642060-c9cc-4d49-af09-defaa3024bae"
 TEST_DERIVATION_UUID = "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c"
 TEST_PHYSICAL_PORT_UUID = "c403d4f4-9633-42a2-a5d6-9e1df2655146"
+
+TEST_TYPES = (mm.oa.OperationalCapability, mm.sa.Capability, mm.sa.Mission)
+
+
+@pytest.mark.parametrize("uuid", SYSTEM_ANALYSIS_PARAMS)
+def test_capability_and_mission_context_diagrams(
+    model: capellambse.MelodyModel, uuid: str
+) -> None:
+    obj = model.by_uuid(uuid)
+    assert isinstance(obj, TEST_TYPES), "Precondition failed"
+
+    diag = obj.context_diagram
+
+    assert diag.nodes
 
 
 @pytest.mark.parametrize(

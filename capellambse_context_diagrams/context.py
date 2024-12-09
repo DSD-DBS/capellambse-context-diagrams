@@ -209,9 +209,14 @@ class CableTreeAccessor(ContextAccessor):
 class DiagramLayoutAccessor(m.Accessor):
     """Provides access to the context diagrams."""
 
-    def __init__(self, render_params: dict[str, t.Any] | None = None) -> None:
+    def __init__(
+        self,
+        dgls_to_render_params: (
+            dict[m.DiagramType, dict[str, t.Any]] | None
+        ) = None,
+    ) -> None:
         super().__init__()
-        self._default_render_params = render_params or {}
+        self._dgls_to_render_params = dgls_to_render_params or {}
 
     @t.overload
     def __get__(
@@ -232,10 +237,11 @@ class DiagramLayoutAccessor(m.Accessor):
         return self._get(obj)
 
     def _get(self, obj: m.Diagram) -> m.Accessor | ELKDiagram:
+        default_render_params = self._dgls_to_render_params.get(obj.type, {})
         new_diagram = ELKDiagram(
             obj.type.value,
             obj,
-            default_render_parameters=self._default_render_params,
+            default_render_parameters=default_render_params,
         )
         new_diagram.filters.add(filters.NO_UUID)
         return new_diagram
@@ -537,14 +543,14 @@ class InterfaceContextDiagram(ContextDiagram):
         self, node: _elkjs.ELKOutputNode, interface_port: _elkjs.ELKOutputPort
     ) -> cabc.Iterator[_elkjs.ELKOutputEdge]:
         ref = cdiagram.Vector2D(node.position.x, node.position.y)
+        interface_middle = _calculate_middle(
+            interface_port.position, interface_port.size, node.position
+        )
         for position, port in _get_all_ports(node, ref=ref):
             if port == interface_port:
                 continue
 
             port_middle = _calculate_middle(position, port.size)
-            interface_middle = _calculate_middle(
-                interface_port.position, interface_port.size, node.position
-            )
             styleclass = self.serializer.get_styleclass(port.id)
             if styleclass in {"FIP", "FOP"}:
                 yield _create_edge(
@@ -896,6 +902,7 @@ class CableTreeViewDiagram(ContextDiagram):
 class ELKDiagram(ContextDiagram):
     """A former diagram layouted by ELKJS."""
 
+    _include_port_allocations: bool
     _hide_elements: set[str]
 
     def __init__(
@@ -907,7 +914,8 @@ class ELKDiagram(ContextDiagram):
         default_render_parameters: dict[str, t.Any],
     ) -> None:
         default_render_parameters = {
-            "hide_elements": set()
+            "include_port_allocations": True,
+            "hide_elements": set(),
         } | default_render_parameters
         super().__init__(
             class_,
@@ -918,6 +926,7 @@ class ELKDiagram(ContextDiagram):
         self.collector = diagram_view.collect_from_diagram
         self.target: m.Diagram = obj
 
+        self.__port_allocations = []
         self.__nodes: m.MixedElementList | None = None
 
     @property
@@ -937,6 +946,31 @@ class ELKDiagram(ContextDiagram):
             self.__nodes = super().nodes
         assert self.__nodes is not None
         return self.__nodes
+
+    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
+        data = self.elk_input_data(params)
+        assert not isinstance(data, tuple)
+        layout = try_to_layout(data)
+        # if self._include_port_allocations:
+        #     self._add_port_allocations(layout)
+
+        add_context(layout)
+        return self.serializer.make_diagram(
+            layout, transparent_background=self._transparent_background
+        )
+
+    # def _add_port_allocations(self, layout: _elkjs.ELKOutputData) -> None:
+    #     for allocation in self.__port_allocations:
+    #         if isinstance(allocation.source, fa.ComponentPort):
+    #             interface_port = allocation.source
+    #             port = allocation.target
+    #         else:
+    #             interface_port = allocation.target
+    #             port = allocation.source
+
+    #         allocation.source
+
+    #         allocation.target
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:
@@ -1032,7 +1066,7 @@ def calculate_label_position(
 def _get_all_ports(
     node: _elkjs.ELKOutputNode, ref: cdiagram.Vector2D
 ) -> cabc.Iterator[tuple[cdiagram.Vector2D, _elkjs.ELKOutputPort]]:
-    """Yield all ports from"""
+    """Yield all ports from a given ``node`` and its children."""
     for child in node.children:
         if isinstance(child, _elkjs.ELKOutputPort):
             yield ref + (child.position.x, child.position.y), child

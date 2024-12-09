@@ -19,7 +19,6 @@ them.
 
 from __future__ import annotations
 
-import collections.abc as cabc
 import logging
 import typing as t
 from importlib import metadata
@@ -69,6 +68,7 @@ def init() -> None:
     register_realization_view()
     register_data_flow_view()
     register_cable_tree_view()
+    register_diagram_layout_accessor()
     # register_functional_context() XXX: Future
 
 
@@ -313,3 +313,8 @@ def register_cable_tree_view() -> None:
             {},
         ),
     )
+
+
+def register_diagram_layout_accessor() -> None:
+    """Add the `auto_layout` attribute to `Diagram`s."""
+    m.set_accessor(m.Diagram, "auto_layout", context.DiagramLayoutAccessor())

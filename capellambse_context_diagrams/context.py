@@ -21,6 +21,7 @@ from . import _elkjs, filters, serializers, styling
 from .collectors import (
     cable_tree,
     dataflow_view,
+    diagram_view,
     exchanges,
     get_elkdata,
     realization_view,
@@ -203,6 +204,41 @@ class CableTreeAccessor(ContextAccessor):
             return self
         assert isinstance(obj, m.ModelElement)
         return self._get(obj, CableTreeViewDiagram)
+
+
+class DiagramLayoutAccessor(m.Accessor):
+    """Provides access to the context diagrams."""
+
+    def __init__(self, render_params: dict[str, t.Any] | None = None) -> None:
+        super().__init__()
+        self._default_render_params = render_params or {}
+
+    @t.overload
+    def __get__(
+        self, obj: None, objtype: type[t.Any]
+    ) -> DiagramLayoutAccessor: ...
+    @t.overload
+    def __get__(
+        self, obj: m.T, objtype: type[m.T] | None = None
+    ) -> DiagramLayoutAccessor: ...
+    def __get__(
+        self, obj: m.T | None, objtype: type | None = None
+    ) -> m.Accessor | DiagramLayoutAccessor:
+        """Make a ContextDiagram for the given model object."""
+        del objtype
+        if obj is None:  # pragma: no cover
+            return self
+        assert isinstance(obj, m.Diagram)
+        return self._get(obj)
+
+    def _get(self, obj: m.Diagram) -> m.Accessor | ELKDiagram:
+        new_diagram = ELKDiagram(
+            obj.type.value,
+            obj,
+            default_render_parameters=self._default_render_params,
+        )
+        new_diagram.filters.add(filters.NO_UUID)
+        return new_diagram
 
 
 class ContextDiagram(m.AbstractDiagram):
@@ -855,6 +891,52 @@ class CableTreeViewDiagram(ContextDiagram):
     @property
     def name(self) -> str:  # type: ignore
         return f"Cable Tree View of {self.target.name}"
+
+
+class ELKDiagram(ContextDiagram):
+    """A former diagram layouted by ELKJS."""
+
+    _hide_elements: set[str]
+
+    def __init__(
+        self,
+        class_: str,
+        obj: m.Diagram,
+        *,
+        render_styles: dict[str, styling.Styler] | None = None,
+        default_render_parameters: dict[str, t.Any],
+    ) -> None:
+        default_render_parameters = {
+            "hide_elements": set()
+        } | default_render_parameters
+        super().__init__(
+            class_,
+            obj,
+            render_styles=render_styles,
+            default_render_parameters=default_render_parameters,
+        )
+        self.collector = diagram_view.collect_from_diagram
+        self.target: m.Diagram = obj
+
+        self.__nodes: m.MixedElementList | None = None
+
+    @property
+    def uuid(self) -> str:  # type: ignore
+        """Returns diagram UUID."""
+        return f"{self.target.uuid}_elk"
+
+    @property
+    def name(self) -> str:  # type: ignore
+        """Returns the diagram name."""
+        return f"ELK layout of {self.target.name.replace('/', '- or -')}"
+
+    @property
+    def nodes(self) -> m.MixedElementList:
+        """Return a list of all nodes visible in this diagram."""
+        if not self.__nodes:
+            self.__nodes = super().nodes
+        assert self.__nodes is not None
+        return self.__nodes
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:

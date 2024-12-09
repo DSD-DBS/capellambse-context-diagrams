@@ -2,7 +2,11 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import capellambse
+import capellambse.metamodel as mm
 import pytest
+
+# pylint: disable-next=relative-beyond-top-level, useless-suppression
+from .conftest import SYSTEM_ANALYSIS_PARAMS  # type: ignore[import]
 
 TEST_CAP_SIZING_UUID = "b996a45f-2954-4fdd-9141-7934e7687de6"
 TEST_HUMAN_ACTOR_SIZING_UUID = "e95847ae-40bb-459e-8104-7209e86ea2d1"
@@ -26,6 +30,20 @@ TEST_DERIVED_UUID = "dbd99773-efb6-4476-bf5c-270a61f18b09"
 TEST_ENTITY_UUID = "e37510b9-3166-4f80-a919-dfaac9b696c7"
 TEST_SYS_FNC_UUID = "a5642060-c9cc-4d49-af09-defaa3024bae"
 TEST_DERIVATION_UUID = "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c"
+
+TEST_TYPES = (mm.oa.OperationalCapability, mm.sa.Capability, mm.sa.Mission)
+
+
+@pytest.mark.parametrize("uuid", SYSTEM_ANALYSIS_PARAMS)
+def test_capability_and_mission_context_diagrams(
+    model: capellambse.MelodyModel, uuid: str
+) -> None:
+    obj = model.by_uuid(uuid)
+    assert isinstance(obj, TEST_TYPES), "Precondition failed"
+
+    diag = obj.context_diagram
+
+    assert diag.nodes
 
 
 @pytest.mark.parametrize(
@@ -295,10 +313,6 @@ def test_context_diagram_display_unused_ports(
 ) -> None:
     obj = model.by_uuid("446d3f9f-644d-41ee-bd57-8ae0f7662db2")
     unused_port_uuid = "5cbc4d2d-1b9c-4e10-914e-44d4526e4a2f"
-
-    obj.context_diagram.render("svgdiagram", display_unused_ports=True).save(
-        pretty=True
-    )
 
     adiag = obj.context_diagram.render(None, display_unused_ports=False)
     bdiag = obj.context_diagram.render(None, display_unused_ports=True)

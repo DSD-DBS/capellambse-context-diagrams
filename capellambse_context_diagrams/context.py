@@ -891,7 +891,7 @@ class CableTreeViewDiagram(ContextDiagram):
 class CustomDiagram(ContextDiagram):
     """An automatically generated CustomDiagram Diagram."""
 
-    _collect: dict[str, t.Any]
+    _collect: cabc.Iterator[m.ModelElement]
     _unify_edge_direction: str
 
     def __init__(
@@ -903,7 +903,7 @@ class CustomDiagram(ContextDiagram):
         default_render_parameters: dict[str, t.Any],
     ) -> None:
         default_render_parameters = {
-            "collect": {},
+            "collect": [],
             "slim_center_box": False,
             "unify_edge_direction": str,
         } | default_render_parameters
@@ -929,19 +929,28 @@ class PhysicalPortContextDiagram(CustomDiagram):
         render_styles: dict[str, styling.Styler] | None = None,
         default_render_parameters: dict[str, t.Any],
     ) -> None:
+
+        visited = set()
+
+        def _collector(
+            target: m.ModelElement,
+        ) -> cabc.Iterator[m.ModelElement]:
+            if target.uuid in visited:
+                return
+            visited.add(target.uuid)
+            for link in target.links:
+                yield link
+                yield from _collector(link.source)
+                yield from _collector(link.target)
+
         default_render_parameters = {
-            "collect": {
-                "repeat": -1,
-                "include": {
-                    "name": "links",
-                    "get": [{"name": "source"}, {"name": "target"}],
-                },
-            },
+            "collect": _collector(obj),
             "display_parent_relation": True,
             "unify_edge_direction": "UNIFORM",
             "display_port_labels": True,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
         } | default_render_parameters
+
         super().__init__(
             class_,
             obj,

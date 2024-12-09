@@ -49,10 +49,7 @@ class CustomCollector:
 
         self.data = makers.make_diagram(diagram)
         self.params = params
-        self.instructions = self.diagram._collect
-        self.repeat_instructions: dict[str, t.Any] = {}
-        self.repeat_depth: int = 0
-        self.visited: set[str] = set()
+        self.collection = self.diagram._collect
         self.boxes: dict[str, _elkjs.ELKInputChild] = {}
         self.edges: dict[str, _elkjs.ELKInputEdge] = {}
         self.ports: dict[str, _elkjs.ELKInputPort] = {}
@@ -74,15 +71,18 @@ class CustomCollector:
             self._make_port_and_owner(self.target)
         else:
             self._make_target(self.target)
+
         if target_edge := self.edges.get(self.target.uuid):
             target_edge.layoutOptions = copy.deepcopy(
                 _elkjs.EDGE_STRAIGHTENING_LAYOUT_OPTIONS
             )
-        if not self.instructions:
-            return self._get_data()
+
         if self.diagram._unify_edge_direction == "UNIFORM":
             self.directions[self.boxable_target.uuid] = False
-        self._perform_instructions(self.target, self.instructions)
+
+        for elem in self.collection:
+            self._make_target(elem)
+
         if self.diagram._display_parent_relation:
             current = self.boxable_target
             while (
@@ -119,152 +119,6 @@ class CustomCollector:
             for uuid, min_heights in self.min_heights.items():
                 box = self.boxes[uuid]
                 box.height = max([box.height] + list(min_heights.values()))
-
-    def _safely_eval_filter(self, obj: m.ModelElement, filter: str) -> bool:
-        if not filter.startswith("lambda"):
-            raise ValueError(f"Filter '{filter}' is not a lambda expression.")
-
-        safe_builtins = {
-            "abs",
-            "all",
-            "any",
-            "ascii",
-            "bin",
-            "bool",
-            "bytearray",
-            "bytes",
-            "callable",
-            "chr",
-            "classmethod",
-            "complex",
-            "dict",
-            "divmod",
-            "enumerate",
-            "filter",
-            "float",
-            "format",
-            "frozenset",
-            "getattr",
-            "hasattr",
-            "hash",
-            "hex",
-            "id",
-            "int",
-            "isinstance",
-            "issubclass",
-            "iter",
-            "len",
-            "list",
-            "map",
-            "max",
-            "memoryview",
-            "min",
-            "next",
-            "object",
-            "oct",
-            "ord",
-            "pow",
-            "print",
-            "property",
-            "range",
-            "repr",
-            "reversed",
-            "round",
-            "set",
-            "slice",
-            "sorted",
-            "staticmethod",
-            "str",
-            "sum",
-            "tuple",
-            "type",
-            "vars",
-            "zip",
-        }
-        allowed_builtins = {
-            name: getattr(builtins, name) for name in safe_builtins
-        }
-        allowed_builtins.update(
-            {
-                "True": True,
-                "False": False,
-                "capellambse": capellambse,
-            }
-        )
-
-        try:
-            # pylint: disable=eval-used
-            result = eval(filter, {"__builtins__": allowed_builtins})(obj)
-        except Exception as e:
-            raise ValueError(
-                f"Filter '{filter}' raised an exception: {e}"
-            ) from e
-
-        if not isinstance(result, bool):
-            raise ValueError(
-                f"Filter '{filter}' did not return a boolean value."
-            )
-
-        return result
-
-    def _matches_filters(
-        self, obj: m.ModelElement, filters: dict[str, t.Any] | str
-    ) -> bool:
-        if isinstance(filters, str):
-            return self._safely_eval_filter(obj, filters)
-        for key, value in filters.items():
-            if getattr(obj, key) != value:
-                return False
-        return True
-
-    def _perform_instructions(
-        self, obj: m.ModelElement, instructions: dict[str, t.Any]
-    ) -> None:
-        if max_depth := instructions.pop("repeat", None):
-            self.repeat_instructions = instructions
-            self.repeat_depth = max_depth
-        if get_targets := instructions.get("get"):
-            self._perform_get_or_include(obj, get_targets, False)
-        if include_targets := instructions.get("include"):
-            self._perform_get_or_include(obj, include_targets, True)
-        if not get_targets and not include_targets:
-            if self.repeat_depth != 0:
-                self.repeat_depth -= 1
-                self._perform_instructions(obj, self.repeat_instructions)
-
-    def _perform_get_or_include(
-        self,
-        obj: m.ModelElement,
-        targets: dict[str, t.Any] | list[dict[str, t.Any]],
-        create: bool,
-    ) -> None:
-        if isinstance(targets, dict):
-            targets = [targets]
-        assert isinstance(targets, list)
-        if self.repeat_depth > 0:
-            self.repeat_depth += len(targets)
-        for i in targets:
-            attr = i.get("name")
-            assert attr, "Attribute name is required."
-            target = getattr(obj, attr, None)
-            if isinstance(target, cabc.Iterable):
-                filters = i.get("filter", {})
-                for item in target:
-                    if item.uuid in self.visited:
-                        continue
-                    self.visited.add(item.uuid)
-                    if not self._matches_filters(item, filters):
-                        continue
-                    if create:
-                        self._make_target(item)
-                    self._perform_instructions(item, i)
-            elif isinstance(target, m.ModelElement):
-                if target.uuid in self.visited:
-                    continue
-                self.visited.add(target.uuid)
-                if create:
-                    self._make_target(target)
-                self._perform_instructions(target, i)
 
     def _make_target(
         self, obj: m.ModelElement

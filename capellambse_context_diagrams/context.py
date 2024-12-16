@@ -44,6 +44,7 @@ CollectorOutputData: t.TypeAlias = (
         _elkjs.ELKInputData, _elkjs.ELKInputData | list[_elkjs.ELKInputEdge]
     ]
 )
+"""The output of a collector or the input prepared for ELK."""
 
 
 class ContextAccessor(m.Accessor):

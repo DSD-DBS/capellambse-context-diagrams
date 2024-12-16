@@ -4,12 +4,9 @@
 """This module defines the collector for the CustomDiagram."""
 from __future__ import annotations
 
-import builtins
-import collections.abc as cabc
 import copy
 import typing as t
 
-import capellambse
 import capellambse.model as m
 
 from .. import _elkjs, context
@@ -33,7 +30,7 @@ class CustomCollector:
 
     def __init__(
         self,
-        diagram: context.CustomDiagram,
+        diagram: context.ContextDiagram,
         params: dict[str, t.Any],
     ) -> None:
         self.diagram = diagram

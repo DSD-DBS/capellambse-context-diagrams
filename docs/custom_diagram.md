@@ -5,7 +5,8 @@
 
 # Custom Diagram
 
-`Custom diagram`s let's you create custom diagrams based on the data in the model. You define the data collection using an iterable and `Custom diagram` takes care of the rest.
+`Custom diagram`s let you create custom diagrams based on the data in the model. You define the data collection using an iterable, and `Custom diagram` takes care of the rest.
+
 You can access `.custom_diagram` on any supported model element.
 
 ??? example "Custom Diagram of `PP 1 `"
@@ -13,19 +14,21 @@ You can access `.custom_diagram` on any supported model element.
     ``` py
     import capellambse
 
-    visited = set()
-
     def _collector(
         target: m.ModelElement,
     ) -> cabc.Iterator[m.ModelElement]:
-        if target.uuid in visited:
-            return
-        visited.add(target.uuid)
-        for link in target.links:
-            yield link
-            yield from _collector(link.source)
-            yield from _collector(link.target)
-
+        visited = set()
+        def collector(
+            target: m.ModelElement,
+        ) -> cabc.Iterator[m.ModelElement]:
+            if target.uuid in visited:
+                return
+            visited.add(target.uuid)
+            for link in target.links:
+                yield link
+                yield from collector(link.source)
+                yield from collector(link.target)
+        yield from collector(target)
 
     model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
     obj = model.by_uuid("c403d4f4-9633-42a2-a5d6-9e1df2655146")

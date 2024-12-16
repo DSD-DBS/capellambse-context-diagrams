@@ -67,7 +67,6 @@ class ContextProcessor:
         ):
             box = self._make_box(
                 self.diagram.target.owner,
-                no_symbol=self.diagram._display_symbols_as_boxes,
                 layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
             )
             box.children = [self.centerbox]
@@ -83,9 +82,11 @@ class ContextProcessor:
                 and hasattr(current, "owner")
                 and not isinstance(current.owner, generic.PackageTypes)
             ):
-                current = self._make_owner_box(
-                    self.diagram,
+                current = generic.make_owner_box(
                     current,
+                    self._make_box,
+                    self.global_boxes,
+                    self.boxes_to_delete,
                 )
                 self.common_owners.discard(current.uuid)
 
@@ -249,22 +250,21 @@ class ContextProcessor:
                 box = self._make_box(
                     owner,
                     height=height,
-                    no_symbol=self.diagram._display_symbols_as_boxes,
                 )
                 box.ports = local_port_objs
 
             box.layoutOptions["portLabels.placement"] = "OUTSIDE"
 
             if self.diagram._display_parent_relation:
-                current = owner
-                while (
-                    current
-                    and current.uuid not in self.diagram_target_owners
-                    and getattr(current, "owner", None) is not None
-                    and not isinstance(current.owner, generic.PackageTypes)
-                ):
-                    current = self._make_owner_box(self.diagram, current)
-                self.common_owners.add(current.uuid)
+                self.common_owners.add(
+                    generic.make_owner_boxes(
+                        owner,
+                        self.diagram_target_owners,
+                        self._make_box,
+                        self.global_boxes,
+                        self.boxes_to_delete,
+                    )
+                )
 
     def _make_port(
         self, port_obj: t.Any
@@ -285,37 +285,16 @@ class ContextProcessor:
         obj: t.Any,
         **kwargs: t.Any,
     ) -> _elkjs.ELKInputChild:
+        if box := self.global_boxes.get(obj.uuid):
+            return box
         box = makers.make_box(
             obj,
+            no_symbol=self.diagram._display_symbols_as_boxes,
             **kwargs,
         )
         self.global_boxes[obj.uuid] = box
         self.made_boxes[obj.uuid] = box
         return box
-
-    def _make_owner_box(
-        self,
-        diagram: context.ContextDiagram,
-        obj: t.Any,
-    ) -> t.Any:
-        if not (parent_box := self.global_boxes.get(obj.owner.uuid)):
-            parent_box = self._make_box(
-                obj.owner,
-                no_symbol=diagram._display_symbols_as_boxes,
-                layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
-            )
-        assert (obj_box := self.global_boxes.get(obj.uuid))
-        for box in (children := parent_box.children):
-            if box.id == obj.uuid:
-                box = obj_box
-                break
-        else:
-            children.append(obj_box)
-            for label in parent_box.labels:
-                label.layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
-
-        self.boxes_to_delete.add(obj.uuid)
-        return obj.owner
 
 
 def collector(

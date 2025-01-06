@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 """This module defines the collector for the CustomDiagram."""
+
 from __future__ import annotations
 
 import copy
@@ -115,7 +116,7 @@ class CustomCollector:
         else:
             for uuid, min_heights in self.min_heights.items():
                 box = self.boxes[uuid]
-                box.height = max([box.height] + list(min_heights.values()))
+                box.height = max([box.height, *min_heights.values()])
 
     def _make_target(
         self, obj: m.ModelElement

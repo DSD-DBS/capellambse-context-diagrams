@@ -915,6 +915,10 @@ class CustomDiagram(ContextDiagram):
         )
         self.collector = custom.collector
 
+    @property
+    def name(self) -> str:  # type: ignore
+        return f"Custom Context of {self.target.name.replace('/', '- or -')}"
+
 
 class PhysicalPortContextDiagram(CustomDiagram):
     """An automatically generated Context Diagram exclusively for
@@ -957,6 +961,10 @@ class PhysicalPortContextDiagram(CustomDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
+
+    @property
+    def name(self) -> str:  # type: ignore
+        return f"Context of {self.target.name.replace('/', '- or -')}"
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:

@@ -1,9 +1,8 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
-"""
-Functionality for collection of model data from an instance of [`MelodyModel`][capellambse.model.MelodyModel]
-and conversion of it into [`_elkjs.ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData].
-"""
+"""Functionality for collection of model data from an instance of
+[`MelodyModel`][capellambse.model.MelodyModel] and conversion of it into
+[`_elkjs.ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData]."""
 
 from __future__ import annotations
 
@@ -89,11 +88,9 @@ class ExchangeData(t.NamedTuple):
     elkdata: _elkjs.ELKInputData
     """The collected elkdata to add the edges in there."""
     filter_iterable: cabc.Iterable[str]
-    """
-    A string that maps to a filter label adjuster
-    callable in
-    [`FILTER_LABEL_ADJUSTERS`][capellambse_context_diagrams.filters.FILTER_LABEL_ADJUSTERS].
-    """
+    """A string that maps to a filter label adjuster callable in [`FILTER_LABEL
+    _ADJUSTERS`][capellambse_context_diagrams.filters.FILTER_LABEL_ADJUSTERS]."
+    ""
     params: dict[str, t.Any] | None = None
     """Optional dictionary of additional render params."""
     is_hierarchical: bool = False
@@ -160,9 +157,7 @@ def exchange_data_collector(
     label = collect_label(data.exchange)
     for filter in data.filter_iterable:
         try:
-            label = filters.FILTER_LABEL_ADJUSTERS[filter](
-                data.exchange, label
-            )
+            label = filters.FILTER_LABEL_ADJUSTERS[filter](data.exchange, label)
         except KeyError:
             logger.exception(
                 "There is no filter labelled: '%s' in "
@@ -248,9 +243,7 @@ def move_edges(
                 else:
                     break
 
-        if not common_owner_uuid or not (
-            owner_box := boxes.get(common_owner_uuid)
-        ):
+        if not common_owner_uuid or not (owner_box := boxes.get(common_owner_uuid)):
             continue
 
         for edge in data.edges:

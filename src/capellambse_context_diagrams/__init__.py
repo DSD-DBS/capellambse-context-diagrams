@@ -1,6 +1,5 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
-
 """The Context Diagrams model extension.
 
 This extension adds a new property to many model elements called
@@ -160,9 +159,9 @@ def register_classes() -> None:
     for class_, dgcls, default_render_params in supported_classes:
         accessor = context.ContextAccessor(dgcls.value, default_render_params)
         m.set_accessor(class_, ATTR_NAME, accessor)
-        capstyle.STYLES[dgcls.value][
-            "Circle.FunctionalExchange"
-        ] = circle_style
+        capstyle.STYLES[dgcls.value]["Circle.FunctionalExchange"] = (
+            circle_style
+        )
 
 
 def register_interface_context() -> None:
@@ -221,12 +220,12 @@ def register_interface_context() -> None:
         "text_fill": COLORS["black"],
     }
     for dt in (DiagramType.SAB, DiagramType.LAB, DiagramType.PAB):
-        capstyle.STYLES[dt.value][
-            "Edge.PortInputAllocation"
-        ] = port_alloc_input_style
-        capstyle.STYLES[dt.value][
-            "Edge.PortOutputAllocation"
-        ] = port_alloc_output_style
+        capstyle.STYLES[dt.value]["Edge.PortInputAllocation"] = (
+            port_alloc_input_style
+        )
+        capstyle.STYLES[dt.value]["Edge.PortOutputAllocation"] = (
+            port_alloc_output_style
+        )
 
 
 def register_functional_context() -> None:
@@ -234,7 +233,7 @@ def register_functional_context() -> None:
 
     !!! bug "Full of bugs"
 
-        The functional context diagrams will be available soon.
+    The functional context diagrams will be available soon.
     """
     attr_name = f"functional_{ATTR_NAME}"
     supported_classes: list[tuple[type[m.ModelElement], DiagramType]] = [

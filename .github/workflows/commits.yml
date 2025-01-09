@@ -1,0 +1,63 @@
+# SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
+# SPDX-License-Identifier: Apache-2.0
+
+name: Commits
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  conventional-commits:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: commit-check-pr-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install commitlint
+        run: npm install @commitlint/cli @commitlint/config-conventional
+      - name: Validate commit messages
+        id: conventional-commits
+        env:
+          SHA_FROM: ${{ github.event.pull_request.base.sha }}
+          SHA_TO: ${{ github.event.pull_request.head.sha }}
+        run: |
+          delim="_EOF_$(uuidgen)"
+          echo "validation-result<<$delim" >> "$GITHUB_OUTPUT"
+          r=0
+          npx commitlint --from "$SHA_FROM" --to "$SHA_TO" >> "$GITHUB_OUTPUT" 2>&1 || r=$?
+          echo "$delim" >> "$GITHUB_OUTPUT"
+          exit $r
+      - name: Find conventional commit comment on PR
+        uses: peter-evans/find-comment@v3
+        if: always() && steps.conventional-commits.outcome == 'failure'
+        id: fc
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          comment-author: 'github-actions[bot]'
+          body-includes: conventional commit
+      - name: Post comment if validation failed
+        uses: peter-evans/create-or-update-comment@v4
+        if: always() && steps.conventional-commits.outcome == 'failure'
+        with:
+          comment-id: ${{ steps.fc.outputs.comment-id }}
+          issue-number: ${{ github.event.pull_request.number }}
+          edit-mode: replace
+          body: |
+            The pull request does not conform to the conventional commit specification. Please ensure that your commit messages follow the spec: <https://www.conventionalcommits.org/>.
+            We also strongly recommend that you set up your development environment with pre-commit, as described in our [Contributing guidelines](https://github.com/DSD-DBS/py-capellambse/blob/master/CONTRIBUTING.rst#quality-controls). This will run all the important checks right before you commit your changes, and avoids lengthy CI wait time and round trips.
+
+            This is the commit validation log:
+            ```
+            ${{ steps.conventional-commits.outputs.validation-result }}
+            ```
+
+            Here are some examples of valid commit messages:
+            ```
+            feat(model): Add realized_states to State and Mode
+            fix(aird): Prevent creating circles with r=0
+            docs(readme): Update project description
+            ```

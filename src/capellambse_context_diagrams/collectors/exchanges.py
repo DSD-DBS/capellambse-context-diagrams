@@ -46,9 +46,8 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
 
     def __init__(
         self,
-        diagram: (
-            context.InterfaceContextDiagram | context.FunctionalContextDiagram
-        ),
+        diagram: context.InterfaceContextDiagram
+        | context.FunctionalContextDiagram,
         data: _elkjs.ELKInputData,
         params: dict[str, t.Any],
     ) -> None:
@@ -104,9 +103,8 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
 
 
 def get_elkdata_for_exchanges(
-    diagram: (
-        context.InterfaceContextDiagram | context.FunctionalContextDiagram
-    ),
+    diagram: context.InterfaceContextDiagram
+    | context.FunctionalContextDiagram,
     collector_type: type[ExchangeCollector],
     params: dict[str, t.Any],
 ) -> _elkjs.ELKInputData:
@@ -450,7 +448,7 @@ def functional_context_collector(
 def interface_context_collector(
     diagram: context.InterfaceContextDiagram, pars: dict[str, t.Any]
 ) -> _elkjs.ELKInputData:
-    collector: t.Type[ExchangeCollector]
+    collector: type[ExchangeCollector]
     if isinstance(diagram.target, cs.PhysicalLink):
         collector = PhysicalLinkContextCollector
     else:

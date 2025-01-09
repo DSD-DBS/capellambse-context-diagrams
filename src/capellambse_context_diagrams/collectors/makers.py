@@ -50,10 +50,8 @@ BOX_TO_SYMBOL = (
     "SystemHumanActor",
     "SystemActor",
 )
-"""
-Types that need to be converted to symbols during serialization if
-`display_symbols_as_boxes` attribute is `False`.
-"""
+"""Types that need to be converted to symbols during serialization if
+`display_symbols_as_boxes` attribute is `False`."""
 ICON_WIDTH = icon_size + icon_padding * 2
 """Default icon width from capellambse including the padding around it."""
 ICON_HEIGHT = icon_size
@@ -122,7 +120,7 @@ def make_label(
 
 
 class _LabelBuilder(te.TypedDict, total=True):
-    """Builder object for labels"""
+    """Builder object for labels."""
 
     text: str
     icon: tuple[int | float, int | float]
@@ -203,7 +201,7 @@ def is_symbol(obj: str | m.ModelElement | None) -> bool:
     """Check if given `obj` is rendered as a Symbol instead of a Box."""
     if obj is None:
         return False
-    elif isinstance(obj, str):
+    if isinstance(obj, str):
         return obj in BOX_TO_SYMBOL
     return type(obj).__name__ in BOX_TO_SYMBOL
 

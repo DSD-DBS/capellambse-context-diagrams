@@ -21,11 +21,11 @@ FNC_UUID = "a5642060-c9cc-4d49-af09-defaa3024bae"
 INTERF_UUID = "9cbdd233-aff5-47dd-9bef-9be1277c77c3"
 HIERARCHY_UUID = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
 
-Types = list[t.Union[mm.fa.FunctionalExchange, mm.fa.ComponentExchange]]
+Types = list[mm.fa.FunctionalExchange | mm.fa.ComponentExchange]
 
 
 @pytest.mark.parametrize(
-    "label,expected",
+    ("label", "expected"),
     [
         (
             (
@@ -55,10 +55,7 @@ def start_filter_apply_test(
     edges = [
         elt
         for elt in diag.nodes
-        if isinstance(
-            elt,
-            (mm.fa.FunctionalExchange, mm.fa.ComponentExchange),
-        )
+        if isinstance(elt, mm.fa.FunctionalExchange | mm.fa.ComponentExchange)
     ]
     return edges, diag.render(None, **render_params)
 
@@ -92,7 +89,9 @@ def test_EX_ITEMS_is_applied(model: MelodyModel, uuid: str) -> None:
             assert get_ExchangeItems(aedge) == expected
 
 
-@pytest.mark.parametrize("sort,uuid", [(False, FNC_UUID), (True, INTERF_UUID)])
+@pytest.mark.parametrize(
+    ("sort", "uuid"), [(False, FNC_UUID), (True, INTERF_UUID)]
+)
 def test_context_diagrams_ExchangeItems_sorting(
     model: MelodyModel, sort: bool, uuid: str
 ) -> None:
@@ -106,7 +105,7 @@ def test_context_diagrams_ExchangeItems_sorting(
         assert has_sorted_ExchangeItems(aedge)
 
 
-@pytest.mark.parametrize("uuid", (FNC_UUID, INTERF_UUID))
+@pytest.mark.parametrize("uuid", [FNC_UUID, INTERF_UUID])
 def test_context_diagrams_SHOW_EX_ITEMS_is_applied(
     model: MelodyModel, uuid: str
 ) -> None:
@@ -117,7 +116,7 @@ def test_context_diagrams_SHOW_EX_ITEMS_is_applied(
     for edge in edges:
         aedge = aird_diag[edge.uuid]
         expected_label = edge.name
-        eitems = ", ".join((exi.name for exi in edge.exchange_items))
+        eitems = ", ".join(exi.name for exi in edge.exchange_items)
         if eitems:
             expected_label += f" [{eitems}]"
 
@@ -127,7 +126,7 @@ def test_context_diagrams_SHOW_EX_ITEMS_is_applied(
         assert aedge.labels[0].label == expected_label
 
 
-@pytest.mark.parametrize("uuid", (FNC_UUID, INTERF_UUID))
+@pytest.mark.parametrize("uuid", [FNC_UUID, INTERF_UUID])
 def test_context_diagrams_FEX_OR_EX_ITEMS_is_applied(
     model: MelodyModel, uuid: str
 ) -> None:
@@ -143,7 +142,7 @@ def test_context_diagrams_FEX_OR_EX_ITEMS_is_applied(
         label = aedge.labels[0].label
         if edge.exchange_items:
             eitem_label_frag = ", ".join(
-                (exi.name for exi in edge.exchange_items)
+                exi.name for exi in edge.exchange_items
             )
 
             assert label == f"[{eitem_label_frag}]"

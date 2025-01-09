@@ -1,8 +1,8 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
-"""
-Collection of [`ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData]
-on diagrams that involve ports.
+"""Collection of
+[`ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData] on diagrams
+that involve ports.
 """
 
 from __future__ import annotations
@@ -176,9 +176,9 @@ class ContextProcessor:
             ):
                 if not self.diagram._display_parent_relation:
                     continue
-                self.centerbox.labels[0].layoutOptions = (
-                    makers.DEFAULT_LABEL_LAYOUT_OPTIONS
-                )
+                self.centerbox.labels[
+                    0
+                ].layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
                 elkdata: _elkjs.ELKInputData = self.centerbox
             else:
                 elkdata = self.data

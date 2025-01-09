@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 """Functions and registry for filter functionality."""
+
 from __future__ import annotations
 
 import collections.abc as cabc
@@ -31,8 +32,10 @@ NO_UUID = "capellambse_context_diagrams-hide.uuids.filter"
 SYSTEM_EX_RELABEL = (
     "capellambse_context_diagrams-relabel.system.analysis.exchange"
 )
-"""Relabel exchanges from the SystemAnalysis layer. E.g. « i » is converted to
-includes or involves, based on the type."""
+"""Relabel exchanges from the SystemAnalysis layer.
+
+E.g. « i » is converted to includes or involves, based on the type.
+"""
 
 
 logger = logging.getLogger(__name__)
@@ -54,8 +57,8 @@ LABEL_CONVERSION: t.Final[dict[str, str]] = {
 
 
 def exchange_items(obj: m.ModelElement) -> str:
-    """Return `obj`'s `ExchangeItem`s wrapped in [E1,...] and separated
-    by ','.
+    """Return `obj`'s `ExchangeItem`s wrapped in [E1,...] and separated by
+    ','.
     """
     assert isinstance(obj, (fa.FunctionalExchange, fa.ComponentExchange))
     if items := ", ".join(item.name for item in obj.exchange_items):
@@ -101,7 +104,7 @@ FILTER_LABEL_ADJUSTERS: dict[
     NO_UUID: uuid_filter,
     SYSTEM_EX_RELABEL: relabel_system_exchange,
 }
-"""Label adjuster registry. """
+"""Label adjuster registry."""
 
 
 def sort_exchange_items_label(

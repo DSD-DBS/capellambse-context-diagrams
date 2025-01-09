@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
+"""Global fixtures for pytest."""
 
-"""Global fixtures for pytest"""
 import io
 import pathlib
 import sys
@@ -22,6 +22,6 @@ SYSTEM_ANALYSIS_PARAMS = [
 
 @pytest.fixture
 def model(monkeypatch) -> capellambse.MelodyModel:
-    """Return test model"""
+    """Return test model."""
     monkeypatch.setattr(sys, "stderr", io.StringIO)
     return capellambse.MelodyModel(TEST_ROOT / TEST_MODEL)

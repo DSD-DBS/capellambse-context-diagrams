@@ -1,9 +1,11 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
-
 """This submodule provides a serializer that transforms data from an ELK-
-layouted diagram [_elkjs.ELKOutputData][capellambse_context_diagrams._elkjs.ELKOutputData]
-according to [_elkjs.ELKInputData][capellambse_context_diagrams._elkjs.ELKInputData].
+layouted diagram
+[_elkjs.ELKOutputData][capellambse_context_diagrams._elkjs.ELKOutputData]
+according to
+[_elkjs.ELKInputData][capellambse_context_diagrams._elkjs.ELKInputData].
+
 The pre-layouted data was collected with the functions from
 [collectors][capellambse_context_diagrams.collectors].
 """
@@ -107,8 +109,7 @@ class DiagramSerializer:
         ref: cdiagram.Vector2D,
         parent: cdiagram.DiagramElement | None,
     ) -> None:
-        """Converts a `child` into aird elements and adds it to the
-        diagram.
+        """Converts a `child` into aird elements and adds it to the diagram.
 
         Parameters
         ----------
@@ -151,9 +152,11 @@ class DiagramSerializer:
             is_port = child.type == "port"
             box_type = ("box", "symbol")[
                 is_port
-                or has_symbol_cls
-                and not self._diagram.target.uuid == uuid
-                and not self._diagram._display_symbols_as_boxes
+                or (
+                    has_symbol_cls
+                    and self._diagram.target.uuid != uuid
+                    and not self._diagram._display_symbols_as_boxes
+                )
             ]
 
             assert not isinstance(
@@ -301,8 +304,8 @@ class DiagramSerializer:
         return is_contained(exchange.source) and is_contained(exchange.target)
 
     def get_styleclass(self, uuid: str) -> str | None:
-        """Return the style-class string from a given
-        [`_elkjs.ELKOutputChild`][capellambse_context_diagrams._elkjs.ELKOutputChild].
+        """Return the style-class string from a given [`_elkjs.ELKOutputChild`]
+        [capellambse_context_diagrams._elkjs.ELKOutputChild].
         """
         try:
             melodyobj: m.ModelElement | m.Diagram = (
@@ -322,8 +325,8 @@ class DiagramSerializer:
     ) -> cdiagram.StyleOverrides:
         """Return
         [`styling.CSSStyles`][capellambse_context_diagrams.styling.CSSStyles]
-        from a given
-        [`_elkjs.ELKOutputChild`][capellambse_context_diagrams._elkjs.ELKOutputChild].
+        from a given [`_elkjs.ELKOutputChild`][capellambse_context_diagrams._el
+        kjs.ELKOutputChild].
         """
         style_condition = self._diagram.render_styles.get(child.type)
         styleoverrides: cdiagram.StyleOverrides = {}

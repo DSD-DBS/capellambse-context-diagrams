@@ -1,8 +1,8 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
-"""
-Definitions of Custom Accessor- and Diagram-Classtypes based on
-[`Accessor`][capellambse.model.Accessor] and [`AbstractDiagram`][capellambse.model.diagram.AbstractDiagram].
+"""Definitions of Custom Accessor- and Diagram-Classtypes based on
+[`Accessor`][capellambse.model.Accessor] and
+[`AbstractDiagram`][capellambse.model.diagram.AbstractDiagram].
 """
 
 from __future__ import annotations
@@ -951,7 +951,7 @@ def calculate_label_position(
 def _get_all_ports(
     node: _elkjs.ELKOutputNode, ref: cdiagram.Vector2D
 ) -> cabc.Iterator[tuple[cdiagram.Vector2D, _elkjs.ELKOutputPort]]:
-    """Yield all ports from"""
+    """Yield all ports from."""
     for child in node.children:
         if isinstance(child, _elkjs.ELKOutputPort):
             yield ref + (child.position.x, child.position.y), child

@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 """Functions for style overrides of diagram elements."""
+
 from __future__ import annotations
 
 import typing as t
@@ -13,11 +14,10 @@ if t.TYPE_CHECKING:
     from . import serializers
 
 CSSStyles = t.Union[diagram.StyleOverrides, None]
-"""
-A dictionary with CSS styles. The keys are the attribute names and the
-values can be of the types `str`, `aird.RGB` and even
-`t.Sequence[aird.RGB]` for coloring a
-[`ModelElement`][capellambse.model.ModelElement] with a gradient.
+"""A dictionary with CSS styles. The keys are the attribute names and the
+values can be of the types `str`, `aird.RGB` and even `t.Sequence[aird.RGB]`
+for coloring a [`ModelElement`][capellambse.model.ModelElement] with a
+gradient.
 
 See also
 --------
@@ -25,7 +25,7 @@ See also
 """
 Styler = t.Callable[
     [m.ModelElement, "serializers.DiagramSerializer"],
-    t.Union[diagram.StyleOverrides, None],
+    diagram.StyleOverrides | None,
 ]
 """Function that produces `CSSStyles` for given obj."""
 
@@ -64,10 +64,10 @@ def style_center_symbol(
 
 
 BLUE_ACTOR_FNCS: dict[str, Styler] = {"node": parent_is_actor_fills_blue}
-"""CSSStyle for coloring Actor Functions (Functions of Components with
-the attribute `is_actor` set to `True`) with a blue gradient like in
-Capella.
-"""
+"""CSSStyle for coloring Actor Functions (Functions of Components with the
+attribute `is_actor` set to `True`) with a blue gradient like in Capella."""
 SYSTEM_CAP_STYLING: dict[str, Styler] = {"node": style_center_symbol}
-"""CSSStyle for custom styling of SystemAnalysis diagrams. The center
-box is drawn with a white background and a grey dashed line."""
+"""CSSStyle for custom styling of SystemAnalysis diagrams.
+
+The center box is drawn with a white background and a grey dashed line.
+"""

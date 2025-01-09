@@ -1,11 +1,12 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
+"""ELK data model implemented as `typings.TypedDict`s and subprocess callers to
+check if elkjs can be installed via npm.
 
-"""
-ELK data model implemented as `typings.TypedDict`s and subprocess
-callers to check if elkjs can be installed via npm. The high level
+The high level
 function is [call_elkjs][capellambse_context_diagrams._elkjs.call_elkjs].
 """
+
 from __future__ import annotations
 
 import collections.abc as cabc
@@ -23,7 +24,6 @@ import capellambse
 import pydantic
 
 __all__ = [
-    "call_elkjs",
     "ELKInputChild",
     "ELKInputData",
     "ELKInputEdge",
@@ -37,19 +37,20 @@ __all__ = [
     "ELKOutputPort",
     "ELKPoint",
     "ELKSize",
+    "call_elkjs",
 ]
 
 log = logging.getLogger(__name__)
 
 NODE_HOME = Path(capellambse.dirs.user_cache_dir, "elkjs", "node_modules")
 PATH_TO_ELK_JS = Path(__file__).parent / "elk.js"
-REQUIRED_NPM_PKG_VERSIONS: t.Dict[str, str] = {
+REQUIRED_NPM_PKG_VERSIONS: dict[str, str] = {
     "elkjs": "0.9.2",
 }
-"""npm package names and versions required by this Python module."""
+"""Npm package names and versions required by this Python module."""
 
-LayoutOptions = cabc.MutableMapping[str, t.Union[str, int, float]]
-ImmutableLayoutOptions = cabc.Mapping[str, t.Union[str, int, float]]
+LayoutOptions = cabc.MutableMapping[str, str | int | float]
+ImmutableLayoutOptions = cabc.Mapping[str, str | int | float]
 LAYOUT_OPTIONS: ImmutableLayoutOptions = {
     "algorithm": "layered",
     "edgeRouting": "ORTHOGONAL",
@@ -59,8 +60,7 @@ LAYOUT_OPTIONS: ImmutableLayoutOptions = {
     "layered.nodePlacement.strategy": "BRANDES_KOEPF",
     "spacing.labelNode": "0.0",
 }
-"""
-Available (and possibly useful) Global Options to configure ELK layouting.
+"""Available (and possibly useful) Global Options to configure ELK layouting.
 
 See Also
 --------
@@ -155,8 +155,8 @@ class ELKInputChild(ELKInputData):
         default_factory=list
     )
 
-    width: t.Union[int, float] = 0
-    height: t.Union[int, float] = 0
+    width: int | float = 0
+    height: int | float = 0
 
 
 class ELKInputLabel(BaseELKModel):
@@ -164,8 +164,8 @@ class ELKInputLabel(BaseELKModel):
 
     text: str
     layoutOptions: LayoutOptions = pydantic.Field(default_factory=dict)
-    width: t.Union[int, float] = 0
-    height: t.Union[int, float] = 0
+    width: int | float = 0
+    height: int | float = 0
 
 
 class ELKInputPort(BaseELKModel):
@@ -173,8 +173,8 @@ class ELKInputPort(BaseELKModel):
 
     id: str
     layoutOptions: LayoutOptions = pydantic.Field(default_factory=dict)
-    width: t.Union[int, float]
-    height: t.Union[int, float]
+    width: int | float
+    height: int | float
     labels: cabc.MutableSequence[ELKInputLabel] = pydantic.Field(
         default_factory=list
     )
@@ -196,15 +196,15 @@ class ELKInputEdge(BaseELKModel):
 class ELKPoint(BaseELKModel):
     """Point data in ELK."""
 
-    x: t.Union[int, float]
-    y: t.Union[int, float]
+    x: int | float
+    y: int | float
 
 
 class ELKSize(BaseELKModel):
     """Size data in ELK."""
 
-    width: t.Union[int, float]
-    height: t.Union[int, float]
+    width: int | float
+    height: int | float
 
 
 class ELKOutputElement(BaseELKModel):
@@ -279,9 +279,9 @@ class ELKOutputEdge(ELKOutputElement):
     sourceId: str
     targetId: str
     routingPoints: cabc.MutableSequence[ELKPoint]
-    children: cabc.MutableSequence[
-        t.Union[ELKOutputLabel, ELKOutputJunction]
-    ] = pydantic.Field(default_factory=list)
+    children: cabc.MutableSequence[ELKOutputLabel | ELKOutputJunction] = (
+        pydantic.Field(default_factory=list)
+    )
     context: list[str] = pydantic.Field(default_factory=list)
 
 
@@ -321,7 +321,7 @@ def _find_node_and_npm() -> None:
             raise ExecutableNotFoundError(i)
 
 
-def _get_installed_npm_pkg_versions() -> t.Dict[str, str]:
+def _get_installed_npm_pkg_versions() -> dict[str, str]:
     """Read installed npm packages and versions.
 
     Returns
@@ -330,17 +330,17 @@ def _get_installed_npm_pkg_versions() -> t.Dict[str, str]:
         Dictionary with installed npm package name (key), package
         version (val)
     """
-    installed_npm_pkg_versions: t.Dict[str, str] = {}
+    installed_npm_pkg_versions: dict[str, str] = {}
     package_lock_file_path: Path = NODE_HOME.parent / "package-lock.json"
     if not package_lock_file_path.is_file():
         return installed_npm_pkg_versions
-    package_lock: t.Dict[str, t.Any] = json.loads(
+    package_lock: dict[str, t.Any] = json.loads(
         package_lock_file_path.read_text()
     )
     if "packages" not in package_lock:
         return installed_npm_pkg_versions
     pkg_rel_path: str
-    pkg_info: t.Dict[str, str]
+    pkg_info: dict[str, str]
     for pkg_rel_path, pkg_info in package_lock["packages"].items():
         if not pkg_rel_path.startswith("node_modules/"):
             continue

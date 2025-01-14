@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
-"""This submodule defines the collector for the Class-Tree diagram."""
+"""Collector for the Class-Tree diagram."""
 
 from __future__ import annotations
 
@@ -273,42 +273,43 @@ def get_all_classes(
         )
         process_property(property)
 
-    if super == "ALL" or (super == "ROOT" and partition == 1):
-        if (
-            isinstance(root.super, information.Class)
-            and not root.super.is_primitive
-        ):
-            for prop in root.super.owned_properties:
-                process_property(
-                    _PropertyInfo(
-                        root.super,  # type: ignore[arg-type]
-                        prop,
-                        partition + 1,
-                        classes,
-                        root,
-                        max_partition,
-                        super,
-                        sub,
-                    )
+    traverse_super = super == "ALL" or (super == "ROOT" and partition == 1)
+    if (
+        traverse_super
+        and isinstance(root.super, information.Class)
+        and not root.super.is_primitive
+    ):
+        for prop in root.super.owned_properties:
+            process_property(
+                _PropertyInfo(
+                    root.super,
+                    prop,
+                    partition + 1,
+                    classes,
+                    root,
+                    max_partition,
+                    super,
+                    sub,
                 )
+            )
 
-            if (edge_id := f"{root.uuid} {root.super.uuid}") not in classes:
-                classes[edge_id] = _make_class_info(
-                    root.super,  # type: ignore[arg-type]
-                    None,
+        if (edge_id := f"{root.uuid} {root.super.uuid}") not in classes:
+            classes[edge_id] = _make_class_info(
+                root.super,
+                None,
+                partition,
+                generalizes=root,
+            )
+            classes.update(
+                get_all_classes(
+                    root.super,
                     partition,
-                    generalizes=root,
+                    classes,
+                    max_partition,
+                    super,
+                    sub,
                 )
-                classes.update(
-                    get_all_classes(
-                        root.super,  # type: ignore[arg-type]
-                        partition,
-                        classes,
-                        max_partition,
-                        super,
-                        sub,
-                    )
-                )
+            )
 
     if sub == "ALL" or (sub == "ROOT" and partition == 1):
         for cls in root.sub:
@@ -359,7 +360,7 @@ def _make_class_info(
     return ClassInfo(
         source=source,
         target=target,
-        prop=prop,  # type: ignore[arg-type]
+        prop=prop,
         partition=partition,
         multiplicity=multiplicity,
         generalizes=generalizes,

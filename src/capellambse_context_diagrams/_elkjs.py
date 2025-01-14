@@ -1,10 +1,12 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
-"""ELK data model implemented as `typings.TypedDict`s and subprocess callers to
-check if elkjs can be installed via npm.
+"""Functionality for the ELK data model and the call to elkjs.
 
-The high level
-function is [call_elkjs][capellambse_context_diagrams._elkjs.call_elkjs].
+Implementation of the data model and subprocess callers to check if
+elkjs can be installed via npm.
+
+The high level function is
+[call_elkjs][capellambse_context_diagrams._elkjs.call_elkjs].
 """
 
 from __future__ import annotations
@@ -15,10 +17,10 @@ import enum
 import json
 import logging
 import os
+import pathlib
 import shutil
 import subprocess
 import typing as t
-from pathlib import Path
 
 import capellambse
 import pydantic
@@ -42,8 +44,10 @@ __all__ = [
 
 log = logging.getLogger(__name__)
 
-NODE_HOME = Path(capellambse.dirs.user_cache_dir, "elkjs", "node_modules")
-PATH_TO_ELK_JS = Path(__file__).parent / "elk.js"
+NODE_HOME = pathlib.Path(
+    capellambse.dirs.user_cache_dir, "elkjs", "node_modules"
+)
+PATH_TO_ELK_JS = pathlib.Path(__file__).parent / "elk.js"
 REQUIRED_NPM_PKG_VERSIONS: dict[str, str] = {
     "elkjs": "0.9.2",
 }
@@ -285,13 +289,13 @@ class ELKOutputEdge(ELKOutputElement):
     context: list[str] = pydantic.Field(default_factory=list)
 
 
-ELKOutputChild = t.Union[
-    ELKOutputEdge,
-    ELKOutputJunction,
-    ELKOutputLabel,
-    ELKOutputNode,
-    ELKOutputPort,
-]
+ELKOutputChild = (
+    ELKOutputEdge
+    | ELKOutputJunction
+    | ELKOutputLabel
+    | ELKOutputNode
+    | ELKOutputPort
+)
 """Type alias for ELK output."""
 
 
@@ -331,7 +335,9 @@ def _get_installed_npm_pkg_versions() -> dict[str, str]:
         version (val)
     """
     installed_npm_pkg_versions: dict[str, str] = {}
-    package_lock_file_path: Path = NODE_HOME.parent / "package-lock.json"
+    package_lock_file_path: pathlib.Path = (
+        NODE_HOME.parent / "package-lock.json"
+    )
     if not package_lock_file_path.is_file():
         return installed_npm_pkg_versions
     package_lock: dict[str, t.Any] = json.loads(

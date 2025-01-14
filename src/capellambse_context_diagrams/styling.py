@@ -13,7 +13,7 @@ from capellambse.diagram import capstyle
 if t.TYPE_CHECKING:
     from . import serializers
 
-CSSStyles = t.Union[diagram.StyleOverrides, None]
+CSSStyles = diagram.StyleOverrides | None
 """A dictionary with CSS styles. The keys are the attribute names and the
 values can be of the types `str`, `aird.RGB` and even `t.Sequence[aird.RGB]`
 for coloring a [`ModelElement`][capellambse.model.ModelElement] with a
@@ -54,7 +54,7 @@ def style_center_symbol(
     obj: m.ModelElement, serializer: serializers.DiagramSerializer
 ) -> CSSStyles:
     """Return ``CSSStyles`` for given ``obj``."""
-    if obj != serializer._diagram.target:  # type: ignore[has-type]
+    if obj != serializer._diagram.target:
         return None
     return {
         "fill": capstyle.COLORS["white"],

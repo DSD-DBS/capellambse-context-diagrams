@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
-"""This module defines the collector for the CableTreeDiagram."""
+"""Collector for the CableTreeDiagram."""
 
 from __future__ import annotations
 
@@ -117,5 +117,5 @@ class CableTreeCollector:
 def collector(
     diagram: context.ContextDiagram, params: dict[str, t.Any]
 ) -> _elkjs.ELKInputData:
-    """Main collector function for the CableTreeDiagram."""
+    """Collect model elements for the CableTreeDiagram."""
     return CableTreeCollector(diagram, params)()

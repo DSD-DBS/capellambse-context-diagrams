@@ -6,7 +6,7 @@ import capellambse.metamodel as mm
 import pytest
 
 # pylint: disable-next=relative-beyond-top-level, useless-suppression
-from .conftest import SYSTEM_ANALYSIS_PARAMS  # type: ignore[import]
+from .conftest import SYSTEM_ANALYSIS_PARAMS  # type: ignore[import-untyped]
 
 TEST_TYPES = (mm.oa.OperationalCapability, mm.sa.Capability, mm.sa.Mission)
 

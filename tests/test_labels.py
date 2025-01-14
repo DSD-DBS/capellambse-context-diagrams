@@ -8,7 +8,7 @@ from capellambse_context_diagrams.collectors import makers
 
 
 @pytest.mark.parametrize(
-    "uuid,expected_labels",
+    ("uuid", "expected_labels"),
     [
         pytest.param(
             "d817767f-68b7-49a5-aa47-13419d41df0a",

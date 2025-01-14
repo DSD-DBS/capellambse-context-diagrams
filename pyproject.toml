@@ -46,7 +46,6 @@ context_diagrams = "capellambse_context_diagrams:init"
 [dependency-groups]
 dev = [
   "coverage>=7.6.9",
-  "mypypp>=0.1.1",
   "pre-commit>=4.0.1",
   "pyls-isort>=0.2.2",
   "pylsp-mypy>=0.6.9",
@@ -91,7 +90,6 @@ show_error_codes = true
 warn_redundant_casts = true
 warn_unreachable = true
 warn_unused_ignores = true
-plugins = ["mypypp.deprecated"]
 python_version = "3.11"
 
 [[tool.mypy.overrides]]
@@ -168,6 +166,7 @@ extend-ignore = [
   "PLW0603", # Using the global statement to update `_` is discouraged
   "PLW2901", # `for` loop variable `_` overwritten by assignment target
   "RUF005",  # Consider iterable unpacking instead of concatenation  # false-positives with NamedTuple and overridden __add__ (i.e. Vector2D)
+  "RUF018",  # Ignore assignment expression in `assert` statemtens
   "SIM108",  # Use ternary operator instead of `if`-`else`-block
 ]
 

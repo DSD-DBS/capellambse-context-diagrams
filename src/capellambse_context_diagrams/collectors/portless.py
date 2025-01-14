@@ -1,8 +1,10 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
-"""Collection of
-[`ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData] on diagrams
-that don't involve ports or any connectors.
+"""Collector for portless ContextDiagrams.
+
+This collector is used to collect
+[`ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData] on
+diagrams that don't involve ports or any connectors.
 """
 
 from __future__ import annotations

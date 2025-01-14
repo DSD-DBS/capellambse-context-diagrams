@@ -276,8 +276,8 @@ def test_context_diagram_hide_direct_children(
     diag.invalidate_cache()
     white = diag.render(None, hide_direct_children=False)
 
-    assert not set(element.uuid for element in grey) & expected_hidden_uuids
-    assert set(element.uuid for element in white) & expected_hidden_uuids
+    assert not {element.uuid for element in grey} & expected_hidden_uuids
+    assert {element.uuid for element in white} & expected_hidden_uuids
 
 
 def test_context_diagram_detects_and_handles_cycles(
@@ -299,5 +299,5 @@ def test_context_diagram_display_unused_ports(
     adiag = obj.context_diagram.render(None, display_unused_ports=False)
     bdiag = obj.context_diagram.render(None, display_unused_ports=True)
 
-    assert unused_port_uuid not in set(element.uuid for element in adiag)
-    assert unused_port_uuid in set(element.uuid for element in bdiag)
+    assert unused_port_uuid not in {element.uuid for element in adiag}
+    assert unused_port_uuid in {element.uuid for element in bdiag}

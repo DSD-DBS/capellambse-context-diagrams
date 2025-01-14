@@ -273,9 +273,8 @@ def get_all_classes(
         )
         process_property(property)
 
-    traverse_super = super == "ALL" or (super == "ROOT" and partition == 1)
     if (
-        traverse_super
+        (super == "ALL" or (super == "ROOT" and partition == 1))
         and isinstance(root.super, information.Class)
         and not root.super.is_primitive
     ):

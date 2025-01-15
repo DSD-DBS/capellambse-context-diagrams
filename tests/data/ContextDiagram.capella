@@ -3724,6 +3724,9 @@ The predator is far away</bodies>
           <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
               id="f350dfd4-5997-4fab-b3d2-9a5214ae263c" name="C 28" source="#5269e15c-69fb-45fd-88a0-08d4ab5f5211"
               target="#684d4388-3615-40a7-b81d-f97647294a67" kind="FLOW"/>
+          <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+              id="fe3756df-2a89-45f3-91a3-0fc2e614afd0" name="C 29" source="#ac7447ba-b89c-47f9-8390-d7db74c6e02c"
+              target="#ec443534-9c07-44be-96d7-802bfa32e67b" kind="FLOW"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="a3194240-cd17-4998-8f8b-785233487ec3"
               name="Campus" abstractType="#6583b560-6d2f-4190-baa2-94eef179c8ea"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
@@ -3793,6 +3796,8 @@ The predator is far away</bodies>
               name="Cycle Parent" abstractType="#57bcce8e-e1fb-45dc-aaa1-4c5748b02b5d"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="f6763b23-b5cc-491c-a428-a004cf9963fe"
               name="LC 25" abstractType="#d6eb2818-656a-4a5b-b2f3-0792211fa6c0"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="22bf0991-c6cd-43dd-9129-9edff619c1bb"
+              name="Real leftie" abstractType="#3253a54d-6df2-4638-bd13-65e51c577758"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="0f8b10b5-d460-4055-bd34-7e4a33e94b5e" targetElement="#230c4621-7e0a-4d0a-9db2-d4ba5e97b3df"
               sourceElement="#0d2edb8f-fa34-4e73-89ec-fb9a63001440"/>
@@ -4154,6 +4159,9 @@ The predator is far away</bodies>
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
                 id="5269e15c-69fb-45fd-88a0-08d4ab5f5211" name="CP 19" orientation="OUT"
                 kind="FLOW"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="ec443534-9c07-44be-96d7-802bfa32e67b" name="CP 20" orientation="IN"
+                kind="FLOW"/>
           </ownedLogicalComponents>
           <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
               id="16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb" name="Hierarchy">
@@ -4472,6 +4480,12 @@ The predator is far away</bodies>
             <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
                 id="84fe724d-e9a7-4cda-b886-6e393e72d086" targetElement="#906e7244-3d1c-4787-8cfc-afc0efe02f06"
                 sourceElement="#d6eb2818-656a-4a5b-b2f3-0792211fa6c0"/>
+          </ownedLogicalComponents>
+          <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+              id="3253a54d-6df2-4638-bd13-65e51c577758" name="Real leftie">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="ac7447ba-b89c-47f9-8390-d7db74c6e02c" name="CP 1" orientation="OUT"
+                kind="FLOW"/>
           </ownedLogicalComponents>
           <ownedLogicalComponentPkgs xsi:type="org.polarsys.capella.core.data.la:LogicalComponentPkg"
               id="83d80c8a-e845-4fd9-bb6f-91fc32145785" name="LogicalComponents">

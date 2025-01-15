@@ -162,13 +162,13 @@ Example:
 
 To meet needed prerequisites execute
 ```bash
-pip install "[.test]"
+uv pip install
 ```
 
 You can then run all tests in the terminal by executing
 
 ```bash
-pytest
+uv run pytest
 ```
 
 or if you are using VSCode you can use the integrated test functionality via task profiles.

@@ -1,6 +1,5 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
-
 """Generate the code reference pages."""
 
 from pathlib import Path
@@ -8,11 +7,12 @@ from pathlib import Path
 import mkdocs_gen_files
 
 src = "capellambse_context_diagrams"
+PACKAGE_PATH = Path("src", src)
 nav = mkdocs_gen_files.Nav()
 
-for path in sorted(Path(src).rglob("*.py")):
-    module_path = path.relative_to(src).with_suffix("")
-    doc_path = path.relative_to(src).with_suffix(".md")
+for path in sorted(PACKAGE_PATH.rglob("*.py")):
+    module_path = path.relative_to(PACKAGE_PATH).with_suffix("")
+    doc_path = path.relative_to(PACKAGE_PATH).with_suffix(".md")
     full_doc_path = Path("reference", doc_path)
     parts = [src]
     if (filename := module_path.parts[-1]) != "__init__":

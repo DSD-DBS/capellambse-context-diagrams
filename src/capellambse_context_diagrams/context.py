@@ -1,8 +1,10 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
-"""
+"""Extends the capellambse.model.diagram module with context diagrams.
+
 Definitions of Custom Accessor- and Diagram-Classtypes based on
-[`Accessor`][capellambse.model.Accessor] and [`AbstractDiagram`][capellambse.model.diagram.AbstractDiagram].
+[`Accessor`][capellambse.model.Accessor] and
+[`AbstractDiagram`][capellambse.model.diagram.AbstractDiagram].
 """
 
 from __future__ import annotations
@@ -304,12 +306,12 @@ class ContextDiagram(m.AbstractDiagram):
         ] = get_elkdata
 
     @property
-    def uuid(self) -> str:  # type: ignore
+    def uuid(self) -> str:
         """Returns diagram UUID."""
         return f"{self.target.uuid}_context"
 
     @property
-    def name(self) -> str:  # type: ignore
+    def name(self) -> str:
         """Returns the diagram name."""
         return f"Context of {self.target.name.replace('/', '- or -')}"
 
@@ -337,11 +339,8 @@ class ContextDiagram(m.AbstractDiagram):
             elems.append(elem._element)
         return m.MixedElementList(self._model, elems, m.ModelElement)
 
-    def elk_input_data(
-        self,
-        params: dict[str, t.Any],
-    ) -> CollectorOutputData:
-        """Returns the ELK input data."""
+    def elk_input_data(self, params: dict[str, t.Any]) -> CollectorOutputData:
+        """Return the collected ELK input data."""
         params = self._default_render_parameters | params
         for param_name in self._default_render_parameters:
             setattr(self, f"_{param_name}", params.pop(param_name))
@@ -395,14 +394,14 @@ class ContextDiagram(m.AbstractDiagram):
         data = self.elk_input_data(params)
         assert not isinstance(data, tuple)
         layout = try_to_layout(data)
-        is_legend: bool = params.get("is_legend", False)  # type: ignore[assignment]
+        is_legend: bool = params.get("is_legend", False)
         add_context(layout, is_legend)
         return self.serializer.make_diagram(
             layout, transparent_background=self._transparent_background
         )
 
-    @property  # type: ignore
-    def filters(self) -> cabc.MutableSet[str]:  # type: ignore
+    @property
+    def filters(self) -> cabc.MutableSet[str]:
         return self.__filters
 
     @filters.setter
@@ -412,8 +411,7 @@ class ContextDiagram(m.AbstractDiagram):
 
 
 class InterfaceContextDiagram(ContextDiagram):
-    """An automatically generated Context Diagram exclusively for
-    ``ComponentExchange``s.
+    """A Context Diagram exclusively for ``ComponentExchange``s.
 
     Attributes
     ----------
@@ -479,7 +477,7 @@ class InterfaceContextDiagram(ContextDiagram):
         if self._include_interface and self._include_port_allocations:
             self._add_port_allocations(layout)
 
-        is_legend: bool = params.get("is_legend", False)  # type: ignore[assignment]
+        is_legend: bool = params.get("is_legend", False)
         add_context(layout, is_legend)
         return self.serializer.make_diagram(
             layout, transparent_background=self._transparent_background
@@ -521,7 +519,7 @@ class InterfaceContextDiagram(ContextDiagram):
                 )
 
     @property
-    def name(self) -> str:  # type: ignore
+    def name(self) -> str:
         return f"Interface Context of {self.target.name}"
 
 
@@ -547,9 +545,7 @@ def _create_edge(
 
 
 class FunctionalContextDiagram(ContextDiagram):
-    """An automatically generated Context Diagram exclusively for
-    Components.
-    """
+    """A Context Diagram exclusively for Components."""
 
     def __init__(
         self,
@@ -567,7 +563,7 @@ class FunctionalContextDiagram(ContextDiagram):
         ] = exchanges.functional_context_collector
 
     @property
-    def name(self) -> str:  # type: ignore
+    def name(self) -> str:
         return f"Interface Context of {self.target.name}"
 
 
@@ -618,12 +614,12 @@ class ClassTreeDiagram(ContextDiagram):
         self.collector = tree_view.collector
 
     @property
-    def uuid(self) -> str:  # type: ignore
+    def uuid(self) -> str:
         """Returns the UUID of the diagram."""
         return f"{self.target.uuid}_tree_view"
 
     @property
-    def name(self) -> str:  # type: ignore
+    def name(self) -> str:
         """Returns the name of the diagram."""
         return f"Tree view of {self.target.name}"
 
@@ -729,12 +725,12 @@ class RealizationViewDiagram(ContextDiagram):
         self.collector = realization_view.collector
 
     @property
-    def uuid(self) -> str:  # type: ignore
+    def uuid(self) -> str:
         """Returns the UUID of the diagram."""
         return f"{self.target.uuid}_realization_view"
 
     @property
-    def name(self) -> str:  # type: ignore
+    def name(self) -> str:
         """Returns the name of the diagram."""
         return f"Realization view of {self.target.name}"
 
@@ -742,7 +738,7 @@ class RealizationViewDiagram(ContextDiagram):
         data, edges = self.elk_input_data(params)
         assert isinstance(data, _elkjs.ELKInputData)
         assert isinstance(edges, list)
-        layout = try_to_layout(data)  # type: ignore[unreachable]
+        layout = try_to_layout(data)
         adjust_layer_sizing(data, layout, self._layer_sizing)
         layout = try_to_layout(data)
         for edge in edges:
@@ -812,12 +808,12 @@ class DataFlowViewDiagram(ContextDiagram):
         self.collector = dataflow_view.collector
 
     @property
-    def uuid(self) -> str:  # type: ignore
+    def uuid(self) -> str:
         """Returns the UUID of the diagram."""
         return f"{self.target.uuid}_data_flow_view"
 
     @property
-    def name(self) -> str:  # type: ignore
+    def name(self) -> str:
         """Returns the name of the diagram."""
         return f"DataFlow view of {self.target.name}"
 
@@ -849,12 +845,12 @@ class CableTreeViewDiagram(ContextDiagram):
         self.collector = cable_tree.collector
 
     @property
-    def uuid(self) -> str:  # type: ignore
+    def uuid(self) -> str:
         """Returns the UUID of the diagram."""
         return f"{self.target.uuid}_cable_tree"
 
     @property
-    def name(self) -> str:  # type: ignore
+    def name(self) -> str:
         return f"Cable Tree View of {self.target.name}"
 
 
@@ -951,7 +947,7 @@ def calculate_label_position(
 def _get_all_ports(
     node: _elkjs.ELKOutputNode, ref: cdiagram.Vector2D
 ) -> cabc.Iterator[tuple[cdiagram.Vector2D, _elkjs.ELKOutputPort]]:
-    """Yield all ports from"""
+    """Yield all ports from."""
     for child in node.children:
         if isinstance(child, _elkjs.ELKOutputPort):
             yield ref + (child.position.x, child.position.y), child

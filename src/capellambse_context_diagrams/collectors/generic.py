@@ -1,8 +1,10 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
-"""
-Functionality for collection of model data from an instance of [`MelodyModel`][capellambse.model.MelodyModel]
-and conversion of it into [`_elkjs.ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData].
+"""Functionality for collecting model data.
+
+The data stems from an instance of
+[`MelodyModel`][capellambse.model.MelodyModel] and converts it into
+[`_elkjs.ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData].
 """
 
 from __future__ import annotations
@@ -57,7 +59,7 @@ def collector(
     width: int | float = makers.EOI_WIDTH,
     no_symbol: bool = False,
 ) -> _elkjs.ELKInputData:
-    """Returns ``ELKInputData`` with only centerbox in children and config."""
+    """Return ELK data with only centerbox in children and config."""
     data = makers.make_diagram(diagram)
     data.children = [
         makers.make_box(
@@ -89,9 +91,7 @@ class ExchangeData(t.NamedTuple):
     elkdata: _elkjs.ELKInputData
     """The collected elkdata to add the edges in there."""
     filter_iterable: cabc.Iterable[str]
-    """
-    A string that maps to a filter label adjuster
-    callable in
+    """A string that maps to a filter label adjuster callable in
     [`FILTER_LABEL_ADJUSTERS`][capellambse_context_diagrams.filters.FILTER_LABEL_ADJUSTERS].
     """
     params: dict[str, t.Any] | None = None
@@ -188,7 +188,7 @@ def collect_label(obj: m.ModelElement) -> str | None:
     """
     if isinstance(obj, interaction.AbstractCapabilityExtend):
         return "« e »"
-    elif isinstance(obj, interaction.AbstractCapabilityInclude):
+    if isinstance(obj, interaction.AbstractCapabilityInclude):
         return "« i »"
     return "" if obj.name.startswith("(Unnamed") else obj.name
 

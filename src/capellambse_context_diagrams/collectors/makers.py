@@ -50,10 +50,8 @@ BOX_TO_SYMBOL = (
     "SystemHumanActor",
     "SystemActor",
 )
-"""
-Types that need to be converted to symbols during serialization if
-`display_symbols_as_boxes` attribute is `False`.
-"""
+"""Types that need to be converted to symbols during serialization if
+`display_symbols_as_boxes` attribute is `False`."""
 ICON_WIDTH = icon_size + icon_padding * 2
 """Default icon width from capellambse including the padding around it."""
 ICON_HEIGHT = icon_size
@@ -90,8 +88,12 @@ def make_label(
     layout_options: _elkjs.LayoutOptions | None = None,
     max_width: int | float | None = None,
 ) -> list[_elkjs.ELKInputLabel]:
-    """Return an
-    [`ELKInputLabel`][capellambse_context_diagrams._elkjs.ELKInputLabel].
+    """Return a label.
+
+    See Also
+    --------
+    [`ELKInputLabel`][capellambse_context_diagrams._elkjs.ELKInputLabel] :
+        Input data for an ELK label.
     """
     label_width, label_height = chelpers.get_text_extent(text)
     icon_width, _ = icon
@@ -122,7 +124,7 @@ def make_label(
 
 
 class _LabelBuilder(te.TypedDict, total=True):
-    """Builder object for labels"""
+    """Builder object for labels."""
 
     text: str
     icon: tuple[int | float, int | float]
@@ -148,8 +150,12 @@ def make_box(
     max_label_width: int | float = MAX_BOX_WIDTH,
     layout_options: _elkjs.LayoutOptions | None = None,
 ) -> _elkjs.ELKInputChild:
-    """Return an
-    [`ELKInputChild`][capellambse_context_diagrams._elkjs.ELKInputChild].
+    """Return a box.
+
+    See Also
+    --------
+    [`ELKInputChild`][capellambse_context_diagrams._elkjs.ELKInputChild] :
+        Input data for an ELK box.
     """
     layout_options = layout_options or CENTRIC_LABEL_LAYOUT_OPTIONS
     if symbol := not no_symbol and is_symbol(obj):
@@ -203,14 +209,18 @@ def is_symbol(obj: str | m.ModelElement | None) -> bool:
     """Check if given `obj` is rendered as a Symbol instead of a Box."""
     if obj is None:
         return False
-    elif isinstance(obj, str):
+    if isinstance(obj, str):
         return obj in BOX_TO_SYMBOL
     return type(obj).__name__ in BOX_TO_SYMBOL
 
 
 def make_port(uuid: str) -> _elkjs.ELKInputPort:
-    """Return an
-    [`ELKInputPort`][capellambse_context_diagrams._elkjs.ELKInputPort].
+    """Return a port.
+
+    See Also
+    --------
+    [`ELKInputPort`][capellambse_context_diagrams._elkjs.ELKInputPort] :
+        Input data for an ELK port.
     """
     return _elkjs.ELKInputPort(
         id=uuid,

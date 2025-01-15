@@ -165,6 +165,9 @@ Temporary Items
 .apdisk
 #endregion
 
+# don't commit lock files for library projects
+uv.lock
+
 #region Python.gitignore
 # Byte-compiled / optimized / DLL files
 __pycache__/

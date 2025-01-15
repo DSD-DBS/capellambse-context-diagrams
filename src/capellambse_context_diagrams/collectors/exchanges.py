@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 class ExchangeCollector(metaclass=abc.ABCMeta):
     """Base class for context collection on Exchanges."""
 
-    intermap: dict[DT, tuple[str, str, str, str]] = {
+    intermap: t.ClassVar[dict[DT, tuple[str, str, str, str]]] = {
         DT.OAB: ("source", "target", "allocated_interactions", "activities"),
         DT.SAB: (
             "source.owner",
@@ -46,9 +46,8 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
 
     def __init__(
         self,
-        diagram: (
-            context.InterfaceContextDiagram | context.FunctionalContextDiagram
-        ),
+        diagram: context.InterfaceContextDiagram
+        | context.FunctionalContextDiagram,
         data: _elkjs.ELKInputData,
         params: dict[str, t.Any],
     ) -> None:
@@ -104,9 +103,8 @@ class ExchangeCollector(metaclass=abc.ABCMeta):
 
 
 def get_elkdata_for_exchanges(
-    diagram: (
-        context.InterfaceContextDiagram | context.FunctionalContextDiagram
-    ),
+    diagram: context.InterfaceContextDiagram
+    | context.FunctionalContextDiagram,
     collector_type: type[ExchangeCollector],
     params: dict[str, t.Any],
 ) -> _elkjs.ELKInputData:
@@ -121,7 +119,9 @@ def get_elkdata_for_exchanges(
 
 
 class InterfaceContextCollector(ExchangeCollector):
-    """Collect necessary
+    """Collect context data for interfaces.
+
+    Collect necessary
     [`_elkjs.ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData]
     for building the interface context.
     """
@@ -225,7 +225,8 @@ class InterfaceContextCollector(ExchangeCollector):
         boxes: dict[str, _elkjs.ELKInputChild],
     ) -> str:
         owners: list[m.ModelElement] = []
-        assert self.right is not None and self.left is not None
+        assert self.right is not None
+        assert self.left is not None
         root: _elkjs.ELKInputChild | None = None
         for uuid in generic.get_all_owners(obj):
             element = self.obj._model.by_uuid(uuid)
@@ -316,7 +317,9 @@ class InterfaceContextCollector(ExchangeCollector):
 
 
 class PhysicalLinkContextCollector(ExchangeCollector):
-    """Collect necessary
+    """Collects a `PhysicalLink` context.
+
+    Collect necessary
     [`_elkjs.ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData]
     for building the ``PhysicalLink`` context.
     """
@@ -339,19 +342,18 @@ class PhysicalLinkContextCollector(ExchangeCollector):
 
     def get_owner_savely(self, attr_getter: t.Callable) -> m.ModelElement:
         try:
-            owner = attr_getter(self.obj)
-            return owner
-        except RuntimeError:
+            return (owner := attr_getter(self.obj))
+        except RuntimeError as error:
             # pylint: disable-next=raise-missing-from
             raise errors.CapellambseError(
                 f"Failed to collect source of '{self.obj.name}'"
-            )
-        except AttributeError:
+            ) from error
+        except AttributeError as error:
             assert owner is None
             # pylint: disable-next=raise-missing-from
             raise errors.CapellambseError(
                 f"Port has no owner: '{self.obj.name}'"
-            )
+            ) from error
 
     def get_left_and_right(self) -> None:
         source = self.get_owner_savely(self.get_source)
@@ -450,7 +452,7 @@ def functional_context_collector(
 def interface_context_collector(
     diagram: context.InterfaceContextDiagram, pars: dict[str, t.Any]
 ) -> _elkjs.ELKInputData:
-    collector: t.Type[ExchangeCollector]
+    collector: type[ExchangeCollector]
     if isinstance(diagram.target, cs.PhysicalLink):
         collector = PhysicalLinkContextCollector
     else:

@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 """Functions and registry for filter functionality."""
+
 from __future__ import annotations
 
 import collections.abc as cabc
@@ -31,8 +32,10 @@ NO_UUID = "capellambse_context_diagrams-hide.uuids.filter"
 SYSTEM_EX_RELABEL = (
     "capellambse_context_diagrams-relabel.system.analysis.exchange"
 )
-"""Relabel exchanges from the SystemAnalysis layer. E.g. « i » is converted to
-includes or involves, based on the type."""
+"""Relabel exchanges from the SystemAnalysis layer.
+
+E.g. « i » is converted to includes or involves, based on the type.
+"""
 
 
 logger = logging.getLogger(__name__)
@@ -54,10 +57,11 @@ LABEL_CONVERSION: t.Final[dict[str, str]] = {
 
 
 def exchange_items(obj: m.ModelElement) -> str:
-    """Return `obj`'s `ExchangeItem`s wrapped in [E1,...] and separated
-    by ','.
+    """Return ``obj``'s ``ExchangeItem``s names.
+
+    The returned string is wrapped in [E1,...] and separated by ','.
     """
-    assert isinstance(obj, (fa.FunctionalExchange, fa.ComponentExchange))
+    assert isinstance(obj, fa.FunctionalExchange | fa.ComponentExchange)
     if items := ", ".join(item.name for item in obj.exchange_items):
         return f"[{items}]"
     return ""
@@ -66,7 +70,7 @@ def exchange_items(obj: m.ModelElement) -> str:
 def exchange_name_and_items(
     obj: m.ModelElement, label: str | None = None
 ) -> str:
-    """Return `obj`'s name and `ExchangeItem`s if there are any."""
+    """Return ``obj``'s name and ``ExchangeItem``s if there are any."""
     label = label or obj.name
     if ex_items := exchange_items(obj):
         label += " " + ex_items
@@ -74,14 +78,14 @@ def exchange_name_and_items(
 
 
 def uuid_filter(obj: m.ModelElement, label: str | None = None) -> str:
-    """Return `obj`'s name or `obj` if string w/o UUIDs in it."""
+    """Return ``obj``'s name or ``obj`` if string w/o UUIDs in it."""
     filtered_label = label if label is not None else obj.name
     assert isinstance(filtered_label, str)
     return UUID_PTRN.sub("", filtered_label)
 
 
 def relabel_system_exchange(obj: m.ModelElement, label: str | None) -> str:
-    """Return converted label from obj, a system exchanges."""
+    """Return converted label from ``obj``, a system exchanges."""
     label_map = LABEL_CONVERSION
     if patch := label_map.get(type(obj).__name__):
         return f"« {patch} »"
@@ -101,7 +105,7 @@ FILTER_LABEL_ADJUSTERS: dict[
     NO_UUID: uuid_filter,
     SYSTEM_EX_RELABEL: relabel_system_exchange,
 }
-"""Label adjuster registry. """
+"""Label adjuster registry."""
 
 
 def sort_exchange_items_label(

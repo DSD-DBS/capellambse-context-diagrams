@@ -248,46 +248,52 @@ class CustomCollector:
         src_uuid: str,
         tgt_uuid: str,
     ) -> bool:
-        if self.diagram._unify_edge_direction == "SMART":
-            if src_uuid != self.boxable_target.uuid:
-                src_uncommon = [
-                    owner for owner in src_owners if owner not in tgt_owners
-                ][-1]
-                src_dir = self.directions.setdefault(src_uncommon, False)
-            else:
-                src_dir = None
-            if tgt_uuid != self.boxable_target.uuid:
-                tgt_uncommon = [
-                    owner for owner in tgt_owners if owner not in src_owners
-                ][-1]
-                tgt_dir = self.directions.setdefault(tgt_uncommon, True)
-            else:
-                tgt_dir = None
-            if (src_dir is True) or (tgt_dir is False):
-                return True
-        elif self.diagram._unify_edge_direction == "UNIFORM":
+        def _get_direction(
+            uuid: str,
+            owners: list[str],
+            opposite_owners: list[str],
+            default: bool,
+        ) -> bool | None:
+            if uuid == self.boxable_target.uuid:
+                return None
+            uncommon_owner = next(
+                owner for owner in owners if owner not in opposite_owners
+            )
+            return self.directions.setdefault(uncommon_owner, default)
+
+        def _initialize_directions(
+            src_uuid: str, tgt_uuid: str, default_src: bool, default_tgt: bool
+        ) -> tuple[bool, bool]:
             src_dir = self.directions.get(src_uuid)
             tgt_dir = self.directions.get(tgt_uuid)
-            if (src_dir is None) and (tgt_dir is None):
-                self.directions[src_uuid] = False
-                self.directions[tgt_uuid] = True
+            # Set default directions if both are missing
+            if src_dir is None and tgt_dir is None:
+                self.directions[src_uuid] = default_src
+                self.directions[tgt_uuid] = default_tgt
+            # Set src_dir based on tgt_dir if src_dir is missing
             elif src_dir is None:
                 self.directions[src_uuid] = not tgt_dir
+            # Set tgt_dir based on src_dir if tgt_dir is missing
             elif tgt_dir is None:
                 self.directions[tgt_uuid] = not src_dir
-            if self.directions[src_uuid]:
-                return True
-        elif self.diagram._unify_edge_direction == "TREE":
-            src_dir = self.directions.get(src_uuid)
-            tgt_dir = self.directions.get(tgt_uuid)
-            if (src_dir is None) and (tgt_dir is None):
-                self.directions[src_uuid] = True
-                self.directions[tgt_uuid] = True
-            elif src_dir is None:
-                self.directions[src_uuid] = True
-                return True
-            elif tgt_dir is None:
-                self.directions[tgt_uuid] = True
+
+            return self.directions[src_uuid], self.directions[tgt_uuid]
+
+        edge_direction: str = self.diagram._unify_edge_direction
+        if edge_direction == "SMART":
+            src_dir = _get_direction(src_uuid, src_owners, tgt_owners, False)
+            tgt_dir = _get_direction(tgt_uuid, tgt_owners, src_owners, True)
+            return src_dir is True or tgt_dir is False
+
+        if edge_direction == "UNIFORM":
+            src_dir, tgt_dir = _initialize_directions(
+                src_uuid, tgt_uuid, False, True
+            )
+            return src_dir
+
+        if edge_direction == "TREE":
+            _initialize_directions(src_uuid, tgt_uuid, True, True)
+
         return False
 
     def _make_port_and_owner(

@@ -192,7 +192,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
               <figcaption>Context of Maintain Switch Firmware [PDFB]</figcaption>
           </figure>
 
--   ??? example "[`pa.PhysicalPort`][capellambse.metamodel.pa.PhysicalPort] (PAB)"
+-   ??? example "[`pa.PhysicalPort`][capellambse.metamodel.cs.PhysicalPort] (PAB)"
 
           ``` py
           import capellambse

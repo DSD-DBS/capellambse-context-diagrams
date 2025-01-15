@@ -4,11 +4,12 @@
 site_name: Context diagrams for py-capellambse
 repo_name: capellambse-context-diagrams
 repo_url: https://github.com/DSD-DBS/capellambse-context-diagrams
-watch: [capellambse_context_diagrams, overrides]
+docs_dir: docs
+watch: [src, docs]
 
 theme:
   name: material
-  custom_dir: overrides
+  custom_dir: docs/overrides
   icon:
     repo: fontawesome/brands/square-github
   palette:
@@ -65,7 +66,7 @@ plugins:
   - mkdocstrings:
       handlers:
         python:
-          paths: [capellambse_context_diagrams]
+          paths: [src]
           import:
             - https://dsd-dbs.github.io/py-capellambse/objects.inv
           enable_inventory: yes

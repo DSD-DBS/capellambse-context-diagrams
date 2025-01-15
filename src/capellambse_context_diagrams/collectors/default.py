@@ -1,8 +1,10 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
-"""
-Collection of [`ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData]
-on diagrams that involve ports.
+"""Default collector for the ContextDiagram.
+
+Collection of
+[`ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData] on
+diagrams that involve ports.
 """
 
 from __future__ import annotations
@@ -104,9 +106,9 @@ class ContextProcessor:
 
         if self.diagram._hide_direct_children:
             self.centerbox.children = []
-            hidden = set(edge.id for edge in self.centerbox.edges)
-            centerbox_ports = set(port.id for port in self.centerbox.ports)
-            port_uuids = set()
+            hidden = {edge.id for edge in self.centerbox.edges}
+            centerbox_ports = {port.id for port in self.centerbox.ports}
+            port_uuids: set[str] = set()
             for ex in self.exchanges.values():
                 if ex.uuid not in hidden:
                     if ex.source.uuid in centerbox_ports:
@@ -177,9 +179,9 @@ class ContextProcessor:
             ):
                 if not self.diagram._display_parent_relation:
                     continue
-                self.centerbox.labels[0].layoutOptions = (
-                    makers.DEFAULT_LABEL_LAYOUT_OPTIONS
-                )
+                self.centerbox.labels[
+                    0
+                ].layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
                 elkdata: _elkjs.ELKInputData = self.centerbox
             else:
                 elkdata = self.data
@@ -241,7 +243,7 @@ class ContextProcessor:
                 height += label_heights
                 local_port_objs.append(port)
 
-            if box := self.global_boxes.get(owner.uuid):  # type: ignore[assignment]
+            if box := self.global_boxes.get(owner.uuid):
                 if box is self.centerbox:
                     continue
                 box.ports.extend(local_port_objs)
@@ -317,19 +319,18 @@ def collector(
 def port_collector(
     target: m.ModelElement | m.ElementList, diagram_type: DT
 ) -> tuple[dict[str, m.ModelElement], dict[str, m.ModelElement]]:
-    """Savely collect ports from `target`."""
+    """Collect ports from `target` savely."""
 
     def __collect(target):
+        port_types = fa.FunctionPort | fa.ComponentPort | cs.PhysicalPort
         incoming_ports: dict[str, m.ModelElement] = {}
         outgoing_ports: dict[str, m.ModelElement] = {}
         for attr in generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[diagram_type]:
             try:
                 ports = getattr(target, attr)
-                if not ports or not isinstance(
-                    ports[0],
-                    (fa.FunctionPort, fa.ComponentPort, cs.PhysicalPort),
-                ):
+                if not ports or not isinstance(ports[0], port_types):
                     continue
+
                 if attr == "inputs":
                     incoming_ports.update({p.uuid: p for p in ports})
                 elif attr == "ports":
@@ -433,7 +434,7 @@ def port_context_collector(
             continue
 
         try:
-            owner = port.owner  # type: ignore[attr-defined]
+            owner = port.owner
         except AttributeError:
             continue
 

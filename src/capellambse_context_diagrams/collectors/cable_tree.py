@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
+"""Collector for the CableTreeDiagram."""
 
-"""This module defines the collector for the CableTreeDiagram."""
 from __future__ import annotations
 
 import typing as t
@@ -63,11 +63,10 @@ class CableTreeCollector:
             if self.common_owner:
                 if self.common_owner not in owners:
                     continue
-            else:
-                if (self.src_obj.uuid in owners) or (
-                    self.tgt_obj.uuid in owners
-                ):
-                    continue
+            elif (self.src_obj.uuid in owners) or (
+                self.tgt_obj.uuid in owners
+            ):
+                continue
             if reverse:
                 self._make_edge(link, obj, port_obj)
             else:
@@ -118,5 +117,5 @@ class CableTreeCollector:
 def collector(
     diagram: context.ContextDiagram, params: dict[str, t.Any]
 ) -> _elkjs.ELKInputData:
-    """Main collector function for the CableTreeDiagram."""
+    """Collect model elements for the CableTreeDiagram."""
     return CableTreeCollector(diagram, params)()

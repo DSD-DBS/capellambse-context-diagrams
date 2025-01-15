@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
-"""This module defines the collector for the CustomDiagram."""
+"""Collector for the CustomDiagram."""
 
 from __future__ import annotations
 
@@ -15,15 +15,11 @@ from . import generic, makers
 
 
 def _is_edge(obj: m.ModelElement) -> bool:
-    if hasattr(obj, "source") and hasattr(obj, "target"):
-        return True
-    return False
+    return hasattr(obj, "source") and hasattr(obj, "target")
 
 
 def _is_port(obj: m.ModelElement) -> bool:
-    if obj.xtype.endswith("Port"):
-        return True
-    return False
+    return obj.xtype.endswith("Port")
 
 
 class CustomCollector:
@@ -168,12 +164,11 @@ class CustomCollector:
         tgt_owner = tgt_obj.owner
         src_owners = list(generic.get_all_owners(src_obj))
         tgt_owners = list(generic.get_all_owners(tgt_obj))
-        if self.diagram._hide_direct_children:
-            if (
-                self.boxable_target.uuid in src_owners
-                or self.boxable_target.uuid in tgt_owners
-            ):
-                return None
+        if self.diagram._hide_direct_children and (
+            self.boxable_target.uuid in src_owners
+            or self.boxable_target.uuid in tgt_owners
+        ):
+            return None
         if self.diagram._display_parent_relation:
             common_owner = None
             for owner in src_owners:

@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
+"""Collector for the RealizationView diagram."""
 
-"""This submodule defines the collector for the RealizationView diagram."""
 from __future__ import annotations
 
 import collections.abc as cabc
@@ -33,7 +33,7 @@ def collector(
     lay_to_els = _collector(diagram.target, params.get("depth", 1))
     layer_layout_options: _elkjs.LayoutOptions = layout_options | {  # type: ignore[operator]
         "nodeSize.constraints": "[NODE_LABELS,MINIMUM_SIZE]",
-    }  # type: ignore[assignment]
+    }
     edges: list[_elkjs.ELKInputEdge] = []
     for layer in ("Operational", "System", "Logical", "Physical"):
         if not (elements := lay_to_els.get(layer)):  # type: ignore[call-overload]
@@ -75,7 +75,7 @@ def collector(
 
                 if params.get("show_owners"):
                     owner = target.owner
-                    if not isinstance(owner, (fa.Function, cs.Component)):
+                    if not isinstance(owner, fa.Function | cs.Component):
                         continue
 
                     if not (owner_box := children.get(owner.uuid)):
@@ -188,12 +188,12 @@ def collect_elements(
     return collected_elements
 
 
-LayerLiteral = t.Union[
-    t.Literal["Operational"],
-    t.Literal["System"],
-    t.Literal["Logical"],
-    t.Literal["Physical"],
-]
+LayerLiteral = (
+    t.Literal["Operational"]
+    | t.Literal["System"]
+    | t.Literal["Logical"]
+    | t.Literal["Physical"]
+)
 
 
 def find_layer(

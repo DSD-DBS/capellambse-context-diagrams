@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import logging
 import pathlib
-import typing as t
 
 import mkdocs_gen_files
 from capellambse import MelodyModel, diagram
@@ -50,7 +49,7 @@ cable_tree_uuid = "5c55b11b-4911-40fb-9c4c-f1363dad846e"
 def generate_index_images() -> None:
     for uuid in diagram_uuids.values():
         diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
-        with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
+        with mkdocs_gen_files.open(f"{dest / diag.name!s}.svg", "w") as fd:
             print(diag.render("svg", transparent_background=False), file=fd)  # type: ignore[arg-type]
 
 
@@ -60,7 +59,7 @@ def generate_symbol_images() -> None:
         diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
         diag._display_symbols_as_boxes = True
         diag.invalidate_cache()
-        filepath = f"{str(dest / diag.name)} symbols.svg"
+        filepath = f"{dest / diag.name!s} symbols.svg"
         with mkdocs_gen_files.open(filepath, "w") as fd:
             print(diag.render("svg", transparent_background=False), file=fd)
 
@@ -118,7 +117,7 @@ def generate_styling_image(
 def generate_hierarchy_image() -> None:
     obj = model.by_uuid(hierarchy_context)
     diag: context.ContextDiagram = obj.context_diagram
-    with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
+    with mkdocs_gen_files.open(f"{dest / diag.name!s}.svg", "w") as fd:
         print(
             diag.render(
                 "svg",
@@ -132,11 +131,9 @@ def generate_hierarchy_image() -> None:
 def generate_class_tree_images() -> None:
     obj = model.by_uuid(class_tree_uuid)
     diag = obj.tree_view
-    with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
+    with mkdocs_gen_files.open(f"{dest / diag.name!s}.svg", "w") as fd:
         print(diag.render("svg"), file=fd)
-    with mkdocs_gen_files.open(
-        f"{str(dest / diag.name)}-params.svg", "w"
-    ) as fd:
+    with mkdocs_gen_files.open(f"{dest / diag.name!s}-params.svg", "w") as fd:
         print(
             diag.render(
                 "svg",
@@ -173,7 +170,7 @@ def generate_data_flow_image() -> None:
     diag: context.DataFlowViewDiagram = model.by_uuid(
         data_flow_uuid
     ).data_flow_view
-    with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
+    with mkdocs_gen_files.open(f"{dest / diag.name!s}.svg", "w") as fd:
         print(diag.render("svg", transparent_background=False), file=fd)
 
 
@@ -183,9 +180,7 @@ def generate_derived_image() -> None:
         "display_derived_interfaces": True,
         "transparent_background": False,
     }
-    with mkdocs_gen_files.open(
-        f"{str(dest / diag.name)}-derived.svg", "w"
-    ) as fd:
+    with mkdocs_gen_files.open(f"{dest / diag.name!s}-derived.svg", "w") as fd:
         print(diag.render("svg", **params), file=fd)
 
 
@@ -193,7 +188,7 @@ def generate_interface_with_hide_functions_image():
     uuid = interface_context_diagram_uuids["Interface"]
     diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
     with mkdocs_gen_files.open(
-        f"{str(dest / diag.name)}-hide-functions.svg", "w"
+        f"{dest / diag.name!s}-hide-functions.svg", "w"
     ) as fd:
         print(diag.render("svg", hide_functions=True), file=fd)
 
@@ -203,7 +198,7 @@ def generate_interface_with_hide_interface_image():
     diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
     params = {"include_interface": False}
     with mkdocs_gen_files.open(
-        f"{str(dest / diag.name)}-hide-interface.svg", "w"
+        f"{dest / diag.name!s}-hide-interface.svg", "w"
     ) as fd:
         print(diag.render("svg", **params), file=fd)
 
@@ -212,7 +207,7 @@ def generate_cable_tree_image():
     diag: context.CableTreeViewDiagram = model.by_uuid(
         cable_tree_uuid
     ).cable_tree
-    with mkdocs_gen_files.open(f"{str(dest / diag.name)}.svg", "w") as fd:
+    with mkdocs_gen_files.open(f"{dest / diag.name!s}.svg", "w") as fd:
         print(diag.render("svg", transparent_background=False), file=fd)
 
 
@@ -233,7 +228,7 @@ generate_styling_image(
     lost_uuid,
     dict(
         styling.BLUE_ACTOR_FNCS,
-        junction=lambda o, s: {"stroke": diagram.RGB(220, 20, 60)},
+        junction=lambda _, __: {"stroke": diagram.RGB(220, 20, 60)},
     ),
     "red junction",
 )

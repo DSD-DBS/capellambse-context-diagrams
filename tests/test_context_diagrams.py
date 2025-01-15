@@ -54,10 +54,7 @@ TEST_PHYSICAL_PORT_UUID = "c403d4f4-9633-42a2-a5d6-9e1df2655146"
             "c78b5d7c-be0c-4ed4-9d12-d447cb39304e",
             id="PhysicalBehaviorComponent",
         ),
-        pytest.param(
-            TEST_PHYSICAL_PORT_UUID,
-            id="PhysicalPort",
-        ),
+        pytest.param(TEST_PHYSICAL_PORT_UUID, id="PhysicalPort"),
     ],
 )
 def test_context_diagrams(model: capellambse.MelodyModel, uuid: str) -> None:
@@ -280,8 +277,8 @@ def test_context_diagram_hide_direct_children(
     diag.invalidate_cache()
     white = diag.render(None, hide_direct_children=False)
 
-    assert not set(element.uuid for element in grey) & expected_hidden_uuids
-    assert set(element.uuid for element in white) & expected_hidden_uuids
+    assert not {element.uuid for element in grey} & expected_hidden_uuids
+    assert {element.uuid for element in white} & expected_hidden_uuids
 
 
 def test_context_diagram_detects_and_handles_cycles(
@@ -303,5 +300,5 @@ def test_context_diagram_display_unused_ports(
     adiag = obj.context_diagram.render(None, display_unused_ports=False)
     bdiag = obj.context_diagram.render(None, display_unused_ports=True)
 
-    assert unused_port_uuid not in set(element.uuid for element in adiag)
-    assert unused_port_uuid in set(element.uuid for element in bdiag)
+    assert unused_port_uuid not in {element.uuid for element in adiag}
+    assert unused_port_uuid in {element.uuid for element in bdiag}

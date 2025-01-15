@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
+"""Collector for the DataFlowDiagram."""
 
-"""This module defines the collectors for the DataFlowDiagram."""
 from __future__ import annotations
 
 import collections.abc as cabc
@@ -54,7 +54,7 @@ def collector(
         cabc.Iterable[fa.FunctionalExchange],
     ] = only_involved,
 ) -> _elkjs.ELKInputData:
-    """Main collector that calls either default or portless collectors."""
+    """Collect model elements through default or portless collectors."""
     return _collect_data(
         diagram, params, exchange_filter, **COLLECTOR_PARAMS[diagram.type]
     )
@@ -73,7 +73,7 @@ def _collect_data(
     ],
     attribute: str,
     filter_attrs: tuple[str, str] = ("source", "target"),
-    port_collector: t.Optional[cabc.Callable] = None,
+    port_collector: cabc.Callable | None = None,
 ) -> _elkjs.ELKInputData:
     data = makers.make_diagram(diagram)
     elements = getattr(diagram.target, attribute)

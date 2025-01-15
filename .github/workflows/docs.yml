@@ -14,13 +14,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Set up Python runtime
-        uses: actions/setup-python@v5
         with:
-          python-version: 3.11
-      - name: Install Python dependencies
-        run: |
-          pip install '.[docs]'
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+          cache-dependency-glob: "**/pyproject.toml"
+          python-version: "3.12"
       - name: Deploy documentation
-        run: |
-          mkdocs gh-deploy --force
+        run: uv run --group docs mkdocs gh-deploy --force

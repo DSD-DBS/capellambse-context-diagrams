@@ -1,12 +1,17 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
+"""Serialize an ELK diagram into a capellambse diagram.
 
-"""This submodule provides a serializer that transforms data from an ELK-
-layouted diagram [_elkjs.ELKOutputData][capellambse_context_diagrams._elkjs.ELKOutputData]
-according to [_elkjs.ELKInputData][capellambse_context_diagrams._elkjs.ELKInputData].
+This submodule provides a serializer that transforms data from an ELK-
+layouted diagram
+[_elkjs.ELKOutputData][capellambse_context_diagrams._elkjs.ELKOutputData]
+according to
+[_elkjs.ELKInputData][capellambse_context_diagrams._elkjs.ELKInputData].
+
 The pre-layouted data was collected with the functions from
 [collectors][capellambse_context_diagrams.collectors].
 """
+
 from __future__ import annotations
 
 import collections.abc as cabc
@@ -15,6 +20,7 @@ import logging
 import typing as t
 
 from capellambse import diagram as cdiagram
+from capellambse import model as m
 from capellambse.svg import decorations
 
 from . import _elkjs, context
@@ -42,8 +48,7 @@ REMAP_STYLECLASS: dict[t.Any, str | None] = {"Unset": "Association"}
 
 
 class DiagramSerializer:
-    """Serialize an ``elk_diagram`` into an
-    [`diagram.Diagram`][capellambse.diagram.Diagram].
+    """Serialize an ``elk_diagram`` into a capellambse diagram.
 
     Attributes
     ----------
@@ -64,7 +69,7 @@ class DiagramSerializer:
         self._junctions: dict[str, EdgeContext] = {}
 
     def make_diagram(
-        self, data: _elkjs.ELKOutputData, **kwargs: t.Any
+        self, data: _elkjs.ELKOutputData, **params: t.Any
     ) -> cdiagram.Diagram:
         """Transform a layouted diagram into a `diagram.Diagram`.
 
@@ -72,6 +77,8 @@ class DiagramSerializer:
         ----------
         data
             The diagram, including layouting information.
+        params
+            Additional parameters for the diagram.
 
         Returns
         -------
@@ -82,7 +89,7 @@ class DiagramSerializer:
         self.diagram = cdiagram.Diagram(
             self._diagram.name.replace("/", "\\"),
             styleclass=self._diagram.styleclass,
-            params=kwargs,
+            params=params,
         )
         for child in data.children:
             self.deserialize_child(child, cdiagram.Vector2D(), None)
@@ -105,8 +112,7 @@ class DiagramSerializer:
         ref: cdiagram.Vector2D,
         parent: cdiagram.DiagramElement | None,
     ) -> None:
-        """Converts a `child` into aird elements and adds it to the
-        diagram.
+        """Convert a `child` into aird elements and adds it to the diagram.
 
         Parameters
         ----------
@@ -149,13 +155,15 @@ class DiagramSerializer:
             is_port = child.type == "port"
             box_type = ("box", "symbol")[
                 is_port
-                or has_symbol_cls
-                and not self._diagram.target.uuid == uuid
-                and not self._diagram._display_symbols_as_boxes
+                or (
+                    has_symbol_cls
+                    and self._diagram.target.uuid != uuid
+                    and not self._diagram._display_symbols_as_boxes
+                )
             ]
 
             assert not isinstance(
-                child, (_elkjs.ELKOutputEdge, _elkjs.ELKOutputJunction)
+                child, _elkjs.ELKOutputEdge | _elkjs.ELKOutputJunction
             )
             ref += (child.position.x, child.position.y)
             size = (child.size.width, child.size.height)
@@ -299,25 +307,31 @@ class DiagramSerializer:
         return is_contained(exchange.source) and is_contained(exchange.target)
 
     def get_styleclass(self, uuid: str) -> str | None:
-        """Return the style-class string from a given
-        [`_elkjs.ELKOutputChild`][capellambse_context_diagrams._elkjs.ELKOutputChild].
-        """
+        """Return the style-class string from a given ``uuid``."""
         try:
-            melodyobj = self._diagram._model.by_uuid(uuid)
+            melodyobj: m.ModelElement | m.Diagram = (
+                self._diagram._model.by_uuid(uuid)
+            )
         except KeyError:
             if not uuid.startswith("__"):
                 return None
             return uuid[2:].split(":", 1)[0]
         else:
+            if isinstance(melodyobj, m.Diagram):
+                return melodyobj.type.value
             return melodyobj._get_styleclass()
 
     def get_styleoverrides(
         self, uuid: str, child: _elkjs.ELKOutputChild, *, derived: bool = False
     ) -> cdiagram.StyleOverrides:
-        """Return
-        [`styling.CSSStyles`][capellambse_context_diagrams.styling.CSSStyles]
-        from a given
-        [`_elkjs.ELKOutputChild`][capellambse_context_diagrams._elkjs.ELKOutputChild].
+        """Return css style overrides from a given ``child``.
+
+        See Also
+        --------
+        [`styling.CSSStyles`][capellambse_context_diagrams.styling.CSSStyles] :
+            A dictionary with CSS styles.
+        [`_elkjs.ELKOutputChild`][capellambse_context_diagrams._elkjs.ELKOutputChild] :
+            An ELK output child.
         """
         style_condition = self._diagram.render_styles.get(child.type)
         styleoverrides: cdiagram.StyleOverrides = {}

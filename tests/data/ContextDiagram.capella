@@ -4160,7 +4160,7 @@ The predator is far away</bodies>
                 id="5269e15c-69fb-45fd-88a0-08d4ab5f5211" name="CP 19" orientation="OUT"
                 kind="FLOW"/>
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
-                id="ec443534-9c07-44be-96d7-802bfa32e67b" name="CP 20" orientation="IN"
+                id="ec443534-9c07-44be-96d7-802bfa32e67b" name="CP 20" orientation="OUT"
                 kind="FLOW"/>
           </ownedLogicalComponents>
           <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
@@ -4484,7 +4484,7 @@ The predator is far away</bodies>
           <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
               id="3253a54d-6df2-4638-bd13-65e51c577758" name="Real leftie">
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
-                id="ac7447ba-b89c-47f9-8390-d7db74c6e02c" name="CP 1" orientation="OUT"
+                id="ac7447ba-b89c-47f9-8390-d7db74c6e02c" name="CP 1" orientation="IN"
                 kind="FLOW"/>
           </ownedLogicalComponents>
           <ownedLogicalComponentPkgs xsi:type="org.polarsys.capella.core.data.la:LogicalComponentPkg"

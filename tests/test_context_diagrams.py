@@ -26,6 +26,7 @@ TEST_DERIVED_UUID = "dbd99773-efb6-4476-bf5c-270a61f18b09"
 TEST_ENTITY_UUID = "e37510b9-3166-4f80-a919-dfaac9b696c7"
 TEST_SYS_FNC_UUID = "a5642060-c9cc-4d49-af09-defaa3024bae"
 TEST_DERIVATION_UUID = "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c"
+TEST_PHYSICAL_PORT_UUID = "c403d4f4-9633-42a2-a5d6-9e1df2655146"
 
 
 @pytest.mark.parametrize(
@@ -53,13 +54,13 @@ TEST_DERIVATION_UUID = "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c"
             "c78b5d7c-be0c-4ed4-9d12-d447cb39304e",
             id="PhysicalBehaviorComponent",
         ),
+        pytest.param(TEST_PHYSICAL_PORT_UUID, id="PhysicalPort"),
     ],
 )
 def test_context_diagrams(model: capellambse.MelodyModel, uuid: str) -> None:
     obj = model.by_uuid(uuid)
 
     diag = obj.context_diagram
-    diag.render(None, display_parent_relation=True)
     diag.render(None, display_parent_relation=False)
 
     assert diag.nodes

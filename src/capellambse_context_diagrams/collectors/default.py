@@ -69,7 +69,6 @@ class ContextProcessor:
         ):
             box = self._make_box(
                 self.diagram.target.owner,
-                no_symbol=self.diagram._display_symbols_as_boxes,
                 layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
             )
             box.children = [self.centerbox]
@@ -85,9 +84,11 @@ class ContextProcessor:
                 and hasattr(current, "owner")
                 and not isinstance(current.owner, generic.PackageTypes)
             ):
-                current = self._make_owner_box(
-                    self.diagram,
+                current = generic.make_owner_box(
                     current,
+                    self._make_box,
+                    self.global_boxes,
+                    self.boxes_to_delete,
                 )
                 self.common_owners.discard(current.uuid)
 
@@ -153,8 +154,8 @@ class ContextProcessor:
         list[generic.ExchangeData],
     ]:
         inc, out = port_collector(self.diagram.target, self.diagram.type)
-        inc_c = port_exchange_collector(inc)
-        out_c = port_exchange_collector(out)
+        inc_c = port_exchange_collector(inc.values())
+        out_c = port_exchange_collector(out.values())
         inc_exchanges = list(chain.from_iterable(inc_c.values()))
         out_exchanges = list(chain.from_iterable(out_c.values()))
         port_spread: dict[str, int] = {}
@@ -198,7 +199,7 @@ class ContextProcessor:
                 is_inc = tgt.parent == self.diagram.target
                 is_out = src.parent == self.diagram.target
                 if is_inc and is_out:
-                    pass
+                    pass  # Support cycles
                 elif (is_out and (port_spread.get(tgt_owner, 0) > 0)) or (
                     is_inc and (port_spread.get(src_owner, 0) <= 0)
                 ):
@@ -208,7 +209,7 @@ class ContextProcessor:
             except AttributeError:
                 continue
 
-        ports = inc + out
+        ports = list((inc | out).values())
         if not self.diagram._display_unused_ports:
             ports = [
                 p for p in ports if (inc_c.get(p.uuid) or out_c.get(p.uuid))
@@ -251,22 +252,21 @@ class ContextProcessor:
                 box = self._make_box(
                     owner,
                     height=height,
-                    no_symbol=self.diagram._display_symbols_as_boxes,
                 )
                 box.ports = local_port_objs
 
             box.layoutOptions["portLabels.placement"] = "OUTSIDE"
 
             if self.diagram._display_parent_relation:
-                current = owner
-                while (
-                    current
-                    and current.uuid not in self.diagram_target_owners
-                    and getattr(current, "owner", None) is not None
-                    and not isinstance(current.owner, generic.PackageTypes)
-                ):
-                    current = self._make_owner_box(self.diagram, current)
-                self.common_owners.add(current.uuid)
+                self.common_owners.add(
+                    generic.make_owner_boxes(
+                        owner,
+                        self.diagram_target_owners,
+                        self._make_box,
+                        self.global_boxes,
+                        self.boxes_to_delete,
+                    )
+                )
 
     def _make_port(
         self, port_obj: t.Any
@@ -287,37 +287,16 @@ class ContextProcessor:
         obj: t.Any,
         **kwargs: t.Any,
     ) -> _elkjs.ELKInputChild:
+        if box := self.global_boxes.get(obj.uuid):
+            return box
         box = makers.make_box(
             obj,
+            no_symbol=self.diagram._display_symbols_as_boxes,
             **kwargs,
         )
         self.global_boxes[obj.uuid] = box
         self.made_boxes[obj.uuid] = box
         return box
-
-    def _make_owner_box(
-        self,
-        diagram: context.ContextDiagram,
-        obj: t.Any,
-    ) -> t.Any:
-        if not (parent_box := self.global_boxes.get(obj.owner.uuid)):
-            parent_box = self._make_box(
-                obj.owner,
-                no_symbol=diagram._display_symbols_as_boxes,
-                layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
-            )
-        assert (obj_box := self.global_boxes.get(obj.uuid))
-        for box in (children := parent_box.children):
-            if box.id == obj.uuid:
-                box = obj_box
-                break
-        else:
-            children.append(obj_box)
-            for label in parent_box.labels:
-                label.layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
-
-        self.boxes_to_delete.add(obj.uuid)
-        return obj.owner
 
 
 def collector(
@@ -339,13 +318,13 @@ def collector(
 
 def port_collector(
     target: m.ModelElement | m.ElementList, diagram_type: DT
-) -> tuple[list[m.ModelElement], list[m.ModelElement]]:
+) -> tuple[dict[str, m.ModelElement], dict[str, m.ModelElement]]:
     """Collect ports from `target` savely."""
 
     def __collect(target):
         port_types = fa.FunctionPort | fa.ComponentPort | cs.PhysicalPort
-        incoming_ports: list[m.ModelElement] = []
-        outgoing_ports: list[m.ModelElement] = []
+        incoming_ports: dict[str, m.ModelElement] = {}
+        outgoing_ports: dict[str, m.ModelElement] = {}
         for attr in generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[diagram_type]:
             try:
                 ports = getattr(target, attr)
@@ -353,27 +332,27 @@ def port_collector(
                     continue
 
                 if attr == "inputs":
-                    incoming_ports.extend(ports)
+                    incoming_ports.update({p.uuid: p for p in ports})
                 elif attr == "ports":
                     for port in ports:
                         if port.direction == "IN":
-                            incoming_ports.append(port)
+                            incoming_ports[port.uuid] = port
                         else:
-                            outgoing_ports.append(port)
+                            outgoing_ports[port.uuid] = port
                 else:
-                    outgoing_ports.extend(ports)
+                    outgoing_ports.update({p.uuid: p for p in ports})
             except AttributeError:
                 pass
         return incoming_ports, outgoing_ports
 
     if isinstance(target, cabc.Iterable):
         assert not isinstance(target, m.ModelElement)
-        incoming_ports: list[m.ModelElement] = []
-        outgoing_ports: list[m.ModelElement] = []
+        incoming_ports: dict[str, m.ModelElement] = {}
+        outgoing_ports: dict[str, m.ModelElement] = {}
         for obj in target:
             inc, out = __collect(obj)
-            incoming_ports.extend(inc)
-            outgoing_ports.extend(out)
+            incoming_ports.update(inc)
+            outgoing_ports.update(out)
     else:
         incoming_ports, outgoing_ports = __collect(target)
     return incoming_ports, outgoing_ports
@@ -479,10 +458,10 @@ def derive_from_functions(
     receive special styling in the serialization step.
     """
     assert isinstance(diagram.target, cs.Component)
-    ports = []
+    ports: list[m.ModelElement] = []
     for fnc in diagram.target.allocated_functions:
         inc, out = port_collector(fnc, diagram.type)
-        ports.extend(inc + out)
+        ports.extend((inc | out).values())
 
     derived_components: dict[str, cs.Component] = {}
     for port in ports:

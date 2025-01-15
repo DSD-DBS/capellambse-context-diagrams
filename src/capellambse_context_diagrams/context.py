@@ -22,6 +22,7 @@ from capellambse import model as m
 from . import _elkjs, filters, serializers, styling
 from .collectors import (
     cable_tree,
+    custom,
     dataflow_view,
     exchanges,
     get_elkdata,
@@ -125,6 +126,20 @@ class FunctionalContextAccessor(ContextAccessor):
         return self._get(obj, FunctionalContextDiagram)
 
 
+class PhysicalPortContextAccessor(ContextAccessor):
+    def __get__(  # type: ignore
+        self,
+        obj: m.T | None,
+        objtype: type | None = None,
+    ) -> m.Accessor | ContextDiagram:
+        """Make a ContextDiagram for the given model object."""
+        del objtype
+        if obj is None:  # pragma: no cover
+            return self
+        assert isinstance(obj, m.ModelElement)
+        return self._get(obj, PhysicalPortContextDiagram)
+
+
 class ClassTreeAccessor(ContextAccessor):
     """Provides access to the tree view diagrams."""
 
@@ -206,6 +221,22 @@ class CableTreeAccessor(ContextAccessor):
             return self
         assert isinstance(obj, m.ModelElement)
         return self._get(obj, CableTreeViewDiagram)
+
+
+class CustomContextAccessor(ContextAccessor):
+    """Provides access to the custom context diagrams."""
+
+    def __get__(  # type: ignore
+        self,
+        obj: m.T | None,
+        objtype: type | None = None,
+    ) -> m.Accessor | ContextDiagram:
+        """Make a CustomDiagram for the given model object."""
+        del objtype
+        if obj is None:  # pragma: no cover
+            return self
+        assert isinstance(obj, m.ModelElement)
+        return self._get(obj, CustomDiagram)
 
 
 class ContextDiagram(m.AbstractDiagram):
@@ -852,6 +883,82 @@ class CableTreeViewDiagram(ContextDiagram):
     @property
     def name(self) -> str:
         return f"Cable Tree View of {self.target.name}"
+
+
+class CustomDiagram(ContextDiagram):
+    """An automatically generated CustomDiagram Diagram."""
+
+    _collect: cabc.Iterator[m.ModelElement]
+    _unify_edge_direction: str
+
+    def __init__(
+        self,
+        class_: str,
+        obj: m.ModelElement,
+        *,
+        render_styles: dict[str, styling.Styler] | None = None,
+        default_render_parameters: dict[str, t.Any],
+    ) -> None:
+        default_render_parameters = {
+            "collect": [],
+            "slim_center_box": False,
+            "unify_edge_direction": str,
+        } | default_render_parameters
+        super().__init__(
+            class_,
+            obj,
+            render_styles=render_styles,
+            default_render_parameters=default_render_parameters,
+        )
+        self.collector = custom.collector
+
+    @property
+    def name(self) -> str:
+        return f"Custom Context of {self.target.name.replace('/', '- or -')}"
+
+
+class PhysicalPortContextDiagram(CustomDiagram):
+    """A custom Context Diagram exclusively for PhysicalPorts."""
+
+    def __init__(
+        self,
+        class_: str,
+        obj: m.ModelElement,
+        *,
+        render_styles: dict[str, styling.Styler] | None = None,
+        default_render_parameters: dict[str, t.Any],
+    ) -> None:
+        visited = set()
+
+        def _collector(
+            target: m.ModelElement,
+        ) -> cabc.Iterator[m.ModelElement]:
+            if target.uuid in visited:
+                return
+            visited.add(target.uuid)
+            for link in target.links:
+                yield link
+                yield from _collector(link.source)
+                yield from _collector(link.target)
+
+        default_render_parameters = {
+            "collect": _collector(obj),
+            "display_parent_relation": True,
+            "unify_edge_direction": "UNIFORM",
+            "display_port_labels": True,
+            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
+        } | default_render_parameters
+
+        super().__init__(
+            class_,
+            obj,
+            render_styles=render_styles,
+            default_render_parameters=default_render_parameters,
+        )
+
+    @property
+    def name(self) -> str:
+        return f"Context of {self.target.name.replace('/', '- or -')}"
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:

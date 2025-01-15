@@ -87,7 +87,7 @@ Example:
 Feature requests are welcome. But take a moment to find out whether your idea
 fits with the scope and aims of the project. You might want to check if your feature is already on the [menue](https://github.com/DSD-DBS/capellambse-context-diagrams/projects?type=beta).
 
-A frequently appearing kind of requested feature is to add `.context_diagram` to more ModelObjects. Please check if the class-type of your requested ModelObject is not [already implemented](https://dsd-dbs.github.io/capellambse-context-diagrams/#features). Then it is important to describe how the context of this specific ModelObject is formed and how it shall be collected. There are 3 stages in building context diagrams:
+A frequently appearing kind of requested feature is to add `.context_diagram` to more ModelObjects. Please check if the class-type of your requested ModelObject is not [already implemented](https://capellambse-context-diagrams.readthedocs.io/#features). Then it is important to describe how the context of this specific ModelObject is formed and how it shall be collected. There are 3 stages in building context diagrams:
 
   1. Collect the context data.
   2. Layouting via elkjs, size and position calculation.

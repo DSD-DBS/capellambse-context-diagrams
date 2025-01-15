@@ -27,7 +27,7 @@ class CustomCollector:
 
     def __init__(
         self,
-        diagram: context.ContextDiagram,
+        diagram: context.CustomDiagram,
         params: dict[str, t.Any],
     ) -> None:
         self.diagram = diagram
@@ -138,8 +138,10 @@ class CustomCollector:
             for attr in generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[
                 self.diagram.type
             ]:
-                for port in getattr(obj, attr, []):
-                    self._make_port_and_owner(port)
+                for port_obj in getattr(obj, attr, []):
+                    port = self._make_port_and_owner(port_obj)
+                    side = "left" if attr == "inputs" else "right"
+                    self._update_min_heights(obj.uuid, side, port)
         if self.diagram._display_parent_relation:
             self.common_owners.add(
                 generic.make_owner_boxes(
@@ -286,7 +288,7 @@ class CustomCollector:
 
 
 def collector(
-    diagram: context.ContextDiagram, params: dict[str, t.Any]
+    diagram: context.CustomDiagram, params: dict[str, t.Any]
 ) -> _elkjs.ELKInputData:
     """Collect data for rendering a custom diagram."""
     return CustomCollector(diagram, params)()

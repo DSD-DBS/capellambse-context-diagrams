@@ -50,8 +50,8 @@ CollectorOutputData: t.TypeAlias = (
 """The output of a collector or the input prepared for ELK."""
 
 
-class ContextAccessor(m.Accessor):
-    """Provides access to the context diagrams."""
+class CustomAccessor(m.Accessor):
+    """Provides access to the custom context diagrams."""
 
     def __init__(
         self, dgcls: str, render_params: dict[str, t.Any] | None = None
@@ -61,24 +61,24 @@ class ContextAccessor(m.Accessor):
         self._default_render_params = render_params or {}
 
     @t.overload
-    def __get__(self, obj: None, objtype: type[t.Any]) -> ContextAccessor: ...
+    def __get__(self, obj: None, objtype: type[t.Any]) -> CustomAccessor: ...
     @t.overload
     def __get__(
         self, obj: m.T, objtype: type[m.T] | None = None
-    ) -> ContextDiagram: ...
+    ) -> CustomDiagram: ...
     def __get__(
         self, obj: m.T | None, objtype: type | None = None
-    ) -> m.Accessor | ContextDiagram:
+    ) -> m.Accessor | CustomDiagram:
         """Make a ContextDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
             return self
         assert isinstance(obj, m.ModelElement)
-        return self._get(obj, ContextDiagram)
+        return self._get(obj, CustomDiagram)
 
     def _get(
-        self, obj: m.ModelElement, diagram_class: type[ContextDiagram]
-    ) -> m.Accessor | ContextDiagram:
+        self, obj: m.ModelElement, diagram_class: type[CustomDiagram]
+    ) -> m.Accessor | CustomDiagram:
         new_diagram = diagram_class(
             self._dgcls,
             obj,
@@ -86,6 +86,22 @@ class ContextAccessor(m.Accessor):
         )
         new_diagram.filters.add(filters.NO_UUID)
         return new_diagram
+
+
+class ContextAccessor(CustomAccessor):
+    """Provides access to the context diagrams."""
+
+    def __get__(  # type: ignore
+        self,
+        obj: m.T | None,
+        objtype: type | None = None,
+    ) -> m.Accessor | CustomDiagram:
+        """Make a ContextDiagram for the given model object."""
+        del objtype
+        if obj is None:  # pragma: no cover
+            return self
+        assert isinstance(obj, m.ModelElement)
+        return self._get(obj, ContextDiagram)
 
 
 class InterfaceContextAccessor(ContextAccessor):
@@ -101,7 +117,7 @@ class InterfaceContextAccessor(ContextAccessor):
 
     def __get__(  # type: ignore
         self, obj: m.T | None, objtype: type | None = None
-    ) -> m.Accessor | ContextDiagram:
+    ) -> m.Accessor | CustomDiagram:
         """Make a ContextDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
@@ -117,7 +133,7 @@ class FunctionalContextAccessor(ContextAccessor):
         self,
         obj: m.T | None,
         objtype: type | None = None,
-    ) -> m.Accessor | ContextDiagram:
+    ) -> m.Accessor | CustomDiagram:
         """Make a ContextDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
@@ -131,7 +147,7 @@ class PhysicalPortContextAccessor(ContextAccessor):
         self,
         obj: m.T | None,
         objtype: type | None = None,
-    ) -> m.Accessor | ContextDiagram:
+    ) -> m.Accessor | CustomDiagram:
         """Make a ContextDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
@@ -154,7 +170,7 @@ class ClassTreeAccessor(ContextAccessor):
         self,
         obj: m.T | None,
         objtype: type | None = None,
-    ) -> m.Accessor | ContextDiagram:
+    ) -> m.Accessor | CustomDiagram:
         """Make a ClassTreeDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
@@ -177,7 +193,7 @@ class RealizationViewContextAccessor(ContextAccessor):
         self,
         obj: m.T | None,
         objtype: type | None = None,
-    ) -> m.Accessor | ContextDiagram:
+    ) -> m.Accessor | CustomDiagram:
         """Make a RealizationViewDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
@@ -198,7 +214,7 @@ class DataFlowAccessor(ContextAccessor):
         self,
         obj: m.T | None,
         objtype: type | None = None,
-    ) -> m.Accessor | ContextDiagram:
+    ) -> m.Accessor | CustomDiagram:
         """Make a DataFlowViewDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
@@ -214,7 +230,7 @@ class CableTreeAccessor(ContextAccessor):
         self,
         obj: m.T | None,
         objtype: type | None = None,
-    ) -> m.Accessor | ContextDiagram:
+    ) -> m.Accessor | CustomDiagram:
         """Make a CableTreeView for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
@@ -223,24 +239,8 @@ class CableTreeAccessor(ContextAccessor):
         return self._get(obj, CableTreeViewDiagram)
 
 
-class CustomContextAccessor(ContextAccessor):
-    """Provides access to the custom context diagrams."""
-
-    def __get__(  # type: ignore
-        self,
-        obj: m.T | None,
-        objtype: type | None = None,
-    ) -> m.Accessor | ContextDiagram:
-        """Make a CustomDiagram for the given model object."""
-        del objtype
-        if obj is None:  # pragma: no cover
-            return self
-        assert isinstance(obj, m.ModelElement)
-        return self._get(obj, CustomDiagram)
-
-
-class ContextDiagram(m.AbstractDiagram):
-    """An automatically generated context diagram.
+class CustomDiagram(m.AbstractDiagram):
+    """An automatically generated custom diagram.
 
     Attributes
     ----------
@@ -286,6 +286,8 @@ class ContextDiagram(m.AbstractDiagram):
     * hide_direct_children - Hide direct children of the object of
       interest.
     * display_unused_ports - Display ports that are not connected to an edge.
+    * collect - A list of collected elements.
+    * unify_edge_direction - Unify the direction of the edges.
     """
 
     _display_symbols_as_boxes: bool
@@ -297,6 +299,8 @@ class ContextDiagram(m.AbstractDiagram):
     _port_label_position: str
     _transparent_background: bool
     _display_unused_ports: bool
+    _collect: cabc.Iterator[m.ModelElement]
+    _unify_edge_direction: str
 
     def __init__(
         self,
@@ -320,11 +324,13 @@ class ContextDiagram(m.AbstractDiagram):
             "display_parent_relation": False,
             "hide_direct_children": False,
             "display_derived_interfaces": False,
-            "slim_center_box": True,
+            "slim_center_box": False,
             "display_port_labels": False,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
             "display_unused_ports": False,
             "transparent_background": False,
+            "collect": [],
+            "unify_edge_direction": "NONE",
         } | default_render_parameters
 
         if standard_filter := STANDARD_FILTERS.get(class_):
@@ -333,8 +339,8 @@ class ContextDiagram(m.AbstractDiagram):
             self.render_styles = standard_styles
 
         self.collector: cabc.Callable[
-            [ContextDiagram, dict[str, t.Any]], CollectorOutputData
-        ] = get_elkdata
+            [CustomDiagram, dict[str, t.Any]], CollectorOutputData
+        ] = custom.collector
 
     @property
     def uuid(self) -> str:
@@ -344,7 +350,7 @@ class ContextDiagram(m.AbstractDiagram):
     @property
     def name(self) -> str:
         """Returns the diagram name."""
-        return f"Context of {self.target.name.replace('/', '- or -')}"
+        return f"Custom Context of {self.target.name.replace('/', '- or -')}"
 
     @property
     def type(self) -> m.DiagramType:
@@ -439,6 +445,38 @@ class ContextDiagram(m.AbstractDiagram):
     def filters(self, value: cabc.Iterable[str]) -> None:
         self.__filters.clear()
         self.__filters |= set(value)
+
+
+class ContextDiagram(CustomDiagram):
+    """An automatically generated context Diagram."""
+
+    def __init__(
+        self,
+        class_: str,
+        obj: m.ModelElement,
+        *,
+        render_styles: dict[str, styling.Styler] | None = None,
+        default_render_parameters: dict[str, t.Any],
+    ) -> None:
+        default_render_parameters = {
+            "slim_center_box": True,
+            "unify_edge_direction": "UNIFORM",
+        } | default_render_parameters
+
+        super().__init__(
+            class_,
+            obj,
+            render_styles=render_styles,
+            default_render_parameters=default_render_parameters,
+        )
+
+        self.collector: cabc.Callable[
+            [ContextDiagram, dict[str, t.Any]], CollectorOutputData
+        ] = get_elkdata
+
+    @property
+    def name(self) -> str:
+        return f"Context of {self.target.name.replace('/', '- or -')}"
 
 
 class InterfaceContextDiagram(ContextDiagram):
@@ -885,39 +923,7 @@ class CableTreeViewDiagram(ContextDiagram):
         return f"Cable Tree View of {self.target.name}"
 
 
-class CustomDiagram(ContextDiagram):
-    """An automatically generated CustomDiagram Diagram."""
-
-    _collect: cabc.Iterator[m.ModelElement]
-    _unify_edge_direction: str
-
-    def __init__(
-        self,
-        class_: str,
-        obj: m.ModelElement,
-        *,
-        render_styles: dict[str, styling.Styler] | None = None,
-        default_render_parameters: dict[str, t.Any],
-    ) -> None:
-        default_render_parameters = {
-            "collect": [],
-            "slim_center_box": False,
-            "unify_edge_direction": str,
-        } | default_render_parameters
-        super().__init__(
-            class_,
-            obj,
-            render_styles=render_styles,
-            default_render_parameters=default_render_parameters,
-        )
-        self.collector = custom.collector
-
-    @property
-    def name(self) -> str:
-        return f"Custom Context of {self.target.name.replace('/', '- or -')}"
-
-
-class PhysicalPortContextDiagram(CustomDiagram):
+class PhysicalPortContextDiagram(ContextDiagram):
     """A custom Context Diagram exclusively for PhysicalPorts."""
 
     def __init__(
@@ -955,10 +961,7 @@ class PhysicalPortContextDiagram(CustomDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
-
-    @property
-    def name(self) -> str:
-        return f"Context of {self.target.name.replace('/', '- or -')}"
+        self.collector = custom.collector
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:

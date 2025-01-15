@@ -3721,6 +3721,9 @@ The predator is far away</bodies>
                 id="276e5728-52d2-4819-bb2f-b36cd0f35bd6" targetElement="#cb1e41b1-744b-43ea-89d2-d7c54dff4606"
                 sourceElement="#2f8ed849-fbda-4902-82ec-cbf8104ae686"/>
           </ownedComponentExchanges>
+          <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+              id="f350dfd4-5997-4fab-b3d2-9a5214ae263c" name="C 28" source="#5269e15c-69fb-45fd-88a0-08d4ab5f5211"
+              target="#684d4388-3615-40a7-b81d-f97647294a67" kind="FLOW"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="a3194240-cd17-4998-8f8b-785233487ec3"
               name="Campus" abstractType="#6583b560-6d2f-4190-baa2-94eef179c8ea"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
@@ -4071,6 +4074,9 @@ The predator is far away</bodies>
               <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
                   id="60a1fd22-3ef8-46dd-8e0c-b4dbcca86ec0" name="CP 10" orientation="OUT"
                   kind="FLOW"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                  id="684d4388-3615-40a7-b81d-f97647294a67" name="CP 11" orientation="IN"
+                  kind="FLOW"/>
             </ownedLogicalComponents>
           </ownedLogicalComponents>
           <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
@@ -4144,6 +4150,9 @@ The predator is far away</bodies>
                 kind="FLOW"/>
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
                 id="c06968be-09ae-4e9a-acc9-733c833a3c87" name="CP 18" orientation="IN"
+                kind="FLOW"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="5269e15c-69fb-45fd-88a0-08d4ab5f5211" name="CP 19" orientation="OUT"
                 kind="FLOW"/>
           </ownedLogicalComponents>
           <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"

@@ -12,8 +12,8 @@ i.e. the system of interest on which `context_diagram` was called on. The
 render parameter to enable this feature is called `display_derived_interfaces`
 and is available on:
 
-- `LogicalComponent`s and
-- `SystemComponent`s
+-   `LogicalComponent`s and
+-   `SystemComponent`s
 
 !!! example "Context Diagram with derived elements"
 
@@ -32,6 +32,6 @@ and is available on:
     </figure>
 
 See [`the derivator
-functions`][capellambse_context_diagrams.collectors.default.DERIVATORS] to gain
+functions`][capellambse_context_diagrams.collectors.custom.DERIVATORS] to gain
 an overview over all supported capellambse types and the logic to derive
 elements.

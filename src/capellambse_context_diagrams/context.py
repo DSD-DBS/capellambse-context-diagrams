@@ -460,7 +460,7 @@ class ContextDiagram(CustomDiagram):
     ) -> None:
         default_render_parameters = {
             "slim_center_box": True,
-            "unify_edge_direction": "UNIFORM",
+            "unify_edge_direction": "SMART",
         } | default_render_parameters
 
         super().__init__(

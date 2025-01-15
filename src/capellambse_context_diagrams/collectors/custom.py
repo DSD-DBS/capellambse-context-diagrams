@@ -187,8 +187,14 @@ class CustomCollector:
     ) -> _elkjs.ELKInputEdge | None:
         if self.edges.get(edge_obj.uuid):
             return None
-        src_obj = edge_obj.source
-        tgt_obj = edge_obj.target
+        ex_data = generic.ExchangeData(
+            edge_obj,
+            self.data,
+            self.diagram.filters,
+            self.params,
+        )
+        src_obj, tgt_obj = generic.exchange_data_collector(ex_data)
+        edge = self.data.edges.pop()
         src_owner = src_obj.owner
         tgt_owner = tgt_obj.owner
         src_owners = list(generic.get_all_owners(src_obj))
@@ -210,6 +216,7 @@ class CustomCollector:
         if self._need_switch(
             src_owners, tgt_owners, src_owner.uuid, tgt_owner.uuid
         ):
+            edge.sources[-1], edge.targets[-1] = tgt_obj.uuid, src_obj.uuid
             src_obj, tgt_obj = tgt_obj, src_obj
             src_owner, tgt_owner = tgt_owner, src_owner
 
@@ -220,14 +227,6 @@ class CustomCollector:
             port = self._make_port_and_owner(tgt_obj)
             self._update_min_heights(tgt_owner.uuid, "left", port)
 
-        edge = _elkjs.ELKInputEdge(
-            id=edge_obj.uuid,
-            sources=[src_obj.uuid],
-            targets=[tgt_obj.uuid],
-            labels=makers.make_label(
-                edge_obj.name,
-            ),
-        )
         self.edges[edge_obj.uuid] = edge
         return edge
 
@@ -256,9 +255,9 @@ class CustomCollector:
         ) -> bool | None:
             if uuid == self.boxable_target.uuid:
                 return None
-            uncommon_owner = next(
+            uncommon_owner = [
                 owner for owner in owners if owner not in opposite_owners
-            )
+            ][-1]
             return self.directions.setdefault(uncommon_owner, default)
 
         def _initialize_directions(
@@ -266,14 +265,11 @@ class CustomCollector:
         ) -> tuple[bool, bool]:
             src_dir = self.directions.get(src_uuid)
             tgt_dir = self.directions.get(tgt_uuid)
-            # Set default directions if both are missing
             if src_dir is None and tgt_dir is None:
                 self.directions[src_uuid] = default_src
                 self.directions[tgt_uuid] = default_tgt
-            # Set src_dir based on tgt_dir if src_dir is missing
             elif src_dir is None:
                 self.directions[src_uuid] = not tgt_dir
-            # Set tgt_dir based on src_dir if tgt_dir is missing
             elif tgt_dir is None:
                 self.directions[tgt_uuid] = not src_dir
 

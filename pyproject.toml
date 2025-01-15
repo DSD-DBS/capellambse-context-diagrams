@@ -38,7 +38,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/DSD-DBS/capellambse-context-diagrams"
-Documentation = "https://dsd-dbs.github.io/capellambse-context-diagrams"
+Documentation = "https://capellambse-context-diagrams.readthedocs.io"
 
 [project.entry-points."capellambse.model_extensions"]
 context_diagrams = "capellambse_context_diagrams:init"

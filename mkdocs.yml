@@ -114,7 +114,7 @@ extra:
   generator: false
   social:
     - icon: fontawesome/brands/github
-      link: https://dsd-dbs.github.io/capellambse-context-diagrams/
+      link: https://capellambse-context-diagrams.readthedocs.io/
     - icon: custom/db
       name: DB InfraGO AG - SET
       link: https://github.com/DSD-DBS

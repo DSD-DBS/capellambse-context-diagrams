@@ -10,7 +10,7 @@ build:
   os: ubuntu-24.04
   tools:
     nodejs: "20"
-    python: "3.13"
+    python: "3.12"
   jobs:
     create_environment:
       - asdf plugin add uv

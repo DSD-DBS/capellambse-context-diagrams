@@ -950,7 +950,7 @@ class PhysicalPortContextDiagram(ContextDiagram):
         default_render_parameters = {
             "collect": _collector(obj),
             "display_parent_relation": True,
-            "unify_edge_direction": "UNIFORM",
+            "unify_edge_direction": "TREE",
             "display_port_labels": True,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
         } | default_render_parameters

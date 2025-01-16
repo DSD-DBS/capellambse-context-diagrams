@@ -77,11 +77,16 @@ class CustomCollector:
 
         if self.diagram._unify_edge_direction != "NONE":
             self.directions: dict[str, bool] = {}
+            self.edges_to_flip: dict[str, dict[bool, set[str]]] = {}
+        if self.diagram._unify_edge_direction == "UNIFORM":
+            self.directions[self.boxable_target.uuid] = False
+
         self.min_heights: dict[str, dict[str, float]] = {}
 
     def __call__(self) -> _elkjs.ELKInputData:
         if _is_port(self.target):
-            self._make_port_and_owner(self.target)
+            port = self._make_port_and_owner(self.target, "right")
+            self._update_min_heights(self.boxable_target.uuid, "left", port)
         else:
             self._make_target(self.target)
 
@@ -90,11 +95,10 @@ class CustomCollector:
                 _elkjs.EDGE_STRAIGHTENING_LAYOUT_OPTIONS
             )
 
-        if self.diagram._unify_edge_direction == "UNIFORM":
-            self.directions[self.boxable_target.uuid] = False
-
         for elem in self.collection:
             self._make_target(elem)
+
+        self._flip_edges()
 
         if self.diagram._display_parent_relation:
             current = self.boxable_target
@@ -131,6 +135,28 @@ class CustomCollector:
         self.data.edges = list(self.edges.values())
         return self.data
 
+    def _flip_edges(self) -> None:
+        if self.diagram._unify_edge_direction == "NONE":
+            return
+
+        def flip(edge_uuid: str) -> None:
+            edge = self.edges[edge_uuid]
+            edge.sources[-1], edge.targets[-1] = (
+                edge.targets[-1],
+                edge.sources[-1],
+            )
+
+        def flip_small_side(edges: dict[bool, set[str]]) -> None:
+            side = len(edges[True]) < len(edges[False])
+            for edge_uuid in edges[side]:
+                flip(edge_uuid)
+
+        if self.diagram._unify_edge_direction == "TREE":
+            flip_small_side(self.edges_to_flip[self.boxable_target.uuid])
+        else:
+            for edges in self.edges_to_flip.values():
+                flip_small_side(edges)
+
     def _fix_box_heights(self) -> None:
         if self.diagram._unify_edge_direction != "NONE":
             for uuid, min_heights in self.min_heights.items():
@@ -166,9 +192,8 @@ class CustomCollector:
                 self.diagram.type
             ]:
                 for port_obj in getattr(obj, attr, []):
-                    port = self._make_port_and_owner(port_obj)
                     side = "left" if attr == "inputs" else "right"
-                    self._update_min_heights(obj.uuid, side, port)
+                    self._make_port_and_owner(port_obj, side)
         if self.diagram._display_parent_relation:
             self.common_owners.add(
                 generic.make_owner_boxes(
@@ -213,19 +238,19 @@ class CustomCollector:
             if common_owner:
                 self.edge_owners[edge_obj.uuid] = common_owner
 
-        if self._need_switch(
+        flip_needed, unc = self._need_flip(
             src_owners, tgt_owners, src_owner.uuid, tgt_owner.uuid
-        ):
-            edge.sources[-1], edge.targets[-1] = tgt_obj.uuid, src_obj.uuid
+        )
+        self.edges_to_flip.setdefault(unc, {True: set(), False: set()})[
+            flip_needed
+        ].add(edge_obj.uuid)
+        if flip_needed:
             src_obj, tgt_obj = tgt_obj, src_obj
-            src_owner, tgt_owner = tgt_owner, src_owner
 
         if not self.ports.get(src_obj.uuid):
-            port = self._make_port_and_owner(src_obj)
-            self._update_min_heights(src_owner.uuid, "right", port)
+            self._make_port_and_owner(src_obj, "right")
         if not self.ports.get(tgt_obj.uuid):
-            port = self._make_port_and_owner(tgt_obj)
-            self._update_min_heights(tgt_owner.uuid, "left", port)
+            self._make_port_and_owner(tgt_obj, "left")
 
         self.edges[edge_obj.uuid] = edge
         return edge
@@ -240,29 +265,32 @@ class CustomCollector:
             sum(label.height for label in port.labels),
         )
 
-    def _need_switch(
+    def _need_flip(
         self,
         src_owners: list[str],
         tgt_owners: list[str],
         src_uuid: str,
         tgt_uuid: str,
-    ) -> bool:
+    ) -> tuple[bool, str]:
         def _get_direction(
             uuid: str,
             owners: list[str],
             opposite_owners: list[str],
             default: bool,
-        ) -> bool | None:
+        ) -> tuple[bool | None, str]:
             if uuid == self.boxable_target.uuid:
-                return None
+                return None, ""
             uncommon_owner = [
                 owner for owner in owners if owner not in opposite_owners
             ][-1]
-            return self.directions.setdefault(uncommon_owner, default)
+            return (
+                self.directions.setdefault(uncommon_owner, default),
+                uncommon_owner,
+            )
 
         def _initialize_directions(
             src_uuid: str, tgt_uuid: str, default_src: bool, default_tgt: bool
-        ) -> tuple[bool, bool]:
+        ) -> tuple[bool | None, bool | None]:
             src_dir = self.directions.get(src_uuid)
             tgt_dir = self.directions.get(tgt_uuid)
             if src_dir is None and tgt_dir is None:
@@ -273,27 +301,34 @@ class CustomCollector:
             elif tgt_dir is None:
                 self.directions[tgt_uuid] = not src_dir
 
-            return self.directions[src_uuid], self.directions[tgt_uuid]
+            return src_dir, tgt_dir
 
         edge_direction: str = self.diagram._unify_edge_direction
         if edge_direction == "SMART":
-            src_dir = _get_direction(src_uuid, src_owners, tgt_owners, False)
-            tgt_dir = _get_direction(tgt_uuid, tgt_owners, src_owners, True)
-            return src_dir is True or tgt_dir is False
+            src_dir, src_unc = _get_direction(
+                src_uuid, src_owners, tgt_owners, False
+            )
+            tgt_dir, tgt_unc = _get_direction(
+                tgt_uuid, tgt_owners, src_owners, True
+            )
+            return src_dir is True or tgt_dir is False, (src_unc or tgt_unc)
 
         if edge_direction == "UNIFORM":
-            src_dir, tgt_dir = _initialize_directions(
+            src_dir, _ = _initialize_directions(
                 src_uuid, tgt_uuid, False, True
             )
-            return src_dir
+            return self.directions[src_uuid], self.boxable_target.uuid
 
         if edge_direction == "TREE":
-            _initialize_directions(src_uuid, tgt_uuid, True, True)
+            src_dir, tgt_dir = _initialize_directions(
+                src_uuid, tgt_uuid, True, True
+            )
+            return tgt_dir is not None, self.boxable_target.uuid
 
-        return False
+        return False, self.boxable_target.uuid
 
     def _make_port_and_owner(
-        self, port_obj: m.ModelElement
+        self, port_obj: m.ModelElement, side: str
     ) -> _elkjs.ELKInputPort:
         owner_obj = port_obj.owner
         box = self._make_box(
@@ -313,6 +348,7 @@ class CustomCollector:
             box.layoutOptions["portLabels.placement"] = plp.name
         box.ports.append(port)
         self.ports[port_obj.uuid] = port
+        self._update_min_heights(owner_obj.uuid, side, port)
         return port
 
 

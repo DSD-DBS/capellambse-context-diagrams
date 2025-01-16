@@ -46,6 +46,7 @@ context_diagrams = "capellambse_context_diagrams:init"
 [dependency-groups]
 dev = [
   "coverage>=7.6.9",
+  "ipykernel>=6.29.5",
   "pre-commit>=4.0.1",
   "pyls-isort>=0.2.2",
   "pylsp-mypy>=0.6.9",

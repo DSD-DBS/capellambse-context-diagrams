@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import collections.abc as cabc
 import typing as t
+from itertools import chain
 
 import capellambse.model as m
 from capellambse.metamodel import cs, fa
@@ -33,31 +34,46 @@ def collector(
 ) -> _elkjs.ELKInputData:
     """Collect context data from ports of centric box."""
     visited: set[str] = set()
-    edges: set[str] = set()
+    outside_components: dict[str, m.ModelElement] = {}
 
     def _collect(
         target: m.ModelElement,
+        filter: Filter = lambda i: i,
     ) -> cabc.Iterator[m.ModelElement]:
         if target.uuid in visited:
             return
         visited.add(target.uuid)
-        for port in (
-            list(getattr(target, "inputs", []))
-            + list(getattr(target, "outputs", []))
-            + list(getattr(target, "ports", []))
-            + list(getattr(target, "physical_ports", []))
-        ):
-            for exchange in list(getattr(port, "exchanges", [])) + list(
-                getattr(port, "links", [])
-            ):
-                if exchange.uuid in edges:
-                    continue
-                edges.add(exchange.uuid)
-                yield exchange
+
+        inc, out = port_collector(target, diagram.type)
+        ports = port_exchange_collector((inc | out).values(), filter=filter)
+        exchanges = chain.from_iterable(ports.values())
+        for ex in exchanges:
+            yield ex
+            if ex.source.uuid in ports and ex.target.uuid not in ports:
+                outside_components[ex.target.owner.uuid] = ex.target.owner
+            elif ex.target.uuid in ports and ex.source.uuid not in ports:
+                outside_components[ex.source.owner.uuid] = ex.source.owner
+
         for cmp in list(getattr(target, "components", [])):
             yield from _collect(cmp)
 
-    diagram._collect = _collect(diagram.target)
+    def _collect_extended_context(
+        target: m.ModelElement,
+    ) -> cabc.Iterator[m.ModelElement]:
+        yield from _collect(target)
+        oc_copy = outside_components.copy()
+        for cmp in oc_copy.values():
+            yield from _collect(
+                cmp,
+                filter=lambda items: (
+                    item
+                    for item in items
+                    if item.source.owner.uuid in oc_copy
+                    and item.target.owner.uuid in oc_copy
+                ),
+            )
+
+    diagram._collect = _collect_extended_context(diagram.target)
     processor = custom.CustomCollector(diagram, params=params)
     processor()
     return processor.data

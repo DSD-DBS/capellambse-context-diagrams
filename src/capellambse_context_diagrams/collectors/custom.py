@@ -151,11 +151,8 @@ class CustomCollector:
             for edge_uuid in edges[side]:
                 flip(edge_uuid)
 
-        if self.diagram._unify_edge_direction == "TREE":
-            flip_small_side(self.edges_to_flip[self.boxable_target.uuid])
-        else:
-            for edges in self.edges_to_flip.values():
-                flip_small_side(edges)
+        for edges in self.edges_to_flip.values():
+            flip_small_side(edges)
 
     def _fix_box_heights(self) -> None:
         if self.diagram._unify_edge_direction != "NONE":

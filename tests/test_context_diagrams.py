@@ -313,5 +313,5 @@ def test_serializer_handles_hierarchical_edges_correctly(
 
     adiag = obj.context_diagram.render(None)
 
-    assert adiag[f"{edge_uuid}_j0"].center >= (231.35, 94)
-    assert adiag[f"{edge1_uuid}_j1"].center == (405.25, 122)
+    assert (231.35, 94) <= adiag[f"{edge_uuid}_j0"].center <= (235, 94)
+    assert (405.25, 122) <= adiag[f"{edge1_uuid}_j1"].center <= (410, 122)

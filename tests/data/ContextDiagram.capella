@@ -3412,6 +3412,32 @@ The predator is far away</bodies>
           <ownedCapabilityRealizationInvolvements xsi:type="org.polarsys.capella.core.data.capellacommon:CapabilityRealizationInvolvement"
               id="21f22a2f-5fd0-4ae6-a577-9e9b61e6ca0b" involved="#3bdd4fa2-5646-44a1-9fa6-80c68433ddb7"/>
         </ownedCapabilityRealizations>
+        <ownedCapabilityRealizations xsi:type="org.polarsys.capella.core.data.la:CapabilityRealization"
+            id="4862415c-fb73-4fab-b3f3-097e19b0972a" name="SystemCapReal">
+          <ownedAbstractCapabilityRealizations xsi:type="org.polarsys.capella.core.data.interaction:AbstractCapabilityRealization"
+              id="b0dfeba0-1a1a-43e5-a7ff-90f6d8d0a13b" targetElement="#562c5128-5acd-45cc-8b49-1d8d686f450a"
+              sourceElement="#4862415c-fb73-4fab-b3f3-097e19b0972a"/>
+          <ownedCapabilityRealizationInvolvements xsi:type="org.polarsys.capella.core.data.capellacommon:CapabilityRealizationInvolvement"
+              id="4ed2ba73-33fe-49d9-b4c5-410afaa2feab" involved="#d33455e4-8e92-4eb7-bd4d-c60ed46a1cad"/>
+        </ownedCapabilityRealizations>
+        <ownedCapabilityRealizations xsi:type="org.polarsys.capella.core.data.la:CapabilityRealization"
+            id="33ca2414-e82b-4b9b-a177-772726b68ba0" name="CapRealizationTest">
+          <extends xsi:type="org.polarsys.capella.core.data.interaction:AbstractCapabilityExtend"
+              id="ee51c330-da32-48ea-8e2c-74e24d517925" extended="#4862415c-fb73-4fab-b3f3-097e19b0972a"/>
+          <superGeneralizations xsi:type="org.polarsys.capella.core.data.interaction:AbstractCapabilityGeneralization"
+              id="a5d7225f-c049-41b6-8477-610dcef95be3" super="#43ee579b-8f39-4176-bfd3-c294685f5c3c"/>
+          <ownedCapabilityRealizationInvolvements xsi:type="org.polarsys.capella.core.data.capellacommon:CapabilityRealizationInvolvement"
+              id="11560dcf-ea25-4209-8696-2d6f97bb8a32" involved="#fb18f9f2-db8e-479e-85a5-2aaf54d7b9b8"/>
+          <ownedCapabilityRealizationInvolvements xsi:type="org.polarsys.capella.core.data.capellacommon:CapabilityRealizationInvolvement"
+              id="2ba5181f-1692-4d4f-a9b5-328707a6a686" involved="#d33455e4-8e92-4eb7-bd4d-c60ed46a1cad"/>
+        </ownedCapabilityRealizations>
+        <ownedCapabilityRealizations xsi:type="org.polarsys.capella.core.data.la:CapabilityRealization"
+            id="43ee579b-8f39-4176-bfd3-c294685f5c3c" name="CapReal"/>
+        <ownedCapabilityRealizations xsi:type="org.polarsys.capella.core.data.la:CapabilityRealization"
+            id="12b6832f-4a0c-42b6-8d6a-b698079daa6e" name="Included">
+          <includes xsi:type="org.polarsys.capella.core.data.interaction:AbstractCapabilityInclude"
+              id="a9d7de9b-2691-4eb1-9eaa-a88489466323" included="#33ca2414-e82b-4b9b-a177-772726b68ba0"/>
+        </ownedCapabilityRealizations>
       </ownedAbstractCapabilityPkg>
       <ownedInterfacePkg xsi:type="org.polarsys.capella.core.data.cs:InterfacePkg"
           id="cb544a1b-7d2a-441d-a104-255b4bdd0704" name="Interfaces"/>
@@ -3524,6 +3550,8 @@ The predator is far away</bodies>
             name="Cycle Actor Right" abstractType="#8a7d2233-f115-4b75-bcda-b23814c05a6d"/>
         <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="beef05a0-0f46-462f-8fb0-9b387f1a0d9a"
             name="Cycle Actor Left" abstractType="#b911b6bc-bde5-4d43-87fd-e20748a6938e"/>
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="b2334d29-129a-49f3-9110-59f0808dee21"
+            name="CapRealActor" abstractType="#d33455e4-8e92-4eb7-bd4d-c60ed46a1cad"/>
         <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
             id="c0bc49e1-8043-4418-8c0a-de6c6b749eab" name="Headmaster Responsibilities"
             convoyedInformations="#408f9055-bdcf-4181-865c-db3e823bd93d" source="#fcbf6881-720c-421f-9fe9-12fc3dfefe9c"
@@ -3790,6 +3818,10 @@ The predator is far away</bodies>
               name="Cycle Parent" abstractType="#57bcce8e-e1fb-45dc-aaa1-4c5748b02b5d"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="f6763b23-b5cc-491c-a428-a004cf9963fe"
               name="LC 25" abstractType="#d6eb2818-656a-4a5b-b2f3-0792211fa6c0"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="22bf0991-c6cd-43dd-9129-9edff619c1bb"
+              name="Real leftie" abstractType="#3253a54d-6df2-4638-bd13-65e51c577758"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="234087d2-e564-4b3a-9be1-855ae44120f9"
+              name="CapRealComp" abstractType="#fb18f9f2-db8e-479e-85a5-2aaf54d7b9b8"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="0f8b10b5-d460-4055-bd34-7e4a33e94b5e" targetElement="#230c4621-7e0a-4d0a-9db2-d4ba5e97b3df"
               sourceElement="#0d2edb8f-fa34-4e73-89ec-fb9a63001440"/>
@@ -4464,6 +4496,14 @@ The predator is far away</bodies>
                 id="84fe724d-e9a7-4cda-b886-6e393e72d086" targetElement="#906e7244-3d1c-4787-8cfc-afc0efe02f06"
                 sourceElement="#d6eb2818-656a-4a5b-b2f3-0792211fa6c0"/>
           </ownedLogicalComponents>
+          <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+              id="3253a54d-6df2-4638-bd13-65e51c577758" name="Real leftie">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="ac7447ba-b89c-47f9-8390-d7db74c6e02c" name="CP 1" orientation="IN"
+                kind="FLOW"/>
+          </ownedLogicalComponents>
+          <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+              id="fb18f9f2-db8e-479e-85a5-2aaf54d7b9b8" name="CapRealComp"/>
           <ownedLogicalComponentPkgs xsi:type="org.polarsys.capella.core.data.la:LogicalComponentPkg"
               id="83d80c8a-e845-4fd9-bb6f-91fc32145785" name="LogicalComponents">
             <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
@@ -4664,6 +4704,8 @@ The predator is far away</bodies>
               id="4e98c66f-fd6a-4f9c-9e88-8b4dca7d4112" name="CP 1" orientation="OUT"
               kind="FLOW"/>
         </ownedLogicalComponents>
+        <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+            id="d33455e4-8e92-4eb7-bd4d-c60ed46a1cad" name="CapRealActor" actor="true"/>
       </ownedLogicalComponentPkg>
       <ownedSystemAnalysisRealizations xsi:type="org.polarsys.capella.core.data.la:SystemAnalysisRealization"
           id="b315bb1e-01d9-41d6-ac83-2224908d93d4" targetElement="#79d35fe7-f172-4405-b499-48aef545148a"

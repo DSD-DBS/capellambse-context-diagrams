@@ -29,6 +29,7 @@ PHYSICAL_CONNECTOR_ATTR_NAMES = ("physical_ports",)
 CONNECTOR_ATTR_NAMES = ("ports", "inputs", "outputs")
 """Attribute of ModelElements for receiving connections."""
 DIAGRAM_TYPE_TO_CONNECTOR_NAMES: dict[DT, tuple[str, ...]] = {
+    DT.CRB: (),
     DT.OAB: (),
     DT.OAIB: (),
     DT.OCB: (),

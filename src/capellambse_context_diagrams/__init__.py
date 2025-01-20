@@ -108,6 +108,11 @@ def register_classes() -> None:
             },
         ),
         (
+            la.CapabilityRealization,
+            DiagramType.CRB,
+            {"display_symbols_as_boxes": False},
+        ),
+        (
             la.LogicalComponent,
             DiagramType.LAB,
             {

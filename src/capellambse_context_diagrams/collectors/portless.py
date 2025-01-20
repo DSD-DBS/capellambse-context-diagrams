@@ -14,7 +14,7 @@ import typing as t
 from itertools import chain
 
 import capellambse.model as m
-from capellambse.metamodel import oa, sa
+from capellambse.metamodel import la, oa, sa
 
 from .. import _elkjs, context
 from . import generic, makers
@@ -205,7 +205,8 @@ def get_exchanges(
     """
     is_op_capability = isinstance(obj, oa.OperationalCapability)
     is_capability = isinstance(obj, sa.Capability)
-    if is_op_capability or is_capability:
+    is_capability_realization = isinstance(obj, la.CapabilityRealization)
+    if is_op_capability or is_capability or is_capability_realization:
         exchanges = [
             obj.includes,
             obj.extends,
@@ -223,6 +224,8 @@ def get_exchanges(
         exchanges += [obj.entity_involvements]
     elif is_capability:
         exchanges += [obj.component_involvements, obj.incoming_exploitations]
+    elif is_capability_realization:
+        exchanges += [obj.component_involvements]
 
     filtered = filter(chain.from_iterable(exchanges))
     yield from {i.uuid: i for i in filtered}.values()

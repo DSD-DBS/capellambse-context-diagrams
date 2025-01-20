@@ -152,7 +152,7 @@ class InterfaceContextCollector(ExchangeCollector):
 
             port_spread = len(self.outgoing_edges) - len(self.incoming_edges)
             _port_spread = len(self.incoming_edges) - len(self.outgoing_edges)
-            if port_spread <= _port_spread:
+            if port_spread < _port_spread:
                 self.incoming_edges, self.outgoing_edges = (
                     self.outgoing_edges,
                     self.incoming_edges,

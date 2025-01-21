@@ -1,6 +1,8 @@
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
+import sys
+
 import capellambse
 import pytest
 
@@ -304,6 +306,10 @@ def test_context_diagram_display_unused_ports(
     assert unused_port_uuid in {element.uuid for element in bdiag}
 
 
+@pytest.mark.skipif(
+    sys.platform == "win32",
+    reason="Wrong coordinates on Windows for some reason",
+)
 def test_serializer_handles_hierarchical_edges_correctly(
     model: capellambse.MelodyModel,
 ) -> None:

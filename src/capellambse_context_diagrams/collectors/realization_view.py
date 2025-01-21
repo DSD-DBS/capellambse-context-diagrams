@@ -19,9 +19,10 @@ RE_LAYER_PTRN = re.compile(r"([A-Z]?[a-z]+)")
 
 
 def collector(
-    diagram: context.ContextDiagram, params: dict[str, t.Any]
+    diagram: context.RealizationViewDiagram, params: dict[str, t.Any]
 ) -> tuple[_elkjs.ELKInputData, list[_elkjs.ELKInputEdge]]:
     """Return the class tree data for ELK."""
+    del params
     data = makers.make_diagram(diagram)
     layout_options: _elkjs.LayoutOptions = copy.deepcopy(
         _elkjs.RECT_PACKING_LAYOUT_OPTIONS  # type:ignore[arg-type]
@@ -29,8 +30,8 @@ def collector(
     layout_options["elk.contentAlignment"] = "V_CENTER H_CENTER"
     del layout_options["widthApproximation.targetWidth"]
     data.layoutOptions = layout_options
-    _collector = COLLECTORS[params.get("search_direction", "ALL")]
-    lay_to_els = _collector(diagram.target, params.get("depth", 1))
+    _collector = COLLECTORS[diagram._search_direction]
+    lay_to_els = _collector(diagram.target, diagram._depth)
     layer_layout_options: _elkjs.LayoutOptions = layout_options | {  # type: ignore[operator]
         "nodeSize.constraints": "[NODE_LABELS,MINIMUM_SIZE]",
     }
@@ -73,7 +74,7 @@ def collector(
                 layer_box.children.append(element_box)
                 index = len(layer_box.children) - 1
 
-                if params.get("show_owners"):
+                if diagram._show_owners:
                     owner = target.owner
                     if not isinstance(owner, fa.Function | cs.Component):
                         continue

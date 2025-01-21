@@ -753,7 +753,7 @@ class RealizationViewDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
-        self.collector = realization_view.collector
+        self.collector = realization_view.collector  # type: ignore[assignment]
 
     @property
     def uuid(self) -> str:

@@ -32,25 +32,34 @@ DEFAULT_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
 
 
 class ClassProcessor:
-    def __init__(self, data: _elkjs.ELKInputData) -> None:
-        self.data = data
-        self.made_boxes: set[str] = {data.children[0].id}
+    def __init__(self, diagram: context.ClassTreeDiagram) -> None:
+        self.diagram = diagram
+        self.data = generic.collector(diagram, no_symbol=True)
+        self.data.children[0].labels[0].layoutOptions.update(
+            makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+        )
+
+        self.made_boxes: set[str] = {self.data.children[0].id}
         self.made_edges: set[str] = set()
         self.data_types: set[str] = set()
         self.legend_boxes: list[_elkjs.ELKInputChild] = []
 
         self._edge_count: dict[str, int] = collections.defaultdict(int)
 
+        self._set_layout_options()
+        assert isinstance(diagram.target, information.Class)
+        self._set_data_types_and_labels(self.data.children[0], diagram.target)
+
     def __contains__(self, uuid: str) -> bool:
         objects = self.data.children + self.data.edges  # type: ignore[operator]
         return uuid in {obj.id for obj in objects}
 
-    def process_class(self, cls: ClassInfo, params: dict[str, t.Any]):
-        self._process_box(cls.source, cls.partition, params)
+    def process_class(self, cls: ClassInfo):
+        self._process_box(cls.source, cls.partition)
 
         if not cls.primitive and isinstance(cls.target, information.Class):
             assert cls.prop is not None
-            self._process_box(cls.target, cls.partition, params)
+            self._process_box(cls.target, cls.partition)
 
             if cls.prop.association is not None:
                 edge_id = cls.prop.association.uuid
@@ -89,7 +98,7 @@ class ClassProcessor:
                 )
 
         if cls.generalizes:
-            self._process_box(cls.generalizes, cls.partition, params)
+            self._process_box(cls.generalizes, cls.partition)
             edge = cls.generalizes.generalizations.by_super(
                 cls.source, single=True
             )
@@ -103,20 +112,12 @@ class ClassProcessor:
                     )
                 )
 
-    def _process_box(
-        self,
-        obj: information.Class,
-        partition: int,
-        params: dict[str, t.Any],
-    ) -> None:
+    def _process_box(self, obj: information.Class, partition: int) -> None:
         if obj.uuid not in self.made_boxes:
-            self._make_box(obj, partition, params)
+            self._make_box(obj, partition)
 
     def _make_box(
-        self,
-        obj: information.Class,
-        partition: int,
-        params: dict[str, t.Any],
+        self, obj: information.Class, partition: int
     ) -> _elkjs.ELKInputChild:
         self.made_boxes.add(obj.uuid)
         box = makers.make_box(
@@ -124,7 +125,7 @@ class ClassProcessor:
             layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
         )
         self._set_data_types_and_labels(box, obj)
-        _set_partitioning(box, partition, params)
+        _set_partitioning(box, partition, self.diagram._partitioning)
         self.data.children.append(box)
         return box
 
@@ -142,49 +143,46 @@ class ClassProcessor:
             if legend.id not in self:
                 self.legend_boxes.append(legend)
 
+    def _set_layout_options(self) -> None:
+        options: dict[str, t.Any] = {}
+        options["edgeRouting"] = self.diagram._edgeRouting
+        options["elk.direction"] = self.diagram._direction
+        options["nodeSizeConstraints"] = self.diagram._nodeSizeConstraints
+        options["layered.edgeLabels.sideSelection"] = (
+            self.diagram._edgeLabelsSide
+        )
+
+        self.data.layoutOptions = {**DEFAULT_LAYOUT_OPTIONS, **options}
+        _set_partitioning(self.data.children[0], 0, self.diagram._partitioning)
+
+
+def _set_partitioning(
+    box: _elkjs.ELKInputChild, partition: int, partitioning: bool
+) -> None:
+    if partitioning:
+        box.layoutOptions = {}
+        box.layoutOptions["elk.partitioning.partition"] = partition
+
 
 def collector(
-    diagram: context.ContextDiagram, params: dict[str, t.Any]
+    diagram: context.ClassTreeDiagram, params: dict[str, t.Any]
 ) -> tuple[_elkjs.ELKInputData, _elkjs.ELKInputData]:
     """Return the class tree data for ELK."""
+    del params
     assert isinstance(diagram.target, information.Class)
-    data = generic.collector(diagram, no_symbol=True)
-    data.children[0].labels[0].layoutOptions.update(
-        makers.DEFAULT_LABEL_LAYOUT_OPTIONS
-    )
-    _set_layout_options(data, params)
-    processor = ClassProcessor(data)
-    processor._set_data_types_and_labels(data.children[0], diagram.target)
+    processor = ClassProcessor(diagram)
     for _, cls in get_all_classes(
         diagram.target,
-        max_partition=params.get("depth"),
-        super=params.get("super", "ROOT"),
-        sub=params.get("sub", "ROOT"),
+        max_partition=diagram._depth,
+        super=diagram._super,
+        sub=diagram._sub,
     ):
-        processor.process_class(cls, params)
+        processor.process_class(cls)
 
     legend = makers.make_diagram(diagram)
     legend.layoutOptions = copy.deepcopy(_elkjs.RECT_PACKING_LAYOUT_OPTIONS)  # type: ignore[arg-type]
     legend.children = processor.legend_boxes
-    return data, legend
-
-
-def _set_layout_options(
-    data: _elkjs.ELKInputData, params: dict[str, t.Any]
-) -> None:
-    options = {
-        k: v for k, v in params.items() if k not in ("depth", "super", "sub")
-    }
-    data.layoutOptions = {**DEFAULT_LAYOUT_OPTIONS, **options}
-    _set_partitioning(data.children[0], 0, params)
-
-
-def _set_partitioning(
-    box: _elkjs.ELKInputChild, partition: int, params: dict[str, t.Any]
-) -> None:
-    if params.get("partitioning", False):
-        box.layoutOptions = {}
-        box.layoutOptions["elk.partitioning.partition"] = partition
+    return processor.data, legend
 
 
 @dataclasses.dataclass

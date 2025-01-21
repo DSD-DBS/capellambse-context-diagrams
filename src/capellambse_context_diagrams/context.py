@@ -619,6 +619,9 @@ class ClassTreeDiagram(ContextDiagram):
         "SMART_DOWN",
     ]
     _partitioning: bool
+    _depth: int | None
+    _super: t.Literal["ROOT", "ALL"]
+    _sub: t.Literal["ROOT", "ALL"]
 
     def __init__(
         self,
@@ -635,6 +638,9 @@ class ClassTreeDiagram(ContextDiagram):
             "nodeSizeConstraints": "NODE_LABELS",
             "edgeLabelsSide": "SMART_DOWN",
             "partitioning": False,
+            "depth": None,
+            "super": "ROOT",
+            "sub": "ROOT",
         } | default_render_parameters
         super().__init__(
             class_,
@@ -642,7 +648,7 @@ class ClassTreeDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
-        self.collector = tree_view.collector
+        self.collector = tree_view.collector  # type: ignore[assignment]
 
     @property
     def uuid(self) -> str:

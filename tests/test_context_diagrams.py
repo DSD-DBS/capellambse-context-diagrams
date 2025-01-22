@@ -12,7 +12,6 @@ TEST_ACTOR_SIZING_UUID = "6c8f32bf-0316-477f-a23b-b5239624c28d"
 TEST_HIERARCHY_UUID = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
 TEST_HIERARCHY_PARENTS_UUIDS = {
     "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
-    "99a1d711-74af-4db7-af08-4dbd91c281ce",
     "53558f58-270e-4206-8fc7-3cf9e788fac9",
 }
 TEST_ACTIVITY_UUIDS = {
@@ -126,8 +125,8 @@ def test_context_diagrams_rerender_on_parameter_change(
         pytest.param(
             [
                 ("e1e48763-7479-4f3a-8134-c82bb6705d58", 112, 187),
-                ("8df45b70-15cc-4d3a-99e4-593516392c5a", 154, 234),
-                ("74af6883-25a0-446a-80f3-656f8a490b11", 266, 412),
+                ("8df45b70-15cc-4d3a-99e4-593516392c5a", 140, 234),
+                ("74af6883-25a0-446a-80f3-656f8a490b11", 252, 412),
             ],
             id="LogicalComponent",
         ),
@@ -275,7 +274,7 @@ def test_context_diagram_hide_direct_children(
     }
 
     diag = obj.context_diagram
-    grey = diag.render("svgdiagram", blackbox=True).save(pretty=True)
+    grey = diag.render(None, blackbox=True)
     diag.invalidate_cache()
     white = diag.render(None, blackbox=False)
 
@@ -309,21 +308,16 @@ def test_context_diagram_display_unused_ports(
 def test_context_diagram_blackbox(
     model: capellambse.MelodyModel,
 ) -> None:
-    obj = model.by_uuid("77b3349c-9184-478a-b005-893a4d789b47")
+    obj = model.by_uuid("fd69347c-fca9-4cdd-ae44-9182e13c8d9d")
     hidden_element_uuids = {
-        "22881485-4989-49c0-8068-5af004d1db63",
-        "138c1c84-713d-4567-9304-30364330b5a9",
-        "386f8111-bd45-4bd0-a22b-b8f6c4b1216a",
-        "f9897b61-602d-4c18-a72d-f4521e7c094f",
-        "25f152df-7309-46d1-88ea-b34772c3eb34",
-        "a662d5a2-beb0-469b-b947-f663ecf8f482",
-        "47cc117b-3760-470b-9474-0472d149d194",
+        "9f92e453-0692-4842-9e0c-4d36ab541acd",
+        "847991cf-546d-4817-b52f-a58b5a42d0e5",
+        "955b6e5d-df64-4805-8973-93756a4be879",
+        "ce221886-adfd-45f5-99cf-07baac99458d",
     }
 
     white = obj.context_diagram.render(None, blackbox=False)
-    black = obj.context_diagram.render("svgdiagram", blackbox=True).save(
-        pretty=True
-    )
+    black = obj.context_diagram.render(None, blackbox=True)
 
     assert {element.uuid for element in white} & hidden_element_uuids
     assert not {element.uuid for element in black} & hidden_element_uuids

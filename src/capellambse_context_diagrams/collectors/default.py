@@ -61,6 +61,8 @@ def collector(
         target: m.ModelElement,
     ) -> cabc.Iterator[m.ModelElement]:
         yield from _collect(target)
+        if not diagram._display_actor_relation:
+            return
         oc_copy = outside_components.copy()
         for cmp in oc_copy.values():
             yield from _collect(
@@ -73,10 +75,7 @@ def collector(
                 ),
             )
 
-    if diagram._display_actor_relationship:
-        diagram._collect = _collect(diagram.target)
-    else:
-        diagram._collect = _collect_extended_context(diagram.target)
+    diagram._collect = _collect_extended_context(diagram.target)
     processor = custom.CustomCollector(diagram, params=params)
     processor()
     return processor.data

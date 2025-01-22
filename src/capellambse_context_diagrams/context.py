@@ -288,6 +288,7 @@ class CustomDiagram(m.AbstractDiagram):
     * collect - A list of collected elements.
     * unify_edge_direction - Unify the direction of the edges.
     * balckbox - Display the object of interest as a black box.
+    * display_actor_relationship: Show the connections between the context actors.
     """
 
     _display_symbols_as_boxes: bool
@@ -301,6 +302,7 @@ class CustomDiagram(m.AbstractDiagram):
     _collect: cabc.Iterator[m.ModelElement]
     _unify_edge_direction: str
     _blackbox: bool
+    _display_actor_relationship: bool
 
     def __init__(
         self,
@@ -331,6 +333,7 @@ class CustomDiagram(m.AbstractDiagram):
             "collect": [],
             "unify_edge_direction": "NONE",
             "blackbox": False,
+            "display_actor_relationship": False,
         } | default_render_parameters
 
         if standard_filter := STANDARD_FILTERS.get(class_):

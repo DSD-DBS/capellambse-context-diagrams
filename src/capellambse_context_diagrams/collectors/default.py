@@ -73,7 +73,10 @@ def collector(
                 ),
             )
 
-    diagram._collect = _collect_extended_context(diagram.target)
+    if diagram._display_actor_relationship:
+        diagram._collect = _collect(diagram.target)
+    else:
+        diagram._collect = _collect_extended_context(diagram.target)
     processor = custom.CustomCollector(diagram, params=params)
     processor()
     return processor.data

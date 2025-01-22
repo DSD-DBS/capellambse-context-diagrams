@@ -123,7 +123,7 @@ def test_context_diagrams_rerender_on_parameter_change(
         ),
         pytest.param(
             [
-                ("e1e48763-7479-4f3a-8134-c82bb6705d58", 126, 190),
+                ("e1e48763-7479-4f3a-8134-c82bb6705d58", 112, 187),
                 ("8df45b70-15cc-4d3a-99e4-593516392c5a", 154, 234),
                 ("74af6883-25a0-446a-80f3-656f8a490b11", 266, 412),
             ],
@@ -131,8 +131,8 @@ def test_context_diagrams_rerender_on_parameter_change(
         ),
         pytest.param(
             [
-                ("0c06cc88-8c77-46f2-8542-c08b1e8edd18", 112, 168),
-                ("9f1e1875-9ead-4af2-b428-c390786a436a", 112, 168),
+                ("0c06cc88-8c77-46f2-8542-c08b1e8edd18", 98, 164),
+                ("9f1e1875-9ead-4af2-b428-c390786a436a", 98, 164),
             ],
             id="LogicalFunction",
         ),
@@ -140,7 +140,7 @@ def test_context_diagrams_rerender_on_parameter_change(
             [
                 ("6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6", 36, 36),
                 ("344a405e-c7e5-4367-8a9a-41d3d9a27f81", 40, 40),
-                ("230c4621-7e0a-4d0a-9db2-d4ba5e97b3df", 42, 60),
+                ("230c4621-7e0a-4d0a-9db2-d4ba5e97b3df", 42, 49),
             ],
             id="SystemComponent Root",
         ),

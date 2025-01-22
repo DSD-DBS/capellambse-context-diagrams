@@ -289,6 +289,7 @@ class CustomDiagram(m.AbstractDiagram):
     * unify_edge_direction - Unify the direction of the edges.
     * balckbox - Display the object of interest as a black box.
     * display_actor_relation: Show the connections between the context actors.
+    * include_children_context: Include all children of the object of interest.
     """
 
     _display_symbols_as_boxes: bool
@@ -303,6 +304,7 @@ class CustomDiagram(m.AbstractDiagram):
     _unify_edge_direction: str
     _blackbox: bool
     _display_actor_relation: bool
+    _include_children_context: bool
 
     def __init__(
         self,
@@ -334,6 +336,7 @@ class CustomDiagram(m.AbstractDiagram):
             "unify_edge_direction": "NONE",
             "blackbox": False,
             "display_actor_relation": False,
+            "include_children_context": False,
         } | default_render_parameters
 
         if standard_filter := STANDARD_FILTERS.get(class_):
@@ -464,6 +467,7 @@ class ContextDiagram(CustomDiagram):
         default_render_parameters = {
             "slim_center_box": True,
             "unify_edge_direction": "SMART",
+            "include_children_context": True,
         } | default_render_parameters
 
         super().__init__(

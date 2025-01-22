@@ -54,8 +54,9 @@ def collector(
             elif ex.target.uuid in ports and ex.source.uuid not in ports:
                 outside_components[ex.source.owner.uuid] = ex.source.owner
 
-        for cmp in list(getattr(target, "components", [])):
-            yield from _collect(cmp)
+        if diagram._include_children_context or diagram._blackbox:
+            for cmp in list(getattr(target, "components", [])):
+                yield from _collect(cmp)
 
     def _collect_extended_context(
         target: m.ModelElement,
@@ -76,6 +77,4 @@ def collector(
             )
 
     diagram._collect = _collect_extended_context(diagram.target)
-    processor = custom.CustomCollector(diagram, params=params)
-    processor()
-    return processor.data
+    return custom.CustomCollector(diagram, params=params)()

@@ -13,7 +13,7 @@ import capellambse.model as m
 from capellambse.metamodel import cs, fa, la, sa
 
 from .. import _elkjs, context
-from . import default, generic, makers
+from . import generic, makers
 
 if t.TYPE_CHECKING:
     from .. import context
@@ -391,7 +391,7 @@ def derive_from_functions(
     assert isinstance(diagram.target, cs.Component)
     ports: list[m.ModelElement] = []
     for fnc in diagram.target.allocated_functions:
-        inc, out = default.port_collector(fnc, diagram.type)
+        inc, out = generic.port_collector(fnc, diagram.type)
         ports.extend((inc | out).values())
 
     derived_components: dict[str, cs.Component] = {}

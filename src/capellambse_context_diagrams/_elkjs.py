@@ -42,6 +42,8 @@ __all__ = [
     "call_elkjs",
 ]
 
+import requests
+
 log = logging.getLogger(__name__)
 
 NODE_HOME = pathlib.Path(
@@ -415,20 +417,9 @@ def call_elkjs(elk_model: ELKInputData) -> ELKOutputData:
     _install_required_npm_pkg_versions()
 
     ELKInputData.model_validate(elk_model, strict=True)
-    proc = subprocess.run(
-        ["node", str(PATH_TO_ELK_JS)],
-        executable=shutil.which("node"),
-        capture_output=True,
-        check=False,
-        input=elk_model.model_dump_json(exclude_defaults=True),
-        text=True,
-        env={**os.environ, "NODE_PATH": str(NODE_HOME)},
-    )
-    if proc.returncode or proc.stderr:
-        log.getChild("node").error("%s", proc.stderr.splitlines()[0])
-        raise NodeJSError("elk.js process failed")
+    response = requests.post('http://localhost:3000', data=elk_model.model_dump_json(exclude_defaults=True))
 
-    return ELKOutputData.model_validate_json(proc.stdout, strict=True)
+    return ELKOutputData.model_validate_json(response.text, strict=True)
 
 
 def get_global_layered_layout_options() -> LayoutOptions:

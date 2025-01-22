@@ -283,16 +283,15 @@ class CustomDiagram(m.AbstractDiagram):
     * display_port_labels — Display port labels on the diagram.
     * port_label_position - Position of the port labels. See
       [`PORT_LABEL_POSITION`][capellambse_context_diagrams.context._elkjs.PORT_LABEL_POSITION].
-    * hide_direct_children - Hide direct children of the object of
-      interest.
+
     * display_unused_ports - Display ports that are not connected to an edge.
     * collect - A list of collected elements.
     * unify_edge_direction - Unify the direction of the edges.
+    * balckbox - Display the object of interest as a black box.
     """
 
     _display_symbols_as_boxes: bool
     _display_parent_relation: bool
-    _hide_direct_children: bool
     _display_derived_interfaces: bool
     _slim_center_box: bool
     _display_port_labels: bool
@@ -301,6 +300,7 @@ class CustomDiagram(m.AbstractDiagram):
     _display_unused_ports: bool
     _collect: cabc.Iterator[m.ModelElement]
     _unify_edge_direction: str
+    _blackbox: bool
 
     def __init__(
         self,
@@ -322,7 +322,6 @@ class CustomDiagram(m.AbstractDiagram):
         self._default_render_parameters = {
             "display_symbols_as_boxes": False,
             "display_parent_relation": False,
-            "hide_direct_children": False,
             "display_derived_interfaces": False,
             "slim_center_box": False,
             "display_port_labels": False,
@@ -331,6 +330,7 @@ class CustomDiagram(m.AbstractDiagram):
             "transparent_background": False,
             "collect": [],
             "unify_edge_direction": "NONE",
+            "blackbox": False,
         } | default_render_parameters
 
         if standard_filter := STANDARD_FILTERS.get(class_):
@@ -461,6 +461,7 @@ class ContextDiagram(CustomDiagram):
         default_render_parameters = {
             "slim_center_box": True,
             "unify_edge_direction": "SMART",
+            "blackbox": True,
         } | default_render_parameters
 
         super().__init__(

@@ -70,10 +70,12 @@ class CustomCollector:
 
         if self.diagram._display_parent_relation:
             self.edge_owners: dict[str, str] = {}
+            self.common_owners: set[str] = set()
+
+        if self.diagram._display_parent_relation or self.diagram._blackbox:
             self.diagram_target_owners = list(
                 generic.get_all_owners(self.boxable_target)
             )
-            self.common_owners: set[str] = set()
 
         if self.diagram._unify_edge_direction != "NONE":
             self.directions: dict[str, bool] = {}
@@ -221,11 +223,25 @@ class CustomCollector:
         tgt_owner = tgt_obj.owner
         src_owners = list(generic.get_all_owners(src_obj))
         tgt_owners = list(generic.get_all_owners(tgt_obj))
-        if self.diagram._hide_direct_children and (
-            self.boxable_target.uuid in src_owners
-            or self.boxable_target.uuid in tgt_owners
-        ):
-            return None
+        is_src = self.boxable_target.uuid in src_owners
+        is_tgt = self.boxable_target.uuid in tgt_owners
+
+        if self.diagram._blackbox:
+            if is_src and is_tgt:
+                return None
+            if is_src and src_owner.uuid != self.boxable_target.uuid:
+                edge.id = (
+                    f"{makers.STYLECLASS_PREFIX}-ComponentExchange:{edge.id}"
+                )
+                src_owner = self.boxable_target
+                src_owners = self.diagram_target_owners
+            elif is_tgt and tgt_owner.uuid != self.boxable_target.uuid:
+                edge.id = (
+                    f"{makers.STYLECLASS_PREFIX}-ComponentExchange:{edge.id}"
+                )
+                tgt_owner = self.boxable_target
+                tgt_owners = self.diagram_target_owners
+
         if self.diagram._display_parent_relation:
             common_owner = None
             for owner in src_owners:
@@ -243,11 +259,13 @@ class CustomCollector:
         ].add(edge_obj.uuid)
         if flip_needed:
             src_obj, tgt_obj = tgt_obj, src_obj
+            src_owner, tgt_owner = tgt_owner, src_owner
+            is_src, is_tgt = is_tgt, is_src
 
         if not self.ports.get(src_obj.uuid):
-            self._make_port_and_owner(src_obj, "right")
+            self._make_port_and_owner(src_obj, "right", src_owner)
         if not self.ports.get(tgt_obj.uuid):
-            self._make_port_and_owner(tgt_obj, "left")
+            self._make_port_and_owner(tgt_obj, "left", tgt_owner)
 
         self.edges[edge_obj.uuid] = edge
         return edge
@@ -325,9 +343,12 @@ class CustomCollector:
         return False, self.boxable_target.uuid
 
     def _make_port_and_owner(
-        self, port_obj: m.ModelElement, side: str
+        self,
+        port_obj: m.ModelElement,
+        side: str,
+        owner: m.ModelElement | None = None,
     ) -> _elkjs.ELKInputPort:
-        owner_obj = port_obj.owner
+        owner_obj = owner if owner else port_obj.owner
         box = self._make_box(
             owner_obj,
             layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,

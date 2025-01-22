@@ -273,9 +273,9 @@ def test_context_diagram_hide_direct_children(
     }
 
     diag = obj.context_diagram
-    grey = diag.render(None, hide_direct_children=True)
+    grey = diag.render("svgdiagram", blackbox=True).save(pretty=True)
     diag.invalidate_cache()
-    white = diag.render(None, hide_direct_children=False)
+    white = diag.render(None, blackbox=False)
 
     assert not {element.uuid for element in grey} & expected_hidden_uuids
     assert {element.uuid for element in white} & expected_hidden_uuids
@@ -302,3 +302,26 @@ def test_context_diagram_display_unused_ports(
 
     assert unused_port_uuid not in {element.uuid for element in adiag}
     assert unused_port_uuid in {element.uuid for element in bdiag}
+
+
+def test_context_diagram_blackbox(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid("77b3349c-9184-478a-b005-893a4d789b47")
+    hidden_element_uuids = {
+        "22881485-4989-49c0-8068-5af004d1db63",
+        "138c1c84-713d-4567-9304-30364330b5a9",
+        "386f8111-bd45-4bd0-a22b-b8f6c4b1216a",
+        "f9897b61-602d-4c18-a72d-f4521e7c094f",
+        "25f152df-7309-46d1-88ea-b34772c3eb34",
+        "a662d5a2-beb0-469b-b947-f663ecf8f482",
+        "47cc117b-3760-470b-9474-0472d149d194",
+    }
+
+    white = obj.context_diagram.render(None, blackbox=False)
+    black = obj.context_diagram.render("svgdiagram", blackbox=True).save(
+        pretty=True
+    )
+
+    assert {element.uuid for element in white} & hidden_element_uuids
+    assert not {element.uuid for element in black} & hidden_element_uuids

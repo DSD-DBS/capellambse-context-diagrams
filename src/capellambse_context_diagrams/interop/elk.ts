@@ -10,7 +10,6 @@ import {ElkGraphJsonToSprotty} from "./elkgraph-to-sprotty.ts"
 const elk = new ELK();
 
 for await (const line of createInterface({input: process.stdin})) {
-    // Do something with `line` here.
     const input = JSON.parse(line)
     const layouted = await elk.layout(input)
     const transformed = new ElkGraphJsonToSprotty().transform(layouted)

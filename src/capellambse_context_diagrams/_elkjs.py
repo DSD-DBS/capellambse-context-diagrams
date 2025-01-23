@@ -14,15 +14,12 @@ from __future__ import annotations
 import collections.abc as cabc
 import copy
 import enum
-import json
 import logging
-import os
 import pathlib
-import shutil
+import platform
 import subprocess
 import typing as t
 
-import capellambse
 import pydantic
 
 __all__ = [
@@ -42,18 +39,7 @@ __all__ = [
     "call_elkjs",
 ]
 
-import requests
-
 log = logging.getLogger(__name__)
-
-NODE_HOME = pathlib.Path(
-    capellambse.dirs.user_cache_dir, "elkjs", "node_modules"
-)
-PATH_TO_ELK_JS = pathlib.Path(__file__).parent / "elk.js"
-REQUIRED_NPM_PKG_VERSIONS: dict[str, str] = {
-    "elkjs": "0.9.2",
-}
-"""Npm package names and versions required by this Python module."""
 
 LayoutOptions = cabc.MutableMapping[str, str | int | float]
 ImmutableLayoutOptions = cabc.Mapping[str, str | int | float]
@@ -308,100 +294,30 @@ class NodeJSError(RuntimeError):
 class ExecutableNotFoundError(NodeJSError, FileNotFoundError):
     """The required executable could not be found in the PATH."""
 
+def get_binary_path() -> pathlib.Path:
+    pkg_dir = pathlib.Path(__file__).parent
+    system = platform.system().lower()
 
-class NodeInstallationError(NodeJSError):
-    """Installation of the node.js package failed."""
+    # The binary name will include .exe on Windows
+    binary_name = "elk.exe" if system == "windows" else "elk"
+    binary_path = pkg_dir / binary_name
 
-
-def _find_node_and_npm() -> None:
-    """Find executables for ``node`` and ``npm``.
-
-    Raises
-    ------
-    NodeJSError
-        When ``node`` or ``npm`` cannot be found in any of the
-        directories registered in the environment variable ``PATH``.
-    """
-    for i in ("node", "npm"):
-        if shutil.which(i) is None:
-            raise ExecutableNotFoundError(i)
-
-
-def _get_installed_npm_pkg_versions() -> dict[str, str]:
-    """Read installed npm packages and versions.
-
-    Returns
-    -------
-    dict
-        Dictionary with installed npm package name (key), package
-        version (val)
-    """
-    installed_npm_pkg_versions: dict[str, str] = {}
-    package_lock_file_path: pathlib.Path = (
-        NODE_HOME.parent / "package-lock.json"
-    )
-    if not package_lock_file_path.is_file():
-        return installed_npm_pkg_versions
-    package_lock: dict[str, t.Any] = json.loads(
-        package_lock_file_path.read_text()
-    )
-    if "packages" not in package_lock:
-        return installed_npm_pkg_versions
-    pkg_rel_path: str
-    pkg_info: dict[str, str]
-    for pkg_rel_path, pkg_info in package_lock["packages"].items():
-        if not pkg_rel_path.startswith("node_modules/"):
-            continue
-        if "version" not in pkg_info:
-            log.warning(
-                "Broken NPM lock file at %r: cannot find version of %s",
-                str(package_lock_file_path),
-                pkg_rel_path,
-            )
-            continue
-        pkg_name: str = pkg_rel_path.replace("node_modules/", "")
-        installed_npm_pkg_versions[pkg_name] = pkg_info["version"]
-    return installed_npm_pkg_versions
-
-
-def _install_npm_package(npm_pkg_name: str, npm_pkg_version: str) -> None:
-    log.debug("Installing package %r into %s", npm_pkg_name, NODE_HOME)
-    proc = subprocess.run(
-        [
-            "npm",
-            "install",
-            "--prefix",
-            str(NODE_HOME.parent),
-            f"{npm_pkg_name}@{npm_pkg_version}",
-        ],
-        executable=shutil.which("npm"),
-        capture_output=True,
-        check=False,
-        text=True,
-    )
-    if proc.returncode:
-        log.getChild("node").error("%s", proc.stderr)
-        raise NodeInstallationError(npm_pkg_name)
-
-
-def _install_required_npm_pkg_versions() -> None:
-    try:
-        NODE_HOME.mkdir(parents=True, exist_ok=True)
-    except OSError as err:
+    if not binary_path.exists():
         raise RuntimeError(
-            f"Cannot create elk.js install directory at: {NODE_HOME}.\n"
-            "Make sure that important environment variables"
-            " like $HOME are set correctly.\n"
-            f"Failed due to {type(err).__name__}: {err}"
-        ) from None
-    installed = _get_installed_npm_pkg_versions()
-    for pkg_name, pkg_version in REQUIRED_NPM_PKG_VERSIONS.items():
-        if installed.get(pkg_name) != pkg_version:
-            _install_npm_package(pkg_name, pkg_version)
+            f"Binary not found at {binary_path}. This might indicate an "
+            "incomplete installation or unsupported platform."
+        )
+
+    # Ensure the binary is executable on Unix-like systems
+    if system != "windows":
+        binary_path.chmod(binary_path.stat().st_mode | 0o111)
+
+    return binary_path
+
 
 proc = subprocess.Popen(
     ["elk"],
-    executable="/Users/tobiasmessner/PycharmProjects/capellambse-context-diagrams/src/capellambse_context_diagrams/interop/elk",
+    executable=get_binary_path(),
     stdin=subprocess.PIPE,
     stdout=subprocess.PIPE,
     stderr=subprocess.PIPE,

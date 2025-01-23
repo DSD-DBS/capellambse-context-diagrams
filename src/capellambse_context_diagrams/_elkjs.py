@@ -399,6 +399,16 @@ def _install_required_npm_pkg_versions() -> None:
         if installed.get(pkg_name) != pkg_version:
             _install_npm_package(pkg_name, pkg_version)
 
+proc = subprocess.Popen(
+    ["elk"],
+    executable="/Users/tobiasmessner/PycharmProjects/capellambse-context-diagrams/src/capellambse_context_diagrams/interop/elk",
+    stdin=subprocess.PIPE,
+    stdout=subprocess.PIPE,
+    stderr=subprocess.PIPE,
+    text=True,
+    bufsize=1,
+)
+
 
 def call_elkjs(elk_model: ELKInputData) -> ELKOutputData:
     """Call into elk.js to auto-layout the ``diagram``.
@@ -413,14 +423,14 @@ def call_elkjs(elk_model: ELKInputData) -> ELKOutputData:
     layouted_diagram
         The diagram data, augmented with layouting information
     """
-    _find_node_and_npm()
-    _install_required_npm_pkg_versions()
+    # _find_node_and_npm()
+    # _install_required_npm_pkg_versions()
 
     ELKInputData.model_validate(elk_model, strict=True)
-    response = requests.post('http://localhost:3000', data=elk_model.model_dump_json(exclude_defaults=True))
-
-    return ELKOutputData.model_validate_json(response.text, strict=True)
-
+    proc.stdin.write(elk_model.model_dump_json(exclude_defaults=True) + '\n')
+    proc.stdin.flush()  # Ensure the input is flushed
+    response = proc.stdout.readline()
+    return ELKOutputData.model_validate_json(response, strict=True)
 
 def get_global_layered_layout_options() -> LayoutOptions:
     """Return optimal ELKLayered configuration."""

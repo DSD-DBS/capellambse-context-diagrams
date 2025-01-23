@@ -20,7 +20,7 @@ and is available on:
     ```py
     from capellambse import MelodyModel
 
-    lost = model.by_uuid("0d18f31b-9a13-4c54-9e63-a13dbf619a69")
+    lost = model.by_uuid("47c3130b-ec39-4365-a77a-5ab6365d1e2e")
     diag = obj.context_diagram
     diag.render(
         "svgdiagram", display_derived_interfaces=True

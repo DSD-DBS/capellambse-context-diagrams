@@ -226,14 +226,14 @@ def test_context_diagram_of_allocated_functions(
 def test_context_diagram_with_derived_interfaces(
     model: capellambse.MelodyModel,
 ) -> None:
-    obj = model.by_uuid(TEST_DERIVED_UUID)
+    obj = model.by_uuid("47c3130b-ec39-4365-a77a-5ab6365d1e2e")
 
     context_diagram = obj.context_diagram
     derived_diagram = context_diagram.render(
         None, display_derived_interfaces=True
     )
 
-    assert len(derived_diagram) > 5
+    assert len(derived_diagram) >= 15
 
 
 @pytest.mark.parametrize(

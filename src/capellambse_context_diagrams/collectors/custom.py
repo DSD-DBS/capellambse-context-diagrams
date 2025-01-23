@@ -21,8 +21,8 @@ if t.TYPE_CHECKING:
     DerivatorFunction: t.TypeAlias = cabc.Callable[
         [
             context.CustomDiagram,
-            _elkjs.ELKInputData,
             dict[str, _elkjs.ELKInputChild],
+            dict[str, _elkjs.ELKInputEdge],
         ],
         None,
     ]
@@ -121,11 +121,7 @@ class CustomCollector:
 
         derivator = DERIVATORS.get(type(self.target))
         if self.diagram._display_derived_interfaces and derivator is not None:
-            derivator(
-                self.diagram,
-                self.data,
-                self.boxes,
-            )
+            derivator(self.diagram, self.boxes, self.edges)
 
         self._fix_box_heights()
         for uuid in self.boxes_to_delete:
@@ -379,8 +375,8 @@ def collector(
 
 def derive_from_functions(
     diagram: context.CustomDiagram,
-    data: _elkjs.ELKInputData,
     boxes: dict[str, _elkjs.ELKInputChild],
+    edges: dict[str, _elkjs.ELKInputEdge],
 ) -> None:
     """Derive Components from allocated functions of the context target.
 
@@ -430,7 +426,7 @@ def derive_from_functions(
         )
         class_ = diagram.serializer.get_styleclass(derived_component.uuid)
         box.id = f"{makers.STYLECLASS_PREFIX}-{class_}:{uuid}"
-        data.children.append(box)
+        boxes[uuid] = box
         source_id = f"{makers.STYLECLASS_PREFIX}-CP_INOUT:{i}"
         target_id = f"{makers.STYLECLASS_PREFIX}-CP_INOUT:{-i}"
         box.ports.append(makers.make_port(source_id))
@@ -438,12 +434,11 @@ def derive_from_functions(
         if i % 2 == 0:
             source_id, target_id = target_id, source_id
 
-        data.edges.append(
-            _elkjs.ELKInputEdge(
-                id=f"{makers.STYLECLASS_PREFIX}-ComponentExchange:{i}",
-                sources=[source_id],
-                targets=[target_id],
-            )
+        uid = f"{makers.STYLECLASS_PREFIX}-ComponentExchange:{i}"
+        edges[uid] = _elkjs.ELKInputEdge(
+            id=uid,
+            sources=[source_id],
+            targets=[target_id],
         )
 
     centerbox.height += (

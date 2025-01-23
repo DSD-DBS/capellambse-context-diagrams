@@ -354,5 +354,5 @@ def register_custom_diagram() -> None:
         m.set_accessor(
             class_,
             "custom_diagram",
-            context.CustomContextAccessor(dgcls.value, {}),
+            context.CustomAccessor(dgcls.value, {}),
         )

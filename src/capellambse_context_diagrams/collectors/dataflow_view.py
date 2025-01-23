@@ -14,14 +14,14 @@ import capellambse.model as m
 from capellambse.metamodel import fa, oa
 
 from .. import _elkjs, context
-from . import default, generic, makers, portless
+from . import generic, makers, portless
 
 COLLECTOR_PARAMS: dict[m.DiagramType, dict[str, t.Any]] = {
     m.DiagramType.OAIB: {"attribute": "involved_activities"},
     m.DiagramType.SDFB: {
         "attribute": "involved_functions",
         "filter_attrs": ("source.owner", "target.owner"),
-        "port_collector": default.port_collector,
+        "port_collector": generic.port_collector,
     },
 }
 
@@ -90,7 +90,7 @@ def _collect_data(
         data.children.append(box := makers.make_box(elem))
         if port_collector:
             _ports = port_collector(elem, diagram.type)
-            connections = default.port_exchange_collector(
+            connections = generic.port_exchange_collector(
                 _ports, filter=filter
             )
             edges = list(chain.from_iterable(connections.values()))

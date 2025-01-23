@@ -12,7 +12,6 @@ TEST_ACTOR_SIZING_UUID = "6c8f32bf-0316-477f-a23b-b5239624c28d"
 TEST_HIERARCHY_UUID = "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb"
 TEST_HIERARCHY_PARENTS_UUIDS = {
     "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
-    "99a1d711-74af-4db7-af08-4dbd91c281ce",
     "53558f58-270e-4206-8fc7-3cf9e788fac9",
 }
 TEST_ACTIVITY_UUIDS = {
@@ -125,16 +124,16 @@ def test_context_diagrams_rerender_on_parameter_change(
         ),
         pytest.param(
             [
-                ("e1e48763-7479-4f3a-8134-c82bb6705d58", 126, 190),
-                ("8df45b70-15cc-4d3a-99e4-593516392c5a", 154, 234),
-                ("74af6883-25a0-446a-80f3-656f8a490b11", 266, 412),
+                ("e1e48763-7479-4f3a-8134-c82bb6705d58", 112, 187),
+                ("8df45b70-15cc-4d3a-99e4-593516392c5a", 140, 234),
+                ("74af6883-25a0-446a-80f3-656f8a490b11", 252, 412),
             ],
             id="LogicalComponent",
         ),
         pytest.param(
             [
-                ("0c06cc88-8c77-46f2-8542-c08b1e8edd18", 112, 168),
-                ("9f1e1875-9ead-4af2-b428-c390786a436a", 112, 168),
+                ("0c06cc88-8c77-46f2-8542-c08b1e8edd18", 98, 164),
+                ("9f1e1875-9ead-4af2-b428-c390786a436a", 98, 164),
             ],
             id="LogicalFunction",
         ),
@@ -142,7 +141,7 @@ def test_context_diagrams_rerender_on_parameter_change(
             [
                 ("6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6", 36, 36),
                 ("344a405e-c7e5-4367-8a9a-41d3d9a27f81", 40, 40),
-                ("230c4621-7e0a-4d0a-9db2-d4ba5e97b3df", 42, 60),
+                ("230c4621-7e0a-4d0a-9db2-d4ba5e97b3df", 42, 49),
             ],
             id="SystemComponent Root",
         ),
@@ -227,14 +226,14 @@ def test_context_diagram_of_allocated_functions(
 def test_context_diagram_with_derived_interfaces(
     model: capellambse.MelodyModel,
 ) -> None:
-    obj = model.by_uuid(TEST_DERIVED_UUID)
+    obj = model.by_uuid("47c3130b-ec39-4365-a77a-5ab6365d1e2e")
 
     context_diagram = obj.context_diagram
     derived_diagram = context_diagram.render(
         None, display_derived_interfaces=True
     )
 
-    assert len(derived_diagram) > 5
+    assert len(derived_diagram) >= 15
 
 
 @pytest.mark.parametrize(
@@ -275,9 +274,9 @@ def test_context_diagram_hide_direct_children(
     }
 
     diag = obj.context_diagram
-    grey = diag.render(None, hide_direct_children=True)
+    grey = diag.render(None, blackbox=True)
     diag.invalidate_cache()
-    white = diag.render(None, hide_direct_children=False)
+    white = diag.render(None, blackbox=False)
 
     assert not {element.uuid for element in grey} & expected_hidden_uuids
     assert {element.uuid for element in white} & expected_hidden_uuids
@@ -304,6 +303,24 @@ def test_context_diagram_display_unused_ports(
 
     assert unused_port_uuid not in {element.uuid for element in adiag}
     assert unused_port_uuid in {element.uuid for element in bdiag}
+
+
+def test_context_diagram_blackbox(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid("fd69347c-fca9-4cdd-ae44-9182e13c8d9d")
+    hidden_element_uuids = {
+        "9f92e453-0692-4842-9e0c-4d36ab541acd",
+        "847991cf-546d-4817-b52f-a58b5a42d0e5",
+        "955b6e5d-df64-4805-8973-93756a4be879",
+        "ce221886-adfd-45f5-99cf-07baac99458d",
+    }
+
+    white = obj.context_diagram.render(None, blackbox=False)
+    black = obj.context_diagram.render(None, blackbox=True)
+
+    assert {element.uuid for element in white} & hidden_element_uuids
+    assert not {element.uuid for element in black} & hidden_element_uuids
 
 
 @pytest.mark.skipif(

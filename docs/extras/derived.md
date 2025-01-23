@@ -12,15 +12,15 @@ i.e. the system of interest on which `context_diagram` was called on. The
 render parameter to enable this feature is called `display_derived_interfaces`
 and is available on:
 
-- `LogicalComponent`s and
-- `SystemComponent`s
+-   `LogicalComponent`s and
+-   `SystemComponent`s
 
 !!! example "Context Diagram with derived elements"
 
     ```py
     from capellambse import MelodyModel
 
-    lost = model.by_uuid("0d18f31b-9a13-4c54-9e63-a13dbf619a69")
+    lost = model.by_uuid("47c3130b-ec39-4365-a77a-5ab6365d1e2e")
     diag = obj.context_diagram
     diag.render(
         "svgdiagram", display_derived_interfaces=True
@@ -32,6 +32,6 @@ and is available on:
     </figure>
 
 See [`the derivator
-functions`][capellambse_context_diagrams.collectors.default.DERIVATORS] to gain
+functions`][capellambse_context_diagrams.collectors.custom.DERIVATORS] to gain
 an overview over all supported capellambse types and the logic to derive
 elements.

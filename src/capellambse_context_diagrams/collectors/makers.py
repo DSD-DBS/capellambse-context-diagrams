@@ -72,8 +72,8 @@ SYMBOL_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
 STYLECLASS_PREFIX = "__Derived"
 
 
-def make_diagram(diagram: context.ContextDiagram) -> _elkjs.ELKInputData:
-    """Return basic skeleton for ``ContextDiagram``s."""
+def make_diagram(diagram: context.CustomDiagram) -> _elkjs.ELKInputData:
+    """Return basic skeleton for ``CustomDiagram``s."""
     return _elkjs.ELKInputData(
         id=diagram.uuid,
         layoutOptions=_elkjs.get_global_layered_layout_options(),

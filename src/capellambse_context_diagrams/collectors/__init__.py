@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 
 def get_elkdata(
-    diagram: context.ContextDiagram, params: dict[str, t.Any] | None = None
+    diagram: context.ContextDiagram, params: dict[str, t.Any]
 ) -> _elkjs.ELKInputData:
     """High level collector function to collect needed data for ELK.
 

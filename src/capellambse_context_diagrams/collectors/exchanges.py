@@ -290,6 +290,12 @@ class InterfaceContextCollector(ExchangeCollector):
             self.incoming_edges = {}
             self.outgoing_edges = {}
 
+            for label in self.left.labels:
+                label.layoutOptions = makers.CENTRIC_LABEL_LAYOUT_OPTIONS
+
+            for label in self.right.labels:
+                label.layoutOptions = makers.CENTRIC_LABEL_LAYOUT_OPTIONS
+
         if self.diagram._include_interface or self.diagram._hide_functions:
             self.add_interface()
 

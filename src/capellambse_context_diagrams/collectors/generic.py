@@ -230,6 +230,7 @@ def move_edges(
     boxes: cabc.Mapping[str, _elkjs.ELKInputChild],
     connections: cabc.Iterable[m.ModelElement],
     data: _elkjs.ELKInputData,
+    portless: bool = False,
 ) -> None:
     """Move edges to boxes."""
     edges_to_remove: list[str] = []
@@ -249,7 +250,7 @@ def move_edges(
         for owner in source_owner_uuids:
             if owner in target_owner_uuids:
                 common_owner_uuid = owner
-                if cycle_detected:
+                if cycle_detected and not portless:
                     cycle_detected = False
                 else:
                     break

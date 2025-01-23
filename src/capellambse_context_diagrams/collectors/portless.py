@@ -109,7 +109,7 @@ def collector(
             uuid: box for uuid, box in made_boxes.items() if box.children
         }
         generic.move_parent_boxes_to_owner(owner_boxes, diagram.target, data)
-        generic.move_edges(owner_boxes, connections, data)
+        generic.move_edges(owner_boxes, connections, data, portless=True)
 
     centerbox.height = max(centerbox.height, *stack_heights.values())
     if not diagram._display_symbols_as_boxes and makers.is_symbol(

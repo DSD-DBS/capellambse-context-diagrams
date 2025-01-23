@@ -339,12 +339,10 @@ def call_elkjs(elk_model: ELKInputData) -> ELKOutputData:
     layouted_diagram
         The diagram data, augmented with layouting information
     """
-    # _find_node_and_npm()
-    # _install_required_npm_pkg_versions()
 
     ELKInputData.model_validate(elk_model, strict=True)
     proc.stdin.write(elk_model.model_dump_json(exclude_defaults=True) + '\n')
-    proc.stdin.flush()  # Ensure the input is flushed
+    proc.stdin.flush()
     response = proc.stdout.readline()
     return ELKOutputData.model_validate_json(response, strict=True)
 

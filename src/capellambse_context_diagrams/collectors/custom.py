@@ -67,6 +67,7 @@ class CustomCollector:
         self.edges: dict[str, _elkjs.ELKInputEdge] = {}
         self.ports: dict[str, _elkjs.ELKInputPort] = {}
         self.boxes_to_delete: set[str] = set()
+        self.edges_to_flip: dict[str, dict[bool, set[str]]] = {}
 
         if self.diagram._display_parent_relation:
             self.edge_owners: dict[str, str] = {}
@@ -79,7 +80,7 @@ class CustomCollector:
 
         if self.diagram._unify_edge_direction != "NONE":
             self.directions: dict[str, bool] = {}
-            self.edges_to_flip: dict[str, dict[bool, set[str]]] = {}
+
         if self.diagram._unify_edge_direction == "UNIFORM":
             self.directions[self.boxable_target.uuid] = False
 

@@ -291,10 +291,7 @@ def make_owner_box(
             break
     else:
         children.append(obj_box)
-        obj_box.width = max(
-            obj_box.width,
-            parent_box.width,
-        )
+        obj_box.width = max(obj_box.width, parent_box.width)
         for label in parent_box.labels:
             label.layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
     boxes_to_delete.add(obj.uuid)

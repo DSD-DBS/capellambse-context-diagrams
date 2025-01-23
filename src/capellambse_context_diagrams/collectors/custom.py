@@ -347,7 +347,7 @@ class CustomCollector:
         owner_obj = owner if owner else port_obj.owner
         box = self._make_box(
             owner_obj,
-            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+            layout_options=makers.CENTRIC_LABEL_LAYOUT_OPTIONS,
         )
         if port := self.ports.get(port_obj.uuid):
             return port

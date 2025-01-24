@@ -18,6 +18,7 @@ import importlib.metadata
 import logging
 import pathlib
 import platform
+import shutil
 import subprocess
 import requests
 import typing as t
@@ -347,7 +348,7 @@ class ELKManager:
         if system != "windows":
             self.binary_path.chmod(self.binary_path.stat().st_mode | 0o111)
 
-    def spawn_process(self):
+    def _spawn_process_binary(self):
         self.download_binary()
 
         log.debug("Spawning elk.js helper process at %s", self.binary_path)
@@ -364,6 +365,37 @@ class ELKManager:
         if line.strip() != "--- ELK layouter started ---":
             raise RuntimeError("Failed to start elk.js helper process")
         log.debug("Spawned elk.js helper process")
+
+    def _spawn_process_deno(self):
+        log.debug("Spawning elk.js helper process using deno")
+        deno_location = shutil.which("deno")
+        script_location = pathlib.Path(__file__).parent / "interop" / "elk.ts"
+        if deno_location is None:
+            raise RuntimeError("Deno is not installed")
+
+        self._proc = subprocess.Popen(
+            [deno_location, "run", "--allow-read", "--allow-net", "--allow-env", "--no-check", "--quiet", script_location],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            bufsize=1,
+        )
+        line = self._proc.stdout.readline()
+        if line.strip() != "--- ELK layouter started ---":
+            raise RuntimeError("Failed to start elk.js helper process using deno")
+        log.debug("Spawned elk.js helper process using deno")
+
+
+    def spawn_process(self):
+        # Preference: binary (downloaded) > deno > binary (needs download)
+
+        if self.binary_path.exists():
+            self._spawn_process_binary()
+        elif shutil.which("deno") is not None:
+            self._spawn_process_deno()
+        else:
+            self._spawn_process_binary()
 
     def terminate_process(self):
         log.debug("Terminating elk.js helper process")

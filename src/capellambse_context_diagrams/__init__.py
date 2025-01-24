@@ -20,7 +20,6 @@ from __future__ import annotations
 
 import logging
 import typing as t
-import warnings
 from importlib import metadata
 
 import capellambse.model as m

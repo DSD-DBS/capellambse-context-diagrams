@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import logging
 import typing as t
+import warnings
 from importlib import metadata
 
 import capellambse.model as m
@@ -45,6 +46,14 @@ SupportedInterfaceContextClass = tuple[
 logger = logging.getLogger(__name__)
 
 ATTR_NAME = "context_diagram"
+
+@warnings.deprecated("Installing elk.js, as well as having node.js installed, is no longer required.")
+def install_elk() -> None:
+    """Install the ELK.js library.
+
+    This is no longer required as the ELK.js library is now included in the package.
+    """
+    pass
 
 
 def init() -> None:

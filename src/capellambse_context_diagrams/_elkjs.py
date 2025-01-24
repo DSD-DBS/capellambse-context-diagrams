@@ -19,6 +19,7 @@ import pathlib
 import platform
 import subprocess
 import typing as t
+import atexit
 
 import pydantic
 
@@ -287,64 +288,80 @@ ELKOutputChild = (
 """Type alias for ELK output."""
 
 
-class NodeJSError(RuntimeError):
-    """An error happened during node execution."""
 
+class ELKManager:
+    _proc: subprocess.Popen | None
+    binary_path: pathlib.Path
 
-class ExecutableNotFoundError(NodeJSError, FileNotFoundError):
-    """The required executable could not be found in the PATH."""
+    def __init__(self):
+        pkg_dir = pathlib.Path(__file__).parent
+        system = platform.system().lower()
 
-def get_binary_path() -> pathlib.Path:
-    pkg_dir = pathlib.Path(__file__).parent
-    system = platform.system().lower()
+        binary_name = "elk.exe" if system == "windows" else "elk"
+        self.binary_path = pkg_dir / binary_name
 
-    # The binary name will include .exe on Windows
-    binary_name = "elk.exe" if system == "windows" else "elk"
-    binary_path = pkg_dir / binary_name
+        if not self.binary_path.exists():
+            raise RuntimeError(
+                f"Binary not found at {self.binary_path}. This might indicate an "
+                "incomplete installation or unsupported platform."
+            )
 
-    if not binary_path.exists():
-        raise RuntimeError(
-            f"Binary not found at {binary_path}. This might indicate an "
-            "incomplete installation or unsupported platform."
+        # Ensure the binary is executable on Unix-like systems
+        if system != "windows":
+            self.binary_path.chmod(self.binary_path.stat().st_mode | 0o111)
+
+    def spawn_process(self):
+        log.debug("Spawning elk.js helper process at %s", self.binary_path)
+        self._proc = subprocess.Popen(
+            [self.binary_path],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            bufsize=1,
         )
 
-    # Ensure the binary is executable on Unix-like systems
-    if system != "windows":
-        binary_path.chmod(binary_path.stat().st_mode | 0o111)
+    def terminate_process(self):
+        log.debug("Terminating elk.js helper process")
+        if self._proc is not None:
+            self._proc.terminate()
+            self._proc = None
+            log.debug("Terminated elk.js helper process")
+        else:
+            log.debug("No elk.js helper process to terminate")
+    
+    def get_process(self) -> subprocess.Popen:
+        if self._proc is None:
+            self.spawn_process()
+        return self._proc
 
-    return binary_path
+    def call_elkjs(self, elk_model: ELKInputData) -> ELKOutputData:
+        """Call into elk.js to auto-layout the ``diagram``.
 
+        Parameters
+        ----------
+        elk_model
+            The diagram data, sans layouting information
 
-proc = subprocess.Popen(
-    ["elk"],
-    executable=get_binary_path(),
-    stdin=subprocess.PIPE,
-    stdout=subprocess.PIPE,
-    stderr=subprocess.PIPE,
-    text=True,
-    bufsize=1,
-)
+        Returns
+        -------
+        layouted_diagram
+            The diagram data, augmented with layouting information
+        """
+        process = self.get_process()
 
+        ELKInputData.model_validate(elk_model, strict=True)
+        process.stdin.write(elk_model.model_dump_json(exclude_defaults=True) + '\n')
+        process.stdin.flush()
+        response = process.stdout.readline()
+        return ELKOutputData.model_validate_json(response, strict=True)
+    
+    
+elk_manager = ELKManager()
+call_elkjs = elk_manager.call_elkjs
 
-def call_elkjs(elk_model: ELKInputData) -> ELKOutputData:
-    """Call into elk.js to auto-layout the ``diagram``.
+atexit.register(elk_manager.terminate_process)
 
-    Parameters
-    ----------
-    elk_model
-        The diagram data, sans layouting information
-
-    Returns
-    -------
-    layouted_diagram
-        The diagram data, augmented with layouting information
-    """
-
-    ELKInputData.model_validate(elk_model, strict=True)
-    proc.stdin.write(elk_model.model_dump_json(exclude_defaults=True) + '\n')
-    proc.stdin.flush()
-    response = proc.stdout.readline()
-    return ELKOutputData.model_validate_json(response, strict=True)
 
 def get_global_layered_layout_options() -> LayoutOptions:
     """Return optimal ELKLayered configuration."""

@@ -55,7 +55,7 @@ def collector(
             if elt["origin"] is not None:
                 edges.append(
                     _elkjs.ELKInputEdge(
-                        id=f'{elt["origin"].uuid}_{elt["element"].uuid}',
+                        id=f"{elt['origin'].uuid}_{elt['element'].uuid}",
                         sources=[elt["origin"].uuid],
                         targets=[elt["element"].uuid],
                     )

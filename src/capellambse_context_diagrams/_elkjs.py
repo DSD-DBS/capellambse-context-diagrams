@@ -11,6 +11,7 @@ The high level function is
 
 from __future__ import annotations
 
+import atexit
 import collections.abc as cabc
 import copy
 import enum
@@ -20,12 +21,11 @@ import pathlib
 import platform
 import shutil
 import subprocess
-import requests
 import typing as t
-import atexit
-import platformdirs
 
+import platformdirs
 import pydantic
+import requests
 
 __all__ = [
     "ELKInputChild",
@@ -292,7 +292,6 @@ ELKOutputChild = (
 """Type alias for ELK output."""
 
 
-
 class ELKManager:
     _proc: subprocess.Popen | None
 
@@ -314,12 +313,12 @@ class ELKManager:
 
         build = build_mapping.get((system, machine))
 
-        package_version = importlib.metadata.version("capellambse_context_diagrams")
+        package_version = importlib.metadata.version(
+            "capellambse_context_diagrams"
+        )
 
         if not build:
-            raise RuntimeError(
-                f"Unsupported platform: {system} {machine}"
-            )
+            raise RuntimeError(f"Unsupported platform: {system} {machine}")
 
         return f"elk-{package_version}-{build}{'.exe' if system == 'windows' else ''}"
 
@@ -330,12 +329,16 @@ class ELKManager:
 
     def download_binary(self, force=False):
         if self.binary_path.exists() and not force:
-            log.debug("elk.js helper binary already exists at %s", self.binary_path)
+            log.debug(
+                "elk.js helper binary already exists at %s", self.binary_path
+            )
             return
 
         log.debug("Downloading elk.js helper binary")
         self.binary_path.parent.mkdir(parents=True, exist_ok=True)
-        package_version = importlib.metadata.version("capellambse_context_diagrams")
+        package_version = importlib.metadata.version(
+            "capellambse_context_diagrams"
+        )
         url = f"https://github.com/DSD-DBS/capellambse-context-diagrams/releases/tag/v{package_version}/{self.binary_name}"
         response = requests.get(url)
         response.raise_for_status()
@@ -361,6 +364,9 @@ class ELKManager:
             bufsize=1,
         )
 
+        if not self._proc.stdout:
+            raise RuntimeError("Failed to start elk.js helper process")
+
         line = self._proc.stdout.readline()
         if line.strip() != "--- ELK layouter started ---":
             raise RuntimeError("Failed to start elk.js helper process")
@@ -374,18 +380,34 @@ class ELKManager:
             raise RuntimeError("Deno is not installed")
 
         self._proc = subprocess.Popen(
-            [deno_location, "run", "--allow-read", "--allow-net", "--allow-env", "--no-check", "--quiet", script_location],
+            [
+                deno_location,
+                "run",
+                "--allow-read",
+                "--allow-net",
+                "--allow-env",
+                "--no-check",
+                "--quiet",
+                script_location,
+            ],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
             bufsize=1,
         )
+
+        if not self._proc.stdout:
+            raise RuntimeError(
+                "Failed to start elk.js helper process using deno"
+            )
+
         line = self._proc.stdout.readline()
         if line.strip() != "--- ELK layouter started ---":
-            raise RuntimeError("Failed to start elk.js helper process using deno")
+            raise RuntimeError(
+                "Failed to start elk.js helper process using deno"
+            )
         log.debug("Spawned elk.js helper process using deno")
-
 
     def spawn_process(self):
         # Preference: binary (downloaded) > deno > binary (needs download)
@@ -405,10 +427,11 @@ class ELKManager:
             log.debug("Terminated elk.js helper process")
         else:
             log.debug("No elk.js helper process to terminate")
-    
+
     def get_process(self) -> subprocess.Popen:
         if self._proc is None:
             self.spawn_process()
+            assert self._proc is not None
         return self._proc
 
     def call_elkjs(self, elk_model: ELKInputData) -> ELKOutputData:
@@ -426,13 +449,18 @@ class ELKManager:
         """
         process = self.get_process()
 
+        if not process.stdin or not process.stdout:
+            raise RuntimeError("ELK process stdin/stdout not available")
+
         ELKInputData.model_validate(elk_model, strict=True)
-        process.stdin.write(elk_model.model_dump_json(exclude_defaults=True) + '\n')
+        process.stdin.write(
+            elk_model.model_dump_json(exclude_defaults=True) + "\n"
+        )
         process.stdin.flush()
         response = process.stdout.readline()
         return ELKOutputData.model_validate_json(response, strict=True)
-    
-    
+
+
 elk_manager = ELKManager()
 
 atexit.register(elk_manager.terminate_process)

@@ -46,6 +46,7 @@ logger = logging.getLogger(__name__)
 
 ATTR_NAME = "context_diagram"
 
+
 def install_elk() -> None:
     """Install an ELK.js binary.
 

@@ -17,4 +17,3 @@ for await (const line of createInterface({input: process.stdin})) {
     const transformed = new ElkGraphJsonToSprotty().transform(layouted)
     console.log(JSON.stringify(transformed))
 }
-

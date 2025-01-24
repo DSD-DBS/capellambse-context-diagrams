@@ -38,10 +38,16 @@ def test_download_binary(mock_get):
     mock_response.content = b"binary content"
     mock_get.return_value = mock_response
     
+    mock_stat = mock.Mock()
+    mock_stat.st_mode = 0o644  # Typical default file permissions
+    
     with mock.patch("pathlib.Path.exists", return_value=False), \
          mock.patch("pathlib.Path.mkdir"), \
          mock.patch("builtins.open", mock.mock_open()), \
-         mock.patch("pathlib.Path.chmod"):
+         mock.patch("pathlib.Path.chmod"), \
+         mock.patch("pathlib.Path.stat", return_value=mock_stat), \
+         mock.patch("platformdirs.user_cache_dir", return_value="/mock/cache/dir"), \
+         mock.patch("capellambse_context_diagrams._elkjs.ELKManager.binary_name", new_callable=mock.PropertyMock, return_value="mock-binary"):
         manager.download_binary()
         mock_get.assert_called_once()
 

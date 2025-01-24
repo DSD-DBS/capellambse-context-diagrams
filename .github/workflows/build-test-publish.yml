@@ -40,10 +40,10 @@ jobs:
           enable-cache: true
           cache-dependency-glob: "**/pyproject.toml"
           python-version: ${{matrix.python_version}}
-      - uses: actions/setup-node@v4
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
         with:
-          node-version: 20
-      - run: npm -v
+          deno-version: "2.x"
       - name: Run unit tests
         run: uv run coverage run
       - name: Report coverage

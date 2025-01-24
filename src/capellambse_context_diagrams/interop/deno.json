@@ -1,5 +1,5 @@
 {
   "tasks": {
-    "build": "deno compile --allow-read --allow-net --allow-env elk.ts"
+    "build": "deno compile --allow-read --allow-net --allow-env --no-check elk.ts"
   }
 }

@@ -14,12 +14,15 @@ from __future__ import annotations
 import collections.abc as cabc
 import copy
 import enum
+import importlib.metadata
 import logging
 import pathlib
 import platform
 import subprocess
+import requests
 import typing as t
 import atexit
+import platformdirs
 
 import pydantic
 
@@ -37,7 +40,7 @@ __all__ = [
     "ELKOutputPort",
     "ELKPoint",
     "ELKSize",
-    "call_elkjs",
+    "elk_manager",
 ]
 
 log = logging.getLogger(__name__)
@@ -291,26 +294,62 @@ ELKOutputChild = (
 
 class ELKManager:
     _proc: subprocess.Popen | None
-    binary_path: pathlib.Path
 
     def __init__(self):
-        pkg_dir = pathlib.Path(__file__).parent
+        self._proc = None
+
+    @property
+    def binary_name(self):
         system = platform.system().lower()
+        machine = platform.machine().lower()
 
-        binary_name = "elk.exe" if system == "windows" else "elk"
-        self.binary_path = pkg_dir / binary_name
+        build_mapping = {
+            ("windows", "amd64"): "x86_64-pc-windows-msvc",
+            ("darwin", "x86_64"): "x86_64-apple-darwin",
+            ("darwin", "arm64"): "aarch64-apple-darwin",
+            ("linux", "x86_64"): "x86_64-unknown-linux-gnu",
+            ("linux", "aarch64"): "aarch64-unknown-linux-gnu",
+        }
 
-        if not self.binary_path.exists():
+        build = build_mapping.get((system, machine))
+
+        package_version = importlib.metadata.version("capellambse_context_diagrams")
+
+        if not build:
             raise RuntimeError(
-                f"Binary not found at {self.binary_path}. This might indicate an "
-                "incomplete installation or unsupported platform."
+                f"Unsupported platform: {system} {machine}"
             )
 
+        return f"elk-{package_version}-{build}{'.exe' if system == 'windows' else ''}"
+
+    @property
+    def binary_path(self):
+        cache_dir = platformdirs.user_cache_dir("capellambse_context_diagrams")
+        return pathlib.Path(cache_dir) / self.binary_name
+
+    def download_binary(self, force=False):
+        if self.binary_path.exists() and not force:
+            log.debug("elk.js helper binary already exists at %s", self.binary_path)
+            return
+
+        log.debug("Downloading elk.js helper binary")
+        self.binary_path.parent.mkdir(parents=True, exist_ok=True)
+        package_version = importlib.metadata.version("capellambse_context_diagrams")
+        url = f"https://github.com/DSD-DBS/capellambse-context-diagrams/releases/tag/v{package_version}/{self.binary_name}"
+        response = requests.get(url)
+        response.raise_for_status()
+        with open(self.binary_path, "wb") as f:
+            f.write(response.content)
+        log.debug("Downloaded elk.js helper binary to %s", self.binary_path)
+
         # Ensure the binary is executable on Unix-like systems
+        system = platform.system().lower()
         if system != "windows":
             self.binary_path.chmod(self.binary_path.stat().st_mode | 0o111)
 
     def spawn_process(self):
+        self.download_binary()
+
         log.debug("Spawning elk.js helper process at %s", self.binary_path)
         self._proc = subprocess.Popen(
             [self.binary_path],
@@ -320,6 +359,11 @@ class ELKManager:
             text=True,
             bufsize=1,
         )
+
+        line = self._proc.stdout.readline()
+        if line.strip() != "--- ELK layouter started ---":
+            raise RuntimeError("Failed to start elk.js helper process")
+        log.debug("Spawned elk.js helper process")
 
     def terminate_process(self):
         log.debug("Terminating elk.js helper process")
@@ -358,7 +402,6 @@ class ELKManager:
     
     
 elk_manager = ELKManager()
-call_elkjs = elk_manager.call_elkjs
 
 atexit.register(elk_manager.terminate_process)
 

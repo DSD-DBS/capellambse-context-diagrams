@@ -47,13 +47,16 @@ logger = logging.getLogger(__name__)
 
 ATTR_NAME = "context_diagram"
 
-@warnings.deprecated("Installing elk.js, as well as having node.js installed, is no longer required.")
 def install_elk() -> None:
-    """Install the ELK.js library.
+    """Install an ELK.js binary.
 
-    This is no longer required as the ELK.js library is now included in the package.
+    When rendering a context diagram, elk.js will be installed
+    automatically into a persistent local cache directory. This function
+    may be called while building a container, starting a server or
+    similar tasks in order to prepare the elk.js execution environment
+    ahead of time.
     """
-    pass
+    _elkjs.elk_manager.download_binary()
 
 
 def init() -> None:

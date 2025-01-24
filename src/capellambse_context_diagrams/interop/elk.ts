@@ -9,6 +9,8 @@ import {ElkGraphJsonToSprotty} from "./elkgraph-to-sprotty.ts"
 // @ts-ignore Deno doesn't find this type for some reason
 const elk = new ELK();
 
+console.log("--- ELK layouter started ---")
+
 for await (const line of createInterface({input: process.stdin})) {
     const input = JSON.parse(line)
     const layouted = await elk.layout(input)

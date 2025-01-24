@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import atexit
 import collections.abc as cabc
+import contextlib
 import copy
 import enum
 import importlib.metadata
@@ -26,6 +27,7 @@ import pathlib
 import platform
 import shutil
 import subprocess
+import threading
 import typing as t
 
 import platformdirs
@@ -299,9 +301,11 @@ ELKOutputChild = (
 
 class ELKManager:
     _proc: subprocess.Popen | None
+    _lock: threading.Lock
 
     def __init__(self):
         self._proc = None
+        self._lock = threading.Lock()
 
     @property
     def runtime_version(self) -> str:
@@ -440,11 +444,15 @@ class ELKManager:
         else:
             log.debug("No elk.js helper process to terminate")
 
-    def get_process(self) -> subprocess.Popen:
-        if self._proc is None:
-            self.spawn_process()
-            assert self._proc is not None
-        return self._proc
+    @contextlib.contextmanager
+    def get_process(self) -> cabc.Iterator[tuple[t.IO[str], t.IO[str]]]:
+        with self._lock:
+            if self._proc is None:
+                self.spawn_process()
+                assert self._proc is not None
+            assert self._proc.stdin is not None
+            assert self._proc.stdout is not None
+            yield self._proc.stdin, self._proc.stdout
 
     def call_elkjs(self, elk_model: ELKInputData) -> ELKOutputData:
         """Call into elk.js to auto-layout the ``diagram``.
@@ -459,17 +467,12 @@ class ELKManager:
         layouted_diagram
             The diagram data, augmented with layouting information
         """
-        process = self.get_process()
-
-        if not process.stdin or not process.stdout:
-            raise RuntimeError("ELK process stdin/stdout not available")
-
         ELKInputData.model_validate(elk_model, strict=True)
-        process.stdin.write(
-            elk_model.model_dump_json(exclude_defaults=True) + "\n"
-        )
-        process.stdin.flush()
-        response = process.stdout.readline()
+        request = elk_model.model_dump_json(exclude_defaults=True) + "\n"
+        with self.get_process() as (stdin, stdout):
+            stdin.write(request)
+            stdin.flush()
+            response = stdout.readline()
         return ELKOutputData.model_validate_json(response, strict=True)
 
 

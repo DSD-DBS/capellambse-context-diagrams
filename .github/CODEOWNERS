@@ -1,6 +1,4 @@
-# SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
+# SPDX-FileCopyrightText: Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: CC0-1.0
 
 *       @ewuerger @vik378
-
-/src/capellambse_context_diagrams/*.js    @MoritzWeber0

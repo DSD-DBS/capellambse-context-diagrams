@@ -18,7 +18,9 @@ them.
 
 from __future__ import annotations
 
+import importlib.metadata
 import logging
+import shutil
 import typing as t
 from importlib import metadata
 
@@ -48,7 +50,7 @@ ATTR_NAME = "context_diagram"
 
 
 def install_elk() -> None:
-    """Install elk.js and its dependencies into the local cache directory.
+    """Install an ELK.js binary.
 
     When rendering a context diagram, elk.js will be installed
     automatically into a persistent local cache directory. This function
@@ -56,7 +58,12 @@ def install_elk() -> None:
     similar tasks in order to prepare the elk.js execution environment
     ahead of time.
     """
-    _elkjs._install_required_npm_pkg_versions()
+    if shutil.which("deno") and "dev" in importlib.metadata.version(
+        "capellambse_context_diagrams"
+    ):
+        return
+
+    _elkjs.elk_manager.spawn_process()
 
 
 def init() -> None:

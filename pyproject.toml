@@ -191,7 +191,7 @@ platforms = ["any"]
 zip-safe = false
 
 [tool.setuptools.package-data]
-"*" = ["py.typed", "*.js"]
+"*" = ["py.typed", "*.ts", "interop/deno.json"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

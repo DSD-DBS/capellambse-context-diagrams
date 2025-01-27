@@ -42,6 +42,7 @@ repos:
           - pydantic==2.7.3
           - pytest
           - types-setuptools
+          - types-requests
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.8.2
     hooks:

@@ -2,28 +2,35 @@
 # SPDX-License-Identifier: Apache-2.0
 """Functionality for the ELK data model and the call to elkjs.
 
-Implementation of the data model and subprocess callers to check if
-elkjs can be installed via npm.
+Implementation of the data model and subprocess callers to check for
+elkjs binaries or deno support.
 
-The high level function is
-[call_elkjs][capellambse_context_diagrams._elkjs.call_elkjs].
+The ELKManager class is the manager for the ELK subprocess. It is
+responsible for spawning the subprocess, downloading the binary if
+necessary, and calling into the subprocess.
+
+The elk_manager instance is the global instance of the ELKManager class.
+It can be used to call into elkjs.
+
 """
 
 from __future__ import annotations
 
+import atexit
 import collections.abc as cabc
 import copy
 import enum
-import json
+import importlib.metadata
 import logging
-import os
 import pathlib
+import platform
 import shutil
 import subprocess
 import typing as t
 
-import capellambse
+import platformdirs
 import pydantic
+import requests
 
 __all__ = [
     "ELKInputChild",
@@ -39,19 +46,10 @@ __all__ = [
     "ELKOutputPort",
     "ELKPoint",
     "ELKSize",
-    "call_elkjs",
+    "elk_manager",
 ]
 
 log = logging.getLogger(__name__)
-
-NODE_HOME = pathlib.Path(
-    capellambse.dirs.user_cache_dir, "elkjs", "node_modules"
-)
-PATH_TO_ELK_JS = pathlib.Path(__file__).parent / "elk.js"
-REQUIRED_NPM_PKG_VERSIONS: dict[str, str] = {
-    "elkjs": "0.9.2",
-}
-"""Npm package names and versions required by this Python module."""
 
 LayoutOptions = cabc.MutableMapping[str, str | int | float]
 ImmutableLayoutOptions = cabc.Mapping[str, str | int | float]
@@ -299,136 +297,180 @@ ELKOutputChild = (
 """Type alias for ELK output."""
 
 
-class NodeJSError(RuntimeError):
-    """An error happened during node execution."""
+class ELKManager:
+    _proc: subprocess.Popen | None
 
+    def __init__(self):
+        self._proc = None
 
-class ExecutableNotFoundError(NodeJSError, FileNotFoundError):
-    """The required executable could not be found in the PATH."""
+    @property
+    def binary_name(self):
+        system = platform.system().lower()
+        machine = platform.machine().lower()
 
+        build_mapping = {
+            ("windows", "amd64"): "x86_64-pc-windows-msvc",
+            ("darwin", "x86_64"): "x86_64-apple-darwin",
+            ("darwin", "arm64"): "aarch64-apple-darwin",
+            ("linux", "x86_64"): "x86_64-unknown-linux-gnu",
+            ("linux", "aarch64"): "aarch64-unknown-linux-gnu",
+        }
 
-class NodeInstallationError(NodeJSError):
-    """Installation of the node.js package failed."""
+        build = build_mapping.get((system, machine))
 
+        package_version = importlib.metadata.version(
+            "capellambse_context_diagrams"
+        )
 
-def _find_node_and_npm() -> None:
-    """Find executables for ``node`` and ``npm``.
+        if not build:
+            raise RuntimeError(f"Unsupported platform: {system} {machine}")
 
-    Raises
-    ------
-    NodeJSError
-        When ``node`` or ``npm`` cannot be found in any of the
-        directories registered in the environment variable ``PATH``.
-    """
-    for i in ("node", "npm"):
-        if shutil.which(i) is None:
-            raise ExecutableNotFoundError(i)
+        return f"elk-{package_version}-{build}{'.exe' if system == 'windows' else ''}"
 
+    @property
+    def binary_path(self):
+        cache_dir = platformdirs.user_cache_dir("capellambse_context_diagrams")
+        return pathlib.Path(cache_dir) / self.binary_name
 
-def _get_installed_npm_pkg_versions() -> dict[str, str]:
-    """Read installed npm packages and versions.
-
-    Returns
-    -------
-    dict
-        Dictionary with installed npm package name (key), package
-        version (val)
-    """
-    installed_npm_pkg_versions: dict[str, str] = {}
-    package_lock_file_path: pathlib.Path = (
-        NODE_HOME.parent / "package-lock.json"
-    )
-    if not package_lock_file_path.is_file():
-        return installed_npm_pkg_versions
-    package_lock: dict[str, t.Any] = json.loads(
-        package_lock_file_path.read_text()
-    )
-    if "packages" not in package_lock:
-        return installed_npm_pkg_versions
-    pkg_rel_path: str
-    pkg_info: dict[str, str]
-    for pkg_rel_path, pkg_info in package_lock["packages"].items():
-        if not pkg_rel_path.startswith("node_modules/"):
-            continue
-        if "version" not in pkg_info:
-            log.warning(
-                "Broken NPM lock file at %r: cannot find version of %s",
-                str(package_lock_file_path),
-                pkg_rel_path,
+    def download_binary(self, force=False):
+        if self.binary_path.exists() and not force:
+            log.debug(
+                "elk.js helper binary already exists at %s", self.binary_path
             )
-            continue
-        pkg_name: str = pkg_rel_path.replace("node_modules/", "")
-        installed_npm_pkg_versions[pkg_name] = pkg_info["version"]
-    return installed_npm_pkg_versions
+            return
+
+        log.debug("Downloading elk.js helper binary")
+        self.binary_path.parent.mkdir(parents=True, exist_ok=True)
+        package_version = importlib.metadata.version(
+            "capellambse_context_diagrams"
+        )
+        url = f"https://github.com/DSD-DBS/capellambse-context-diagrams/releases/tag/v{package_version}/{self.binary_name}"
+        response = requests.get(url)
+        response.raise_for_status()
+        with open(self.binary_path, "wb") as f:
+            f.write(response.content)
+        log.debug("Downloaded elk.js helper binary to %s", self.binary_path)
+
+        # Ensure the binary is executable on Unix-like systems
+        system = platform.system().lower()
+        if system != "windows":
+            self.binary_path.chmod(self.binary_path.stat().st_mode | 0o111)
+
+    def _spawn_process_binary(self):
+        self.download_binary()
+
+        log.debug("Spawning elk.js helper process at %s", self.binary_path)
+        self._proc = subprocess.Popen(
+            [self.binary_path],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            bufsize=1,
+        )
+
+        if not self._proc.stdout:
+            raise RuntimeError("Failed to start elk.js helper process")
+
+        line = self._proc.stdout.readline()
+        if line.strip() != "--- ELK layouter started ---":
+            raise RuntimeError("Failed to start elk.js helper process")
+        log.debug("Spawned elk.js helper process")
+
+    def _spawn_process_deno(self):
+        log.debug("Spawning elk.js helper process using deno")
+        deno_location = shutil.which("deno")
+        script_location = pathlib.Path(__file__).parent / "interop" / "elk.ts"
+        if deno_location is None:
+            raise RuntimeError("Deno is not installed")
+
+        self._proc = subprocess.Popen(
+            [
+                deno_location,
+                "run",
+                "--allow-read",
+                "--allow-net",
+                "--allow-env",
+                "--no-check",
+                "--quiet",
+                script_location,
+            ],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            bufsize=1,
+        )
+
+        if not self._proc.stdout:
+            raise RuntimeError(
+                "Failed to start elk.js helper process using deno"
+            )
+
+        line = self._proc.stdout.readline()
+        if line.strip() != "--- ELK layouter started ---":
+            raise RuntimeError(
+                "Failed to start elk.js helper process using deno"
+            )
+        log.debug("Spawned elk.js helper process using deno")
+
+    def spawn_process(self):
+        """Spawn the elk.js process.
+
+        The preferenced order is:
+        binary (downloaded) > deno > binary (needs download)
+        """
+
+        if self.binary_path.exists() or shutil.which("deno") is None:
+            self._spawn_process_binary()
+        else:
+            self._spawn_process_deno()
+
+    def terminate_process(self):
+        log.debug("Terminating elk.js helper process")
+        if self._proc is not None:
+            self._proc.terminate()
+            self._proc = None
+            log.debug("Terminated elk.js helper process")
+        else:
+            log.debug("No elk.js helper process to terminate")
+
+    def get_process(self) -> subprocess.Popen:
+        if self._proc is None:
+            self.spawn_process()
+            assert self._proc is not None
+        return self._proc
+
+    def call_elkjs(self, elk_model: ELKInputData) -> ELKOutputData:
+        """Call into elk.js to auto-layout the ``diagram``.
+
+        Parameters
+        ----------
+        elk_model
+            The diagram data, sans layouting information
+
+        Returns
+        -------
+        layouted_diagram
+            The diagram data, augmented with layouting information
+        """
+        process = self.get_process()
+
+        if not process.stdin or not process.stdout:
+            raise RuntimeError("ELK process stdin/stdout not available")
+
+        ELKInputData.model_validate(elk_model, strict=True)
+        process.stdin.write(
+            elk_model.model_dump_json(exclude_defaults=True) + "\n"
+        )
+        process.stdin.flush()
+        response = process.stdout.readline()
+        return ELKOutputData.model_validate_json(response, strict=True)
 
 
-def _install_npm_package(npm_pkg_name: str, npm_pkg_version: str) -> None:
-    log.debug("Installing package %r into %s", npm_pkg_name, NODE_HOME)
-    proc = subprocess.run(
-        [
-            "npm",
-            "install",
-            "--prefix",
-            str(NODE_HOME.parent),
-            f"{npm_pkg_name}@{npm_pkg_version}",
-        ],
-        executable=shutil.which("npm"),
-        capture_output=True,
-        check=False,
-        text=True,
-    )
-    if proc.returncode:
-        log.getChild("node").error("%s", proc.stderr)
-        raise NodeInstallationError(npm_pkg_name)
+elk_manager = ELKManager()
 
-
-def _install_required_npm_pkg_versions() -> None:
-    try:
-        NODE_HOME.mkdir(parents=True, exist_ok=True)
-    except OSError as err:
-        raise RuntimeError(
-            f"Cannot create elk.js install directory at: {NODE_HOME}.\n"
-            "Make sure that important environment variables"
-            " like $HOME are set correctly.\n"
-            f"Failed due to {type(err).__name__}: {err}"
-        ) from None
-    installed = _get_installed_npm_pkg_versions()
-    for pkg_name, pkg_version in REQUIRED_NPM_PKG_VERSIONS.items():
-        if installed.get(pkg_name) != pkg_version:
-            _install_npm_package(pkg_name, pkg_version)
-
-
-def call_elkjs(elk_model: ELKInputData) -> ELKOutputData:
-    """Call into elk.js to auto-layout the ``diagram``.
-
-    Parameters
-    ----------
-    elk_model
-        The diagram data, sans layouting information
-
-    Returns
-    -------
-    layouted_diagram
-        The diagram data, augmented with layouting information
-    """
-    _find_node_and_npm()
-    _install_required_npm_pkg_versions()
-
-    ELKInputData.model_validate(elk_model, strict=True)
-    proc = subprocess.run(
-        ["node", str(PATH_TO_ELK_JS)],
-        executable=shutil.which("node"),
-        capture_output=True,
-        check=False,
-        input=elk_model.model_dump_json(exclude_defaults=True),
-        text=True,
-        env={**os.environ, "NODE_PATH": str(NODE_HOME)},
-    )
-    if proc.returncode or proc.stderr:
-        log.getChild("node").error("%s", proc.stderr.splitlines()[0])
-        raise NodeJSError("elk.js process failed")
-
-    return ELKOutputData.model_validate_json(proc.stdout, strict=True)
+atexit.register(elk_manager.terminate_process)
 
 
 def get_global_layered_layout_options() -> LayoutOptions:

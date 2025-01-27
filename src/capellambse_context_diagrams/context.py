@@ -980,7 +980,7 @@ class PhysicalPortContextDiagram(ContextDiagram):
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:
     """Try calling elkjs, raise a JSONDecodeError if it fails."""
     try:
-        return _elkjs.call_elkjs(data)
+        return _elkjs.elk_manager.call_elkjs(data)
     except json.JSONDecodeError as error:
         logger.error(json.dumps(data, indent=4))
         raise error

@@ -5,8 +5,13 @@
 Implementation of the data model and subprocess callers to check for
 elkjs binaries or deno support.
 
-The high level function is
-[call_elkjs][capellambse_context_diagrams._elkjs.elk_manager.call_elkjs].
+The ELKManager class is the manager for the ELK subprocess. It is
+responsible for spawning the subprocess, downloading the binary if
+necessary, and calling into the subprocess.
+
+The elk_manager instance is the global instance of the ELKManager class.
+It can be used to call into elkjs.
+
 """
 
 from __future__ import annotations

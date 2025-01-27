@@ -344,7 +344,7 @@ class ELKManager:
         package_version = importlib.metadata.version(
             "capellambse_context_diagrams"
         )
-        url = f"https://github.com/DSD-DBS/capellambse-context-diagrams/releases/tag/v{package_version}/{self.binary_name}"
+        url = f"https://github.com/DSD-DBS/capellambse-context-diagrams/releases/download/v{package_version}/{self.binary_name}"
         response = requests.get(url)
         response.raise_for_status()
         with open(self.binary_path, "wb") as f:

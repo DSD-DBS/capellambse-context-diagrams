@@ -259,10 +259,10 @@ class DiagramLayoutAccessor(m.Accessor):
     @t.overload
     def __get__(
         self, obj: m.T, objtype: type[m.T] | None = None
-    ) -> DiagramLayoutAccessor: ...
+    ) -> ELKDiagram: ...
     def __get__(
         self, obj: m.T | None, objtype: type | None = None
-    ) -> m.Accessor | DiagramLayoutAccessor:
+    ) -> m.Accessor | ELKDiagram:
         """Make a ContextDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
@@ -351,13 +351,13 @@ class CustomDiagram(m.AbstractDiagram):
     def __init__(
         self,
         class_: str,
-        obj: m.ModelElement,
+        obj: m.ModelElement | m.Diagram,
         *,
         render_styles: dict[str, styling.Styler] | None = None,
         default_render_parameters: dict[str, t.Any],
     ) -> None:
         super().__init__(obj._model)
-        self.target = obj  # type: ignore[misc]
+        self.target = obj  # type: ignore[misc,assignment]
         self.styleclass = class_
 
         self.render_styles = render_styles or {}
@@ -1019,7 +1019,7 @@ class PhysicalPortContextDiagram(ContextDiagram):
         self.collector = custom.collector
 
 
-class ELKDiagram(ContextDiagram):
+class ELKDiagram(CustomDiagram):
     """A former diagram layouted by ELKJS."""
 
     _include_port_allocations: bool
@@ -1046,16 +1046,16 @@ class ELKDiagram(ContextDiagram):
         self.collector = diagram_view.collect_from_diagram
         self.target: m.Diagram = obj
 
-        self.__port_allocations = []
+        # self.__port_allocations = []
         self.__nodes: m.MixedElementList | None = None
 
     @property
-    def uuid(self) -> str:  # type: ignore
+    def uuid(self) -> str:
         """Returns diagram UUID."""
         return f"{self.target.uuid}_elk"
 
     @property
-    def name(self) -> str:  # type: ignore
+    def name(self) -> str:
         """Returns the diagram name."""
         return f"ELK layout of {self.target.name.replace('/', '- or -')}"
 

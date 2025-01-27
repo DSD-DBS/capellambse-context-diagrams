@@ -8,7 +8,7 @@ import capellambse.metamodel as mm
 import pytest
 
 # pylint: disable-next=relative-beyond-top-level, useless-suppression
-from .conftest import SYSTEM_ANALYSIS_PARAMS  # type: ignore[import]
+from .conftest import SYSTEM_ANALYSIS_PARAMS
 
 TEST_CAP_SIZING_UUID = "b996a45f-2954-4fdd-9141-7934e7687de6"
 TEST_HUMAN_ACTOR_SIZING_UUID = "e95847ae-40bb-459e-8104-7209e86ea2d1"

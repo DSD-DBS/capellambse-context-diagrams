@@ -264,7 +264,7 @@ def register_physical_port_context() -> None:
     m.set_accessor(
         cs.PhysicalPort,
         ATTR_NAME,
-        context.PhysicalPortContextAccessor(DiagramType.PAB.value, {}),
+        context.PhysicalPortContextAccessor(m.DiagramType.PAB.value, {}),
     )
 
 
@@ -338,23 +338,23 @@ def register_cable_tree_view() -> None:
 
 def register_custom_diagram() -> None:
     """Add the `custom_diagram` attribute to `ModelObject`s."""
-    supported_classes: list[tuple[type[m.ModelElement], DiagramType]] = [
-        (oa.Entity, DiagramType.OAB),
-        (oa.OperationalActivity, DiagramType.OAB),
-        (oa.OperationalCapability, DiagramType.OCB),
-        (oa.CommunicationMean, DiagramType.OAB),
-        (sa.Mission, DiagramType.MCB),
-        (sa.Capability, DiagramType.MCB),
-        (sa.SystemComponent, DiagramType.SAB),
-        (sa.SystemFunction, DiagramType.SAB),
-        (la.LogicalComponent, DiagramType.LAB),
-        (la.LogicalFunction, DiagramType.LAB),
-        (pa.PhysicalComponent, DiagramType.PAB),
-        (pa.PhysicalFunction, DiagramType.PAB),
-        (cs.PhysicalLink, DiagramType.PAB),
-        (cs.PhysicalPort, DiagramType.PAB),
-        (fa.ComponentExchange, DiagramType.SAB),
-        (information.Class, DiagramType.CDB),
+    supported_classes: list[tuple[type[m.ModelElement], m.DiagramType]] = [
+        (oa.Entity, m.DiagramType.OAB),
+        (oa.OperationalActivity, m.DiagramType.OAB),
+        (oa.OperationalCapability, m.DiagramType.OCB),
+        (oa.CommunicationMean, m.DiagramType.OAB),
+        (sa.Mission, m.DiagramType.MCB),
+        (sa.Capability, m.DiagramType.MCB),
+        (sa.SystemComponent, m.DiagramType.SAB),
+        (sa.SystemFunction, m.DiagramType.SAB),
+        (la.LogicalComponent, m.DiagramType.LAB),
+        (la.LogicalFunction, m.DiagramType.LAB),
+        (pa.PhysicalComponent, m.DiagramType.PAB),
+        (pa.PhysicalFunction, m.DiagramType.PAB),
+        (cs.PhysicalLink, m.DiagramType.PAB),
+        (cs.PhysicalPort, m.DiagramType.PAB),
+        (fa.ComponentExchange, m.DiagramType.SAB),
+        (information.Class, m.DiagramType.CDB),
     ]
     for class_, dgcls in supported_classes:
         m.set_accessor(

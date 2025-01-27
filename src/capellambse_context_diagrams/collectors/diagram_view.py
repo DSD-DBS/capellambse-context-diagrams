@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
+# SPDX-License-Identifier: Apache-2.0
+
 # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 """Collector for the DiagramView.
@@ -13,12 +16,13 @@ import logging
 import typing as t
 
 from capellambse import model as m
-from capellambse.metamodel import fa
+from capellambse.metamodel import cs, fa
 
 from .. import _elkjs, context
 from . import generic, makers
 
 logger = logging.getLogger(__name__)
+PortTypes: t.TypeAlias = fa.FunctionPort | fa.ComponentPort | cs.PhysicalPort
 
 
 def is_function(node: m.ModelElement) -> bool:
@@ -63,7 +67,7 @@ class Collector:
         self.made_ports: dict[str, _elkjs.ELKInputPort] = {}
         self.exchanges: dict[str, fa.AbstractExchange] = {}
         self.global_boxes: dict[str, _elkjs.ELKInputChild] = {}
-        self.ports: dict[str, fa.Port] = {}
+        self.ports: dict[str, PortTypes] = {}
         self.boxes_to_delete: set[str] = set()
 
     def __call__(self, params: dict[str, t.Any]) -> _elkjs.ELKInputData:
@@ -80,7 +84,7 @@ class Collector:
             elif is_part(node):
                 self.make_all_owner_boxes(node.type)
             elif is_exchange(node) and not is_allocation(node):
-                self.exchanges[node.uuid] = node
+                self.exchanges[node.uuid] = node  # type: ignore[assignment]
                 edge = _elkjs.ELKInputEdge(
                     id=node.uuid,
                     sources=[node.source.uuid],
@@ -122,7 +126,7 @@ class Collector:
             obj_box = self._make_box(obj, no_symbol=True, slim_width=False)
             self.made_boxes[obj.uuid] = obj_box
 
-        current = obj
+        current: m.ModelElement | None = obj
         while (
             current
             and hasattr(current, "owner")
@@ -130,7 +134,7 @@ class Collector:
         ):
             current = self._make_owner_box(current)
 
-    def _make_owner_box(self, obj: m.ModelElement) -> m.ModelElement:
+    def _make_owner_box(self, obj: m.ModelElement) -> m.ModelElement | None:
         if obj.owner.uuid in self.diagram._hide_elements:
             return None
 
@@ -178,9 +182,6 @@ class Collector:
 
     def _solve_hierarchy(self, params: dict[str, t.Any]):
         del params  # No use for it now
-        generic.move_parent_boxes_to_owner(
-            self.made_boxes, self.diagram.target, self.data
-        )
         generic.move_edges(self.made_boxes, self.exchanges.values(), self.data)
 
 

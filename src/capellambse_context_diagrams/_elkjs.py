@@ -2,11 +2,11 @@
 # SPDX-License-Identifier: Apache-2.0
 """Functionality for the ELK data model and the call to elkjs.
 
-Implementation of the data model and subprocess callers to check if
-elkjs can be installed via npm.
+Implementation of the data model and subprocess callers to check for
+elkjs binaries or deno support.
 
 The high level function is
-[call_elkjs][capellambse_context_diagrams._elkjs.call_elkjs].
+[call_elkjs][capellambse_context_diagrams._elkjs.elk_manager.call_elkjs].
 """
 
 from __future__ import annotations

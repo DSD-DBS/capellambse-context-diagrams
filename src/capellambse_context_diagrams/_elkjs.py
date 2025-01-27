@@ -415,14 +415,16 @@ class ELKManager:
         log.debug("Spawned elk.js helper process using deno")
 
     def spawn_process(self):
-        # Preference: binary (downloaded) > deno > binary (needs download)
+        """Spawn the elk.js process.
 
-        if self.binary_path.exists():
+        The preferenced order is:
+        binary (downloaded) > deno > binary (needs download)
+        """
+
+        if self.binary_path.exists() or shutil.which("deno") is None:
             self._spawn_process_binary()
-        elif shutil.which("deno") is not None:
-            self._spawn_process_deno()
         else:
-            self._spawn_process_binary()
+            self._spawn_process_deno()
 
     def terminate_process(self):
         log.debug("Terminating elk.js helper process")

@@ -18,7 +18,9 @@ them.
 
 from __future__ import annotations
 
+import importlib.metadata
 import logging
+import shutil
 import typing as t
 from importlib import metadata
 
@@ -56,7 +58,12 @@ def install_elk() -> None:
     similar tasks in order to prepare the elk.js execution environment
     ahead of time.
     """
-    _elkjs.elk_manager.download_binary()
+    if shutil.which("deno") and "dev" in importlib.metadata.version(
+        "capellambse_context_diagrams"
+    ):
+        return
+
+    _elkjs.elk_manager.spawn_process()
 
 
 def init() -> None:

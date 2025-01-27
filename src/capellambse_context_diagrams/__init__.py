@@ -18,7 +18,6 @@ them.
 
 from __future__ import annotations
 
-import importlib.metadata
 import logging
 import shutil
 import typing as t
@@ -35,7 +34,7 @@ try:
     __version__ = metadata.version("capellambse-context-diagrams")
 except metadata.PackageNotFoundError:
     __version__ = "0.0.0+unknown"
-del metadata
+
 
 DefaultRenderParams = dict[str, t.Any]
 SupportedContextClass = tuple[
@@ -58,7 +57,7 @@ def install_elk() -> None:
     similar tasks in order to prepare the elk.js execution environment
     ahead of time.
     """
-    if shutil.which("deno") and "dev" in importlib.metadata.version(
+    if shutil.which("deno") and "dev" in metadata.version(
         "capellambse_context_diagrams"
     ):
         return

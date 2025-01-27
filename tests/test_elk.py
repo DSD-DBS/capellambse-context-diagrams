@@ -19,7 +19,7 @@ def test_binary_name_resolution():
         mock.patch("platform.machine", return_value="x86_64"),
         mock.patch("importlib.metadata.version", return_value="1.0.0"),
     ):
-        assert manager.binary_name == "elk-1.0.0-x86_64-unknown-linux-gnu"
+        assert manager.binary_name == "elk-v1.0.0-x86_64-unknown-linux-gnu"
 
 
 def test_binary_name_resolution_windows():
@@ -29,7 +29,7 @@ def test_binary_name_resolution_windows():
         mock.patch("platform.machine", return_value="AMD64"),
         mock.patch("importlib.metadata.version", return_value="1.0.0"),
     ):
-        assert manager.binary_name == "elk-1.0.0-x86_64-pc-windows-msvc.exe"
+        assert manager.binary_name == "elk-v1.0.0-x86_64-pc-windows-msvc.exe"
 
 
 def test_unsupported_platform():

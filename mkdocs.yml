@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
+# SPDX-FileCopyrightText: Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
 site_name: Context diagrams for py-capellambse
@@ -119,4 +119,4 @@ extra:
       name: DB InfraGO AG - SET
       link: https://github.com/DSD-DBS
 
-copyright: Copyright &copy; 2022 DB InfraGO AG
+copyright: Copyright &copy; DB InfraGO AG

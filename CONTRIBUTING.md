@@ -1,5 +1,5 @@
 <!--
- ~ SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
+ ~ SPDX-FileCopyrightText: Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
  ~ SPDX-License-Identifier: Apache-2.0
  -->
 
@@ -110,7 +110,7 @@ Example:
 > Integration test for capability context diagrams seen in `tests/test_capability_diagrams.py`:
 >
 > ```python
-> # SPDX-FileCopyrightText: 2022 Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
+> # SPDX-FileCopyrightText: Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 > # SPDX-License-Identifier: Apache-2.0
 >
 > import capellambse

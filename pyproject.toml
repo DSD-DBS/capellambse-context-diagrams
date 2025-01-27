@@ -48,7 +48,6 @@ dev = [
   "coverage>=7.6.9",
   "ipykernel>=6.29.5",
   "pre-commit>=4.0.1",
-  "pyls-isort>=0.2.2",
   "pylsp-mypy>=0.6.9",
   "pytest>=8.3.3",
   "python-lsp-server>=1.12.0",

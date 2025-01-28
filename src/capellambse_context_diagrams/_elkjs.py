@@ -304,6 +304,19 @@ class ELKManager:
         self._proc = None
 
     @property
+    def runtime_version(self) -> str:
+        """The version of the elkjs runtime package to download."""
+        package_version = importlib.metadata.version(
+            "capellambse_context_diagrams"
+        )
+        if ".dev" in package_version:
+            package_version, _ = package_version.split(".dev", 1)
+            head, tail = package_version.rsplit(".", 1)
+            assert tail != "0"
+            package_version = f"{head}.{int(tail) - 1}"
+        return package_version
+
+    @property
     def binary_name(self):
         system = platform.system().lower()
         machine = platform.machine().lower()
@@ -317,15 +330,10 @@ class ELKManager:
         }
 
         build = build_mapping.get((system, machine))
-
-        package_version = importlib.metadata.version(
-            "capellambse_context_diagrams"
-        )
-
         if not build:
             raise RuntimeError(f"Unsupported platform: {system} {machine}")
 
-        return f"elk-v{package_version}-{build}{'.exe' if system == 'windows' else ''}"
+        return f"elk-v{self.runtime_version}-{build}{'.exe' if system == 'windows' else ''}"
 
     @property
     def binary_path(self):
@@ -341,10 +349,7 @@ class ELKManager:
 
         log.debug("Downloading elk.js helper binary")
         self.binary_path.parent.mkdir(parents=True, exist_ok=True)
-        package_version = importlib.metadata.version(
-            "capellambse_context_diagrams"
-        )
-        url = f"https://github.com/DSD-DBS/capellambse-context-diagrams/releases/download/v{package_version}/{self.binary_name}"
+        url = f"https://github.com/DSD-DBS/capellambse-context-diagrams/releases/download/v{self.runtime_version}/{self.binary_name}"
         response = requests.get(url)
         response.raise_for_status()
         with open(self.binary_path, "wb") as f:

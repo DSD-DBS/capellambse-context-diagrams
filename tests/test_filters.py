@@ -39,7 +39,7 @@ Types = list[mm.fa.FunctionalExchange | mm.fa.ComponentExchange]
         ("", ""),
     ],
 )
-def test_uuid_filter(model: MelodyModel, label: str, expected: str) -> None:
+def test_uuid_filter(model: MelodyModel, label: str, expected: str):
     exploitation = model.by_uuid(CAP_EXPLOIT)
 
     assert filters.uuid_filter(exploitation, label) == expected
@@ -77,7 +77,7 @@ def has_sorted_ExchangeItems(edge: diagram.Edge) -> bool:
 
 
 @pytest.mark.parametrize("uuid", [FNC_UUID, INTERF_UUID])
-def test_EX_ITEMS_is_applied(model: MelodyModel, uuid: str) -> None:
+def test_EX_ITEMS_is_applied(model: MelodyModel, uuid: str):
     edges, aird_diag = start_filter_apply_test(model, uuid, filters.EX_ITEMS)
 
     for edge in edges:
@@ -94,7 +94,7 @@ def test_EX_ITEMS_is_applied(model: MelodyModel, uuid: str) -> None:
 )
 def test_context_diagrams_ExchangeItems_sorting(
     model: MelodyModel, sort: bool, uuid: str
-) -> None:
+):
     edges, aird_diag = start_filter_apply_test(
         model, uuid, filters.EX_ITEMS, sorted_exchangedItems=sort
     )
@@ -108,7 +108,7 @@ def test_context_diagrams_ExchangeItems_sorting(
 @pytest.mark.parametrize("uuid", [FNC_UUID, INTERF_UUID])
 def test_context_diagrams_SHOW_EX_ITEMS_is_applied(
     model: MelodyModel, uuid: str
-) -> None:
+):
     edges, aird_diag = start_filter_apply_test(
         model, uuid, filters.SHOW_EX_ITEMS
     )
@@ -129,7 +129,7 @@ def test_context_diagrams_SHOW_EX_ITEMS_is_applied(
 @pytest.mark.parametrize("uuid", [FNC_UUID, INTERF_UUID])
 def test_context_diagrams_FEX_OR_EX_ITEMS_is_applied(
     model: MelodyModel, uuid: str
-) -> None:
+):
     edges, aird_diag = start_filter_apply_test(
         model, uuid, filters.EX_ITEMS_OR_EXCH
     )
@@ -155,7 +155,7 @@ def test_context_diagrams_FEX_OR_EX_ITEMS_is_applied(
 @pytest.mark.parametrize("uuid", SYSTEM_ANALYSIS_PARAMS)
 def test_context_diagrams_SYSTEM_EX_RELABEL_is_applied(
     model: MelodyModel, uuid: str
-) -> None:
+):
     diag: context.ContextDiagram = model.by_uuid(uuid).context_diagram
     expected = {
         "« exploits »",
@@ -172,7 +172,7 @@ def test_context_diagrams_SYSTEM_EX_RELABEL_is_applied(
             assert element.labels[0].label in expected
 
 
-def test_context_diagrams_NO_UUID_is_applied(model: MelodyModel) -> None:
+def test_context_diagrams_NO_UUID_is_applied(model: MelodyModel):
     obj = model.by_uuid("9390b7d5-598a-42db-bef8-23677e45ba06")
     diag: context.ContextDiagram = obj.context_diagram
 
@@ -187,7 +187,7 @@ def test_context_diagrams_NO_UUID_is_applied(model: MelodyModel) -> None:
 
 def test_context_diagrams_no_edgelabels_render_param_is_applied(
     model: MelodyModel,
-) -> None:
+):
     obj = model.by_uuid("a5642060-c9cc-4d49-af09-defaa3024bae")
     diag: context.ContextDiagram = obj.context_diagram
 
@@ -200,7 +200,7 @@ def test_context_diagrams_no_edgelabels_render_param_is_applied(
 
 def test_context_diagrams_display_port_labels_render_param_is_applied(
     model: MelodyModel,
-) -> None:
+):
     obj = model.by_uuid(HIERARCHY_UUID)
     diag: context.ContextDiagram = obj.context_diagram
 

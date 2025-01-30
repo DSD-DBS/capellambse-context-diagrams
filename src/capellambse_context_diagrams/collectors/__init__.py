@@ -13,7 +13,7 @@ import logging
 import typing as t
 
 from .. import _elkjs, context
-from . import default, generic, portless
+from . import custom, generic, portless
 
 __all__ = ["get_elkdata"]
 logger = logging.getLogger(__name__)
@@ -41,7 +41,7 @@ def get_elkdata(
     """
     try:
         if generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[diagram.type]:
-            collector = default.collector
+            collector = custom.collector
         else:
             collector = portless.collector
     except KeyError:
@@ -49,6 +49,6 @@ def get_elkdata(
             "Handling unknown diagram type %r. Default collector is used.",
             diagram.type,
         )
-        collector = default.collector
+        collector = custom.collector
 
     return collector(diagram, params)

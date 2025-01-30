@@ -61,7 +61,7 @@ class DiagramSerializer:
 
     diagram: cdiagram.Diagram
 
-    def __init__(self, elk_diagram: context.CustomDiagram) -> None:
+    def __init__(self, elk_diagram: context.ContextDiagram) -> None:
         self.model = elk_diagram.target._model
         self._diagram = elk_diagram
         self._cache: dict[str, cdiagram.DiagramElement] = {}

@@ -10,13 +10,13 @@ diagrams that involve ports.
 from __future__ import annotations
 
 import collections.abc as cabc
+import enum
 import typing as t
 from itertools import chain
 
 import capellambse.model as m
 
-from .. import _elkjs
-from . import custom, generic
+from . import generic
 
 if t.TYPE_CHECKING:
     from .. import context
@@ -27,16 +27,36 @@ if t.TYPE_CHECKING:
     ]
 
 
+class MODE(enum.Enum):
+    """Context collection mode.
+
+    Attributes
+    ----------
+    WHITEBOX
+        Collect target context and it's children's context.
+    GRAYBOX
+        Collect target context and derived context from it's children's context.
+    BLACKBOX
+        Collect target context only.
+    """
+
+    WHITEBOX = enum.auto()
+    GRAYBOX = enum.auto()
+    BLACKBOX = enum.auto()
+
+
 def collector(
-    diagram: context.ContextDiagram, params: dict[str, t.Any]
-) -> _elkjs.ELKInputData:
+    diagram: context.ContextDiagram,
+) -> cabc.Iterator[m.ModelElement]:
     """Collect context data from ports of centric box."""
     visited: set[str] = set()
     outside_components: dict[str, m.ModelElement] = {}
 
     def _collect(
         target: m.ModelElement,
+        *,
         filter: Filter = lambda i: i,
+        include_children: bool = False,
     ) -> cabc.Iterator[m.ModelElement]:
         if target.uuid in visited:
             return
@@ -54,27 +74,45 @@ def collector(
             elif ex.target.uuid in ports and ex.source.uuid not in ports:
                 outside_components[ex.source.owner.uuid] = ex.source.owner
 
-        if diagram._include_children_context or diagram._blackbox:
+        if include_children:
             for cmp in list(getattr(target, "components", [])):
                 yield from _collect(cmp)
 
-    def _collect_extended_context(
+    yield from _collect(
+        diagram.target,
+        include_children=diagram._mode
+        in (MODE.WHITEBOX.name, MODE.GRAYBOX.name),
+    )
+    if not diagram._display_actor_relation:
+        return
+    oc_copy = outside_components.copy()
+    for cmp in oc_copy.values():
+        yield from _collect(
+            cmp,
+            filter=lambda items: (
+                item
+                for item in items
+                if item.source.owner.uuid in oc_copy
+                and item.target.owner.uuid in oc_copy
+            ),
+        )
+
+
+def physical_port_context_collector(
+    diagram: context.ContextDiagram,
+) -> cabc.Iterator[m.ModelElement]:
+    """Collect context data from a physical port."""
+    visited = set()
+
+    def collect(
         target: m.ModelElement,
     ) -> cabc.Iterator[m.ModelElement]:
-        yield from _collect(target)
-        if not diagram._display_actor_relation:
+        if target.uuid in visited:
             return
-        oc_copy = outside_components.copy()
-        for cmp in oc_copy.values():
-            yield from _collect(
-                cmp,
-                filter=lambda items: (
-                    item
-                    for item in items
-                    if item.source.owner.uuid in oc_copy
-                    and item.target.owner.uuid in oc_copy
-                ),
-            )
+        visited.add(target.uuid)
+        for link in target.links:
+            yield link
+            yield from collect(link.source)
+            yield from collect(link.target)
 
-    diagram._collect = _collect_extended_context(diagram.target)
-    return custom.CustomCollector(diagram, params=params)()
+    yield from collect(diagram.target)

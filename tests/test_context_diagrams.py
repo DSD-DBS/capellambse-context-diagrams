@@ -274,11 +274,11 @@ def test_context_diagram_hide_direct_children(
     }
 
     diag = obj.context_diagram
-    grey = diag.render(None, blackbox=True)
+    black = diag.render(None, mode="BLACKBOX")
     diag.invalidate_cache()
-    white = diag.render(None, blackbox=False)
+    white = diag.render(None, mode="WHITEBOX")
 
-    assert not {element.uuid for element in grey} & expected_hidden_uuids
+    assert not {element.uuid for element in black} & expected_hidden_uuids
     assert {element.uuid for element in white} & expected_hidden_uuids
 
 
@@ -305,7 +305,7 @@ def test_context_diagram_display_unused_ports(
     assert unused_port_uuid in {element.uuid for element in bdiag}
 
 
-def test_context_diagram_blackbox(
+def test_context_diagram_graybox(
     model: capellambse.MelodyModel,
 ) -> None:
     obj = model.by_uuid("fd69347c-fca9-4cdd-ae44-9182e13c8d9d")
@@ -316,11 +316,13 @@ def test_context_diagram_blackbox(
         "ce221886-adfd-45f5-99cf-07baac99458d",
     }
 
-    white = obj.context_diagram.render(None, blackbox=False)
-    black = obj.context_diagram.render(None, blackbox=True)
+    white = obj.context_diagram.render("svgdiagram", mode="WHITEBOX").save(
+        pretty=True
+    )
+    gray = obj.context_diagram.render(None, mode="GRAYBOX")
 
     assert {element.uuid for element in white} & hidden_element_uuids
-    assert not {element.uuid for element in black} & hidden_element_uuids
+    assert not {element.uuid for element in gray} & hidden_element_uuids
 
 
 @pytest.mark.skipif(

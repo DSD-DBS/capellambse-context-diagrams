@@ -283,11 +283,10 @@ class CustomDiagram(m.AbstractDiagram):
     * display_port_labels — Display port labels on the diagram.
     * port_label_position - Position of the port labels. See
       [`PORT_LABEL_POSITION`][capellambse_context_diagrams.context._elkjs.PORT_LABEL_POSITION].
-
     * display_unused_ports - Display ports that are not connected to an edge.
     * collect - A list of collected elements.
     * unify_edge_direction - Unify the direction of the edges.
-    * balckbox - Display the object of interest as a black box.
+    * blackbox - Display the object of interest as a black box.
     * display_actor_relation: Show the connections between the context actors.
     * include_children_context: Include all children of the object of interest.
     """

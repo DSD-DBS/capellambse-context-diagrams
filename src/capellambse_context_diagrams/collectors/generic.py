@@ -60,7 +60,7 @@ PackageTypes: tuple[type[m.ModelElement], ...] = (
 
 
 def collector(
-    diagram: context.ContextDiagram,
+    diagram: context.CustomDiagram,
     *,
     width: int | float = makers.EOI_WIDTH,
     no_symbol: bool = False,

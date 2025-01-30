@@ -24,6 +24,7 @@ from .collectors import (
     cable_tree,
     custom,
     dataflow_view,
+    diagram_view,
     exchanges,
     get_elkdata,
     realization_view,
@@ -239,6 +240,47 @@ class CableTreeAccessor(ContextAccessor):
         return self._get(obj, CableTreeViewDiagram)
 
 
+class DiagramLayoutAccessor(m.Accessor):
+    """Provides access to the context diagrams."""
+
+    def __init__(
+        self,
+        dgls_to_render_params: (
+            dict[m.DiagramType, dict[str, t.Any]] | None
+        ) = None,
+    ) -> None:
+        super().__init__()
+        self._dgls_to_render_params = dgls_to_render_params or {}
+
+    @t.overload
+    def __get__(
+        self, obj: None, objtype: type[t.Any]
+    ) -> DiagramLayoutAccessor: ...
+    @t.overload
+    def __get__(
+        self, obj: m.T, objtype: type[m.T] | None = None
+    ) -> ELKDiagram: ...
+    def __get__(
+        self, obj: m.T | None, objtype: type | None = None
+    ) -> m.Accessor | ELKDiagram:
+        """Make a ContextDiagram for the given model object."""
+        del objtype
+        if obj is None:  # pragma: no cover
+            return self
+        assert isinstance(obj, m.Diagram)
+        return self._get(obj)
+
+    def _get(self, obj: m.Diagram) -> m.Accessor | ELKDiagram:
+        default_render_params = self._dgls_to_render_params.get(obj.type, {})
+        new_diagram = ELKDiagram(
+            obj.type.value,
+            obj,
+            default_render_parameters=default_render_params,
+        )
+        new_diagram.filters.add(filters.NO_UUID)
+        return new_diagram
+
+
 class CustomDiagram(m.AbstractDiagram):
     """An automatically generated custom diagram.
 
@@ -309,13 +351,13 @@ class CustomDiagram(m.AbstractDiagram):
     def __init__(
         self,
         class_: str,
-        obj: m.ModelElement,
+        obj: m.ModelElement | m.Diagram,
         *,
         render_styles: dict[str, styling.Styler] | None = None,
         default_render_parameters: dict[str, t.Any],
     ) -> None:
         super().__init__(obj._model)
-        self.target = obj  # type: ignore[misc]
+        self.target = obj  # type: ignore[misc,assignment]
         self.styleclass = class_
 
         self.render_styles = render_styles or {}
@@ -576,14 +618,14 @@ class InterfaceContextDiagram(ContextDiagram):
         self, node: _elkjs.ELKOutputNode, interface_port: _elkjs.ELKOutputPort
     ) -> cabc.Iterator[_elkjs.ELKOutputEdge]:
         ref = cdiagram.Vector2D(node.position.x, node.position.y)
+        interface_middle = _calculate_middle(
+            interface_port.position, interface_port.size, node.position
+        )
         for position, port in _get_all_ports(node, ref=ref):
             if port == interface_port:
                 continue
 
             port_middle = _calculate_middle(position, port.size)
-            interface_middle = _calculate_middle(
-                interface_port.position, interface_port.size, node.position
-            )
             styleclass = self.serializer.get_styleclass(port.id)
             if styleclass in {"FIP", "FOP"}:
                 yield _create_edge(
@@ -977,6 +1019,80 @@ class PhysicalPortContextDiagram(ContextDiagram):
         self.collector = custom.collector
 
 
+class ELKDiagram(CustomDiagram):
+    """A former diagram layouted by ELKJS."""
+
+    _include_port_allocations: bool
+    _hide_elements: set[str]
+
+    def __init__(
+        self,
+        class_: str,
+        obj: m.Diagram,
+        *,
+        render_styles: dict[str, styling.Styler] | None = None,
+        default_render_parameters: dict[str, t.Any],
+    ) -> None:
+        default_render_parameters = {
+            "include_port_allocations": True,
+            "hide_elements": set(),
+        } | default_render_parameters
+        super().__init__(
+            class_,
+            obj,
+            render_styles=render_styles,
+            default_render_parameters=default_render_parameters,
+        )
+        self.collector = diagram_view.collect_from_diagram
+        self.target: m.Diagram = obj
+
+        # self.__port_allocations = []
+        self.__nodes: m.MixedElementList | None = None
+
+    @property
+    def uuid(self) -> str:
+        """Returns diagram UUID."""
+        return f"{self.target.uuid}_elk"
+
+    @property
+    def name(self) -> str:
+        """Returns the diagram name."""
+        return f"ELK layout of {self.target.name.replace('/', '- or -')}"
+
+    @property
+    def nodes(self) -> m.MixedElementList:
+        """Return a list of all nodes visible in this diagram."""
+        if not self.__nodes:
+            self.__nodes = super().nodes
+        assert self.__nodes is not None
+        return self.__nodes
+
+    def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
+        data = self.elk_input_data(params)
+        assert not isinstance(data, tuple)
+        layout = try_to_layout(data)
+        # if self._include_port_allocations:
+        #     self._add_port_allocations(layout)
+
+        add_context(layout)
+        return self.serializer.make_diagram(
+            layout, transparent_background=self._transparent_background
+        )
+
+    # def _add_port_allocations(self, layout: _elkjs.ELKOutputData) -> None:
+    #     for allocation in self.__port_allocations:
+    #         if isinstance(allocation.source, fa.ComponentPort):
+    #             interface_port = allocation.source
+    #             port = allocation.target
+    #         else:
+    #             interface_port = allocation.target
+    #             port = allocation.source
+
+    #         allocation.source
+
+    #         allocation.target
+
+
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:
     """Try calling elkjs, raise a JSONDecodeError if it fails."""
     try:
@@ -1070,7 +1186,7 @@ def calculate_label_position(
 def _get_all_ports(
     node: _elkjs.ELKOutputNode, ref: cdiagram.Vector2D
 ) -> cabc.Iterator[tuple[cdiagram.Vector2D, _elkjs.ELKOutputPort]]:
-    """Yield all ports from."""
+    """Yield all ports from a given ``node`` and its children."""
     for child in node.children:
         if isinstance(child, _elkjs.ELKOutputPort):
             yield ref + (child.position.x, child.position.y), child

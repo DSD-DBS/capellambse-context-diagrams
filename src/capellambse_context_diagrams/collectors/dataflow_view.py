@@ -90,4 +90,5 @@ def _collect_data(
             )
             yield from chain.from_iterable(connections.values())
         else:
+            diagram._is_portless = True
             yield from portless.get_exchanges(elem, filter=filter)

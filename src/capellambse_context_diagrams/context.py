@@ -26,7 +26,8 @@ from .collectors import (
     dataflow_view,
     default,
     exchanges,
-    get_elkdata,
+    generic,
+    portless,
     realization_view,
     tree_view,
 )
@@ -274,6 +275,7 @@ class ContextDiagram(m.AbstractDiagram):
     * mode - Context collection mode.
     * display_actor_relation: Show the connections between the context actors.
     * hide_context_owner: Hide the context owner in the diagram.
+    * hide_direct_children: Hide the direct children of the diagram target.
     """
 
     _display_symbols_as_boxes: bool
@@ -289,6 +291,8 @@ class ContextDiagram(m.AbstractDiagram):
     _mode: str
     _display_actor_relation: bool
     _hide_context_owner: bool
+    _is_portless: bool
+    _hide_direct_children: bool
 
     def __init__(
         self,
@@ -316,12 +320,23 @@ class ContextDiagram(m.AbstractDiagram):
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
             "display_unused_ports": False,
             "transparent_background": False,
-            "collect": default.collector(self),
             "edge_direction": custom.EDGE_DIRECTION.SMART.name,
             "mode": default.MODE.WHITEBOX.name,
             "display_actor_relation": True,
             "hide_context_owner": False,
+            "hide_direct_children": False,
         } | default_render_parameters
+
+        if not generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES.get(self.type, ()):
+            self._default_render_parameters |= {
+                "collect": portless.collector(self),
+                "is_portless": True,
+            }
+        else:
+            self._default_render_parameters |= {
+                "collect": default.collector(self),
+                "is_portless": False,
+            }
 
         if standard_filter := STANDARD_FILTERS.get(class_):
             self.filters.add(standard_filter)
@@ -330,7 +345,7 @@ class ContextDiagram(m.AbstractDiagram):
 
         self.collector: cabc.Callable[
             [ContextDiagram, dict[str, t.Any]], CollectorOutputData
-        ] = get_elkdata
+        ] = custom.collector
 
     @property
     def uuid(self) -> str:
@@ -468,8 +483,6 @@ class InterfaceContextDiagram(ContextDiagram):
     _include_interface: bool
     _include_port_allocations: bool
     _hide_functions: bool
-    _display_port_labels: bool
-    _port_label_position: str
 
     def __init__(
         self,
@@ -599,7 +612,6 @@ class ClassTreeDiagram(ContextDiagram):
     This diagram is exclusively for ``Class``es.
     """
 
-    _display_symbols_as_boxes: bool
     _edgeRouting: t.Literal["UNDEFINED", "POLYLINE", "ORTHOGONAL", "SPLINES"]
     _direction: t.Literal["DOWN", "UP", "LEFT", "RIGHT"]
     _nodeSizeConstraints: t.Literal[
@@ -727,7 +739,6 @@ class RealizationViewDiagram(ContextDiagram):
     ``Entity`` and ``Components`` of all layers.
     """
 
-    _display_symbols_as_boxes: bool
     _depth: int
     _search_direction: t.Literal["ALL", "ABOVE", "BELOW"]
     _show_owners: bool
@@ -852,9 +863,6 @@ class DataFlowViewDiagram(ContextDiagram):
 
 class CableTreeViewDiagram(ContextDiagram):
     """An automatically generated CableTreeView."""
-
-    _display_port_labels: bool
-    _port_label_position: str
 
     def __init__(
         self,

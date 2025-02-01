@@ -13,33 +13,14 @@ The data was collected with the functions from
 
 from __future__ import annotations
 
-import collections.abc as cabc
 import copy
 import enum
 import typing as t
 
 import capellambse.model as m
-from capellambse.metamodel import cs, fa, la, sa
 
 from .. import _elkjs, context
-from . import default, generic, makers
-
-if t.TYPE_CHECKING:
-    from .. import context
-
-    DerivatorFunction: t.TypeAlias = cabc.Callable[
-        [
-            context.ContextDiagram,
-            dict[str, _elkjs.ELKInputChild],
-            dict[str, _elkjs.ELKInputEdge],
-        ],
-        None,
-    ]
-
-    Filter: t.TypeAlias = cabc.Callable[
-        [cabc.Iterable[m.ModelElement]],
-        cabc.Iterable[m.ModelElement],
-    ]
+from . import default, derived, generic, makers, portless
 
 
 class EDGE_DIRECTION(enum.Enum):
@@ -67,7 +48,11 @@ class EDGE_DIRECTION(enum.Enum):
 
 
 def _is_edge(obj: m.ModelElement) -> bool:
-    return hasattr(obj, "source") and hasattr(obj, "target")
+    try:
+        portless.collect_exchange_endpoints(obj)
+        return True
+    except AttributeError:
+        return False
 
 
 def _is_port(obj: m.ModelElement) -> bool:
@@ -102,10 +87,15 @@ class CustomCollector:
         self.boxable_target: m.ModelElement
         if _is_port(self.target):
             self.boxable_target = self.target.owner
-        elif _is_edge(self.target):
-            self.boxable_target = self.target.source.owner
         else:
-            self.boxable_target = self.target
+            try:
+                src, _ = portless.collect_exchange_endpoints(self.target)
+                if self.diagram._is_portless:
+                    self.boxable_target = src
+                else:
+                    self.boxable_target = src.owner
+            except AttributeError:
+                self.boxable_target = self.target
 
         self.data = makers.make_diagram(diagram)
         self.params = params
@@ -128,22 +118,25 @@ class CustomCollector:
         if self.diagram._edge_direction in {
             EDGE_DIRECTION.RIGHT.name,
             EDGE_DIRECTION.LEFT.name,
+            EDGE_DIRECTION.TREE.name,
         }:
             self.data.layoutOptions["layered.nodePlacement.strategy"] = (
                 "NETWORK_SIMPLEX"
             )
+        if self.diagram._edge_direction in {
+            EDGE_DIRECTION.RIGHT.name,
+            EDGE_DIRECTION.LEFT.name,
+        }:
             self.directions[self.boxable_target.uuid] = (
                 self.diagram._edge_direction == EDGE_DIRECTION.LEFT.name
             )
 
     def __call__(self) -> _elkjs.ELKInputData:
         if _is_port(self.target):
-            port = self._make_port_and_owner(self.target, "right")
+            port = self._make_port_and_owner("right", self.target)
             self._update_min_heights(self.boxable_target.uuid, "left", port)
         elif not _is_edge(self.target):
-            self._make_box(
-                self.target, slim_width=self.diagram._slim_center_box
-            )
+            self._make_box(self.target)
         elif self.diagram._include_interface or self.diagram._hide_functions:
             edge = self._make_edge_and_ports(self.target)
             assert edge is not None
@@ -173,7 +166,7 @@ class CustomCollector:
                 if box := self.boxes.get(box_uuid):
                     box.edges.append(self.edges.pop(edge_uuid))
 
-        derivator = DERIVATORS.get(type(self.target))
+        derivator = derived.DERIVATORS.get(type(self.target))
         if self.diagram._display_derived_interfaces and derivator is not None:
             derivator(self.diagram, self.boxes, self.edges)
 
@@ -235,7 +228,7 @@ class CustomCollector:
     ) -> _elkjs.ELKInputChild | _elkjs.ELKInputEdge | None:
         if _is_edge(obj):
             return self._make_edge_and_ports(obj)
-        return self._make_box(obj, slim_width=self.diagram._slim_center_box)
+        return self._make_box(obj)
 
     def _make_box(
         self,
@@ -247,6 +240,7 @@ class CustomCollector:
         box = makers.make_box(
             obj,
             no_symbol=self.diagram._display_symbols_as_boxes,
+            slim_width=self.diagram._slim_center_box,
             **kwargs,
         )
         self.boxes[obj.uuid] = box
@@ -256,7 +250,7 @@ class CustomCollector:
             ]:
                 for port_obj in getattr(obj, attr, []):
                     side = "left" if attr == "inputs" else "right"
-                    self._make_port_and_owner(port_obj, side)
+                    self._make_port_and_owner(side, port_obj)
         if self.diagram._display_parent_relation:
             self.common_owners.add(
                 generic.make_owner_boxes(
@@ -275,42 +269,57 @@ class CustomCollector:
     ) -> _elkjs.ELKInputEdge | None:
         if self.edges.get(edge_obj.uuid):
             return None
+
         ex_data = generic.ExchangeData(
             edge_obj,
             self.data,
             self.diagram.filters,
             self.params,
         )
-        src_obj, tgt_obj = generic.exchange_data_collector(ex_data)
-        src_owner, tgt_owner = src_obj.owner, tgt_obj.owner
-        edge = self.data.edges.pop()
 
-        def get_unc(obj):
-            if self.boxable_target.uuid in generic.get_all_owners(obj):
-                return self.boxable_target
-            return get_uncommon_owner(obj.owner, self.diagram_target_owners)
+        src_obj: m.ModelElement | None
+        tgt_obj: m.ModelElement | None
 
-        src_unc, tgt_unc = get_unc(src_obj), get_unc(tgt_obj)
+        if self.diagram._is_portless:
+            src_owner, tgt_owner = generic.exchange_data_collector(
+                ex_data, portless.collect_exchange_endpoints
+            )
+            src_obj, tgt_obj = None, None
+            edge = self.data.edges.pop()
+        else:
+            src_obj, tgt_obj = generic.exchange_data_collector(ex_data)
+            src_owner, tgt_owner = src_obj.owner, tgt_obj.owner
+            edge = self.data.edges.pop()
 
-        if self.diagram._mode == default.MODE.GRAYBOX.name:
-            if src_unc.uuid == tgt_unc.uuid:
-                return None
-            if src_unc.uuid != src_owner.uuid:
-                edge.id = (
-                    f"{makers.STYLECLASS_PREFIX}-ComponentExchange:{edge.id}"
-                )
-                src_owner = src_unc
-            if tgt_unc.uuid != tgt_owner.uuid:
-                edge.id = (
-                    f"{makers.STYLECLASS_PREFIX}-ComponentExchange:{edge.id}"
-                )
-                tgt_owner = tgt_unc
+            if self.diagram._mode == default.MODE.GRAYBOX.name:
 
-        self._make_port_and_owner(src_obj, "right", src_owner)
-        self._make_port_and_owner(tgt_obj, "left", tgt_owner)
+                def get_unc(obj):
+                    if self.boxable_target.uuid in generic.get_all_owners(obj):
+                        return self.boxable_target
+                    return get_uncommon_owner(obj, self.diagram_target_owners)
+
+                src_unc, tgt_unc = get_unc(src_owner), get_unc(tgt_owner)
+                if src_unc.uuid == tgt_unc.uuid:
+                    return None
+                if src_unc.uuid != src_owner.uuid:
+                    edge.id = f"{makers.STYLECLASS_PREFIX}-ComponentExchange:{edge.id}"
+                    src_owner = src_unc
+                if tgt_unc.uuid != tgt_owner.uuid:
+                    edge.id = f"{makers.STYLECLASS_PREFIX}-ComponentExchange:{edge.id}"
+                    tgt_owner = tgt_unc
 
         src_owners = list(generic.get_all_owners(src_owner))
         tgt_owners = list(generic.get_all_owners(tgt_owner))
+
+        if (
+            self.diagram._hide_direct_children
+            and self.boxable_target.uuid in src_owners
+            and self.boxable_target.uuid in tgt_owners
+        ):
+            return None
+
+        self._make_port_and_owner("right", src_obj, src_owner)
+        self._make_port_and_owner("left", tgt_obj, tgt_owner)
 
         if self.diagram._display_parent_relation:
             common_owner = None
@@ -335,14 +344,22 @@ class CustomCollector:
         return edge
 
     def _update_min_heights(
-        self, owner_uuid: str, side: str, port: _elkjs.ELKInputPort
+        self,
+        owner_uuid: str,
+        side: str,
+        port: _elkjs.ELKInputPort | None = None,
     ) -> None:
+        height: int | float
+        if port is None:
+            height = 2 * generic.MARKER_PADDING + generic.MARKER_SIZE
+        else:
+            height = makers.PORT_SIZE + max(
+                2 * makers.PORT_PADDING,
+                sum(label.height for label in port.labels),
+            )
         self.min_heights.setdefault(owner_uuid, {"left": 0.0, "right": 0.0})[
             side
-        ] += makers.PORT_SIZE + max(
-            2 * makers.PORT_PADDING,
-            sum(label.height for label in port.labels),
-        )
+        ] += height
 
     def _need_flip(
         self,
@@ -401,28 +418,34 @@ class CustomCollector:
 
     def _make_port_and_owner(
         self,
-        port_obj: m.ModelElement,
         side: str,
+        port_obj: m.ModelElement | None = None,
         owner: m.ModelElement | None = None,
-    ) -> _elkjs.ELKInputPort:
-        owner_obj = owner or port_obj.owner
+    ) -> _elkjs.ELKInputPort | None:
+        owner_obj = owner or port_obj.owner  # type: ignore
         box = self._make_box(
             owner_obj,
             layout_options=makers.CENTRIC_LABEL_LAYOUT_OPTIONS,
         )
-        if port := self.ports.get(port_obj.uuid):
-            return port
-        port = makers.make_port(port_obj.uuid)
-        if self.diagram._display_port_labels:
-            text = port_obj.name or "UNKNOWN"
-            port.labels = makers.make_label(text)
-            _plp = self.diagram._port_label_position
-            if not (plp := getattr(_elkjs.PORT_LABEL_POSITION, _plp, None)):
-                raise ValueError(f"Invalid port label position '{_plp}'.")
-            assert isinstance(plp, _elkjs.PORT_LABEL_POSITION)
-            box.layoutOptions["portLabels.placement"] = plp.name
-        box.ports.append(port)
-        self.ports[port_obj.uuid] = port
+        port: _elkjs.ELKInputPort | None
+        if port_obj is None:
+            port = None
+        else:
+            if port := self.ports.get(port_obj.uuid):
+                return port
+            port = makers.make_port(port_obj.uuid)
+            if self.diagram._display_port_labels:
+                text = port_obj.name or "UNKNOWN"
+                port.labels = makers.make_label(text)
+                _plp = self.diagram._port_label_position
+                if not (
+                    plp := getattr(_elkjs.PORT_LABEL_POSITION, _plp, None)
+                ):
+                    raise ValueError(f"Invalid port label position '{_plp}'.")
+                assert isinstance(plp, _elkjs.PORT_LABEL_POSITION)
+                box.layoutOptions["portLabels.placement"] = plp.name
+            box.ports.append(port)
+            self.ports[port_obj.uuid] = port
         self._update_min_heights(owner_obj.uuid, side, port)
         return port
 
@@ -430,85 +453,21 @@ class CustomCollector:
 def collector(
     diagram: context.ContextDiagram, params: dict[str, t.Any]
 ) -> _elkjs.ELKInputData:
-    """Collect data for rendering a custom diagram."""
-    return CustomCollector(diagram, params)()
+    """High level collector function to collect needed data for ELK.
 
+    Parameters
+    ----------
+    diagram
+        The [`ContextDiagram`][capellambse_context_diagrams.context.ContextDiagram]
+        instance to get the
+        [`_elkjs.ELKInputData`][capellambse_context_diagrams._elkjs.ELKInputData]
+        for.
+    params
+        Optional render params dictionary.
 
-def derive_from_functions(
-    diagram: context.ContextDiagram,
-    boxes: dict[str, _elkjs.ELKInputChild],
-    edges: dict[str, _elkjs.ELKInputEdge],
-) -> None:
-    """Derive Components from allocated functions of the context target.
-
-    A Component, a ComponentExchange and two ComponentPorts are added
-    to ``data``. These elements are prefixed with ``Derived-`` to
-    receive special styling in the serialization step.
+    Returns
+    -------
+    elkdata
+        The data that can be fed into elkjs.
     """
-    assert isinstance(diagram.target, cs.Component)
-    ports: list[m.ModelElement] = []
-    for fnc in diagram.target.allocated_functions:
-        inc, out = generic.port_collector(fnc, diagram.type)
-        ports.extend((inc | out).values())
-
-    derived_components: dict[str, cs.Component] = {}
-    for port in ports:
-        for fex in port.exchanges:
-            if isinstance(port, fa.FunctionOutputPort):
-                attr = "target"
-            else:
-                attr = "source"
-
-            try:
-                derived_comp = getattr(fex, attr).owner.owner
-                if (
-                    derived_comp == diagram.target
-                    or derived_comp.uuid in boxes
-                ):
-                    continue
-
-                if derived_comp.uuid not in derived_components:
-                    derived_components[derived_comp.uuid] = derived_comp
-            except AttributeError:  # No owner of owner.
-                pass
-
-    # Idea: Include flow direction of derived interfaces from all functional
-    # exchanges. Mixed means bidirectional. Just even out bidirectional
-    # interfaces and keep flow direction of others.
-
-    centerbox = boxes[diagram.target.uuid]
-    i = 0
-    for i, (uuid, derived_component) in enumerate(
-        derived_components.items(), 1
-    ):
-        box = makers.make_box(
-            derived_component,
-            no_symbol=diagram._display_symbols_as_boxes,
-        )
-        class_ = diagram.serializer.get_styleclass(derived_component.uuid)
-        box.id = f"{makers.STYLECLASS_PREFIX}-{class_}:{uuid}"
-        boxes[uuid] = box
-        source_id = f"{makers.STYLECLASS_PREFIX}-CP_INOUT:{i}"
-        target_id = f"{makers.STYLECLASS_PREFIX}-CP_INOUT:{-i}"
-        box.ports.append(makers.make_port(source_id))
-        centerbox.ports.append(makers.make_port(target_id))
-        if i % 2 == 0:
-            source_id, target_id = target_id, source_id
-
-        uid = f"{makers.STYLECLASS_PREFIX}-ComponentExchange:{i}"
-        edges[uid] = _elkjs.ELKInputEdge(
-            id=uid,
-            sources=[source_id],
-            targets=[target_id],
-        )
-
-    centerbox.height += (
-        makers.PORT_PADDING + (makers.PORT_SIZE + makers.PORT_PADDING) * i // 2
-    )
-
-
-DERIVATORS: dict[type[m.ModelElement], DerivatorFunction] = {
-    la.LogicalComponent: derive_from_functions,
-    sa.SystemComponent: derive_from_functions,
-}
-"""Supported objects to build derived contexts for."""
+    return CustomCollector(diagram, params)()

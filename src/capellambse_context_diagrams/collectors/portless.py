@@ -16,107 +16,23 @@ from itertools import chain
 import capellambse.model as m
 from capellambse.metamodel import oa, sa
 
-from .. import _elkjs, context
-from . import generic, makers
+from .. import context
+from . import generic
 
 SOURCE_ATTR_NAMES = frozenset(("parent",))
 TARGET_ATTR_NAMES = frozenset(("involved", "capability"))
 
 
 def collector(
-    diagram: context.ContextDiagram, params: dict[str, t.Any] | None = None
-) -> _elkjs.ELKInputData:
+    diagram: context.ContextDiagram,
+) -> cabc.Iterator[m.ModelElement]:
     """Collect context data from exchanges of centric box.
 
     This is the special context collector for the operational
     architecture layer diagrams (diagrams where elements don't exchange
     via ports/connectors).
     """
-    data = generic.collector(diagram, no_symbol=True)
-    centerbox = data.children[0]
-    connections = list(get_exchanges(diagram.target))
-    for ex in connections:
-        try:
-            generic.exchange_data_collector(
-                generic.ExchangeData(ex, data, diagram.filters, params),
-                collect_exchange_endpoints,
-            )
-        except AttributeError:
-            continue
-
-    contexts = context_collector(connections, diagram.target)
-    global_boxes = {centerbox.id: centerbox}
-    made_boxes = {centerbox.id: centerbox}
-    if diagram._display_parent_relation and diagram.target.owner is not None:
-        box = makers.make_box(
-            diagram.target.owner,
-            no_symbol=diagram._display_symbols_as_boxes,
-            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
-        )
-        box.children = [centerbox]
-        del data.children[0]
-        global_boxes[diagram.target.owner.uuid] = box
-        made_boxes[diagram.target.owner.uuid] = box
-
-    stack_heights: dict[str, float | int] = {
-        "input": -makers.NEIGHBOR_VMARGIN,
-        "output": -makers.NEIGHBOR_VMARGIN,
-    }
-    for i, exchanges, side in contexts:
-        var_height = generic.MARKER_PADDING + (
-            generic.MARKER_SIZE + generic.MARKER_PADDING
-        ) * len(exchanges)
-        if not diagram._display_symbols_as_boxes and makers.is_symbol(
-            diagram.target
-        ):
-            height = makers.MIN_SYMBOL_HEIGHT + var_height
-        else:
-            height = var_height
-
-        if box := global_boxes.get(i.uuid):  # type: ignore[assignment]
-            if box is centerbox:
-                continue
-            box.height = height
-        else:
-            box = makers.make_box(
-                i,
-                height=height,
-                no_symbol=diagram._display_symbols_as_boxes,
-            )
-            global_boxes[i.uuid] = box
-            made_boxes[i.uuid] = box
-
-        if diagram._display_parent_relation and i.owner is not None:
-            if not (parent_box := global_boxes.get(i.owner.uuid)):
-                parent_box = makers.make_box(
-                    i.owner,
-                    no_symbol=diagram._display_symbols_as_boxes,
-                )
-                global_boxes[i.owner.uuid] = parent_box
-                made_boxes[i.owner.uuid] = parent_box
-
-            parent_box.children.append(global_boxes.pop(i.uuid))
-            for label in parent_box.labels:
-                label.layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
-
-        stack_heights[side] += makers.NEIGHBOR_VMARGIN + height
-
-    del global_boxes[centerbox.id]
-    data.children.extend(global_boxes.values())
-
-    if diagram._display_parent_relation:
-        owner_boxes: dict[str, _elkjs.ELKInputChild] = {
-            uuid: box for uuid, box in made_boxes.items() if box.children
-        }
-        generic.move_parent_boxes_to_owner(owner_boxes, diagram.target, data)
-        generic.move_edges(owner_boxes, connections, data, portless=True)
-
-    centerbox.height = max(centerbox.height, *stack_heights.values())
-    if not diagram._display_symbols_as_boxes and makers.is_symbol(
-        diagram.target
-    ):
-        data.layoutOptions["spacing.labelNode"] = 5.0
-    return data
+    yield from get_exchanges(diagram.target)
 
 
 def collect_exchange_endpoints(
@@ -139,43 +55,6 @@ def collect_exchange_endpoints(
     except AttributeError:
         pass
     return generic.collect_exchange_endpoints(e)
-
-
-class ContextInfo(t.NamedTuple):
-    """ContextInfo data."""
-
-    element: m.ModelElement
-    """An element of context."""
-    connections: list[m.ModelElement]
-    """The context element's relevant exchanges."""
-    side: t.Literal["input", "output"]
-    """Whether this is an input or output to the element of interest."""
-
-
-def context_collector(
-    exchanges: t.Iterable[m.ModelElement],
-    obj_oi: m.ModelElement,
-) -> t.Iterator[ContextInfo]:
-    ctx: dict[str, ContextInfo] = {}
-    side: t.Literal["input", "output"]
-    for exchange in exchanges:
-        try:
-            source, target = collect_exchange_endpoints(exchange)
-        except AttributeError:
-            continue
-
-        if source == obj_oi:
-            obj = target
-            side = "output"
-        else:
-            obj = source
-            side = "input"
-
-        info = ContextInfo(obj, [], side)
-        info = ctx.setdefault(obj.uuid, info)
-        if exchange not in info.connections:
-            info.connections.append(exchange)
-    return iter(ctx.values())
 
 
 def get_exchanges(

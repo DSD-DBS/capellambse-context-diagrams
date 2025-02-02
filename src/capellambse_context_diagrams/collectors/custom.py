@@ -82,8 +82,8 @@ class CustomCollector:
         params: dict[str, t.Any],
     ) -> None:
         self.diagram = diagram
+        self.collection = list(self.diagram._collect)
         self.target: m.ModelElement = self.diagram.target
-
         self.boxable_target: m.ModelElement
         if _is_port(self.target):
             self.boxable_target = self.target.owner
@@ -99,7 +99,6 @@ class CustomCollector:
 
         self.data = makers.make_diagram(diagram)
         self.params = params
-        self.collection = self.diagram._collect
         self.boxes: dict[str, _elkjs.ELKInputChild] = {}
         self.edges: dict[str, _elkjs.ELKInputEdge] = {}
         self.ports: dict[str, _elkjs.ELKInputPort] = {}
@@ -137,7 +136,7 @@ class CustomCollector:
             self._update_min_heights(self.boxable_target.uuid, "left", port)
         elif not _is_edge(self.target):
             self._make_box(self.target)
-        elif self.diagram._display_target_edge:
+        elif self.diagram._include_interface or self.diagram._hide_functions:
             edge = self._make_edge_and_ports(self.target)
             assert edge is not None
             edge.layoutOptions = copy.deepcopy(

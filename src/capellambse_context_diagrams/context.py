@@ -276,7 +276,6 @@ class ContextDiagram(m.AbstractDiagram):
     * display_actor_relation: Show the connections between the context actors.
     * hide_context_owner: Hide the context owner in the diagram.
     * hide_direct_children: Hide the direct children of the diagram target.
-    * display_target_edge: Display target if it is an edge.
     """
 
     _display_symbols_as_boxes: bool
@@ -294,7 +293,8 @@ class ContextDiagram(m.AbstractDiagram):
     _hide_context_owner: bool
     _is_portless: bool
     _hide_direct_children: bool
-    _display_target_edge: bool
+    _include_interface: bool
+    _hide_functions: bool
 
     def __init__(
         self,
@@ -327,7 +327,8 @@ class ContextDiagram(m.AbstractDiagram):
             "display_actor_relation": False,
             "hide_context_owner": False,
             "hide_direct_children": False,
-            "display_target_edge": False,
+            "include_interface": True,
+            "hide_functions": False,
         }
         if not generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES.get(self.type, ()):
             render_params |= {

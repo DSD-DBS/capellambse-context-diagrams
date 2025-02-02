@@ -276,6 +276,7 @@ class ContextDiagram(m.AbstractDiagram):
     * display_actor_relation: Show the connections between the context actors.
     * hide_context_owner: Hide the context owner in the diagram.
     * hide_direct_children: Hide the direct children of the diagram target.
+    * hide_target_edge: Hide target if it is an edge.
     """
 
     _display_symbols_as_boxes: bool
@@ -293,6 +294,7 @@ class ContextDiagram(m.AbstractDiagram):
     _hide_context_owner: bool
     _is_portless: bool
     _hide_direct_children: bool
+    _hide_target_edge: bool
 
     def __init__(
         self,
@@ -311,7 +313,7 @@ class ContextDiagram(m.AbstractDiagram):
 
         self._elk_input_data: CollectorOutputData | None = None
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
-        self._default_render_parameters = {
+        render_params = {
             "display_symbols_as_boxes": False,
             "display_parent_relation": False,
             "display_derived_interfaces": False,
@@ -322,21 +324,24 @@ class ContextDiagram(m.AbstractDiagram):
             "transparent_background": False,
             "edge_direction": custom.EDGE_DIRECTION.SMART.name,
             "mode": default.MODE.WHITEBOX.name,
-            "display_actor_relation": True,
+            "display_actor_relation": False,
             "hide_context_owner": False,
             "hide_direct_children": False,
-        } | default_render_parameters
-
+            "hide_target_edge": False,
+        }
         if not generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES.get(self.type, ()):
-            self._default_render_parameters |= {
+            render_params |= {
                 "collect": portless.collector(self),
                 "is_portless": True,
             }
         else:
-            self._default_render_parameters |= {
+            render_params |= {
                 "collect": default.collector(self),
                 "is_portless": False,
             }
+        self._default_render_parameters = (
+            render_params | default_render_parameters
+        )
 
         if standard_filter := STANDARD_FILTERS.get(class_):
             self.filters.add(standard_filter)
@@ -472,17 +477,15 @@ class InterfaceContextDiagram(ContextDiagram):
       port allocations.
     * hide_functions — Boolean flag to enable white box view: Only
       displaying Components or Entities.
-    * display_port_labels — Display port labels on the diagram.
-    * port_label_position — Position of the port labels. See
-      [`PORT_LABEL_POSITION`][capellambse_context_diagrams.context._elkjs.PORT_LABEL_POSITION].
+
 
     In addition to all other render parameters of
     [`ContextDiagram`][capellambse_context_diagrams.context.ContextDiagram].
     """
 
     _include_interface: bool
-    _include_port_allocations: bool
     _hide_functions: bool
+    _include_port_allocations: bool
 
     def __init__(
         self,
@@ -875,6 +878,8 @@ class CableTreeViewDiagram(ContextDiagram):
         default_render_parameters = {
             "display_port_labels": True,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
+            "collect": cable_tree.collector(self),
+            "edge_direction": custom.EDGE_DIRECTION.TREE.name,
         } | default_render_parameters
         super().__init__(
             class_,
@@ -882,7 +887,6 @@ class CableTreeViewDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
-        self.collector = cable_tree.collector
 
     @property
     def uuid(self) -> str:

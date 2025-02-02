@@ -102,17 +102,21 @@ def physical_port_context_collector(
     diagram: context.ContextDiagram,
 ) -> cabc.Iterator[m.ModelElement]:
     """Collect context data from a physical port."""
-    visited = set()
+    ports = set()
+    links = set()
 
-    def collect(
+    def _collect(
         target: m.ModelElement,
     ) -> cabc.Iterator[m.ModelElement]:
-        if target.uuid in visited:
+        if target.uuid in ports:
             return
-        visited.add(target.uuid)
+        ports.add(target.uuid)
         for link in target.links:
+            if link.uuid in links:
+                continue
+            links.add(link.uuid)
             yield link
-            yield from collect(link.source)
-            yield from collect(link.target)
+            yield from _collect(link.source)
+            yield from _collect(link.target)
 
-    yield from collect(diagram.target)
+    yield from _collect(diagram.target)

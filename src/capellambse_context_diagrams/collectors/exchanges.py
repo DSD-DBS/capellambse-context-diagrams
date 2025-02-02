@@ -24,6 +24,9 @@ def interface_context_collector(
 ) -> cabc.Iterator[m.ModelElement]:
     diagram._display_parent_relation = True
     diagram._display_symbols_as_boxes = True
+    diagram._hide_target_edge = (
+        not diagram._include_interface and not diagram._hide_functions
+    )
     if (
         not isinstance(diagram.target, cs.PhysicalLink)
         and not diagram._hide_functions

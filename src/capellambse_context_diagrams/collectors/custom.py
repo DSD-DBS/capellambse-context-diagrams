@@ -137,7 +137,7 @@ class CustomCollector:
             self._update_min_heights(self.boxable_target.uuid, "left", port)
         elif not _is_edge(self.target):
             self._make_box(self.target)
-        elif self.diagram._include_interface or self.diagram._hide_functions:
+        elif not self.diagram._hide_target_edge:
             edge = self._make_edge_and_ports(self.target)
             assert edge is not None
             edge.layoutOptions = copy.deepcopy(

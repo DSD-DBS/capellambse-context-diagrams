@@ -428,9 +428,7 @@ def test_context_diagram_graybox(
         "ce221886-adfd-45f5-99cf-07baac99458d",
     }
 
-    white = obj.context_diagram.render("svgdiagram", mode="WHITEBOX").save(
-        pretty=True
-    )
+    white = obj.context_diagram.render(None, mode="WHITEBOX")
     gray = obj.context_diagram.render(None, mode="GRAYBOX")
 
     assert {element.uuid for element in white} & hidden_element_uuids

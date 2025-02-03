@@ -303,7 +303,7 @@ def test_context_diagrams_rerender_on_parameter_change(
             [
                 (TEST_ACTOR_SIZING_UUID, 40, 40),
                 (TEST_HUMAN_ACTOR_SIZING_UUID, 43, 43),
-                (TEST_CAP_SIZING_UUID, 141, 141),
+                (TEST_CAP_SIZING_UUID, 140, 140),
             ],
             id="Capability",
         ),
@@ -398,12 +398,14 @@ def test_context_diagram_hide_direct_children(
     }
 
     diag = obj.context_diagram
-    black = diag.render(None, mode="BLACKBOX")
+    balck = diag.render(None, mode="BLACKBOX")
     diag.invalidate_cache()
     white = diag.render(None, mode="WHITEBOX")
 
-    assert not {element.uuid for element in black} & expected_hidden_uuids
-    assert {element.uuid for element in white} & expected_hidden_uuids
+    assert not {element.uuid for element in balck} & expected_hidden_uuids
+    assert (
+        {element.uuid for element in white} & expected_hidden_uuids
+    ) == expected_hidden_uuids
 
 
 def test_context_diagram_display_unused_ports(model: capellambse.MelodyModel):

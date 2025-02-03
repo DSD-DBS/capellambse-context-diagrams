@@ -275,7 +275,7 @@ class ContextDiagram(m.AbstractDiagram):
     * mode - Context collection mode.
     * display_actor_relation: Show the connections between the context actors.
     * hide_context_owner: Hide the context owner in the diagram.
-    * hide_direct_children: Hide the direct children of the diagram target.
+    * include_children_context: Include the context of the target's children.
     """
 
     _display_symbols_as_boxes: bool
@@ -286,13 +286,13 @@ class ContextDiagram(m.AbstractDiagram):
     _port_label_position: str
     _transparent_background: bool
     _display_unused_ports: bool
-    _collect: cabc.Iterator[m.ModelElement]
+    _collect: cabc.Callable[[ContextDiagram], cabc.Iterator[m.ModelElement]]
     _edge_direction: str
     _mode: str
     _display_actor_relation: bool
     _hide_context_owner: bool
     _is_portless: bool
-    _hide_direct_children: bool
+    _include_children_context: bool
     _include_interface: bool
     _hide_functions: bool
 
@@ -326,18 +326,18 @@ class ContextDiagram(m.AbstractDiagram):
             "mode": default.MODE.WHITEBOX.name,
             "display_actor_relation": False,
             "hide_context_owner": False,
-            "hide_direct_children": False,
+            "include_children_context": True,
             "include_interface": True,
             "hide_functions": False,
         }
         if not generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES.get(self.type, ()):
             render_params |= {
-                "collect": portless.collector(self),
+                "collect": portless.collector,
                 "is_portless": True,
             }
         else:
             render_params |= {
-                "collect": default.collector(self),
+                "collect": default.collector,
                 "is_portless": False,
             }
         self._default_render_parameters = (
@@ -504,7 +504,7 @@ class InterfaceContextDiagram(ContextDiagram):
             "display_port_labels": False,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
             "display_parent_relation": True,
-            "collect": exchanges.interface_context_collector(self),
+            "collect": exchanges.interface_context_collector,
             "hide_context_owner": True,
             "edge_direction": custom.EDGE_DIRECTION.RIGHT.name,
         } | default_render_parameters
@@ -599,7 +599,7 @@ class FunctionalContextDiagram(ContextDiagram):
         default_render_parameters: dict[str, t.Any],
     ):
         default_render_parameters = {
-            "collect": exchanges.functional_context_collector(self),
+            "collect": exchanges.functional_context_collector,
         }
         super().__init__(
             class_, obj, default_render_parameters=default_render_parameters
@@ -845,7 +845,7 @@ class DataFlowViewDiagram(ContextDiagram):
     ) -> None:
         default_render_parameters = {
             "display_symbols_as_boxes": True,
-            "collect": dataflow_view.collector(self),
+            "collect": dataflow_view.collector,
         } | default_render_parameters
         super().__init__(
             class_,
@@ -879,7 +879,7 @@ class CableTreeViewDiagram(ContextDiagram):
         default_render_parameters = {
             "display_port_labels": True,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
-            "collect": cable_tree.collector(self),
+            "collect": cable_tree.collector,
             "edge_direction": custom.EDGE_DIRECTION.TREE.name,
         } | default_render_parameters
         super().__init__(
@@ -911,7 +911,7 @@ class PhysicalPortContextDiagram(ContextDiagram):
         default_render_parameters: dict[str, t.Any],
     ) -> None:
         default_render_parameters = {
-            "collect": default.physical_port_context_collector(self),
+            "collect": default.physical_port_context_collector,
             "display_parent_relation": True,
             "edge_direction": custom.EDGE_DIRECTION.TREE.name,
             "display_port_labels": True,

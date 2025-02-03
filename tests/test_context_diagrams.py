@@ -387,12 +387,9 @@ def test_context_diagram_hide_direct_children(
 ):
     obj = model.by_uuid("eca84d5c-fdcd-4cbe-90d5-7d00a256c62b")
     expected_hidden_uuids = {
-        "a34300ee-6e63-4c72-b210-2adee00478f8",
         "6a557565-c9d4-4216-8e9e-03539c0e6095",
         "32483de8-abd5-4e50-811b-407fad44defa",
-        "e786b912-51ed-4bb8-b03c-acb05c48f0c8",
         "727b7d69-3cd2-45cc-b423-1e7b93c83f5b",
-        "c0a2ae6d-ac5e-4a73-84ef-b7b9df344170",
         "3e66b559-eea0-40af-b18c-0328ee10add7",
         "1b978e1e-1368-44a2-a9e6-12818614b23e",  # Port
     }

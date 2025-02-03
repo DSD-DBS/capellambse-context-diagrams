@@ -18,6 +18,7 @@ import enum
 import typing as t
 
 import capellambse.model as m
+from capellambse.metamodel import fa
 
 from .. import _elkjs, context
 from . import default, derived, generic, makers, portless
@@ -148,7 +149,10 @@ class CustomCollector:
 
         self._flip_edges()
 
-        if self.diagram._display_parent_relation:
+        if (
+            self.diagram._display_parent_relation
+            or self.diagram._display_functional_parent_relation
+        ):
             current = self.boxable_target
             while (
                 current
@@ -164,6 +168,16 @@ class CustomCollector:
             for edge_uuid, box_uuid in self.edge_owners.items():
                 if box := self.boxes.get(box_uuid):
                     box.edges.append(self.edges.pop(edge_uuid))
+
+        if self.diagram._display_functional_parent_relation:
+            for uuid, box in self.boxes.items():
+                element = self.target._model.by_uuid(uuid)
+                if isinstance(element, fa.AbstractFunction) and (
+                    parent_box := self.boxes.get(element.parent.uuid)
+                ):
+                    if owner_box := self.boxes.get(element.owner.uuid):
+                        owner_box.children.remove(box)
+                    parent_box.children.append(box)
 
         derivator = derived.DERIVATORS.get(type(self.target))
         if self.diagram._display_derived_interfaces and derivator is not None:

@@ -180,6 +180,8 @@ def test_interface_diagram_with_nested_functions(
         "7cd5ae5b-6de7-42f6-8a35-9375dd5bbde8",
     }
 
-    diag = obj.context_diagram.render(None)
+    diag = obj.context_diagram.render(
+        None, display_functional_parent_relation=True
+    )
 
     assert {b.uuid for b in diag[fnc.uuid].children} >= expected_uuids

@@ -276,6 +276,7 @@ class ContextDiagram(m.AbstractDiagram):
     * display_actor_relation: Show the connections between the context actors.
     * hide_context_owner: Hide the context owner in the diagram.
     * include_children_context: Include the context of the target's children.
+    * display_functional_parent_relation: Display the parent relation of functions withing the context.
     """
 
     _display_symbols_as_boxes: bool
@@ -295,6 +296,7 @@ class ContextDiagram(m.AbstractDiagram):
     _include_children_context: bool
     _include_interface: bool
     _hide_functions: bool
+    _display_functional_parent_relation: bool
 
     def __init__(
         self,
@@ -329,6 +331,7 @@ class ContextDiagram(m.AbstractDiagram):
             "include_children_context": True,
             "include_interface": True,
             "hide_functions": False,
+            "display_functional_parent_relation": False,
         }
         if not generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES.get(self.type, ()):
             render_params |= {
@@ -507,6 +510,7 @@ class InterfaceContextDiagram(ContextDiagram):
             "collect": exchanges.interface_context_collector,
             "hide_context_owner": True,
             "edge_direction": custom.EDGE_DIRECTION.RIGHT.name,
+            "display_functional_parent_relation": True,
         } | default_render_parameters
         super().__init__(
             class_,

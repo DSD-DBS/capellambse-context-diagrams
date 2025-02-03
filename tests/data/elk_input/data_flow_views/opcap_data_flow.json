@@ -1,0 +1,133 @@
+{
+    "id": "3b83b4ba-671a-4de8-9c07-a5c6b1d3c422_data_flow_view",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "dfaf473d-257f-4455-90fd-fe9489dac617",
+            "labels": [
+                {
+                    "text": "Run away",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 80.9,
+                    "height": 14.857142857142858
+                }
+            ],
+            "width": 86.9,
+            "height": 38.85714285714286
+        },
+        {
+            "id": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
+            "labels": [
+                {
+                    "text": "Eat",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 45.25,
+                    "height": 12.0
+                }
+            ],
+            "width": 51.25,
+            "height": 50.0
+        },
+        {
+            "id": "ab016025-d456-4c2d-8359-d50cf9de3825",
+            "labels": [
+                {
+                    "text": "Sleep",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 56.75,
+                    "height": 14.857142857142858
+                }
+            ],
+            "width": 62.75,
+            "height": 52.85714285714286
+        },
+        {
+            "id": "5d637de8-410f-42b8-a467-3b1c84d40775",
+            "labels": [
+                {
+                    "text": "Repeat",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 65.94999999999999,
+                    "height": 14.857142857142858
+                }
+            ],
+            "width": 71.94999999999999,
+            "height": 52.85714285714286
+        }
+    ],
+    "edges": [
+        {
+            "id": "b8f34893-c50b-4b7d-9326-1d01990434d8",
+            "sources": [
+                "8bcb11e6-443b-4b92-bec2-ff1d87a224e7"
+            ],
+            "targets": [
+                "8bcb11e6-443b-4b92-bec2-ff1d87a224e7"
+            ],
+            "labels": [
+                {
+                    "text": "Munch",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 64.8,
+                    "height": 12.0
+                }
+            ]
+        },
+        {
+            "id": "097639a6-ad9c-4a3f-81cc-ebecab772bb6",
+            "sources": [
+                "8bcb11e6-443b-4b92-bec2-ff1d87a224e7"
+            ],
+            "targets": [
+                "ab016025-d456-4c2d-8359-d50cf9de3825"
+            ],
+            "labels": [
+                {
+                    "text": "Rest",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 52.15,
+                    "height": 12.0
+                }
+            ]
+        },
+        {
+            "id": "b0605308-9663-4c34-b2db-d08285c09682",
+            "sources": [
+                "ab016025-d456-4c2d-8359-d50cf9de3825"
+            ],
+            "targets": [
+                "5d637de8-410f-42b8-a467-3b1c84d40775"
+            ],
+            "labels": [
+                {
+                    "text": "Start again",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 85.5,
+                    "height": 16.285714285714285
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,60 @@
+{
+    "id": "9390b7d5-598a-42db-bef8-23677e45ba06_data_flow_view",
+    "type": "graph",
+    "children": [
+        {
+            "id": "1eee3b81-41ef-4b56-8018-b8e421a5a2bc",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 150.14999999999998,
+                "height": 40.285714285714285
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_875752",
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 144.14999999999998,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "Root System Function"
+                }
+            ]
+        },
+        {
+            "id": "ceffa011-7b66-4b3c-9885-8e075e312ffa",
+            "position": {
+                "x": 18.32499999999999,
+                "y": 72.28571428571428
+            },
+            "size": {
+                "width": 137.5,
+                "height": 40.285714285714285
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_802594",
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 131.5,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "Important Function"
+                }
+            ]
+        }
+    ]
+}

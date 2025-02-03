@@ -1,0 +1,157 @@
+{
+    "id": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+            "position": {
+                "x": 12,
+                "y": 43.952380952380956
+            },
+            "size": {
+                "width": 90.35,
+                "height": 68
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_598271",
+                    "position": {
+                        "x": 3,
+                        "y": 26.57142857142857
+                    },
+                    "size": {
+                        "width": 84.35,
+                        "height": 14.857142857142858
+                    },
+                    "type": "label",
+                    "text": "Top secret"
+                }
+            ]
+        },
+        {
+            "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "position": {
+                "x": 259.7735294117647,
+                "y": 12
+            },
+            "size": {
+                "width": 42.35294117647059,
+                "height": 24
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_195164",
+                    "position": {
+                        "x": -28.473529411764705,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 99.3,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "Kevin Spacey"
+                }
+            ]
+        },
+        {
+            "id": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "position": {
+                "x": 259.7735294117647,
+                "y": 77.28571428571428
+            },
+            "size": {
+                "width": 42.35294117647059,
+                "height": 24
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_473875",
+                    "position": {
+                        "x": -19.848529411764705,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 82.05,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "Capability"
+                }
+            ]
+        },
+        {
+            "id": "4ec609b6-e3bf-4be1-ba09-14da9c920ef3",
+            "type": "edge",
+            "sourceId": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+            "targetId": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "routingPoints": [
+                {
+                    "x": 102.35,
+                    "y": 66.61904761904762
+                },
+                {
+                    "x": 112.35,
+                    "y": 66.61904761904762
+                },
+                {
+                    "x": 112.35,
+                    "y": 24
+                },
+                {
+                    "x": 259.7735294117647,
+                    "y": 24
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_606415",
+                    "position": {
+                        "x": 122.35,
+                        "y": 27
+                    },
+                    "size": {
+                        "width": 88.94999999999999,
+                        "height": 13.428571428571429
+                    },
+                    "type": "label",
+                    "text": "« involves »"
+                }
+            ]
+        },
+        {
+            "id": "4513c8cd-b94b-4bde-bd00-4c18aaf600ff",
+            "type": "edge",
+            "sourceId": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+            "targetId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "routingPoints": [
+                {
+                    "x": 102.35,
+                    "y": 89.28571428571428
+                },
+                {
+                    "x": 259.7735294117647,
+                    "y": 89.28571428571428
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_458017",
+                    "position": {
+                        "x": 122.92499999999998,
+                        "y": 92.28571428571428
+                    },
+                    "size": {
+                        "width": 87.8,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "« exploits »"
+                }
+            ]
+        }
+    ]
+}

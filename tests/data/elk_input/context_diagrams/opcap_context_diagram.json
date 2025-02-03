@@ -1,0 +1,277 @@
+{
+    "id": "da08ddb6-92ba-4c3b-956a-017424dbfe85_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": 5.0
+    },
+    "children": [
+        {
+            "id": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "labels": [
+                {
+                    "text": "Middle",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 64.8,
+                    "height": 13.428571428571429
+                }
+            ],
+            "width": 70.8,
+            "height": 171
+        },
+        {
+            "id": "d3e1ce63-fad9-4eaa-8e70-959eb114cbc3",
+            "labels": [
+                {
+                    "text": "Super",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+                    },
+                    "width": 59.05,
+                    "height": 14.857142857142858
+                }
+            ],
+            "width": 60.0,
+            "height": 34
+        },
+        {
+            "id": "5419c967-8d8d-44de-af9a-5144f65eb891",
+            "labels": [
+                {
+                    "text": "Second Sub",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+                    },
+                    "width": 91.25,
+                    "height": 12.0
+                }
+            ],
+            "width": 51.17647058823529,
+            "height": 29
+        },
+        {
+            "id": "f6a9376c-53d3-4950-8ec9-420c0af4ca46",
+            "labels": [
+                {
+                    "text": "First Sub",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+                    },
+                    "width": 74.0,
+                    "height": 13.428571428571429
+                }
+            ],
+            "width": 51.17647058823529,
+            "height": 29
+        },
+        {
+            "id": "1477b800-8da5-4889-b112-35e2353c4675",
+            "labels": [
+                {
+                    "text": "Actor",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 56.75,
+                    "height": 12.0
+                }
+            ],
+            "width": 62.75,
+            "height": 36.0
+        },
+        {
+            "id": "f3577d00-01bb-405c-81c9-7bdc2dcdcdfc",
+            "labels": [
+                {
+                    "text": "Entity",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 59.05,
+                    "height": 16.285714285714285
+                }
+            ],
+            "width": 65.05,
+            "height": 40.285714285714285
+        }
+    ],
+    "edges": [
+        {
+            "id": "2952e76c-e227-4075-ad73-9d5fa120ab98",
+            "sources": [
+                "da08ddb6-92ba-4c3b-956a-017424dbfe85"
+            ],
+            "targets": [
+                "d3e1ce63-fad9-4eaa-8e70-959eb114cbc3"
+            ],
+            "labels": [
+                {
+                    "text": "« includes »",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 90.1,
+                    "height": 13.428571428571429
+                }
+            ]
+        },
+        {
+            "id": "7468616d-eb61-4572-bfb7-ac4c732bb316",
+            "sources": [
+                "da08ddb6-92ba-4c3b-956a-017424dbfe85"
+            ],
+            "targets": [
+                "5419c967-8d8d-44de-af9a-5144f65eb891"
+            ],
+            "labels": [
+                {
+                    "text": "« extends »",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 87.8,
+                    "height": 12.0
+                }
+            ]
+        },
+        {
+            "id": "3f119b35-8873-4ffb-8fac-d3fe3a9542da",
+            "sources": [
+                "da08ddb6-92ba-4c3b-956a-017424dbfe85"
+            ],
+            "targets": [
+                "d3e1ce63-fad9-4eaa-8e70-959eb114cbc3"
+            ],
+            "labels": [
+                {
+                    "text": "« specializes »",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 102.75,
+                    "height": 16.285714285714285
+                }
+            ]
+        },
+        {
+            "id": "ddbfd060-6118-48bc-b591-ed51872e0b45",
+            "sources": [
+                "f6a9376c-53d3-4950-8ec9-420c0af4ca46"
+            ],
+            "targets": [
+                "da08ddb6-92ba-4c3b-956a-017424dbfe85"
+            ],
+            "labels": [
+                {
+                    "text": "« includes »",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 90.1,
+                    "height": 13.428571428571429
+                }
+            ]
+        },
+        {
+            "id": "4a3d2744-19ef-41bc-abef-798099b89eb2",
+            "sources": [
+                "5419c967-8d8d-44de-af9a-5144f65eb891"
+            ],
+            "targets": [
+                "da08ddb6-92ba-4c3b-956a-017424dbfe85"
+            ],
+            "labels": [
+                {
+                    "text": "« includes »",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 90.1,
+                    "height": 13.428571428571429
+                }
+            ]
+        },
+        {
+            "id": "ef8b3d24-54b0-4654-bd0a-97584f58d457",
+            "sources": [
+                "d3e1ce63-fad9-4eaa-8e70-959eb114cbc3"
+            ],
+            "targets": [
+                "da08ddb6-92ba-4c3b-956a-017424dbfe85"
+            ],
+            "labels": [
+                {
+                    "text": "« extends »",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 87.8,
+                    "height": 12.0
+                }
+            ]
+        },
+        {
+            "id": "bb8b380c-fe44-4049-ad27-1f2dffcfa65e",
+            "sources": [
+                "f6a9376c-53d3-4950-8ec9-420c0af4ca46"
+            ],
+            "targets": [
+                "da08ddb6-92ba-4c3b-956a-017424dbfe85"
+            ],
+            "labels": [
+                {
+                    "text": "« extends »",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 87.8,
+                    "height": 12.0
+                }
+            ]
+        },
+        {
+            "id": "2d07b314-2162-4d29-9ff1-f16e9b503f3d",
+            "sources": [
+                "da08ddb6-92ba-4c3b-956a-017424dbfe85"
+            ],
+            "targets": [
+                "1477b800-8da5-4889-b112-35e2353c4675"
+            ],
+            "labels": [
+                {
+                    "text": "« involves »",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88.94999999999999,
+                    "height": 13.428571428571429
+                }
+            ]
+        },
+        {
+            "id": "11033438-7962-43be-9ead-c98900a7eaa5",
+            "sources": [
+                "da08ddb6-92ba-4c3b-956a-017424dbfe85"
+            ],
+            "targets": [
+                "f3577d00-01bb-405c-81c9-7bdc2dcdcdfc"
+            ],
+            "labels": [
+                {
+                    "text": "« involves »",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88.94999999999999,
+                    "height": 13.428571428571429
+                }
+            ]
+        }
+    ]
+}

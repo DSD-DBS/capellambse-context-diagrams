@@ -5,11 +5,16 @@
 import io
 import pathlib
 import sys
+import typing as t
 
 import capellambse
 import pytest
 
+from capellambse_context_diagrams import _elkjs
+
 TEST_ROOT = pathlib.Path(__file__).parent / "data"
+TEST_ELK_INPUT_ROOT = TEST_ROOT / "elk_input"
+TEST_ELK_LAYOUT_ROOT = TEST_ROOT / "elk_layout"
 TEST_MODEL = "ContextDiagram.aird"
 SYSTEM_ANALYSIS_PARAMS = [
     pytest.param(
@@ -25,3 +30,18 @@ def model(monkeypatch) -> capellambse.MelodyModel:
     """Return test model."""
     monkeypatch.setattr(sys, "stderr", io.StringIO)
     return capellambse.MelodyModel(TEST_ROOT / TEST_MODEL)
+
+
+def remove_ids_from_elk_layout(
+    elk_layout: _elkjs.ELKOutputData,
+) -> dict[str, t.Any]:
+    layout_dict = elk_layout.model_dump(exclude_defaults=True)
+
+    def remove_ids(obj: t.Any) -> t.Any:
+        if isinstance(obj, dict):
+            return {k: remove_ids(v) for k, v in obj.items() if k != "id"}
+        if isinstance(obj, list):
+            return [remove_ids(item) for item in obj]
+        return obj
+
+    return remove_ids(layout_dict)

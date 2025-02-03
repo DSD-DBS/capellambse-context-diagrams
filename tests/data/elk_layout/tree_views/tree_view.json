@@ -1,0 +1,487 @@
+{
+    "id": "b7c7f442-377f-492c-90bf-331e66988bda_tree_view",
+    "type": "graph",
+    "children": [
+        {
+            "id": "b7c7f442-377f-492c-90bf-331e66988bda",
+            "position": {
+                "x": 35.225,
+                "y": 12
+            },
+            "size": {
+                "width": 229.49999999999997,
+                "height": 158.85714285714286
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_508674",
+                    "position": {
+                        "x": 88.1,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 53.3,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Root"
+                },
+                {
+                    "id": "g_787545",
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                },
+                {
+                    "id": "g_480523",
+                    "position": {
+                        "x": 36.925,
+                        "y": 26
+                    },
+                    "size": {
+                        "width": 155.64999999999998,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "[1..*] example: Example"
+                },
+                {
+                    "id": "g_282534",
+                    "position": {
+                        "x": 3,
+                        "y": 42.285714285714285
+                    },
+                    "size": {
+                        "width": 223.49999999999997,
+                        "height": 14.857142857142858
+                    },
+                    "type": "label",
+                    "text": "[0..1] enum_example: EnumExample"
+                },
+                {
+                    "id": "g_817988",
+                    "position": {
+                        "x": 32.32499999999999,
+                        "y": 57.14285714285714
+                    },
+                    "size": {
+                        "width": 164.85,
+                        "height": 14.857142857142858
+                    },
+                    "type": "label",
+                    "text": "another: EnumExample_1"
+                },
+                {
+                    "id": "g_592134",
+                    "position": {
+                        "x": 19.099999999999994,
+                        "y": 72
+                    },
+                    "size": {
+                        "width": 191.29999999999998,
+                        "height": 14.857142857142858
+                    },
+                    "type": "label",
+                    "text": "another_one: EnumExample_2"
+                },
+                {
+                    "id": "g_702024",
+                    "position": {
+                        "x": 6.449999999999989,
+                        "y": 86.85714285714286
+                    },
+                    "size": {
+                        "width": 216.6,
+                        "height": 14.857142857142858
+                    },
+                    "type": "label",
+                    "text": "another_one_one: EnumExample_3"
+                },
+                {
+                    "id": "g_443007",
+                    "position": {
+                        "x": 31.174999999999997,
+                        "y": 101.71428571428572
+                    },
+                    "size": {
+                        "width": 167.14999999999998,
+                        "height": 14.857142857142858
+                    },
+                    "type": "label",
+                    "text": "last_one: EnumExample_4"
+                },
+                {
+                    "id": "g_535000",
+                    "position": {
+                        "x": 27.14999999999999,
+                        "y": 116.57142857142858
+                    },
+                    "size": {
+                        "width": 175.2,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "primitiveExample: Primitive"
+                }
+            ]
+        },
+        {
+            "id": "0093ffdd-ab4d-4c87-971d-0c2fc1a0b094",
+            "position": {
+                "x": 64.1,
+                "y": 227.46035714285713
+            },
+            "size": {
+                "width": 57,
+                "height": 38
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_945034",
+                    "position": {
+                        "x": 3,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 51,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "One"
+                },
+                {
+                    "id": "g_295263",
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                }
+            ]
+        },
+        {
+            "id": "1dccccde-6ab1-47ac-8ee8-a3033a49a9e5",
+            "position": {
+                "x": 181.0125,
+                "y": 227.46035714285713
+            },
+            "size": {
+                "width": 55.849999999999994,
+                "height": 38
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_520323",
+                    "position": {
+                        "x": 3,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 49.849999999999994,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Two"
+                },
+                {
+                    "id": "g_006607",
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                }
+            ]
+        },
+        {
+            "id": "322dc599-ea72-49e9-8e37-fe5226e41f19",
+            "position": {
+                "x": 88.0625,
+                "y": 320.3325
+            },
+            "size": {
+                "width": 181.2,
+                "height": 56.285714285714285
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_830451",
+                    "position": {
+                        "x": 61.074999999999996,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 59.05,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Three"
+                },
+                {
+                    "id": "g_323548",
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                },
+                {
+                    "id": "g_947377",
+                    "position": {
+                        "x": 3,
+                        "y": 20
+                    },
+                    "size": {
+                        "width": 175.2,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "primitiveExample: Primitive"
+                }
+            ]
+        },
+        {
+            "id": "37ae6942-cbbc-4e2a-acad-10fbdceb8d56",
+            "position": {
+                "x": 111.0625,
+                "y": 430.0467857142857
+            },
+            "size": {
+                "width": 135.2,
+                "height": 57.714285714285715
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_182284",
+                    "position": {
+                        "x": 43.824999999999996,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 47.55,
+                        "height": 13.428571428571429
+                    },
+                    "type": "label",
+                    "text": "five"
+                },
+                {
+                    "id": "g_869755",
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                },
+                {
+                    "id": "g_056292",
+                    "position": {
+                        "x": 3,
+                        "y": 20.714285714285715
+                    },
+                    "size": {
+                        "width": 129.2,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "fi: EnumExample_5"
+                }
+            ]
+        },
+        {
+            "id": "11d42718-70a0-455b-af59-dbf87d50a885",
+            "type": "edge",
+            "sourceId": "b7c7f442-377f-492c-90bf-331e66988bda",
+            "targetId": "0093ffdd-ab4d-4c87-971d-0c2fc1a0b094",
+            "routingPoints": [
+                {
+                    "x": 92.6,
+                    "y": 170.85714285714286
+                },
+                {
+                    "x": 92.6,
+                    "y": 191.17464285714286
+                },
+                {
+                    "x": 92.6,
+                    "y": 227.46035714285713
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_029864",
+                    "position": {
+                        "x": 12,
+                        "y": 191.17464285714286
+                    },
+                    "size": {
+                        "width": 78.6,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "[1..*] one"
+                }
+            ]
+        },
+        {
+            "id": "23211949-9b66-4033-93f9-a40bf103d519",
+            "type": "edge",
+            "sourceId": "b7c7f442-377f-492c-90bf-331e66988bda",
+            "targetId": "1dccccde-6ab1-47ac-8ee8-a3033a49a9e5",
+            "routingPoints": [
+                {
+                    "x": 207.34999999999997,
+                    "y": 170.85714285714286
+                },
+                {
+                    "x": 208.93749999999997,
+                    "y": 191.17464285714286
+                },
+                {
+                    "x": 208.93749999999997,
+                    "y": 194.03178571428572
+                },
+                {
+                    "x": 208.9375,
+                    "y": 227.46035714285713
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_021446",
+                    "position": {
+                        "x": 159.3875,
+                        "y": 194.03178571428572
+                    },
+                    "size": {
+                        "width": 47.55,
+                        "height": 10.571428571428571
+                    },
+                    "type": "label",
+                    "text": "two"
+                }
+            ]
+        },
+        {
+            "id": "1de298dd-ccef-4505-9a5e-1aa792f2eb19",
+            "type": "edge",
+            "sourceId": "1dccccde-6ab1-47ac-8ee8-a3033a49a9e5",
+            "targetId": "322dc599-ea72-49e9-8e37-fe5226e41f19",
+            "routingPoints": [
+                {
+                    "x": 208.9375,
+                    "y": 265.4603571428571
+                },
+                {
+                    "x": 208.93749999999997,
+                    "y": 285.4603571428571
+                },
+                {
+                    "x": 208.8625,
+                    "y": 320.3325
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_843633",
+                    "position": {
+                        "x": 211.93749999999997,
+                        "y": 285.4603571428571
+                    },
+                    "size": {
+                        "width": 86.65,
+                        "height": 14.857142857142858
+                    },
+                    "type": "label",
+                    "text": "[0..1] three"
+                }
+            ]
+        },
+        {
+            "id": "58b887af-7fe4-4b52-b877-268ea5ca9417",
+            "type": "edge",
+            "sourceId": "322dc599-ea72-49e9-8e37-fe5226e41f19",
+            "targetId": "37ae6942-cbbc-4e2a-acad-10fbdceb8d56",
+            "routingPoints": [
+                {
+                    "x": 178.6625,
+                    "y": 376.61821428571426
+                },
+                {
+                    "x": 178.6625,
+                    "y": 396.61821428571426
+                },
+                {
+                    "x": 178.6625,
+                    "y": 430.0467857142857
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_776041",
+                    "position": {
+                        "x": 129.1125,
+                        "y": 396.61821428571426
+                    },
+                    "size": {
+                        "width": 47.55,
+                        "height": 13.428571428571429
+                    },
+                    "type": "label",
+                    "text": "five"
+                }
+            ]
+        },
+        {
+            "id": "a8828afb-fa24-44a8-942e-2665dbcf9405",
+            "type": "edge",
+            "sourceId": "322dc599-ea72-49e9-8e37-fe5226e41f19",
+            "targetId": "b7c7f442-377f-492c-90bf-331e66988bda",
+            "routingPoints": [
+                {
+                    "x": 148.4625,
+                    "y": 320.3325
+                },
+                {
+                    "x": 148.3875,
+                    "y": 191.17464285714286
+                },
+                {
+                    "x": 149.975,
+                    "y": 170.85714285714286
+                }
+            ]
+        }
+    ]
+}

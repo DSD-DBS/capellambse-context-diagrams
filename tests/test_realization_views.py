@@ -1,22 +1,80 @@
 # SPDX-FileCopyrightText: Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
+import json
+
 import capellambse
 import pytest
 
+from capellambse_context_diagrams import _elkjs, context
+
+from .conftest import (  # type: ignore[import-untyped]
+    TEST_ELK_INPUT_ROOT,
+    TEST_ELK_LAYOUT_ROOT,
+    remove_ids_from_elk_layout,
+)
+
+TEST_REALIZATION_DATA_ROOT = TEST_ELK_INPUT_ROOT / "realization_views"
+TEST_REALIZATION_LAYOUT_ROOT = TEST_ELK_LAYOUT_ROOT / "realization_views"
 TEST_FNC_UUID = "beaf5ba4-8fa9-4342-911f-0266bb29be45"
 TEST_CMP_UUID = "b9f9a83c-fb02-44f7-9123-9d86326de5f1"
+TEST_REALIZATION_SET = [
+    pytest.param((TEST_FNC_UUID, "fnc_realization_view.json"), id="Function"),
+    pytest.param((TEST_CMP_UUID, "cmp_realization_view.json"), id="Component"),
+]
 
 
-@pytest.mark.parametrize("uuid", [TEST_FNC_UUID, TEST_CMP_UUID])
-def test_realization_view_gets_rendered_successfully(
-    model: capellambse.MelodyModel, uuid: str
-) -> None:
+@pytest.mark.parametrize("params", TEST_REALIZATION_SET)
+def test_collecting(model: capellambse.MelodyModel, params: tuple[str, str]):
+    uuid, elk_data_filename = params
     obj = model.by_uuid(uuid)
-
     diag = obj.realization_view
+    elk_data_file_path = TEST_REALIZATION_DATA_ROOT / elk_data_filename
+    expected = elk_data_file_path.read_text(encoding="utf8")
+    expected_edges = (
+        TEST_REALIZATION_DATA_ROOT / (elk_data_file_path.stem + "_edges.json")
+    ).read_text(encoding="utf8")
 
-    assert diag.render("svgdiagram")
+    _ = diag.elk_input_data({})
+    elk_input, edges = diag._elk_input_data
+
+    assert elk_input.model_dump(exclude_defaults=True) == json.loads(expected)
+    assert json.loads(expected_edges) == {
+        "edges": [edge.model_dump(exclude_defaults=True) for edge in edges]
+    }
+
+
+@pytest.mark.parametrize("params", TEST_REALIZATION_SET)
+def test_layouting(params: tuple[str, str]):
+    _, elk_data_filename = params
+    test_data = (TEST_REALIZATION_DATA_ROOT / elk_data_filename).read_text(
+        encoding="utf8"
+    )
+    data = _elkjs.ELKInputData.model_validate_json(test_data)
+    expected_layout_data = (
+        TEST_REALIZATION_LAYOUT_ROOT / elk_data_filename
+    ).read_text(encoding="utf8")
+    expected = _elkjs.ELKOutputData.model_validate_json(expected_layout_data)
+
+    layout = context.try_to_layout(data)
+
+    assert remove_ids_from_elk_layout(layout) == remove_ids_from_elk_layout(
+        expected
+    )
+
+
+@pytest.mark.parametrize("params", TEST_REALIZATION_SET)
+def test_serializing(model: capellambse.MelodyModel, params: tuple[str, str]):
+    uuid, elk_data_filename = params
+    obj = model.by_uuid(uuid)
+    diag = obj.realization_view
+    diag._display_symbols_as_boxes = True
+    layout_data = (TEST_REALIZATION_LAYOUT_ROOT / elk_data_filename).read_text(
+        encoding="utf8"
+    )
+    layout = _elkjs.ELKOutputData.model_validate_json(layout_data)
+
+    diag.serializer.make_diagram(layout)
 
 
 @pytest.mark.parametrize(
@@ -32,7 +90,7 @@ def test_realization_view_renders_with_additional_params(
     show_owners: bool,
     layer_sizing: str,
     uuid: str,
-) -> None:
+):
     obj = model.by_uuid(uuid)
 
     diag = obj.realization_view

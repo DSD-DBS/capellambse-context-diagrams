@@ -1,0 +1,215 @@
+{
+    "id": "3b83b4ba-671a-4de8-9c07-a5c6b1d3c422_data_flow_view",
+    "type": "graph",
+    "children": [
+        {
+            "id": "dfaf473d-257f-4455-90fd-fe9489dac617",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 86.9,
+                "height": 38.85714285714286
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_202742",
+                    "position": {
+                        "x": 3,
+                        "y": 12.000000000000002
+                    },
+                    "size": {
+                        "width": 80.9,
+                        "height": 14.857142857142858
+                    },
+                    "type": "label",
+                    "text": "Run away"
+                }
+            ]
+        },
+        {
+            "id": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
+            "position": {
+                "x": 40.875,
+                "y": 94.85714285714286
+            },
+            "size": {
+                "width": 51.25,
+                "height": 50
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_551563",
+                    "position": {
+                        "x": 3,
+                        "y": 19
+                    },
+                    "size": {
+                        "width": 45.25,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Eat"
+                }
+            ]
+        },
+        {
+            "id": "ab016025-d456-4c2d-8359-d50cf9de3825",
+            "position": {
+                "x": 191.05,
+                "y": 93.42857142857143
+            },
+            "size": {
+                "width": 62.75,
+                "height": 52.85714285714286
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_660709",
+                    "position": {
+                        "x": 3,
+                        "y": 19
+                    },
+                    "size": {
+                        "width": 56.75,
+                        "height": 14.857142857142858
+                    },
+                    "type": "label",
+                    "text": "Sleep"
+                }
+            ]
+        },
+        {
+            "id": "5d637de8-410f-42b8-a467-3b1c84d40775",
+            "position": {
+                "x": 379.3,
+                "y": 93.42857142857143
+            },
+            "size": {
+                "width": 71.94999999999999,
+                "height": 52.85714285714286
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_555999",
+                    "position": {
+                        "x": 3,
+                        "y": 19
+                    },
+                    "size": {
+                        "width": 65.94999999999999,
+                        "height": 14.857142857142858
+                    },
+                    "type": "label",
+                    "text": "Repeat"
+                }
+            ]
+        },
+        {
+            "id": "b8f34893-c50b-4b7d-9326-1d01990434d8",
+            "type": "edge",
+            "sourceId": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
+            "targetId": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
+            "routingPoints": [
+                {
+                    "x": 57.95833333333333,
+                    "y": 94.85714285714286
+                },
+                {
+                    "x": 57.95833333333333,
+                    "y": 84.85714285714286
+                },
+                {
+                    "x": 75.04166666666666,
+                    "y": 84.85714285714286
+                },
+                {
+                    "x": 75.04166666666666,
+                    "y": 94.85714285714286
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_999935",
+                    "position": {
+                        "x": 34.1,
+                        "y": 70.85714285714286
+                    },
+                    "size": {
+                        "width": 64.8,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Munch"
+                }
+            ]
+        },
+        {
+            "id": "097639a6-ad9c-4a3f-81cc-ebecab772bb6",
+            "type": "edge",
+            "sourceId": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
+            "targetId": "ab016025-d456-4c2d-8359-d50cf9de3825",
+            "routingPoints": [
+                {
+                    "x": 92.125,
+                    "y": 119.85714285714286
+                },
+                {
+                    "x": 191.05,
+                    "y": 119.85714285714286
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_930858",
+                    "position": {
+                        "x": 118.9,
+                        "y": 122.85714285714286
+                    },
+                    "size": {
+                        "width": 52.15,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Rest"
+                }
+            ]
+        },
+        {
+            "id": "b0605308-9663-4c34-b2db-d08285c09682",
+            "type": "edge",
+            "sourceId": "ab016025-d456-4c2d-8359-d50cf9de3825",
+            "targetId": "5d637de8-410f-42b8-a467-3b1c84d40775",
+            "routingPoints": [
+                {
+                    "x": 253.8,
+                    "y": 119.85714285714286
+                },
+                {
+                    "x": 379.3,
+                    "y": 119.85714285714286
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_239954",
+                    "position": {
+                        "x": 273.8,
+                        "y": 122.85714285714286
+                    },
+                    "size": {
+                        "width": 85.5,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "Start again"
+                }
+            ]
+        }
+    ]
+}

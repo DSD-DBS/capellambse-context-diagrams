@@ -21,7 +21,7 @@ from capellambse_context_diagrams.collectors import makers
         ),
     ],
 )
-def test_context_diagrams(
+def test_make_label_wraps_long_label(
     model: capellambse.MelodyModel, uuid: str, expected_labels: list[list[str]]
 ) -> None:
     obj = model.by_uuid(uuid)

@@ -20,13 +20,13 @@ from capellambse import helpers
 from capellambse import model as m
 
 from . import _elkjs, filters, serializers, styling
+from .builders import default as db
 from .collectors import (
+    _generic,
     cable_tree,
-    custom,
     dataflow_view,
     default,
     exchanges,
-    generic,
     portless,
     realization_view,
     tree_view,
@@ -324,8 +324,8 @@ class ContextDiagram(m.AbstractDiagram):
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
             "display_unused_ports": False,
             "transparent_background": False,
-            "edge_direction": custom.EDGE_DIRECTION.SMART.name,
-            "mode": default.MODE.WHITEBOX.name,
+            "edge_direction": db.EDGE_DIRECTION.SMART.name,
+            "mode": db.MODE.WHITEBOX.name,
             "display_actor_relation": False,
             "hide_context_owner": False,
             "include_children_context": True,
@@ -333,7 +333,7 @@ class ContextDiagram(m.AbstractDiagram):
             "hide_functions": False,
             "display_functional_parent_relation": False,
         }
-        if not generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES.get(self.type, ()):
+        if not _generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES.get(self.type, ()):
             render_params |= {
                 "collect": portless.collector,
                 "is_portless": True,
@@ -352,9 +352,9 @@ class ContextDiagram(m.AbstractDiagram):
         if standard_styles := STANDARD_STYLES.get(class_):
             self.render_styles = standard_styles
 
-        self.collector: cabc.Callable[
+        self.builder: cabc.Callable[
             [ContextDiagram, dict[str, t.Any]], CollectorOutputData
-        ] = custom.collector
+        ] = db.builder
 
     @property
     def uuid(self) -> str:
@@ -401,7 +401,7 @@ class ContextDiagram(m.AbstractDiagram):
             self._elk_input_data = data
 
         if self._elk_input_data is None:
-            self._elk_input_data = self.collector(self, params)
+            self._elk_input_data = self.builder(self, params)
 
         return self._elk_input_data
 
@@ -509,7 +509,7 @@ class InterfaceContextDiagram(ContextDiagram):
             "display_parent_relation": True,
             "collect": exchanges.interface_context_collector,
             "hide_context_owner": True,
-            "edge_direction": custom.EDGE_DIRECTION.RIGHT.name,
+            "edge_direction": db.EDGE_DIRECTION.RIGHT.name,
             "display_functional_parent_relation": True,
         } | default_render_parameters
         super().__init__(
@@ -663,7 +663,7 @@ class ClassTreeDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
-        self.collector = tree_view.collector  # type: ignore[assignment]
+        self.builder = tree_view.collector  # type: ignore[assignment]
 
     @property
     def uuid(self) -> str:
@@ -773,7 +773,7 @@ class RealizationViewDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
-        self.collector = realization_view.collector  # type: ignore[assignment]
+        self.builder = realization_view.collector  # type: ignore[assignment]
 
     @property
     def uuid(self) -> str:
@@ -884,7 +884,7 @@ class CableTreeViewDiagram(ContextDiagram):
             "display_port_labels": True,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
             "collect": cable_tree.collector,
-            "edge_direction": custom.EDGE_DIRECTION.TREE.name,
+            "edge_direction": db.EDGE_DIRECTION.TREE.name,
         } | default_render_parameters
         super().__init__(
             class_,
@@ -917,7 +917,7 @@ class PhysicalPortContextDiagram(ContextDiagram):
         default_render_parameters = {
             "collect": default.physical_port_context_collector,
             "display_parent_relation": True,
-            "edge_direction": custom.EDGE_DIRECTION.TREE.name,
+            "edge_direction": db.EDGE_DIRECTION.TREE.name,
             "display_port_labels": True,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
         } | default_render_parameters

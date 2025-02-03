@@ -17,7 +17,7 @@ import capellambse.model as m
 from capellambse.metamodel import oa, sa
 
 from .. import context
-from . import generic
+from . import _generic
 
 SOURCE_ATTR_NAMES = frozenset(("parent",))
 TARGET_ATTR_NAMES = frozenset(("involved", "capability"))
@@ -54,7 +54,7 @@ def collect_exchange_endpoints(
         return _get(e, SOURCE_ATTR_NAMES), _get(e, TARGET_ATTR_NAMES)
     except AttributeError:
         pass
-    return generic.collect_exchange_endpoints(e)
+    return _generic.collect_exchange_endpoints(e)
 
 
 def get_exchanges(

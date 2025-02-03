@@ -14,14 +14,14 @@ import capellambse.model as m
 from capellambse.metamodel import fa
 
 from .. import context
-from . import generic, portless
+from . import _generic, portless
 
 COLLECTOR_PARAMS: dict[m.DiagramType, dict[str, t.Any]] = {
     m.DiagramType.OAIB: {"attribute": "involved_activities"},
     m.DiagramType.SDFB: {
         "attribute": "involved_functions",
         "filter_attrs": ("source.owner", "target.owner"),
-        "port_collector": generic.port_collector,
+        "port_collector": _generic.port_collector,
     },
 }
 
@@ -85,7 +85,7 @@ def _collect_data(
         yield elem
         if port_collector:
             _ports = port_collector(elem, diagram.type)
-            connections = generic.port_exchange_collector(
+            connections = _generic.port_exchange_collector(
                 _ports, filter=filter
             )
             yield from chain.from_iterable(connections.values())

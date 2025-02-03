@@ -16,7 +16,8 @@ import capellambse.model as m
 from capellambse.metamodel import information, modeltypes
 
 from .. import _elkjs, context
-from . import generic, makers
+from ..builders import _makers
+from . import _generic
 
 logger = logging.getLogger(__name__)
 
@@ -34,9 +35,9 @@ DEFAULT_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
 class ClassProcessor:
     def __init__(self, diagram: context.ClassTreeDiagram) -> None:
         self.diagram = diagram
-        self.data = generic.collector(diagram, no_symbol=True)
+        self.data = _generic.collector(diagram, no_symbol=True)
         self.data.children[0].labels[0].layoutOptions.update(
-            makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+            _makers.DEFAULT_LABEL_LAYOUT_OPTIONS
         )
 
         self.made_boxes: set[str] = {self.data.children[0].id}
@@ -93,7 +94,7 @@ class ClassProcessor:
                         id=edge_id,
                         sources=[cls.source.uuid],
                         targets=[cls.target.uuid],
-                        labels=makers.make_label(text),
+                        labels=_makers.make_label(text),
                     )
                 )
 
@@ -120,9 +121,9 @@ class ClassProcessor:
         self, obj: information.Class, partition: int
     ) -> _elkjs.ELKInputChild:
         self.made_boxes.add(obj.uuid)
-        box = makers.make_box(
+        box = _makers.make_box(
             obj,
-            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+            layout_options=_makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
         )
         self._set_data_types_and_labels(box, obj)
         _set_partitioning(box, partition, self.diagram._partitioning)
@@ -136,7 +137,7 @@ class ClassProcessor:
             target, self.data_types
         )
         box.labels.extend(properties)
-        box.width, box.height = makers.calculate_height_and_width(
+        box.width, box.height = _makers.calculate_height_and_width(
             list(box.labels)
         )
         for legend in legends:
@@ -179,7 +180,7 @@ def collector(
     ):
         processor.process_class(cls)
 
-    legend = makers.make_diagram(diagram)
+    legend = _makers.make_diagram(diagram)
     legend.layoutOptions = copy.deepcopy(_elkjs.RECT_PACKING_LAYOUT_OPTIONS)  # type: ignore[arg-type]
     legend.children = processor.legend_boxes
     return processor.data, legend
@@ -372,7 +373,7 @@ def _get_all_non_edge_properties(
     properties = [
         _elkjs.ELKInputLabel(
             text="",
-            layoutOptions=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+            layoutOptions=_makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
             width=0,
             height=0,
         )
@@ -387,9 +388,9 @@ def _get_all_non_edge_properties(
             continue
 
         text = _get_property_text(prop)
-        labels = makers.make_label(
+        labels = _makers.make_label(
             text,
-            icon=(makers.ICON_WIDTH, 0),
+            icon=(_makers.ICON_WIDTH, 0),
             layout_options=layout_options,
             max_width=math.inf,
         )
@@ -403,7 +404,7 @@ def _get_all_non_edge_properties(
         if not is_enum and not (is_class and prop.type.is_primitive):
             continue
 
-        legend = makers.make_box(
+        legend = _makers.make_box(
             prop.type,
             label_getter=_get_legend_labels,
             max_label_width=math.inf,
@@ -430,16 +431,16 @@ def _get_property_text(prop: information.Property) -> str:
 
 def _get_legend_labels(
     obj: m.ModelElement,
-) -> cabc.Iterator[makers._LabelBuilder]:
+) -> cabc.Iterator[_makers._LabelBuilder]:
     yield {
         "text": obj.name,
         "icon": (0, 0),
-        "layout_options": makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+        "layout_options": _makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
     }
     yield {
         "text": "",
         "icon": (0, 0),
-        "layout_options": makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+        "layout_options": _makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
     }
     if isinstance(obj, information.datatype.Enumeration):
         labels = [literal.name for literal in obj.literals]

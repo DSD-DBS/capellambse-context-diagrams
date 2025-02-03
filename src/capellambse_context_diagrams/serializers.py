@@ -9,7 +9,7 @@ according to
 [_elkjs.ELKInputData][capellambse_context_diagrams._elkjs.ELKInputData].
 
 The pre-layouted data was collected with the functions from
-[collectors][capellambse_context_diagrams.collectors].
+[builders][capellambse_context_diagrams.builders].
 """
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ from capellambse import model as m
 from capellambse.svg import decorations
 
 from . import _elkjs, context
-from .collectors import makers
+from .builders import _makers
 
 logger = logging.getLogger(__name__)
 
@@ -151,7 +151,7 @@ class DiagramSerializer:
         element: cdiagram.Box | cdiagram.Edge | cdiagram.Circle
         if child.type in {"node", "port"}:
             assert parent is None or isinstance(parent, cdiagram.Box)
-            has_symbol_cls = makers.is_symbol(styleclass)
+            has_symbol_cls = _makers.is_symbol(styleclass)
             is_port = child.type == "port"
             box_type = ("box", "symbol")[
                 is_port

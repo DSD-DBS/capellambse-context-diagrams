@@ -13,7 +13,7 @@ import capellambse.model as m
 from capellambse.metamodel import cs, fa, oa
 
 from .. import _elkjs, context
-from . import makers
+from ..builders import _makers
 
 RE_LAYER_PTRN = re.compile(r"([A-Z]?[a-z]+)")
 
@@ -23,7 +23,7 @@ def collector(
 ) -> tuple[_elkjs.ELKInputData, list[_elkjs.ELKInputEdge]]:
     """Return the class tree data for ELK."""
     del params
-    data = makers.make_diagram(diagram)
+    data = _makers.make_diagram(diagram)
     layout_options: _elkjs.LayoutOptions = copy.deepcopy(
         _elkjs.RECT_PACKING_LAYOUT_OPTIONS  # type:ignore[arg-type]
     )
@@ -40,8 +40,8 @@ def collector(
         if not (elements := lay_to_els.get(layer)):  # type: ignore[call-overload]
             continue
 
-        labels = makers.make_label(layer)
-        width, height = makers.calculate_height_and_width(labels)
+        labels = _makers.make_label(layer)
+        width, height = _makers.calculate_height_and_width(labels)
         layer_box = _elkjs.ELKInputChild(
             id=elements[0]["layer"].uuid,
             children=[],
@@ -69,7 +69,7 @@ def collector(
                 target = elt["element"]
 
             if not (element_box := children.get(target.uuid)):
-                element_box = makers.make_box(target, no_symbol=True)
+                element_box = _makers.make_box(target, no_symbol=True)
                 children[target.uuid] = element_box
                 layer_box.children.append(element_box)
                 index = len(layer_box.children) - 1
@@ -80,10 +80,10 @@ def collector(
                         continue
 
                     if not (owner_box := children.get(owner.uuid)):
-                        owner_box = makers.make_box(
+                        owner_box = _makers.make_box(
                             owner,
                             no_symbol=True,
-                            layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+                            layout_options=_makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
                         )
                         owner_box.height += element_box.height
                         children[owner.uuid] = owner_box
@@ -94,7 +94,7 @@ def collector(
                     owner_box.width += element_box.width
                     for label in owner_box.labels:
                         label.layoutOptions.update(
-                            makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+                            _makers.DEFAULT_LABEL_LAYOUT_OPTIONS
                         )
 
                     if (

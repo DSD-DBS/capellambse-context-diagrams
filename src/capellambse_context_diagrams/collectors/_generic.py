@@ -14,11 +14,11 @@ import logging
 import typing as t
 
 import capellambse.model as m
-from capellambse.metamodel import cs, fa, interaction, la, oa, pa, sa
+from capellambse.metamodel import cs, fa, interaction
 from capellambse.model import DiagramType as DT
 
 from .. import _elkjs, context, filters
-from . import makers
+from ..builders import _makers
 
 if t.TYPE_CHECKING:
     Filter: t.TypeAlias = cabc.Callable[
@@ -49,26 +49,20 @@ DIAGRAM_TYPE_TO_CONNECTOR_NAMES: dict[DT, tuple[str, ...]] = {
 """Supported diagram types mapping to the attribute name of connectors."""
 MARKER_SIZE = 3
 """Default size of marker-ends in pixels."""
-MARKER_PADDING = makers.PORT_PADDING
+MARKER_PADDING = _makers.PORT_PADDING
 """Default padding of markers in pixels."""
-PackageTypes: tuple[type[m.ModelElement], ...] = (
-    oa.EntityPkg,
-    la.LogicalComponentPkg,
-    sa.SystemComponentPkg,
-    pa.PhysicalComponentPkg,
-)
 
 
 def collector(
     diagram: context.ContextDiagram,
     *,
-    width: int | float = makers.EOI_WIDTH,
+    width: int | float = _makers.EOI_WIDTH,
     no_symbol: bool = False,
 ) -> _elkjs.ELKInputData:
     """Return ELK data with only centerbox in children and config."""
-    data = makers.make_diagram(diagram)
+    data = _makers.make_diagram(diagram)
     data.children = [
-        makers.make_box(
+        _makers.make_box(
             diagram.target,
             width=width,
             no_symbol=no_symbol,
@@ -177,9 +171,9 @@ def exchange_data_collector(
             )
 
     if label and not no_edgelabels:
-        data.elkdata.edges[-1].labels = makers.make_label(
+        data.elkdata.edges[-1].labels = _makers.make_label(
             render_adj.get("labels_text", label),
-            max_width=makers.MAX_LABEL_WIDTH,
+            max_width=_makers.MAX_LABEL_WIDTH,
         )
 
     return source, target
@@ -197,33 +191,6 @@ def collect_label(obj: m.ModelElement) -> str | None:
     if isinstance(obj, interaction.AbstractCapabilityInclude):
         return "« i »"
     return "" if obj.name.startswith("(Unnamed") else obj.name
-
-
-def move_parent_boxes_to_owner(
-    boxes: dict[str, _elkjs.ELKInputChild],
-    obj: m.ModelElement,
-    data: _elkjs.ELKInputData,
-    filter_types: tuple[type, ...] = PackageTypes,
-) -> None:
-    """Move boxes to their owner box."""
-    boxes_to_remove: list[str] = []
-    for child in data.children:
-        if not child.children:
-            continue
-
-        owner = obj._model.by_uuid(child.id)
-        if (
-            isinstance(owner, filter_types)
-            or not (oowner := owner.owner)
-            or isinstance(oowner, filter_types)
-            or not (oowner_box := boxes.get(oowner.uuid))
-        ):
-            continue
-
-        oowner_box.children.append(child)
-        boxes_to_remove.append(child.id)
-
-    data.children = [b for b in data.children if b.id not in boxes_to_remove]
 
 
 def move_edges(
@@ -274,50 +241,6 @@ def get_all_owners(obj: m.ModelElement) -> cabc.Iterator[str]:
     while current is not None:
         yield current.uuid
         current = getattr(current, "owner", None)
-
-
-def make_owner_box(
-    obj: t.Any,
-    make_box_func: t.Callable,
-    boxes: dict[str, _elkjs.ELKInputChild],
-    boxes_to_delete: set[str],
-) -> t.Any:
-    parent_box = make_box_func(
-        obj.owner,
-        layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
-    )
-    assert (obj_box := boxes.get(obj.uuid))
-    for box in (children := parent_box.children):
-        if box.id == obj.uuid:
-            break
-    else:
-        children.append(obj_box)
-        obj_box.width = max(obj_box.width, parent_box.width)
-        for label in parent_box.labels:
-            label.layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
-    boxes_to_delete.add(obj.uuid)
-    return obj.owner
-
-
-def make_owner_boxes(
-    obj: m.ModelElement,
-    excluded: list[str],
-    make_box_func: t.Callable,
-    boxes: dict[str, _elkjs.ELKInputChild],
-    boxes_to_delete: set[str],
-) -> str:
-    """Create owner boxes for all owners of ``obj``."""
-    current = obj
-    while (
-        current
-        and current.uuid not in excluded
-        and getattr(current, "owner", None) is not None
-        and not isinstance(current.owner, PackageTypes)
-    ):
-        current = make_owner_box(
-            current, make_box_func, boxes, boxes_to_delete
-        )
-    return current.uuid
 
 
 def port_collector(

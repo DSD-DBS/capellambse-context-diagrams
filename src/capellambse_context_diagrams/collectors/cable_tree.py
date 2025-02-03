@@ -10,7 +10,7 @@ import typing as t
 import capellambse.model as m
 
 from .. import context
-from . import generic
+from . import _generic
 
 if t.TYPE_CHECKING:
     Filter: t.TypeAlias = cabc.Callable[
@@ -42,9 +42,9 @@ def collector(
 
     src, tgt = diagram.target.source, diagram.target.target
     src_owner, tgt_owner = src.owner.uuid, tgt.owner.uuid
-    if src_owner in set(generic.get_all_owners(tgt)):
+    if src_owner in set(_generic.get_all_owners(tgt)):
         common_owner = src_owner
-    elif tgt_owner in set(generic.get_all_owners(src)):
+    elif tgt_owner in set(_generic.get_all_owners(src)):
         common_owner = tgt_owner
     else:
         yield from _collect(src)
@@ -54,6 +54,6 @@ def collector(
         filter=lambda items: (
             item
             for item in items
-            if common_owner in set(generic.get_all_owners(item))
+            if common_owner in set(_generic.get_all_owners(item))
         ),
     )

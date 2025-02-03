@@ -82,7 +82,7 @@ class CustomCollector:
         params: dict[str, t.Any],
     ) -> None:
         self.diagram = diagram
-        self.collection = list(self.diagram._collect)
+        self.collection = list(self.diagram._collect(self.diagram))
         self.target: m.ModelElement = self.diagram.target
         self.boxable_target: m.ModelElement
         if _is_port(self.target):
@@ -180,10 +180,11 @@ class CustomCollector:
         if (
             self.diagram._hide_context_owner
             and len(self.boxes.values()) == 1
-            and next(iter(self.boxes.values())) != self.boxable_target
+            and (context_owner := next(iter(self.boxes.values())))
+            != self.boxable_target
         ):
-            self.data.children = next(iter(self.boxes.values())).children
-            self.data.edges = next(iter(self.boxes.values())).edges
+            self.data.children = context_owner.children
+            self.data.edges = context_owner.edges
         else:
             self.data.children = list(self.boxes.values())
             self.data.edges = list(self.edges.values())
@@ -311,7 +312,7 @@ class CustomCollector:
         tgt_owners = list(generic.get_all_owners(tgt_owner))
 
         if (
-            self.diagram._hide_direct_children
+            self.diagram._mode == default.MODE.BLACKBOX.name
             and self.boxable_target.uuid in src_owners
             and self.boxable_target.uuid in tgt_owners
         ):

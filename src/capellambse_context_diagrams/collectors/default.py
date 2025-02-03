@@ -80,8 +80,8 @@ def collector(
 
     yield from _collect(
         diagram.target,
-        include_children=diagram._mode
-        in (MODE.WHITEBOX.name, MODE.GRAYBOX.name),
+        include_children=diagram._include_children_context
+        or diagram._mode in (MODE.WHITEBOX.name, MODE.GRAYBOX.name),
     )
     if not diagram._display_actor_relation:
         return

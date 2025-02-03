@@ -10,13 +10,13 @@ diagrams that involve ports.
 from __future__ import annotations
 
 import collections.abc as cabc
-import enum
 import typing as t
 from itertools import chain
 
 import capellambse.model as m
 
-from . import generic
+from ..builders import default as db
+from . import _generic
 
 if t.TYPE_CHECKING:
     from .. import context
@@ -25,24 +25,6 @@ if t.TYPE_CHECKING:
         [cabc.Iterable[m.ModelElement]],
         cabc.Iterable[m.ModelElement],
     ]
-
-
-class MODE(enum.Enum):
-    """Context collection mode.
-
-    Attributes
-    ----------
-    WHITEBOX
-        Collect target context and it's children's context.
-    GRAYBOX
-        Collect target context and derived context from it's children's context.
-    BLACKBOX
-        Collect target context only.
-    """
-
-    WHITEBOX = enum.auto()
-    GRAYBOX = enum.auto()
-    BLACKBOX = enum.auto()
 
 
 def collector(
@@ -62,8 +44,8 @@ def collector(
             return
         visited.add(target.uuid)
 
-        inc, out = generic.port_collector(target, diagram.type)
-        ports = generic.port_exchange_collector(
+        inc, out = _generic.port_collector(target, diagram.type)
+        ports = _generic.port_exchange_collector(
             (inc | out).values(), filter=filter
         )
         exchanges = chain.from_iterable(ports.values())
@@ -81,7 +63,7 @@ def collector(
     yield from _collect(
         diagram.target,
         include_children=diagram._include_children_context
-        or diagram._mode in (MODE.WHITEBOX.name, MODE.GRAYBOX.name),
+        or diagram._mode in (db.MODE.WHITEBOX.name, db.MODE.GRAYBOX.name),
     )
     if not diagram._display_actor_relation:
         return

@@ -5,9 +5,7 @@
 
 # Custom Diagram
 
-`Custom diagram`s let you create custom diagrams based on the data in the model. You define the data collection using an iterable, and `Custom diagram` takes care of the rest.
-
-You can access `.custom_diagram` on any supported model element.
+You can easily create custom diagrams based on the data in the model. You define the data collection, and the ´builders´ module takes care of the rest.
 
 ??? example "Custom Diagram of `PP 1 `"
 
@@ -40,8 +38,11 @@ You can access `.custom_diagram` on any supported model element.
         <figcaption>Context of PP 1 [PAB]</figcaption>
     </figure>
 
+You can find more examples of collectors in the
+[`collectors`][capellambse_context_diagrams.collectors]
+
 ## Check out the code
 
 To understand the collection have a look into the
-[`custom`][capellambse_context_diagrams.collectors.custom]
+[`builders`][capellambse_context_diagrams.builders]
 module.

@@ -10,7 +10,8 @@ import capellambse.model as m
 from capellambse.metamodel import cs, fa, la, sa
 
 from .. import _elkjs, context
-from . import generic, makers
+from ..collectors import _generic
+from . import _makers
 
 if t.TYPE_CHECKING:
     DerivatorFunction: t.TypeAlias = cabc.Callable[
@@ -42,7 +43,7 @@ def derive_from_functions(
     assert isinstance(diagram.target, cs.Component)
     ports: list[m.ModelElement] = []
     for fnc in diagram.target.allocated_functions:
-        inc, out = generic.port_collector(fnc, diagram.type)
+        inc, out = _generic.port_collector(fnc, diagram.type)
         ports.extend((inc | out).values())
 
     derived_components: dict[str, cs.Component] = {}
@@ -75,21 +76,21 @@ def derive_from_functions(
     for i, (uuid, derived_component) in enumerate(
         derived_components.items(), 1
     ):
-        box = makers.make_box(
+        box = _makers.make_box(
             derived_component,
             no_symbol=diagram._display_symbols_as_boxes,
         )
         class_ = diagram.serializer.get_styleclass(derived_component.uuid)
-        box.id = f"{makers.STYLECLASS_PREFIX}-{class_}:{uuid}"
+        box.id = f"{_makers.STYLECLASS_PREFIX}-{class_}:{uuid}"
         boxes[uuid] = box
-        source_id = f"{makers.STYLECLASS_PREFIX}-CP_INOUT:{i}"
-        target_id = f"{makers.STYLECLASS_PREFIX}-CP_INOUT:{-i}"
-        box.ports.append(makers.make_port(source_id))
-        centerbox.ports.append(makers.make_port(target_id))
+        source_id = f"{_makers.STYLECLASS_PREFIX}-CP_INOUT:{i}"
+        target_id = f"{_makers.STYLECLASS_PREFIX}-CP_INOUT:{-i}"
+        box.ports.append(_makers.make_port(source_id))
+        centerbox.ports.append(_makers.make_port(target_id))
         if i % 2 == 0:
             source_id, target_id = target_id, source_id
 
-        uid = f"{makers.STYLECLASS_PREFIX}-ComponentExchange:{i}"
+        uid = f"{_makers.STYLECLASS_PREFIX}-ComponentExchange:{i}"
         edges[uid] = _elkjs.ELKInputEdge(
             id=uid,
             sources=[source_id],
@@ -97,7 +98,8 @@ def derive_from_functions(
         )
 
     centerbox.height += (
-        makers.PORT_PADDING + (makers.PORT_SIZE + makers.PORT_PADDING) * i // 2
+        _makers.PORT_PADDING
+        + (_makers.PORT_SIZE + _makers.PORT_PADDING) * i // 2
     )
 
 

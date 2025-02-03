@@ -21,7 +21,26 @@ import capellambse.model as m
 from capellambse.metamodel import fa
 
 from .. import _elkjs, context
-from . import default, derived, generic, makers, portless
+from ..collectors import _generic, portless
+from . import _makers, derived
+
+
+class MODE(enum.Enum):
+    """Context collection mode.
+
+    Attributes
+    ----------
+    WHITEBOX
+        Collect target context and it's children's context.
+    GRAYBOX
+        Collect target context and derived context from it's children's context.
+    BLACKBOX
+        Collect target context only.
+    """
+
+    WHITEBOX = enum.auto()
+    GRAYBOX = enum.auto()
+    BLACKBOX = enum.auto()
 
 
 class EDGE_DIRECTION(enum.Enum):
@@ -74,7 +93,7 @@ def get_uncommon_owner(
     return current
 
 
-class CustomCollector:
+class DiagramBuilder:
     """Collect the context for a custom diagram."""
 
     def __init__(
@@ -98,7 +117,7 @@ class CustomCollector:
             except AttributeError:
                 self.boxable_target = self.target
 
-        self.data = makers.make_diagram(diagram)
+        self.data = _makers.make_diagram(diagram)
         self.params = params
         self.boxes: dict[str, _elkjs.ELKInputChild] = {}
         self.edges: dict[str, _elkjs.ELKInputEdge] = {}
@@ -108,7 +127,7 @@ class CustomCollector:
         self.min_heights: dict[str, dict[str, float]] = {}
         self.directions: dict[str, bool] = {}
         self.diagram_target_owners = list(
-            generic.get_all_owners(self.boxable_target)
+            _generic.get_all_owners(self.boxable_target)
         )
 
         if self.diagram._display_parent_relation:
@@ -158,10 +177,10 @@ class CustomCollector:
                 current
                 and self.common_owners
                 and getattr(current, "owner", None) is not None
-                and not isinstance(current.owner, generic.PackageTypes)
+                and not isinstance(current.owner, _makers.PackageTypes)
             ):
                 self.common_owners.discard(current.uuid)
-                current = generic.make_owner_box(
+                current = _makers.make_owner_box(
                     current, self._make_box, self.boxes, self.boxes_to_delete
                 )
                 self.common_owners.discard(current.uuid)
@@ -251,7 +270,7 @@ class CustomCollector:
     ) -> _elkjs.ELKInputChild:
         if box := self.boxes.get(obj.uuid):
             return box
-        box = makers.make_box(
+        box = _makers.make_box(
             obj,
             no_symbol=self.diagram._display_symbols_as_boxes,
             slim_width=self.diagram._slim_center_box,
@@ -259,7 +278,7 @@ class CustomCollector:
         )
         self.boxes[obj.uuid] = box
         if self.diagram._display_unused_ports:
-            for attr in generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[
+            for attr in _generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES[
                 self.diagram.type
             ]:
                 for port_obj in getattr(obj, attr, []):
@@ -267,7 +286,7 @@ class CustomCollector:
                     self._make_port_and_owner(side, port_obj)
         if self.diagram._display_parent_relation:
             self.common_owners.add(
-                generic.make_owner_boxes(
+                _makers.make_owner_boxes(
                     obj,
                     self.diagram_target_owners,
                     self._make_box,
@@ -284,7 +303,7 @@ class CustomCollector:
         if self.edges.get(edge_obj.uuid):
             return None
 
-        ex_data = generic.ExchangeData(
+        ex_data = _generic.ExchangeData(
             edge_obj,
             self.data,
             self.diagram.filters,
@@ -295,20 +314,22 @@ class CustomCollector:
         tgt_obj: m.ModelElement | None
 
         if self.diagram._is_portless:
-            src_owner, tgt_owner = generic.exchange_data_collector(
+            src_owner, tgt_owner = _generic.exchange_data_collector(
                 ex_data, portless.collect_exchange_endpoints
             )
             src_obj, tgt_obj = None, None
             edge = self.data.edges.pop()
         else:
-            src_obj, tgt_obj = generic.exchange_data_collector(ex_data)
+            src_obj, tgt_obj = _generic.exchange_data_collector(ex_data)
             src_owner, tgt_owner = src_obj.owner, tgt_obj.owner
             edge = self.data.edges.pop()
 
-            if self.diagram._mode == default.MODE.GRAYBOX.name:
+            if self.diagram._mode == MODE.GRAYBOX.name:
 
                 def get_unc(obj):
-                    if self.boxable_target.uuid in generic.get_all_owners(obj):
+                    if self.boxable_target.uuid in _generic.get_all_owners(
+                        obj
+                    ):
                         return self.boxable_target
                     return get_uncommon_owner(obj, self.diagram_target_owners)
 
@@ -316,17 +337,17 @@ class CustomCollector:
                 if src_unc.uuid == tgt_unc.uuid:
                     return None
                 if src_unc.uuid != src_owner.uuid:
-                    edge.id = f"{makers.STYLECLASS_PREFIX}-ComponentExchange:{edge.id}"
+                    edge.id = f"{_makers.STYLECLASS_PREFIX}-ComponentExchange:{edge.id}"
                     src_owner = src_unc
                 if tgt_unc.uuid != tgt_owner.uuid:
-                    edge.id = f"{makers.STYLECLASS_PREFIX}-ComponentExchange:{edge.id}"
+                    edge.id = f"{_makers.STYLECLASS_PREFIX}-ComponentExchange:{edge.id}"
                     tgt_owner = tgt_unc
 
-        src_owners = list(generic.get_all_owners(src_owner))
-        tgt_owners = list(generic.get_all_owners(tgt_owner))
+        src_owners = list(_generic.get_all_owners(src_owner))
+        tgt_owners = list(_generic.get_all_owners(tgt_owner))
 
         if (
-            self.diagram._mode == default.MODE.BLACKBOX.name
+            self.diagram._mode == MODE.BLACKBOX.name
             and self.boxable_target.uuid in src_owners
             and self.boxable_target.uuid in tgt_owners
         ):
@@ -365,10 +386,10 @@ class CustomCollector:
     ) -> None:
         height: int | float
         if port is None:
-            height = 2 * generic.MARKER_PADDING + generic.MARKER_SIZE
+            height = 2 * _generic.MARKER_PADDING + _generic.MARKER_SIZE
         else:
-            height = makers.PORT_SIZE + max(
-                2 * makers.PORT_PADDING,
+            height = _makers.PORT_SIZE + max(
+                2 * _makers.PORT_PADDING,
                 sum(label.height for label in port.labels),
             )
         self.min_heights.setdefault(owner_uuid, {"left": 0.0, "right": 0.0})[
@@ -439,7 +460,7 @@ class CustomCollector:
         owner_obj = owner or port_obj.owner  # type: ignore
         box = self._make_box(
             owner_obj,
-            layout_options=makers.CENTRIC_LABEL_LAYOUT_OPTIONS,
+            layout_options=_makers.CENTRIC_LABEL_LAYOUT_OPTIONS,
         )
         port: _elkjs.ELKInputPort | None
         if port_obj is None:
@@ -447,10 +468,10 @@ class CustomCollector:
         else:
             if port := self.ports.get(port_obj.uuid):
                 return port
-            port = makers.make_port(port_obj.uuid)
+            port = _makers.make_port(port_obj.uuid)
             if self.diagram._display_port_labels:
                 text = port_obj.name or "UNKNOWN"
-                port.labels = makers.make_label(text)
+                port.labels = _makers.make_label(text)
                 _plp = self.diagram._port_label_position
                 if not (
                     plp := getattr(_elkjs.PORT_LABEL_POSITION, _plp, None)
@@ -464,10 +485,10 @@ class CustomCollector:
         return port
 
 
-def collector(
+def builder(
     diagram: context.ContextDiagram, params: dict[str, t.Any]
 ) -> _elkjs.ELKInputData:
-    """High level collector function to collect needed data for ELK.
+    """High level builder function to build collected data for ELK.
 
     Parameters
     ----------
@@ -484,4 +505,4 @@ def collector(
     elkdata
         The data that can be fed into elkjs.
     """
-    return CustomCollector(diagram, params)()
+    return DiagramBuilder(diagram, params)()

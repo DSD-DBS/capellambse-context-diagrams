@@ -34,7 +34,7 @@ You can easily create custom diagrams based on the data in the model. You define
     diag.render("svgdiagram", collect=_collector(obj)).save(pretty=True)
     ```
     <figure markdown>
-        <img src="assets/images/Context of PP 1.svg" width="1000000">
+        <img src="../assets/images/Context of PP 1.svg" width="1000000">
         <figcaption>Context of PP 1 [PAB]</figcaption>
     </figure>
 

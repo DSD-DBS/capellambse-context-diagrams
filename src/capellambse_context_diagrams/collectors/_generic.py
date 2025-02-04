@@ -116,11 +116,11 @@ def exchange_data_collector(
     Parameters
     ----------
     data
-        Instance of [`ExchangeData`][capellambse_context_diagrams.collectors.generic.ExchangeData]
+        Instance of [`ExchangeData`][capellambse_context_diagrams.collectors._generic.ExchangeData]
         storing all needed elements for collection.
     endpoint_collector
         Optional collector function for Exchange endpoints. Defaults to
-        [`collect_exchange_endpoints`][capellambse_context_diagrams.collectors.generic.collect_exchange_endpoints].
+        [`collect_exchange_endpoints`][capellambse_context_diagrams.collectors._generic.collect_exchange_endpoints].
 
     Returns
     -------

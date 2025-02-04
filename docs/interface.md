@@ -5,7 +5,7 @@
 
 # Interfaces (aka ComponentExchanges)
 
-The data is collected by [get_elkdata_for_exchanges][capellambse_context_diagrams.collectors.exchanges.get_elkdata_for_exchanges] which is using the [`InterfaceContextCollector`][capellambse_context_diagrams.collectors.exchanges.InterfaceContextCollector] underneath.
+The data is collected by the [`interface_context_collector`][capellambse_context_diagrams.collectors.exchanges.interface_context_collector].
 
 You can render an interface context view just with `context_diagram` on any
 of the following Model elements:
@@ -45,6 +45,7 @@ of the following Model elements:
           </figure>
 
 ## Exclude the interface itself in the context
+
 ??? example "Exclude the interface in the Interface Context"
 
     ``` py
@@ -60,6 +61,7 @@ of the following Model elements:
     </figure>
 
 ## Hide functional model elements from the context
+
 ??? example "Hide functions and functional exchanges in the Interface Context"
 
     ``` py

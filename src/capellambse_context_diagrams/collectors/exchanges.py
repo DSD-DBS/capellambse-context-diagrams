@@ -22,6 +22,7 @@ def functional_context_collector(
 def interface_context_collector(
     diagram: context.InterfaceContextDiagram,
 ) -> cabc.Iterator[m.ModelElement]:
+    """Return the elements of the InterfaceContextDiagram."""
     if (
         not isinstance(diagram.target, cs.PhysicalLink)
         and not diagram._hide_functions

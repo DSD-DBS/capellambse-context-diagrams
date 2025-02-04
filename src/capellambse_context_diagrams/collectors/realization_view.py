@@ -1,6 +1,6 @@
 # SPDX-FileCopyrightText: Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
-"""Collector for the RealizationView diagram."""
+"""Collector for the realization view diagram."""
 
 from __future__ import annotations
 

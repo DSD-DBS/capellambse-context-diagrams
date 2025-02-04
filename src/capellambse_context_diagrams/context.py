@@ -248,7 +248,7 @@ class ContextDiagram(m.AbstractDiagram):
     filters
         A list of filter names that are applied during collection of
         context. Currently this is only done in
-        [`collectors.exchange_data_collector`][capellambse_context_diagrams.collectors.generic.exchange_data_collector].
+        [`exchange_data_collector`][capellambse_context_diagrams.collectors._generic.exchange_data_collector].
 
     Notes
     -----
@@ -741,7 +741,7 @@ def add_context(data: _elkjs.ELKOutputData, is_legend: bool = False) -> None:
 
 
 class RealizationViewDiagram(ContextDiagram):
-    """An automatically generated RealizationViewDiagram Diagram.
+    """An automatically generated realization view diagram.
 
     This diagram is exclusively for ``Activity``, ``Function``s,
     ``Entity`` and ``Components`` of all layers.

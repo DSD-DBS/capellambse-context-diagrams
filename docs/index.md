@@ -30,8 +30,6 @@ The data is collected by either
 -   [portless_collector][capellambse_context_diagrams.collectors.portless.collector] for [`ModelObject`s][capellambse.model.ModelObject] from the Operational Architecture Layer
 -   [with_port_collector][capellambse_context_diagrams.collectors.default.collector] for all other Architecture Layers that use ports as connectors of exchanges.
 
-It is served conveniently by [get_elkdata][capellambse_context_diagrams.collectors.get_elkdata].
-
 Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObject] with (diagram-class):
 
 -   ??? example "[`oa.Entity`][capellambse.metamodel.oa.Entity] (OAB)"

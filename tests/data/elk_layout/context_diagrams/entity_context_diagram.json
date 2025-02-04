@@ -1,0 +1,91 @@
+{
+    "id": "e37510b9-3166-4f80-a919-dfaac9b696c7_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "e37510b9-3166-4f80-a919-dfaac9b696c7",
+            "position": {
+                "x": 12,
+                "y": 13.428571428571427
+            },
+            "size": {
+                "width": 104.14999999999999,
+                "height": 37.42857142857143
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_727889",
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 98.14999999999999,
+                        "height": 13.428571428571429
+                    },
+                    "type": "label",
+                    "text": "Environment"
+                }
+            ]
+        },
+        {
+            "id": "a8c42033-fdf2-458f-bae9-1cfd1207c49f",
+            "position": {
+                "x": 315.25,
+                "y": 12
+            },
+            "size": {
+                "width": 166.25,
+                "height": 40.285714285714285
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_779475",
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 160.25,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "Functional Human Being"
+                }
+            ]
+        },
+        {
+            "id": "6638ccd2-61cc-481e-bb23-4c1b147e1dbc",
+            "type": "edge",
+            "sourceId": "e37510b9-3166-4f80-a919-dfaac9b696c7",
+            "targetId": "a8c42033-fdf2-458f-bae9-1cfd1207c49f",
+            "routingPoints": [
+                {
+                    "x": 116.14999999999999,
+                    "y": 32.14285714285714
+                },
+                {
+                    "x": 315.25,
+                    "y": 32.14285714285714
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_392881",
+                    "position": {
+                        "x": 136.14999999999998,
+                        "y": 35.14285714285714
+                    },
+                    "size": {
+                        "width": 159.1,
+                        "height": 13.428571428571429
+                    },
+                    "type": "label",
+                    "text": "Environmental influence"
+                }
+            ]
+        }
+    ]
+}

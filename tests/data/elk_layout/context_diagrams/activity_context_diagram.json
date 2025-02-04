@@ -1,0 +1,215 @@
+{
+    "id": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "a8c42033-fdf2-458f-bae9-1cfd1207c49f",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 481.4,
+                "height": 106.71428571428572
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
+                    "position": {
+                        "x": 256.475,
+                        "y": 57.285714285714285
+                    },
+                    "size": {
+                        "width": 51.25,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "g_659168",
+                            "position": {
+                                "x": 3,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 45.25,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Eat"
+                        }
+                    ]
+                },
+                {
+                    "id": "0e0164c3-076e-42c1-8f82-7a43ab84385c",
+                    "position": {
+                        "x": 12,
+                        "y": 57.285714285714285
+                    },
+                    "size": {
+                        "width": 92.65,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "g_644747",
+                            "position": {
+                                "x": 3,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 86.65,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Make Food"
+                        }
+                    ]
+                },
+                {
+                    "id": "ab016025-d456-4c2d-8359-d50cf9de3825",
+                    "position": {
+                        "x": 406.65,
+                        "y": 55.857142857142854
+                    },
+                    "size": {
+                        "width": 62.75,
+                        "height": 38.85714285714286
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "g_712769",
+                            "position": {
+                                "x": 3,
+                                "y": 12.000000000000002
+                            },
+                            "size": {
+                                "width": 56.75,
+                                "height": 14.857142857142858
+                            },
+                            "type": "label",
+                            "text": "Sleep"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_948176",
+                    "position": {
+                        "x": 160.575,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 160.25,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "Functional Human Being"
+                },
+                {
+                    "id": "b8f34893-c50b-4b7d-9326-1d01990434d8",
+                    "type": "edge",
+                    "sourceId": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
+                    "targetId": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
+                    "routingPoints": [
+                        {
+                            "x": 273.55833333333334,
+                            "y": 57.285714285714285
+                        },
+                        {
+                            "x": 273.55833333333334,
+                            "y": 47.285714285714285
+                        },
+                        {
+                            "x": 290.64166666666665,
+                            "y": 47.285714285714285
+                        },
+                        {
+                            "x": 290.64166666666665,
+                            "y": 57.285714285714285
+                        }
+                    ],
+                    "children": [
+                        {
+                            "id": "g_849950",
+                            "position": {
+                                "x": 249.7,
+                                "y": 33.285714285714285
+                            },
+                            "size": {
+                                "width": 64.8,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Munch"
+                        }
+                    ]
+                },
+                {
+                    "id": "55b90f9a-c5af-47fc-9c1c-48090414d1f1",
+                    "type": "edge",
+                    "sourceId": "0e0164c3-076e-42c1-8f82-7a43ab84385c",
+                    "targetId": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
+                    "routingPoints": [
+                        {
+                            "x": 104.65,
+                            "y": 75.28571428571428
+                        },
+                        {
+                            "x": 256.475,
+                            "y": 75.28571428571428
+                        }
+                    ],
+                    "children": [
+                        {
+                            "id": "g_701680",
+                            "position": {
+                                "x": 124.65,
+                                "y": 78.28571428571428
+                            },
+                            "size": {
+                                "width": 105.05,
+                                "height": 14.857142857142858
+                            },
+                            "type": "label",
+                            "text": "Prepared food"
+                        }
+                    ]
+                },
+                {
+                    "id": "097639a6-ad9c-4a3f-81cc-ebecab772bb6",
+                    "type": "edge",
+                    "sourceId": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
+                    "targetId": "ab016025-d456-4c2d-8359-d50cf9de3825",
+                    "routingPoints": [
+                        {
+                            "x": 307.725,
+                            "y": 75.28571428571428
+                        },
+                        {
+                            "x": 406.65,
+                            "y": 75.28571428571428
+                        }
+                    ],
+                    "children": [
+                        {
+                            "id": "g_760223",
+                            "position": {
+                                "x": 334.5,
+                                "y": 78.28571428571428
+                            },
+                            "size": {
+                                "width": 52.15,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Rest"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,10 +1,20 @@
 # SPDX-FileCopyrightText: Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
+import json
 import sys
+import typing as t
 
 import capellambse
 import pytest
+
+from capellambse_context_diagrams import _elkjs, context
+
+from .conftest import (  # type: ignore[import-untyped]
+    TEST_ELK_INPUT_ROOT,
+    TEST_ELK_LAYOUT_ROOT,
+    remove_ids_from_elk_layout,
+)
 
 TEST_CAP_SIZING_UUID = "b996a45f-2954-4fdd-9141-7934e7687de6"
 TEST_HUMAN_ACTOR_SIZING_UUID = "e95847ae-40bb-459e-8104-7209e86ea2d1"
@@ -28,53 +38,163 @@ TEST_ENTITY_UUID = "e37510b9-3166-4f80-a919-dfaac9b696c7"
 TEST_SYS_FNC_UUID = "a5642060-c9cc-4d49-af09-defaa3024bae"
 TEST_DERIVATION_UUID = "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c"
 TEST_PHYSICAL_PORT_UUID = "c403d4f4-9633-42a2-a5d6-9e1df2655146"
-
-
-@pytest.mark.parametrize(
-    "uuid",
-    [
-        pytest.param(TEST_ENTITY_UUID, id="Entity"),
-        pytest.param("8bcb11e6-443b-4b92-bec2-ff1d87a224e7", id="Activity"),
-        pytest.param(
-            "344a405e-c7e5-4367-8a9a-41d3d9a27f81", id="SystemComponent"
+TEST_CONTEXT_SET = [
+    pytest.param(
+        (
+            TEST_ENTITY_UUID,
+            "entity_context_diagram.json",
+            {},
         ),
-        pytest.param(
-            "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df", id="SystemComponent Root"
+        id="Entity",
+    ),
+    pytest.param(
+        (
+            "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
+            "activity_context_diagram.json",
+            {},
         ),
-        pytest.param(TEST_SYS_FNC_UUID, id="SystemFunction"),
-        pytest.param(
-            "f632888e-51bc-4c9f-8e81-73e9404de784", id="LogicalComponent"
+        id="Activity",
+    ),
+    pytest.param(
+        (
+            "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "systemcomponent_context_diagram.json",
+            {"display_symbols_as_boxes": True},
         ),
-        pytest.param(
-            "7f138bae-4949-40a1-9a88-15941f827f8c", id="LogicalFunction"
+        id="SystemComponent",
+    ),
+    pytest.param(
+        (
+            "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df",
+            "systemcomponent_root_context_diagram.json",
+            {"display_symbols_as_boxes": True},
         ),
-        pytest.param(
-            "b51ccc6f-5f96-4e28-b90e-72463a3b50cf", id="PhysicalNodeComponent"
+        id="SystemComponent Root",
+    ),
+    pytest.param(
+        (
+            TEST_SYS_FNC_UUID,
+            "systemfunction_context_diagram.json",
+            {"display_symbols_as_boxes": True},
         ),
-        pytest.param(
+        id="SystemFunction",
+    ),
+    pytest.param(
+        (
+            "f632888e-51bc-4c9f-8e81-73e9404de784",
+            "logicalcomponent_context_diagram.json",
+            {"display_symbols_as_boxes": True},
+        ),
+        id="LogicalComponent",
+    ),
+    pytest.param(
+        (
+            "7f138bae-4949-40a1-9a88-15941f827f8c",
+            "logicalfunction_context_diagram.json",
+            {},
+        ),
+        id="LogicalFunction",
+    ),
+    pytest.param(
+        (
+            "b51ccc6f-5f96-4e28-b90e-72463a3b50cf",
+            "physicalnodecomponent_context_diagram.json",
+            {
+                "display_symbols_as_boxes": True,
+                "port_label_position": "OUTSIDE",
+            },
+        ),
+        id="PhysicalNodeComponent",
+    ),
+    pytest.param(
+        (
             "c78b5d7c-be0c-4ed4-9d12-d447cb39304e",
-            id="PhysicalBehaviorComponent",
+            "physicalbehaviorcomponent_context_diagram.json",
+            {
+                "display_symbols_as_boxes": True,
+                "port_label_position": "OUTSIDE",
+            },
         ),
-        pytest.param(TEST_PHYSICAL_PORT_UUID, id="PhysicalPort"),
-    ],
-)
-def test_context_diagrams(model: capellambse.MelodyModel, uuid: str) -> None:
-    obj = model.by_uuid(uuid)
+        id="PhysicalBehaviorComponent",
+    ),
+    pytest.param(
+        (
+            TEST_PHYSICAL_PORT_UUID,
+            "physicalport_context_diagram.json",
+            {
+                "display_symbols_as_boxes": True,
+                "port_label_position": "OUTSIDE",
+            },
+        ),
+        id="PhysicalPort",
+    ),
+    pytest.param(
+        (TEST_DERIVATION_UUID, "derivated_context_diagram.json", {}),
+        id="Derivated",
+    ),
+]
 
-    diag = obj.context_diagram
-    diag.render(None, display_parent_relation=False)
-
-    assert diag.nodes
+TEST_CONTEXT_DATA_ROOT = TEST_ELK_INPUT_ROOT / "context_diagrams"
+TEST_CONTEXT_LAYOUT_ROOT = TEST_ELK_LAYOUT_ROOT / "context_diagrams"
 
 
-def test_context_is_collected_again_with_derivated(
-    model: capellambse.MelodyModel,
-) -> None:
-    obj = model.by_uuid(TEST_DERIVATION_UUID)
+class TestContextDiagrams:
+    @staticmethod
+    @pytest.mark.parametrize("params", TEST_CONTEXT_SET)
+    def test_collecting(
+        model: capellambse.MelodyModel,
+        params: tuple[str, str, dict[str, t.Any]],
+    ):
+        uuid, elk_data_filename, _ = params
+        obj = model.by_uuid(uuid)
+        expected = (TEST_CONTEXT_DATA_ROOT / elk_data_filename).read_text(
+            encoding="utf8"
+        )
 
-    diagram = obj.context_diagram.render(None)
+        _ = (diag := obj.context_diagram).elk_input_data({})
+        elk_input = diag._elk_input_data.model_dump(exclude_defaults=True)
 
-    assert len(diagram) > 1
+        assert elk_input == json.loads(expected)
+
+    @staticmethod
+    @pytest.mark.parametrize("params", TEST_CONTEXT_SET)
+    def test_layouting(params: tuple[str, str, dict[str, t.Any]]):
+        _, elk_data_filename, _ = params
+        test_data = (TEST_CONTEXT_DATA_ROOT / elk_data_filename).read_text(
+            encoding="utf8"
+        )
+        expected_layout_data = (
+            TEST_CONTEXT_LAYOUT_ROOT / elk_data_filename
+        ).read_text(encoding="utf8")
+        data = _elkjs.ELKInputData.model_validate_json(test_data)
+        expected = _elkjs.ELKOutputData.model_validate_json(
+            expected_layout_data
+        )
+
+        layout = context.try_to_layout(data)
+
+        assert remove_ids_from_elk_layout(
+            layout
+        ) == remove_ids_from_elk_layout(expected)
+
+    @staticmethod
+    @pytest.mark.parametrize("params", TEST_CONTEXT_SET)
+    def test_serializing(
+        model: capellambse.MelodyModel,
+        params: tuple[str, str, dict[str, t.Any]],
+    ):
+        uuid, elk_data_filename, render_params = params
+        obj = model.by_uuid(uuid)
+        diag = obj.context_diagram
+        for key, value in render_params.items():
+            setattr(diag, f"_{key}", value)
+
+        layout_data = (TEST_CONTEXT_LAYOUT_ROOT / elk_data_filename).read_text(
+            encoding="utf8"
+        )
+        layout = _elkjs.ELKOutputData.model_validate_json(layout_data)
+
+        diag.serializer.make_diagram(layout)
 
 
 @pytest.mark.parametrize(
@@ -95,7 +215,7 @@ def test_context_is_collected_again_with_derivated(
 )
 def test_context_diagrams_rerender_on_parameter_change(
     model: capellambse.MelodyModel, parameter: str, uuid: str
-) -> None:
+):
     obj = model.by_uuid(uuid)
 
     diag = obj.context_diagram
@@ -150,7 +270,7 @@ def test_context_diagrams_rerender_on_parameter_change(
 def test_context_diagrams_box_sizing(
     model: capellambse.MelodyModel,
     diagram_elements: list[tuple[str, int, int]],
-) -> None:
+):
     uuid, min_size, min_size_labels = diagram_elements.pop()
     obj = model.by_uuid(uuid)
 
@@ -172,7 +292,7 @@ def test_context_diagrams_box_sizing(
 
 def test_context_diagrams_symbol_sizing(
     model: capellambse.MelodyModel,
-) -> None:
+):
     obj = model.by_uuid(TEST_CAP_SIZING_UUID)
 
     adiag = obj.context_diagram.render(None)
@@ -184,7 +304,7 @@ def test_context_diagrams_symbol_sizing(
 
 def test_parent_relation_in_context_diagram(
     model: capellambse.MelodyModel,
-) -> None:
+):
     obj = model.by_uuid(TEST_HIERARCHY_UUID)
 
     diag = obj.context_diagram
@@ -202,7 +322,7 @@ def test_parent_relation_in_context_diagram(
 @pytest.mark.parametrize("uuid", TEST_ACTIVITY_UUIDS)
 def test_context_diagram_of_allocated_activities(
     model: capellambse.MelodyModel, uuid: str
-) -> None:
+):
     obj = model.by_uuid(uuid)
 
     diag = obj.context_diagram
@@ -214,7 +334,7 @@ def test_context_diagram_of_allocated_activities(
 @pytest.mark.parametrize("uuid", TEST_FUNCTION_UUIDS)
 def test_context_diagram_of_allocated_functions(
     model: capellambse.MelodyModel, uuid: str
-) -> None:
+):
     obj = model.by_uuid(uuid)
 
     diag = obj.context_diagram
@@ -225,7 +345,7 @@ def test_context_diagram_of_allocated_functions(
 
 def test_context_diagram_with_derived_interfaces(
     model: capellambse.MelodyModel,
-) -> None:
+):
     obj = model.by_uuid("47c3130b-ec39-4365-a77a-5ab6365d1e2e")
 
     context_diagram = obj.context_diagram
@@ -250,7 +370,7 @@ def test_context_diagram_with_derived_interfaces(
 )
 def test_context_diagram_of_physical_node_component(
     model: capellambse.MelodyModel, uuid: str
-) -> None:
+):
     obj = model.by_uuid(uuid)
 
     diag = obj.context_diagram
@@ -260,7 +380,7 @@ def test_context_diagram_of_physical_node_component(
 
 def test_context_diagram_hide_direct_children(
     model: capellambse.MelodyModel,
-) -> None:
+):
     obj = model.by_uuid("eca84d5c-fdcd-4cbe-90d5-7d00a256c62b")
     expected_hidden_uuids = {
         "a34300ee-6e63-4c72-b210-2adee00478f8",
@@ -284,7 +404,7 @@ def test_context_diagram_hide_direct_children(
 
 def test_context_diagram_detects_and_handles_cycles(
     model: capellambse.MelodyModel,
-) -> None:
+):
     obj = model.by_uuid("98bbf6ec-161a-4332-a95e-e6990df868ad")
 
     diag = obj.context_diagram
@@ -294,7 +414,7 @@ def test_context_diagram_detects_and_handles_cycles(
 
 def test_context_diagram_display_unused_ports(
     model: capellambse.MelodyModel,
-) -> None:
+):
     obj = model.by_uuid("446d3f9f-644d-41ee-bd57-8ae0f7662db2")
     unused_port_uuid = "5cbc4d2d-1b9c-4e10-914e-44d4526e4a2f"
 
@@ -307,7 +427,7 @@ def test_context_diagram_display_unused_ports(
 
 def test_context_diagram_blackbox(
     model: capellambse.MelodyModel,
-) -> None:
+):
     obj = model.by_uuid("fd69347c-fca9-4cdd-ae44-9182e13c8d9d")
     hidden_element_uuids = {
         "9f92e453-0692-4842-9e0c-4d36ab541acd",
@@ -329,7 +449,7 @@ def test_context_diagram_blackbox(
 )
 def test_serializer_handles_hierarchical_edges_correctly(
     model: capellambse.MelodyModel,
-) -> None:
+):
     obj = model.by_uuid("b87dab3f-b44e-46ff-bfbe-fb96fbafe008")
     edge_uuid = "1a302a4a-9839-4ba4-8296-f54b470b4e59"
     edge1_uuid = "43158e15-f8d1-49e3-bc01-7222edcbf839"

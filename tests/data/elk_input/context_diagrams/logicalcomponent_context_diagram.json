@@ -1,0 +1,154 @@
+{
+    "id": "f632888e-51bc-4c9f-8e81-73e9404de784_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
+            "children": [
+                {
+                    "id": "f8c9df04-fcd5-479d-814b-696fa6050231",
+                    "labels": [
+                        {
+                            "text": "Upper",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 61.349999999999994,
+                            "height": 14.857142857142858
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "1286b0fe-dd57-46ba-8303-bd57eb04178d",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        }
+                    ],
+                    "width": 85.75,
+                    "height": 38.85714285714286
+                },
+                {
+                    "id": "37dfa5e6-a121-4ce9-8aa4-09a0c73dc2e9",
+                    "labels": [
+                        {
+                            "text": "Right",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 55.599999999999994,
+                            "height": 16.285714285714285
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "58f89f0a-7647-4077-b29b-8fe2bf270f02",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        }
+                    ],
+                    "width": 85.75,
+                    "height": 40.285714285714285
+                },
+                {
+                    "id": "f632888e-51bc-4c9f-8e81-73e9404de784",
+                    "labels": [
+                        {
+                            "text": "Left",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48.7,
+                            "height": 12.0
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "a001cfb0-2b21-4e52-a119-8f4515dded91",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        },
+                        {
+                            "id": "f89ea9b3-e92d-49cb-ae9e-a734a9f5c5dc",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        }
+                    ],
+                    "width": 85.75,
+                    "height": 38.0
+                }
+            ],
+            "edges": [
+                {
+                    "id": "cd34492e-568e-4ade-981b-ed0d03c3ebe5",
+                    "sources": [
+                        "1286b0fe-dd57-46ba-8303-bd57eb04178d"
+                    ],
+                    "targets": [
+                        "a001cfb0-2b21-4e52-a119-8f4515dded91"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Upper to Left",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 99.3,
+                            "height": 14.857142857142858
+                        }
+                    ]
+                },
+                {
+                    "id": "3ef23099-ce9a-4f7d-812f-935f47e7938d",
+                    "sources": [
+                        "f89ea9b3-e92d-49cb-ae9e-a734a9f5c5dc"
+                    ],
+                    "targets": [
+                        "58f89f0a-7647-4077-b29b-8fe2bf270f02"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Left to right",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 91.25,
+                            "height": 16.285714285714285
+                        }
+                    ]
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Hogwarts",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 79.75,
+                    "height": 14.857142857142858
+                }
+            ],
+            "width": 85.75,
+            "height": 38.85714285714286
+        }
+    ]
+}

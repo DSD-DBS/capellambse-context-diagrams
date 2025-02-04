@@ -1,0 +1,224 @@
+{
+    "id": "f632888e-51bc-4c9f-8e81-73e9404de784_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 559.8,
+                "height": 84.28571428571429
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "f8c9df04-fcd5-479d-814b-696fa6050231",
+                    "position": {
+                        "x": 12,
+                        "y": 32.57142857142857
+                    },
+                    "size": {
+                        "width": 85.75,
+                        "height": 38.85714285714286
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "1286b0fe-dd57-46ba-8303-bd57eb04178d",
+                            "position": {
+                                "x": 77.75,
+                                "y": 14.42857142857143
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port"
+                        },
+                        {
+                            "id": "g_928007",
+                            "position": {
+                                "x": 8.200000000000003,
+                                "y": 12.000000000000002
+                            },
+                            "size": {
+                                "width": 61.349999999999994,
+                                "height": 14.857142857142858
+                            },
+                            "type": "label",
+                            "text": "Upper"
+                        }
+                    ]
+                },
+                {
+                    "id": "37dfa5e6-a121-4ce9-8aa4-09a0c73dc2e9",
+                    "position": {
+                        "x": 462.05,
+                        "y": 31.857142857142858
+                    },
+                    "size": {
+                        "width": 85.75,
+                        "height": 40.285714285714285
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "58f89f0a-7647-4077-b29b-8fe2bf270f02",
+                            "position": {
+                                "x": -2,
+                                "y": 15.142857142857142
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port"
+                        },
+                        {
+                            "id": "g_800493",
+                            "position": {
+                                "x": 19.075000000000003,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 55.599999999999994,
+                                "height": 16.285714285714285
+                            },
+                            "type": "label",
+                            "text": "Right"
+                        }
+                    ]
+                },
+                {
+                    "id": "f632888e-51bc-4c9f-8e81-73e9404de784",
+                    "position": {
+                        "x": 241.05,
+                        "y": 33
+                    },
+                    "size": {
+                        "width": 85.75,
+                        "height": 38
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "a001cfb0-2b21-4e52-a119-8f4515dded91",
+                            "position": {
+                                "x": -2,
+                                "y": 14
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port"
+                        },
+                        {
+                            "id": "f89ea9b3-e92d-49cb-ae9e-a734a9f5c5dc",
+                            "position": {
+                                "x": 77.75,
+                                "y": 14
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port"
+                        },
+                        {
+                            "id": "g_899888",
+                            "position": {
+                                "x": 18.525,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 48.7,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Left"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_166719",
+                    "position": {
+                        "x": 240.02499999999998,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 79.75,
+                        "height": 14.857142857142858
+                    },
+                    "type": "label",
+                    "text": "Hogwarts"
+                },
+                {
+                    "id": "cd34492e-568e-4ade-981b-ed0d03c3ebe5",
+                    "type": "edge",
+                    "sourceId": "1286b0fe-dd57-46ba-8303-bd57eb04178d",
+                    "targetId": "a001cfb0-2b21-4e52-a119-8f4515dded91",
+                    "routingPoints": [
+                        {
+                            "x": 99.75,
+                            "y": 52
+                        },
+                        {
+                            "x": 239.05,
+                            "y": 52
+                        }
+                    ],
+                    "children": [
+                        {
+                            "id": "g_341043",
+                            "position": {
+                                "x": 119.75,
+                                "y": 55
+                            },
+                            "size": {
+                                "width": 99.3,
+                                "height": 14.857142857142858
+                            },
+                            "type": "label",
+                            "text": "Upper to Left"
+                        }
+                    ]
+                },
+                {
+                    "id": "3ef23099-ce9a-4f7d-812f-935f47e7938d",
+                    "type": "edge",
+                    "sourceId": "f89ea9b3-e92d-49cb-ae9e-a734a9f5c5dc",
+                    "targetId": "58f89f0a-7647-4077-b29b-8fe2bf270f02",
+                    "routingPoints": [
+                        {
+                            "x": 328.8,
+                            "y": 52
+                        },
+                        {
+                            "x": 460.05,
+                            "y": 52
+                        }
+                    ],
+                    "children": [
+                        {
+                            "id": "g_443605",
+                            "position": {
+                                "x": 348.8,
+                                "y": 55
+                            },
+                            "size": {
+                                "width": 91.25,
+                                "height": 16.285714285714285
+                            },
+                            "type": "label",
+                            "text": "Left to right"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

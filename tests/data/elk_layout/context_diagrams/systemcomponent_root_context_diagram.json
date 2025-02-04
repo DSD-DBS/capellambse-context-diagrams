@@ -1,0 +1,272 @@
+{
+    "id": "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df",
+            "position": {
+                "x": 260.45,
+                "y": 17.476190476190474
+            },
+            "size": {
+                "width": 73.1,
+                "height": 46.85714285714286
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "898b878b-4392-499a-82f7-eb48e0f07e36",
+                    "position": {
+                        "x": -2,
+                        "y": 27.904761904761912
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "id": "dcbf18a9-8589-4ba6-84ad-094ec1810de1",
+                    "position": {
+                        "x": 65.1,
+                        "y": 18.42857142857143
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "id": "__Derived-CP_INOUT:-1",
+                    "position": {
+                        "x": -2,
+                        "y": 8.952380952380954
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "id": "g_717235",
+                    "position": {
+                        "x": 3,
+                        "y": 16
+                    },
+                    "size": {
+                        "width": 67.1,
+                        "height": 14.857142857142858
+                    },
+                    "type": "label",
+                    "text": "System"
+                }
+            ]
+        },
+        {
+            "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "position": {
+                "x": 13,
+                "y": 50.71428571428572
+            },
+            "size": {
+                "width": 105.3,
+                "height": 40.285714285714285
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "d5fd4286-1d41-4d21-b3cf-9babc8872c77",
+                    "position": {
+                        "x": 97.3,
+                        "y": 15.142857142857142
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "id": "g_428900",
+                    "position": {
+                        "x": -1,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 99.3,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "Kevin Spacey"
+                }
+            ]
+        },
+        {
+            "id": "6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6",
+            "position": {
+                "x": 486.04999999999995,
+                "y": 22.904761904761905
+            },
+            "size": {
+                "width": 107.6,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "c8ea5da6-6042-4881-89cb-c67977df1d60",
+                    "position": {
+                        "x": -2,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "id": "g_382525",
+                    "position": {
+                        "x": 7,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 101.6,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Gerard Butler"
+                }
+            ]
+        },
+        {
+            "id": "__Derived-SystemActor:d4a22478-5717-4ca7-bfc9-9a193e6218a8",
+            "position": {
+                "x": 143.8,
+                "y": 12
+            },
+            "size": {
+                "width": 92.65,
+                "height": 38.85714285714286
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "__Derived-CP_INOUT:1",
+                    "position": {
+                        "x": 84.65,
+                        "y": 14.42857142857143
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "id": "g_130333",
+                    "position": {
+                        "x": -1,
+                        "y": 12.000000000000002
+                    },
+                    "size": {
+                        "width": 86.65,
+                        "height": 14.857142857142858
+                    },
+                    "type": "label",
+                    "text": "HollyWood"
+                }
+            ]
+        },
+        {
+            "id": "560e799d-d291-4928-a367-430232ddef65",
+            "type": "edge",
+            "sourceId": "d5fd4286-1d41-4d21-b3cf-9babc8872c77",
+            "targetId": "898b878b-4392-499a-82f7-eb48e0f07e36",
+            "routingPoints": [
+                {
+                    "x": 120.3,
+                    "y": 70.85714285714286
+                },
+                {
+                    "x": 248.45,
+                    "y": 70.85714285714286
+                },
+                {
+                    "x": 248.45,
+                    "y": 50.38095238095239
+                },
+                {
+                    "x": 258.45,
+                    "y": 50.38095238095239
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_959149",
+                    "position": {
+                        "x": 140.3,
+                        "y": 73.85714285714286
+                    },
+                    "size": {
+                        "width": 98.14999999999999,
+                        "height": 14.857142857142858
+                    },
+                    "type": "label",
+                    "text": "Test Input Ex"
+                }
+            ]
+        },
+        {
+            "id": "2602eeef-c1bc-40a8-9406-52f4a809ca4a",
+            "type": "edge",
+            "sourceId": "dcbf18a9-8589-4ba6-84ad-094ec1810de1",
+            "targetId": "c8ea5da6-6042-4881-89cb-c67977df1d60",
+            "routingPoints": [
+                {
+                    "x": 335.54999999999995,
+                    "y": 40.904761904761905
+                },
+                {
+                    "x": 484.04999999999995,
+                    "y": 40.904761904761905
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_437842",
+                    "position": {
+                        "x": 355.54999999999995,
+                        "y": 43.904761904761905
+                    },
+                    "size": {
+                        "width": 108.5,
+                        "height": 14.857142857142858
+                    },
+                    "type": "label",
+                    "text": "Test Output Ex"
+                }
+            ]
+        },
+        {
+            "id": "__Derived-ComponentExchange:1",
+            "type": "edge",
+            "sourceId": "__Derived-CP_INOUT:1",
+            "targetId": "__Derived-CP_INOUT:-1",
+            "routingPoints": [
+                {
+                    "x": 238.45000000000002,
+                    "y": 31.42857142857143
+                },
+                {
+                    "x": 258.45,
+                    "y": 31.42857142857143
+                }
+            ]
+        }
+    ]
+}

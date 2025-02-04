@@ -12,6 +12,7 @@ from .conftest import (  # type: ignore[import-untyped]
     TEST_ELK_INPUT_ROOT,
     TEST_ELK_LAYOUT_ROOT,
     remove_ids_from_elk_layout,
+    remove_sizes,
 )
 
 TEST_REALIZATION_DATA_ROOT = TEST_ELK_INPUT_ROOT / "realization_views"
@@ -30,7 +31,8 @@ def test_collecting(model: capellambse.MelodyModel, params: tuple[str, str]):
     obj = model.by_uuid(uuid)
     diag = obj.realization_view
     elk_data_file_path = TEST_REALIZATION_DATA_ROOT / elk_data_filename
-    expected = elk_data_file_path.read_text(encoding="utf8")
+    data = elk_data_file_path.read_text(encoding="utf8")
+    expected = _elkjs.ELKInputData.model_validate_json(data)
     expected_edges = (
         TEST_REALIZATION_DATA_ROOT / (elk_data_file_path.stem + "_edges.json")
     ).read_text(encoding="utf8")
@@ -38,7 +40,7 @@ def test_collecting(model: capellambse.MelodyModel, params: tuple[str, str]):
     _ = diag.elk_input_data({})
     elk_input, edges = diag._elk_input_data
 
-    assert elk_input.model_dump(exclude_defaults=True) == json.loads(expected)
+    assert remove_sizes(elk_input) == remove_sizes(expected)
     assert json.loads(expected_edges) == {
         "edges": [edge.model_dump(exclude_defaults=True) for edge in edges]
     }

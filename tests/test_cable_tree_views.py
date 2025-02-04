@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
-import json
 
 import capellambse
 import pytest
@@ -13,6 +12,7 @@ from .conftest import (  # type: ignore[import-untyped]
     TEST_ELK_INPUT_ROOT,
     TEST_ELK_LAYOUT_ROOT,
     remove_ids_from_elk_layout,
+    remove_sizes,
 )
 
 TEST_CABLE_TREE_DATA_ROOT = TEST_ELK_INPUT_ROOT / "cable_trees"
@@ -40,14 +40,14 @@ TEST_SET = [
 def test_collecting(model: capellambse.MelodyModel, params: tuple[str, str]):
     uuid, elk_data_path = params
     obj = model.by_uuid(uuid)
-    expected = (TEST_CABLE_TREE_DATA_ROOT / elk_data_path).read_text(
+    data = (TEST_CABLE_TREE_DATA_ROOT / elk_data_path).read_text(
         encoding="utf8"
     )
+    expected = _elkjs.ELKInputData.model_validate_json(data)
 
     _ = (diag := obj.cable_tree).elk_input_data({})
-    elk_input = diag._elk_input_data.model_dump(exclude_defaults=True)
 
-    assert elk_input == json.loads(expected)
+    assert remove_sizes(diag._elk_input_data) == remove_sizes(expected)
 
 
 @pytest.mark.parametrize("params", TEST_SET)

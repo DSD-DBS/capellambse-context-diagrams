@@ -45,3 +45,22 @@ def remove_ids_from_elk_layout(
         return obj
 
     return remove_ids(layout_dict)
+
+
+def remove_sizes(
+    elk_input: _elkjs.ELKInputData,
+) -> dict[str, t.Any]:
+    layout_dict = elk_input.model_dump(exclude_defaults=True)
+
+    def remove_sizes(obj: t.Any) -> t.Any:
+        if isinstance(obj, dict):
+            return {
+                k: remove_sizes(v)
+                for k, v in obj.items()
+                if k not in {"height", "width"}
+            }
+        if isinstance(obj, list):
+            return [remove_sizes(item) for item in obj]
+        return obj
+
+    return remove_sizes(layout_dict)

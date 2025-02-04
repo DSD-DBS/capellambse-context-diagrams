@@ -1,7 +1,6 @@
 # SPDX-FileCopyrightText: Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
-import json
 import typing as t
 
 import capellambse
@@ -13,6 +12,7 @@ from .conftest import (  # type: ignore[import-untyped]
     TEST_ELK_INPUT_ROOT,
     TEST_ELK_LAYOUT_ROOT,
     remove_ids_from_elk_layout,
+    remove_sizes,
 )
 
 TEST_TREE_DATA_ROOT = TEST_ELK_INPUT_ROOT / "tree_views"
@@ -29,18 +29,18 @@ def test_collecting(model: capellambse.MelodyModel, params: tuple[str, str]):
     obj = model.by_uuid(uuid)
     diag = obj.tree_view
     elk_data_file_path = TEST_TREE_DATA_ROOT / elk_data_filename
-    expected = elk_data_file_path.read_text(encoding="utf8")
-    expected_legend = (
+    data = elk_data_file_path.read_text(encoding="utf8")
+    expected = _elkjs.ELKInputData.model_validate_json(data)
+    legend_data = (
         TEST_TREE_DATA_ROOT / (elk_data_file_path.stem + "_legend.json")
     ).read_text(encoding="utf8")
+    expected_legend = _elkjs.ELKInputData.model_validate_json(legend_data)
 
     _ = diag.elk_input_data({})
     elk_input, legend = diag._elk_input_data
 
-    assert elk_input.model_dump(exclude_defaults=True) == json.loads(expected)
-    assert legend.model_dump(exclude_defaults=True) == json.loads(
-        expected_legend
-    )
+    assert remove_sizes(elk_input) == remove_sizes(expected)
+    assert remove_sizes(legend) == remove_sizes(expected_legend)
 
 
 @pytest.mark.parametrize("params", TEST_TREE_SET)

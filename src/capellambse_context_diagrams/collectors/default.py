@@ -15,7 +15,6 @@ from itertools import chain
 
 import capellambse.model as m
 
-from ..builders import default as db
 from . import _generic
 
 if t.TYPE_CHECKING:
@@ -61,9 +60,7 @@ def collector(
                 yield from _collect(cmp)
 
     yield from _collect(
-        diagram.target,
-        include_children=diagram._include_children_context
-        or diagram._mode in (db.MODE.WHITEBOX.name, db.MODE.GRAYBOX.name),
+        diagram.target, include_children=diagram._include_children_context
     )
     if not diagram._display_actor_relation:
         return

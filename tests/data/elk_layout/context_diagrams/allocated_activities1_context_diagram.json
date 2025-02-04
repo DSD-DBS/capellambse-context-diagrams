@@ -1,0 +1,499 @@
+{
+    "id": "097bb133-abf3-4df0-ae4e-a28378537691_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "2668c01d-8ba8-47a9-9acb-33616bcc088d",
+            "position": {
+                "x": 27,
+                "y": 44.54285714285713
+            },
+            "size": {
+                "width": 178.75,
+                "height": 129
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "097bb133-abf3-4df0-ae4e-a28378537691",
+                    "position": {
+                        "x": 12,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 154.75,
+                        "height": 88
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "g_243870",
+                            "position": {
+                                "x": 3,
+                                "y": 27.714285714285715
+                            },
+                            "size": {
+                                "width": 148.75,
+                                "height": 16.285714285714285
+                            },
+                            "type": "label",
+                            "text": "Confirm availability for"
+                        },
+                        {
+                            "id": "g_724410",
+                            "position": {
+                                "x": 41.525000000000006,
+                                "y": 44
+                            },
+                            "size": {
+                                "width": 71.69999999999999,
+                                "height": 16.285714285714285
+                            },
+                            "type": "label",
+                            "text": "delivery"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_343697",
+                    "position": {
+                        "x": 48.925,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 80.9,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Customer"
+                }
+            ]
+        },
+        {
+            "id": "8c43d858-bab3-4d1d-afe0-71946d856e24",
+            "position": {
+                "x": 477.4,
+                "y": 12
+            },
+            "size": {
+                "width": 166.1,
+                "height": 280.4285714285714
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "56f47e3e-104a-479f-8226-e149bc18481c",
+                    "position": {
+                        "x": 20.049999999999983,
+                        "y": 209.85714285714283
+                    },
+                    "size": {
+                        "width": 134.05,
+                        "height": 58.57142857142857
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "g_009404",
+                            "position": {
+                                "x": 3,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 128.05,
+                                "height": 16.285714285714285
+                            },
+                            "type": "label",
+                            "text": "Notify customer of"
+                        },
+                        {
+                            "id": "g_427737",
+                            "position": {
+                                "x": 3,
+                                "y": 29.285714285714285
+                            },
+                            "size": {
+                                "width": 128.05,
+                                "height": 16.285714285714285
+                            },
+                            "type": "label",
+                            "text": "upcoming delivery"
+                        }
+                    ]
+                },
+                {
+                    "id": "7548f5c0-ceac-4f92-a497-cf0e00405a4a",
+                    "position": {
+                        "x": 12,
+                        "y": 149.57142857142856
+                    },
+                    "size": {
+                        "width": 142.1,
+                        "height": 40.285714285714285
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "g_788441",
+                            "position": {
+                                "x": 3,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 136.1,
+                                "height": 16.285714285714285
+                            },
+                            "type": "label",
+                            "text": "Reroute to neighbor"
+                        }
+                    ]
+                },
+                {
+                    "id": "f236bb9a-0cae-482b-896f-54021e2d23f6",
+                    "position": {
+                        "x": 12,
+                        "y": 89.28571428571428
+                    },
+                    "size": {
+                        "width": 142.1,
+                        "height": 40.285714285714285
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "g_446769",
+                            "position": {
+                                "x": 3,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 136.1,
+                                "height": 16.285714285714285
+                            },
+                            "type": "label",
+                            "text": "Reschedule delivery"
+                        }
+                    ]
+                },
+                {
+                    "id": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+                    "position": {
+                        "x": 12,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 122.55,
+                        "height": 40.285714285714285
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "g_531386",
+                            "position": {
+                                "x": 3,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 116.55,
+                                "height": 16.285714285714285
+                            },
+                            "type": "label",
+                            "text": "Prepare delivery"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_892576",
+                    "position": {
+                        "x": 21.325000000000003,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 123.44999999999999,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Smart warehouse"
+                }
+            ]
+        },
+        {
+            "id": "6329094a-99cc-4d39-a8d6-31e9a8eb4066",
+            "position": {
+                "x": 477.4,
+                "y": 312.4285714285714
+            },
+            "size": {
+                "width": 173,
+                "height": 98.14285714285714
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "86df271e-7c42-4067-b6fd-1161c3e11891",
+                    "position": {
+                        "x": 12,
+                        "y": 33.285714285714285
+                    },
+                    "size": {
+                        "width": 149,
+                        "height": 52.857142857142854
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "g_407701",
+                            "position": {
+                                "x": 3,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 143,
+                                "height": 16.285714285714285
+                            },
+                            "type": "label",
+                            "text": "Receive a package for"
+                        },
+                        {
+                            "id": "g_055840",
+                            "position": {
+                                "x": 35.2,
+                                "y": 29.285714285714285
+                            },
+                            "size": {
+                                "width": 78.6,
+                                "height": 10.571428571428571
+                            },
+                            "type": "label",
+                            "text": "customer"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_664247",
+                    "position": {
+                        "x": 47.775000000000006,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 77.44999999999999,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "Neighbor"
+                }
+            ]
+        },
+        {
+            "id": "637b02b5-f26d-47e1-94e1-c1cc7bcba150",
+            "type": "edge",
+            "sourceId": "56f47e3e-104a-479f-8226-e149bc18481c",
+            "targetId": "097bb133-abf3-4df0-ae4e-a28378537691",
+            "routingPoints": [
+                {
+                    "x": 631.5,
+                    "y": 251.1428571428571
+                },
+                {
+                    "x": 660.4,
+                    "y": 251.1428571428571
+                },
+                {
+                    "x": 660.4,
+                    "y": 420.5714285714285
+                },
+                {
+                    "x": 12,
+                    "y": 420.5714285714285
+                },
+                {
+                    "x": 12,
+                    "y": 117.54285714285714
+                },
+                {
+                    "x": 39,
+                    "y": 117.54285714285714
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_966683",
+                    "position": {
+                        "x": 256.5,
+                        "y": 423.5714285714285
+                    },
+                    "size": {
+                        "width": 190.14999999999998,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "upcoming delivery notification"
+                }
+            ]
+        },
+        {
+            "id": "75ef0e4e-733c-4559-ad89-90d582f9134c",
+            "type": "edge",
+            "sourceId": "097bb133-abf3-4df0-ae4e-a28378537691",
+            "targetId": "86df271e-7c42-4067-b6fd-1161c3e11891",
+            "routingPoints": [
+                {
+                    "x": 193.75,
+                    "y": 143.94285714285712
+                },
+                {
+                    "x": 220.75,
+                    "y": 143.94285714285712
+                },
+                {
+                    "x": 220.75,
+                    "y": 372.1428571428571
+                },
+                {
+                    "x": 489.4,
+                    "y": 372.1428571428571
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_019305",
+                    "position": {
+                        "x": 272.6,
+                        "y": 375.1428571428571
+                    },
+                    "size": {
+                        "width": 157.95,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "receive package request"
+                }
+            ]
+        },
+        {
+            "id": "ed43bfdd-1bc1-4c19-9e07-28bb6d41d130",
+            "type": "edge",
+            "sourceId": "097bb133-abf3-4df0-ae4e-a28378537691",
+            "targetId": "7548f5c0-ceac-4f92-a497-cf0e00405a4a",
+            "routingPoints": [
+                {
+                    "x": 193.75,
+                    "y": 126.34285714285713
+                },
+                {
+                    "x": 230.75,
+                    "y": 126.34285714285714
+                },
+                {
+                    "x": 230.75,
+                    "y": 151.71428571428572
+                },
+                {
+                    "x": 462.4,
+                    "y": 151.71428571428572
+                },
+                {
+                    "x": 462.4,
+                    "y": 181.71428571428572
+                },
+                {
+                    "x": 489.4,
+                    "y": 181.71428571428567
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_230823",
+                    "position": {
+                        "x": 295.025,
+                        "y": 154.71428571428572
+                    },
+                    "size": {
+                        "width": 113.1,
+                        "height": 13.428571428571429
+                    },
+                    "type": "label",
+                    "text": "reroute request"
+                }
+            ]
+        },
+        {
+            "id": "7439ea66-2562-422d-a5f2-85438c744124",
+            "type": "edge",
+            "sourceId": "097bb133-abf3-4df0-ae4e-a28378537691",
+            "targetId": "f236bb9a-0cae-482b-896f-54021e2d23f6",
+            "routingPoints": [
+                {
+                    "x": 193.75,
+                    "y": 108.74285714285713
+                },
+                {
+                    "x": 240.75,
+                    "y": 108.74285714285713
+                },
+                {
+                    "x": 240.75,
+                    "y": 121.42857142857142
+                },
+                {
+                    "x": 489.4,
+                    "y": 121.4285714285714
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_825328",
+                    "position": {
+                        "x": 250.75,
+                        "y": 124.42857142857142
+                    },
+                    "size": {
+                        "width": 201.64999999999998,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "alternative delivery date request"
+                }
+            ]
+        },
+        {
+            "id": "54364f74-f566-4744-bb4e-b96eebcadfc1",
+            "type": "edge",
+            "sourceId": "097bb133-abf3-4df0-ae4e-a28378537691",
+            "targetId": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+            "routingPoints": [
+                {
+                    "x": 193.75,
+                    "y": 91.14285714285714
+                },
+                {
+                    "x": 462.4,
+                    "y": 91.14285714285714
+                },
+                {
+                    "x": 462.4,
+                    "y": 61.14285714285714
+                },
+                {
+                    "x": 489.4,
+                    "y": 61.142857142857125
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_819827",
+                    "position": {
+                        "x": 273.175,
+                        "y": 94.14285714285714
+                    },
+                    "size": {
+                        "width": 156.79999999999998,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "availability confirmation"
+                }
+            ]
+        }
+    ]
+}

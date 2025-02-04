@@ -1,0 +1,338 @@
+{
+    "id": "fdb34c92-7c49-491d-bf11-dd139930786e_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "b9f9a83c-fb02-44f7-9123-9d86326de5f1",
+            "position": {
+                "x": 410,
+                "y": 14.142857142857146
+            },
+            "size": {
+                "width": 541.7,
+                "height": 140.14285714285714
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "d5259b69-1473-4b00-bb41-b94eb44abde5",
+                    "position": {
+                        "x": 120.04999999999998,
+                        "y": 33.285714285714285
+                    },
+                    "size": {
+                        "width": 119.1,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "682edffb-6b44-48c0-826b-32eb217eb81c",
+                            "position": {
+                                "x": -2,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "id": "g_873394",
+                                    "position": {
+                                        "x": -106.05,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 105.05,
+                                        "height": 14.857142857142858
+                                    },
+                                    "type": "label",
+                                    "text": "Cable 1 Target"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "g_360798",
+                            "position": {
+                                "x": 10.450000000000003,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 106.19999999999999,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Random Node"
+                        }
+                    ]
+                },
+                {
+                    "id": "313f48f4-fb7e-47a8-b28a-76440932fcb9",
+                    "position": {
+                        "x": 64.89999999999998,
+                        "y": 92.14285714285714
+                    },
+                    "size": {
+                        "width": 119.1,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "db2d7b36-8144-4ec7-8673-206faaf4590e",
+                            "position": {
+                                "x": 111.1,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "id": "g_797539",
+                                    "position": {
+                                        "x": 11,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 52.15,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "CP 1"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "g_647548",
+                            "position": {
+                                "x": 8.774999999999999,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 93.55,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "PC Software"
+                        }
+                    ]
+                },
+                {
+                    "id": "2de65884-8c89-4c55-8941-4aa1a07b8d86",
+                    "position": {
+                        "x": 410.59999999999997,
+                        "y": 92.14285714285714
+                    },
+                    "size": {
+                        "width": 119.1,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "f61701c6-bfc2-4549-91d9-f76efaf0c9ee",
+                            "position": {
+                                "x": -2,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "id": "g_830062",
+                                    "position": {
+                                        "x": -53.15,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 52.15,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "CP 1"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "g_132180",
+                            "position": {
+                                "x": 9.299999999999997,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 108.5,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Node Software"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_342330",
+                    "position": {
+                        "x": 214.3,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 113.1,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "Physical System"
+                },
+                {
+                    "id": "25f46b82-1bb8-495a-b6bc-3ad086aad02e",
+                    "type": "edge",
+                    "sourceId": "db2d7b36-8144-4ec7-8673-206faaf4590e",
+                    "targetId": "f61701c6-bfc2-4549-91d9-f76efaf0c9ee",
+                    "routingPoints": [
+                        {
+                            "x": 185.99999999999997,
+                            "y": 110.14285714285714
+                        },
+                        {
+                            "x": 408.59999999999997,
+                            "y": 110.14285714285714
+                        }
+                    ],
+                    "children": [
+                        {
+                            "id": "g_294902",
+                            "position": {
+                                "x": 259.15,
+                                "y": 113.14285714285714
+                            },
+                            "size": {
+                                "width": 76.3,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Interface"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "307a75e9-642d-4f68-b195-d57dc8dda60d",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 280.9,
+                "height": 85.57142857142857
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "fdb34c92-7c49-491d-bf11-dd139930786e",
+                    "position": {
+                        "x": 13,
+                        "y": 33.285714285714285
+                    },
+                    "size": {
+                        "width": 144.39999999999998,
+                        "height": 40.285714285714285
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "f3722f0a-c7de-421d-b4aa-fea6f5278672",
+                            "position": {
+                                "x": 136.39999999999998,
+                                "y": 15.142857142857142
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "id": "g_858030",
+                                    "position": {
+                                        "x": 11,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 108.5,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Cable 1 Source"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "g_840467",
+                            "position": {
+                                "x": -1,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 138.39999999999998,
+                                "height": 16.285714285714285
+                            },
+                            "type": "label",
+                            "text": "Physical Component"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_127667",
+                    "position": {
+                        "x": 89.07499999999999,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 102.75,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "Physical Actor"
+                }
+            ]
+        },
+        {
+            "id": "da949a89-23c0-4487-88e1-f14b33326570",
+            "type": "edge",
+            "sourceId": "f3722f0a-c7de-421d-b4aa-fea6f5278672",
+            "targetId": "682edffb-6b44-48c0-826b-32eb217eb81c",
+            "routingPoints": [
+                {
+                    "x": 171.39999999999998,
+                    "y": 65.42857142857143
+                },
+                {
+                    "x": 528.05,
+                    "y": 65.42857142857143
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_047914",
+                    "position": {
+                        "x": 317.9,
+                        "y": 68.42857142857143
+                    },
+                    "size": {
+                        "width": 67.1,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Cable 1"
+                }
+            ]
+        }
+    ]
+}

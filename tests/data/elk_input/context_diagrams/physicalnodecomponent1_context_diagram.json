@@ -1,0 +1,242 @@
+{
+    "id": "fdb34c92-7c49-491d-bf11-dd139930786e_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "b9f9a83c-fb02-44f7-9123-9d86326de5f1",
+            "children": [
+                {
+                    "id": "d5259b69-1473-4b00-bb41-b94eb44abde5",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "Random Node",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 106.19999999999999,
+                            "height": 12.0
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "682edffb-6b44-48c0-826b-32eb217eb81c",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "Cable 1 Target",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 105.05,
+                                    "height": 14.857142857142858
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 119.1,
+                    "height": 36.0
+                },
+                {
+                    "id": "313f48f4-fb7e-47a8-b28a-76440932fcb9",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "PC Software",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 93.55,
+                            "height": 12.0
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "db2d7b36-8144-4ec7-8673-206faaf4590e",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "CP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 52.15,
+                                    "height": 12.0
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 119.1,
+                    "height": 36.0
+                },
+                {
+                    "id": "2de65884-8c89-4c55-8941-4aa1a07b8d86",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "Node Software",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 108.5,
+                            "height": 12.0
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "f61701c6-bfc2-4549-91d9-f76efaf0c9ee",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "CP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 52.15,
+                                    "height": 12.0
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 119.1,
+                    "height": 36.0
+                }
+            ],
+            "edges": [
+                {
+                    "id": "25f46b82-1bb8-495a-b6bc-3ad086aad02e",
+                    "sources": [
+                        "db2d7b36-8144-4ec7-8673-206faaf4590e"
+                    ],
+                    "targets": [
+                        "f61701c6-bfc2-4549-91d9-f76efaf0c9ee"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Interface",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 76.3,
+                            "height": 12.0
+                        }
+                    ]
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Physical System",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 113.1,
+                    "height": 16.285714285714285
+                }
+            ],
+            "width": 119.1,
+            "height": 40.285714285714285
+        },
+        {
+            "id": "307a75e9-642d-4f68-b195-d57dc8dda60d",
+            "children": [
+                {
+                    "id": "fdb34c92-7c49-491d-bf11-dd139930786e",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "Physical Component",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 138.39999999999998,
+                            "height": 16.285714285714285
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "f3722f0a-c7de-421d-b4aa-fea6f5278672",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "Cable 1 Source",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 108.5,
+                                    "height": 12.0
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 144.39999999999998,
+                    "height": 40.285714285714285
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Physical Actor",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 102.75,
+                    "height": 16.285714285714285
+                }
+            ],
+            "width": 108.75,
+            "height": 40.285714285714285
+        }
+    ],
+    "edges": [
+        {
+            "id": "da949a89-23c0-4487-88e1-f14b33326570",
+            "sources": [
+                "f3722f0a-c7de-421d-b4aa-fea6f5278672"
+            ],
+            "targets": [
+                "682edffb-6b44-48c0-826b-32eb217eb81c"
+            ],
+            "labels": [
+                {
+                    "text": "Cable 1",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 67.1,
+                    "height": 12.0
+                }
+            ]
+        }
+    ]
+}

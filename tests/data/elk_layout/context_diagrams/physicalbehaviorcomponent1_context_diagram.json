@@ -1,0 +1,172 @@
+{
+    "id": "313f48f4-fb7e-47a8-b28a-76440932fcb9_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "b9f9a83c-fb02-44f7-9123-9d86326de5f1",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 488.8,
+                "height": 81.28571428571428
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "2de65884-8c89-4c55-8941-4aa1a07b8d86",
+                    "position": {
+                        "x": 357.7,
+                        "y": 33.285714285714285
+                    },
+                    "size": {
+                        "width": 119.1,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "f61701c6-bfc2-4549-91d9-f76efaf0c9ee",
+                            "position": {
+                                "x": -2,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "id": "g_579445",
+                                    "position": {
+                                        "x": -53.15,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 52.15,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "CP 1"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "g_444778",
+                            "position": {
+                                "x": 9.299999999999997,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 108.5,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Node Software"
+                        }
+                    ]
+                },
+                {
+                    "id": "313f48f4-fb7e-47a8-b28a-76440932fcb9",
+                    "position": {
+                        "x": 12,
+                        "y": 33.285714285714285
+                    },
+                    "size": {
+                        "width": 119.1,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "db2d7b36-8144-4ec7-8673-206faaf4590e",
+                            "position": {
+                                "x": 111.1,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "id": "g_089658",
+                                    "position": {
+                                        "x": 11,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 52.15,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "CP 1"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "g_513575",
+                            "position": {
+                                "x": 8.774999999999999,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 93.55,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "PC Software"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_325061",
+                    "position": {
+                        "x": 187.85000000000002,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 113.1,
+                        "height": 16.285714285714285
+                    },
+                    "type": "label",
+                    "text": "Physical System"
+                },
+                {
+                    "id": "25f46b82-1bb8-495a-b6bc-3ad086aad02e",
+                    "type": "edge",
+                    "sourceId": "db2d7b36-8144-4ec7-8673-206faaf4590e",
+                    "targetId": "f61701c6-bfc2-4549-91d9-f76efaf0c9ee",
+                    "routingPoints": [
+                        {
+                            "x": 133.1,
+                            "y": 51.285714285714285
+                        },
+                        {
+                            "x": 355.7,
+                            "y": 51.285714285714285
+                        }
+                    ],
+                    "children": [
+                        {
+                            "id": "g_002866",
+                            "position": {
+                                "x": 206.25,
+                                "y": 54.285714285714285
+                            },
+                            "size": {
+                                "width": 76.3,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Interface"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

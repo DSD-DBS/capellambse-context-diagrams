@@ -1,0 +1,210 @@
+{
+    "id": "c90f731b-0036-47e5-a455-9cf270d6880c_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "8c43d858-bab3-4d1d-afe0-71946d856e24",
+            "children": [
+                {
+                    "id": "c90f731b-0036-47e5-a455-9cf270d6880c",
+                    "labels": [
+                        {
+                            "text": "Estimate required",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 123.44999999999999,
+                            "height": 16.285714285714285
+                        },
+                        {
+                            "text": "power and select a",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 129.2,
+                            "height": 14.857142857142858
+                        },
+                        {
+                            "text": "delivery bot with",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 116.55,
+                            "height": 16.285714285714285
+                        },
+                        {
+                            "text": "enough battery",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 111.94999999999999,
+                            "height": 14.857142857142858
+                        }
+                    ],
+                    "width": 135.2,
+                    "height": 92.28571428571428
+                },
+                {
+                    "id": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+                    "labels": [
+                        {
+                            "text": "Prepare delivery",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 116.55,
+                            "height": 16.285714285714285
+                        }
+                    ],
+                    "width": 122.55,
+                    "height": 40.285714285714285
+                },
+                {
+                    "id": "7000b811-c8e8-4060-8f60-c87462046057",
+                    "children": [
+                        {
+                            "id": "ecf98af6-6648-4552-b5ba-4c86e458ca45",
+                            "labels": [
+                                {
+                                    "text": "Load selected delivery bot",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 168.29999999999998,
+                                    "height": 16.285714285714285
+                                }
+                            ],
+                            "width": 174.29999999999998,
+                            "height": 40.285714285714285
+                        }
+                    ],
+                    "labels": [
+                        {
+                            "text": "Loading Bot",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                            },
+                            "width": 92.39999999999999,
+                            "height": 16.285714285714285
+                        }
+                    ],
+                    "width": 98.39999999999999,
+                    "height": 40.285714285714285
+                }
+            ],
+            "edges": [
+                {
+                    "id": "8db45fd9-fc53-4eec-857f-e642864985d9",
+                    "sources": [
+                        "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36"
+                    ],
+                    "targets": [
+                        "c90f731b-0036-47e5-a455-9cf270d6880c"
+                    ],
+                    "labels": [
+                        {
+                            "text": "delivery address",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 115.39999999999999,
+                            "height": 16.285714285714285
+                        }
+                    ]
+                },
+                {
+                    "id": "49c6b407-9fab-4c7a-a813-f26d01bdaba2",
+                    "sources": [
+                        "c90f731b-0036-47e5-a455-9cf270d6880c"
+                    ],
+                    "targets": [
+                        "ecf98af6-6648-4552-b5ba-4c86e458ca45"
+                    ],
+                    "labels": [
+                        {
+                            "text": "bot identifier",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 97.0,
+                            "height": 13.428571428571429
+                        }
+                    ]
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Smart warehouse",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 123.44999999999999,
+                    "height": 12.0
+                }
+            ],
+            "width": 129.45,
+            "height": 36.0
+        },
+        {
+            "id": "9e7eb78b-f4ad-4762-9f5c-d6f60630b10e",
+            "children": [
+                {
+                    "id": "b4601205-9104-4e24-bd03-940ca15f6a1e",
+                    "labels": [
+                        {
+                            "text": "Move for loading",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 118.85,
+                            "height": 16.285714285714285
+                        }
+                    ],
+                    "width": 124.85,
+                    "height": 40.285714285714285
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Delivery Bot",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 93.55,
+                    "height": 16.285714285714285
+                }
+            ],
+            "width": 99.55,
+            "height": 40.285714285714285
+        }
+    ],
+    "edges": [
+        {
+            "id": "89b4d943-cfd5-4bf1-a381-fa82c925e8e2",
+            "sources": [
+                "c90f731b-0036-47e5-a455-9cf270d6880c"
+            ],
+            "targets": [
+                "b4601205-9104-4e24-bd03-940ca15f6a1e"
+            ],
+            "labels": [
+                {
+                    "text": "loading movement command",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 185.54999999999998,
+                    "height": 16.285714285714285
+                }
+            ]
+        }
+    ]
+}

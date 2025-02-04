@@ -24,21 +24,28 @@ TEST_HIERARCHY_PARENTS_UUIDS = {
     "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
     "53558f58-270e-4206-8fc7-3cf9e788fac9",
 }
-TEST_ACTIVITY_UUIDS = {
-    "097bb133-abf3-4df0-ae4e-a28378537691",
-    "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
-    "c90f731b-0036-47e5-a455-9cf270d6880c",
-}
-TEST_FUNCTION_UUIDS = {
-    "861b9be3-a7b2-4e1d-b34b-8e857062b3df",
-    "f0bc11ba-89aa-4297-98d2-076440e9117f",
-}
 TEST_DERIVED_UUID = "dbd99773-efb6-4476-bf5c-270a61f18b09"
 TEST_ENTITY_UUID = "e37510b9-3166-4f80-a919-dfaac9b696c7"
 TEST_SYS_FNC_UUID = "a5642060-c9cc-4d49-af09-defaa3024bae"
 TEST_DERIVATION_UUID = "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c"
 TEST_PHYSICAL_PORT_UUID = "c403d4f4-9633-42a2-a5d6-9e1df2655146"
 TEST_CONTEXT_SET = [
+    pytest.param(
+        (
+            "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "opcap_context_diagram.json",
+            {"display_symbols_as_boxes": True},
+        ),
+        id="OperationalCapability",
+    ),
+    pytest.param(
+        (
+            "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+            "mis_context_diagram.json",
+            {"display_symbols_as_boxes": True},
+        ),
+        id="Mission",
+    ),
     pytest.param(
         (
             TEST_ENTITY_UUID,
@@ -54,6 +61,38 @@ TEST_CONTEXT_SET = [
             {},
         ),
         id="Activity",
+    ),
+    pytest.param(
+        (
+            "097bb133-abf3-4df0-ae4e-a28378537691",
+            "allocated_activities1_context_diagram.json",
+            {"display_parent_relation": True},
+        ),
+        id="Allocated Activity 1",
+    ),
+    pytest.param(
+        (
+            "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+            "allocated_activities2_context_diagram.json",
+            {"display_parent_relation": True},
+        ),
+        id="Allocated Activity 2",
+    ),
+    pytest.param(
+        (
+            "c90f731b-0036-47e5-a455-9cf270d6880c",
+            "allocated_activities3_context_diagram.json",
+            {"display_parent_relation": True},
+        ),
+        id="Allocated Activity 3",
+    ),
+    pytest.param(
+        (
+            "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "cap_context_diagram.json",
+            {"display_symbols_as_boxes": True},
+        ),
+        id="Capability",
     ),
     pytest.param(
         (
@@ -97,6 +136,22 @@ TEST_CONTEXT_SET = [
     ),
     pytest.param(
         (
+            "861b9be3-a7b2-4e1d-b34b-8e857062b3df",
+            "allocated_function1_context_diagram.json",
+            {"display_parent_relation": True},
+        ),
+        id="Allocated Function 1",
+    ),
+    pytest.param(
+        (
+            "f0bc11ba-89aa-4297-98d2-076440e9117f",
+            "allocated_function2_context_diagram.json",
+            {"display_parent_relation": True},
+        ),
+        id="Allocated Function 2",
+    ),
+    pytest.param(
+        (
             "b51ccc6f-5f96-4e28-b90e-72463a3b50cf",
             "physicalnodecomponent_context_diagram.json",
             {
@@ -119,6 +174,28 @@ TEST_CONTEXT_SET = [
     ),
     pytest.param(
         (
+            "fdb34c92-7c49-491d-bf11-dd139930786e",
+            "physicalnodecomponent1_context_diagram.json",
+            {
+                "display_symbols_as_boxes": True,
+                "port_label_position": "OUTSIDE",
+            },
+        ),
+        id="PhysicalNodeComponent",
+    ),
+    pytest.param(
+        (
+            "313f48f4-fb7e-47a8-b28a-76440932fcb9",
+            "physicalbehaviorcomponent1_context_diagram.json",
+            {
+                "display_symbols_as_boxes": True,
+                "port_label_position": "OUTSIDE",
+            },
+        ),
+        id="PhysicalBehaviorComponent",
+    ),
+    pytest.param(
+        (
             TEST_PHYSICAL_PORT_UUID,
             "physicalport_context_diagram.json",
             {
@@ -131,6 +208,22 @@ TEST_CONTEXT_SET = [
     pytest.param(
         (TEST_DERIVATION_UUID, "derivated_context_diagram.json", {}),
         id="Derivated",
+    ),
+    pytest.param(
+        (
+            "47c3130b-ec39-4365-a77a-5ab6365d1e2e",
+            "derivated_interfaces_context_diagram.json",
+            {"display_derived_interfaces": True},
+        ),
+        id="Derived interfaces",
+    ),
+    pytest.param(
+        (
+            "98bbf6ec-161a-4332-a95e-e6990df868ad",
+            "cycle_context_diagram.json",
+            {},
+        ),
+        id="Cycle handling",
     ),
 ]
 
@@ -185,14 +278,13 @@ class TestContextDiagrams:
     ):
         uuid, elk_data_filename, render_params = params
         obj = model.by_uuid(uuid)
-        diag = obj.context_diagram
-        for key, value in render_params.items():
-            setattr(diag, f"_{key}", value)
-
         layout_data = (TEST_CONTEXT_LAYOUT_ROOT / elk_data_filename).read_text(
             encoding="utf8"
         )
         layout = _elkjs.ELKOutputData.model_validate_json(layout_data)
+        diag = obj.context_diagram
+        for key, value in render_params.items():
+            setattr(diag, f"_{key}", value)
 
         diag.serializer.make_diagram(layout)
 
@@ -290,9 +382,7 @@ def test_context_diagrams_box_sizing(
         assert bdiag[uuid].size.y >= min_size_labels
 
 
-def test_context_diagrams_symbol_sizing(
-    model: capellambse.MelodyModel,
-):
+def test_context_diagrams_symbol_sizing(model: capellambse.MelodyModel):
     obj = model.by_uuid(TEST_CAP_SIZING_UUID)
 
     adiag = obj.context_diagram.render(None)
@@ -319,65 +409,6 @@ def test_parent_relation_in_context_diagram(
             hide_relation[uuid]  # pylint: disable=pointless-statement
 
 
-@pytest.mark.parametrize("uuid", TEST_ACTIVITY_UUIDS)
-def test_context_diagram_of_allocated_activities(
-    model: capellambse.MelodyModel, uuid: str
-):
-    obj = model.by_uuid(uuid)
-
-    diag = obj.context_diagram
-    diag.display_parent_relation = True
-
-    assert len(diag.nodes) > 1
-
-
-@pytest.mark.parametrize("uuid", TEST_FUNCTION_UUIDS)
-def test_context_diagram_of_allocated_functions(
-    model: capellambse.MelodyModel, uuid: str
-):
-    obj = model.by_uuid(uuid)
-
-    diag = obj.context_diagram
-    diag.display_parent_relation = True
-
-    assert len(diag.nodes) > 1
-
-
-def test_context_diagram_with_derived_interfaces(
-    model: capellambse.MelodyModel,
-):
-    obj = model.by_uuid("47c3130b-ec39-4365-a77a-5ab6365d1e2e")
-
-    context_diagram = obj.context_diagram
-    derived_diagram = context_diagram.render(
-        None, display_derived_interfaces=True
-    )
-
-    assert len(derived_diagram) >= 15
-
-
-@pytest.mark.parametrize(
-    "uuid",
-    [
-        pytest.param(
-            "fdb34c92-7c49-491d-bf11-dd139930786e", id="PhysicalNodeComponent"
-        ),
-        pytest.param(
-            "313f48f4-fb7e-47a8-b28a-76440932fcb9",
-            id="PhysicalBehaviorComponent",
-        ),
-    ],
-)
-def test_context_diagram_of_physical_node_component(
-    model: capellambse.MelodyModel, uuid: str
-):
-    obj = model.by_uuid(uuid)
-
-    diag = obj.context_diagram
-
-    assert len(diag.nodes) > 1
-
-
 def test_context_diagram_hide_direct_children(
     model: capellambse.MelodyModel,
 ):
@@ -402,19 +433,7 @@ def test_context_diagram_hide_direct_children(
     assert {element.uuid for element in white} & expected_hidden_uuids
 
 
-def test_context_diagram_detects_and_handles_cycles(
-    model: capellambse.MelodyModel,
-):
-    obj = model.by_uuid("98bbf6ec-161a-4332-a95e-e6990df868ad")
-
-    diag = obj.context_diagram
-
-    assert diag.nodes
-
-
-def test_context_diagram_display_unused_ports(
-    model: capellambse.MelodyModel,
-):
+def test_context_diagram_display_unused_ports(model: capellambse.MelodyModel):
     obj = model.by_uuid("446d3f9f-644d-41ee-bd57-8ae0f7662db2")
     unused_port_uuid = "5cbc4d2d-1b9c-4e10-914e-44d4526e4a2f"
 
@@ -425,9 +444,7 @@ def test_context_diagram_display_unused_ports(
     assert unused_port_uuid in {element.uuid for element in bdiag}
 
 
-def test_context_diagram_blackbox(
-    model: capellambse.MelodyModel,
-):
+def test_context_diagram_blackbox(model: capellambse.MelodyModel):
     obj = model.by_uuid("fd69347c-fca9-4cdd-ae44-9182e13c8d9d")
     hidden_element_uuids = {
         "9f92e453-0692-4842-9e0c-4d36ab541acd",

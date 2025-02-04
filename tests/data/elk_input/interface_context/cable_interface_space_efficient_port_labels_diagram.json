@@ -1,0 +1,114 @@
+{
+    "id": "da949a89-23c0-4487-88e1-f14b33326570_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "fdb34c92-7c49-491d-bf11-dd139930786e",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
+            "labels": [
+                {
+                    "text": "Physical Component",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 138.39999999999998,
+                    "height": 16.285714285714285
+                }
+            ],
+            "ports": [
+                {
+                    "id": "f3722f0a-c7de-421d-b4aa-fea6f5278672",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "Cable 1 Source",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 108.5,
+                            "height": 12.0
+                        }
+                    ]
+                }
+            ],
+            "width": 144.39999999999998,
+            "height": 40.285714285714285
+        },
+        {
+            "id": "d5259b69-1473-4b00-bb41-b94eb44abde5",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
+            "labels": [
+                {
+                    "text": "Random Node",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 106.19999999999999,
+                    "height": 12.0
+                }
+            ],
+            "ports": [
+                {
+                    "id": "682edffb-6b44-48c0-826b-32eb217eb81c",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "Cable 1 Target",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 105.05,
+                            "height": 14.857142857142858
+                        }
+                    ]
+                }
+            ],
+            "width": 112.19999999999999,
+            "height": 36.0
+        }
+    ],
+    "edges": [
+        {
+            "id": "da949a89-23c0-4487-88e1-f14b33326570",
+            "layoutOptions": {
+                "layered.priority.straightness": "10"
+            },
+            "sources": [
+                "f3722f0a-c7de-421d-b4aa-fea6f5278672"
+            ],
+            "targets": [
+                "682edffb-6b44-48c0-826b-32eb217eb81c"
+            ],
+            "labels": [
+                {
+                    "text": "Cable 1",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 67.1,
+                    "height": 12.0
+                }
+            ]
+        }
+    ]
+}

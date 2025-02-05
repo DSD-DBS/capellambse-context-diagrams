@@ -3,18 +3,16 @@
 
 import sys
 import typing as t
-from unittest import mock
 
 import capellambse
 import pytest
 
-from capellambse_context_diagrams import _elkjs, context
-
 from .conftest import (  # type: ignore[import-untyped]
     TEST_ELK_INPUT_ROOT,
     TEST_ELK_LAYOUT_ROOT,
-    remove_ids_from_elk_layout,
-    text_size_mocker,
+    generic_collecting_test,
+    generic_layouting_test,
+    generic_serializing_test,
 )
 
 TEST_CAP_SIZING_UUID = "b996a45f-2954-4fdd-9141-7934e7687de6"
@@ -239,41 +237,16 @@ class TestContextDiagrams:
         model: capellambse.MelodyModel,
         params: tuple[str, str, dict[str, t.Any]],
     ):
-        uuid, elk_data_filename, _ = params
-        obj = model.by_uuid(uuid)
-        data = (TEST_CONTEXT_DATA_ROOT / elk_data_filename).read_text(
-            encoding="utf8"
+        assert generic_collecting_test(
+            model, params, TEST_CONTEXT_DATA_ROOT, "context_diagram"
         )
-        expected = _elkjs.ELKInputData.model_validate_json(data)
-
-        with mock.patch("capellambse.helpers.get_text_extent") as mock_ext:
-            mock_ext.side_effect = text_size_mocker
-            _ = (diag := obj.context_diagram).elk_input_data({})
-
-        assert diag._elk_input_data.model_dump(
-            exclude_defaults=True
-        ) == expected.model_dump(exclude_defaults=True)
 
     @staticmethod
     @pytest.mark.parametrize("params", TEST_CONTEXT_SET)
     def test_layouting(params: tuple[str, str, dict[str, t.Any]]):
-        _, elk_data_filename, _ = params
-        test_data = (TEST_CONTEXT_DATA_ROOT / elk_data_filename).read_text(
-            encoding="utf8"
+        assert generic_layouting_test(
+            params, TEST_CONTEXT_DATA_ROOT, TEST_CONTEXT_LAYOUT_ROOT
         )
-        expected_layout_data = (
-            TEST_CONTEXT_LAYOUT_ROOT / elk_data_filename
-        ).read_text(encoding="utf8")
-        data = _elkjs.ELKInputData.model_validate_json(test_data)
-        expected = _elkjs.ELKOutputData.model_validate_json(
-            expected_layout_data
-        )
-
-        layout = context.try_to_layout(data)
-
-        assert remove_ids_from_elk_layout(
-            layout
-        ) == remove_ids_from_elk_layout(expected)
 
     @staticmethod
     @pytest.mark.parametrize("params", TEST_CONTEXT_SET)
@@ -281,17 +254,9 @@ class TestContextDiagrams:
         model: capellambse.MelodyModel,
         params: tuple[str, str, dict[str, t.Any]],
     ):
-        uuid, elk_data_filename, render_params = params
-        obj = model.by_uuid(uuid)
-        layout_data = (TEST_CONTEXT_LAYOUT_ROOT / elk_data_filename).read_text(
-            encoding="utf8"
+        assert generic_serializing_test(
+            model, params, TEST_CONTEXT_LAYOUT_ROOT, "context_diagram"
         )
-        layout = _elkjs.ELKOutputData.model_validate_json(layout_data)
-        diag = obj.context_diagram
-        for key, value in render_params.items():
-            setattr(diag, f"_{key}", value)
-
-        diag.serializer.make_diagram(layout)
 
 
 @pytest.mark.parametrize(

@@ -1,12 +1,12 @@
 {
-    "id": "39e96ffc-2f32-41b9-b406-ba82c78fe451_context",
+    "id": "39e96ffc-2f32-41b9-b406-ba82c78fe451_cable_tree",
     "type": "graph",
     "children": [
         {
             "id": "54039718-8e47-442e-98ad-44d0459a5170",
             "position": {
                 "x": 13,
-                "y": 12
+                "y": 71
             },
             "size": {
                 "width": 62,
@@ -27,7 +27,7 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_508644",
+                            "id": "g_990978",
                             "position": {
                                 "x": 11,
                                 "y": 11
@@ -42,10 +42,10 @@
                     ]
                 },
                 {
-                    "id": "g_070464",
+                    "id": "g_601861",
                     "position": {
                         "x": -1,
-                        "y": 12
+                        "y": 5
                     },
                     "size": {
                         "width": 56,
@@ -81,7 +81,7 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_161554",
+                            "id": "g_139550",
                             "position": {
                                 "x": -57,
                                 "y": 11
@@ -96,10 +96,10 @@
                     ]
                 },
                 {
-                    "id": "g_772121",
+                    "id": "g_705277",
                     "position": {
                         "x": 7,
-                        "y": 12
+                        "y": 5
                     },
                     "size": {
                         "width": 63,
@@ -111,9 +111,110 @@
             ]
         },
         {
+            "id": "86268c87-29d1-4427-af68-bcd88779ce8e",
+            "position": {
+                "x": 13,
+                "y": 12
+            },
+            "size": {
+                "width": 62,
+                "height": 38
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "0adba03e-922d-4e0f-9637-d5d20533cc59",
+                    "position": {
+                        "x": 54,
+                        "y": 14
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port",
+                    "children": [
+                        {
+                            "id": "g_656808",
+                            "position": {
+                                "x": 11,
+                                "y": 11
+                            },
+                            "size": {
+                                "width": 56,
+                                "height": 14
+                            },
+                            "type": "label",
+                            "text": "PP 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_168087",
+                    "position": {
+                        "x": -1,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 56,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "PC 2"
+                }
+            ]
+        },
+        {
             "id": "39e96ffc-2f32-41b9-b406-ba82c78fe451",
             "type": "edge",
             "sourceId": "1ceea88f-63fe-4015-b73e-94ebcea67e1b",
+            "targetId": "9e155e28-d27a-4e07-89a3-0e67f54641cc",
+            "routingPoints": [
+                {
+                    "x": 77,
+                    "y": 90
+                },
+                {
+                    "x": 220,
+                    "y": 90
+                },
+                {
+                    "x": 220,
+                    "y": 31
+                },
+                {
+                    "x": 287,
+                    "y": 31
+                }
+            ],
+            "children": [
+                {
+                    "id": "39e96ffc-2f32-41b9-b406-ba82c78fe451_j0",
+                    "type": "junction",
+                    "position": {
+                        "x": 220,
+                        "y": 31
+                    }
+                },
+                {
+                    "id": "g_317368",
+                    "position": {
+                        "x": 154,
+                        "y": 93
+                    },
+                    "size": {
+                        "width": 56,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "PL 1"
+                }
+            ]
+        },
+        {
+            "id": "e3fa2759-4508-4b9b-b2e3-c5b39f3b9cdb",
+            "type": "edge",
+            "sourceId": "0adba03e-922d-4e0f-9637-d5d20533cc59",
             "targetId": "9e155e28-d27a-4e07-89a3-0e67f54641cc",
             "routingPoints": [
                 {
@@ -127,17 +228,17 @@
             ],
             "children": [
                 {
-                    "id": "g_014875",
+                    "id": "g_905917",
                     "position": {
                         "x": 154,
-                        "y": 34
+                        "y": 14
                     },
                     "size": {
                         "width": 56,
                         "height": 14
                     },
                     "type": "label",
-                    "text": "PL 1"
+                    "text": "PL 2"
                 }
             ]
         }

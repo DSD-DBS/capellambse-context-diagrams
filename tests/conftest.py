@@ -2,15 +2,17 @@
 # SPDX-License-Identifier: Apache-2.0
 """Global fixtures for pytest."""
 
+import collections.abc as cabc
 import io
 import pathlib
 import sys
 import typing as t
+from unittest import mock
 
 import capellambse
 import pytest
 
-from capellambse_context_diagrams import _elkjs
+from capellambse_context_diagrams import _elkjs, context
 
 TEST_ROOT = pathlib.Path(__file__).parent / "data"
 TEST_ELK_INPUT_ROOT = TEST_ROOT / "elk_input"
@@ -51,3 +53,118 @@ def remove_ids_from_elk_layout(
 def text_size_mocker(text: str) -> tuple[int, int]:
     """Mock text size calculation."""
     return (len(text) * 7, 12)
+
+
+def generic_collecting_test(
+    model: capellambse.MelodyModel,
+    params: tuple[str, str, dict[str, t.Any]],
+    data_root: pathlib.Path,
+    diagram_attr: str,
+    extra_suffix: str | None = None,
+    extra_assert: cabc.Callable[
+        [str, list[_elkjs.ELKInputEdge] | _elkjs.ELKOutputData], bool
+    ]
+    | None = None,
+) -> bool | tuple[bool, bool]:
+    """Test collecting test.
+
+    Parameters
+    ----------
+    model
+        The MelodyModel instance.
+    params
+        Tuple consisting of (UUID, file_name, render_params).
+    data_root
+        Path to the JSON input files.
+    diagram_attr
+        The attribute name of the diagram.
+    extra_suffix
+        Optional suffix for an extra file.
+    extra_assert
+        Optional function to assert a statement with an extra file.
+    """
+    uuid, file_name, _ = params
+    obj = model.by_uuid(uuid)
+    file_path = data_root / file_name
+    data_text = file_path.read_text(encoding="utf8")
+    expected_main = _elkjs.ELKInputData.model_validate_json(data_text)
+    expected_extra_file: pathlib.Path | None = None
+    if extra_suffix:
+        expected_extra_file = data_root / (file_path.stem + extra_suffix)
+        expected_extra = expected_extra_file.read_text(encoding="utf8")
+
+    with mock.patch("capellambse.helpers.get_text_extent") as mock_ext:
+        mock_ext.side_effect = text_size_mocker
+        result = getattr(obj, diagram_attr).elk_input_data({})
+
+    if extra_suffix and extra_assert and expected_extra_file:
+        main_output, extra_output = result
+        main_test_result = main_output.model_dump(
+            exclude_defaults=True
+        ) == expected_main.model_dump(exclude_defaults=True)
+        side_test_result = extra_assert(expected_extra, extra_output)
+        return main_test_result, side_test_result
+
+    return result.model_dump(
+        exclude_defaults=True
+    ) == expected_main.model_dump(exclude_defaults=True)
+
+
+def generic_layouting_test(
+    params: tuple[str, str, dict[str, t.Any]],
+    data_root: pathlib.Path,
+    layout_root: pathlib.Path,
+):
+    """Test layouting ELK input data.
+
+    Parameters
+    ----------
+    params
+        Tuple consisting of (UUID, file_name, render_params).
+    data_root
+        Path to the JSON input files.
+    layout_root
+        Path to the expected layout JSON files.
+    """
+    _, file_name, _ = params
+    test_data = (data_root / file_name).read_text(encoding="utf8")
+    data = _elkjs.ELKInputData.model_validate_json(test_data)
+    expected_layout_data = (layout_root / file_name).read_text(encoding="utf8")
+    expected = _elkjs.ELKOutputData.model_validate_json(expected_layout_data)
+
+    layout = context.try_to_layout(data)
+
+    return remove_ids_from_elk_layout(layout) == remove_ids_from_elk_layout(
+        expected
+    )
+
+
+def generic_serializing_test(
+    model: capellambse.MelodyModel,
+    params: tuple[str, str, dict[str, t.Any]],
+    layout_root: pathlib.Path,
+    diagram_attr: str,
+):
+    """Test serializing ELKOutput data, i.e. layout.
+
+    Parameters
+    ----------
+    model
+        The MelodyModel instance.
+    params
+        Tuple consisting of (UUID, file_name, render_params).
+    layout_root
+        Path to the layout JSON files.
+    diagram_attr
+        The attribute name of the diagram.
+    """
+    uuid, file_name, render_params = params
+    obj = model.by_uuid(uuid)
+    diag = getattr(obj, diagram_attr)
+    for key, value in render_params.items():
+        setattr(diag, f"_{key}", value)
+
+    layout_data = (layout_root / file_name).read_text(encoding="utf8")
+    layout = _elkjs.ELKOutputData.model_validate_json(layout_data)
+    diag.serializer.make_diagram(layout)
+    return True

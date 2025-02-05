@@ -1,95 +1,65 @@
 # SPDX-FileCopyrightText: Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
+import json
 import typing as t
-from unittest import mock
 
 import capellambse
 import pytest
 
-from capellambse_context_diagrams import _elkjs, context
-
 from .conftest import (  # type: ignore[import-untyped]
     TEST_ELK_INPUT_ROOT,
     TEST_ELK_LAYOUT_ROOT,
-    remove_ids_from_elk_layout,
-    text_size_mocker,
+    generic_collecting_test,
+    generic_layouting_test,
+    generic_serializing_test,
 )
 
 TEST_TREE_DATA_ROOT = TEST_ELK_INPUT_ROOT / "tree_views"
 TEST_TREE_LAYOUT_ROOT = TEST_ELK_LAYOUT_ROOT / "tree_views"
 CLASS_UUID = "b7c7f442-377f-492c-90bf-331e66988bda"
 TEST_TREE_SET = [
-    pytest.param((CLASS_UUID, "tree_view.json"), id="Tree View"),
+    pytest.param((CLASS_UUID, "tree_view.json", {}), id="Tree View"),
 ]
 
 
 @pytest.mark.parametrize("params", TEST_TREE_SET)
-def test_collecting(model: capellambse.MelodyModel, params: tuple[str, str]):
-    uuid, elk_data_filename = params
-    obj = model.by_uuid(uuid)
-    elk_data_file_path = TEST_TREE_DATA_ROOT / elk_data_filename
-    data = elk_data_file_path.read_text(encoding="utf8")
-    expected = _elkjs.ELKInputData.model_validate_json(data)
-    legend_data = (
-        TEST_TREE_DATA_ROOT / (elk_data_file_path.stem + "_legend.json")
-    ).read_text(encoding="utf8")
-    expected_legend = _elkjs.ELKInputData.model_validate_json(legend_data)
-
-    with mock.patch("capellambse.helpers.get_text_extent") as mock_ext:
-        mock_ext.side_effect = text_size_mocker
-        elk_input, legend = obj.tree_view.elk_input_data({})
-
-    assert elk_input.model_dump(exclude_defaults=True) == expected.model_dump(
-        exclude_defaults=True
+def test_collecting(
+    model: capellambse.MelodyModel, params: tuple[str, str, dict[str, t.Any]]
+):
+    assert generic_collecting_test(
+        model,
+        params,
+        TEST_TREE_DATA_ROOT,
+        "tree_view",
+        extra_suffix="_legend.json",
+        extra_assert=lambda extra_file, legend: legend.model_dump(
+            exclude_defaults=True
+        )
+        == json.loads(extra_file),
     )
-    assert legend.model_dump(
-        exclude_defaults=True
-    ) == expected_legend.model_dump(exclude_defaults=True)
 
 
 @pytest.mark.parametrize("params", TEST_TREE_SET)
-def test_layouting(params: tuple[str, str]):
-    _, elk_data_filename = params
+def test_layouting(params: tuple[str, str, dict[str, t.Any]]):
+    _, elk_data_filename, _ = params
     elk_data_file_path = TEST_TREE_DATA_ROOT / elk_data_filename
-    test_data = elk_data_file_path.read_text(encoding="utf8")
-    data = _elkjs.ELKInputData.model_validate_json(test_data)
-    expected_legend = (
-        TEST_TREE_DATA_ROOT / (elk_data_file_path.stem + "_legend.json")
-    ).read_text(encoding="utf8")
-    legend_data = _elkjs.ELKInputData.model_validate_json(expected_legend)
-    elk_layout_file_path = TEST_TREE_LAYOUT_ROOT / elk_data_filename
-    expected_layout_data = elk_layout_file_path.read_text(encoding="utf8")
-    expected = _elkjs.ELKOutputData.model_validate_json(expected_layout_data)
-    expected_legend_layout_data = (
-        TEST_TREE_LAYOUT_ROOT / (elk_layout_file_path.stem + "_legend.json")
-    ).read_text(encoding="utf8")
-    expected_legend_layout = _elkjs.ELKOutputData.model_validate_json(
-        expected_legend_layout_data
-    )
 
-    layout = context.try_to_layout(data)
-    legend_layout = context.try_to_layout(legend_data)
-
-    assert remove_ids_from_elk_layout(layout) == remove_ids_from_elk_layout(
-        expected
+    assert generic_layouting_test(
+        params, TEST_TREE_DATA_ROOT, TEST_TREE_LAYOUT_ROOT
     )
-    assert remove_ids_from_elk_layout(
-        legend_layout
-    ) == remove_ids_from_elk_layout(expected_legend_layout)
+    assert generic_layouting_test(
+        ("", elk_data_file_path.stem + "_legend.json", {}),
+        TEST_TREE_DATA_ROOT,
+        TEST_TREE_LAYOUT_ROOT,
+    )
 
 
 @pytest.mark.parametrize("params", TEST_TREE_SET)
 def test_serializing(model: capellambse.MelodyModel, params: tuple[str, str]):
-    uuid, elk_data_filename = params
-    obj = model.by_uuid(uuid)
-    diag = obj.tree_view
-    layout_data = (TEST_TREE_LAYOUT_ROOT / elk_data_filename).read_text(
-        encoding="utf8"
+    assert generic_serializing_test(
+        model, params, TEST_TREE_LAYOUT_ROOT, "tree_view"
     )
-    layout = _elkjs.ELKOutputData.model_validate_json(layout_data)
-
-    diag.serializer.make_diagram(layout)
 
 
 @pytest.mark.parametrize(

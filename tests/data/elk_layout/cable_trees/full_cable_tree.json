@@ -1,12 +1,12 @@
 {
-    "id": "5c55b11b-4911-40fb-9c4c-f1363dad846e_context",
+    "id": "5c55b11b-4911-40fb-9c4c-f1363dad846e_cable_tree",
     "type": "graph",
     "children": [
         {
             "id": "07ba7c6c-3a3e-4817-967d-a30a34808089",
             "position": {
                 "x": 13,
-                "y": 12
+                "y": 129
             },
             "size": {
                 "width": 174,
@@ -27,7 +27,7 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_125799",
+                            "id": "g_196546",
                             "position": {
                                 "x": 11,
                                 "y": 11
@@ -42,10 +42,10 @@
                     ]
                 },
                 {
-                    "id": "g_375046",
+                    "id": "g_204541",
                     "position": {
                         "x": -1,
-                        "y": 12
+                        "y": 5
                     },
                     "size": {
                         "width": 168,
@@ -59,8 +59,8 @@
         {
             "id": "2c2888dc-4e8f-4d07-aca9-9f4de004266b",
             "position": {
-                "x": 471,
-                "y": 12
+                "x": 483,
+                "y": 158
             },
             "size": {
                 "width": 195,
@@ -71,7 +71,7 @@
                 {
                     "id": "6ae29909-b358-4964-9d56-412a5dc4b2f2",
                     "position": {
-                        "x": -2,
+                        "x": 187,
                         "y": 14
                     },
                     "size": {
@@ -81,9 +81,9 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_234360",
+                            "id": "g_378117",
                             "position": {
-                                "x": -57,
+                                "x": 11,
                                 "y": 11
                             },
                             "size": {
@@ -96,10 +96,10 @@
                     ]
                 },
                 {
-                    "id": "g_484112",
+                    "id": "g_161161",
                     "position": {
-                        "x": 7,
-                        "y": 12
+                        "x": -1,
+                        "y": 5
                     },
                     "size": {
                         "width": 189,
@@ -111,6 +111,464 @@
             ]
         },
         {
+            "id": "57325353-a19c-4dec-8f6f-05a214eac1c5",
+            "position": {
+                "x": 1018,
+                "y": 301
+            },
+            "size": {
+                "width": 188,
+                "height": 38
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "161568d6-9907-4c34-b9cc-a46fe81442a1",
+                    "position": {
+                        "x": -2,
+                        "y": 14
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port",
+                    "children": [
+                        {
+                            "id": "g_618267",
+                            "position": {
+                                "x": -57,
+                                "y": 11
+                            },
+                            "size": {
+                                "width": 56,
+                                "height": 14
+                            },
+                            "type": "label",
+                            "text": "PP 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_379260",
+                    "position": {
+                        "x": 7,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 182,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Train Detection Sensor"
+                }
+            ]
+        },
+        {
+            "id": "a4cb3ff6-1289-4e27-91f2-4291cabe9db2",
+            "position": {
+                "x": 1018,
+                "y": 227
+            },
+            "size": {
+                "width": 188,
+                "height": 54
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "1604610c-c437-40fc-ba61-d01431b1d961",
+                    "position": {
+                        "x": -2,
+                        "y": 22
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port",
+                    "children": [
+                        {
+                            "id": "g_350159",
+                            "position": {
+                                "x": -57,
+                                "y": 11
+                            },
+                            "size": {
+                                "width": 56,
+                                "height": 14
+                            },
+                            "type": "label",
+                            "text": "PP 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_042960",
+                    "position": {
+                        "x": 7,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 182,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Level Crossing Barrier"
+                },
+                {
+                    "id": "g_629338",
+                    "position": {
+                        "x": 59.5,
+                        "y": 19
+                    },
+                    "size": {
+                        "width": 77,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Control"
+                }
+            ]
+        },
+        {
+            "id": "2c907e35-bf5a-4421-ba51-5191af0a30f8",
+            "position": {
+                "x": 1020.5,
+                "y": 130
+            },
+            "size": {
+                "width": 125,
+                "height": 38
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "ef739eb8-10c2-4b27-aa76-636c89e2403b",
+                    "position": {
+                        "x": -2,
+                        "y": 14
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port",
+                    "children": [
+                        {
+                            "id": "g_941119",
+                            "position": {
+                                "x": -57,
+                                "y": 11
+                            },
+                            "size": {
+                                "width": 56,
+                                "height": 14
+                            },
+                            "type": "label",
+                            "text": "PP 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_193768",
+                    "position": {
+                        "x": 7,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 119,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Track Circuit"
+                }
+            ]
+        },
+        {
+            "id": "23faf496-7a2d-4a41-b92a-fc240d9b5924",
+            "position": {
+                "x": 1306,
+                "y": 162
+            },
+            "size": {
+                "width": 188,
+                "height": 54
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "5cbec23a-3f3e-4828-8f14-1be0c09e1b54",
+                    "position": {
+                        "x": -2,
+                        "y": 22
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port",
+                    "children": [
+                        {
+                            "id": "g_231312",
+                            "position": {
+                                "x": -57,
+                                "y": 11
+                            },
+                            "size": {
+                                "width": 56,
+                                "height": 14
+                            },
+                            "type": "label",
+                            "text": "PP 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_221628",
+                    "position": {
+                        "x": 7,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 182,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Train Speed Monitoring"
+                },
+                {
+                    "id": "g_845780",
+                    "position": {
+                        "x": 70,
+                        "y": 19
+                    },
+                    "size": {
+                        "width": 56,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Unit"
+                }
+            ]
+        },
+        {
+            "id": "954d934f-8804-454b-9ef2-ced201640891",
+            "position": {
+                "x": 532,
+                "y": 71
+            },
+            "size": {
+                "width": 146,
+                "height": 38
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "781b3eb5-ab04-4677-a704-f42a987bef5a",
+                    "position": {
+                        "x": 138,
+                        "y": 14
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port",
+                    "children": [
+                        {
+                            "id": "g_656883",
+                            "position": {
+                                "x": 11,
+                                "y": 11
+                            },
+                            "size": {
+                                "width": 56,
+                                "height": 14
+                            },
+                            "type": "label",
+                            "text": "PP 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_351394",
+                    "position": {
+                        "x": -1,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 140,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Signal Relay Box"
+                }
+            ]
+        },
+        {
+            "id": "7b78da30-7f39-4000-a2d6-3f7c1b56a5f5",
+            "position": {
+                "x": 1018,
+                "y": 71
+            },
+            "size": {
+                "width": 188,
+                "height": 38
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "1f4ae78e-0602-4313-a9b7-60ec607141f8",
+                    "position": {
+                        "x": -2,
+                        "y": 14
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port",
+                    "children": [
+                        {
+                            "id": "g_544557",
+                            "position": {
+                                "x": -57,
+                                "y": 11
+                            },
+                            "size": {
+                                "width": 56,
+                                "height": 14
+                            },
+                            "type": "label",
+                            "text": "PP 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_810271",
+                    "position": {
+                        "x": 7,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 182,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Trackside Signal Light"
+                }
+            ]
+        },
+        {
+            "id": "3924460c-321e-4300-8788-a6713dd64456",
+            "position": {
+                "x": 1018,
+                "y": 12
+            },
+            "size": {
+                "width": 181,
+                "height": 38
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "a9554c35-de02-4c68-90fc-e3bcba791654",
+                    "position": {
+                        "x": -2,
+                        "y": 14
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port",
+                    "children": [
+                        {
+                            "id": "g_945950",
+                            "position": {
+                                "x": -57,
+                                "y": 11
+                            },
+                            "size": {
+                                "width": 56,
+                                "height": 14
+                            },
+                            "type": "label",
+                            "text": "PP 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_106336",
+                    "position": {
+                        "x": 7,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 175,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Emergency Stop Button"
+                }
+            ]
+        },
+        {
+            "id": "7ae1d744-67b8-4506-8e39-be3006b0e5b9",
+            "position": {
+                "x": 541,
+                "y": 217
+            },
+            "size": {
+                "width": 153,
+                "height": 38
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "6eed2367-eb48-4bf0-a1c8-bfd2f245bd3d",
+                    "position": {
+                        "x": -2,
+                        "y": 14
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port",
+                    "children": [
+                        {
+                            "id": "g_533832",
+                            "position": {
+                                "x": -57,
+                                "y": 11
+                            },
+                            "size": {
+                                "width": 56,
+                                "height": 14
+                            },
+                            "type": "label",
+                            "text": "PP 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "g_702934",
+                    "position": {
+                        "x": 7,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 147,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Communication Hub"
+                }
+            ]
+        },
+        {
             "id": "5c55b11b-4911-40fb-9c4c-f1363dad846e",
             "type": "edge",
             "sourceId": "c403d4f4-9633-42a2-a5d6-9e1df2655146",
@@ -118,19 +576,35 @@
             "routingPoints": [
                 {
                     "x": 189,
-                    "y": 31
+                    "y": 148
                 },
                 {
-                    "x": 469,
-                    "y": 31
+                    "x": 747,
+                    "y": 148
+                },
+                {
+                    "x": 747,
+                    "y": 177
+                },
+                {
+                    "x": 680,
+                    "y": 177
                 }
             ],
             "children": [
                 {
-                    "id": "g_511218",
+                    "id": "5c55b11b-4911-40fb-9c4c-f1363dad846e_j0",
+                    "type": "junction",
                     "position": {
-                        "x": 266,
-                        "y": 34
+                        "x": 747,
+                        "y": 177
+                    }
+                },
+                {
+                    "id": "g_242763",
+                    "position": {
+                        "x": 301,
+                        "y": 151
                     },
                     "size": {
                         "width": 126,
@@ -138,6 +612,366 @@
                     },
                     "type": "label",
                     "text": "Control Signal"
+                }
+            ]
+        },
+        {
+            "id": "890dc479-062c-416d-955f-b78e083e0e48",
+            "type": "edge",
+            "sourceId": "6ae29909-b358-4964-9d56-412a5dc4b2f2",
+            "targetId": "161568d6-9907-4c34-b9cc-a46fe81442a1",
+            "routingPoints": [
+                {
+                    "x": 680,
+                    "y": 177
+                },
+                {
+                    "x": 747,
+                    "y": 177
+                },
+                {
+                    "x": 747,
+                    "y": 320
+                },
+                {
+                    "x": 1016,
+                    "y": 320
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_605432",
+                    "position": {
+                        "x": 760.5,
+                        "y": 323
+                    },
+                    "size": {
+                        "width": 175,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Detection Signal Link"
+                }
+            ]
+        },
+        {
+            "id": "0397b675-e78b-41a3-bf96-f2ae6cf7adde",
+            "type": "edge",
+            "sourceId": "6ae29909-b358-4964-9d56-412a5dc4b2f2",
+            "targetId": "1604610c-c437-40fc-ba61-d01431b1d961",
+            "routingPoints": [
+                {
+                    "x": 680,
+                    "y": 177
+                },
+                {
+                    "x": 747,
+                    "y": 177
+                },
+                {
+                    "x": 747,
+                    "y": 254
+                },
+                {
+                    "x": 1016,
+                    "y": 254
+                }
+            ],
+            "children": [
+                {
+                    "id": "0397b675-e78b-41a3-bf96-f2ae6cf7adde_j0",
+                    "type": "junction",
+                    "position": {
+                        "x": 747,
+                        "y": 254
+                    }
+                },
+                {
+                    "id": "g_081057",
+                    "position": {
+                        "x": 767.5,
+                        "y": 257
+                    },
+                    "size": {
+                        "width": 161,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Level Crossing Link"
+                }
+            ]
+        },
+        {
+            "id": "4a4be6cc-973e-4d2a-bf4e-3d5aad9f73e3",
+            "type": "edge",
+            "sourceId": "6ae29909-b358-4964-9d56-412a5dc4b2f2",
+            "targetId": "ef739eb8-10c2-4b27-aa76-636c89e2403b",
+            "routingPoints": [
+                {
+                    "x": 680,
+                    "y": 177
+                },
+                {
+                    "x": 747,
+                    "y": 177
+                },
+                {
+                    "x": 747,
+                    "y": 149
+                },
+                {
+                    "x": 1018.5,
+                    "y": 149
+                }
+            ],
+            "children": [
+                {
+                    "id": "4a4be6cc-973e-4d2a-bf4e-3d5aad9f73e3_j0",
+                    "type": "junction",
+                    "position": {
+                        "x": 747,
+                        "y": 149
+                    }
+                },
+                {
+                    "id": "g_387235",
+                    "position": {
+                        "x": 771,
+                        "y": 152
+                    },
+                    "size": {
+                        "width": 154,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Track Circuit Link"
+                }
+            ]
+        },
+        {
+            "id": "93b6d377-0718-4c5b-8bc0-b020122beb83",
+            "type": "edge",
+            "sourceId": "ef739eb8-10c2-4b27-aa76-636c89e2403b",
+            "targetId": "5cbec23a-3f3e-4828-8f14-1be0c09e1b54",
+            "routingPoints": [
+                {
+                    "x": 1018.5,
+                    "y": 149
+                },
+                {
+                    "x": 949,
+                    "y": 149
+                },
+                {
+                    "x": 949,
+                    "y": 189
+                },
+                {
+                    "x": 1304,
+                    "y": 189
+                }
+            ],
+            "children": [
+                {
+                    "id": "93b6d377-0718-4c5b-8bc0-b020122beb83_j0",
+                    "type": "junction",
+                    "position": {
+                        "x": 949,
+                        "y": 149
+                    }
+                },
+                {
+                    "id": "g_518831",
+                    "position": {
+                        "x": 995.5,
+                        "y": 192
+                    },
+                    "size": {
+                        "width": 175,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Track Monitoring Link"
+                }
+            ]
+        },
+        {
+            "id": "aaec4139-9982-4abb-b27f-df3ceaf8e0a8",
+            "type": "edge",
+            "sourceId": "c403d4f4-9633-42a2-a5d6-9e1df2655146",
+            "targetId": "781b3eb5-ab04-4677-a704-f42a987bef5a",
+            "routingPoints": [
+                {
+                    "x": 189,
+                    "y": 148
+                },
+                {
+                    "x": 256,
+                    "y": 148
+                },
+                {
+                    "x": 256,
+                    "y": 61
+                },
+                {
+                    "x": 747,
+                    "y": 61
+                },
+                {
+                    "x": 747,
+                    "y": 90
+                },
+                {
+                    "x": 680,
+                    "y": 90
+                }
+            ],
+            "children": [
+                {
+                    "id": "aaec4139-9982-4abb-b27f-df3ceaf8e0a8_j0",
+                    "type": "junction",
+                    "position": {
+                        "x": 256,
+                        "y": 148
+                    }
+                },
+                {
+                    "id": "aaec4139-9982-4abb-b27f-df3ceaf8e0a8_j1",
+                    "type": "junction",
+                    "position": {
+                        "x": 747,
+                        "y": 61
+                    }
+                },
+                {
+                    "id": "aaec4139-9982-4abb-b27f-df3ceaf8e0a8_j2",
+                    "type": "junction",
+                    "position": {
+                        "x": 747,
+                        "y": 90
+                    }
+                },
+                {
+                    "id": "g_251826",
+                    "position": {
+                        "x": 266,
+                        "y": 64
+                    },
+                    "size": {
+                        "width": 196,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Signal Transmission Link"
+                }
+            ]
+        },
+        {
+            "id": "58e19655-0094-49c1-bf73-aaddf1f60cff",
+            "type": "edge",
+            "sourceId": "781b3eb5-ab04-4677-a704-f42a987bef5a",
+            "targetId": "1f4ae78e-0602-4313-a9b7-60ec607141f8",
+            "routingPoints": [
+                {
+                    "x": 680,
+                    "y": 90
+                },
+                {
+                    "x": 1016,
+                    "y": 90
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_233000",
+                    "position": {
+                        "x": 767.5,
+                        "y": 93
+                    },
+                    "size": {
+                        "width": 161,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Signal Control Link"
+                }
+            ]
+        },
+        {
+            "id": "c619ff57-aad7-4ad7-928a-77160235198a",
+            "type": "edge",
+            "sourceId": "781b3eb5-ab04-4677-a704-f42a987bef5a",
+            "targetId": "a9554c35-de02-4c68-90fc-e3bcba791654",
+            "routingPoints": [
+                {
+                    "x": 680,
+                    "y": 90
+                },
+                {
+                    "x": 747,
+                    "y": 90
+                },
+                {
+                    "x": 747,
+                    "y": 31
+                },
+                {
+                    "x": 1016,
+                    "y": 31
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_292466",
+                    "position": {
+                        "x": 757,
+                        "y": 34
+                    },
+                    "size": {
+                        "width": 182,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Emergency Control Link"
+                }
+            ]
+        },
+        {
+            "id": "4205ee10-8afd-45da-83db-0be04100b8fa",
+            "type": "edge",
+            "sourceId": "c403d4f4-9633-42a2-a5d6-9e1df2655146",
+            "targetId": "6eed2367-eb48-4bf0-a1c8-bfd2f245bd3d",
+            "routingPoints": [
+                {
+                    "x": 189,
+                    "y": 148
+                },
+                {
+                    "x": 256,
+                    "y": 148
+                },
+                {
+                    "x": 256,
+                    "y": 236
+                },
+                {
+                    "x": 539,
+                    "y": 236
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_403514",
+                    "position": {
+                        "x": 287,
+                        "y": 239
+                    },
+                    "size": {
+                        "width": 154,
+                        "height": 14
+                    },
+                    "type": "label",
+                    "text": "Communication Link"
                 }
             ]
         }

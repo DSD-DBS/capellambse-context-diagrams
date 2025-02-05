@@ -276,7 +276,7 @@ class ContextDiagram(m.AbstractDiagram):
     * display_actor_relation: Show the connections between the context actors.
     * hide_context_owner: Hide the context owner in the diagram.
     * include_children_context: Include the context of the target's children.
-    * display_functional_parent_relation: Display the parent relation of functions withing the context.
+    * display_functional_parent_relation: Display the parent relation of functions within the context.
     """
 
     _display_symbols_as_boxes: bool

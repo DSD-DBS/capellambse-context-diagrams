@@ -428,11 +428,16 @@ class DiagramBuilder:
             if self.diagram._display_port_labels:
                 text = port_obj.name or "UNKNOWN"
                 port.labels = _makers.make_label(text)
-                _plp = self.diagram._port_label_position.name  # type: ignore[attr-defined]
-                if not (
-                    plp := getattr(_elkjs.PORT_LABEL_POSITION, _plp, None)
-                ):
-                    raise ValueError(f"Invalid port label position '{_plp}'.")
+                if isinstance(plp := self.diagram._port_label_position, str):
+                    try:
+                        plp = _elkjs.PORT_LABEL_POSITION[plp]
+                    except KeyError:
+                        raise ValueError(
+                            f"Invalid port label position '{plp}'."
+                        ) from None
+                elif not isinstance(plp, _elkjs.PORT_LABEL_POSITION):
+                    raise ValueError(f"Invalid port label position: {plp!r}")
+
                 assert isinstance(plp, _elkjs.PORT_LABEL_POSITION)
                 box.layoutOptions["portLabels.placement"] = plp.name
             box.ports.append(port)

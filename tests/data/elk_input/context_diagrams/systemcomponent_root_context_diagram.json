@@ -18,8 +18,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 100,
-                    "height": 14
+                    "width": 328,
+                    "height": 52
                 }
             ],
             "ports": [
@@ -48,8 +48,8 @@
                     "height": 10
                 }
             ],
-            "width": 106,
-            "height": 46
+            "width": 334,
+            "height": 84
         },
         {
             "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
@@ -59,8 +59,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 172,
-                    "height": 14
+                    "width": 628,
+                    "height": 52
                 }
             ],
             "ports": [
@@ -73,8 +73,8 @@
                     "height": 10
                 }
             ],
-            "width": 178,
-            "height": 38
+            "width": 634,
+            "height": 76
         },
         {
             "id": "6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6",
@@ -84,8 +84,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 184,
-                    "height": 14
+                    "width": 678,
+                    "height": 52
                 }
             ],
             "ports": [
@@ -98,8 +98,8 @@
                     "height": 10
                 }
             ],
-            "width": 190,
-            "height": 38
+            "width": 684,
+            "height": 76
         },
         {
             "id": "__Derived-SystemActor:d4a22478-5717-4ca7-bfc9-9a193e6218a8",
@@ -109,8 +109,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 136,
-                    "height": 14
+                    "width": 478,
+                    "height": 52
                 }
             ],
             "ports": [
@@ -123,8 +123,8 @@
                     "height": 10
                 }
             ],
-            "width": 142,
-            "height": 38
+            "width": 484,
+            "height": 76
         }
     ],
     "edges": [
@@ -142,8 +142,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 184,
-                    "height": 14
+                    "width": 678,
+                    "height": 52
                 }
             ]
         },
@@ -161,8 +161,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 196,
-                    "height": 14
+                    "width": 728,
+                    "height": 52
                 }
             ]
         },

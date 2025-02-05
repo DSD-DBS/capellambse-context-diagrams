@@ -18,12 +18,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 160,
-                    "height": 14
+                    "width": 578,
+                    "height": 52
                 }
             ],
-            "width": 166,
-            "height": 38
+            "width": 584,
+            "height": 76
         },
         {
             "id": "a8c42033-fdf2-458f-bae9-1cfd1207c49f",
@@ -33,20 +33,20 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 220,
-                    "height": 14
+                    "width": 828,
+                    "height": 52
                 },
                 {
                     "text": "Being",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 88,
-                    "height": 14
+                    "width": 278,
+                    "height": 52
                 }
             ],
-            "width": 226,
-            "height": 54
+            "width": 834,
+            "height": 130
         }
     ],
     "edges": [
@@ -64,8 +64,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 304,
-                    "height": 14
+                    "width": 1178,
+                    "height": 52
                 }
             ]
         }

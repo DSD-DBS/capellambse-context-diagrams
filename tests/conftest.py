@@ -52,7 +52,7 @@ def remove_ids_from_elk_layout(
 
 def text_size_mocker(text: str) -> tuple[int, int]:
     """Mock text size calculation."""
-    return (len(text) * 12, 12)
+    return (len(text) * 50, 50)
 
 
 def write_test_data_file(

@@ -9,28 +9,28 @@
                 "y": 12
             },
             "size": {
-                "width": 2262,
-                "height": 371
+                "width": 7924,
+                "height": 751
             },
             "type": "node",
             "children": [
                 {
                     "id": "2c2888dc-4e8f-4d07-aca9-9f4de004266b",
                     "position": {
-                        "x": 723,
-                        "y": 313
+                        "x": 2547,
+                        "y": 636
                     },
                     "size": {
-                        "width": 310,
-                        "height": 38
+                        "width": 1184,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
                         {
                             "id": "6ae29909-b358-4964-9d56-412a5dc4b2f2",
                             "position": {
-                                "x": 302,
-                                "y": 14
+                                "x": 1176,
+                                "y": 33
                             },
                             "size": {
                                 "width": 10,
@@ -39,14 +39,14 @@
                             "type": "port",
                             "children": [
                                 {
-                                    "id": "g_754209",
+                                    "id": "g_614256",
                                     "position": {
                                         "x": 11,
                                         "y": 11
                                     },
                                     "size": {
-                                        "width": 76,
-                                        "height": 14
+                                        "width": 228,
+                                        "height": 52
                                     },
                                     "type": "label",
                                     "text": "PP 2"
@@ -54,14 +54,14 @@
                             ]
                         },
                         {
-                            "id": "g_954985",
+                            "id": "g_929416",
                             "position": {
                                 "x": -1,
                                 "y": 12
                             },
                             "size": {
-                                "width": 304,
-                                "height": 14
+                                "width": 1178,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Train Signal Controller"
@@ -71,12 +71,12 @@
                 {
                     "id": "57325353-a19c-4dec-8f6f-05a214eac1c5",
                     "position": {
-                        "x": 1533,
-                        "y": 246
+                        "x": 5371,
+                        "y": 493
                     },
                     "size": {
-                        "width": 298,
-                        "height": 38
+                        "width": 1134,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
@@ -84,7 +84,7 @@
                             "id": "161568d6-9907-4c34-b9cc-a46fe81442a1",
                             "position": {
                                 "x": -2,
-                                "y": 14
+                                "y": 33
                             },
                             "size": {
                                 "width": 10,
@@ -93,14 +93,14 @@
                             "type": "port",
                             "children": [
                                 {
-                                    "id": "g_292665",
+                                    "id": "g_488121",
                                     "position": {
-                                        "x": -77,
+                                        "x": -229,
                                         "y": 11
                                     },
                                     "size": {
-                                        "width": 76,
-                                        "height": 14
+                                        "width": 228,
+                                        "height": 52
                                     },
                                     "type": "label",
                                     "text": "PP 1"
@@ -108,14 +108,14 @@
                             ]
                         },
                         {
-                            "id": "g_073229",
+                            "id": "g_540660",
                             "position": {
                                 "x": 7,
                                 "y": 12
                             },
                             "size": {
-                                "width": 292,
-                                "height": 14
+                                "width": 1128,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Train Detection Sensor"
@@ -125,12 +125,12 @@
                 {
                     "id": "a4cb3ff6-1289-4e27-91f2-4291cabe9db2",
                     "position": {
-                        "x": 1533,
-                        "y": 305
+                        "x": 5371,
+                        "y": 609
                     },
                     "size": {
-                        "width": 298,
-                        "height": 54
+                        "width": 1134,
+                        "height": 130
                     },
                     "type": "node",
                     "children": [
@@ -138,7 +138,7 @@
                             "id": "1604610c-c437-40fc-ba61-d01431b1d961",
                             "position": {
                                 "x": -2,
-                                "y": 22
+                                "y": 60
                             },
                             "size": {
                                 "width": 10,
@@ -147,14 +147,14 @@
                             "type": "port",
                             "children": [
                                 {
-                                    "id": "g_976059",
+                                    "id": "g_571543",
                                     "position": {
-                                        "x": -77,
+                                        "x": -229,
                                         "y": 11
                                     },
                                     "size": {
-                                        "width": 76,
-                                        "height": 14
+                                        "width": 228,
+                                        "height": 52
                                     },
                                     "type": "label",
                                     "text": "PP 1"
@@ -162,27 +162,27 @@
                             ]
                         },
                         {
-                            "id": "g_839368",
+                            "id": "g_259513",
                             "position": {
                                 "x": 7,
                                 "y": 13
                             },
                             "size": {
-                                "width": 292,
-                                "height": 14
+                                "width": 1128,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Level Crossing Barrier"
                         },
                         {
-                            "id": "g_723105",
+                            "id": "g_192151",
                             "position": {
-                                "x": 97,
-                                "y": 27
+                                "x": 382,
+                                "y": 65
                             },
                             "size": {
-                                "width": 112,
-                                "height": 14
+                                "width": 378,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Control"
@@ -192,12 +192,12 @@
                 {
                     "id": "2c907e35-bf5a-4421-ba51-5191af0a30f8",
                     "position": {
-                        "x": 1536,
-                        "y": 149
+                        "x": 5431,
+                        "y": 301
                     },
                     "size": {
-                        "width": 214,
-                        "height": 38
+                        "width": 784,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
@@ -205,7 +205,7 @@
                             "id": "ef739eb8-10c2-4b27-aa76-636c89e2403b",
                             "position": {
                                 "x": -2,
-                                "y": 14
+                                "y": 33
                             },
                             "size": {
                                 "width": 10,
@@ -214,14 +214,14 @@
                             "type": "port",
                             "children": [
                                 {
-                                    "id": "g_176179",
+                                    "id": "g_134742",
                                     "position": {
-                                        "x": -77,
+                                        "x": -229,
                                         "y": 11
                                     },
                                     "size": {
-                                        "width": 76,
-                                        "height": 14
+                                        "width": 228,
+                                        "height": 52
                                     },
                                     "type": "label",
                                     "text": "PP 1"
@@ -229,14 +229,14 @@
                             ]
                         },
                         {
-                            "id": "g_224882",
+                            "id": "g_809344",
                             "position": {
-                                "x": 19,
+                                "x": 57,
                                 "y": 12
                             },
                             "size": {
-                                "width": 184,
-                                "height": 14
+                                "width": 678,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Track Circuit"
@@ -246,12 +246,12 @@
                 {
                     "id": "23faf496-7a2d-4a41-b92a-fc240d9b5924",
                     "position": {
-                        "x": 1951,
-                        "y": 181
+                        "x": 6777,
+                        "y": 352
                     },
                     "size": {
-                        "width": 298,
-                        "height": 54
+                        "width": 1134,
+                        "height": 130
                     },
                     "type": "node",
                     "children": [
@@ -259,7 +259,7 @@
                             "id": "5cbec23a-3f3e-4828-8f14-1be0c09e1b54",
                             "position": {
                                 "x": -2,
-                                "y": 22
+                                "y": 60
                             },
                             "size": {
                                 "width": 10,
@@ -268,14 +268,14 @@
                             "type": "port",
                             "children": [
                                 {
-                                    "id": "g_597049",
+                                    "id": "g_168800",
                                     "position": {
-                                        "x": -77,
+                                        "x": -229,
                                         "y": 11
                                     },
                                     "size": {
-                                        "width": 76,
-                                        "height": 14
+                                        "width": 228,
+                                        "height": 52
                                     },
                                     "type": "label",
                                     "text": "PP 1"
@@ -283,27 +283,27 @@
                             ]
                         },
                         {
-                            "id": "g_639765",
+                            "id": "g_983340",
                             "position": {
                                 "x": 7,
                                 "y": 13
                             },
                             "size": {
-                                "width": 292,
-                                "height": 14
+                                "width": 1128,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Train Speed Monitoring"
                         },
                         {
-                            "id": "g_835856",
+                            "id": "g_190279",
                             "position": {
-                                "x": 115,
-                                "y": 27
+                                "x": 457,
+                                "y": 65
                             },
                             "size": {
-                                "width": 76,
-                                "height": 14
+                                "width": 228,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Unit"
@@ -313,20 +313,20 @@
                 {
                     "id": "954d934f-8804-454b-9ef2-ced201640891",
                     "position": {
-                        "x": 804,
-                        "y": 90
+                        "x": 2837,
+                        "y": 185
                     },
                     "size": {
-                        "width": 226,
-                        "height": 38
+                        "width": 834,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
                         {
                             "id": "781b3eb5-ab04-4677-a704-f42a987bef5a",
                             "position": {
-                                "x": 218,
-                                "y": 14
+                                "x": 826,
+                                "y": 33
                             },
                             "size": {
                                 "width": 10,
@@ -335,14 +335,14 @@
                             "type": "port",
                             "children": [
                                 {
-                                    "id": "g_635040",
+                                    "id": "g_929219",
                                     "position": {
                                         "x": 11,
                                         "y": 11
                                     },
                                     "size": {
-                                        "width": 76,
-                                        "height": 14
+                                        "width": 228,
+                                        "height": 52
                                     },
                                     "type": "label",
                                     "text": "PP 1"
@@ -350,14 +350,14 @@
                             ]
                         },
                         {
-                            "id": "g_932099",
+                            "id": "g_773728",
                             "position": {
                                 "x": -1,
                                 "y": 12
                             },
                             "size": {
-                                "width": 220,
-                                "height": 14
+                                "width": 828,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Signal Relay Box"
@@ -367,12 +367,12 @@
                 {
                     "id": "7b78da30-7f39-4000-a2d6-3f7c1b56a5f5",
                     "position": {
-                        "x": 1533,
-                        "y": 90
+                        "x": 5371,
+                        "y": 185
                     },
                     "size": {
-                        "width": 298,
-                        "height": 38
+                        "width": 1134,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
@@ -380,7 +380,7 @@
                             "id": "1f4ae78e-0602-4313-a9b7-60ec607141f8",
                             "position": {
                                 "x": -2,
-                                "y": 14
+                                "y": 33
                             },
                             "size": {
                                 "width": 10,
@@ -389,14 +389,14 @@
                             "type": "port",
                             "children": [
                                 {
-                                    "id": "g_183104",
+                                    "id": "g_277430",
                                     "position": {
-                                        "x": -77,
+                                        "x": -229,
                                         "y": 11
                                     },
                                     "size": {
-                                        "width": 76,
-                                        "height": 14
+                                        "width": 228,
+                                        "height": 52
                                     },
                                     "type": "label",
                                     "text": "PP 1"
@@ -404,14 +404,14 @@
                             ]
                         },
                         {
-                            "id": "g_854126",
+                            "id": "g_434884",
                             "position": {
                                 "x": 7,
                                 "y": 12
                             },
                             "size": {
-                                "width": 292,
-                                "height": 14
+                                "width": 1128,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Trackside Signal Light"
@@ -421,12 +421,12 @@
                 {
                     "id": "3924460c-321e-4300-8788-a6713dd64456",
                     "position": {
-                        "x": 1533,
-                        "y": 31
+                        "x": 5371,
+                        "y": 69
                     },
                     "size": {
-                        "width": 286,
-                        "height": 38
+                        "width": 1084,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
@@ -434,7 +434,7 @@
                             "id": "a9554c35-de02-4c68-90fc-e3bcba791654",
                             "position": {
                                 "x": -2,
-                                "y": 14
+                                "y": 33
                             },
                             "size": {
                                 "width": 10,
@@ -443,14 +443,14 @@
                             "type": "port",
                             "children": [
                                 {
-                                    "id": "g_682539",
+                                    "id": "g_544906",
                                     "position": {
-                                        "x": -77,
+                                        "x": -229,
                                         "y": 11
                                     },
                                     "size": {
-                                        "width": 76,
-                                        "height": 14
+                                        "width": 228,
+                                        "height": 52
                                     },
                                     "type": "label",
                                     "text": "PP 1"
@@ -458,14 +458,14 @@
                             ]
                         },
                         {
-                            "id": "g_810037",
+                            "id": "g_456596",
                             "position": {
                                 "x": 7,
                                 "y": 12
                             },
                             "size": {
-                                "width": 280,
-                                "height": 14
+                                "width": 1078,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Emergency Stop Button"
@@ -475,12 +475,12 @@
                 {
                     "id": "7ae1d744-67b8-4506-8e39-be3006b0e5b9",
                     "position": {
-                        "x": 801,
-                        "y": 31
+                        "x": 2777,
+                        "y": 69
                     },
                     "size": {
-                        "width": 238,
-                        "height": 38
+                        "width": 884,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
@@ -488,7 +488,7 @@
                             "id": "6eed2367-eb48-4bf0-a1c8-bfd2f245bd3d",
                             "position": {
                                 "x": -2,
-                                "y": 14
+                                "y": 33
                             },
                             "size": {
                                 "width": 10,
@@ -497,14 +497,14 @@
                             "type": "port",
                             "children": [
                                 {
-                                    "id": "g_270810",
+                                    "id": "g_348590",
                                     "position": {
-                                        "x": -77,
+                                        "x": -229,
                                         "y": 11
                                     },
                                     "size": {
-                                        "width": 76,
-                                        "height": 14
+                                        "width": 228,
+                                        "height": 52
                                     },
                                     "type": "label",
                                     "text": "PP 1"
@@ -512,14 +512,14 @@
                             ]
                         },
                         {
-                            "id": "g_942932",
+                            "id": "g_818138",
                             "position": {
                                 "x": 7,
                                 "y": 12
                             },
                             "size": {
-                                "width": 232,
-                                "height": 14
+                                "width": 878,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Communication Hub"
@@ -530,19 +530,19 @@
                     "id": "07ba7c6c-3a3e-4817-967d-a30a34808089",
                     "position": {
                         "x": 13,
-                        "y": 279
+                        "y": 564
                     },
                     "size": {
-                        "width": 274,
-                        "height": 48
+                        "width": 1034,
+                        "height": 124
                     },
                     "type": "node",
                     "children": [
                         {
                             "id": "c403d4f4-9633-42a2-a5d6-9e1df2655146",
                             "position": {
-                                "x": 266,
-                                "y": 19
+                                "x": 1026,
+                                "y": 57
                             },
                             "size": {
                                 "width": 10,
@@ -551,14 +551,14 @@
                             "type": "port",
                             "children": [
                                 {
-                                    "id": "g_851838",
+                                    "id": "g_784007",
                                     "position": {
                                         "x": 11,
                                         "y": 11
                                     },
                                     "size": {
-                                        "width": 76,
-                                        "height": 14
+                                        "width": 228,
+                                        "height": 52
                                     },
                                     "type": "label",
                                     "text": "PP 1"
@@ -566,14 +566,14 @@
                             ]
                         },
                         {
-                            "id": "g_608345",
+                            "id": "g_146937",
                             "position": {
                                 "x": -1,
-                                "y": 17
+                                "y": 36
                             },
                             "size": {
-                                "width": 268,
-                                "height": 14
+                                "width": 1028,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Main Control Station"
@@ -581,14 +581,14 @@
                     ]
                 },
                 {
-                    "id": "g_991272",
+                    "id": "g_462499",
                     "position": {
-                        "x": 1027,
+                        "x": 3573,
                         "y": 5
                     },
                     "size": {
-                        "width": 208,
-                        "height": 14
+                        "width": 778,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "Physical System"
@@ -600,20 +600,20 @@
                     "targetId": "6ae29909-b358-4964-9d56-412a5dc4b2f2",
                     "routingPoints": [
                         {
-                            "x": 289,
-                            "y": 303
+                            "x": 1049,
+                            "y": 626
                         },
                         {
-                            "x": 1132,
-                            "y": 303
+                            "x": 3982,
+                            "y": 626
                         },
                         {
-                            "x": 1132,
-                            "y": 332
+                            "x": 3982,
+                            "y": 674
                         },
                         {
-                            "x": 1035,
-                            "y": 332
+                            "x": 3733,
+                            "y": 674
                         }
                     ],
                     "children": [
@@ -621,27 +621,27 @@
                             "id": "5c55b11b-4911-40fb-9c4c-f1363dad846e_j0",
                             "type": "junction",
                             "position": {
-                                "x": 1132,
-                                "y": 303
+                                "x": 3982,
+                                "y": 626
                             }
                         },
                         {
                             "id": "5c55b11b-4911-40fb-9c4c-f1363dad846e_j1",
                             "type": "junction",
                             "position": {
-                                "x": 1132,
-                                "y": 332
+                                "x": 3982,
+                                "y": 674
                             }
                         },
                         {
-                            "id": "g_565299",
+                            "id": "g_427558",
                             "position": {
-                                "x": 446,
-                                "y": 306
+                                "x": 1548,
+                                "y": 629
                             },
                             "size": {
-                                "width": 196,
-                                "height": 14
+                                "width": 728,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Control Signal"
@@ -655,20 +655,20 @@
                     "targetId": "161568d6-9907-4c34-b9cc-a46fe81442a1",
                     "routingPoints": [
                         {
-                            "x": 1035,
-                            "y": 332
+                            "x": 3733,
+                            "y": 674
                         },
                         {
-                            "x": 1132,
-                            "y": 332
+                            "x": 3982,
+                            "y": 674
                         },
                         {
-                            "x": 1132,
-                            "y": 265
+                            "x": 3982,
+                            "y": 531
                         },
                         {
-                            "x": 1531,
-                            "y": 265
+                            "x": 5369,
+                            "y": 531
                         }
                     ],
                     "children": [
@@ -676,19 +676,19 @@
                             "id": "890dc479-062c-416d-955f-b78e083e0e48_j0",
                             "type": "junction",
                             "position": {
-                                "x": 1132,
-                                "y": 265
+                                "x": 3982,
+                                "y": 531
                             }
                         },
                         {
-                            "id": "g_951764",
+                            "id": "g_402769",
                             "position": {
-                                "x": 1148,
-                                "y": 268
+                                "x": 4017,
+                                "y": 534
                             },
                             "size": {
-                                "width": 280,
-                                "height": 14
+                                "width": 1078,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Detection Signal Link"
@@ -702,24 +702,24 @@
                     "targetId": "1604610c-c437-40fc-ba61-d01431b1d961",
                     "routingPoints": [
                         {
-                            "x": 1035,
-                            "y": 332
+                            "x": 3733,
+                            "y": 674
                         },
                         {
-                            "x": 1531,
-                            "y": 332
+                            "x": 5369,
+                            "y": 674
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_509945",
+                            "id": "g_407256",
                             "position": {
-                                "x": 1160,
-                                "y": 335
+                                "x": 4067,
+                                "y": 677
                             },
                             "size": {
-                                "width": 256,
-                                "height": 14
+                                "width": 978,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Level Crossing Link"
@@ -733,32 +733,32 @@
                     "targetId": "ef739eb8-10c2-4b27-aa76-636c89e2403b",
                     "routingPoints": [
                         {
-                            "x": 1035,
-                            "y": 332
+                            "x": 3733,
+                            "y": 674
                         },
                         {
-                            "x": 1132,
-                            "y": 332
+                            "x": 3982,
+                            "y": 674
                         },
                         {
-                            "x": 1132,
-                            "y": 168
+                            "x": 3982,
+                            "y": 339
                         },
                         {
-                            "x": 1534,
-                            "y": 168
+                            "x": 5429,
+                            "y": 339
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_192166",
+                            "id": "g_505867",
                             "position": {
-                                "x": 1166,
-                                "y": 171
+                                "x": 4092,
+                                "y": 342
                             },
                             "size": {
-                                "width": 244,
-                                "height": 14
+                                "width": 928,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Track Circuit Link"
@@ -772,20 +772,20 @@
                     "targetId": "5cbec23a-3f3e-4828-8f14-1be0c09e1b54",
                     "routingPoints": [
                         {
-                            "x": 1534,
-                            "y": 168
+                            "x": 5429,
+                            "y": 339
                         },
                         {
-                            "x": 1444,
-                            "y": 168
+                            "x": 5130,
+                            "y": 339
                         },
                         {
-                            "x": 1444,
-                            "y": 208
+                            "x": 5130,
+                            "y": 417
                         },
                         {
-                            "x": 1949,
-                            "y": 208
+                            "x": 6775,
+                            "y": 417
                         }
                     ],
                     "children": [
@@ -793,19 +793,19 @@
                             "id": "93b6d377-0718-4c5b-8bc0-b020122beb83_j0",
                             "type": "junction",
                             "position": {
-                                "x": 1444,
-                                "y": 168
+                                "x": 5130,
+                                "y": 339
                             }
                         },
                         {
-                            "id": "g_076154",
+                            "id": "g_681755",
                             "position": {
-                                "x": 1503,
-                                "y": 211
+                                "x": 5284,
+                                "y": 420
                             },
                             "size": {
-                                "width": 280,
-                                "height": 14
+                                "width": 1078,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Track Monitoring Link"
@@ -819,28 +819,28 @@
                     "targetId": "781b3eb5-ab04-4677-a704-f42a987bef5a",
                     "routingPoints": [
                         {
-                            "x": 289,
-                            "y": 303
+                            "x": 1049,
+                            "y": 626
                         },
                         {
-                            "x": 376,
-                            "y": 303
+                            "x": 1288,
+                            "y": 626
                         },
                         {
-                            "x": 376,
-                            "y": 275
+                            "x": 1288,
+                            "y": 560
                         },
                         {
-                            "x": 1122,
-                            "y": 275
+                            "x": 3972,
+                            "y": 560
                         },
                         {
-                            "x": 1122,
-                            "y": 109
+                            "x": 3972,
+                            "y": 223
                         },
                         {
-                            "x": 1032,
-                            "y": 109
+                            "x": 3673,
+                            "y": 223
                         }
                     ],
                     "children": [
@@ -848,27 +848,27 @@
                             "id": "aaec4139-9982-4abb-b27f-df3ceaf8e0a8_j0",
                             "type": "junction",
                             "position": {
-                                "x": 376,
-                                "y": 303
+                                "x": 1288,
+                                "y": 626
                             }
                         },
                         {
                             "id": "aaec4139-9982-4abb-b27f-df3ceaf8e0a8_j1",
                             "type": "junction",
                             "position": {
-                                "x": 376,
-                                "y": 275
+                                "x": 1288,
+                                "y": 560
                             }
                         },
                         {
-                            "id": "g_611951",
+                            "id": "g_610532",
                             "position": {
-                                "x": 386,
-                                "y": 278
+                                "x": 1298,
+                                "y": 563
                             },
                             "size": {
-                                "width": 316,
-                                "height": 14
+                                "width": 1228,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Signal Transmission Link"
@@ -882,24 +882,24 @@
                     "targetId": "1f4ae78e-0602-4313-a9b7-60ec607141f8",
                     "routingPoints": [
                         {
-                            "x": 1032,
-                            "y": 109
+                            "x": 3673,
+                            "y": 223
                         },
                         {
-                            "x": 1531,
-                            "y": 109
+                            "x": 5369,
+                            "y": 223
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_173364",
+                            "id": "g_077507",
                             "position": {
-                                "x": 1160,
-                                "y": 112
+                                "x": 4067,
+                                "y": 226
                             },
                             "size": {
-                                "width": 256,
-                                "height": 14
+                                "width": 978,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Signal Control Link"
@@ -913,20 +913,20 @@
                     "targetId": "a9554c35-de02-4c68-90fc-e3bcba791654",
                     "routingPoints": [
                         {
-                            "x": 1032,
-                            "y": 109
+                            "x": 3673,
+                            "y": 223
                         },
                         {
-                            "x": 1122,
-                            "y": 109
+                            "x": 3972,
+                            "y": 223
                         },
                         {
-                            "x": 1122,
-                            "y": 50
+                            "x": 3972,
+                            "y": 107
                         },
                         {
-                            "x": 1531,
-                            "y": 50
+                            "x": 5369,
+                            "y": 107
                         }
                     ],
                     "children": [
@@ -934,19 +934,19 @@
                             "id": "c619ff57-aad7-4ad7-928a-77160235198a_j0",
                             "type": "junction",
                             "position": {
-                                "x": 1122,
-                                "y": 109
+                                "x": 3972,
+                                "y": 223
                             }
                         },
                         {
-                            "id": "g_986515",
+                            "id": "g_305803",
                             "position": {
-                                "x": 1142,
-                                "y": 53
+                                "x": 3992,
+                                "y": 110
                             },
                             "size": {
-                                "width": 292,
-                                "height": 14
+                                "width": 1128,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Emergency Control Link"
@@ -960,32 +960,32 @@
                     "targetId": "6eed2367-eb48-4bf0-a1c8-bfd2f245bd3d",
                     "routingPoints": [
                         {
-                            "x": 289,
-                            "y": 303
+                            "x": 1049,
+                            "y": 626
                         },
                         {
-                            "x": 376,
-                            "y": 303
+                            "x": 1288,
+                            "y": 626
                         },
                         {
-                            "x": 376,
-                            "y": 50
+                            "x": 1288,
+                            "y": 107
                         },
                         {
-                            "x": 799,
-                            "y": 50
+                            "x": 2775,
+                            "y": 107
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_930650",
+                            "id": "g_254649",
                             "position": {
-                                "x": 422,
-                                "y": 53
+                                "x": 1448,
+                                "y": 110
                             },
                             "size": {
-                                "width": 244,
-                                "height": 14
+                                "width": 928,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Communication Link"

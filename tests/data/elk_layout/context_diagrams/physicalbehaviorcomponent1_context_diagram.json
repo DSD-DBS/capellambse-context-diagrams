@@ -9,20 +9,20 @@
                 "y": 12
             },
             "size": {
-                "width": 786,
-                "height": 82
+                "width": 2572,
+                "height": 177
             },
             "type": "node",
             "children": [
                 {
                     "id": "2de65884-8c89-4c55-8941-4aa1a07b8d86",
                     "position": {
-                        "x": 560,
-                        "y": 31
+                        "x": 1776,
+                        "y": 69
                     },
                     "size": {
-                        "width": 214,
-                        "height": 38
+                        "width": 784,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
@@ -30,7 +30,7 @@
                             "id": "f61701c6-bfc2-4549-91d9-f76efaf0c9ee",
                             "position": {
                                 "x": -2,
-                                "y": 14
+                                "y": 33
                             },
                             "size": {
                                 "width": 10,
@@ -39,14 +39,14 @@
                             "type": "port",
                             "children": [
                                 {
-                                    "id": "g_402485",
+                                    "id": "g_453319",
                                     "position": {
-                                        "x": -77,
+                                        "x": -229,
                                         "y": 11
                                     },
                                     "size": {
-                                        "width": 76,
-                                        "height": 14
+                                        "width": 228,
+                                        "height": 52
                                     },
                                     "type": "label",
                                     "text": "CP 1"
@@ -54,14 +54,14 @@
                             ]
                         },
                         {
-                            "id": "g_426420",
+                            "id": "g_652221",
                             "position": {
-                                "x": 19,
+                                "x": 57,
                                 "y": 12
                             },
                             "size": {
-                                "width": 184,
-                                "height": 14
+                                "width": 678,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Node Software"
@@ -72,19 +72,19 @@
                     "id": "313f48f4-fb7e-47a8-b28a-76440932fcb9",
                     "position": {
                         "x": 12,
-                        "y": 31
+                        "y": 69
                     },
                     "size": {
-                        "width": 214,
-                        "height": 38
+                        "width": 784,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
                         {
                             "id": "db2d7b36-8144-4ec7-8673-206faaf4590e",
                             "position": {
-                                "x": 206,
-                                "y": 14
+                                "x": 776,
+                                "y": 33
                             },
                             "size": {
                                 "width": 10,
@@ -93,14 +93,14 @@
                             "type": "port",
                             "children": [
                                 {
-                                    "id": "g_322245",
+                                    "id": "g_503153",
                                     "position": {
                                         "x": 11,
                                         "y": 11
                                     },
                                     "size": {
-                                        "width": 76,
-                                        "height": 14
+                                        "width": 228,
+                                        "height": 52
                                     },
                                     "type": "label",
                                     "text": "CP 1"
@@ -108,14 +108,14 @@
                             ]
                         },
                         {
-                            "id": "g_874546",
+                            "id": "g_142396",
                             "position": {
-                                "x": 23,
+                                "x": 99,
                                 "y": 12
                             },
                             "size": {
-                                "width": 160,
-                                "height": 14
+                                "width": 578,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "PC Software"
@@ -123,14 +123,14 @@
                     ]
                 },
                 {
-                    "id": "g_710152",
+                    "id": "g_816987",
                     "position": {
-                        "x": 289,
+                        "x": 897,
                         "y": 5
                     },
                     "size": {
-                        "width": 208,
-                        "height": 14
+                        "width": 778,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "Physical System"
@@ -142,24 +142,24 @@
                     "targetId": "f61701c6-bfc2-4549-91d9-f76efaf0c9ee",
                     "routingPoints": [
                         {
-                            "x": 228,
-                            "y": 50
+                            "x": 798,
+                            "y": 107
                         },
                         {
-                            "x": 558,
-                            "y": 50
+                            "x": 1774,
+                            "y": 107
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_184034",
+                            "id": "g_262687",
                             "position": {
-                                "x": 325,
-                                "y": 53
+                                "x": 1047,
+                                "y": 110
                             },
                             "size": {
-                                "width": 136,
-                                "height": 14
+                                "width": 478,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Interface"

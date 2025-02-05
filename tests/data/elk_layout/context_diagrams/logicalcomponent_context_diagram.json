@@ -9,8 +9,8 @@
                 "y": 12
             },
             "size": {
-                "width": 870,
-                "height": 83
+                "width": 2770,
+                "height": 176
             },
             "type": "node",
             "children": [
@@ -18,19 +18,19 @@
                     "id": "f8c9df04-fcd5-479d-814b-696fa6050231",
                     "position": {
                         "x": 12,
-                        "y": 32
+                        "y": 70
                     },
                     "size": {
-                        "width": 130,
-                        "height": 38
+                        "width": 434,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
                         {
                             "id": "1286b0fe-dd57-46ba-8303-bd57eb04178d",
                             "position": {
-                                "x": 122,
-                                "y": 14
+                                "x": 426,
+                                "y": 33
                             },
                             "size": {
                                 "width": 10,
@@ -39,14 +39,14 @@
                             "type": "port"
                         },
                         {
-                            "id": "g_044890",
+                            "id": "g_034086",
                             "position": {
-                                "x": 17,
+                                "x": 74,
                                 "y": 12
                             },
                             "size": {
-                                "width": 88,
-                                "height": 14
+                                "width": 278,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Upper"
@@ -56,12 +56,12 @@
                 {
                     "id": "37dfa5e6-a121-4ce9-8aa4-09a0c73dc2e9",
                     "position": {
-                        "x": 728,
-                        "y": 32
+                        "x": 2324,
+                        "y": 70
                     },
                     "size": {
-                        "width": 130,
-                        "height": 38
+                        "width": 434,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
@@ -69,7 +69,7 @@
                             "id": "58f89f0a-7647-4077-b29b-8fe2bf270f02",
                             "position": {
                                 "x": -2,
-                                "y": 14
+                                "y": 33
                             },
                             "size": {
                                 "width": 10,
@@ -78,14 +78,14 @@
                             "type": "port"
                         },
                         {
-                            "id": "g_495257",
+                            "id": "g_987418",
                             "position": {
-                                "x": 25,
+                                "x": 82,
                                 "y": 12
                             },
                             "size": {
-                                "width": 88,
-                                "height": 14
+                                "width": 278,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Right"
@@ -95,12 +95,12 @@
                 {
                     "id": "f632888e-51bc-4c9f-8e81-73e9404de784",
                     "position": {
-                        "x": 370,
-                        "y": 31
+                        "x": 1168,
+                        "y": 69
                     },
                     "size": {
-                        "width": 130,
-                        "height": 40
+                        "width": 434,
+                        "height": 78
                     },
                     "type": "node",
                     "children": [
@@ -108,7 +108,7 @@
                             "id": "a001cfb0-2b21-4e52-a119-8f4515dded91",
                             "position": {
                                 "x": -2,
-                                "y": 15
+                                "y": 34
                             },
                             "size": {
                                 "width": 10,
@@ -119,8 +119,8 @@
                         {
                             "id": "f89ea9b3-e92d-49cb-ae9e-a734a9f5c5dc",
                             "position": {
-                                "x": 122,
-                                "y": 15
+                                "x": 426,
+                                "y": 34
                             },
                             "size": {
                                 "width": 10,
@@ -129,14 +129,14 @@
                             "type": "port"
                         },
                         {
-                            "id": "g_696130",
+                            "id": "g_363578",
                             "position": {
-                                "x": 27,
+                                "x": 103,
                                 "y": 13
                             },
                             "size": {
-                                "width": 76,
-                                "height": 14
+                                "width": 228,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Left"
@@ -144,14 +144,14 @@
                     ]
                 },
                 {
-                    "id": "g_910746",
+                    "id": "g_370113",
                     "position": {
-                        "x": 373,
+                        "x": 1171,
                         "y": 5
                     },
                     "size": {
-                        "width": 124,
-                        "height": 14
+                        "width": 428,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "Hogwarts"
@@ -163,24 +163,24 @@
                     "targetId": "a001cfb0-2b21-4e52-a119-8f4515dded91",
                     "routingPoints": [
                         {
-                            "x": 144,
-                            "y": 51
+                            "x": 448,
+                            "y": 108
                         },
                         {
-                            "x": 368,
-                            "y": 51
+                            "x": 1166,
+                            "y": 108
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_633231",
+                            "id": "g_115246",
                             "position": {
-                                "x": 164,
-                                "y": 54
+                                "x": 468,
+                                "y": 111
                             },
                             "size": {
-                                "width": 184,
-                                "height": 14
+                                "width": 678,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Upper to Left"
@@ -194,24 +194,24 @@
                     "targetId": "58f89f0a-7647-4077-b29b-8fe2bf270f02",
                     "routingPoints": [
                         {
-                            "x": 502,
-                            "y": 51
+                            "x": 1604,
+                            "y": 108
                         },
                         {
-                            "x": 726,
-                            "y": 51
+                            "x": 2322,
+                            "y": 108
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_946785",
+                            "id": "g_548146",
                             "position": {
-                                "x": 522,
-                                "y": 54
+                                "x": 1624,
+                                "y": 111
                             },
                             "size": {
-                                "width": 184,
-                                "height": 14
+                                "width": 678,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Left to right"

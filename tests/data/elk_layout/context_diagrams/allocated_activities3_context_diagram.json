@@ -9,71 +9,71 @@
                 "y": 12
             },
             "size": {
-                "width": 1323,
-                "height": 158.33333333333331
+                "width": 4591,
+                "height": 373.6666666666667
             },
             "type": "node",
             "children": [
                 {
                     "id": "c90f731b-0036-47e5-a455-9cf270d6880c",
                     "position": {
-                        "x": 498,
-                        "y": 60.33333333333333
+                        "x": 1714,
+                        "y": 123.66666666666669
                     },
                     "size": {
-                        "width": 250,
-                        "height": 86
+                        "width": 934,
+                        "height": 238
                     },
                     "type": "node",
                     "children": [
                         {
-                            "id": "g_789252",
+                            "id": "g_798465",
                             "position": {
-                                "x": 9,
+                                "x": 28,
                                 "y": 15
                             },
                             "size": {
-                                "width": 232,
-                                "height": 14
+                                "width": 878,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Estimate required"
                         },
                         {
-                            "id": "g_371936",
+                            "id": "g_414458",
                             "position": {
                                 "x": 3,
-                                "y": 29
+                                "y": 67
                             },
                             "size": {
-                                "width": 244,
-                                "height": 14
+                                "width": 928,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "power and select a"
                         },
                         {
-                            "id": "g_013420",
+                            "id": "g_530202",
                             "position": {
-                                "x": 9,
-                                "y": 43
+                                "x": 28,
+                                "y": 119
                             },
                             "size": {
-                                "width": 232,
-                                "height": 14
+                                "width": 878,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "delivery bot with"
                         },
                         {
-                            "id": "g_902481",
+                            "id": "g_422651",
                             "position": {
-                                "x": 27,
-                                "y": 57
+                                "x": 103,
+                                "y": 171
                             },
                             "size": {
-                                "width": 196,
-                                "height": 14
+                                "width": 728,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "enough battery"
@@ -84,23 +84,23 @@
                     "id": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
                     "position": {
                         "x": 12,
-                        "y": 84.33333333333333
+                        "y": 204.66666666666669
                     },
                     "size": {
-                        "width": 226,
-                        "height": 38
+                        "width": 834,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
                         {
-                            "id": "g_477262",
+                            "id": "g_636092",
                             "position": {
                                 "x": 3,
                                 "y": 12
                             },
                             "size": {
-                                "width": 220,
-                                "height": 14
+                                "width": 828,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Prepare delivery"
@@ -110,12 +110,12 @@
                 {
                     "id": "7000b811-c8e8-4060-8f60-c87462046057",
                     "position": {
-                        "x": 989,
-                        "y": 31
+                        "x": 3421,
+                        "y": 69
                     },
                     "size": {
-                        "width": 322,
-                        "height": 97
+                        "width": 1158,
+                        "height": 211
                     },
                     "type": "node",
                     "children": [
@@ -123,36 +123,36 @@
                             "id": "ecf98af6-6648-4552-b5ba-4c86e458ca45",
                             "position": {
                                 "x": 12,
-                                "y": 31
+                                "y": 69
                             },
                             "size": {
-                                "width": 298,
-                                "height": 54
+                                "width": 1134,
+                                "height": 130
                             },
                             "type": "node",
                             "children": [
                                 {
-                                    "id": "g_148003",
+                                    "id": "g_051977",
                                     "position": {
                                         "x": 3,
                                         "y": 13
                                     },
                                     "size": {
-                                        "width": 292,
-                                        "height": 14
+                                        "width": 1128,
+                                        "height": 52
                                     },
                                     "type": "label",
                                     "text": "Load selected delivery"
                                 },
                                 {
-                                    "id": "g_485792",
+                                    "id": "g_118257",
                                     "position": {
-                                        "x": 117,
-                                        "y": 27
+                                        "x": 478,
+                                        "y": 65
                                     },
                                     "size": {
-                                        "width": 64,
-                                        "height": 14
+                                        "width": 178,
+                                        "height": 52
                                     },
                                     "type": "label",
                                     "text": "bot"
@@ -160,14 +160,14 @@
                             ]
                         },
                         {
-                            "id": "g_672282",
+                            "id": "g_766957",
                             "position": {
-                                "x": 81,
+                                "x": 290,
                                 "y": 5
                             },
                             "size": {
-                                "width": 160,
-                                "height": 14
+                                "width": 578,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Loading Bot"
@@ -175,14 +175,14 @@
                     ]
                 },
                 {
-                    "id": "g_055821",
+                    "id": "g_192138",
                     "position": {
-                        "x": 557.5,
+                        "x": 1906.5,
                         "y": 5
                     },
                     "size": {
-                        "width": 208,
-                        "height": 14
+                        "width": 778,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "Smart warehouse"
@@ -194,24 +194,24 @@
                     "targetId": "c90f731b-0036-47e5-a455-9cf270d6880c",
                     "routingPoints": [
                         {
-                            "x": 238,
-                            "y": 103.33333333333333
+                            "x": 846,
+                            "y": 242.66666666666669
                         },
                         {
-                            "x": 498,
-                            "y": 103.33333333333333
+                            "x": 1714,
+                            "y": 242.66666666666669
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_711478",
+                            "id": "g_276394",
                             "position": {
-                                "x": 258,
-                                "y": 106.33333333333333
+                                "x": 866,
+                                "y": 245.66666666666669
                             },
                             "size": {
-                                "width": 220,
-                                "height": 14
+                                "width": 828,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "delivery address"
@@ -225,24 +225,24 @@
                     "targetId": "ecf98af6-6648-4552-b5ba-4c86e458ca45",
                     "routingPoints": [
                         {
-                            "x": 748,
-                            "y": 89
+                            "x": 2648,
+                            "y": 203
                         },
                         {
-                            "x": 1001,
-                            "y": 89
+                            "x": 3433,
+                            "y": 203
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_888725",
+                            "id": "g_852460",
                             "position": {
-                                "x": 768,
-                                "y": 72
+                                "x": 2668,
+                                "y": 148
                             },
                             "size": {
-                                "width": 196,
-                                "height": 14
+                                "width": 728,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "bot identifier"
@@ -254,12 +254,12 @@
         {
             "id": "9e7eb78b-f4ad-4762-9f5c-d6f60630b10e",
             "position": {
-                "x": 1701,
-                "y": 100
+                "x": 5881,
+                "y": 195
             },
             "size": {
-                "width": 250,
-                "height": 81
+                "width": 858,
+                "height": 157
             },
             "type": "node",
             "children": [
@@ -267,23 +267,23 @@
                     "id": "b4601205-9104-4e24-bd03-940ca15f6a1e",
                     "position": {
                         "x": 12,
-                        "y": 31
+                        "y": 69
                     },
                     "size": {
-                        "width": 226,
-                        "height": 38
+                        "width": 834,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
                         {
-                            "id": "g_890738",
+                            "id": "g_994120",
                             "position": {
                                 "x": 3,
                                 "y": 12
                             },
                             "size": {
-                                "width": 220,
-                                "height": 14
+                                "width": 828,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Move for loading"
@@ -291,14 +291,14 @@
                     ]
                 },
                 {
-                    "id": "g_513130",
+                    "id": "g_210556",
                     "position": {
-                        "x": 39,
+                        "x": 115,
                         "y": 5
                     },
                     "size": {
-                        "width": 172,
-                        "height": 14
+                        "width": 628,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "Delivery Bot"
@@ -312,32 +312,32 @@
             "targetId": "b4601205-9104-4e24-bd03-940ca15f6a1e",
             "routingPoints": [
                 {
-                    "x": 760,
-                    "y": 129.66666666666666
+                    "x": 2660,
+                    "y": 294.33333333333337
                 },
                 {
-                    "x": 770,
-                    "y": 129.66666666666666
+                    "x": 2670,
+                    "y": 294.33333333333337
                 },
                 {
-                    "x": 770,
-                    "y": 150
+                    "x": 2670,
+                    "y": 302
                 },
                 {
-                    "x": 1713,
-                    "y": 150
+                    "x": 5893,
+                    "y": 302
                 }
             ],
             "children": [
                 {
-                    "id": "g_920795",
+                    "id": "g_910010",
                     "position": {
-                        "x": 1360,
-                        "y": 153
+                        "x": 4628,
+                        "y": 305
                     },
                     "size": {
-                        "width": 316,
-                        "height": 14
+                        "width": 1228,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "loading movement command"

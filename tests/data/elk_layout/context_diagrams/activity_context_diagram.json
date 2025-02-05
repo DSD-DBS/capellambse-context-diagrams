@@ -9,32 +9,32 @@
                 "y": 12
             },
             "size": {
-                "width": 688,
-                "height": 121
+                "width": 2056,
+                "height": 291
             },
             "type": "node",
             "children": [
                 {
                     "id": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
                     "position": {
-                        "x": 387,
-                        "y": 71
+                        "x": 1261,
+                        "y": 185
                     },
                     "size": {
-                        "width": 70,
-                        "height": 38
+                        "width": 184,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
                         {
-                            "id": "g_241181",
+                            "id": "g_091703",
                             "position": {
                                 "x": 3,
                                 "y": 12
                             },
                             "size": {
-                                "width": 64,
-                                "height": 14
+                                "width": 178,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Eat"
@@ -45,23 +45,23 @@
                     "id": "0e0164c3-076e-42c1-8f82-7a43ab84385c",
                     "position": {
                         "x": 12,
-                        "y": 71
+                        "y": 185
                     },
                     "size": {
-                        "width": 142,
-                        "height": 38
+                        "width": 484,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
                         {
-                            "id": "g_753914",
+                            "id": "g_150501",
                             "position": {
                                 "x": 3,
                                 "y": 12
                             },
                             "size": {
-                                "width": 136,
-                                "height": 14
+                                "width": 478,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Make Food"
@@ -71,24 +71,24 @@
                 {
                     "id": "ab016025-d456-4c2d-8359-d50cf9de3825",
                     "position": {
-                        "x": 582,
-                        "y": 71
+                        "x": 1760,
+                        "y": 185
                     },
                     "size": {
-                        "width": 94,
-                        "height": 38
+                        "width": 284,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
                         {
-                            "id": "g_116317",
+                            "id": "g_480660",
                             "position": {
                                 "x": 3,
                                 "y": 12
                             },
                             "size": {
-                                "width": 88,
-                                "height": 14
+                                "width": 278,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Sleep"
@@ -96,27 +96,27 @@
                     ]
                 },
                 {
-                    "id": "g_160548",
+                    "id": "g_138834",
                     "position": {
-                        "x": 234,
+                        "x": 614,
                         "y": 5
                     },
                     "size": {
-                        "width": 220,
-                        "height": 14
+                        "width": 828,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "Functional Human"
                 },
                 {
-                    "id": "g_925948",
+                    "id": "g_386454",
                     "position": {
-                        "x": 300,
-                        "y": 19
+                        "x": 889,
+                        "y": 57
                     },
                     "size": {
-                        "width": 88,
-                        "height": 14
+                        "width": 278,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "Being"
@@ -128,32 +128,32 @@
                     "targetId": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
                     "routingPoints": [
                         {
-                            "x": 410.3333333333333,
-                            "y": 71
+                            "x": 1322.3333333333333,
+                            "y": 185
                         },
                         {
-                            "x": 410.3333333333333,
-                            "y": 61
+                            "x": 1322.3333333333333,
+                            "y": 175
                         },
                         {
-                            "x": 433.6666666666667,
-                            "y": 61
+                            "x": 1383.6666666666667,
+                            "y": 175
                         },
                         {
-                            "x": 433.6666666666667,
-                            "y": 71
+                            "x": 1383.6666666666667,
+                            "y": 185
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_849871",
+                            "id": "g_307166",
                             "position": {
-                                "x": 378,
-                                "y": 45
+                                "x": 1214,
+                                "y": 121
                             },
                             "size": {
-                                "width": 88,
-                                "height": 14
+                                "width": 278,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Munch"
@@ -167,24 +167,24 @@
                     "targetId": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
                     "routingPoints": [
                         {
-                            "x": 154,
-                            "y": 90
+                            "x": 496,
+                            "y": 223
                         },
                         {
-                            "x": 387,
-                            "y": 90
+                            "x": 1261,
+                            "y": 223
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_115329",
+                            "id": "g_668990",
                             "position": {
-                                "x": 174,
-                                "y": 93
+                                "x": 516,
+                                "y": 226
                             },
                             "size": {
-                                "width": 184,
-                                "height": 14
+                                "width": 678,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Prepared food"
@@ -198,24 +198,24 @@
                     "targetId": "ab016025-d456-4c2d-8359-d50cf9de3825",
                     "routingPoints": [
                         {
-                            "x": 457,
-                            "y": 90
+                            "x": 1445,
+                            "y": 223
                         },
                         {
-                            "x": 582,
-                            "y": 90
+                            "x": 1760,
+                            "y": 223
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_942985",
+                            "id": "g_182374",
                             "position": {
-                                "x": 486,
-                                "y": 93
+                                "x": 1512,
+                                "y": 226
                             },
                             "size": {
-                                "width": 76,
-                                "height": 14
+                                "width": 228,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Rest"

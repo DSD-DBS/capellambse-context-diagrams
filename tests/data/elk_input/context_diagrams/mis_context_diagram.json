@@ -18,12 +18,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 148,
-                    "height": 14
+                    "width": 528,
+                    "height": 52
                 }
             ],
-            "width": 154,
-            "height": 68
+            "width": 534,
+            "height": 76
         },
         {
             "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
@@ -33,8 +33,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
                     },
-                    "width": 172,
-                    "height": 14
+                    "width": 628,
+                    "height": 52
                 }
             ],
             "width": 42.35294117647059,
@@ -48,8 +48,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
                     },
-                    "width": 148,
-                    "height": 14
+                    "width": 528,
+                    "height": 52
                 }
             ],
             "width": 42.35294117647059,
@@ -71,8 +71,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 172,
-                    "height": 14
+                    "width": 628,
+                    "height": 52
                 }
             ]
         },
@@ -90,8 +90,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 172,
-                    "height": 14
+                    "width": 628,
+                    "height": 52
                 }
             ]
         }

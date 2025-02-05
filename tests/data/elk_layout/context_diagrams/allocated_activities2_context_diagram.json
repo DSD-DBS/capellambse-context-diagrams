@@ -5,12 +5,12 @@
         {
             "id": "8c43d858-bab3-4d1d-afe0-71946d856e24",
             "position": {
-                "x": 751,
+                "x": 2613,
                 "y": 12
             },
             "size": {
-                "width": 795,
-                "height": 263
+                "width": 2690,
+                "height": 535
             },
             "type": "node",
             "children": [
@@ -18,23 +18,23 @@
                     "id": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
                     "position": {
                         "x": 12,
-                        "y": 54.833333333333336
+                        "y": 168.83333333333331
                     },
                     "size": {
-                        "width": 226,
+                        "width": 834,
                         "height": 115
                     },
                     "type": "node",
                     "children": [
                         {
-                            "id": "g_640746",
+                            "id": "g_844473",
                             "position": {
                                 "x": 3,
-                                "y": 50.5
+                                "y": 31.5
                             },
                             "size": {
-                                "width": 220,
-                                "height": 14
+                                "width": 828,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Prepare delivery"
@@ -44,63 +44,63 @@
                 {
                     "id": "c90f731b-0036-47e5-a455-9cf270d6880c",
                     "position": {
-                        "x": 533,
-                        "y": 31
+                        "x": 1744,
+                        "y": 69
                     },
                     "size": {
-                        "width": 250,
-                        "height": 86
+                        "width": 934,
+                        "height": 238
                     },
                     "type": "node",
                     "children": [
                         {
-                            "id": "g_510156",
+                            "id": "g_711970",
                             "position": {
-                                "x": 9,
+                                "x": 28,
                                 "y": 15
                             },
                             "size": {
-                                "width": 232,
-                                "height": 14
+                                "width": 878,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Estimate required"
                         },
                         {
-                            "id": "g_040712",
+                            "id": "g_965765",
                             "position": {
                                 "x": 3,
-                                "y": 29
+                                "y": 67
                             },
                             "size": {
-                                "width": 244,
-                                "height": 14
+                                "width": 928,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "power and select a"
                         },
                         {
-                            "id": "g_412942",
+                            "id": "g_201296",
                             "position": {
-                                "x": 9,
-                                "y": 43
+                                "x": 28,
+                                "y": 119
                             },
                             "size": {
-                                "width": 232,
-                                "height": 14
+                                "width": 878,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "delivery bot with"
                         },
                         {
-                            "id": "g_102040",
+                            "id": "g_226094",
                             "position": {
-                                "x": 27,
-                                "y": 57
+                                "x": 103,
+                                "y": 171
                             },
                             "size": {
-                                "width": 196,
-                                "height": 14
+                                "width": 728,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "enough battery"
@@ -110,12 +110,12 @@
                 {
                     "id": "7000b811-c8e8-4060-8f60-c87462046057",
                     "position": {
-                        "x": 533,
-                        "y": 137
+                        "x": 1749,
+                        "y": 327
                     },
                     "size": {
-                        "width": 250,
-                        "height": 81
+                        "width": 858,
+                        "height": 157
                     },
                     "type": "node",
                     "children": [
@@ -123,23 +123,23 @@
                             "id": "2b7515a7-aed4-4272-ba3a-5263735532b6",
                             "position": {
                                 "x": 12,
-                                "y": 31
+                                "y": 69
                             },
                             "size": {
-                                "width": 226,
-                                "height": 38
+                                "width": 834,
+                                "height": 76
                             },
                             "type": "node",
                             "children": [
                                 {
-                                    "id": "g_950924",
+                                    "id": "g_078028",
                                     "position": {
                                         "x": 3,
                                         "y": 12
                                     },
                                     "size": {
-                                        "width": 220,
-                                        "height": 14
+                                        "width": 828,
+                                        "height": 52
                                     },
                                     "type": "label",
                                     "text": "Retrieve package"
@@ -147,14 +147,14 @@
                             ]
                         },
                         {
-                            "id": "g_414007",
+                            "id": "g_370022",
                             "position": {
-                                "x": 45,
+                                "x": 140,
                                 "y": 5
                             },
                             "size": {
-                                "width": 160,
-                                "height": 14
+                                "width": 578,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Loading Bot"
@@ -162,14 +162,14 @@
                     ]
                 },
                 {
-                    "id": "g_665334",
+                    "id": "g_967384",
                     "position": {
-                        "x": 293.5,
+                        "x": 956,
                         "y": 5
                     },
                     "size": {
-                        "width": 208,
-                        "height": 14
+                        "width": 778,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "Smart warehouse"
@@ -181,32 +181,32 @@
                     "targetId": "2b7515a7-aed4-4272-ba3a-5263735532b6",
                     "routingPoints": [
                         {
-                            "x": 238,
-                            "y": 93.16666666666666
+                            "x": 846,
+                            "y": 207.16666666666666
                         },
                         {
-                            "x": 278,
-                            "y": 93.16666666666666
+                            "x": 886,
+                            "y": 207.16666666666666
                         },
                         {
-                            "x": 278,
-                            "y": 187
+                            "x": 886,
+                            "y": 434
                         },
                         {
-                            "x": 545,
-                            "y": 187
+                            "x": 1761,
+                            "y": 434
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_498731",
+                            "id": "g_677626",
                             "position": {
-                                "x": 294,
-                                "y": 190
+                                "x": 921,
+                                "y": 437
                             },
                             "size": {
-                                "width": 208,
-                                "height": 14
+                                "width": 778,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "package details"
@@ -220,24 +220,24 @@
                     "targetId": "c90f731b-0036-47e5-a455-9cf270d6880c",
                     "routingPoints": [
                         {
-                            "x": 238,
-                            "y": 74
+                            "x": 846,
+                            "y": 188
                         },
                         {
-                            "x": 533,
-                            "y": 74
+                            "x": 1744,
+                            "y": 188
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_648850",
+                            "id": "g_717398",
                             "position": {
-                                "x": 288,
-                                "y": 77
+                                "x": 896,
+                                "y": 191
                             },
                             "size": {
-                                "width": 220,
-                                "height": 14
+                                "width": 828,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "delivery address"
@@ -250,11 +250,11 @@
             "id": "2668c01d-8ba8-47a9-9acb-33616bcc088d",
             "position": {
                 "x": 27,
-                "y": 152.16666666666666
+                "y": 304.16666666666663
             },
             "size": {
-                "width": 346,
-                "height": 155
+                "width": 1258,
+                "height": 307
             },
             "type": "node",
             "children": [
@@ -262,36 +262,36 @@
                     "id": "097bb133-abf3-4df0-ae4e-a28378537691",
                     "position": {
                         "x": 12,
-                        "y": 89
+                        "y": 165
                     },
                     "size": {
-                        "width": 322,
-                        "height": 54
+                        "width": 1234,
+                        "height": 130
                     },
                     "type": "node",
                     "children": [
                         {
-                            "id": "g_297080",
+                            "id": "g_058724",
                             "position": {
                                 "x": 3,
                                 "y": 13
                             },
                             "size": {
-                                "width": 316,
-                                "height": 14
+                                "width": 1228,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Confirm availability for"
                         },
                         {
-                            "id": "g_655982",
+                            "id": "g_424220",
                             "position": {
-                                "x": 99,
-                                "y": 27
+                                "x": 403,
+                                "y": 65
                             },
                             "size": {
-                                "width": 124,
-                                "height": 14
+                                "width": 428,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "delivery"
@@ -302,23 +302,23 @@
                     "id": "93009deb-9b57-4413-8d70-3877b39125cf",
                     "position": {
                         "x": 12,
-                        "y": 31
+                        "y": 69
                     },
                     "size": {
-                        "width": 226,
-                        "height": 38
+                        "width": 834,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
                         {
-                            "id": "g_664382",
+                            "id": "g_528891",
                             "position": {
                                 "x": 3,
                                 "y": 12
                             },
                             "size": {
-                                "width": 220,
-                                "height": 14
+                                "width": 828,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Retrieve package"
@@ -326,14 +326,14 @@
                     ]
                 },
                 {
-                    "id": "g_483917",
+                    "id": "g_764621",
                     "position": {
-                        "x": 111,
+                        "x": 415,
                         "y": 5
                     },
                     "size": {
-                        "width": 124,
-                        "height": 14
+                        "width": 428,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "Customer"
@@ -343,37 +343,37 @@
         {
             "id": "41bce8af-577d-41a1-abce-2cc74c021713",
             "position": {
-                "x": 135,
-                "y": 78.16666666666666
+                "x": 401,
+                "y": 154.16666666666666
             },
             "size": {
-                "width": 238,
-                "height": 54
+                "width": 884,
+                "height": 130
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_423247",
+                    "id": "g_101045",
                     "position": {
                         "x": 3,
                         "y": 13
                     },
                     "size": {
-                        "width": 232,
-                        "height": 14
+                        "width": 878,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "Provide warehouse"
                 },
                 {
-                    "id": "g_832445",
+                    "id": "g_501950",
                     "position": {
-                        "x": 69,
-                        "y": 27
+                        "x": 278,
+                        "y": 65
                     },
                     "size": {
-                        "width": 100,
-                        "height": 14
+                        "width": 328,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "status"
@@ -383,12 +383,12 @@
         {
             "id": "9e7eb78b-f4ad-4762-9f5c-d6f60630b10e",
             "position": {
-                "x": 1838,
-                "y": 190
+                "x": 6241,
+                "y": 405
             },
             "size": {
-                "width": 214,
-                "height": 81
+                "width": 708,
+                "height": 157
             },
             "type": "node",
             "children": [
@@ -396,23 +396,23 @@
                     "id": "a325cfe4-2cd5-4c1a-9a0a-e4e2dff82f92",
                     "position": {
                         "x": 12,
-                        "y": 31
+                        "y": 69
                     },
                     "size": {
-                        "width": 190,
-                        "height": 38
+                        "width": 684,
+                        "height": 76
                     },
                     "type": "node",
                     "children": [
                         {
-                            "id": "g_357149",
+                            "id": "g_545426",
                             "position": {
                                 "x": 3,
                                 "y": 12
                             },
                             "size": {
-                                "width": 184,
-                                "height": 14
+                                "width": 678,
+                                "height": 52
                             },
                             "type": "label",
                             "text": "Store package"
@@ -420,14 +420,14 @@
                     ]
                 },
                 {
-                    "id": "g_621052",
+                    "id": "g_412401",
                     "position": {
-                        "x": 21,
+                        "x": 40,
                         "y": 5
                     },
                     "size": {
-                        "width": 172,
-                        "height": 14
+                        "width": 628,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "Delivery Bot"
@@ -437,24 +437,24 @@
         {
             "id": "dc1f0a7e-0508-4457-9f9f-77fb85f2e897",
             "position": {
-                "x": 1833,
-                "y": 291
+                "x": 6236,
+                "y": 582
             },
             "size": {
-                "width": 274,
-                "height": 38
+                "width": 1034,
+                "height": 76
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_707154",
+                    "id": "g_760301",
                     "position": {
                         "x": 3,
                         "y": 12
                     },
                     "size": {
-                        "width": 268,
-                        "height": 14
+                        "width": 1028,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "Record delivery plan"
@@ -468,32 +468,32 @@
             "targetId": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
             "routingPoints": [
                 {
-                    "x": 361,
-                    "y": 268.16666666666663
+                    "x": 1273,
+                    "y": 534.1666666666666
                 },
                 {
-                    "x": 736,
-                    "y": 268.16666666666663
+                    "x": 2598,
+                    "y": 534.1666666666666
                 },
                 {
-                    "x": 736,
-                    "y": 143.5
+                    "x": 2598,
+                    "y": 257.5
                 },
                 {
-                    "x": 763,
-                    "y": 143.5
+                    "x": 2625,
+                    "y": 257.5
                 }
             ],
             "children": [
                 {
-                    "id": "g_247402",
+                    "id": "g_800631",
                     "position": {
-                        "x": 398,
-                        "y": 271.16666666666663
+                        "x": 1310,
+                        "y": 537.1666666666666
                     },
                     "size": {
-                        "width": 328,
-                        "height": 14
+                        "width": 1278,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "availability confirmation"
@@ -507,24 +507,24 @@
             "targetId": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
             "routingPoints": [
                 {
-                    "x": 373,
-                    "y": 105.16666666666666
+                    "x": 1285,
+                    "y": 219.16666666666666
                 },
                 {
-                    "x": 763,
-                    "y": 105.16666666666666
+                    "x": 2625,
+                    "y": 219.16666666666666
                 }
             ],
             "children": [
                 {
-                    "id": "g_948552",
+                    "id": "g_928449",
                     "position": {
-                        "x": 404,
-                        "y": 108.16666666666666
+                        "x": 1335,
+                        "y": 222.16666666666666
                     },
                     "size": {
-                        "width": 316,
-                        "height": 14
+                        "width": 1228,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "package readyness status"
@@ -538,32 +538,32 @@
             "targetId": "a325cfe4-2cd5-4c1a-9a0a-e4e2dff82f92",
             "routingPoints": [
                 {
-                    "x": 989,
-                    "y": 124.33333333333333
+                    "x": 3459,
+                    "y": 238.33333333333331
                 },
                 {
-                    "x": 1019,
-                    "y": 124.33333333333333
+                    "x": 3489,
+                    "y": 238.33333333333331
                 },
                 {
-                    "x": 1019,
-                    "y": 240
+                    "x": 3489,
+                    "y": 512
                 },
                 {
-                    "x": 1850,
-                    "y": 240
+                    "x": 6253,
+                    "y": 512
                 }
             ],
             "children": [
                 {
-                    "id": "g_138453",
+                    "id": "g_894425",
                     "position": {
-                        "x": 1581,
-                        "y": 243
+                        "x": 5338,
+                        "y": 515
                     },
                     "size": {
-                        "width": 232,
-                        "height": 14
+                        "width": 878,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "storage lock code"
@@ -577,48 +577,48 @@
             "targetId": "93009deb-9b57-4413-8d70-3877b39125cf",
             "routingPoints": [
                 {
-                    "x": 989,
-                    "y": 162.66666666666666
+                    "x": 3459,
+                    "y": 276.66666666666663
                 },
                 {
-                    "x": 999,
-                    "y": 162.66666666666666
+                    "x": 3469,
+                    "y": 276.66666666666663
                 },
                 {
-                    "x": 999,
-                    "y": 262
+                    "x": 3469,
+                    "y": 534
                 },
                 {
-                    "x": 1561,
-                    "y": 262
+                    "x": 5318,
+                    "y": 534
                 },
                 {
-                    "x": 1561,
-                    "y": 317.16666666666663
-                },
-                {
-                    "x": 12,
-                    "y": 317.16666666666663
+                    "x": 5318,
+                    "y": 621.1666666666666
                 },
                 {
                     "x": 12,
-                    "y": 202.16666666666666
+                    "y": 621.1666666666666
+                },
+                {
+                    "x": 12,
+                    "y": 411.16666666666663
                 },
                 {
                     "x": 39,
-                    "y": 202.16666666666666
+                    "y": 411.16666666666663
                 }
             ],
             "children": [
                 {
-                    "id": "g_344226",
+                    "id": "g_690316",
                     "position": {
-                        "x": 446,
-                        "y": 320.16666666666663
+                        "x": 1510,
+                        "y": 624.1666666666666
                     },
                     "size": {
-                        "width": 232,
-                        "height": 14
+                        "width": 878,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "storage lock code"
@@ -632,40 +632,40 @@
             "targetId": "dc1f0a7e-0508-4457-9f9f-77fb85f2e897",
             "routingPoints": [
                 {
-                    "x": 989,
-                    "y": 143.5
+                    "x": 3459,
+                    "y": 257.5
                 },
                 {
-                    "x": 1009,
-                    "y": 143.5
+                    "x": 3479,
+                    "y": 257.5
                 },
                 {
-                    "x": 1009,
-                    "y": 251
+                    "x": 3479,
+                    "y": 523
                 },
                 {
-                    "x": 1571,
-                    "y": 251
+                    "x": 5328,
+                    "y": 523
                 },
                 {
-                    "x": 1571,
-                    "y": 310
+                    "x": 5328,
+                    "y": 620
                 },
                 {
-                    "x": 1833,
-                    "y": 310
+                    "x": 6236,
+                    "y": 620
                 }
             ],
             "children": [
                 {
-                    "id": "g_550745",
+                    "id": "g_792098",
                     "position": {
-                        "x": 1605,
-                        "y": 313
+                        "x": 5438,
+                        "y": 623
                     },
                     "size": {
-                        "width": 184,
-                        "height": 14
+                        "width": 678,
+                        "height": 52
                     },
                     "type": "label",
                     "text": "delivery plan"

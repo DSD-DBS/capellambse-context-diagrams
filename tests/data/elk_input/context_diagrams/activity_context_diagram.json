@@ -21,12 +21,12 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 64,
-                            "height": 14
+                            "width": 178,
+                            "height": 52
                         }
                     ],
-                    "width": 70,
-                    "height": 38
+                    "width": 184,
+                    "height": 76
                 },
                 {
                     "id": "0e0164c3-076e-42c1-8f82-7a43ab84385c",
@@ -36,12 +36,12 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 136,
-                            "height": 14
+                            "width": 478,
+                            "height": 52
                         }
                     ],
-                    "width": 142,
-                    "height": 38
+                    "width": 484,
+                    "height": 76
                 },
                 {
                     "id": "ab016025-d456-4c2d-8359-d50cf9de3825",
@@ -51,12 +51,12 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 88,
-                            "height": 14
+                            "width": 278,
+                            "height": 52
                         }
                     ],
-                    "width": 94,
-                    "height": 38
+                    "width": 284,
+                    "height": 76
                 }
             ],
             "edges": [
@@ -74,8 +74,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 88,
-                            "height": 14
+                            "width": 278,
+                            "height": 52
                         }
                     ]
                 },
@@ -93,8 +93,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 184,
-                            "height": 14
+                            "width": 678,
+                            "height": 52
                         }
                     ]
                 },
@@ -112,8 +112,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 76,
-                            "height": 14
+                            "width": 228,
+                            "height": 52
                         }
                     ]
                 }
@@ -124,20 +124,20 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 220,
-                    "height": 14
+                    "width": 828,
+                    "height": 52
                 },
                 {
                     "text": "Being",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 88,
-                    "height": 14
+                    "width": 278,
+                    "height": 52
                 }
             ],
-            "width": 226,
-            "height": 54
+            "width": 834,
+            "height": 130
         }
     ]
 }

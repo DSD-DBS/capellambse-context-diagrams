@@ -14,57 +14,14 @@ The data was collected with the functions from
 from __future__ import annotations
 
 import copy
-import enum
 import typing as t
 
 import capellambse.model as m
 from capellambse.metamodel import fa
 
-from .. import _elkjs, context
+from .. import _elkjs, context, enums
 from ..collectors import _generic, portless
 from . import _makers, derived
-
-
-class MODE(enum.Enum):
-    """Context collection mode.
-
-    Attributes
-    ----------
-    WHITEBOX
-        Collect target context and it's children's context.
-    GRAYBOX
-        Collect target context and derived context from it's children's context.
-    BLACKBOX
-        Collect target context only.
-    """
-
-    WHITEBOX = enum.auto()
-    GRAYBOX = enum.auto()
-    BLACKBOX = enum.auto()
-
-
-class EDGE_DIRECTION(enum.Enum):
-    """Reroute direction of edges.
-
-    Attributes
-    ----------
-    NONE
-        No rerouting of edges.
-    SMART
-        Reroute edges to follow the primary direction of data flow.
-    LEFT
-        Edges are always placed on the left side.
-    RIGHT
-        Edges are always placed on the right side.
-    TREE
-        Reroute edges to follow a tree-like structure.
-    """
-
-    NONE = enum.auto()
-    SMART = enum.auto()
-    LEFT = enum.auto()
-    RIGHT = enum.auto()
-    TREE = enum.auto()
 
 
 def _is_edge(obj: m.ModelElement) -> bool:
@@ -135,19 +92,19 @@ class DiagramBuilder:
             self.common_owners: set[str] = set()
 
         if self.diagram._edge_direction in {
-            EDGE_DIRECTION.RIGHT.name,
-            EDGE_DIRECTION.LEFT.name,
-            EDGE_DIRECTION.TREE.name,
+            enums.EDGE_DIRECTION.RIGHT,
+            enums.EDGE_DIRECTION.LEFT,
+            enums.EDGE_DIRECTION.TREE,
         }:
             self.data.layoutOptions["layered.nodePlacement.strategy"] = (
                 "NETWORK_SIMPLEX"
             )
         if self.diagram._edge_direction in {
-            EDGE_DIRECTION.RIGHT.name,
-            EDGE_DIRECTION.LEFT.name,
+            enums.EDGE_DIRECTION.RIGHT,
+            enums.EDGE_DIRECTION.LEFT,
         }:
             self.directions[self.boxable_target.uuid] = (
-                self.diagram._edge_direction == EDGE_DIRECTION.LEFT.name
+                self.diagram._edge_direction == enums.EDGE_DIRECTION.LEFT
             )
 
     def __call__(self) -> _elkjs.ELKInputData:
@@ -224,7 +181,7 @@ class DiagramBuilder:
         return self.data
 
     def _flip_edges(self) -> None:
-        if self.diagram._edge_direction == EDGE_DIRECTION.NONE.name:
+        if self.diagram._edge_direction == enums.EDGE_DIRECTION.NONE:
             return
 
         def flip(edge_uuid: str) -> None:
@@ -238,7 +195,7 @@ class DiagramBuilder:
             for edge_uuid in edges[side]:
                 flip(edge_uuid)
 
-        if self.diagram._edge_direction == EDGE_DIRECTION.SMART.name:
+        if self.diagram._edge_direction == enums.EDGE_DIRECTION.SMART:
             for edges in self.edges_to_flip.values():
                 side = len(edges[True]) < len(edges[False])
                 flip_side(edges, side)
@@ -247,7 +204,7 @@ class DiagramBuilder:
                 flip_side(edges, True)
 
     def _fix_box_heights(self) -> None:
-        if self.diagram._edge_direction != EDGE_DIRECTION.NONE.name:
+        if self.diagram._edge_direction != enums.EDGE_DIRECTION.NONE:
             for uuid, min_heights in self.min_heights.items():
                 box = self.boxes[uuid]
                 box.height = max(box.height, sum(min_heights.values()))
@@ -324,7 +281,7 @@ class DiagramBuilder:
             src_owner, tgt_owner = src_obj.owner, tgt_obj.owner
             edge = self.data.edges.pop()
 
-            if self.diagram._mode == MODE.GRAYBOX.name:
+            if self.diagram._mode == enums.MODE.GRAYBOX:
 
                 def get_unc(obj):
                     if self.boxable_target.uuid in _generic.get_all_owners(
@@ -345,9 +302,8 @@ class DiagramBuilder:
 
         src_owners = list(_generic.get_all_owners(src_owner))
         tgt_owners = list(_generic.get_all_owners(tgt_owner))
-
         if (
-            self.diagram._mode == MODE.BLACKBOX.name
+            self.diagram._mode == enums.MODE.BLACKBOX
             and self.boxable_target.uuid in src_owners
             and self.boxable_target.uuid in tgt_owners
         ):
@@ -403,7 +359,7 @@ class DiagramBuilder:
         src_owners: list[str],
         tgt_owners: list[str],
     ) -> tuple[bool, str]:
-        if self.diagram._edge_direction == EDGE_DIRECTION.NONE.name:
+        if self.diagram._edge_direction == enums.EDGE_DIRECTION.NONE:
             return False, self.boxable_target.uuid
 
         src_uuid = src.uuid
@@ -438,16 +394,16 @@ class DiagramBuilder:
             return src_dir, tgt_dir
 
         edge_direction = self.diagram._edge_direction
-        if edge_direction == EDGE_DIRECTION.SMART.name:
+        if edge_direction == enums.EDGE_DIRECTION.SMART:
             src_dir, src_unc = _get_direction(src, tgt_owners, False)
             tgt_dir, tgt_unc = _get_direction(tgt, src_owners, True)
             return src_dir is True or tgt_dir is False, (src_unc or tgt_unc)
 
         _, tgt_dir = _initialize_directions(
-            edge_direction != EDGE_DIRECTION.RIGHT.name,
-            edge_direction != EDGE_DIRECTION.LEFT.name,
+            edge_direction != enums.EDGE_DIRECTION.RIGHT,
+            edge_direction != enums.EDGE_DIRECTION.LEFT,
         )
-        if edge_direction == EDGE_DIRECTION.TREE.name:
+        if edge_direction == enums.EDGE_DIRECTION.TREE:
             return tgt_dir is not None, self.boxable_target.uuid
         return self.directions[src_uuid], self.boxable_target.uuid
 
@@ -472,7 +428,7 @@ class DiagramBuilder:
             if self.diagram._display_port_labels:
                 text = port_obj.name or "UNKNOWN"
                 port.labels = _makers.make_label(text)
-                _plp = self.diagram._port_label_position
+                _plp = self.diagram._port_label_position.name  # type: ignore[attr-defined]
                 if not (
                     plp := getattr(_elkjs.PORT_LABEL_POSITION, _plp, None)
                 ):

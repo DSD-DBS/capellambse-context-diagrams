@@ -19,7 +19,7 @@ from capellambse import diagram as cdiagram
 from capellambse import helpers
 from capellambse import model as m
 
-from . import _elkjs, filters, serializers, styling
+from . import _elkjs, enums, filters, serializers, styling
 from .builders import default as db
 from .collectors import (
     _generic,
@@ -321,11 +321,11 @@ class ContextDiagram(m.AbstractDiagram):
             "display_derived_interfaces": False,
             "slim_center_box": True,
             "display_port_labels": False,
-            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
+            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE,
             "display_unused_ports": False,
             "transparent_background": False,
-            "edge_direction": db.EDGE_DIRECTION.SMART.name,
-            "mode": db.MODE.WHITEBOX.name,
+            "edge_direction": enums.EDGE_DIRECTION.SMART,
+            "mode": enums.MODE.WHITEBOX,
             "display_actor_relation": False,
             "hide_context_owner": False,
             "include_children_context": True,
@@ -505,11 +505,11 @@ class InterfaceContextDiagram(ContextDiagram):
             "hide_functions": False,
             "display_symbols_as_boxes": True,
             "display_port_labels": False,
-            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
+            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE,
             "display_parent_relation": True,
             "collect": exchanges.interface_context_collector,
             "hide_context_owner": True,
-            "edge_direction": db.EDGE_DIRECTION.RIGHT.name,
+            "edge_direction": enums.EDGE_DIRECTION.RIGHT,
             "display_functional_parent_relation": True,
         } | default_render_parameters
         super().__init__(
@@ -882,9 +882,9 @@ class CableTreeViewDiagram(ContextDiagram):
     ) -> None:
         default_render_parameters = {
             "display_port_labels": True,
-            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
+            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE,
             "collect": cable_tree.collector,
-            "edge_direction": db.EDGE_DIRECTION.TREE.name,
+            "edge_direction": enums.EDGE_DIRECTION.TREE,
         } | default_render_parameters
         super().__init__(
             class_,
@@ -917,9 +917,9 @@ class PhysicalPortContextDiagram(ContextDiagram):
         default_render_parameters = {
             "collect": default.physical_port_context_collector,
             "display_parent_relation": True,
-            "edge_direction": db.EDGE_DIRECTION.TREE.name,
+            "edge_direction": enums.EDGE_DIRECTION.TREE,
             "display_port_labels": True,
-            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
+            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE,
         } | default_render_parameters
 
         super().__init__(

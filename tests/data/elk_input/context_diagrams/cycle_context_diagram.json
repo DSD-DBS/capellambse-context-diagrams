@@ -18,7 +18,7 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 140,
+                    "width": 220,
                     "height": 14
                 }
             ],
@@ -32,7 +32,7 @@
                     "height": 10
                 }
             ],
-            "width": 146,
+            "width": 226,
             "height": 38
         },
         {
@@ -43,7 +43,7 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 147,
+                    "width": 232,
                     "height": 14
                 }
             ],
@@ -57,7 +57,7 @@
                     "height": 10
                 }
             ],
-            "width": 153,
+            "width": 238,
             "height": 38
         },
         {
@@ -83,7 +83,7 @@
                                             "layoutOptions": {
                                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                             },
-                                            "width": 49,
+                                            "width": 64,
                                             "height": 14
                                         }
                                     ]
@@ -95,7 +95,7 @@
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 63,
+                                    "width": 88,
                                     "height": 14
                                 }
                             ],
@@ -133,7 +133,7 @@
                                     "height": 10
                                 }
                             ],
-                            "width": 118,
+                            "width": 178,
                             "height": 56.0
                         }
                     ],
@@ -143,11 +143,11 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                             },
-                            "width": 112,
+                            "width": 172,
                             "height": 14
                         }
                     ],
-                    "width": 118,
+                    "width": 178,
                     "height": 38
                 }
             ],
@@ -157,11 +157,11 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 84,
+                    "width": 124,
                     "height": 14
                 }
             ],
-            "width": 90,
+            "width": 130,
             "height": 38
         }
     ],
@@ -180,7 +180,7 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 56,
+                    "width": 76,
                     "height": 14
                 }
             ]
@@ -199,7 +199,7 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 56,
+                    "width": 76,
                     "height": 14
                 }
             ]

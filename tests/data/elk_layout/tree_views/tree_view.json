@@ -5,30 +5,30 @@
         {
             "id": "b7c7f442-377f-492c-90bf-331e66988bda",
             "position": {
-                "x": 47.5,
+                "x": 57.5,
                 "y": 12
             },
             "size": {
-                "width": 258,
+                "width": 418,
                 "height": 152
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_693403",
+                    "id": "g_845047",
                     "position": {
-                        "x": 101,
+                        "x": 171,
                         "y": 5
                     },
                     "size": {
-                        "width": 56,
+                        "width": 76,
                         "height": 14
                     },
                     "type": "label",
                     "text": "Root"
                 },
                 {
-                    "id": "g_843157",
+                    "id": "g_122467",
                     "position": {
                         "x": 0,
                         "y": 0
@@ -41,91 +41,91 @@
                     "text": ""
                 },
                 {
-                    "id": "g_806925",
+                    "id": "g_997210",
                     "position": {
-                        "x": 34.5,
+                        "x": 57,
                         "y": 27
                     },
                     "size": {
-                        "width": 189,
+                        "width": 304,
                         "height": 14
                     },
                     "type": "label",
                     "text": "[1..*] example: Example"
                 },
                 {
-                    "id": "g_949206",
+                    "id": "g_045913",
                     "position": {
                         "x": 3,
                         "y": 41
                     },
                     "size": {
-                        "width": 252,
+                        "width": 412,
                         "height": 14
                     },
                     "type": "label",
                     "text": "[0..1] enum_example: EnumExample"
                 },
                 {
-                    "id": "g_684485",
+                    "id": "g_462167",
                     "position": {
-                        "x": 38,
+                        "x": 63,
                         "y": 55
                     },
                     "size": {
-                        "width": 182,
+                        "width": 292,
                         "height": 14
                     },
                     "type": "label",
                     "text": "another: EnumExample_1"
                 },
                 {
-                    "id": "g_263575",
+                    "id": "g_999101",
                     "position": {
-                        "x": 24,
+                        "x": 39,
                         "y": 69
                     },
                     "size": {
-                        "width": 210,
+                        "width": 340,
                         "height": 14
                     },
                     "type": "label",
                     "text": "another_one: EnumExample_2"
                 },
                 {
-                    "id": "g_342772",
+                    "id": "g_320258",
                     "position": {
-                        "x": 10,
+                        "x": 15,
                         "y": 83
                     },
                     "size": {
-                        "width": 238,
+                        "width": 388,
                         "height": 14
                     },
                     "type": "label",
                     "text": "another_one_one: EnumExample_3"
                 },
                 {
-                    "id": "g_219251",
+                    "id": "g_345495",
                     "position": {
-                        "x": 34.5,
+                        "x": 57,
                         "y": 97
                     },
                     "size": {
-                        "width": 189,
+                        "width": 304,
                         "height": 14
                     },
                     "type": "label",
                     "text": "last_one: EnumExample_4"
                 },
                 {
-                    "id": "g_203379",
+                    "id": "g_191984",
                     "position": {
-                        "x": 20.5,
+                        "x": 33,
                         "y": 111
                     },
                     "size": {
-                        "width": 217,
+                        "width": 352,
                         "height": 14
                     },
                     "type": "label",
@@ -136,30 +136,30 @@
         {
             "id": "0093ffdd-ab4d-4c87-971d-0c2fc1a0b094",
             "position": {
-                "x": 84.5,
+                "x": 127,
                 "y": 218
             },
             "size": {
-                "width": 55,
+                "width": 70,
                 "height": 40
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_228047",
+                    "id": "g_684476",
                     "position": {
                         "x": 3,
                         "y": 5
                     },
                     "size": {
-                        "width": 49,
+                        "width": 64,
                         "height": 14
                     },
                     "type": "label",
                     "text": "One"
                 },
                 {
-                    "id": "g_762564",
+                    "id": "g_001688",
                     "position": {
                         "x": 0,
                         "y": 0
@@ -176,30 +176,30 @@
         {
             "id": "1dccccde-6ab1-47ac-8ee8-a3033a49a9e5",
             "position": {
-                "x": 213.5,
+                "x": 336,
                 "y": 218
             },
             "size": {
-                "width": 55,
+                "width": 70,
                 "height": 40
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_494443",
+                    "id": "g_055710",
                     "position": {
                         "x": 3,
                         "y": 5
                     },
                     "size": {
-                        "width": 49,
+                        "width": 64,
                         "height": 14
                     },
                     "type": "label",
                     "text": "Two"
                 },
                 {
-                    "id": "g_702160",
+                    "id": "g_375425",
                     "position": {
                         "x": 0,
                         "y": 0
@@ -216,30 +216,30 @@
         {
             "id": "322dc599-ea72-49e9-8e37-fe5226e41f19",
             "position": {
-                "x": 97.25000000000003,
-                "y": 312.98333333333335
+                "x": 139.75000000000003,
+                "y": 313.48333333333335
             },
             "size": {
-                "width": 223,
+                "width": 358,
                 "height": 56
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_465359",
+                    "id": "g_391031",
                     "position": {
-                        "x": 80,
+                        "x": 135,
                         "y": 5
                     },
                     "size": {
-                        "width": 63,
+                        "width": 88,
                         "height": 14
                     },
                     "type": "label",
                     "text": "Three"
                 },
                 {
-                    "id": "g_781821",
+                    "id": "g_378861",
                     "position": {
                         "x": 0,
                         "y": 0
@@ -252,13 +252,13 @@
                     "text": ""
                 },
                 {
-                    "id": "g_762773",
+                    "id": "g_952919",
                     "position": {
                         "x": 3,
                         "y": 21
                     },
                     "size": {
-                        "width": 217,
+                        "width": 352,
                         "height": 14
                     },
                     "type": "label",
@@ -269,30 +269,30 @@
         {
             "id": "37ae6942-cbbc-4e2a-acad-10fbdceb8d56",
             "position": {
-                "x": 132.25000000000003,
-                "y": 422.98333333333335
+                "x": 199.75000000000003,
+                "y": 423.48333333333335
             },
             "size": {
-                "width": 153,
+                "width": 238,
                 "height": 56
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_599583",
+                    "id": "g_729167",
                     "position": {
-                        "x": 48.5,
+                        "x": 81,
                         "y": 5
                     },
                     "size": {
-                        "width": 56,
+                        "width": 76,
                         "height": 14
                     },
                     "type": "label",
                     "text": "five"
                 },
                 {
-                    "id": "g_258288",
+                    "id": "g_899470",
                     "position": {
                         "x": 0,
                         "y": 0
@@ -305,13 +305,13 @@
                     "text": ""
                 },
                 {
-                    "id": "g_896770",
+                    "id": "g_817167",
                     "position": {
                         "x": 3,
                         "y": 21
                     },
                     "size": {
-                        "width": 147,
+                        "width": 232,
                         "height": 14
                     },
                     "type": "label",
@@ -326,27 +326,27 @@
             "targetId": "0093ffdd-ab4d-4c87-971d-0c2fc1a0b094",
             "routingPoints": [
                 {
-                    "x": 112,
+                    "x": 162,
                     "y": 164
                 },
                 {
-                    "x": 112,
+                    "x": 162,
                     "y": 184
                 },
                 {
-                    "x": 112,
+                    "x": 162,
                     "y": 218
                 }
             ],
             "children": [
                 {
-                    "id": "g_206813",
+                    "id": "g_268204",
                     "position": {
                         "x": 12,
                         "y": 184
                     },
                     "size": {
-                        "width": 98,
+                        "width": 148,
                         "height": 14
                     },
                     "type": "label",
@@ -361,27 +361,27 @@
             "targetId": "1dccccde-6ab1-47ac-8ee8-a3033a49a9e5",
             "routingPoints": [
                 {
-                    "x": 241,
+                    "x": 371,
                     "y": 164
                 },
                 {
-                    "x": 241,
+                    "x": 371,
                     "y": 184
                 },
                 {
-                    "x": 241,
+                    "x": 371,
                     "y": 218
                 }
             ],
             "children": [
                 {
-                    "id": "g_542599",
+                    "id": "g_497766",
                     "position": {
-                        "x": 190,
+                        "x": 305,
                         "y": 184
                     },
                     "size": {
-                        "width": 49,
+                        "width": 64,
                         "height": 14
                     },
                     "type": "label",
@@ -396,31 +396,31 @@
             "targetId": "322dc599-ea72-49e9-8e37-fe5226e41f19",
             "routingPoints": [
                 {
-                    "x": 241,
+                    "x": 371,
                     "y": 258
                 },
                 {
-                    "x": 241,
+                    "x": 371,
                     "y": 278
                 },
                 {
-                    "x": 241,
+                    "x": 371,
                     "y": 292
                 },
                 {
-                    "x": 245.91666666666669,
-                    "y": 312.98333333333335
+                    "x": 378.4166666666667,
+                    "y": 313.48333333333335
                 }
             ],
             "children": [
                 {
-                    "id": "g_132030",
+                    "id": "g_717326",
                     "position": {
-                        "x": 244,
+                        "x": 374,
                         "y": 278
                     },
                     "size": {
-                        "width": 112,
+                        "width": 172,
                         "height": 14
                     },
                     "type": "label",
@@ -435,27 +435,27 @@
             "targetId": "37ae6942-cbbc-4e2a-acad-10fbdceb8d56",
             "routingPoints": [
                 {
-                    "x": 208.75000000000003,
-                    "y": 368.98333333333335
+                    "x": 318.75,
+                    "y": 369.48333333333335
                 },
                 {
-                    "x": 208.75000000000003,
-                    "y": 388.98333333333335
+                    "x": 318.75,
+                    "y": 389.48333333333335
                 },
                 {
-                    "x": 208.75000000000003,
-                    "y": 422.98333333333335
+                    "x": 318.75,
+                    "y": 423.48333333333335
                 }
             ],
             "children": [
                 {
-                    "id": "g_701383",
+                    "id": "g_759362",
                     "position": {
-                        "x": 150.75000000000003,
-                        "y": 388.98333333333335
+                        "x": 240.75,
+                        "y": 389.48333333333335
                     },
                     "size": {
-                        "width": 56,
+                        "width": 76,
                         "height": 14
                     },
                     "type": "label",
@@ -470,15 +470,15 @@
             "targetId": "b7c7f442-377f-492c-90bf-331e66988bda",
             "routingPoints": [
                 {
-                    "x": 171.58333333333337,
-                    "y": 312.98333333333335
+                    "x": 259.08333333333337,
+                    "y": 313.48333333333335
                 },
                 {
-                    "x": 176.5,
+                    "x": 266.5,
                     "y": 292
                 },
                 {
-                    "x": 176.5,
+                    "x": 266.5,
                     "y": 164
                 }
             ]

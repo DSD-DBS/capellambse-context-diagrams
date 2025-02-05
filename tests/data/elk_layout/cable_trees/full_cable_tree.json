@@ -9,7 +9,7 @@
                 "y": 129
             },
             "size": {
-                "width": 174,
+                "width": 274,
                 "height": 38
             },
             "type": "node",
@@ -17,7 +17,7 @@
                 {
                     "id": "c403d4f4-9633-42a2-a5d6-9e1df2655146",
                     "position": {
-                        "x": 166,
+                        "x": 266,
                         "y": 14
                     },
                     "size": {
@@ -27,13 +27,13 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_196546",
+                            "id": "g_461855",
                             "position": {
                                 "x": 11,
                                 "y": 11
                             },
                             "size": {
-                                "width": 56,
+                                "width": 76,
                                 "height": 14
                             },
                             "type": "label",
@@ -42,13 +42,13 @@
                     ]
                 },
                 {
-                    "id": "g_204541",
+                    "id": "g_933046",
                     "position": {
                         "x": -1,
                         "y": 5
                     },
                     "size": {
-                        "width": 168,
+                        "width": 268,
                         "height": 14
                     },
                     "type": "label",
@@ -59,11 +59,11 @@
         {
             "id": "2c2888dc-4e8f-4d07-aca9-9f4de004266b",
             "position": {
-                "x": 483,
+                "x": 723,
                 "y": 158
             },
             "size": {
-                "width": 195,
+                "width": 310,
                 "height": 38
             },
             "type": "node",
@@ -71,7 +71,7 @@
                 {
                     "id": "6ae29909-b358-4964-9d56-412a5dc4b2f2",
                     "position": {
-                        "x": 187,
+                        "x": 302,
                         "y": 14
                     },
                     "size": {
@@ -81,13 +81,13 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_378117",
+                            "id": "g_863411",
                             "position": {
                                 "x": 11,
                                 "y": 11
                             },
                             "size": {
-                                "width": 56,
+                                "width": 76,
                                 "height": 14
                             },
                             "type": "label",
@@ -96,13 +96,13 @@
                     ]
                 },
                 {
-                    "id": "g_161161",
+                    "id": "g_858832",
                     "position": {
                         "x": -1,
                         "y": 5
                     },
                     "size": {
-                        "width": 189,
+                        "width": 304,
                         "height": 14
                     },
                     "type": "label",
@@ -113,11 +113,11 @@
         {
             "id": "57325353-a19c-4dec-8f6f-05a214eac1c5",
             "position": {
-                "x": 1018,
+                "x": 1523,
                 "y": 301
             },
             "size": {
-                "width": 188,
+                "width": 298,
                 "height": 38
             },
             "type": "node",
@@ -135,13 +135,13 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_618267",
+                            "id": "g_697946",
                             "position": {
-                                "x": -57,
+                                "x": -77,
                                 "y": 11
                             },
                             "size": {
-                                "width": 56,
+                                "width": 76,
                                 "height": 14
                             },
                             "type": "label",
@@ -150,13 +150,13 @@
                     ]
                 },
                 {
-                    "id": "g_379260",
+                    "id": "g_092777",
                     "position": {
                         "x": 7,
                         "y": 5
                     },
                     "size": {
-                        "width": 182,
+                        "width": 292,
                         "height": 14
                     },
                     "type": "label",
@@ -167,11 +167,11 @@
         {
             "id": "a4cb3ff6-1289-4e27-91f2-4291cabe9db2",
             "position": {
-                "x": 1018,
+                "x": 1523,
                 "y": 227
             },
             "size": {
-                "width": 188,
+                "width": 298,
                 "height": 54
             },
             "type": "node",
@@ -189,13 +189,13 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_350159",
+                            "id": "g_255250",
                             "position": {
-                                "x": -57,
+                                "x": -77,
                                 "y": 11
                             },
                             "size": {
-                                "width": 56,
+                                "width": 76,
                                 "height": 14
                             },
                             "type": "label",
@@ -204,26 +204,26 @@
                     ]
                 },
                 {
-                    "id": "g_042960",
+                    "id": "g_052441",
                     "position": {
                         "x": 7,
                         "y": 5
                     },
                     "size": {
-                        "width": 182,
+                        "width": 292,
                         "height": 14
                     },
                     "type": "label",
                     "text": "Level Crossing Barrier"
                 },
                 {
-                    "id": "g_629338",
+                    "id": "g_097681",
                     "position": {
-                        "x": 59.5,
+                        "x": 97,
                         "y": 19
                     },
                     "size": {
-                        "width": 77,
+                        "width": 112,
                         "height": 14
                     },
                     "type": "label",
@@ -234,11 +234,11 @@
         {
             "id": "2c907e35-bf5a-4421-ba51-5191af0a30f8",
             "position": {
-                "x": 1020.5,
+                "x": 1538,
                 "y": 130
             },
             "size": {
-                "width": 125,
+                "width": 190,
                 "height": 38
             },
             "type": "node",
@@ -256,13 +256,13 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_941119",
+                            "id": "g_307692",
                             "position": {
-                                "x": -57,
+                                "x": -77,
                                 "y": 11
                             },
                             "size": {
-                                "width": 56,
+                                "width": 76,
                                 "height": 14
                             },
                             "type": "label",
@@ -271,13 +271,13 @@
                     ]
                 },
                 {
-                    "id": "g_193768",
+                    "id": "g_027218",
                     "position": {
                         "x": 7,
                         "y": 5
                     },
                     "size": {
-                        "width": 119,
+                        "width": 184,
                         "height": 14
                     },
                     "type": "label",
@@ -288,11 +288,11 @@
         {
             "id": "23faf496-7a2d-4a41-b92a-fc240d9b5924",
             "position": {
-                "x": 1306,
+                "x": 1941,
                 "y": 162
             },
             "size": {
-                "width": 188,
+                "width": 298,
                 "height": 54
             },
             "type": "node",
@@ -310,13 +310,13 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_231312",
+                            "id": "g_435443",
                             "position": {
-                                "x": -57,
+                                "x": -77,
                                 "y": 11
                             },
                             "size": {
-                                "width": 56,
+                                "width": 76,
                                 "height": 14
                             },
                             "type": "label",
@@ -325,26 +325,26 @@
                     ]
                 },
                 {
-                    "id": "g_221628",
+                    "id": "g_859578",
                     "position": {
                         "x": 7,
                         "y": 5
                     },
                     "size": {
-                        "width": 182,
+                        "width": 292,
                         "height": 14
                     },
                     "type": "label",
                     "text": "Train Speed Monitoring"
                 },
                 {
-                    "id": "g_845780",
+                    "id": "g_788575",
                     "position": {
-                        "x": 70,
+                        "x": 115,
                         "y": 19
                     },
                     "size": {
-                        "width": 56,
+                        "width": 76,
                         "height": 14
                     },
                     "type": "label",
@@ -355,11 +355,11 @@
         {
             "id": "954d934f-8804-454b-9ef2-ced201640891",
             "position": {
-                "x": 532,
+                "x": 804,
                 "y": 71
             },
             "size": {
-                "width": 146,
+                "width": 226,
                 "height": 38
             },
             "type": "node",
@@ -367,7 +367,7 @@
                 {
                     "id": "781b3eb5-ab04-4677-a704-f42a987bef5a",
                     "position": {
-                        "x": 138,
+                        "x": 218,
                         "y": 14
                     },
                     "size": {
@@ -377,13 +377,13 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_656883",
+                            "id": "g_415192",
                             "position": {
                                 "x": 11,
                                 "y": 11
                             },
                             "size": {
-                                "width": 56,
+                                "width": 76,
                                 "height": 14
                             },
                             "type": "label",
@@ -392,13 +392,13 @@
                     ]
                 },
                 {
-                    "id": "g_351394",
+                    "id": "g_796570",
                     "position": {
                         "x": -1,
                         "y": 5
                     },
                     "size": {
-                        "width": 140,
+                        "width": 220,
                         "height": 14
                     },
                     "type": "label",
@@ -409,11 +409,11 @@
         {
             "id": "7b78da30-7f39-4000-a2d6-3f7c1b56a5f5",
             "position": {
-                "x": 1018,
+                "x": 1523,
                 "y": 71
             },
             "size": {
-                "width": 188,
+                "width": 298,
                 "height": 38
             },
             "type": "node",
@@ -431,13 +431,13 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_544557",
+                            "id": "g_313394",
                             "position": {
-                                "x": -57,
+                                "x": -77,
                                 "y": 11
                             },
                             "size": {
-                                "width": 56,
+                                "width": 76,
                                 "height": 14
                             },
                             "type": "label",
@@ -446,13 +446,13 @@
                     ]
                 },
                 {
-                    "id": "g_810271",
+                    "id": "g_643792",
                     "position": {
                         "x": 7,
                         "y": 5
                     },
                     "size": {
-                        "width": 182,
+                        "width": 292,
                         "height": 14
                     },
                     "type": "label",
@@ -463,11 +463,11 @@
         {
             "id": "3924460c-321e-4300-8788-a6713dd64456",
             "position": {
-                "x": 1018,
+                "x": 1523,
                 "y": 12
             },
             "size": {
-                "width": 181,
+                "width": 286,
                 "height": 38
             },
             "type": "node",
@@ -485,13 +485,13 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_945950",
+                            "id": "g_793219",
                             "position": {
-                                "x": -57,
+                                "x": -77,
                                 "y": 11
                             },
                             "size": {
-                                "width": 56,
+                                "width": 76,
                                 "height": 14
                             },
                             "type": "label",
@@ -500,13 +500,13 @@
                     ]
                 },
                 {
-                    "id": "g_106336",
+                    "id": "g_991506",
                     "position": {
                         "x": 7,
                         "y": 5
                     },
                     "size": {
-                        "width": 175,
+                        "width": 280,
                         "height": 14
                     },
                     "type": "label",
@@ -517,11 +517,11 @@
         {
             "id": "7ae1d744-67b8-4506-8e39-be3006b0e5b9",
             "position": {
-                "x": 541,
+                "x": 801,
                 "y": 217
             },
             "size": {
-                "width": 153,
+                "width": 238,
                 "height": 38
             },
             "type": "node",
@@ -539,13 +539,13 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_533832",
+                            "id": "g_404904",
                             "position": {
-                                "x": -57,
+                                "x": -77,
                                 "y": 11
                             },
                             "size": {
-                                "width": 56,
+                                "width": 76,
                                 "height": 14
                             },
                             "type": "label",
@@ -554,13 +554,13 @@
                     ]
                 },
                 {
-                    "id": "g_702934",
+                    "id": "g_394143",
                     "position": {
                         "x": 7,
                         "y": 5
                     },
                     "size": {
-                        "width": 147,
+                        "width": 232,
                         "height": 14
                     },
                     "type": "label",
@@ -575,19 +575,19 @@
             "targetId": "6ae29909-b358-4964-9d56-412a5dc4b2f2",
             "routingPoints": [
                 {
-                    "x": 189,
+                    "x": 289,
                     "y": 148
                 },
                 {
-                    "x": 747,
+                    "x": 1122,
                     "y": 148
                 },
                 {
-                    "x": 747,
+                    "x": 1122,
                     "y": 177
                 },
                 {
-                    "x": 680,
+                    "x": 1035,
                     "y": 177
                 }
             ],
@@ -596,18 +596,18 @@
                     "id": "5c55b11b-4911-40fb-9c4c-f1363dad846e_j0",
                     "type": "junction",
                     "position": {
-                        "x": 747,
+                        "x": 1122,
                         "y": 177
                     }
                 },
                 {
-                    "id": "g_242763",
+                    "id": "g_994053",
                     "position": {
-                        "x": 301,
+                        "x": 446,
                         "y": 151
                     },
                     "size": {
-                        "width": 126,
+                        "width": 196,
                         "height": 14
                     },
                     "type": "label",
@@ -622,31 +622,31 @@
             "targetId": "161568d6-9907-4c34-b9cc-a46fe81442a1",
             "routingPoints": [
                 {
-                    "x": 680,
+                    "x": 1035,
                     "y": 177
                 },
                 {
-                    "x": 747,
+                    "x": 1122,
                     "y": 177
                 },
                 {
-                    "x": 747,
+                    "x": 1122,
                     "y": 320
                 },
                 {
-                    "x": 1016,
+                    "x": 1521,
                     "y": 320
                 }
             ],
             "children": [
                 {
-                    "id": "g_605432",
+                    "id": "g_301585",
                     "position": {
-                        "x": 760.5,
+                        "x": 1138,
                         "y": 323
                     },
                     "size": {
-                        "width": 175,
+                        "width": 280,
                         "height": 14
                     },
                     "type": "label",
@@ -661,19 +661,19 @@
             "targetId": "1604610c-c437-40fc-ba61-d01431b1d961",
             "routingPoints": [
                 {
-                    "x": 680,
+                    "x": 1035,
                     "y": 177
                 },
                 {
-                    "x": 747,
+                    "x": 1122,
                     "y": 177
                 },
                 {
-                    "x": 747,
+                    "x": 1122,
                     "y": 254
                 },
                 {
-                    "x": 1016,
+                    "x": 1521,
                     "y": 254
                 }
             ],
@@ -682,18 +682,18 @@
                     "id": "0397b675-e78b-41a3-bf96-f2ae6cf7adde_j0",
                     "type": "junction",
                     "position": {
-                        "x": 747,
+                        "x": 1122,
                         "y": 254
                     }
                 },
                 {
-                    "id": "g_081057",
+                    "id": "g_114211",
                     "position": {
-                        "x": 767.5,
+                        "x": 1150,
                         "y": 257
                     },
                     "size": {
-                        "width": 161,
+                        "width": 256,
                         "height": 14
                     },
                     "type": "label",
@@ -708,19 +708,19 @@
             "targetId": "ef739eb8-10c2-4b27-aa76-636c89e2403b",
             "routingPoints": [
                 {
-                    "x": 680,
+                    "x": 1035,
                     "y": 177
                 },
                 {
-                    "x": 747,
+                    "x": 1122,
                     "y": 177
                 },
                 {
-                    "x": 747,
+                    "x": 1122,
                     "y": 149
                 },
                 {
-                    "x": 1018.5,
+                    "x": 1536,
                     "y": 149
                 }
             ],
@@ -729,18 +729,18 @@
                     "id": "4a4be6cc-973e-4d2a-bf4e-3d5aad9f73e3_j0",
                     "type": "junction",
                     "position": {
-                        "x": 747,
+                        "x": 1122,
                         "y": 149
                     }
                 },
                 {
-                    "id": "g_387235",
+                    "id": "g_089122",
                     "position": {
-                        "x": 771,
+                        "x": 1156,
                         "y": 152
                     },
                     "size": {
-                        "width": 154,
+                        "width": 244,
                         "height": 14
                     },
                     "type": "label",
@@ -755,19 +755,19 @@
             "targetId": "5cbec23a-3f3e-4828-8f14-1be0c09e1b54",
             "routingPoints": [
                 {
-                    "x": 1018.5,
+                    "x": 1536,
                     "y": 149
                 },
                 {
-                    "x": 949,
+                    "x": 1434,
                     "y": 149
                 },
                 {
-                    "x": 949,
+                    "x": 1434,
                     "y": 189
                 },
                 {
-                    "x": 1304,
+                    "x": 1939,
                     "y": 189
                 }
             ],
@@ -776,18 +776,18 @@
                     "id": "93b6d377-0718-4c5b-8bc0-b020122beb83_j0",
                     "type": "junction",
                     "position": {
-                        "x": 949,
+                        "x": 1434,
                         "y": 149
                     }
                 },
                 {
-                    "id": "g_518831",
+                    "id": "g_916556",
                     "position": {
-                        "x": 995.5,
+                        "x": 1493,
                         "y": 192
                     },
                     "size": {
-                        "width": 175,
+                        "width": 280,
                         "height": 14
                     },
                     "type": "label",
@@ -802,27 +802,27 @@
             "targetId": "781b3eb5-ab04-4677-a704-f42a987bef5a",
             "routingPoints": [
                 {
-                    "x": 189,
+                    "x": 289,
                     "y": 148
                 },
                 {
-                    "x": 256,
+                    "x": 376,
                     "y": 148
                 },
                 {
-                    "x": 256,
+                    "x": 376,
                     "y": 61
                 },
                 {
-                    "x": 747,
+                    "x": 1122,
                     "y": 61
                 },
                 {
-                    "x": 747,
+                    "x": 1122,
                     "y": 90
                 },
                 {
-                    "x": 680,
+                    "x": 1032,
                     "y": 90
                 }
             ],
@@ -831,7 +831,7 @@
                     "id": "aaec4139-9982-4abb-b27f-df3ceaf8e0a8_j0",
                     "type": "junction",
                     "position": {
-                        "x": 256,
+                        "x": 376,
                         "y": 148
                     }
                 },
@@ -839,7 +839,7 @@
                     "id": "aaec4139-9982-4abb-b27f-df3ceaf8e0a8_j1",
                     "type": "junction",
                     "position": {
-                        "x": 747,
+                        "x": 1122,
                         "y": 61
                     }
                 },
@@ -847,18 +847,18 @@
                     "id": "aaec4139-9982-4abb-b27f-df3ceaf8e0a8_j2",
                     "type": "junction",
                     "position": {
-                        "x": 747,
+                        "x": 1122,
                         "y": 90
                     }
                 },
                 {
-                    "id": "g_251826",
+                    "id": "g_172194",
                     "position": {
-                        "x": 266,
+                        "x": 386,
                         "y": 64
                     },
                     "size": {
-                        "width": 196,
+                        "width": 316,
                         "height": 14
                     },
                     "type": "label",
@@ -873,23 +873,23 @@
             "targetId": "1f4ae78e-0602-4313-a9b7-60ec607141f8",
             "routingPoints": [
                 {
-                    "x": 680,
+                    "x": 1032,
                     "y": 90
                 },
                 {
-                    "x": 1016,
+                    "x": 1521,
                     "y": 90
                 }
             ],
             "children": [
                 {
-                    "id": "g_233000",
+                    "id": "g_845320",
                     "position": {
-                        "x": 767.5,
+                        "x": 1150,
                         "y": 93
                     },
                     "size": {
-                        "width": 161,
+                        "width": 256,
                         "height": 14
                     },
                     "type": "label",
@@ -904,31 +904,31 @@
             "targetId": "a9554c35-de02-4c68-90fc-e3bcba791654",
             "routingPoints": [
                 {
-                    "x": 680,
+                    "x": 1032,
                     "y": 90
                 },
                 {
-                    "x": 747,
+                    "x": 1122,
                     "y": 90
                 },
                 {
-                    "x": 747,
+                    "x": 1122,
                     "y": 31
                 },
                 {
-                    "x": 1016,
+                    "x": 1521,
                     "y": 31
                 }
             ],
             "children": [
                 {
-                    "id": "g_292466",
+                    "id": "g_025838",
                     "position": {
-                        "x": 757,
+                        "x": 1132,
                         "y": 34
                     },
                     "size": {
-                        "width": 182,
+                        "width": 292,
                         "height": 14
                     },
                     "type": "label",
@@ -943,31 +943,31 @@
             "targetId": "6eed2367-eb48-4bf0-a1c8-bfd2f245bd3d",
             "routingPoints": [
                 {
-                    "x": 189,
+                    "x": 289,
                     "y": 148
                 },
                 {
-                    "x": 256,
+                    "x": 376,
                     "y": 148
                 },
                 {
-                    "x": 256,
+                    "x": 376,
                     "y": 236
                 },
                 {
-                    "x": 539,
+                    "x": 799,
                     "y": 236
                 }
             ],
             "children": [
                 {
-                    "id": "g_403514",
+                    "id": "g_913066",
                     "position": {
-                        "x": 287,
+                        "x": 422,
                         "y": 239
                     },
                     "size": {
-                        "width": 154,
+                        "width": 244,
                         "height": 14
                     },
                     "type": "label",

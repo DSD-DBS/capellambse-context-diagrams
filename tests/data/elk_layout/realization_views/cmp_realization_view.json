@@ -9,8 +9,8 @@
                 "y": 15
             },
             "size": {
-                "width": 383,
-                "height": 270
+                "width": 268,
+                "height": 366
             },
             "type": "node",
             "children": [
@@ -21,7 +21,7 @@
                         "y": 15
                     },
                     "size": {
-                        "width": 175,
+                        "width": 220,
                         "height": 240
                     },
                     "type": "node",
@@ -33,19 +33,19 @@
                                 "y": 31
                             },
                             "size": {
-                                "width": 62,
+                                "width": 82,
                                 "height": 38
                             },
                             "type": "node",
                             "children": [
                                 {
-                                    "id": "g_419325",
+                                    "id": "g_382396",
                                     "position": {
                                         "x": 3,
                                         "y": 12
                                     },
                                     "size": {
-                                        "width": 56,
+                                        "width": 76,
                                         "height": 14
                                     },
                                     "type": "label",
@@ -60,7 +60,7 @@
                                 "y": 89
                             },
                             "size": {
-                                "width": 128,
+                                "width": 178,
                                 "height": 139
                             },
                             "type": "node",
@@ -72,19 +72,19 @@
                                         "y": 89
                                     },
                                     "size": {
-                                        "width": 104,
+                                        "width": 154,
                                         "height": 38
                                     },
                                     "type": "node",
                                     "children": [
                                         {
-                                            "id": "g_257553",
+                                            "id": "g_419509",
                                             "position": {
                                                 "x": 3,
                                                 "y": 12
                                             },
                                             "size": {
-                                                "width": 98,
+                                                "width": 148,
                                                 "height": 14
                                             },
                                             "type": "label",
@@ -99,19 +99,19 @@
                                         "y": 31
                                     },
                                     "size": {
-                                        "width": 97,
+                                        "width": 142,
                                         "height": 38
                                     },
                                     "type": "node",
                                     "children": [
                                         {
-                                            "id": "g_316630",
+                                            "id": "g_399662",
                                             "position": {
                                                 "x": 3,
                                                 "y": 12
                                             },
                                             "size": {
-                                                "width": 91,
+                                                "width": 136,
                                                 "height": 14
                                             },
                                             "type": "label",
@@ -120,13 +120,13 @@
                                     ]
                                 },
                                 {
-                                    "id": "g_256180",
+                                    "id": "g_104497",
                                     "position": {
-                                        "x": 32.5,
+                                        "x": 45,
                                         "y": 5
                                     },
                                     "size": {
-                                        "width": 63,
+                                        "width": 88,
                                         "height": 14
                                     },
                                     "type": "label",
@@ -137,23 +137,23 @@
                         {
                             "id": "f8c9df04-fcd5-479d-814b-696fa6050231",
                             "position": {
-                                "x": 94,
+                                "x": 114,
                                 "y": 31
                             },
                             "size": {
-                                "width": 69,
+                                "width": 94,
                                 "height": 38
                             },
                             "type": "node",
                             "children": [
                                 {
-                                    "id": "g_754061",
+                                    "id": "g_264706",
                                     "position": {
                                         "x": 3,
                                         "y": 12
                                     },
                                     "size": {
-                                        "width": 63,
+                                        "width": 88,
                                         "height": 14
                                     },
                                     "type": "label",
@@ -162,13 +162,13 @@
                             ]
                         },
                         {
-                            "id": "g_344723",
+                            "id": "g_956336",
                             "position": {
-                                "x": 45.5,
+                                "x": 48,
                                 "y": 5
                             },
                             "size": {
-                                "width": 84,
+                                "width": 124,
                                 "height": 14
                             },
                             "type": "label",
@@ -179,11 +179,11 @@
                 {
                     "id": "6583b560-6d2f-4190-baa2-94eef179c8ea",
                     "position": {
-                        "x": 205,
-                        "y": 15
+                        "x": 15,
+                        "y": 270
                     },
                     "size": {
-                        "width": 163,
+                        "width": 238,
                         "height": 81
                     },
                     "type": "node",
@@ -195,19 +195,19 @@
                                 "y": 31
                             },
                             "size": {
-                                "width": 139,
+                                "width": 214,
                                 "height": 38
                             },
                             "type": "node",
                             "children": [
                                 {
-                                    "id": "g_533097",
+                                    "id": "g_822156",
                                     "position": {
                                         "x": 3,
                                         "y": 12
                                     },
                                     "size": {
-                                        "width": 133,
+                                        "width": 208,
                                         "height": 14
                                     },
                                     "type": "label",
@@ -216,13 +216,13 @@
                             ]
                         },
                         {
-                            "id": "g_064838",
+                            "id": "g_783242",
                             "position": {
-                                "x": 46.5,
+                                "x": 69,
                                 "y": 5
                             },
                             "size": {
-                                "width": 70,
+                                "width": 100,
                                 "height": 14
                             },
                             "type": "label",
@@ -235,11 +235,11 @@
         {
             "id": "26e187b6-72e7-4872-8d8d-70b96243c96c",
             "position": {
-                "x": 15,
-                "y": 300
+                "x": 298,
+                "y": 15
             },
             "size": {
-                "width": 169,
+                "width": 244,
                 "height": 68
             },
             "type": "node",
@@ -251,19 +251,19 @@
                         "y": 15
                     },
                     "size": {
-                        "width": 139,
+                        "width": 214,
                         "height": 38
                     },
                     "type": "node",
                     "children": [
                         {
-                            "id": "g_103925",
+                            "id": "g_140418",
                             "position": {
                                 "x": 3,
                                 "y": 12
                             },
                             "size": {
-                                "width": 133,
+                                "width": 208,
                                 "height": 14
                             },
                             "type": "label",

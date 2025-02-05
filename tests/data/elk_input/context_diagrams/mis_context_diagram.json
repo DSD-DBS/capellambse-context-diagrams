@@ -18,11 +18,11 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 98,
+                    "width": 148,
                     "height": 14
                 }
             ],
-            "width": 104,
+            "width": 154,
             "height": 68
         },
         {
@@ -33,7 +33,7 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
                     },
-                    "width": 112,
+                    "width": 172,
                     "height": 14
                 }
             ],
@@ -48,7 +48,7 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
                     },
-                    "width": 98,
+                    "width": 148,
                     "height": 14
                 }
             ],
@@ -71,7 +71,7 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 112,
+                    "width": 172,
                     "height": 14
                 }
             ]
@@ -90,7 +90,7 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 112,
+                    "width": 172,
                     "height": 14
                 }
             ]

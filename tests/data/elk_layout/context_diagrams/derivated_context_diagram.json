@@ -5,11 +5,11 @@
         {
             "id": "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c",
             "position": {
-                "x": 169,
+                "x": 239,
                 "y": 12
             },
             "size": {
-                "width": 160,
+                "width": 250,
                 "height": 52
             },
             "type": "node",
@@ -29,7 +29,7 @@
                 {
                     "id": "__Derived-CP_INOUT:-2",
                     "position": {
-                        "x": 152,
+                        "x": 242,
                         "y": 21
                     },
                     "size": {
@@ -39,13 +39,13 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_009771",
+                    "id": "g_773723",
                     "position": {
                         "x": 3,
                         "y": 19
                     },
                     "size": {
-                        "width": 154,
+                        "width": 244,
                         "height": 14
                     },
                     "type": "label",
@@ -60,7 +60,7 @@
                 "y": 19
             },
             "size": {
-                "width": 132,
+                "width": 202,
                 "height": 38
             },
             "type": "node",
@@ -68,7 +68,7 @@
                 {
                     "id": "__Derived-CP_INOUT:1",
                     "position": {
-                        "x": 124,
+                        "x": 194,
                         "y": 14
                     },
                     "size": {
@@ -78,13 +78,13 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_960297",
+                    "id": "g_977611",
                     "position": {
                         "x": -1,
                         "y": 12
                     },
                     "size": {
-                        "width": 126,
+                        "width": 196,
                         "height": 14
                     },
                     "type": "label",
@@ -95,11 +95,11 @@
         {
             "id": "__Derived-LogicalComponent:7cde329d-0f47-4eaa-a1ae-dc6ede90af57",
             "position": {
-                "x": 353,
+                "x": 513,
                 "y": 19
             },
             "size": {
-                "width": 132,
+                "width": 202,
                 "height": 38
             },
             "type": "node",
@@ -117,13 +117,13 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_680726",
+                    "id": "g_214633",
                     "position": {
                         "x": 7,
                         "y": 12
                     },
                     "size": {
-                        "width": 126,
+                        "width": 196,
                         "height": 14
                     },
                     "type": "label",
@@ -138,11 +138,11 @@
             "targetId": "__Derived-CP_INOUT:-1",
             "routingPoints": [
                 {
-                    "x": 147,
+                    "x": 217,
                     "y": 38
                 },
                 {
-                    "x": 167,
+                    "x": 237,
                     "y": 38
                 }
             ]
@@ -154,11 +154,11 @@
             "targetId": "__Derived-CP_INOUT:2",
             "routingPoints": [
                 {
-                    "x": 331,
+                    "x": 491,
                     "y": 38
                 },
                 {
-                    "x": 351,
+                    "x": 511,
                     "y": 38
                 }
             ]

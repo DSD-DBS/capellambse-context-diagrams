@@ -52,7 +52,30 @@ def remove_ids_from_elk_layout(
 
 def text_size_mocker(text: str) -> tuple[int, int]:
     """Mock text size calculation."""
-    return (len(text) * 7, 12)
+    return (len(text) * 12, 12)
+
+
+def write_test_data_file(
+    file_path: pathlib.Path,
+    data: _elkjs.BaseELKModel | list[_elkjs.BaseELKModel],
+):
+    """Write test data to file.
+
+    Note
+    ----
+    This is a helper function to write test data to files in case the
+    expected test data changed.
+    """
+    import json
+
+    if isinstance(data, list):
+        data_dump = {
+            "edges": [edge.model_dump(exclude_defaults=True) for edge in data]
+        }
+    else:
+        data_dump = data.model_dump(exclude_defaults=True)
+
+    file_path.write_text(json.dumps(data_dump, indent=4), encoding="utf8")
 
 
 def generic_collecting_test(

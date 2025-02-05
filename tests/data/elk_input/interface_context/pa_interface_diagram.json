@@ -18,7 +18,7 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 105,
+                    "width": 160,
                     "height": 14
                 }
             ],
@@ -32,7 +32,7 @@
                     "height": 10
                 }
             ],
-            "width": 111,
+            "width": 166,
             "height": 38
         },
         {
@@ -43,7 +43,7 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 119,
+                    "width": 184,
                     "height": 14
                 }
             ],
@@ -57,7 +57,7 @@
                     "height": 10
                 }
             ],
-            "width": 125,
+            "width": 190,
             "height": 38
         }
     ],
@@ -79,7 +79,7 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 91,
+                    "width": 136,
                     "height": 14
                 }
             ]

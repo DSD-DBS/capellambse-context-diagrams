@@ -9,7 +9,7 @@
                 "y": 15
             },
             "size": {
-                "width": 151,
+                "width": 196,
                 "height": 111
             },
             "type": "node",
@@ -21,7 +21,7 @@
                         "y": 15
                     },
                     "size": {
-                        "width": 121,
+                        "width": 166,
                         "height": 81
                     },
                     "type": "node",
@@ -33,19 +33,19 @@
                                 "y": 31
                             },
                             "size": {
-                                "width": 97,
+                                "width": 142,
                                 "height": 38
                             },
                             "type": "node",
                             "children": [
                                 {
-                                    "id": "g_141682",
+                                    "id": "g_770501",
                                     "position": {
                                         "x": 3,
                                         "y": 12
                                     },
                                     "size": {
-                                        "width": 91,
+                                        "width": 136,
                                         "height": 14
                                     },
                                     "type": "label",
@@ -54,13 +54,13 @@
                             ]
                         },
                         {
-                            "id": "g_810614",
+                            "id": "g_580694",
                             "position": {
-                                "x": 25.5,
+                                "x": 33,
                                 "y": 5
                             },
                             "size": {
-                                "width": 70,
+                                "width": 100,
                                 "height": 14
                             },
                             "type": "label",
@@ -73,11 +73,11 @@
         {
             "id": "853cb005-cba0-489b-8fe3-bb694ad4543b",
             "position": {
-                "x": 181,
+                "x": 226,
                 "y": 15
             },
             "size": {
-                "width": 172,
+                "width": 232,
                 "height": 125
             },
             "type": "node",
@@ -89,7 +89,7 @@
                         "y": 15
                     },
                     "size": {
-                        "width": 142,
+                        "width": 202,
                         "height": 95
                     },
                     "type": "node",
@@ -101,19 +101,19 @@
                                 "y": 45
                             },
                             "size": {
-                                "width": 118,
+                                "width": 178,
                                 "height": 38
                             },
                             "type": "node",
                             "children": [
                                 {
-                                    "id": "g_439205",
+                                    "id": "g_541786",
                                     "position": {
                                         "x": 3,
                                         "y": 12
                                     },
                                     "size": {
-                                        "width": 112,
+                                        "width": 172,
                                         "height": 14
                                     },
                                     "type": "label",
@@ -122,26 +122,26 @@
                             ]
                         },
                         {
-                            "id": "g_874827",
+                            "id": "g_340388",
                             "position": {
-                                "x": -2.5,
+                                "x": -15,
                                 "y": 5
                             },
                             "size": {
-                                "width": 147,
+                                "width": 232,
                                 "height": 14
                             },
                             "type": "label",
                             "text": "Prof. A. P. W. B."
                         },
                         {
-                            "id": "g_884038",
+                            "id": "g_910476",
                             "position": {
-                                "x": 22,
+                                "x": 27,
                                 "y": 19
                             },
                             "size": {
-                                "width": 98,
+                                "width": 148,
                                 "height": 14
                             },
                             "type": "label",
@@ -158,7 +158,7 @@
                 "y": 155
             },
             "size": {
-                "width": 179,
+                "width": 244,
                 "height": 111
             },
             "type": "node",
@@ -170,7 +170,7 @@
                         "y": 15
                     },
                     "size": {
-                        "width": 149,
+                        "width": 214,
                         "height": 81
                     },
                     "type": "node",
@@ -182,19 +182,19 @@
                                 "y": 31
                             },
                             "size": {
-                                "width": 125,
+                                "width": 190,
                                 "height": 38
                             },
                             "type": "node",
                             "children": [
                                 {
-                                    "id": "g_541247",
+                                    "id": "g_446723",
                                     "position": {
                                         "x": 3,
                                         "y": 12
                                     },
                                     "size": {
-                                        "width": 119,
+                                        "width": 184,
                                         "height": 14
                                     },
                                     "type": "label",
@@ -203,13 +203,13 @@
                             ]
                         },
                         {
-                            "id": "g_236656",
+                            "id": "g_830019",
                             "position": {
-                                "x": 29,
+                                "x": 39,
                                 "y": 5
                             },
                             "size": {
-                                "width": 91,
+                                "width": 136,
                                 "height": 14
                             },
                             "type": "label",

@@ -5,11 +5,11 @@
         {
             "id": "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df",
             "position": {
-                "x": 294,
+                "x": 419,
                 "y": 17.333333333333336
             },
             "size": {
-                "width": 76,
+                "width": 106,
                 "height": 46
             },
             "type": "node",
@@ -29,7 +29,7 @@
                 {
                     "id": "dcbf18a9-8589-4ba6-84ad-094ec1810de1",
                     "position": {
-                        "x": 68,
+                        "x": 98,
                         "y": 18
                     },
                     "size": {
@@ -51,13 +51,13 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_136078",
+                    "id": "g_556588",
                     "position": {
                         "x": 3,
                         "y": 16
                     },
                     "size": {
-                        "width": 70,
+                        "width": 100,
                         "height": 14
                     },
                     "type": "label",
@@ -72,7 +72,7 @@
                 "y": 51
             },
             "size": {
-                "width": 118,
+                "width": 178,
                 "height": 38
             },
             "type": "node",
@@ -80,7 +80,7 @@
                 {
                     "id": "d5fd4286-1d41-4d21-b3cf-9babc8872c77",
                     "position": {
-                        "x": 110,
+                        "x": 170,
                         "y": 14
                     },
                     "size": {
@@ -90,13 +90,13 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_640123",
+                    "id": "g_657847",
                     "position": {
                         "x": -1,
                         "y": 12
                     },
                     "size": {
-                        "width": 112,
+                        "width": 172,
                         "height": 14
                     },
                     "type": "label",
@@ -107,11 +107,11 @@
         {
             "id": "6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6",
             "position": {
-                "x": 540,
+                "x": 765,
                 "y": 21.333333333333336
             },
             "size": {
-                "width": 125,
+                "width": 190,
                 "height": 38
             },
             "type": "node",
@@ -129,13 +129,13 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_842009",
+                    "id": "g_500898",
                     "position": {
                         "x": 7,
                         "y": 12
                     },
                     "size": {
-                        "width": 119,
+                        "width": 184,
                         "height": 14
                     },
                     "type": "label",
@@ -146,11 +146,11 @@
         {
             "id": "__Derived-SystemActor:d4a22478-5717-4ca7-bfc9-9a193e6218a8",
             "position": {
-                "x": 173,
+                "x": 253,
                 "y": 12
             },
             "size": {
-                "width": 97,
+                "width": 142,
                 "height": 38
             },
             "type": "node",
@@ -158,7 +158,7 @@
                 {
                     "id": "__Derived-CP_INOUT:1",
                     "position": {
-                        "x": 89,
+                        "x": 134,
                         "y": 14
                     },
                     "size": {
@@ -168,13 +168,13 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_335071",
+                    "id": "g_260293",
                     "position": {
                         "x": -1,
                         "y": 12
                     },
                     "size": {
-                        "width": 91,
+                        "width": 136,
                         "height": 14
                     },
                     "type": "label",
@@ -189,31 +189,31 @@
             "targetId": "898b878b-4392-499a-82f7-eb48e0f07e36",
             "routingPoints": [
                 {
-                    "x": 133,
+                    "x": 193,
                     "y": 70
                 },
                 {
-                    "x": 282,
+                    "x": 407,
                     "y": 70
                 },
                 {
-                    "x": 282,
+                    "x": 407,
                     "y": 49.666666666666664
                 },
                 {
-                    "x": 292,
+                    "x": 417,
                     "y": 49.666666666666664
                 }
             ],
             "children": [
                 {
-                    "id": "g_351254",
+                    "id": "g_695262",
                     "position": {
-                        "x": 153,
+                        "x": 213,
                         "y": 73
                     },
                     "size": {
-                        "width": 119,
+                        "width": 184,
                         "height": 14
                     },
                     "type": "label",
@@ -228,23 +228,23 @@
             "targetId": "c8ea5da6-6042-4881-89cb-c67977df1d60",
             "routingPoints": [
                 {
-                    "x": 372,
+                    "x": 527,
                     "y": 40.333333333333336
                 },
                 {
-                    "x": 538,
+                    "x": 763,
                     "y": 40.333333333333336
                 }
             ],
             "children": [
                 {
-                    "id": "g_713966",
+                    "id": "g_972096",
                     "position": {
-                        "x": 392,
+                        "x": 547,
                         "y": 43.333333333333336
                     },
                     "size": {
-                        "width": 126,
+                        "width": 196,
                         "height": 14
                     },
                     "type": "label",
@@ -259,11 +259,11 @@
             "targetId": "__Derived-CP_INOUT:-1",
             "routingPoints": [
                 {
-                    "x": 272,
+                    "x": 397,
                     "y": 31
                 },
                 {
-                    "x": 292,
+                    "x": 417,
                     "y": 31
                 }
             ]

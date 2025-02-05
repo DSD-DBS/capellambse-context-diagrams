@@ -5,11 +5,11 @@
         {
             "id": "b3d9d50e-7592-4689-8ba7-e50f082cd71c",
             "position": {
-                "x": 365,
+                "x": 475,
                 "y": 70
             },
             "size": {
-                "width": 62,
+                "width": 82,
                 "height": 38
             },
             "type": "node",
@@ -27,13 +27,13 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_690349",
+                    "id": "g_721078",
                     "position": {
                         "x": 7,
                         "y": 12
                     },
                     "size": {
-                        "width": 56,
+                        "width": 76,
                         "height": 14
                     },
                     "type": "label",
@@ -44,11 +44,11 @@
         {
             "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
             "position": {
-                "x": 109,
+                "x": 134,
                 "y": 17.66666666666667
             },
             "size": {
-                "width": 118,
+                "width": 158,
                 "height": 101
             },
             "type": "node",
@@ -60,7 +60,7 @@
                         "y": 31
                     },
                     "size": {
-                        "width": 90,
+                        "width": 130,
                         "height": 58
                     },
                     "type": "node",
@@ -68,7 +68,7 @@
                         {
                             "id": "33f06d77-84ec-46eb-ae0d-f2694a35556b",
                             "position": {
-                                "x": 82,
+                                "x": 122,
                                 "y": 35.33333333333333
                             },
                             "size": {
@@ -92,7 +92,7 @@
                         {
                             "id": "__Derived-CP_INOUT:-2",
                             "position": {
-                                "x": 82,
+                                "x": 122,
                                 "y": 12.666666666666666
                             },
                             "size": {
@@ -114,13 +114,13 @@
                             "type": "port"
                         },
                         {
-                            "id": "g_232880",
+                            "id": "g_742272",
                             "position": {
-                                "x": 10,
+                                "x": 15,
                                 "y": 22
                             },
                             "size": {
-                                "width": 70,
+                                "width": 100,
                                 "height": 14
                             },
                             "type": "label",
@@ -129,13 +129,13 @@
                     ]
                 },
                 {
-                    "id": "g_615497",
+                    "id": "g_263806",
                     "position": {
                         "x": 17,
                         "y": 5
                     },
                     "size": {
-                        "width": 84,
+                        "width": 124,
                         "height": 14
                     },
                     "type": "label",
@@ -150,7 +150,7 @@
                 "y": 70
             },
             "size": {
-                "width": 69,
+                "width": 94,
                 "height": 38
             },
             "type": "node",
@@ -158,7 +158,7 @@
                 {
                     "id": "__Derived-CP_INOUT:1",
                     "position": {
-                        "x": 61,
+                        "x": 86,
                         "y": 14
                     },
                     "size": {
@@ -168,13 +168,13 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_903677",
+                    "id": "g_032176",
                     "position": {
                         "x": -1,
                         "y": 12
                     },
                     "size": {
-                        "width": 63,
+                        "width": 88,
                         "height": 14
                     },
                     "type": "label",
@@ -185,11 +185,11 @@
         {
             "id": "__Derived-LogicalHumanComponent:ce793e72-8a7b-4b03-b45f-90051a82a943",
             "position": {
-                "x": 254,
+                "x": 319,
                 "y": 31
             },
             "size": {
-                "width": 69,
+                "width": 94,
                 "height": 38
             },
             "type": "node",
@@ -207,13 +207,13 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_863535",
+                    "id": "g_122201",
                     "position": {
                         "x": 7,
                         "y": 12
                     },
                     "size": {
-                        "width": 63,
+                        "width": 88,
                         "height": 14
                     },
                     "type": "label",
@@ -228,7 +228,7 @@
                 "y": 12
             },
             "size": {
-                "width": 69,
+                "width": 94,
                 "height": 38
             },
             "type": "node",
@@ -236,7 +236,7 @@
                 {
                     "id": "__Derived-CP_INOUT:3",
                     "position": {
-                        "x": 61,
+                        "x": 86,
                         "y": 14
                     },
                     "size": {
@@ -246,13 +246,13 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_171148",
+                    "id": "g_916554",
                     "position": {
                         "x": -1,
                         "y": 12
                     },
                     "size": {
-                        "width": 63,
+                        "width": 88,
                         "height": 14
                     },
                     "type": "label",
@@ -267,23 +267,23 @@
             "targetId": "5d562aa6-738a-48ce-aeb9-eb9d656edc7b",
             "routingPoints": [
                 {
-                    "x": 215,
+                    "x": 280,
                     "y": 89
                 },
                 {
-                    "x": 363,
+                    "x": 473,
                     "y": 89
                 }
             ],
             "children": [
                 {
-                    "id": "g_578096",
+                    "id": "g_415516",
                     "position": {
-                        "x": 252,
+                        "x": 317,
                         "y": 92
                     },
                     "size": {
-                        "width": 91,
+                        "width": 136,
                         "height": 14
                     },
                     "type": "label",
@@ -298,11 +298,11 @@
             "targetId": "__Derived-CP_INOUT:-1",
             "routingPoints": [
                 {
-                    "x": 84,
+                    "x": 109,
                     "y": 89
                 },
                 {
-                    "x": 121,
+                    "x": 146,
                     "y": 89
                 }
             ]
@@ -314,19 +314,19 @@
             "targetId": "__Derived-CP_INOUT:2",
             "routingPoints": [
                 {
-                    "x": 215,
+                    "x": 280,
                     "y": 66.33333333333334
                 },
                 {
-                    "x": 242,
+                    "x": 307,
                     "y": 66.33333333333334
                 },
                 {
-                    "x": 242,
+                    "x": 307,
                     "y": 50
                 },
                 {
-                    "x": 252,
+                    "x": 317,
                     "y": 50
                 }
             ]
@@ -338,19 +338,19 @@
             "targetId": "__Derived-CP_INOUT:-3",
             "routingPoints": [
                 {
-                    "x": 84,
+                    "x": 109,
                     "y": 31
                 },
                 {
-                    "x": 94,
+                    "x": 119,
                     "y": 31
                 },
                 {
-                    "x": 94,
+                    "x": 119,
                     "y": 66.33333333333334
                 },
                 {
-                    "x": 121,
+                    "x": 146,
                     "y": 66.33333333333334
                 }
             ]

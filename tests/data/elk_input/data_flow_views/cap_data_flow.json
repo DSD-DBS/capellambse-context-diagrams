@@ -18,11 +18,11 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 168,
+                    "width": 268,
                     "height": 14
                 }
             ],
-            "width": 174,
+            "width": 274,
             "height": 38
         },
         {
@@ -33,11 +33,11 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 154,
+                    "width": 244,
                     "height": 14
                 }
             ],
-            "width": 160,
+            "width": 250,
             "height": 38
         }
     ]

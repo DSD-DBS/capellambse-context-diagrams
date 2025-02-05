@@ -9,19 +9,19 @@
                 "y": 12
             },
             "size": {
-                "width": 174,
+                "width": 274,
                 "height": 38
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_133829",
+                    "id": "g_764909",
                     "position": {
                         "x": 3,
                         "y": 12
                     },
                     "size": {
-                        "width": 168,
+                        "width": 268,
                         "height": 14
                     },
                     "type": "label",
@@ -32,23 +32,23 @@
         {
             "id": "ceffa011-7b66-4b3c-9885-8e075e312ffa",
             "position": {
-                "x": 19,
+                "x": 24,
                 "y": 70
             },
             "size": {
-                "width": 160,
+                "width": 250,
                 "height": 38
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_763697",
+                    "id": "g_516794",
                     "position": {
                         "x": 3,
                         "y": 12
                     },
                     "size": {
-                        "width": 154,
+                        "width": 244,
                         "height": 14
                     },
                     "type": "label",

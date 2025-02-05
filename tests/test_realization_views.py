@@ -38,7 +38,7 @@ TEST_REALIZATION_SET = [
 def test_collecting(
     model: capellambse.MelodyModel, params: tuple[str, str, dict[str, t.Any]]
 ):
-    assert generic_collecting_test(
+    generic_collecting_test(
         model,
         params,
         TEST_REALIZATION_DATA_ROOT,
@@ -53,7 +53,7 @@ def test_collecting(
 
 @pytest.mark.parametrize("params", TEST_REALIZATION_SET)
 def test_layouting(params: tuple[str, str, dict[str, t.Any]]):
-    assert generic_layouting_test(
+    generic_layouting_test(
         params, TEST_REALIZATION_DATA_ROOT, TEST_REALIZATION_LAYOUT_ROOT
     )
 
@@ -62,7 +62,7 @@ def test_layouting(params: tuple[str, str, dict[str, t.Any]]):
 def test_serializing(
     model: capellambse.MelodyModel, params: tuple[str, str, dict[str, t.Any]]
 ):
-    assert generic_serializing_test(
+    generic_serializing_test(
         model, params, TEST_REALIZATION_LAYOUT_ROOT, "realization_view"
     )
 

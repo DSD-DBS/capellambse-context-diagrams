@@ -65,7 +65,7 @@ def generic_collecting_test(
         [str, list[_elkjs.ELKInputEdge] | _elkjs.ELKOutputData], bool
     ]
     | None = None,
-) -> bool | tuple[bool, bool]:
+):
     """Test collecting test.
 
     Parameters
@@ -99,13 +99,13 @@ def generic_collecting_test(
 
     if extra_suffix and extra_assert and expected_extra_file:
         main_output, extra_output = result
-        main_test_result = main_output.model_dump(
+        assert main_output.model_dump(
             exclude_defaults=True
         ) == expected_main.model_dump(exclude_defaults=True)
-        side_test_result = extra_assert(expected_extra, extra_output)
-        return main_test_result, side_test_result
+        assert extra_assert(expected_extra, extra_output)
+        return
 
-    return result.model_dump(
+    assert result.model_dump(
         exclude_defaults=True
     ) == expected_main.model_dump(exclude_defaults=True)
 
@@ -134,7 +134,7 @@ def generic_layouting_test(
 
     layout = context.try_to_layout(data)
 
-    return remove_ids_from_elk_layout(layout) == remove_ids_from_elk_layout(
+    assert remove_ids_from_elk_layout(layout) == remove_ids_from_elk_layout(
         expected
     )
 
@@ -144,7 +144,7 @@ def generic_serializing_test(
     params: tuple[str, str, dict[str, t.Any]],
     layout_root: pathlib.Path,
     diagram_attr: str,
-):
+) -> bool:
     """Test serializing ELKOutput data, i.e. layout.
 
     Parameters

@@ -27,7 +27,7 @@ TEST_TREE_SET = [
 def test_collecting(
     model: capellambse.MelodyModel, params: tuple[str, str, dict[str, t.Any]]
 ):
-    assert generic_collecting_test(
+    generic_collecting_test(
         model,
         params,
         TEST_TREE_DATA_ROOT,
@@ -45,10 +45,8 @@ def test_layouting(params: tuple[str, str, dict[str, t.Any]]):
     _, elk_data_filename, _ = params
     elk_data_file_path = TEST_TREE_DATA_ROOT / elk_data_filename
 
-    assert generic_layouting_test(
-        params, TEST_TREE_DATA_ROOT, TEST_TREE_LAYOUT_ROOT
-    )
-    assert generic_layouting_test(
+    generic_layouting_test(params, TEST_TREE_DATA_ROOT, TEST_TREE_LAYOUT_ROOT)
+    generic_layouting_test(
         ("", elk_data_file_path.stem + "_legend.json", {}),
         TEST_TREE_DATA_ROOT,
         TEST_TREE_LAYOUT_ROOT,

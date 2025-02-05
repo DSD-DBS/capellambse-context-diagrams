@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import typing as t
+from unittest import mock
 
 import capellambse
 import pytest
@@ -12,7 +13,7 @@ from .conftest import (  # type: ignore[import-untyped]
     TEST_ELK_INPUT_ROOT,
     TEST_ELK_LAYOUT_ROOT,
     remove_ids_from_elk_layout,
-    remove_sizes,
+    text_size_mocker,
 )
 
 TEST_INTERFACE_UUID = "2f8ed849-fbda-4902-82ec-cbf8104ae686"
@@ -132,25 +133,31 @@ class TestInterfaceDiagrams:
         model: capellambse.MelodyModel,
         params: tuple[str, str, dict[str, t.Any]],
     ):
-        uuid, filename, _ = params
+        uuid, elk_data_filename, _ = params
         obj = model.by_uuid(uuid)
         diag = obj.context_diagram
-        data = (TEST_INTERFACE_DATA_ROOT / filename).read_text(encoding="utf8")
+        data = (TEST_INTERFACE_DATA_ROOT / elk_data_filename).read_text(
+            encoding="utf8"
+        )
         expected = _elkjs.ELKInputData.model_validate_json(data)
 
-        _ = diag.elk_input_data({})
+        with mock.patch("capellambse.helpers.get_text_extent") as mock_ext:
+            mock_ext.side_effect = text_size_mocker
+            _ = (diag := obj.context_diagram).elk_input_data({})
 
-        assert remove_sizes(diag._elk_input_data) == remove_sizes(expected)
+        assert diag._elk_input_data.model_dump(
+            exclude_defaults=True
+        ) == expected.model_dump(exclude_defaults=True)
 
     @staticmethod
     @pytest.mark.parametrize("params", TEST_INTERFACE_SET)
     def test_layouting(params: tuple[str, str, dict[str, t.Any]]):
-        _, filename, _ = params
-        test_data = (TEST_INTERFACE_DATA_ROOT / filename).read_text(
+        _, elk_data_filename, _ = params
+        test_data = (TEST_INTERFACE_DATA_ROOT / elk_data_filename).read_text(
             encoding="utf8"
         )
         expected_layout_data = (
-            TEST_INTERFACE_LAYOUT_ROOT / filename
+            TEST_INTERFACE_LAYOUT_ROOT / elk_data_filename
         ).read_text(encoding="utf8")
         data = _elkjs.ELKInputData.model_validate_json(test_data)
         expected = _elkjs.ELKOutputData.model_validate_json(

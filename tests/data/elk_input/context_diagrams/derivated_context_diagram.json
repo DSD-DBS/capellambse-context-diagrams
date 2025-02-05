@@ -18,8 +18,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 132.64999999999998,
-                    "height": 16.285714285714285
+                    "width": 154,
+                    "height": 14
                 }
             ],
             "ports": [
@@ -40,8 +40,8 @@
                     "height": 10
                 }
             ],
-            "width": 138.64999999999998,
-            "height": 54.285714285714285
+            "width": 160,
+            "height": 52
         },
         {
             "id": "__Derived-LogicalComponent:aad1bc27-e66c-4b38-a54a-b2de4a73a3b4",
@@ -51,8 +51,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 109.64999999999999,
-                    "height": 13.428571428571429
+                    "width": 126,
+                    "height": 14
                 }
             ],
             "ports": [
@@ -65,8 +65,8 @@
                     "height": 10
                 }
             ],
-            "width": 115.64999999999999,
-            "height": 37.42857142857143
+            "width": 132,
+            "height": 38
         },
         {
             "id": "__Derived-LogicalComponent:7cde329d-0f47-4eaa-a1ae-dc6ede90af57",
@@ -76,8 +76,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 107.35,
-                    "height": 16.285714285714285
+                    "width": 126,
+                    "height": 14
                 }
             ],
             "ports": [
@@ -90,8 +90,8 @@
                     "height": 10
                 }
             ],
-            "width": 113.35,
-            "height": 40.285714285714285
+            "width": 132,
+            "height": 38
         }
     ],
     "edges": [

@@ -18,8 +18,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 83.05,
-                    "height": 14.857142857142858
+                    "width": 83,
+                    "height": 14
                 },
                 {
                     "text": "",
@@ -32,20 +32,20 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 55.449999999999996,
-                    "height": 12.0
+                    "width": 55,
+                    "height": 14
                 },
                 {
                     "text": "VALUE A",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 52.0,
-                    "height": 12.0
+                    "width": 55,
+                    "height": 14
                 }
             ],
-            "width": 89.05,
-            "height": 68.85714285714286
+            "width": 89,
+            "height": 72
         },
         {
             "id": "d32f721c-d5b2-452e-ac2d-3bfc789e0da3",
@@ -58,8 +58,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 94.55,
-                    "height": 14.857142857142858
+                    "width": 97,
+                    "height": 14
                 },
                 {
                     "text": "",
@@ -72,52 +72,52 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 65.8,
-                    "height": 14.857142857142858
+                    "width": 69,
+                    "height": 14
                 },
                 {
                     "text": "VALUE A_1",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 62.349999999999994,
-                    "height": 14.857142857142858
+                    "width": 69,
+                    "height": 14
                 },
                 {
                     "text": "VALUE B",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 50.849999999999994,
-                    "height": 12.0
+                    "width": 55,
+                    "height": 14
                 },
                 {
                     "text": "VALUE C",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 50.849999999999994,
-                    "height": 12.0
+                    "width": 55,
+                    "height": 14
                 },
                 {
                     "text": "VALUE D",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 52.0,
-                    "height": 12.0
+                    "width": 55,
+                    "height": 14
                 },
                 {
                     "text": "VALUE E",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 50.849999999999994,
-                    "height": 12.0
+                    "width": 55,
+                    "height": 14
                 }
             ],
-            "width": 100.55,
-            "height": 130.57142857142856
+            "width": 103,
+            "height": 136
         },
         {
             "id": "2d646411-731b-4e6d-a90b-6ea04abecc4b",
@@ -130,8 +130,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 94.55,
-                    "height": 14.857142857142858
+                    "width": 97,
+                    "height": 14
                 },
                 {
                     "text": "",
@@ -144,20 +144,20 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 66.94999999999999,
-                    "height": 14.857142857142858
+                    "width": 69,
+                    "height": 14
                 },
                 {
                     "text": "VALUE A_2",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 63.49999999999999,
-                    "height": 14.857142857142858
+                    "width": 69,
+                    "height": 14
                 }
             ],
-            "width": 100.55,
-            "height": 74.57142857142857
+            "width": 103,
+            "height": 72
         },
         {
             "id": "d5623fcf-dad9-48a5-a649-f2c791ac98c8",
@@ -170,8 +170,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 94.55,
-                    "height": 14.857142857142858
+                    "width": 97,
+                    "height": 14
                 },
                 {
                     "text": "",
@@ -184,20 +184,20 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 66.94999999999999,
-                    "height": 14.857142857142858
+                    "width": 69,
+                    "height": 14
                 },
                 {
                     "text": "VALUE A_3",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 63.49999999999999,
-                    "height": 14.857142857142858
+                    "width": 69,
+                    "height": 14
                 }
             ],
-            "width": 100.55,
-            "height": 74.57142857142857
+            "width": 103,
+            "height": 72
         },
         {
             "id": "1f6a60f6-0563-44c4-a0c0-fa24378f1bd4",
@@ -210,8 +210,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 94.55,
-                    "height": 14.857142857142858
+                    "width": 97,
+                    "height": 14
                 },
                 {
                     "text": "",
@@ -224,20 +224,20 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 66.94999999999999,
-                    "height": 14.857142857142858
+                    "width": 69,
+                    "height": 14
                 },
                 {
                     "text": "VALUE A_4",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 63.49999999999999,
-                    "height": 14.857142857142858
+                    "width": 69,
+                    "height": 14
                 }
             ],
-            "width": 100.55,
-            "height": 74.57142857142857
+            "width": 103,
+            "height": 72
         },
         {
             "id": "cdfea28e-21a8-4643-81e4-cea184756733",
@@ -250,8 +250,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 54.3,
-                    "height": 13.428571428571429
+                    "width": 69,
+                    "height": 14
                 },
                 {
                     "text": "",
@@ -264,12 +264,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 131.35,
-                    "height": 16.285714285714285
+                    "width": 160,
+                    "height": 14
                 }
             ],
-            "width": 137.35,
-            "height": 57.714285714285715
+            "width": 166,
+            "height": 56
         },
         {
             "id": "96e696c3-cd4a-481d-a3e5-f5ecbce9233c",
@@ -282,8 +282,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 94.55,
-                    "height": 14.857142857142858
+                    "width": 97,
+                    "height": 14
                 },
                 {
                     "text": "",
@@ -296,20 +296,20 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 66.94999999999999,
-                    "height": 14.857142857142858
+                    "width": 69,
+                    "height": 14
                 },
                 {
                     "text": "VALUE A_5",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 63.49999999999999,
-                    "height": 14.857142857142858
+                    "width": 69,
+                    "height": 14
                 }
             ],
-            "width": 100.55,
-            "height": 74.57142857142857
+            "width": 103,
+            "height": 72
         }
     ]
 }

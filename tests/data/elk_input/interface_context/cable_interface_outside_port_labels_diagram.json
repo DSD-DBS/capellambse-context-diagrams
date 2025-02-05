@@ -21,8 +21,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 138.39999999999998,
-                    "height": 16.285714285714285
+                    "width": 154,
+                    "height": 14
                 }
             ],
             "ports": [
@@ -39,14 +39,14 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 108.5,
-                            "height": 12.0
+                            "width": 126,
+                            "height": 14
                         }
                     ]
                 }
             ],
-            "width": 144.39999999999998,
-            "height": 40.285714285714285
+            "width": 160,
+            "height": 38
         },
         {
             "id": "d5259b69-1473-4b00-bb41-b94eb44abde5",
@@ -59,8 +59,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 106.19999999999999,
-                    "height": 12.0
+                    "width": 105,
+                    "height": 14
                 }
             ],
             "ports": [
@@ -77,14 +77,14 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 105.05,
-                            "height": 14.857142857142858
+                            "width": 126,
+                            "height": 14
                         }
                     ]
                 }
             ],
-            "width": 112.19999999999999,
-            "height": 36.0
+            "width": 111,
+            "height": 38
         }
     ],
     "edges": [
@@ -105,8 +105,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 67.1,
-                    "height": 12.0
+                    "width": 77,
+                    "height": 14
                 }
             ]
         }

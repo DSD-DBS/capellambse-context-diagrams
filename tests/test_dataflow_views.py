@@ -1,6 +1,7 @@
 # SPDX-FileCopyrightText: Copyright DB InfraGO AG and the capellambse-context-diagrams contributors
 # SPDX-License-Identifier: Apache-2.0
 
+from unittest import mock
 
 import capellambse
 import pytest
@@ -11,7 +12,7 @@ from .conftest import (  # type: ignore[import-untyped]
     TEST_ELK_INPUT_ROOT,
     TEST_ELK_LAYOUT_ROOT,
     remove_ids_from_elk_layout,
-    remove_sizes,
+    text_size_mocker,
 )
 
 TEST_DATA_FLOW_DATA_ROOT = TEST_ELK_INPUT_ROOT / "data_flow_views"
@@ -37,9 +38,13 @@ def test_collecting(model: capellambse.MelodyModel, params: tuple[str, str]):
     )
     expected = _elkjs.ELKInputData.model_validate_json(data)
 
-    _ = (diag := obj.data_flow_view).elk_input_data({})
+    with mock.patch("capellambse.helpers.get_text_extent") as mock_ext:
+        mock_ext.side_effect = text_size_mocker
+        _ = (diag := obj.data_flow_view).elk_input_data({})
 
-    assert remove_sizes(diag._elk_input_data) == remove_sizes(expected)
+    assert diag._elk_input_data.model_dump(
+        exclude_defaults=True
+    ) == expected.model_dump(exclude_defaults=True)
 
 
 @pytest.mark.parametrize("params", TEST_DATA_FLOW_SET)

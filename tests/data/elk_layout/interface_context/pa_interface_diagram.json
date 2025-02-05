@@ -9,16 +9,16 @@
                 "y": 12
             },
             "size": {
-                "width": 99.55,
-                "height": 36
+                "width": 111,
+                "height": 38
             },
             "type": "node",
             "children": [
                 {
                     "id": "db2d7b36-8144-4ec7-8673-206faaf4590e",
                     "position": {
-                        "x": 91.55,
-                        "y": 13
+                        "x": 103,
+                        "y": 14
                     },
                     "size": {
                         "width": 10,
@@ -27,14 +27,14 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_805242",
+                    "id": "g_180932",
                     "position": {
                         "x": -1,
                         "y": 12
                     },
                     "size": {
-                        "width": 93.55,
-                        "height": 12
+                        "width": 105,
+                        "height": 14
                     },
                     "type": "label",
                     "text": "PC Software"
@@ -44,12 +44,12 @@
         {
             "id": "2de65884-8c89-4c55-8941-4aa1a07b8d86",
             "position": {
-                "x": 232.85,
+                "x": 259,
                 "y": 12
             },
             "size": {
-                "width": 114.5,
-                "height": 36
+                "width": 125,
+                "height": 38
             },
             "type": "node",
             "children": [
@@ -57,7 +57,7 @@
                     "id": "f61701c6-bfc2-4549-91d9-f76efaf0c9ee",
                     "position": {
                         "x": -2,
-                        "y": 13
+                        "y": 14
                     },
                     "size": {
                         "width": 10,
@@ -66,14 +66,14 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_291705",
+                    "id": "g_282908",
                     "position": {
                         "x": 7,
                         "y": 12
                     },
                     "size": {
-                        "width": 108.5,
-                        "height": 12
+                        "width": 119,
+                        "height": 14
                     },
                     "type": "label",
                     "text": "Node Software"
@@ -87,24 +87,24 @@
             "targetId": "f61701c6-bfc2-4549-91d9-f76efaf0c9ee",
             "routingPoints": [
                 {
-                    "x": 114.55,
-                    "y": 30
+                    "x": 126,
+                    "y": 31
                 },
                 {
-                    "x": 230.85,
-                    "y": 30
+                    "x": 257,
+                    "y": 31
                 }
             ],
             "children": [
                 {
-                    "id": "g_558861",
+                    "id": "g_835365",
                     "position": {
-                        "x": 134.55,
-                        "y": 33
+                        "x": 146,
+                        "y": 34
                     },
                     "size": {
-                        "width": 76.3,
-                        "height": 12
+                        "width": 91,
+                        "height": 14
                     },
                     "type": "label",
                     "text": "Interface"

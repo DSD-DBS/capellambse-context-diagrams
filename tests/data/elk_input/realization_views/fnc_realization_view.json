@@ -25,12 +25,12 @@
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 82.05,
-                                    "height": 14.857142857142858
+                                    "width": 91,
+                                    "height": 14
                                 }
                             ],
-                            "width": 88.05,
-                            "height": 38.85714285714286
+                            "width": 97,
+                            "height": 38
                         }
                     ],
                     "labels": [
@@ -39,16 +39,16 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                             },
-                            "width": 67.1,
-                            "height": 14.857142857142858
+                            "width": 70,
+                            "height": 14
                         }
                     ],
-                    "width": 161.14999999999998,
-                    "height": 77.71428571428572
+                    "width": 173,
+                    "height": 76
                 }
             ],
-            "width": 38.85714285714286,
-            "height": 73.1
+            "width": 38,
+            "height": 76
         },
         {
             "id": "853cb005-cba0-489b-8fe3-bb694ad4543b",
@@ -69,12 +69,12 @@
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 95.85,
-                                    "height": 16.285714285714285
+                                    "width": 112,
+                                    "height": 14
                                 }
                             ],
-                            "width": 101.85,
-                            "height": 40.285714285714285
+                            "width": 118,
+                            "height": 38
                         }
                     ],
                     "labels": [
@@ -83,24 +83,24 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                             },
-                            "width": 109.64999999999999,
-                            "height": 12.0
+                            "width": 147,
+                            "height": 14
                         },
                         {
                             "text": "Dumbledore",
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                             },
-                            "width": 95.85,
-                            "height": 12.0
+                            "width": 98,
+                            "height": 14
                         }
                     ],
-                    "width": 217.5,
-                    "height": 90.28571428571428
+                    "width": 271,
+                    "height": 92
                 }
             ],
-            "width": 40.285714285714285,
-            "height": 70.8
+            "width": 38,
+            "height": 83
         },
         {
             "id": "26e187b6-72e7-4872-8d8d-70b96243c96c",
@@ -121,12 +121,12 @@
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 107.35,
-                                    "height": 16.285714285714285
+                                    "width": 119,
+                                    "height": 14
                                 }
                             ],
-                            "width": 113.35,
-                            "height": 40.285714285714285
+                            "width": 125,
+                            "height": 38
                         }
                     ],
                     "labels": [
@@ -135,16 +135,16 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                             },
-                            "width": 86.65,
-                            "height": 14.857142857142858
+                            "width": 91,
+                            "height": 14
                         }
                     ],
-                    "width": 206.0,
-                    "height": 79.14285714285714
+                    "width": 222,
+                    "height": 76
                 }
             ],
-            "width": 40.285714285714285,
-            "height": 76.55
+            "width": 38,
+            "height": 90
         }
     ]
 }

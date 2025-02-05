@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import json
+from unittest import mock
 
 import capellambse
 import pytest
@@ -12,7 +13,7 @@ from .conftest import (  # type: ignore[import-untyped]
     TEST_ELK_INPUT_ROOT,
     TEST_ELK_LAYOUT_ROOT,
     remove_ids_from_elk_layout,
-    remove_sizes,
+    text_size_mocker,
 )
 
 TEST_REALIZATION_DATA_ROOT = TEST_ELK_INPUT_ROOT / "realization_views"
@@ -29,7 +30,6 @@ TEST_REALIZATION_SET = [
 def test_collecting(model: capellambse.MelodyModel, params: tuple[str, str]):
     uuid, elk_data_filename = params
     obj = model.by_uuid(uuid)
-    diag = obj.realization_view
     elk_data_file_path = TEST_REALIZATION_DATA_ROOT / elk_data_filename
     data = elk_data_file_path.read_text(encoding="utf8")
     expected = _elkjs.ELKInputData.model_validate_json(data)
@@ -37,10 +37,13 @@ def test_collecting(model: capellambse.MelodyModel, params: tuple[str, str]):
         TEST_REALIZATION_DATA_ROOT / (elk_data_file_path.stem + "_edges.json")
     ).read_text(encoding="utf8")
 
-    _ = diag.elk_input_data({})
-    elk_input, edges = diag._elk_input_data
+    with mock.patch("capellambse.helpers.get_text_extent") as mock_ext:
+        mock_ext.side_effect = text_size_mocker
+        elk_input, edges = obj.realization_view.elk_input_data({})
 
-    assert remove_sizes(elk_input) == remove_sizes(expected)
+    assert elk_input.model_dump(exclude_defaults=True) == expected.model_dump(
+        exclude_defaults=True
+    )
     assert json.loads(expected_edges) == {
         "edges": [edge.model_dump(exclude_defaults=True) for edge in edges]
     }

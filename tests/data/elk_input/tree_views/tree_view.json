@@ -16,8 +16,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 53.3,
-                    "height": 12.0
+                    "width": 56,
+                    "height": 14
                 },
                 {
                     "text": "",
@@ -30,60 +30,60 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 155.64999999999998,
-                    "height": 16.285714285714285
+                    "width": 189,
+                    "height": 14
                 },
                 {
                     "text": "[0..1] enum_example: EnumExample",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 223.49999999999997,
-                    "height": 14.857142857142858
+                    "width": 252,
+                    "height": 14
                 },
                 {
                     "text": "another: EnumExample_1",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 164.85,
-                    "height": 14.857142857142858
+                    "width": 182,
+                    "height": 14
                 },
                 {
                     "text": "another_one: EnumExample_2",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 191.29999999999998,
-                    "height": 14.857142857142858
+                    "width": 210,
+                    "height": 14
                 },
                 {
                     "text": "another_one_one: EnumExample_3",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 216.6,
-                    "height": 14.857142857142858
+                    "width": 238,
+                    "height": 14
                 },
                 {
                     "text": "last_one: EnumExample_4",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 167.14999999999998,
-                    "height": 14.857142857142858
+                    "width": 189,
+                    "height": 14
                 },
                 {
                     "text": "primitiveExample: Primitive",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 175.2,
-                    "height": 16.285714285714285
+                    "width": 217,
+                    "height": 14
                 }
             ],
-            "width": 229.49999999999997,
-            "height": 158.85714285714286
+            "width": 258,
+            "height": 152
         },
         {
             "id": "0093ffdd-ab4d-4c87-971d-0c2fc1a0b094",
@@ -93,8 +93,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 51.0,
-                    "height": 12.0
+                    "width": 49,
+                    "height": 14
                 },
                 {
                     "text": "",
@@ -103,8 +103,8 @@
                     }
                 }
             ],
-            "width": 57.0,
-            "height": 38.0
+            "width": 55,
+            "height": 40
         },
         {
             "id": "1dccccde-6ab1-47ac-8ee8-a3033a49a9e5",
@@ -114,8 +114,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 49.849999999999994,
-                    "height": 12.0
+                    "width": 49,
+                    "height": 14
                 },
                 {
                     "text": "",
@@ -124,8 +124,8 @@
                     }
                 }
             ],
-            "width": 55.849999999999994,
-            "height": 38.0
+            "width": 55,
+            "height": 40
         },
         {
             "id": "322dc599-ea72-49e9-8e37-fe5226e41f19",
@@ -135,8 +135,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 59.05,
-                    "height": 12.0
+                    "width": 63,
+                    "height": 14
                 },
                 {
                     "text": "",
@@ -149,12 +149,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 175.2,
-                    "height": 16.285714285714285
+                    "width": 217,
+                    "height": 14
                 }
             ],
-            "width": 181.2,
-            "height": 56.285714285714285
+            "width": 223,
+            "height": 56
         },
         {
             "id": "37ae6942-cbbc-4e2a-acad-10fbdceb8d56",
@@ -164,8 +164,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 47.55,
-                    "height": 13.428571428571429
+                    "width": 56,
+                    "height": 14
                 },
                 {
                     "text": "",
@@ -178,12 +178,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 129.2,
-                    "height": 16.285714285714285
+                    "width": 147,
+                    "height": 14
                 }
             ],
-            "width": 135.2,
-            "height": 57.714285714285715
+            "width": 153,
+            "height": 56
         }
     ],
     "edges": [
@@ -201,8 +201,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 78.6,
-                    "height": 16.285714285714285
+                    "width": 98,
+                    "height": 14
                 }
             ]
         },
@@ -220,8 +220,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 47.55,
-                    "height": 10.571428571428571
+                    "width": 49,
+                    "height": 14
                 }
             ]
         },
@@ -239,8 +239,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 86.65,
-                    "height": 14.857142857142858
+                    "width": 112,
+                    "height": 14
                 }
             ]
         },
@@ -258,8 +258,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 47.55,
-                    "height": 13.428571428571429
+                    "width": 56,
+                    "height": 14
                 }
             ]
         },

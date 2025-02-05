@@ -18,12 +18,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 144.14999999999998,
-                    "height": 16.285714285714285
+                    "width": 168,
+                    "height": 14
                 }
             ],
-            "width": 150.14999999999998,
-            "height": 40.285714285714285
+            "width": 174,
+            "height": 38
         },
         {
             "id": "ceffa011-7b66-4b3c-9885-8e075e312ffa",
@@ -33,12 +33,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 131.5,
-                    "height": 16.285714285714285
+                    "width": 154,
+                    "height": 14
                 }
             ],
-            "width": 137.5,
-            "height": 40.285714285714285
+            "width": 160,
+            "height": 38
         }
     ]
 }

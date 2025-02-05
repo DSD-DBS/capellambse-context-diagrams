@@ -21,12 +21,12 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 45.25,
-                            "height": 12.0
+                            "width": 49,
+                            "height": 14
                         }
                     ],
-                    "width": 51.25,
-                    "height": 36.0
+                    "width": 55,
+                    "height": 38
                 },
                 {
                     "id": "0e0164c3-076e-42c1-8f82-7a43ab84385c",
@@ -36,12 +36,12 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 86.65,
-                            "height": 12.0
+                            "width": 91,
+                            "height": 14
                         }
                     ],
-                    "width": 92.65,
-                    "height": 36.0
+                    "width": 97,
+                    "height": 38
                 },
                 {
                     "id": "ab016025-d456-4c2d-8359-d50cf9de3825",
@@ -51,12 +51,12 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 56.75,
-                            "height": 14.857142857142858
+                            "width": 63,
+                            "height": 14
                         }
                     ],
-                    "width": 62.75,
-                    "height": 38.85714285714286
+                    "width": 69,
+                    "height": 38
                 }
             ],
             "edges": [
@@ -74,8 +74,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 64.8,
-                            "height": 12.0
+                            "width": 63,
+                            "height": 14
                         }
                     ]
                 },
@@ -93,8 +93,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 105.05,
-                            "height": 14.857142857142858
+                            "width": 119,
+                            "height": 14
                         }
                     ]
                 },
@@ -112,24 +112,32 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 52.15,
-                            "height": 12.0
+                            "width": 56,
+                            "height": 14
                         }
                     ]
                 }
             ],
             "labels": [
                 {
-                    "text": "Functional Human Being",
+                    "text": "Functional Human",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 160.25,
-                    "height": 16.285714285714285
+                    "width": 140,
+                    "height": 14
+                },
+                {
+                    "text": "Being",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 63,
+                    "height": 14
                 }
             ],
-            "width": 166.25,
-            "height": 40.285714285714285
+            "width": 146,
+            "height": 54
         }
     ]
 }

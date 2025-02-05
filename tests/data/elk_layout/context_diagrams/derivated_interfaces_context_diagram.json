@@ -5,12 +5,12 @@
         {
             "id": "b3d9d50e-7592-4689-8ba7-e50f082cd71c",
             "position": {
-                "x": 340.95,
-                "y": 68
+                "x": 365,
+                "y": 70
             },
             "size": {
-                "width": 57,
-                "height": 36
+                "width": 62,
+                "height": 38
             },
             "type": "node",
             "children": [
@@ -18,7 +18,7 @@
                     "id": "5d562aa6-738a-48ce-aeb9-eb9d656edc7b",
                     "position": {
                         "x": -2,
-                        "y": 13
+                        "y": 14
                     },
                     "size": {
                         "width": 10,
@@ -27,14 +27,14 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_553596",
+                    "id": "g_690349",
                     "position": {
                         "x": 7,
                         "y": 12
                     },
                     "size": {
-                        "width": 51,
-                        "height": 12
+                        "width": 56,
+                        "height": 14
                     },
                     "type": "label",
                     "text": "LA 9"
@@ -44,12 +44,12 @@
         {
             "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
             "position": {
-                "x": 103.9,
-                "y": 15.142857142857139
+                "x": 109,
+                "y": 17.66666666666667
             },
             "size": {
-                "width": 113.75,
-                "height": 99.85714285714286
+                "width": 118,
+                "height": 101
             },
             "type": "node",
             "children": [
@@ -57,19 +57,19 @@
                     "id": "47c3130b-ec39-4365-a77a-5ab6365d1e2e",
                     "position": {
                         "x": 14,
-                        "y": 31.857142857142858
+                        "y": 31
                     },
                     "size": {
-                        "width": 85.75,
-                        "height": 56
+                        "width": 90,
+                        "height": 58
                     },
                     "type": "node",
                     "children": [
                         {
                             "id": "33f06d77-84ec-46eb-ae0d-f2694a35556b",
                             "position": {
-                                "x": 77.75,
-                                "y": 34
+                                "x": 82,
+                                "y": 35.33333333333333
                             },
                             "size": {
                                 "width": 10,
@@ -81,7 +81,7 @@
                             "id": "__Derived-CP_INOUT:-1",
                             "position": {
                                 "x": -2,
-                                "y": 34
+                                "y": 35.33333333333333
                             },
                             "size": {
                                 "width": 10,
@@ -92,8 +92,8 @@
                         {
                             "id": "__Derived-CP_INOUT:-2",
                             "position": {
-                                "x": 77.75,
-                                "y": 12
+                                "x": 82,
+                                "y": 12.666666666666666
                             },
                             "size": {
                                 "width": 10,
@@ -105,7 +105,7 @@
                             "id": "__Derived-CP_INOUT:-3",
                             "position": {
                                 "x": -2,
-                                "y": 12
+                                "y": 12.666666666666666
                             },
                             "size": {
                                 "width": 10,
@@ -114,14 +114,14 @@
                             "type": "port"
                         },
                         {
-                            "id": "g_831760",
+                            "id": "g_232880",
                             "position": {
-                                "x": 11.05,
+                                "x": 10,
                                 "y": 22
                             },
                             "size": {
-                                "width": 63.65,
-                                "height": 12
+                                "width": 70,
+                                "height": 14
                             },
                             "type": "label",
                             "text": "Center"
@@ -129,14 +129,14 @@
                     ]
                 },
                 {
-                    "id": "g_928809",
+                    "id": "g_615497",
                     "position": {
                         "x": 17,
                         "y": 5
                     },
                     "size": {
-                        "width": 79.75,
-                        "height": 14.857142857142858
+                        "width": 84,
+                        "height": 14
                     },
                     "type": "label",
                     "text": "Hogwarts"
@@ -147,19 +147,19 @@
             "id": "__Derived-LogicalActor:eb976b50-2f61-446a-b524-68790af06a57",
             "position": {
                 "x": 13,
-                "y": 68
+                "y": 70
             },
             "size": {
-                "width": 63.9,
-                "height": 36
+                "width": 69,
+                "height": 38
             },
             "type": "node",
             "children": [
                 {
                     "id": "__Derived-CP_INOUT:1",
                     "position": {
-                        "x": 55.9,
-                        "y": 13
+                        "x": 61,
+                        "y": 14
                     },
                     "size": {
                         "width": 10,
@@ -168,14 +168,14 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_421686",
+                    "id": "g_903677",
                     "position": {
                         "x": -1,
                         "y": 12
                     },
                     "size": {
-                        "width": 57.9,
-                        "height": 12
+                        "width": 63,
+                        "height": 14
                     },
                     "type": "label",
                     "text": "LC 17"
@@ -185,12 +185,12 @@
         {
             "id": "__Derived-LogicalHumanComponent:ce793e72-8a7b-4b03-b45f-90051a82a943",
             "position": {
-                "x": 244.65,
-                "y": 30
+                "x": 254,
+                "y": 31
             },
             "size": {
-                "width": 63.9,
-                "height": 36
+                "width": 69,
+                "height": 38
             },
             "type": "node",
             "children": [
@@ -198,7 +198,7 @@
                     "id": "__Derived-CP_INOUT:2",
                     "position": {
                         "x": -2,
-                        "y": 13
+                        "y": 14
                     },
                     "size": {
                         "width": 10,
@@ -207,14 +207,14 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_190962",
+                    "id": "g_863535",
                     "position": {
                         "x": 7,
                         "y": 12
                     },
                     "size": {
-                        "width": 57.9,
-                        "height": 12
+                        "width": 63,
+                        "height": 14
                     },
                     "type": "label",
                     "text": "LC 16"
@@ -228,16 +228,16 @@
                 "y": 12
             },
             "size": {
-                "width": 63.9,
-                "height": 36
+                "width": 69,
+                "height": 38
             },
             "type": "node",
             "children": [
                 {
                     "id": "__Derived-CP_INOUT:3",
                     "position": {
-                        "x": 55.9,
-                        "y": 13
+                        "x": 61,
+                        "y": 14
                     },
                     "size": {
                         "width": 10,
@@ -246,14 +246,14 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_154854",
+                    "id": "g_171148",
                     "position": {
                         "x": -1,
                         "y": 12
                     },
                     "size": {
-                        "width": 57.9,
-                        "height": 12
+                        "width": 63,
+                        "height": 14
                     },
                     "type": "label",
                     "text": "LC 18"
@@ -267,24 +267,24 @@
             "targetId": "5d562aa6-738a-48ce-aeb9-eb9d656edc7b",
             "routingPoints": [
                 {
-                    "x": 205.65,
-                    "y": 86
+                    "x": 215,
+                    "y": 89
                 },
                 {
-                    "x": 338.95,
-                    "y": 86
+                    "x": 363,
+                    "y": 89
                 }
             ],
             "children": [
                 {
-                    "id": "g_559642",
+                    "id": "g_578096",
                     "position": {
-                        "x": 242.65,
-                        "y": 89
+                        "x": 252,
+                        "y": 92
                     },
                     "size": {
-                        "width": 76.3,
-                        "height": 12
+                        "width": 91,
+                        "height": 14
                     },
                     "type": "label",
                     "text": "Interface"
@@ -298,12 +298,12 @@
             "targetId": "__Derived-CP_INOUT:-1",
             "routingPoints": [
                 {
-                    "x": 78.9,
-                    "y": 86
+                    "x": 84,
+                    "y": 89
                 },
                 {
-                    "x": 115.9,
-                    "y": 86
+                    "x": 121,
+                    "y": 89
                 }
             ]
         },
@@ -314,20 +314,20 @@
             "targetId": "__Derived-CP_INOUT:2",
             "routingPoints": [
                 {
-                    "x": 205.65,
-                    "y": 64
+                    "x": 215,
+                    "y": 66.33333333333334
                 },
                 {
-                    "x": 232.65,
-                    "y": 64
+                    "x": 242,
+                    "y": 66.33333333333334
                 },
                 {
-                    "x": 232.65,
-                    "y": 48
+                    "x": 242,
+                    "y": 50
                 },
                 {
-                    "x": 242.65,
-                    "y": 48
+                    "x": 252,
+                    "y": 50
                 }
             ]
         },
@@ -338,20 +338,20 @@
             "targetId": "__Derived-CP_INOUT:-3",
             "routingPoints": [
                 {
-                    "x": 78.9,
-                    "y": 30
+                    "x": 84,
+                    "y": 31
                 },
                 {
-                    "x": 88.9,
-                    "y": 30
+                    "x": 94,
+                    "y": 31
                 },
                 {
-                    "x": 88.9,
-                    "y": 64
+                    "x": 94,
+                    "y": 66.33333333333334
                 },
                 {
-                    "x": 115.9,
-                    "y": 64
+                    "x": 121,
+                    "y": 66.33333333333334
                 }
             ]
         }

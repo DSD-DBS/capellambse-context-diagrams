@@ -24,8 +24,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 147.6,
-                            "height": 16.285714285714285
+                            "width": 189,
+                            "height": 14
                         }
                     ],
                     "ports": [
@@ -42,14 +42,14 @@
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 52.15,
-                                    "height": 12.0
+                                    "width": 56,
+                                    "height": 14
                                 }
                             ]
                         }
                     ],
-                    "width": 153.6,
-                    "height": 40.285714285714285
+                    "width": 195,
+                    "height": 38
                 },
                 {
                     "id": "57325353-a19c-4dec-8f6f-05a214eac1c5",
@@ -62,8 +62,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 149.89999999999998,
-                            "height": 13.428571428571429
+                            "width": 182,
+                            "height": 14
                         }
                     ],
                     "ports": [
@@ -80,14 +80,14 @@
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 51.0,
-                                    "height": 12.0
+                                    "width": 56,
+                                    "height": 14
                                 }
                             ]
                         }
                     ],
-                    "width": 155.89999999999998,
-                    "height": 37.42857142857143
+                    "width": 188,
+                    "height": 38
                 },
                 {
                     "id": "a4cb3ff6-1289-4e27-91f2-4291cabe9db2",
@@ -100,16 +100,16 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 145.3,
-                            "height": 16.285714285714285
+                            "width": 182,
+                            "height": 14
                         },
                         {
                             "text": "Control",
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 68.25,
-                            "height": 12.0
+                            "width": 77,
+                            "height": 14
                         }
                     ],
                     "ports": [
@@ -126,14 +126,14 @@
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 51.0,
-                                    "height": 12.0
+                                    "width": 56,
+                                    "height": 14
                                 }
                             ]
                         }
                     ],
-                    "width": 151.3,
-                    "height": 54.285714285714285
+                    "width": 188,
+                    "height": 54
                 },
                 {
                     "id": "2c907e35-bf5a-4421-ba51-5191af0a30f8",
@@ -146,8 +146,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 94.69999999999999,
-                            "height": 13.428571428571429
+                            "width": 119,
+                            "height": 14
                         }
                     ],
                     "ports": [
@@ -164,14 +164,14 @@
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 51.0,
-                                    "height": 12.0
+                                    "width": 56,
+                                    "height": 14
                                 }
                             ]
                         }
                     ],
-                    "width": 119.1,
-                    "height": 37.42857142857143
+                    "width": 139,
+                    "height": 38
                 },
                 {
                     "id": "23faf496-7a2d-4a41-b92a-fc240d9b5924",
@@ -184,16 +184,16 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 154.5,
-                            "height": 16.285714285714285
+                            "width": 182,
+                            "height": 14
                         },
                         {
                             "text": "Unit",
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 51.0,
-                            "height": 13.428571428571429
+                            "width": 56,
+                            "height": 14
                         }
                     ],
                     "ports": [
@@ -210,14 +210,14 @@
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 51.0,
-                                    "height": 12.0
+                                    "width": 56,
+                                    "height": 14
                                 }
                             ]
                         }
                     ],
-                    "width": 160.5,
-                    "height": 55.714285714285715
+                    "width": 188,
+                    "height": 54
                 },
                 {
                     "id": "954d934f-8804-454b-9ef2-ced201640891",
@@ -230,8 +230,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 115.39999999999999,
-                            "height": 16.285714285714285
+                            "width": 140,
+                            "height": 14
                         }
                     ],
                     "ports": [
@@ -248,14 +248,14 @@
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 51.0,
-                                    "height": 12.0
+                                    "width": 56,
+                                    "height": 14
                                 }
                             ]
                         }
                     ],
-                    "width": 121.39999999999999,
-                    "height": 40.285714285714285
+                    "width": 146,
+                    "height": 38
                 },
                 {
                     "id": "7b78da30-7f39-4000-a2d6-3f7c1b56a5f5",
@@ -268,8 +268,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 143.0,
-                            "height": 16.285714285714285
+                            "width": 182,
+                            "height": 14
                         }
                     ],
                     "ports": [
@@ -286,14 +286,14 @@
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 51.0,
-                                    "height": 12.0
+                                    "width": 56,
+                                    "height": 14
                                 }
                             ]
                         }
                     ],
-                    "width": 149.0,
-                    "height": 40.285714285714285
+                    "width": 188,
+                    "height": 38
                 },
                 {
                     "id": "3924460c-321e-4300-8788-a6713dd64456",
@@ -306,8 +306,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 154.5,
-                            "height": 14.857142857142858
+                            "width": 175,
+                            "height": 14
                         }
                     ],
                     "ports": [
@@ -324,14 +324,14 @@
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 51.0,
-                                    "height": 12.0
+                                    "width": 56,
+                                    "height": 14
                                 }
                             ]
                         }
                     ],
-                    "width": 160.5,
-                    "height": 38.85714285714286
+                    "width": 181,
+                    "height": 38
                 },
                 {
                     "id": "7ae1d744-67b8-4506-8e39-be3006b0e5b9",
@@ -344,8 +344,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 139.55,
-                            "height": 13.428571428571429
+                            "width": 147,
+                            "height": 14
                         }
                     ],
                     "ports": [
@@ -362,14 +362,14 @@
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 51.0,
-                                    "height": 12.0
+                                    "width": 56,
+                                    "height": 14
                                 }
                             ]
                         }
                     ],
-                    "width": 145.55,
-                    "height": 37.42857142857143
+                    "width": 153,
+                    "height": 38
                 },
                 {
                     "id": "07ba7c6c-3a3e-4817-967d-a30a34808089",
@@ -382,8 +382,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 138.39999999999998,
-                            "height": 13.428571428571429
+                            "width": 168,
+                            "height": 14
                         }
                     ],
                     "ports": [
@@ -400,14 +400,14 @@
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 51.0,
-                                    "height": 12.0
+                                    "width": 56,
+                                    "height": 14
                                 }
                             ]
                         }
                     ],
-                    "width": 144.39999999999998,
-                    "height": 44.0
+                    "width": 174,
+                    "height": 48.0
                 }
             ],
             "edges": [
@@ -425,8 +425,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 102.75,
-                            "height": 16.285714285714285
+                            "width": 126,
+                            "height": 14
                         }
                     ]
                 },
@@ -444,8 +444,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 140.7,
-                            "height": 16.285714285714285
+                            "width": 175,
+                            "height": 14
                         }
                     ]
                 },
@@ -463,8 +463,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 130.35,
-                            "height": 16.285714285714285
+                            "width": 161,
+                            "height": 14
                         }
                     ]
                 },
@@ -482,8 +482,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 120.0,
-                            "height": 13.428571428571429
+                            "width": 154,
+                            "height": 14
                         }
                     ]
                 },
@@ -501,8 +501,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 145.3,
-                            "height": 16.285714285714285
+                            "width": 175,
+                            "height": 14
                         }
                     ]
                 },
@@ -520,8 +520,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 160.25,
-                            "height": 16.285714285714285
+                            "width": 196,
+                            "height": 14
                         }
                     ]
                 },
@@ -539,8 +539,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 128.05,
-                            "height": 16.285714285714285
+                            "width": 161,
+                            "height": 14
                         }
                     ]
                 },
@@ -558,8 +558,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 155.64999999999998,
-                            "height": 16.285714285714285
+                            "width": 182,
+                            "height": 14
                         }
                     ]
                 },
@@ -577,8 +577,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 139.55,
-                            "height": 13.428571428571429
+                            "width": 154,
+                            "height": 14
                         }
                     ]
                 }
@@ -589,12 +589,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 113.1,
-                    "height": 16.285714285714285
+                    "width": 133,
+                    "height": 14
                 }
             ],
-            "width": 119.1,
-            "height": 40.285714285714285
+            "width": 139,
+            "height": 38
         }
     ]
 }

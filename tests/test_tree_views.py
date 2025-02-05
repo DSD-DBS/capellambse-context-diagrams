@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import typing as t
+from unittest import mock
 
 import capellambse
 import pytest
@@ -12,7 +13,7 @@ from .conftest import (  # type: ignore[import-untyped]
     TEST_ELK_INPUT_ROOT,
     TEST_ELK_LAYOUT_ROOT,
     remove_ids_from_elk_layout,
-    remove_sizes,
+    text_size_mocker,
 )
 
 TEST_TREE_DATA_ROOT = TEST_ELK_INPUT_ROOT / "tree_views"
@@ -27,7 +28,6 @@ TEST_TREE_SET = [
 def test_collecting(model: capellambse.MelodyModel, params: tuple[str, str]):
     uuid, elk_data_filename = params
     obj = model.by_uuid(uuid)
-    diag = obj.tree_view
     elk_data_file_path = TEST_TREE_DATA_ROOT / elk_data_filename
     data = elk_data_file_path.read_text(encoding="utf8")
     expected = _elkjs.ELKInputData.model_validate_json(data)
@@ -36,11 +36,16 @@ def test_collecting(model: capellambse.MelodyModel, params: tuple[str, str]):
     ).read_text(encoding="utf8")
     expected_legend = _elkjs.ELKInputData.model_validate_json(legend_data)
 
-    _ = diag.elk_input_data({})
-    elk_input, legend = diag._elk_input_data
+    with mock.patch("capellambse.helpers.get_text_extent") as mock_ext:
+        mock_ext.side_effect = text_size_mocker
+        elk_input, legend = obj.tree_view.elk_input_data({})
 
-    assert remove_sizes(elk_input) == remove_sizes(expected)
-    assert remove_sizes(legend) == remove_sizes(expected_legend)
+    assert elk_input.model_dump(exclude_defaults=True) == expected.model_dump(
+        exclude_defaults=True
+    )
+    assert legend.model_dump(
+        exclude_defaults=True
+    ) == expected_legend.model_dump(exclude_defaults=True)
 
 
 @pytest.mark.parametrize("params", TEST_TREE_SET)

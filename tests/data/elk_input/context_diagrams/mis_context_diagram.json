@@ -18,11 +18,11 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 84.35,
-                    "height": 14.857142857142858
+                    "width": 98,
+                    "height": 14
                 }
             ],
-            "width": 90.35,
+            "width": 104,
             "height": 68
         },
         {
@@ -33,8 +33,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
                     },
-                    "width": 99.3,
-                    "height": 16.285714285714285
+                    "width": 112,
+                    "height": 14
                 }
             ],
             "width": 42.35294117647059,
@@ -48,8 +48,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
                     },
-                    "width": 82.05,
-                    "height": 16.285714285714285
+                    "width": 98,
+                    "height": 14
                 }
             ],
             "width": 42.35294117647059,
@@ -67,12 +67,12 @@
             ],
             "labels": [
                 {
-                    "text": "« involves »",
+                    "text": "\u00ab involves \u00bb",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 88.94999999999999,
-                    "height": 13.428571428571429
+                    "width": 112,
+                    "height": 14
                 }
             ]
         },
@@ -86,12 +86,12 @@
             ],
             "labels": [
                 {
-                    "text": "« exploits »",
+                    "text": "\u00ab exploits \u00bb",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 87.8,
-                    "height": 16.285714285714285
+                    "width": 112,
+                    "height": 14
                 }
             ]
         }

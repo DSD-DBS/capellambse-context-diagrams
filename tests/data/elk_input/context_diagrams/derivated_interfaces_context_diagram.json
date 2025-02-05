@@ -18,8 +18,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 51.0,
-                    "height": 12.0
+                    "width": 56,
+                    "height": 14
                 }
             ],
             "ports": [
@@ -32,8 +32,8 @@
                     "height": 10
                 }
             ],
-            "width": 57.0,
-            "height": 36.0
+            "width": 62,
+            "height": 38
         },
         {
             "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
@@ -46,8 +46,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 63.65,
-                            "height": 12.0
+                            "width": 70,
+                            "height": 14
                         }
                     ],
                     "ports": [
@@ -84,8 +84,8 @@
                             "height": 10
                         }
                     ],
-                    "width": 85.75,
-                    "height": 56.0
+                    "width": 90,
+                    "height": 58
                 }
             ],
             "labels": [
@@ -94,12 +94,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 79.75,
-                    "height": 14.857142857142858
+                    "width": 84,
+                    "height": 14
                 }
             ],
-            "width": 85.75,
-            "height": 38.85714285714286
+            "width": 90,
+            "height": 38
         },
         {
             "id": "__Derived-LogicalActor:eb976b50-2f61-446a-b524-68790af06a57",
@@ -109,8 +109,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 57.9,
-                    "height": 12.0
+                    "width": 63,
+                    "height": 14
                 }
             ],
             "ports": [
@@ -123,8 +123,8 @@
                     "height": 10
                 }
             ],
-            "width": 63.9,
-            "height": 36.0
+            "width": 69,
+            "height": 38
         },
         {
             "id": "__Derived-LogicalHumanComponent:ce793e72-8a7b-4b03-b45f-90051a82a943",
@@ -134,8 +134,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 57.9,
-                    "height": 12.0
+                    "width": 63,
+                    "height": 14
                 }
             ],
             "ports": [
@@ -148,8 +148,8 @@
                     "height": 10
                 }
             ],
-            "width": 63.9,
-            "height": 36.0
+            "width": 69,
+            "height": 38
         },
         {
             "id": "__Derived-LogicalComponent:3d72e148-443e-4c4f-84f2-a713a8b346b9",
@@ -159,8 +159,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 57.9,
-                    "height": 12.0
+                    "width": 63,
+                    "height": 14
                 }
             ],
             "ports": [
@@ -173,8 +173,8 @@
                     "height": 10
                 }
             ],
-            "width": 63.9,
-            "height": 36.0
+            "width": 69,
+            "height": 38
         }
     ],
     "edges": [
@@ -192,8 +192,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 76.3,
-                    "height": 12.0
+                    "width": 91,
+                    "height": 14
                 }
             ]
         },

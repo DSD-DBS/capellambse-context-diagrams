@@ -9,8 +9,8 @@
                 "y": 15
             },
             "size": {
-                "width": 365.65,
-                "height": 274.2857142857143
+                "width": 383,
+                "height": 270
             },
             "type": "node",
             "children": [
@@ -21,8 +21,8 @@
                         "y": 15
                     },
                     "size": {
-                        "width": 166.05,
-                        "height": 244.28571428571428
+                        "width": 175,
+                        "height": 240
                     },
                     "type": "node",
                     "children": [
@@ -30,23 +30,23 @@
                             "id": "f632888e-51bc-4c9f-8e81-73e9404de784",
                             "position": {
                                 "x": 12,
-                                "y": 31.857142857142858
+                                "y": 31
                             },
                             "size": {
-                                "width": 54.7,
-                                "height": 36
+                                "width": 62,
+                                "height": 38
                             },
                             "type": "node",
                             "children": [
                                 {
-                                    "id": "g_179355",
+                                    "id": "g_419325",
                                     "position": {
                                         "x": 3,
                                         "y": 12
                                     },
                                     "size": {
-                                        "width": 48.7,
-                                        "height": 12
+                                        "width": 56,
+                                        "height": 14
                                     },
                                     "type": "label",
                                     "text": "Left"
@@ -57,11 +57,11 @@
                             "id": "37dfa5e6-a121-4ce9-8aa4-09a0c73dc2e9",
                             "position": {
                                 "x": 12,
-                                "y": 90.71428571428572
+                                "y": 89
                             },
                             "size": {
-                                "width": 114.35,
-                                "height": 141.57142857142856
+                                "width": 128,
+                                "height": 139
                             },
                             "type": "node",
                             "children": [
@@ -69,23 +69,23 @@
                                     "id": "e1e48763-7479-4f3a-8134-c82bb6705d58",
                                     "position": {
                                         "x": 12,
-                                        "y": 89.28571428571428
+                                        "y": 89
                                     },
                                     "size": {
-                                        "width": 90.35,
-                                        "height": 40.285714285714285
+                                        "width": 104,
+                                        "height": 38
                                     },
                                     "type": "node",
                                     "children": [
                                         {
-                                            "id": "g_498784",
+                                            "id": "g_257553",
                                             "position": {
                                                 "x": 3,
                                                 "y": 12
                                             },
                                             "size": {
-                                                "width": 84.35,
-                                                "height": 16.285714285714285
+                                                "width": 98,
+                                                "height": 14
                                             },
                                             "type": "label",
                                             "text": "RightStack"
@@ -96,23 +96,23 @@
                                     "id": "8df45b70-15cc-4d3a-99e4-593516392c5a",
                                     "position": {
                                         "x": 12,
-                                        "y": 33.285714285714285
+                                        "y": 31
                                     },
                                     "size": {
-                                        "width": 83.44999999999999,
-                                        "height": 36
+                                        "width": 97,
+                                        "height": 38
                                     },
                                     "type": "node",
                                     "children": [
                                         {
-                                            "id": "g_384486",
+                                            "id": "g_316630",
                                             "position": {
                                                 "x": 3,
                                                 "y": 12
                                             },
                                             "size": {
-                                                "width": 77.44999999999999,
-                                                "height": 12
+                                                "width": 91,
+                                                "height": 14
                                             },
                                             "type": "label",
                                             "text": "LeftStack"
@@ -120,14 +120,14 @@
                                     ]
                                 },
                                 {
-                                    "id": "g_261424",
+                                    "id": "g_256180",
                                     "position": {
-                                        "x": 29.375,
+                                        "x": 32.5,
                                         "y": 5
                                     },
                                     "size": {
-                                        "width": 55.599999999999994,
-                                        "height": 16.285714285714285
+                                        "width": 63,
+                                        "height": 14
                                     },
                                     "type": "label",
                                     "text": "Right"
@@ -137,24 +137,24 @@
                         {
                             "id": "f8c9df04-fcd5-479d-814b-696fa6050231",
                             "position": {
-                                "x": 86.7,
-                                "y": 31.857142857142858
+                                "x": 94,
+                                "y": 31
                             },
                             "size": {
-                                "width": 67.35,
-                                "height": 38.85714285714286
+                                "width": 69,
+                                "height": 38
                             },
                             "type": "node",
                             "children": [
                                 {
-                                    "id": "g_877730",
+                                    "id": "g_754061",
                                     "position": {
                                         "x": 3,
-                                        "y": 12.000000000000002
+                                        "y": 12
                                     },
                                     "size": {
-                                        "width": 61.349999999999994,
-                                        "height": 14.857142857142858
+                                        "width": 63,
+                                        "height": 14
                                     },
                                     "type": "label",
                                     "text": "Upper"
@@ -162,14 +162,14 @@
                             ]
                         },
                         {
-                            "id": "g_624331",
+                            "id": "g_344723",
                             "position": {
-                                "x": 43.150000000000006,
+                                "x": 45.5,
                                 "y": 5
                             },
                             "size": {
-                                "width": 79.75,
-                                "height": 14.857142857142858
+                                "width": 84,
+                                "height": 14
                             },
                             "type": "label",
                             "text": "Hogwarts"
@@ -179,12 +179,12 @@
                 {
                     "id": "6583b560-6d2f-4190-baa2-94eef179c8ea",
                     "position": {
-                        "x": 196.05,
+                        "x": 205,
                         "y": 15
                     },
                     "size": {
-                        "width": 154.6,
-                        "height": 84.14285714285714
+                        "width": 163,
+                        "height": 81
                     },
                     "type": "node",
                     "children": [
@@ -192,23 +192,23 @@
                             "id": "3bdd4fa2-5646-44a1-9fa6-80c68433ddb7",
                             "position": {
                                 "x": 12,
-                                "y": 31.857142857142858
+                                "y": 31
                             },
                             "size": {
-                                "width": 130.6,
-                                "height": 40.285714285714285
+                                "width": 139,
+                                "height": 38
                             },
                             "type": "node",
                             "children": [
                                 {
-                                    "id": "g_743806",
+                                    "id": "g_533097",
                                     "position": {
                                         "x": 3,
                                         "y": 12
                                     },
                                     "size": {
-                                        "width": 124.6,
-                                        "height": 16.285714285714285
+                                        "width": 133,
+                                        "height": 14
                                     },
                                     "type": "label",
                                     "text": "Whomping Willow"
@@ -216,14 +216,14 @@
                             ]
                         },
                         {
-                            "id": "g_938483",
+                            "id": "g_064838",
                             "position": {
-                                "x": 41.45,
+                                "x": 46.5,
                                 "y": 5
                             },
                             "size": {
-                                "width": 71.69999999999999,
-                                "height": 14.857142857142858
+                                "width": 70,
+                                "height": 14
                             },
                             "type": "label",
                             "text": "Campus"
@@ -236,11 +236,11 @@
             "id": "26e187b6-72e7-4872-8d8d-70b96243c96c",
             "position": {
                 "x": 15,
-                "y": 304.2857142857143
+                "y": 300
             },
             "size": {
-                "width": 149.1,
-                "height": 70.28571428571428
+                "width": 169,
+                "height": 68
             },
             "type": "node",
             "children": [
@@ -251,20 +251,20 @@
                         "y": 15
                     },
                     "size": {
-                        "width": 119.1,
-                        "height": 40.285714285714285
+                        "width": 139,
+                        "height": 38
                     },
                     "type": "node",
                     "children": [
                         {
-                            "id": "g_273079",
+                            "id": "g_103925",
                             "position": {
                                 "x": 3,
                                 "y": 12
                             },
                             "size": {
-                                "width": 113.1,
-                                "height": 16.285714285714285
+                                "width": 133,
+                                "height": 14
                             },
                             "type": "label",
                             "text": "Physical System"

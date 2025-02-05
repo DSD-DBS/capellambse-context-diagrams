@@ -1,24 +1,24 @@
 {
-    "id": "39e96ffc-2f32-41b9-b406-ba82c78fe451_cable_tree",
+    "id": "39e96ffc-2f32-41b9-b406-ba82c78fe451_context",
     "type": "graph",
     "children": [
         {
             "id": "54039718-8e47-442e-98ad-44d0459a5170",
             "position": {
                 "x": 13,
-                "y": 68
+                "y": 12
             },
             "size": {
-                "width": 58.15,
-                "height": 36
+                "width": 62,
+                "height": 38
             },
             "type": "node",
             "children": [
                 {
                     "id": "1ceea88f-63fe-4015-b73e-94ebcea67e1b",
                     "position": {
-                        "x": 50.15,
-                        "y": 13
+                        "x": 54,
+                        "y": 14
                     },
                     "size": {
                         "width": 10,
@@ -27,14 +27,14 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_977274",
+                            "id": "g_508644",
                             "position": {
                                 "x": 11,
                                 "y": 11
                             },
                             "size": {
-                                "width": 51,
-                                "height": 12
+                                "width": 56,
+                                "height": 14
                             },
                             "type": "label",
                             "text": "PP 1"
@@ -42,14 +42,14 @@
                     ]
                 },
                 {
-                    "id": "g_612561",
+                    "id": "g_070464",
                     "position": {
                         "x": -1,
-                        "y": 5
+                        "y": 12
                     },
                     "size": {
-                        "width": 52.15,
-                        "height": 12
+                        "width": 56,
+                        "height": 14
                     },
                     "type": "label",
                     "text": "PC 1"
@@ -59,12 +59,12 @@
         {
             "id": "dcad75de-d7d5-4f28-9fb2-b084c150eb30",
             "position": {
-                "x": 271.3,
+                "x": 289,
                 "y": 12
             },
             "size": {
-                "width": 65.05,
-                "height": 36
+                "width": 69,
+                "height": 38
             },
             "type": "node",
             "children": [
@@ -72,7 +72,7 @@
                     "id": "9e155e28-d27a-4e07-89a3-0e67f54641cc",
                     "position": {
                         "x": -2,
-                        "y": 13
+                        "y": 14
                     },
                     "size": {
                         "width": 10,
@@ -81,14 +81,14 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_169718",
+                            "id": "g_161554",
                             "position": {
-                                "x": -53.15,
+                                "x": -57,
                                 "y": 11
                             },
                             "size": {
-                                "width": 52.15,
-                                "height": 12
+                                "width": 56,
+                                "height": 14
                             },
                             "type": "label",
                             "text": "PP 3"
@@ -96,71 +96,17 @@
                     ]
                 },
                 {
-                    "id": "g_811883",
+                    "id": "g_772121",
                     "position": {
                         "x": 7,
-                        "y": 5
+                        "y": 12
                     },
                     "size": {
-                        "width": 59.05,
-                        "height": 12
+                        "width": 63,
+                        "height": 14
                     },
                     "type": "label",
                     "text": "PC 35"
-                }
-            ]
-        },
-        {
-            "id": "86268c87-29d1-4427-af68-bcd88779ce8e",
-            "position": {
-                "x": 13,
-                "y": 12
-            },
-            "size": {
-                "width": 58.15,
-                "height": 36
-            },
-            "type": "node",
-            "children": [
-                {
-                    "id": "0adba03e-922d-4e0f-9637-d5d20533cc59",
-                    "position": {
-                        "x": 50.15,
-                        "y": 13
-                    },
-                    "size": {
-                        "width": 10,
-                        "height": 10
-                    },
-                    "type": "port",
-                    "children": [
-                        {
-                            "id": "g_280097",
-                            "position": {
-                                "x": 11,
-                                "y": 11
-                            },
-                            "size": {
-                                "width": 51,
-                                "height": 12
-                            },
-                            "type": "label",
-                            "text": "PP 1"
-                        }
-                    ]
-                },
-                {
-                    "id": "g_402362",
-                    "position": {
-                        "x": -1,
-                        "y": 5
-                    },
-                    "size": {
-                        "width": 52.15,
-                        "height": 12
-                    },
-                    "type": "label",
-                    "text": "PC 2"
                 }
             ]
         },
@@ -171,74 +117,27 @@
             "targetId": "9e155e28-d27a-4e07-89a3-0e67f54641cc",
             "routingPoints": [
                 {
-                    "x": 73.15,
-                    "y": 86
+                    "x": 77,
+                    "y": 31
                 },
                 {
-                    "x": 206.15,
-                    "y": 86
-                },
-                {
-                    "x": 206.15,
-                    "y": 30
-                },
-                {
-                    "x": 269.3,
-                    "y": 30
+                    "x": 287,
+                    "y": 31
                 }
             ],
             "children": [
                 {
-                    "id": "39e96ffc-2f32-41b9-b406-ba82c78fe451_j0",
-                    "type": "junction",
+                    "id": "g_014875",
                     "position": {
-                        "x": 206.15,
-                        "y": 30
-                    }
-                },
-                {
-                    "id": "g_519216",
-                    "position": {
-                        "x": 145.15,
-                        "y": 89
+                        "x": 154,
+                        "y": 34
                     },
                     "size": {
-                        "width": 51,
-                        "height": 12
+                        "width": 56,
+                        "height": 14
                     },
                     "type": "label",
                     "text": "PL 1"
-                }
-            ]
-        },
-        {
-            "id": "e3fa2759-4508-4b9b-b2e3-c5b39f3b9cdb",
-            "type": "edge",
-            "sourceId": "0adba03e-922d-4e0f-9637-d5d20533cc59",
-            "targetId": "9e155e28-d27a-4e07-89a3-0e67f54641cc",
-            "routingPoints": [
-                {
-                    "x": 73.15,
-                    "y": 30
-                },
-                {
-                    "x": 269.3,
-                    "y": 30
-                }
-            ],
-            "children": [
-                {
-                    "id": "g_461154",
-                    "position": {
-                        "x": 145.15,
-                        "y": 15
-                    },
-                    "size": {
-                        "width": 51,
-                        "height": 12
-                    },
-                    "type": "label",
-                    "text": "PL 2"
                 }
             ]
         }

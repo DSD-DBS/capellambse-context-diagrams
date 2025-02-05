@@ -35,6 +35,7 @@ def model(monkeypatch) -> capellambse.MelodyModel:
 def remove_ids_from_elk_layout(
     elk_layout: _elkjs.ELKOutputData,
 ) -> dict[str, t.Any]:
+    """Remove ids from a layout from ELK."""
     layout_dict = elk_layout.model_dump(exclude_defaults=True)
 
     def remove_ids(obj: t.Any) -> t.Any:
@@ -47,20 +48,6 @@ def remove_ids_from_elk_layout(
     return remove_ids(layout_dict)
 
 
-def remove_sizes(
-    elk_input: _elkjs.ELKInputData,
-) -> dict[str, t.Any]:
-    layout_dict = elk_input.model_dump(exclude_defaults=True)
-
-    def remove_sizes(obj: t.Any) -> t.Any:
-        if isinstance(obj, dict):
-            return {
-                k: remove_sizes(v)
-                for k, v in obj.items()
-                if k not in {"height", "width"}
-            }
-        if isinstance(obj, list):
-            return [remove_sizes(item) for item in obj]
-        return obj
-
-    return remove_sizes(layout_dict)
+def text_size_mocker(text: str) -> tuple[int, int]:
+    """Mock text size calculation."""
+    return (len(text) * 7, 12)

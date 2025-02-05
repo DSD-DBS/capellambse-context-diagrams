@@ -50,9 +50,12 @@ def remove_ids_from_elk_layout(
     return remove_ids(layout_dict)
 
 
-def text_size_mocker(text: str) -> tuple[int, int]:
+def text_size_mocker(
+    text: str, fonttype: str = "", size: int = 12
+) -> tuple[int, int]:
     """Mock text size calculation."""
-    return (len(text) * 50, 50)
+    del fonttype
+    return (len(text) * size // 2, size)
 
 
 def write_test_data_file(
@@ -116,7 +119,7 @@ def generic_collecting_test(
         expected_extra_file = data_root / (file_path.stem + extra_suffix)
         expected_extra = expected_extra_file.read_text(encoding="utf8")
 
-    with mock.patch("capellambse.helpers.get_text_extent") as mock_ext:
+    with mock.patch("capellambse.helpers.extent_func") as mock_ext:
         mock_ext.side_effect = text_size_mocker
         result = getattr(obj, diagram_attr).elk_input_data({})
 

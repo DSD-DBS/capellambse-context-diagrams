@@ -17,24 +17,24 @@
                     "id": "097bb133-abf3-4df0-ae4e-a28378537691",
                     "labels": [
                         {
-                            "text": "Confirm availability for",
+                            "text": "Confirm availability",
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 1228,
-                            "height": 52
+                            "width": 128,
+                            "height": 12
                         },
                         {
-                            "text": "delivery",
+                            "text": "for delivery",
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 428,
-                            "height": 52
+                            "width": 88,
+                            "height": 12
                         }
                     ],
-                    "width": 1234,
-                    "height": 130
+                    "width": 134,
+                    "height": 88
                 }
             ],
             "labels": [
@@ -43,12 +43,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 428,
-                    "height": 52
+                    "width": 68,
+                    "height": 12
                 }
             ],
-            "width": 434,
-            "height": 76
+            "width": 74,
+            "height": 36
         },
         {
             "id": "8c43d858-bab3-4d1d-afe0-71946d856e24",
@@ -61,20 +61,20 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 928,
-                            "height": 52
+                            "width": 118,
+                            "height": 12
                         },
                         {
                             "text": "upcoming delivery",
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 878,
-                            "height": 52
+                            "width": 113,
+                            "height": 12
                         }
                     ],
-                    "width": 934,
-                    "height": 130
+                    "width": 124,
+                    "height": 50
                 },
                 {
                     "id": "7548f5c0-ceac-4f92-a497-cf0e00405a4a",
@@ -84,12 +84,12 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 978,
-                            "height": 52
+                            "width": 123,
+                            "height": 12
                         }
                     ],
-                    "width": 984,
-                    "height": 76
+                    "width": 129,
+                    "height": 36
                 },
                 {
                     "id": "f236bb9a-0cae-482b-896f-54021e2d23f6",
@@ -99,12 +99,12 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 978,
-                            "height": 52
+                            "width": 123,
+                            "height": 12
                         }
                     ],
-                    "width": 984,
-                    "height": 76
+                    "width": 129,
+                    "height": 36
                 },
                 {
                     "id": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
@@ -114,12 +114,12 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 828,
-                            "height": 52
+                            "width": 108,
+                            "height": 12
                         }
                     ],
-                    "width": 834,
-                    "height": 76
+                    "width": 114,
+                    "height": 36
                 }
             ],
             "labels": [
@@ -128,12 +128,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 778,
-                    "height": 52
+                    "width": 103,
+                    "height": 12
                 }
             ],
-            "width": 784,
-            "height": 76
+            "width": 109,
+            "height": 36
         },
         {
             "id": "6329094a-99cc-4d39-a8d6-31e9a8eb4066",
@@ -142,24 +142,16 @@
                     "id": "86df271e-7c42-4067-b6fd-1161c3e11891",
                     "labels": [
                         {
-                            "text": "Receive a package for",
+                            "text": "Receive a package for customer",
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 1078,
-                            "height": 52
-                        },
-                        {
-                            "text": "customer",
-                            "layoutOptions": {
-                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                            },
-                            "width": 428,
-                            "height": 52
+                            "width": 178,
+                            "height": 12
                         }
                     ],
-                    "width": 1084,
-                    "height": 130
+                    "width": 184,
+                    "height": 36
                 }
             ],
             "labels": [
@@ -168,12 +160,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 428,
-                    "height": 52
+                    "width": 68,
+                    "height": 12
                 }
             ],
-            "width": 434,
-            "height": 76
+            "width": 74,
+            "height": 36
         }
     ],
     "edges": [
@@ -191,8 +183,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 1528,
-                    "height": 52
+                    "width": 178,
+                    "height": 12
                 }
             ]
         },
@@ -210,8 +202,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 1178,
-                    "height": 52
+                    "width": 143,
+                    "height": 12
                 }
             ]
         },
@@ -229,8 +221,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 778,
-                    "height": 52
+                    "width": 103,
+                    "height": 12
                 }
             ]
         },
@@ -248,8 +240,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 1678,
-                    "height": 52
+                    "width": 193,
+                    "height": 12
                 }
             ]
         },
@@ -267,8 +259,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 1278,
-                    "height": 52
+                    "width": 153,
+                    "height": 12
                 }
             ]
         }

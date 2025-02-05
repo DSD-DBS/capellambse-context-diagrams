@@ -5,12 +5,12 @@
         {
             "id": "b3d9d50e-7592-4689-8ba7-e50f082cd71c",
             "position": {
-                "x": 1311,
-                "y": 108.66666666666669
+                "x": 321,
+                "y": 68
             },
             "size": {
-                "width": 234,
-                "height": 76
+                "width": 54,
+                "height": 36
             },
             "type": "node",
             "children": [
@@ -18,7 +18,7 @@
                     "id": "5d562aa6-738a-48ce-aeb9-eb9d656edc7b",
                     "position": {
                         "x": -2,
-                        "y": 33
+                        "y": 13
                     },
                     "size": {
                         "width": 10,
@@ -27,14 +27,14 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_172465",
+                    "id": "g_960215",
                     "position": {
                         "x": 7,
                         "y": 12
                     },
                     "size": {
-                        "width": 228,
-                        "height": 52
+                        "width": 48,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "LA 9"
@@ -44,12 +44,12 @@
         {
             "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
             "position": {
-                "x": 324,
-                "y": 12
+                "x": 99,
+                "y": 18
             },
             "size": {
-                "width": 462,
-                "height": 177
+                "width": 102,
+                "height": 97
             },
             "type": "node",
             "children": [
@@ -57,19 +57,19 @@
                     "id": "47c3130b-ec39-4365-a77a-5ab6365d1e2e",
                     "position": {
                         "x": 14,
-                        "y": 69
+                        "y": 29
                     },
                     "size": {
-                        "width": 434,
-                        "height": 96
+                        "width": 74,
+                        "height": 56
                     },
                     "type": "node",
                     "children": [
                         {
                             "id": "33f06d77-84ec-46eb-ae0d-f2694a35556b",
                             "position": {
-                                "x": 426,
-                                "y": 60.66666666666667
+                                "x": 66,
+                                "y": 34
                             },
                             "size": {
                                 "width": 10,
@@ -81,7 +81,7 @@
                             "id": "__Derived-CP_INOUT:-1",
                             "position": {
                                 "x": -2,
-                                "y": 60.66666666666667
+                                "y": 34
                             },
                             "size": {
                                 "width": 10,
@@ -92,8 +92,8 @@
                         {
                             "id": "__Derived-CP_INOUT:-2",
                             "position": {
-                                "x": 426,
-                                "y": 25.333333333333336
+                                "x": 66,
+                                "y": 12
                             },
                             "size": {
                                 "width": 10,
@@ -105,7 +105,7 @@
                             "id": "__Derived-CP_INOUT:-3",
                             "position": {
                                 "x": -2,
-                                "y": 25.333333333333336
+                                "y": 12
                             },
                             "size": {
                                 "width": 10,
@@ -114,14 +114,14 @@
                             "type": "port"
                         },
                         {
-                            "id": "g_616842",
+                            "id": "g_604869",
                             "position": {
-                                "x": 53,
+                                "x": 8,
                                 "y": 22
                             },
                             "size": {
-                                "width": 328,
-                                "height": 52
+                                "width": 58,
+                                "height": 12
                             },
                             "type": "label",
                             "text": "Center"
@@ -129,14 +129,14 @@
                     ]
                 },
                 {
-                    "id": "g_308288",
+                    "id": "g_608151",
                     "position": {
                         "x": 17,
                         "y": 5
                     },
                     "size": {
-                        "width": 428,
-                        "height": 52
+                        "width": 68,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Hogwarts"
@@ -147,19 +147,19 @@
             "id": "__Derived-LogicalActor:eb976b50-2f61-446a-b524-68790af06a57",
             "position": {
                 "x": 13,
-                "y": 108.66666666666669
+                "y": 68
             },
             "size": {
-                "width": 284,
-                "height": 76
+                "width": 59,
+                "height": 36
             },
             "type": "node",
             "children": [
                 {
                     "id": "__Derived-CP_INOUT:1",
                     "position": {
-                        "x": 276,
-                        "y": 33
+                        "x": 51,
+                        "y": 13
                     },
                     "size": {
                         "width": 10,
@@ -168,14 +168,14 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_926425",
+                    "id": "g_276163",
                     "position": {
                         "x": -1,
                         "y": 12
                     },
                     "size": {
-                        "width": 278,
-                        "height": 52
+                        "width": 53,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "LC 17"
@@ -185,12 +185,12 @@
         {
             "id": "__Derived-LogicalHumanComponent:ce793e72-8a7b-4b03-b45f-90051a82a943",
             "position": {
-                "x": 813,
-                "y": 50.666666666666686
+                "x": 228,
+                "y": 30
             },
             "size": {
-                "width": 284,
-                "height": 76
+                "width": 59,
+                "height": 36
             },
             "type": "node",
             "children": [
@@ -198,7 +198,7 @@
                     "id": "__Derived-CP_INOUT:2",
                     "position": {
                         "x": -2,
-                        "y": 33
+                        "y": 13
                     },
                     "size": {
                         "width": 10,
@@ -207,14 +207,14 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_083382",
+                    "id": "g_255864",
                     "position": {
                         "x": 7,
                         "y": 12
                     },
                     "size": {
-                        "width": 278,
-                        "height": 52
+                        "width": 53,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "LC 16"
@@ -225,19 +225,19 @@
             "id": "__Derived-LogicalComponent:3d72e148-443e-4c4f-84f2-a713a8b346b9",
             "position": {
                 "x": 13,
-                "y": 12.666666666666686
+                "y": 12
             },
             "size": {
-                "width": 284,
-                "height": 76
+                "width": 59,
+                "height": 36
             },
             "type": "node",
             "children": [
                 {
                     "id": "__Derived-CP_INOUT:3",
                     "position": {
-                        "x": 276,
-                        "y": 33
+                        "x": 51,
+                        "y": 13
                     },
                     "size": {
                         "width": 10,
@@ -246,14 +246,14 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_094282",
+                    "id": "g_679126",
                     "position": {
                         "x": -1,
                         "y": 12
                     },
                     "size": {
-                        "width": 278,
-                        "height": 52
+                        "width": 53,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "LC 18"
@@ -267,24 +267,24 @@
             "targetId": "5d562aa6-738a-48ce-aeb9-eb9d656edc7b",
             "routingPoints": [
                 {
-                    "x": 774,
-                    "y": 146.66666666666669
+                    "x": 189,
+                    "y": 86
                 },
                 {
-                    "x": 1309,
-                    "y": 146.66666666666669
+                    "x": 319,
+                    "y": 86
                 }
             ],
             "children": [
                 {
-                    "id": "g_513930",
+                    "id": "g_486825",
                     "position": {
-                        "x": 811,
-                        "y": 149.66666666666669
+                        "x": 226,
+                        "y": 89
                     },
                     "size": {
-                        "width": 478,
-                        "height": 52
+                        "width": 73,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Interface"
@@ -298,12 +298,12 @@
             "targetId": "__Derived-CP_INOUT:-1",
             "routingPoints": [
                 {
-                    "x": 299,
-                    "y": 146.66666666666669
+                    "x": 74,
+                    "y": 86
                 },
                 {
-                    "x": 336,
-                    "y": 146.66666666666669
+                    "x": 111,
+                    "y": 86
                 }
             ]
         },
@@ -314,20 +314,20 @@
             "targetId": "__Derived-CP_INOUT:2",
             "routingPoints": [
                 {
-                    "x": 774,
-                    "y": 111.33333333333334
+                    "x": 189,
+                    "y": 64
                 },
                 {
-                    "x": 801,
-                    "y": 111.33333333333334
+                    "x": 216,
+                    "y": 64
                 },
                 {
-                    "x": 801,
-                    "y": 88.66666666666669
+                    "x": 216,
+                    "y": 48
                 },
                 {
-                    "x": 811,
-                    "y": 88.66666666666669
+                    "x": 226,
+                    "y": 48
                 }
             ]
         },
@@ -338,20 +338,20 @@
             "targetId": "__Derived-CP_INOUT:-3",
             "routingPoints": [
                 {
-                    "x": 299,
-                    "y": 50.666666666666686
+                    "x": 74,
+                    "y": 30
                 },
                 {
-                    "x": 309,
-                    "y": 50.666666666666686
+                    "x": 84,
+                    "y": 30
                 },
                 {
-                    "x": 309,
-                    "y": 111.33333333333334
+                    "x": 84,
+                    "y": 64
                 },
                 {
-                    "x": 336,
-                    "y": 111.33333333333334
+                    "x": 111,
+                    "y": 64
                 }
             ]
         }

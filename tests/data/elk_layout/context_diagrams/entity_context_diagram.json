@@ -6,23 +6,23 @@
             "id": "e37510b9-3166-4f80-a919-dfaac9b696c7",
             "position": {
                 "x": 12,
-                "y": 39
+                "y": 12
             },
             "size": {
-                "width": 584,
-                "height": 76
+                "width": 89,
+                "height": 36
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_693216",
+                    "id": "g_526302",
                     "position": {
                         "x": 3,
                         "y": 12
                     },
                     "size": {
-                        "width": 578,
-                        "height": 52
+                        "width": 83,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Environment"
@@ -32,40 +32,27 @@
         {
             "id": "a8c42033-fdf2-458f-bae9-1cfd1207c49f",
             "position": {
-                "x": 1814,
+                "x": 284,
                 "y": 12
             },
             "size": {
-                "width": 834,
-                "height": 130
+                "width": 144,
+                "height": 36
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_149871",
+                    "id": "g_115102",
                     "position": {
                         "x": 3,
-                        "y": 13
+                        "y": 12
                     },
                     "size": {
-                        "width": 828,
-                        "height": 52
+                        "width": 138,
+                        "height": 12
                     },
                     "type": "label",
-                    "text": "Functional Human"
-                },
-                {
-                    "id": "g_555070",
-                    "position": {
-                        "x": 278,
-                        "y": 65
-                    },
-                    "size": {
-                        "width": 278,
-                        "height": 52
-                    },
-                    "type": "label",
-                    "text": "Being"
+                    "text": "Functional Human Being"
                 }
             ]
         },
@@ -76,24 +63,24 @@
             "targetId": "a8c42033-fdf2-458f-bae9-1cfd1207c49f",
             "routingPoints": [
                 {
-                    "x": 596,
-                    "y": 77
+                    "x": 101,
+                    "y": 30
                 },
                 {
-                    "x": 1814,
-                    "y": 77
+                    "x": 284,
+                    "y": 30
                 }
             ],
             "children": [
                 {
-                    "id": "g_710064",
+                    "id": "g_295643",
                     "position": {
-                        "x": 616,
-                        "y": 80
+                        "x": 121,
+                        "y": 33
                     },
                     "size": {
-                        "width": 1178,
-                        "height": 52
+                        "width": 143,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Environmental influence"

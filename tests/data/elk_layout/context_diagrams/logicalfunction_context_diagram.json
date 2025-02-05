@@ -9,20 +9,20 @@
                 "y": 12
             },
             "size": {
-                "width": 2312,
-                "height": 258.3333333333333
+                "width": 557,
+                "height": 124
             },
             "type": "node",
             "children": [
                 {
                     "id": "37dfa5e6-a121-4ce9-8aa4-09a0c73dc2e9",
                     "position": {
-                        "x": 1840,
-                        "y": 69
+                        "x": 445,
+                        "y": 31.000000000000007
                     },
                     "size": {
-                        "width": 460,
-                        "height": 157
+                        "width": 100,
+                        "height": 77
                     },
                     "type": "node",
                     "children": [
@@ -30,11 +30,11 @@
                             "id": "a65281e5-83e9-4aad-a2c6-0c31d8b24477",
                             "position": {
                                 "x": 14,
-                                "y": 69
+                                "y": 29
                             },
                             "size": {
-                                "width": 434,
-                                "height": 76
+                                "width": 74,
+                                "height": 36
                             },
                             "type": "node",
                             "children": [
@@ -42,7 +42,7 @@
                                     "id": "aac1f636-44cd-467a-8238-3c383f28351e",
                                     "position": {
                                         "x": -2,
-                                        "y": 47.33333333333333
+                                        "y": 20.666666666666664
                                     },
                                     "size": {
                                         "width": 10,
@@ -54,7 +54,7 @@
                                     "id": "dd98c04f-6e47-4989-bccf-7fa6cc51a28f",
                                     "position": {
                                         "x": -2,
-                                        "y": 18.666666666666664
+                                        "y": 5.333333333333333
                                     },
                                     "size": {
                                         "width": 10,
@@ -63,14 +63,14 @@
                                     "type": "port"
                                 },
                                 {
-                                    "id": "g_752425",
+                                    "id": "g_223247",
                                     "position": {
-                                        "x": 57,
+                                        "x": 12,
                                         "y": 12
                                     },
                                     "size": {
-                                        "width": 328,
-                                        "height": 52
+                                        "width": 58,
+                                        "height": 12
                                     },
                                     "type": "label",
                                     "text": "Circle"
@@ -78,14 +78,14 @@
                             ]
                         },
                         {
-                            "id": "g_946976",
+                            "id": "g_240934",
                             "position": {
-                                "x": 91,
+                                "x": 23.5,
                                 "y": 5
                             },
                             "size": {
-                                "width": 278,
-                                "height": 52
+                                "width": 53,
+                                "height": 12
                             },
                             "type": "label",
                             "text": "Right"
@@ -96,11 +96,11 @@
                     "id": "f8c9df04-fcd5-479d-814b-696fa6050231",
                     "position": {
                         "x": 12,
-                        "y": 69
+                        "y": 32
                     },
                     "size": {
-                        "width": 460,
-                        "height": 157
+                        "width": 100,
+                        "height": 77
                     },
                     "type": "node",
                     "children": [
@@ -108,19 +108,19 @@
                             "id": "9d367e35-d826-4256-98b1-3278cc4c3ab8",
                             "position": {
                                 "x": 12,
-                                "y": 69
+                                "y": 29
                             },
                             "size": {
-                                "width": 434,
-                                "height": 76
+                                "width": 74,
+                                "height": 36
                             },
                             "type": "node",
                             "children": [
                                 {
                                     "id": "cd739c16-9f51-42b5-ace1-42e82acbf63a",
                                     "position": {
-                                        "x": 426,
-                                        "y": 33
+                                        "x": 66,
+                                        "y": 13
                                     },
                                     "size": {
                                         "width": 10,
@@ -129,14 +129,14 @@
                                     "type": "port"
                                 },
                                 {
-                                    "id": "g_477058",
+                                    "id": "g_252433",
                                     "position": {
-                                        "x": 49,
+                                        "x": 4,
                                         "y": 12
                                     },
                                     "size": {
-                                        "width": 328,
-                                        "height": 52
+                                        "width": 58,
+                                        "height": 12
                                     },
                                     "type": "label",
                                     "text": "UpUpUp"
@@ -144,14 +144,14 @@
                             ]
                         },
                         {
-                            "id": "g_582661",
+                            "id": "g_377867",
                             "position": {
-                                "x": 91,
+                                "x": 23.5,
                                 "y": 5
                             },
                             "size": {
-                                "width": 278,
-                                "height": 52
+                                "width": 53,
+                                "height": 12
                             },
                             "type": "label",
                             "text": "Upper"
@@ -161,12 +161,12 @@
                 {
                     "id": "f632888e-51bc-4c9f-8e81-73e9404de784",
                     "position": {
-                        "x": 950,
-                        "y": 69
+                        "x": 230,
+                        "y": 29
                     },
                     "size": {
-                        "width": 312,
-                        "height": 157
+                        "width": 87,
+                        "height": 83
                     },
                     "type": "node",
                     "children": [
@@ -174,19 +174,19 @@
                             "id": "7f138bae-4949-40a1-9a88-15941f827f8c",
                             "position": {
                                 "x": 14,
-                                "y": 69
+                                "y": 29
                             },
                             "size": {
-                                "width": 284,
-                                "height": 76
+                                "width": 59,
+                                "height": 42
                             },
                             "type": "node",
                             "children": [
                                 {
                                     "id": "60fbcf0f-7cbc-4540-a4b0-961c82007924",
                                     "position": {
-                                        "x": 276,
-                                        "y": 47.33333333333333
+                                        "x": 51,
+                                        "y": 24.66666666666667
                                     },
                                     "size": {
                                         "width": 10,
@@ -198,7 +198,7 @@
                                     "id": "8b39d153-234b-4ced-9c0a-af75f79c23ec",
                                     "position": {
                                         "x": -2,
-                                        "y": 33
+                                        "y": 16
                                     },
                                     "size": {
                                         "width": 10,
@@ -209,8 +209,8 @@
                                 {
                                     "id": "6265248f-2ec9-449f-9b07-0614957cbab3",
                                     "position": {
-                                        "x": 276,
-                                        "y": 18.666666666666664
+                                        "x": 51,
+                                        "y": 7.333333333333334
                                     },
                                     "size": {
                                         "width": 10,
@@ -219,14 +219,14 @@
                                     "type": "port"
                                 },
                                 {
-                                    "id": "g_019782",
+                                    "id": "g_426311",
                                     "position": {
                                         "x": 3,
-                                        "y": 12
+                                        "y": 15
                                     },
                                     "size": {
-                                        "width": 278,
-                                        "height": 52
+                                        "width": 53,
+                                        "height": 12
                                     },
                                     "type": "label",
                                     "text": "First"
@@ -234,14 +234,14 @@
                             ]
                         },
                         {
-                            "id": "g_429008",
+                            "id": "g_799049",
                             "position": {
-                                "x": 42,
+                                "x": 19.5,
                                 "y": 5
                             },
                             "size": {
-                                "width": 228,
-                                "height": 52
+                                "width": 48,
+                                "height": 12
                             },
                             "type": "label",
                             "text": "Left"
@@ -249,14 +249,14 @@
                     ]
                 },
                 {
-                    "id": "g_347615",
+                    "id": "g_628320",
                     "position": {
-                        "x": 942,
+                        "x": 244.5,
                         "y": 5
                     },
                     "size": {
-                        "width": 428,
-                        "height": 52
+                        "width": 68,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Hogwarts"
@@ -268,24 +268,32 @@
                     "targetId": "aac1f636-44cd-467a-8238-3c383f28351e",
                     "routingPoints": [
                         {
-                            "x": 1250,
-                            "y": 190.33333333333331
+                            "x": 305,
+                            "y": 87.66666666666667
                         },
                         {
-                            "x": 1852,
-                            "y": 190.33333333333331
+                            "x": 430,
+                            "y": 87.66666666666667
+                        },
+                        {
+                            "x": 430,
+                            "y": 85.66666666666667
+                        },
+                        {
+                            "x": 457,
+                            "y": 85.66666666666667
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_618607",
+                            "id": "g_212715",
                             "position": {
-                                "x": 1287,
-                                "y": 193.33333333333331
+                                "x": 342,
+                                "y": 90.66666666666667
                             },
                             "size": {
-                                "width": 528,
-                                "height": 52
+                                "width": 78,
+                                "height": 12
                             },
                             "type": "label",
                             "text": "determines"
@@ -299,24 +307,24 @@
                     "targetId": "8b39d153-234b-4ced-9c0a-af75f79c23ec",
                     "routingPoints": [
                         {
-                            "x": 460,
-                            "y": 176
+                            "x": 100,
+                            "y": 79
                         },
                         {
-                            "x": 962,
-                            "y": 176
+                            "x": 242,
+                            "y": 79
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_299122",
+                            "id": "g_622411",
                             "position": {
-                                "x": 497,
-                                "y": 179
+                                "x": 137,
+                                "y": 82
                             },
                             "size": {
-                                "width": 428,
-                                "height": 52
+                                "width": 68,
+                                "height": 12
                             },
                             "type": "label",
                             "text": "Uptoleft"
@@ -330,24 +338,24 @@
                     "targetId": "dd98c04f-6e47-4989-bccf-7fa6cc51a28f",
                     "routingPoints": [
                         {
-                            "x": 1250,
-                            "y": 161.66666666666666
+                            "x": 305,
+                            "y": 70.33333333333333
                         },
                         {
-                            "x": 1852,
-                            "y": 161.66666666666666
+                            "x": 457,
+                            "y": 70.33333333333334
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_384835",
+                            "id": "g_263456",
                             "position": {
-                                "x": 1312,
-                                "y": 106.66666666666666
+                                "x": 344.5,
+                                "y": 55.333333333333336
                             },
                             "size": {
-                                "width": 478,
-                                "height": 52
+                                "width": 73,
+                                "height": 12
                             },
                             "type": "label",
                             "text": "labelsize"

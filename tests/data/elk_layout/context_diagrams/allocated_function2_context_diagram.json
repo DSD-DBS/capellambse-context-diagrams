@@ -9,8 +9,8 @@
                 "y": 12
             },
             "size": {
-                "width": 3822,
-                "height": 400
+                "width": 762,
+                "height": 200
             },
             "type": "node",
             "children": [
@@ -18,11 +18,11 @@
                     "id": "1c416771-64bc-4d0c-99eb-296ce27d0a35",
                     "position": {
                         "x": 12,
-                        "y": 207
+                        "y": 87
                     },
                     "size": {
-                        "width": 711,
-                        "height": 157
+                        "width": 126,
+                        "height": 77
                     },
                     "type": "node",
                     "children": [
@@ -30,19 +30,19 @@
                             "id": "cda7f626-9829-48a7-990b-7db9a50416e4",
                             "position": {
                                 "x": 13,
-                                "y": 69
+                                "y": 29
                             },
                             "size": {
-                                "width": 684,
-                                "height": 76
+                                "width": 99,
+                                "height": 36
                             },
                             "type": "node",
                             "children": [
                                 {
                                     "id": "f212bec3-9e5f-4860-9be8-fc3a32e6642c",
                                     "position": {
-                                        "x": 676,
-                                        "y": 33
+                                        "x": 91,
+                                        "y": 13
                                     },
                                     "size": {
                                         "width": 10,
@@ -51,14 +51,14 @@
                                     "type": "port"
                                 },
                                 {
-                                    "id": "g_153545",
+                                    "id": "g_739974",
                                     "position": {
                                         "x": -1,
                                         "y": 12
                                     },
                                     "size": {
-                                        "width": 678,
-                                        "height": 52
+                                        "width": 93,
+                                        "height": 12
                                     },
                                     "type": "label",
                                     "text": "Left Function"
@@ -66,14 +66,14 @@
                             ]
                         },
                         {
-                            "id": "g_021456",
+                            "id": "g_192197",
                             "position": {
-                                "x": 191.5,
+                                "x": 34,
                                 "y": 5
                             },
                             "size": {
-                                "width": 328,
-                                "height": 52
+                                "width": 58,
+                                "height": 12
                             },
                             "type": "label",
                             "text": "Left 1"
@@ -83,24 +83,24 @@
                 {
                     "id": "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb",
                     "position": {
-                        "x": 1451,
-                        "y": 69
+                        "x": 281,
+                        "y": 29
                     },
                     "size": {
-                        "width": 2359,
-                        "height": 319
+                        "width": 469,
+                        "height": 159
                     },
                     "type": "node",
                     "children": [
                         {
                             "id": "99a1d711-74af-4db7-af08-4dbd91c281ce",
                             "position": {
-                                "x": 1457,
-                                "y": 69
+                                "x": 287,
+                                "y": 29
                             },
                             "size": {
-                                "width": 890,
-                                "height": 238
+                                "width": 170,
+                                "height": 118
                             },
                             "type": "node",
                             "children": [
@@ -108,11 +108,11 @@
                                     "id": "ad0bdf2f-bd0e-48bc-9296-5be3371a76e2",
                                     "position": {
                                         "x": 17,
-                                        "y": 69
+                                        "y": 29
                                     },
                                     "size": {
-                                        "width": 861,
-                                        "height": 157
+                                        "width": 141,
+                                        "height": 77
                                     },
                                     "type": "node",
                                     "children": [
@@ -120,11 +120,11 @@
                                             "id": "861b9be3-a7b2-4e1d-b34b-8e857062b3df",
                                             "position": {
                                                 "x": 14,
-                                                "y": 69
+                                                "y": 29
                                             },
                                             "size": {
-                                                "width": 834,
-                                                "height": 76
+                                                "width": 114,
+                                                "height": 36
                                             },
                                             "type": "node",
                                             "children": [
@@ -132,7 +132,7 @@
                                                     "id": "aed02601-7d03-4ed8-bd19-83faa0df3d71",
                                                     "position": {
                                                         "x": -2,
-                                                        "y": 33
+                                                        "y": 13
                                                     },
                                                     "size": {
                                                         "width": 10,
@@ -141,14 +141,14 @@
                                                     "type": "port"
                                                 },
                                                 {
-                                                    "id": "g_921869",
+                                                    "id": "g_785792",
                                                     "position": {
                                                         "x": 7,
                                                         "y": 12
                                                     },
                                                     "size": {
-                                                        "width": 828,
-                                                        "height": 52
+                                                        "width": 108,
+                                                        "height": 12
                                                     },
                                                     "type": "label",
                                                     "text": "Inner Function 2"
@@ -156,14 +156,14 @@
                                             ]
                                         },
                                         {
-                                            "id": "g_879477",
+                                            "id": "g_426877",
                                             "position": {
-                                                "x": 241.5,
+                                                "x": 39,
                                                 "y": 5
                                             },
                                             "size": {
-                                                "width": 378,
-                                                "height": 52
+                                                "width": 63,
+                                                "height": 12
                                             },
                                             "type": "label",
                                             "text": "Inner 2"
@@ -171,14 +171,14 @@
                                     ]
                                 },
                                 {
-                                    "id": "g_723129",
+                                    "id": "g_255969",
                                     "position": {
-                                        "x": 156,
+                                        "x": 43.5,
                                         "y": 5
                                     },
                                     "size": {
-                                        "width": 578,
-                                        "height": 52
+                                        "width": 83,
+                                        "height": 12
                                     },
                                     "type": "label",
                                     "text": "Inner owner"
@@ -189,11 +189,11 @@
                             "id": "31bc2326-5a55-45f9-9967-f1957bcd3f89",
                             "position": {
                                 "x": 17,
-                                "y": 138
+                                "y": 58
                             },
                             "size": {
-                                "width": 862,
-                                "height": 157
+                                "width": 142,
+                                "height": 77
                             },
                             "type": "node",
                             "children": [
@@ -201,11 +201,11 @@
                                     "id": "f0bc11ba-89aa-4297-98d2-076440e9117f",
                                     "position": {
                                         "x": 14,
-                                        "y": 69
+                                        "y": 29
                                     },
                                     "size": {
-                                        "width": 834,
-                                        "height": 76
+                                        "width": 114,
+                                        "height": 36
                                     },
                                     "type": "node",
                                     "children": [
@@ -213,7 +213,7 @@
                                             "id": "03c975d1-cda4-4e5d-be9a-5c76a06aecba",
                                             "position": {
                                                 "x": -2,
-                                                "y": 33
+                                                "y": 13
                                             },
                                             "size": {
                                                 "width": 10,
@@ -224,8 +224,8 @@
                                         {
                                             "id": "9fefbe1e-3f74-4544-833c-bb040bcfeac7",
                                             "position": {
-                                                "x": 826,
-                                                "y": 33
+                                                "x": 106,
+                                                "y": 13
                                             },
                                             "size": {
                                                 "width": 10,
@@ -234,14 +234,14 @@
                                             "type": "port"
                                         },
                                         {
-                                            "id": "g_667634",
+                                            "id": "g_398494",
                                             "position": {
                                                 "x": 3,
                                                 "y": 12
                                             },
                                             "size": {
-                                                "width": 828,
-                                                "height": 52
+                                                "width": 108,
+                                                "height": 12
                                             },
                                             "type": "label",
                                             "text": "Inner Function 1"
@@ -249,14 +249,14 @@
                                     ]
                                 },
                                 {
-                                    "id": "g_683483",
+                                    "id": "g_244263",
                                     "position": {
-                                        "x": 242,
+                                        "x": 39.5,
                                         "y": 5
                                     },
                                     "size": {
-                                        "width": 378,
-                                        "height": 52
+                                        "width": 63,
+                                        "height": 12
                                     },
                                     "type": "label",
                                     "text": "Inner 1"
@@ -264,14 +264,14 @@
                             ]
                         },
                         {
-                            "id": "g_509457",
+                            "id": "g_041270",
                             "position": {
-                                "x": 940.5,
+                                "x": 198,
                                 "y": 5
                             },
                             "size": {
-                                "width": 478,
-                                "height": 52
+                                "width": 73,
+                                "height": 12
                             },
                             "type": "label",
                             "text": "Hierarchy"
@@ -283,24 +283,24 @@
                             "targetId": "aed02601-7d03-4ed8-bd19-83faa0df3d71",
                             "routingPoints": [
                                 {
-                                    "x": 867,
-                                    "y": 245
+                                    "x": 147,
+                                    "y": 105
                                 },
                                 {
-                                    "x": 1486,
-                                    "y": 245
+                                    "x": 316,
+                                    "y": 105
                                 }
                             ],
                             "children": [
                                 {
-                                    "id": "g_881375",
+                                    "id": "g_086298",
                                     "position": {
-                                        "x": 904,
-                                        "y": 248
+                                        "x": 184,
+                                        "y": 108
                                     },
                                     "size": {
-                                        "width": 528,
-                                        "height": 52
+                                        "width": 78,
+                                        "height": 12
                                     },
                                     "type": "label",
                                     "text": "IF1 to IF2"
@@ -310,14 +310,14 @@
                     ]
                 },
                 {
-                    "id": "g_732731",
+                    "id": "g_148130",
                     "position": {
-                        "x": 1697,
+                        "x": 347,
                         "y": 5
                     },
                     "size": {
-                        "width": 428,
-                        "height": 52
+                        "width": 68,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Hogwarts"
@@ -329,24 +329,24 @@
                     "targetId": "03c975d1-cda4-4e5d-be9a-5c76a06aecba",
                     "routingPoints": [
                         {
-                            "x": 711,
-                            "y": 314
+                            "x": 126,
+                            "y": 134
                         },
                         {
-                            "x": 1480,
-                            "y": 314
+                            "x": 310,
+                            "y": 134
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_187300",
+                            "id": "g_384198",
                             "position": {
-                                "x": 748,
-                                "y": 317
+                                "x": 163,
+                                "y": 137
                             },
                             "size": {
-                                "width": 678,
-                                "height": 52
+                                "width": 93,
+                                "height": 12
                             },
                             "type": "label",
                             "text": "Left to inner"

@@ -21,8 +21,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 244,
-                    "height": 14
+                    "width": 118,
+                    "height": 12
                 }
             ],
             "ports": [
@@ -39,14 +39,14 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 196,
-                            "height": 14
+                            "width": 98,
+                            "height": 12
                         }
                     ]
                 }
             ],
-            "width": 250,
-            "height": 38
+            "width": 124,
+            "height": 36
         },
         {
             "id": "d5259b69-1473-4b00-bb41-b94eb44abde5",
@@ -59,8 +59,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 160,
-                    "height": 14
+                    "width": 83,
+                    "height": 12
                 }
             ],
             "ports": [
@@ -77,14 +77,14 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 196,
-                            "height": 14
+                            "width": 98,
+                            "height": 12
                         }
                     ]
                 }
             ],
-            "width": 166,
-            "height": 38
+            "width": 89,
+            "height": 36
         }
     ],
     "edges": [
@@ -105,8 +105,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 112,
-                    "height": 14
+                    "width": 63,
+                    "height": 12
                 }
             ]
         }

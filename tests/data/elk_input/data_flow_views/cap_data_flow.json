@@ -18,12 +18,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 268,
-                    "height": 14
+                    "width": 128,
+                    "height": 12
                 }
             ],
-            "width": 274,
-            "height": 38
+            "width": 134,
+            "height": 36
         },
         {
             "id": "ceffa011-7b66-4b3c-9885-8e075e312ffa",
@@ -33,12 +33,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 244,
-                    "height": 14
+                    "width": 118,
+                    "height": 12
                 }
             ],
-            "width": 250,
-            "height": 38
+            "width": 124,
+            "height": 36
         }
     ]
 }

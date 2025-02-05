@@ -21,8 +21,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 100,
-                            "height": 14
+                            "width": 58,
+                            "height": 12
                         }
                     ],
                     "ports": [
@@ -67,7 +67,7 @@
                             "height": 10
                         }
                     ],
-                    "width": 106,
+                    "width": 64,
                     "height": 62
                 }
             ],
@@ -77,8 +77,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 88,
-                    "height": 14
+                    "width": 53,
+                    "height": 12
                 }
             ],
             "ports": [
@@ -91,7 +91,7 @@
                     "height": 10
                 }
             ],
-            "width": 94,
+            "width": 59,
             "height": 62
         },
         {
@@ -105,8 +105,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 100,
-                            "height": 14
+                            "width": 58,
+                            "height": 12
                         }
                     ],
                     "ports": [
@@ -127,8 +127,8 @@
                             "height": 10
                         }
                     ],
-                    "width": 106,
-                    "height": 40
+                    "width": 64,
+                    "height": 38
                 },
                 {
                     "id": "7f138bae-4949-40a1-9a88-15941f827f8c",
@@ -138,8 +138,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 88,
-                            "height": 14
+                            "width": 53,
+                            "height": 12
                         }
                     ],
                     "ports": [
@@ -160,8 +160,8 @@
                             "height": 10
                         }
                     ],
-                    "width": 94,
-                    "height": 40
+                    "width": 59,
+                    "height": 38
                 },
                 {
                     "id": "b41202e2-1415-4ddd-b913-54f861952172",
@@ -171,8 +171,8 @@
                             "layoutOptions": {
                                 "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                             },
-                            "width": 88,
-                            "height": 14
+                            "width": 53,
+                            "height": 12
                         }
                     ],
                     "ports": [
@@ -185,8 +185,8 @@
                             "height": 10
                         }
                     ],
-                    "width": 94,
-                    "height": 40
+                    "width": 59,
+                    "height": 38
                 }
             ],
             "labels": [
@@ -195,8 +195,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 76,
-                    "height": 14
+                    "width": 48,
+                    "height": 12
                 }
             ],
             "ports": [
@@ -209,8 +209,8 @@
                     "height": 10
                 }
             ],
-            "width": 82,
-            "height": 160
+            "width": 54,
+            "height": 154
         }
     ],
     "edges": [
@@ -231,8 +231,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 184,
-                    "height": 14
+                    "width": 93,
+                    "height": 12
                 }
             ]
         },
@@ -250,8 +250,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 64,
-                    "height": 14
+                    "width": 43,
+                    "height": 12
                 }
             ]
         },
@@ -269,8 +269,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 136,
-                    "height": 14
+                    "width": 73,
+                    "height": 12
                 }
             ]
         },
@@ -288,8 +288,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 64,
-                    "height": 14
+                    "width": 43,
+                    "height": 12
                 }
             ]
         },
@@ -307,8 +307,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 148,
-                    "height": 14
+                    "width": 78,
+                    "height": 12
                 }
             ]
         },
@@ -326,8 +326,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 148,
-                    "height": 14
+                    "width": 78,
+                    "height": 12
                 }
             ]
         }

@@ -16,8 +16,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 76,
-                    "height": 14
+                    "width": 48,
+                    "height": 12
                 },
                 {
                     "text": "",
@@ -30,60 +30,60 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 304,
-                    "height": 14
+                    "width": 143,
+                    "height": 12
                 },
                 {
                     "text": "[0..1] enum_example: EnumExample",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 412,
-                    "height": 14
+                    "width": 188,
+                    "height": 12
                 },
                 {
                     "text": "another: EnumExample_1",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 292,
-                    "height": 14
+                    "width": 138,
+                    "height": 12
                 },
                 {
                     "text": "another_one: EnumExample_2",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 340,
-                    "height": 14
+                    "width": 158,
+                    "height": 12
                 },
                 {
                     "text": "another_one_one: EnumExample_3",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 388,
-                    "height": 14
+                    "width": 178,
+                    "height": 12
                 },
                 {
                     "text": "last_one: EnumExample_4",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 304,
-                    "height": 14
+                    "width": 143,
+                    "height": 12
                 },
                 {
                     "text": "primitiveExample: Primitive",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 352,
-                    "height": 14
+                    "width": 163,
+                    "height": 12
                 }
             ],
-            "width": 418,
-            "height": 152
+            "width": 194,
+            "height": 136
         },
         {
             "id": "0093ffdd-ab4d-4c87-971d-0c2fc1a0b094",
@@ -93,8 +93,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 64,
-                    "height": 14
+                    "width": 43,
+                    "height": 12
                 },
                 {
                     "text": "",
@@ -103,8 +103,8 @@
                     }
                 }
             ],
-            "width": 70,
-            "height": 40
+            "width": 49,
+            "height": 38
         },
         {
             "id": "1dccccde-6ab1-47ac-8ee8-a3033a49a9e5",
@@ -114,8 +114,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 64,
-                    "height": 14
+                    "width": 43,
+                    "height": 12
                 },
                 {
                     "text": "",
@@ -124,8 +124,8 @@
                     }
                 }
             ],
-            "width": 70,
-            "height": 40
+            "width": 49,
+            "height": 38
         },
         {
             "id": "322dc599-ea72-49e9-8e37-fe5226e41f19",
@@ -135,8 +135,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 88,
-                    "height": 14
+                    "width": 53,
+                    "height": 12
                 },
                 {
                     "text": "",
@@ -149,12 +149,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 352,
-                    "height": 14
+                    "width": 163,
+                    "height": 12
                 }
             ],
-            "width": 358,
-            "height": 56
+            "width": 169,
+            "height": 52
         },
         {
             "id": "37ae6942-cbbc-4e2a-acad-10fbdceb8d56",
@@ -164,8 +164,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
                     },
-                    "width": 76,
-                    "height": 14
+                    "width": 48,
+                    "height": 12
                 },
                 {
                     "text": "",
@@ -178,12 +178,12 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 232,
-                    "height": 14
+                    "width": 113,
+                    "height": 12
                 }
             ],
-            "width": 238,
-            "height": 56
+            "width": 119,
+            "height": 52
         }
     ],
     "edges": [
@@ -201,8 +201,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 148,
-                    "height": 14
+                    "width": 78,
+                    "height": 12
                 }
             ]
         },
@@ -220,8 +220,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 64,
-                    "height": 14
+                    "width": 43,
+                    "height": 12
                 }
             ]
         },
@@ -239,8 +239,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 172,
-                    "height": 14
+                    "width": 88,
+                    "height": 12
                 }
             ]
         },
@@ -258,8 +258,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 76,
-                    "height": 14
+                    "width": 48,
+                    "height": 12
                 }
             ]
         },

@@ -9,20 +9,20 @@
                 "y": 12
             },
             "size": {
-                "width": 130,
-                "height": 38
+                "width": 74,
+                "height": 36
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_181994",
+                    "id": "g_768988",
                     "position": {
                         "x": 3,
                         "y": 12
                     },
                     "size": {
-                        "width": 124,
-                        "height": 14
+                        "width": 68,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Run away"
@@ -32,24 +32,24 @@
         {
             "id": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
             "position": {
-                "x": 63,
-                "y": 96
+                "x": 35,
+                "y": 92
             },
             "size": {
-                "width": 70,
-                "height": 52
+                "width": 49,
+                "height": 50
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_196395",
+                    "id": "g_403594",
                     "position": {
                         "x": 3,
                         "y": 19
                     },
                     "size": {
-                        "width": 64,
-                        "height": 14
+                        "width": 43,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Eat"
@@ -59,24 +59,24 @@
         {
             "id": "ab016025-d456-4c2d-8359-d50cf9de3825",
             "position": {
-                "x": 258,
-                "y": 96
+                "x": 174,
+                "y": 92
             },
             "size": {
-                "width": 94,
-                "height": 52
+                "width": 59,
+                "height": 50
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_699253",
+                    "id": "g_754106",
                     "position": {
                         "x": 3,
                         "y": 19
                     },
                     "size": {
-                        "width": 88,
-                        "height": 14
+                        "width": 53,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Sleep"
@@ -86,24 +86,24 @@
         {
             "id": "5d637de8-410f-42b8-a467-3b1c84d40775",
             "position": {
-                "x": 552,
-                "y": 96
+                "x": 356,
+                "y": 92
             },
             "size": {
-                "width": 106,
-                "height": 52
+                "width": 64,
+                "height": 50
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_078039",
+                    "id": "g_995743",
                     "position": {
                         "x": 3,
                         "y": 19
                     },
                     "size": {
-                        "width": 100,
-                        "height": 14
+                        "width": 58,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Repeat"
@@ -117,32 +117,32 @@
             "targetId": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
             "routingPoints": [
                 {
-                    "x": 86.33333333333334,
-                    "y": 96
+                    "x": 51.33333333333333,
+                    "y": 92
                 },
                 {
-                    "x": 86.33333333333334,
-                    "y": 86
+                    "x": 51.33333333333333,
+                    "y": 82
                 },
                 {
-                    "x": 109.66666666666667,
-                    "y": 86
+                    "x": 67.66666666666666,
+                    "y": 82
                 },
                 {
-                    "x": 109.66666666666667,
-                    "y": 96
+                    "x": 67.66666666666666,
+                    "y": 92
                 }
             ],
             "children": [
                 {
-                    "id": "g_316336",
+                    "id": "g_362354",
                     "position": {
-                        "x": 54,
-                        "y": 70
+                        "x": 33,
+                        "y": 68
                     },
                     "size": {
-                        "width": 88,
-                        "height": 14
+                        "width": 53,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Munch"
@@ -156,24 +156,24 @@
             "targetId": "ab016025-d456-4c2d-8359-d50cf9de3825",
             "routingPoints": [
                 {
-                    "x": 133,
-                    "y": 122
+                    "x": 84,
+                    "y": 117
                 },
                 {
-                    "x": 258,
-                    "y": 122
+                    "x": 174,
+                    "y": 117
                 }
             ],
             "children": [
                 {
-                    "id": "g_308679",
+                    "id": "g_200267",
                     "position": {
-                        "x": 162,
-                        "y": 125
+                        "x": 106,
+                        "y": 120
                     },
                     "size": {
-                        "width": 76,
-                        "height": 14
+                        "width": 48,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Rest"
@@ -187,24 +187,24 @@
             "targetId": "5d637de8-410f-42b8-a467-3b1c84d40775",
             "routingPoints": [
                 {
-                    "x": 352,
-                    "y": 122
+                    "x": 233,
+                    "y": 117
                 },
                 {
-                    "x": 552,
-                    "y": 122
+                    "x": 356,
+                    "y": 117
                 }
             ],
             "children": [
                 {
-                    "id": "g_091799",
+                    "id": "g_032852",
                     "position": {
-                        "x": 372,
-                        "y": 125
+                        "x": 253,
+                        "y": 120
                     },
                     "size": {
-                        "width": 160,
-                        "height": 14
+                        "width": 83,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Start again"

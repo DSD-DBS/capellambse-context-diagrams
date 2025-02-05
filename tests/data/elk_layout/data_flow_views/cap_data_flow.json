@@ -9,20 +9,20 @@
                 "y": 12
             },
             "size": {
-                "width": 274,
-                "height": 38
+                "width": 134,
+                "height": 36
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_764909",
+                    "id": "g_296350",
                     "position": {
                         "x": 3,
                         "y": 12
                     },
                     "size": {
-                        "width": 268,
-                        "height": 14
+                        "width": 128,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Root System Function"
@@ -32,24 +32,24 @@
         {
             "id": "ceffa011-7b66-4b3c-9885-8e075e312ffa",
             "position": {
-                "x": 24,
-                "y": 70
+                "x": 17,
+                "y": 68
             },
             "size": {
-                "width": 250,
-                "height": 38
+                "width": 124,
+                "height": 36
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_516794",
+                    "id": "g_941501",
                     "position": {
                         "x": 3,
                         "y": 12
                     },
                     "size": {
-                        "width": 244,
-                        "height": 14
+                        "width": 118,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Important Function"

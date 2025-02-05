@@ -9,16 +9,16 @@
                 "y": 12
             },
             "size": {
-                "width": 250,
-                "height": 38
+                "width": 124,
+                "height": 36
             },
             "type": "node",
             "children": [
                 {
                     "id": "f3722f0a-c7de-421d-b4aa-fea6f5278672",
                     "position": {
-                        "x": 242,
-                        "y": 14
+                        "x": 116,
+                        "y": 13
                     },
                     "size": {
                         "width": 10,
@@ -27,14 +27,14 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_384113",
+                            "id": "g_795827",
                             "position": {
                                 "x": 11,
                                 "y": 11
                             },
                             "size": {
-                                "width": 196,
-                                "height": 14
+                                "width": 98,
+                                "height": 12
                             },
                             "type": "label",
                             "text": "Cable 1 Source"
@@ -42,14 +42,14 @@
                     ]
                 },
                 {
-                    "id": "g_091381",
+                    "id": "g_823159",
                     "position": {
                         "x": -1,
                         "y": 12
                     },
                     "size": {
-                        "width": 244,
-                        "height": 14
+                        "width": 118,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Physical Component"
@@ -59,12 +59,12 @@
         {
             "id": "d5259b69-1473-4b00-bb41-b94eb44abde5",
             "position": {
-                "x": 813,
+                "x": 442,
                 "y": 12
             },
             "size": {
-                "width": 166,
-                "height": 38
+                "width": 89,
+                "height": 36
             },
             "type": "node",
             "children": [
@@ -72,7 +72,7 @@
                     "id": "682edffb-6b44-48c0-826b-32eb217eb81c",
                     "position": {
                         "x": -2,
-                        "y": 14
+                        "y": 13
                     },
                     "size": {
                         "width": 10,
@@ -81,14 +81,14 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_001233",
+                            "id": "g_039898",
                             "position": {
-                                "x": -197,
+                                "x": -99,
                                 "y": 11
                             },
                             "size": {
-                                "width": 196,
-                                "height": 14
+                                "width": 98,
+                                "height": 12
                             },
                             "type": "label",
                             "text": "Cable 1 Target"
@@ -96,14 +96,14 @@
                     ]
                 },
                 {
-                    "id": "g_867130",
+                    "id": "g_507551",
                     "position": {
                         "x": 7,
                         "y": 12
                     },
                     "size": {
-                        "width": 160,
-                        "height": 14
+                        "width": 83,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Random Node"
@@ -117,24 +117,24 @@
             "targetId": "682edffb-6b44-48c0-826b-32eb217eb81c",
             "routingPoints": [
                 {
-                    "x": 265,
-                    "y": 31
+                    "x": 139,
+                    "y": 30
                 },
                 {
-                    "x": 811,
-                    "y": 31
+                    "x": 440,
+                    "y": 30
                 }
             ],
             "children": [
                 {
-                    "id": "g_787717",
+                    "id": "g_914813",
                     "position": {
-                        "x": 482,
-                        "y": 34
+                        "x": 258,
+                        "y": 33
                     },
                     "size": {
-                        "width": 112,
-                        "height": 14
+                        "width": 63,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Cable 1"

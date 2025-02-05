@@ -18,35 +18,27 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 578,
-                    "height": 52
+                    "width": 83,
+                    "height": 12
                 }
             ],
-            "width": 584,
-            "height": 76
+            "width": 89,
+            "height": 36
         },
         {
             "id": "a8c42033-fdf2-458f-bae9-1cfd1207c49f",
             "labels": [
                 {
-                    "text": "Functional Human",
+                    "text": "Functional Human Being",
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 828,
-                    "height": 52
-                },
-                {
-                    "text": "Being",
-                    "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                    },
-                    "width": 278,
-                    "height": 52
+                    "width": 138,
+                    "height": 12
                 }
             ],
-            "width": 834,
-            "height": 130
+            "width": 144,
+            "height": 36
         }
     ],
     "edges": [
@@ -64,8 +56,8 @@
                     "layoutOptions": {
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
-                    "width": 1178,
-                    "height": 52
+                    "width": 143,
+                    "height": 12
                 }
             ]
         }

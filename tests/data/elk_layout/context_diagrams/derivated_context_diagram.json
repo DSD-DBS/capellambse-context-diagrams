@@ -5,12 +5,12 @@
         {
             "id": "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c",
             "position": {
-                "x": 771,
+                "x": 141,
                 "y": 12
             },
             "size": {
-                "width": 934,
-                "height": 90
+                "width": 124,
+                "height": 50
             },
             "type": "node",
             "children": [
@@ -18,7 +18,7 @@
                     "id": "__Derived-CP_INOUT:-1",
                     "position": {
                         "x": -2,
-                        "y": 40
+                        "y": 20
                     },
                     "size": {
                         "width": 10,
@@ -29,8 +29,8 @@
                 {
                     "id": "__Derived-CP_INOUT:-2",
                     "position": {
-                        "x": 926,
-                        "y": 40
+                        "x": 116,
+                        "y": 20
                     },
                     "size": {
                         "width": 10,
@@ -39,14 +39,14 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_917582",
+                    "id": "g_486009",
                     "position": {
                         "x": 3,
                         "y": 19
                     },
                     "size": {
-                        "width": 928,
-                        "height": 52
+                        "width": 118,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Derivation Example"
@@ -60,16 +60,16 @@
                 "y": 19
             },
             "size": {
-                "width": 734,
-                "height": 76
+                "width": 104,
+                "height": 36
             },
             "type": "node",
             "children": [
                 {
                     "id": "__Derived-CP_INOUT:1",
                     "position": {
-                        "x": 726,
-                        "y": 33
+                        "x": 96,
+                        "y": 13
                     },
                     "size": {
                         "width": 10,
@@ -78,14 +78,14 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_265154",
+                    "id": "g_219216",
                     "position": {
                         "x": -1,
                         "y": 12
                     },
                     "size": {
-                        "width": 728,
-                        "height": 52
+                        "width": 98,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Derived Source"
@@ -95,12 +95,12 @@
         {
             "id": "__Derived-LogicalComponent:7cde329d-0f47-4eaa-a1ae-dc6ede90af57",
             "position": {
-                "x": 1729,
+                "x": 289,
                 "y": 19
             },
             "size": {
-                "width": 734,
-                "height": 76
+                "width": 104,
+                "height": 36
             },
             "type": "node",
             "children": [
@@ -108,7 +108,7 @@
                     "id": "__Derived-CP_INOUT:2",
                     "position": {
                         "x": -2,
-                        "y": 33
+                        "y": 13
                     },
                     "size": {
                         "width": 10,
@@ -117,14 +117,14 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_431538",
+                    "id": "g_882414",
                     "position": {
                         "x": 7,
                         "y": 12
                     },
                     "size": {
-                        "width": 728,
-                        "height": 52
+                        "width": 98,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Derived Target"
@@ -138,12 +138,12 @@
             "targetId": "__Derived-CP_INOUT:-1",
             "routingPoints": [
                 {
-                    "x": 749,
-                    "y": 57
+                    "x": 119,
+                    "y": 37
                 },
                 {
-                    "x": 769,
-                    "y": 57
+                    "x": 139,
+                    "y": 37
                 }
             ]
         },
@@ -154,12 +154,12 @@
             "targetId": "__Derived-CP_INOUT:2",
             "routingPoints": [
                 {
-                    "x": 1707,
-                    "y": 57
+                    "x": 267,
+                    "y": 37
                 },
                 {
-                    "x": 1727,
-                    "y": 57
+                    "x": 287,
+                    "y": 37
                 }
             ]
         }

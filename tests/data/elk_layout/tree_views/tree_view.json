@@ -5,30 +5,30 @@
         {
             "id": "b7c7f442-377f-492c-90bf-331e66988bda",
             "position": {
-                "x": 57.5,
+                "x": 43.5,
                 "y": 12
             },
             "size": {
-                "width": 418,
-                "height": 152
+                "width": 194,
+                "height": 136
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_845047",
+                    "id": "g_001219",
                     "position": {
-                        "x": 171,
+                        "x": 73,
                         "y": 5
                     },
                     "size": {
-                        "width": 76,
-                        "height": 14
+                        "width": 48,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Root"
                 },
                 {
-                    "id": "g_122467",
+                    "id": "g_268026",
                     "position": {
                         "x": 0,
                         "y": 0
@@ -41,92 +41,92 @@
                     "text": ""
                 },
                 {
-                    "id": "g_997210",
+                    "id": "g_435128",
                     "position": {
-                        "x": 57,
-                        "y": 27
+                        "x": 25.5,
+                        "y": 26
                     },
                     "size": {
-                        "width": 304,
-                        "height": 14
+                        "width": 143,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "[1..*] example: Example"
                 },
                 {
-                    "id": "g_045913",
+                    "id": "g_745983",
                     "position": {
                         "x": 3,
-                        "y": 41
+                        "y": 38
                     },
                     "size": {
-                        "width": 412,
-                        "height": 14
+                        "width": 188,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "[0..1] enum_example: EnumExample"
                 },
                 {
-                    "id": "g_462167",
+                    "id": "g_529067",
                     "position": {
-                        "x": 63,
-                        "y": 55
+                        "x": 28,
+                        "y": 50
                     },
                     "size": {
-                        "width": 292,
-                        "height": 14
+                        "width": 138,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "another: EnumExample_1"
                 },
                 {
-                    "id": "g_999101",
+                    "id": "g_159475",
                     "position": {
-                        "x": 39,
-                        "y": 69
+                        "x": 18,
+                        "y": 62
                     },
                     "size": {
-                        "width": 340,
-                        "height": 14
+                        "width": 158,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "another_one: EnumExample_2"
                 },
                 {
-                    "id": "g_320258",
+                    "id": "g_467815",
                     "position": {
-                        "x": 15,
-                        "y": 83
+                        "x": 8,
+                        "y": 74
                     },
                     "size": {
-                        "width": 388,
-                        "height": 14
+                        "width": 178,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "another_one_one: EnumExample_3"
                 },
                 {
-                    "id": "g_345495",
+                    "id": "g_741084",
                     "position": {
-                        "x": 57,
-                        "y": 97
+                        "x": 25.5,
+                        "y": 86
                     },
                     "size": {
-                        "width": 304,
-                        "height": 14
+                        "width": 143,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "last_one: EnumExample_4"
                 },
                 {
-                    "id": "g_191984",
+                    "id": "g_748197",
                     "position": {
-                        "x": 33,
-                        "y": 111
+                        "x": 15.5,
+                        "y": 98
                     },
                     "size": {
-                        "width": 352,
-                        "height": 14
+                        "width": 163,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "primitiveExample: Primitive"
@@ -136,30 +136,30 @@
         {
             "id": "0093ffdd-ab4d-4c87-971d-0c2fc1a0b094",
             "position": {
-                "x": 127,
-                "y": 218
+                "x": 67.5,
+                "y": 200.75
             },
             "size": {
-                "width": 70,
-                "height": 40
+                "width": 49,
+                "height": 38
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_684476",
+                    "id": "g_932812",
                     "position": {
                         "x": 3,
                         "y": 5
                     },
                     "size": {
-                        "width": 64,
-                        "height": 14
+                        "width": 43,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "One"
                 },
                 {
-                    "id": "g_001688",
+                    "id": "g_478744",
                     "position": {
                         "x": 0,
                         "y": 0
@@ -176,30 +176,30 @@
         {
             "id": "1dccccde-6ab1-47ac-8ee8-a3033a49a9e5",
             "position": {
-                "x": 336,
-                "y": 218
+                "x": 168.25,
+                "y": 200.75
             },
             "size": {
-                "width": 70,
-                "height": 40
+                "width": 49,
+                "height": 38
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_055710",
+                    "id": "g_466410",
                     "position": {
                         "x": 3,
                         "y": 5
                     },
                     "size": {
-                        "width": 64,
-                        "height": 14
+                        "width": 43,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Two"
                 },
                 {
-                    "id": "g_375425",
+                    "id": "g_451608",
                     "position": {
                         "x": 0,
                         "y": 0
@@ -216,30 +216,30 @@
         {
             "id": "322dc599-ea72-49e9-8e37-fe5226e41f19",
             "position": {
-                "x": 139.75000000000003,
-                "y": 313.48333333333335
+                "x": 80.25,
+                "y": 290.7833333333333
             },
             "size": {
-                "width": 358,
-                "height": 56
+                "width": 169,
+                "height": 52
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_391031",
+                    "id": "g_957947",
                     "position": {
-                        "x": 135,
+                        "x": 58,
                         "y": 5
                     },
                     "size": {
-                        "width": 88,
-                        "height": 14
+                        "width": 53,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "Three"
                 },
                 {
-                    "id": "g_378861",
+                    "id": "g_457168",
                     "position": {
                         "x": 0,
                         "y": 0
@@ -252,14 +252,14 @@
                     "text": ""
                 },
                 {
-                    "id": "g_952919",
+                    "id": "g_299536",
                     "position": {
                         "x": 3,
-                        "y": 21
+                        "y": 20
                     },
                     "size": {
-                        "width": 352,
-                        "height": 14
+                        "width": 163,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "primitiveExample: Primitive"
@@ -269,30 +269,30 @@
         {
             "id": "37ae6942-cbbc-4e2a-acad-10fbdceb8d56",
             "position": {
-                "x": 199.75000000000003,
-                "y": 423.48333333333335
+                "x": 105.25,
+                "y": 394.7833333333333
             },
             "size": {
-                "width": 238,
-                "height": 56
+                "width": 119,
+                "height": 52
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_729167",
+                    "id": "g_655835",
                     "position": {
-                        "x": 81,
+                        "x": 35.5,
                         "y": 5
                     },
                     "size": {
-                        "width": 76,
-                        "height": 14
+                        "width": 48,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "five"
                 },
                 {
-                    "id": "g_899470",
+                    "id": "g_279284",
                     "position": {
                         "x": 0,
                         "y": 0
@@ -305,14 +305,14 @@
                     "text": ""
                 },
                 {
-                    "id": "g_817167",
+                    "id": "g_927597",
                     "position": {
                         "x": 3,
-                        "y": 21
+                        "y": 20
                     },
                     "size": {
-                        "width": 232,
-                        "height": 14
+                        "width": 113,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "fi: EnumExample_5"
@@ -326,28 +326,28 @@
             "targetId": "0093ffdd-ab4d-4c87-971d-0c2fc1a0b094",
             "routingPoints": [
                 {
-                    "x": 162,
-                    "y": 164
+                    "x": 92,
+                    "y": 148
                 },
                 {
-                    "x": 162,
-                    "y": 184
+                    "x": 92,
+                    "y": 168.75
                 },
                 {
-                    "x": 162,
-                    "y": 218
+                    "x": 92,
+                    "y": 200.75
                 }
             ],
             "children": [
                 {
-                    "id": "g_268204",
+                    "id": "g_154978",
                     "position": {
                         "x": 12,
-                        "y": 184
+                        "y": 168.75
                     },
                     "size": {
-                        "width": 148,
-                        "height": 14
+                        "width": 78,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "[1..*] one"
@@ -361,28 +361,28 @@
             "targetId": "1dccccde-6ab1-47ac-8ee8-a3033a49a9e5",
             "routingPoints": [
                 {
-                    "x": 371,
-                    "y": 164
+                    "x": 189,
+                    "y": 148
                 },
                 {
-                    "x": 371,
-                    "y": 184
+                    "x": 192.75,
+                    "y": 168.75
                 },
                 {
-                    "x": 371,
-                    "y": 218
+                    "x": 192.75,
+                    "y": 200.75
                 }
             ],
             "children": [
                 {
-                    "id": "g_497766",
+                    "id": "g_970435",
                     "position": {
-                        "x": 305,
-                        "y": 184
+                        "x": 147.75,
+                        "y": 168.75
                     },
                     "size": {
-                        "width": 64,
-                        "height": 14
+                        "width": 43,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "two"
@@ -396,32 +396,28 @@
             "targetId": "322dc599-ea72-49e9-8e37-fe5226e41f19",
             "routingPoints": [
                 {
-                    "x": 371,
-                    "y": 258
+                    "x": 192.75,
+                    "y": 238.75
                 },
                 {
-                    "x": 371,
-                    "y": 278
+                    "x": 192.75,
+                    "y": 258.75
                 },
                 {
-                    "x": 371,
-                    "y": 292
-                },
-                {
-                    "x": 378.4166666666667,
-                    "y": 313.48333333333335
+                    "x": 192.91666666666669,
+                    "y": 290.7833333333333
                 }
             ],
             "children": [
                 {
-                    "id": "g_717326",
+                    "id": "g_965111",
                     "position": {
-                        "x": 374,
-                        "y": 278
+                        "x": 195.75,
+                        "y": 258.75
                     },
                     "size": {
-                        "width": 172,
-                        "height": 14
+                        "width": 88,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "[0..1] three"
@@ -435,28 +431,28 @@
             "targetId": "37ae6942-cbbc-4e2a-acad-10fbdceb8d56",
             "routingPoints": [
                 {
-                    "x": 318.75,
-                    "y": 369.48333333333335
+                    "x": 164.75,
+                    "y": 342.7833333333333
                 },
                 {
-                    "x": 318.75,
-                    "y": 389.48333333333335
+                    "x": 164.75,
+                    "y": 362.7833333333333
                 },
                 {
-                    "x": 318.75,
-                    "y": 423.48333333333335
+                    "x": 164.75,
+                    "y": 394.7833333333333
                 }
             ],
             "children": [
                 {
-                    "id": "g_759362",
+                    "id": "g_208762",
                     "position": {
-                        "x": 240.75,
-                        "y": 389.48333333333335
+                        "x": 114.75,
+                        "y": 362.7833333333333
                     },
                     "size": {
-                        "width": 76,
-                        "height": 14
+                        "width": 48,
+                        "height": 12
                     },
                     "type": "label",
                     "text": "five"
@@ -470,16 +466,16 @@
             "targetId": "b7c7f442-377f-492c-90bf-331e66988bda",
             "routingPoints": [
                 {
-                    "x": 259.08333333333337,
-                    "y": 313.48333333333335
+                    "x": 136.58333333333334,
+                    "y": 290.7833333333333
                 },
                 {
-                    "x": 266.5,
-                    "y": 292
+                    "x": 136.75,
+                    "y": 168.75
                 },
                 {
-                    "x": 266.5,
-                    "y": 164
+                    "x": 140.5,
+                    "y": 148
                 }
             ]
         }

@@ -284,12 +284,12 @@ class ContextDiagram(m.AbstractDiagram):
     _display_derived_interfaces: bool
     _slim_center_box: bool
     _display_port_labels: bool
-    _port_label_position: str
+    _port_label_position: _elkjs.PORT_LABEL_POSITION
     _transparent_background: bool
     _display_unused_ports: bool
     _collect: cabc.Callable[[ContextDiagram], cabc.Iterator[m.ModelElement]]
-    _edge_direction: str
-    _mode: str
+    _edge_direction: enums.EDGE_DIRECTION
+    _mode: enums.MODE
     _display_actor_relation: bool
     _hide_context_owner: bool
     _is_portless: bool

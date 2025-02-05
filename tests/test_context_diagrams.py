@@ -395,11 +395,11 @@ def test_context_diagram_hide_direct_children(
     }
 
     diag = obj.context_diagram
-    balck = diag.render(None, mode="BLACKBOX")
+    black = diag.render(None, mode="BLACKBOX")
     diag.invalidate_cache()
     white = diag.render(None, mode="WHITEBOX")
 
-    assert not {element.uuid for element in balck} & expected_hidden_uuids
+    assert not {element.uuid for element in black} & expected_hidden_uuids
     assert (
         {element.uuid for element in white} & expected_hidden_uuids
     ) == expected_hidden_uuids

@@ -15,6 +15,7 @@ from itertools import chain
 
 import capellambse.model as m
 
+from .. import enums
 from . import _generic
 
 if t.TYPE_CHECKING:
@@ -59,11 +60,14 @@ def collector(
             for cmp in list(getattr(target, "components", [])):
                 yield from _collect(cmp)
 
-    yield from _collect(
-        diagram.target, include_children=diagram._include_children_context
+    include_children = (
+        diagram._include_children_context
+        and diagram._mode != enums.MODE.BLACKBOX
     )
+    yield from _collect(diagram.target, include_children=include_children)
     if not diagram._display_actor_relation:
         return
+
     oc_copy = outside_components.copy()
     for cmp in oc_copy.values():
         yield from _collect(

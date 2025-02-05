@@ -234,7 +234,7 @@ class DiagramSerializer:
             if (
                 parent.port
                 and self._diagram._port_label_position
-                == _elkjs.PORT_LABEL_POSITION.OUTSIDE.name
+                == _elkjs.PORT_LABEL_POSITION.OUTSIDE
             ):
                 bring_labels_closer_to_port(child)
 

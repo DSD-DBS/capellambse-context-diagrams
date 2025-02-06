@@ -5740,12 +5740,19 @@ The predator is far away</bodies>
                 name="RBNode 1" abstractType="#aa723351-32cb-44ab-a7ef-6319a1fbdaac"/>
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
                 id="9d4e5145-c4a0-46eb-b470-def61ce9e6d0" name="PP 5"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="a5d67d3a-d3e2-4942-8d88-77b2556ab595"
+                name="RBNode 2" abstractType="#5db3cb8f-36bd-4f99-870b-f27272cae9df"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="38838cad-3282-447c-84bd-e121b1eaacc5"
+                name="RB Node 3" abstractType="#8a337ec5-12df-4487-9fcd-f932e59a9da5"/>
             <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
                 id="8dd15f61-a406-45ae-bbf8-aaafff67abd5" name="Right_Box_to_RBNode"
                 linkEnds="#e12e5c46-f619-442c-a132-3c4040841163 #f4dbc636-aede-44d1-b7f6-682d405ef7ba"/>
             <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
                 id="f3c93649-0875-4daf-812e-00a98390119f" name="Right_Box_to_RBNode_1"
                 linkEnds="#9d4e5145-c4a0-46eb-b470-def61ce9e6d0 #503d11cb-ebe7-40d9-93c0-e6e7813873cd"/>
+            <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+                id="aaf5af5e-a3a9-434b-9c8a-fc1166c74913" name="RBNode_2_to_RBNode_3"
+                linkEnds="#9fce5eee-edd4-422e-9da8-ecf31073a8ca #eb99c46f-e2c7-4d30-a069-2289138688f2"/>
             <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
                 id="9dd62de4-0370-41aa-a20b-df2085499a73" name="RBNode" nature="NODE">
               <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
@@ -5755,6 +5762,16 @@ The predator is far away</bodies>
                 id="aa723351-32cb-44ab-a7ef-6319a1fbdaac" name="RBNode 1" nature="NODE">
               <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
                   id="503d11cb-ebe7-40d9-93c0-e6e7813873cd" name="PP 1"/>
+            </ownedPhysicalComponents>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="5db3cb8f-36bd-4f99-870b-f27272cae9df" name="RBNode 2" nature="NODE">
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="9fce5eee-edd4-422e-9da8-ecf31073a8ca" name="PP 1"/>
+            </ownedPhysicalComponents>
+            <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+                id="8a337ec5-12df-4487-9fcd-f932e59a9da5" name="RB Node 3" nature="NODE">
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                  id="eb99c46f-e2c7-4d30-a069-2289138688f2" name="PP 1"/>
             </ownedPhysicalComponents>
           </ownedPhysicalComponents>
         </ownedPhysicalComponents>

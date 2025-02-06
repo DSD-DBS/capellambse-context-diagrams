@@ -28,7 +28,7 @@ from capellambse.diagram import COLORS, CSSdef, capstyle
 from capellambse.metamodel import cs, fa, information, la, oa, pa, sa
 from capellambse.model import DiagramType
 
-from . import _elkjs, context, styling
+from . import _elkjs, context, enums, styling
 
 try:
     __version__ = metadata.version("capellambse-context-diagrams")
@@ -74,7 +74,6 @@ def init() -> None:
     register_realization_view()
     register_data_flow_view()
     register_cable_tree_view()
-    register_custom_diagram()
     # register_functional_context() XXX: Future
 
 
@@ -139,6 +138,7 @@ def register_classes() -> None:
                 "display_parent_relation": True,
                 "display_port_labels": True,
                 "display_derived_interfaces": True,
+                "edge_direction": enums.EDGE_DIRECTION.NONE,
             },
         ),
         (
@@ -334,31 +334,3 @@ def register_cable_tree_view() -> None:
             {},
         ),
     )
-
-
-def register_custom_diagram() -> None:
-    """Add the `custom_diagram` attribute to `ModelObject`s."""
-    supported_classes: list[tuple[type[m.ModelElement], DiagramType]] = [
-        (oa.Entity, DiagramType.OAB),
-        (oa.OperationalActivity, DiagramType.OAB),
-        (oa.OperationalCapability, DiagramType.OCB),
-        (oa.CommunicationMean, DiagramType.OAB),
-        (sa.Mission, DiagramType.MCB),
-        (sa.Capability, DiagramType.MCB),
-        (sa.SystemComponent, DiagramType.SAB),
-        (sa.SystemFunction, DiagramType.SAB),
-        (la.LogicalComponent, DiagramType.LAB),
-        (la.LogicalFunction, DiagramType.LAB),
-        (pa.PhysicalComponent, DiagramType.PAB),
-        (pa.PhysicalFunction, DiagramType.PAB),
-        (cs.PhysicalLink, DiagramType.PAB),
-        (cs.PhysicalPort, DiagramType.PAB),
-        (fa.ComponentExchange, DiagramType.SAB),
-        (information.Class, DiagramType.CDB),
-    ]
-    for class_, dgcls in supported_classes:
-        m.set_accessor(
-            class_,
-            "custom_diagram",
-            context.CustomAccessor(dgcls.value, {}),
-        )

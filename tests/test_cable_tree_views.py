@@ -25,6 +25,6 @@ def test_cable_tree_views(
     uuid, number_of_elements = diagram_elements
     obj = model.by_uuid(uuid)
 
-    diag = obj.cable_tree
+    diag = obj.cable_tree.render(None)
 
-    assert len(diag.nodes) >= number_of_elements
+    assert len({element.uuid for element in diag}) >= number_of_elements

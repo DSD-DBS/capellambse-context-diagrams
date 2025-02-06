@@ -32,6 +32,6 @@ and is available on:
     </figure>
 
 See [`the derivator
-functions`][capellambse_context_diagrams.collectors.custom.DERIVATORS] to gain
+functions`][capellambse_context_diagrams.builders.derived.DERIVATORS] to gain
 an overview over all supported capellambse types and the logic to derive
 elements.

@@ -19,13 +19,15 @@ from capellambse import diagram as cdiagram
 from capellambse import helpers
 from capellambse import model as m
 
-from . import _elkjs, filters, serializers, styling
+from . import _elkjs, enums, filters, serializers, styling
+from .builders import default as db
 from .collectors import (
+    _generic,
     cable_tree,
-    custom,
     dataflow_view,
+    default,
     exchanges,
-    get_elkdata,
+    portless,
     realization_view,
     tree_view,
 )
@@ -50,7 +52,7 @@ CollectorOutputData: t.TypeAlias = (
 """The output of a collector or the input prepared for ELK."""
 
 
-class CustomAccessor(m.Accessor):
+class ContextAccessor(m.Accessor):
     """Provides access to the custom context diagrams."""
 
     def __init__(
@@ -61,24 +63,24 @@ class CustomAccessor(m.Accessor):
         self._default_render_params = render_params or {}
 
     @t.overload
-    def __get__(self, obj: None, objtype: type[t.Any]) -> CustomAccessor: ...
+    def __get__(self, obj: None, objtype: type[t.Any]) -> ContextAccessor: ...
     @t.overload
     def __get__(
         self, obj: m.T, objtype: type[m.T] | None = None
-    ) -> CustomDiagram: ...
+    ) -> ContextDiagram: ...
     def __get__(
         self, obj: m.T | None, objtype: type | None = None
-    ) -> m.Accessor | CustomDiagram:
+    ) -> m.Accessor | ContextDiagram:
         """Make a ContextDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
             return self
         assert isinstance(obj, m.ModelElement)
-        return self._get(obj, CustomDiagram)
+        return self._get(obj, ContextDiagram)
 
     def _get(
-        self, obj: m.ModelElement, diagram_class: type[CustomDiagram]
-    ) -> m.Accessor | CustomDiagram:
+        self, obj: m.ModelElement, diagram_class: type[ContextDiagram]
+    ) -> m.Accessor | ContextDiagram:
         new_diagram = diagram_class(
             self._dgcls,
             obj,
@@ -86,22 +88,6 @@ class CustomAccessor(m.Accessor):
         )
         new_diagram.filters.add(filters.NO_UUID)
         return new_diagram
-
-
-class ContextAccessor(CustomAccessor):
-    """Provides access to the context diagrams."""
-
-    def __get__(  # type: ignore
-        self,
-        obj: m.T | None,
-        objtype: type | None = None,
-    ) -> m.Accessor | CustomDiagram:
-        """Make a ContextDiagram for the given model object."""
-        del objtype
-        if obj is None:  # pragma: no cover
-            return self
-        assert isinstance(obj, m.ModelElement)
-        return self._get(obj, ContextDiagram)
 
 
 class InterfaceContextAccessor(ContextAccessor):
@@ -117,7 +103,7 @@ class InterfaceContextAccessor(ContextAccessor):
 
     def __get__(  # type: ignore
         self, obj: m.T | None, objtype: type | None = None
-    ) -> m.Accessor | CustomDiagram:
+    ) -> m.Accessor | ContextDiagram:
         """Make a ContextDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
@@ -133,7 +119,7 @@ class FunctionalContextAccessor(ContextAccessor):
         self,
         obj: m.T | None,
         objtype: type | None = None,
-    ) -> m.Accessor | CustomDiagram:
+    ) -> m.Accessor | ContextDiagram:
         """Make a ContextDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
@@ -147,7 +133,7 @@ class PhysicalPortContextAccessor(ContextAccessor):
         self,
         obj: m.T | None,
         objtype: type | None = None,
-    ) -> m.Accessor | CustomDiagram:
+    ) -> m.Accessor | ContextDiagram:
         """Make a ContextDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
@@ -170,7 +156,7 @@ class ClassTreeAccessor(ContextAccessor):
         self,
         obj: m.T | None,
         objtype: type | None = None,
-    ) -> m.Accessor | CustomDiagram:
+    ) -> m.Accessor | ContextDiagram:
         """Make a ClassTreeDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
@@ -193,7 +179,7 @@ class RealizationViewContextAccessor(ContextAccessor):
         self,
         obj: m.T | None,
         objtype: type | None = None,
-    ) -> m.Accessor | CustomDiagram:
+    ) -> m.Accessor | ContextDiagram:
         """Make a RealizationViewDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
@@ -214,7 +200,7 @@ class DataFlowAccessor(ContextAccessor):
         self,
         obj: m.T | None,
         objtype: type | None = None,
-    ) -> m.Accessor | CustomDiagram:
+    ) -> m.Accessor | ContextDiagram:
         """Make a DataFlowViewDiagram for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
@@ -230,7 +216,7 @@ class CableTreeAccessor(ContextAccessor):
         self,
         obj: m.T | None,
         objtype: type | None = None,
-    ) -> m.Accessor | CustomDiagram:
+    ) -> m.Accessor | ContextDiagram:
         """Make a CableTreeView for the given model object."""
         del objtype
         if obj is None:  # pragma: no cover
@@ -239,8 +225,8 @@ class CableTreeAccessor(ContextAccessor):
         return self._get(obj, CableTreeViewDiagram)
 
 
-class CustomDiagram(m.AbstractDiagram):
-    """An automatically generated custom diagram.
+class ContextDiagram(m.AbstractDiagram):
+    """An automatically generated context diagram.
 
     Attributes
     ----------
@@ -262,10 +248,11 @@ class CustomDiagram(m.AbstractDiagram):
     filters
         A list of filter names that are applied during collection of
         context. Currently this is only done in
-        [`collectors.exchange_data_collector`][capellambse_context_diagrams.collectors.generic.exchange_data_collector].
+        [`exchange_data_collector`][capellambse_context_diagrams.collectors._generic.exchange_data_collector].
 
     Notes
     -----
+    The following render parameters are supported:
     * display_symbols_as_boxes — Display objects that are normally
       displayed as symbol as a simple box instead, with the symbol
       being the box' icon. This avoids the object of interest to
@@ -283,12 +270,26 @@ class CustomDiagram(m.AbstractDiagram):
     * display_port_labels — Display port labels on the diagram.
     * port_label_position - Position of the port labels. See
       [`PORT_LABEL_POSITION`][capellambse_context_diagrams.context._elkjs.PORT_LABEL_POSITION].
-    * display_unused_ports - Display ports that are not connected to an edge.
-    * collect - A list of collected elements.
-    * unify_edge_direction - Unify the direction of the edges.
-    * blackbox - Display the object of interest as a black box.
-    * display_actor_relation: Show the connections between the context actors.
-    * include_children_context: Include all children of the object of interest.
+    * transparent_background - Make the background transparent.
+    * display_unused_ports - Display ports that are not connected to an
+      edge.
+    * edge_direction - Reroute direction of edges.
+    * mode - Context collection mode.
+    * display_actor_relation: Show the connections between the context
+      actors.
+    * hide_context_owner: Hide the context owner in the diagram.
+    * include_children_context: Include the context of the target's
+      children.
+    * include_external_context: Include all children of external actors
+      in context.
+    * hide_functions: Hide functions from the diagram.
+    * display_functional_parent_relation: Display the parent relation of
+      functions within the context.
+
+    The following properties are used by the internal builders:
+    * collect - A callable that yields model elements from a given
+      context diagram.
+    * is_portless - Boolean flag, if the diagram is portless.
     """
 
     _display_symbols_as_boxes: bool
@@ -296,14 +297,21 @@ class CustomDiagram(m.AbstractDiagram):
     _display_derived_interfaces: bool
     _slim_center_box: bool
     _display_port_labels: bool
-    _port_label_position: str
+    _port_label_position: _elkjs.PORT_LABEL_POSITION
     _transparent_background: bool
     _display_unused_ports: bool
-    _collect: cabc.Iterator[m.ModelElement]
-    _unify_edge_direction: str
-    _blackbox: bool
+    _edge_direction: enums.EDGE_DIRECTION
+    _mode: enums.MODE
     _display_actor_relation: bool
+    _hide_context_owner: bool
     _include_children_context: bool
+    _include_external_context: bool
+    _include_interface: bool
+    _hide_functions: bool
+    _display_functional_parent_relation: bool
+
+    _collect: cabc.Callable[[ContextDiagram], cabc.Iterator[m.ModelElement]]
+    _is_portless: bool
 
     def __init__(
         self,
@@ -322,30 +330,47 @@ class CustomDiagram(m.AbstractDiagram):
 
         self._elk_input_data: CollectorOutputData | None = None
         self.__filters: cabc.MutableSet[str] = self.FilterSet(self)
-        self._default_render_parameters = {
+        render_params = {
             "display_symbols_as_boxes": False,
             "display_parent_relation": False,
             "display_derived_interfaces": False,
-            "slim_center_box": False,
+            "slim_center_box": True,
             "display_port_labels": False,
-            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
+            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE,
             "display_unused_ports": False,
             "transparent_background": False,
-            "collect": [],
-            "unify_edge_direction": "NONE",
-            "blackbox": False,
+            "edge_direction": enums.EDGE_DIRECTION.SMART,
+            "mode": enums.MODE.WHITEBOX,
             "display_actor_relation": False,
-            "include_children_context": False,
-        } | default_render_parameters
+            "hide_context_owner": False,
+            "include_children_context": True,
+            "include_external_context": False,
+            "include_interface": True,
+            "hide_functions": False,
+            "display_functional_parent_relation": False,
+        }
+        if not _generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES.get(self.type, ()):
+            render_params |= {
+                "collect": portless.collector,
+                "is_portless": True,
+            }
+        else:
+            render_params |= {
+                "collect": default.collector,
+                "is_portless": False,
+            }
+        self._default_render_parameters = (
+            render_params | default_render_parameters
+        )
 
         if standard_filter := STANDARD_FILTERS.get(class_):
             self.filters.add(standard_filter)
         if standard_styles := STANDARD_STYLES.get(class_):
             self.render_styles = standard_styles
 
-        self.collector: cabc.Callable[
-            [CustomDiagram, dict[str, t.Any]], CollectorOutputData
-        ] = custom.collector
+        self.builder: cabc.Callable[
+            [ContextDiagram, dict[str, t.Any]], CollectorOutputData
+        ] = db.builder
 
     @property
     def uuid(self) -> str:
@@ -355,7 +380,7 @@ class CustomDiagram(m.AbstractDiagram):
     @property
     def name(self) -> str:
         """Returns the diagram name."""
-        return f"Custom Context of {self.target.name.replace('/', '- or -')}"
+        return f"Context of {self.target.name.replace('/', '- or -')}"
 
     @property
     def type(self) -> m.DiagramType:
@@ -392,7 +417,7 @@ class CustomDiagram(m.AbstractDiagram):
             self._elk_input_data = data
 
         if self._elk_input_data is None:
-            self._elk_input_data = self.collector(self, params)
+            self._elk_input_data = self.builder(self, params)
 
         return self._elk_input_data
 
@@ -452,39 +477,6 @@ class CustomDiagram(m.AbstractDiagram):
         self.__filters |= set(value)
 
 
-class ContextDiagram(CustomDiagram):
-    """An automatically generated context Diagram."""
-
-    def __init__(
-        self,
-        class_: str,
-        obj: m.ModelElement,
-        *,
-        render_styles: dict[str, styling.Styler] | None = None,
-        default_render_parameters: dict[str, t.Any],
-    ) -> None:
-        default_render_parameters = {
-            "slim_center_box": True,
-            "unify_edge_direction": "SMART",
-            "include_children_context": True,
-        } | default_render_parameters
-
-        super().__init__(
-            class_,
-            obj,
-            render_styles=render_styles,
-            default_render_parameters=default_render_parameters,
-        )
-
-        self.collector: cabc.Callable[
-            [ContextDiagram, dict[str, t.Any]], CollectorOutputData
-        ] = get_elkdata
-
-    @property
-    def name(self) -> str:
-        return f"Context of {self.target.name.replace('/', '- or -')}"
-
-
 class InterfaceContextDiagram(ContextDiagram):
     """A Context Diagram exclusively for ``ComponentExchange``s.
 
@@ -505,19 +497,15 @@ class InterfaceContextDiagram(ContextDiagram):
       port allocations.
     * hide_functions — Boolean flag to enable white box view: Only
       displaying Components or Entities.
-    * display_port_labels — Display port labels on the diagram.
-    * port_label_position — Position of the port labels. See
-      [`PORT_LABEL_POSITION`][capellambse_context_diagrams.context._elkjs.PORT_LABEL_POSITION].
+
 
     In addition to all other render parameters of
     [`ContextDiagram`][capellambse_context_diagrams.context.ContextDiagram].
     """
 
     _include_interface: bool
-    _include_port_allocations: bool
     _hide_functions: bool
-    _display_port_labels: bool
-    _port_label_position: str
+    _include_port_allocations: bool
 
     def __init__(
         self,
@@ -533,7 +521,12 @@ class InterfaceContextDiagram(ContextDiagram):
             "hide_functions": False,
             "display_symbols_as_boxes": True,
             "display_port_labels": False,
-            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
+            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE,
+            "display_parent_relation": True,
+            "collect": exchanges.interface_context_collector,
+            "hide_context_owner": True,
+            "edge_direction": enums.EDGE_DIRECTION.RIGHT,
+            "display_functional_parent_relation": True,
         } | default_render_parameters
         super().__init__(
             class_,
@@ -541,9 +534,6 @@ class InterfaceContextDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
-        self.collector: cabc.Callable[
-            [InterfaceContextDiagram, dict[str, t.Any]], _elkjs.ELKInputData
-        ] = exchanges.interface_context_collector
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         data = self.elk_input_data(params)
@@ -559,12 +549,11 @@ class InterfaceContextDiagram(ContextDiagram):
         )
 
     def _add_port_allocations(self, layout: _elkjs.ELKOutputData) -> None:
-        for i, uuid in enumerate(
-            (self.target.source.uuid, self.target.target.uuid)
-        ):
+        uuids = (self.target.source.uuid, self.target.target.uuid)
+        for i, _ in enumerate(uuids):
             node = layout.children[i]
             assert isinstance(node, _elkjs.ELKOutputNode)
-            port = next((p for p in node.children if p.id == uuid), None)
+            port = next((p for p in node.children if p.id in uuids), None)
             assert isinstance(port, _elkjs.ELKOutputPort)
             if port is not None:
                 layout.children.extend(
@@ -629,13 +618,12 @@ class FunctionalContextDiagram(ContextDiagram):
         *,
         default_render_parameters: dict[str, t.Any],
     ):
+        default_render_parameters = {
+            "collect": exchanges.functional_context_collector,
+        }
         super().__init__(
             class_, obj, default_render_parameters=default_render_parameters
         )
-
-        self.collector: cabc.Callable[
-            [FunctionalContextDiagram, dict[str, t.Any]], _elkjs.ELKInputData
-        ] = exchanges.functional_context_collector
 
     @property
     def name(self) -> str:
@@ -648,7 +636,6 @@ class ClassTreeDiagram(ContextDiagram):
     This diagram is exclusively for ``Class``es.
     """
 
-    _display_symbols_as_boxes: bool
     _edgeRouting: t.Literal["UNDEFINED", "POLYLINE", "ORTHOGONAL", "SPLINES"]
     _direction: t.Literal["DOWN", "UP", "LEFT", "RIGHT"]
     _nodeSizeConstraints: t.Literal[
@@ -692,7 +679,7 @@ class ClassTreeDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
-        self.collector = tree_view.collector  # type: ignore[assignment]
+        self.builder = tree_view.collector  # type: ignore[assignment]
 
     @property
     def uuid(self) -> str:
@@ -770,13 +757,12 @@ def add_context(data: _elkjs.ELKOutputData, is_legend: bool = False) -> None:
 
 
 class RealizationViewDiagram(ContextDiagram):
-    """An automatically generated RealizationViewDiagram Diagram.
+    """An automatically generated realization view diagram.
 
     This diagram is exclusively for ``Activity``, ``Function``s,
     ``Entity`` and ``Components`` of all layers.
     """
 
-    _display_symbols_as_boxes: bool
     _depth: int
     _search_direction: t.Literal["ALL", "ABOVE", "BELOW"]
     _show_owners: bool
@@ -803,7 +789,7 @@ class RealizationViewDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
-        self.collector = realization_view.collector  # type: ignore[assignment]
+        self.builder = realization_view.collector  # type: ignore[assignment]
 
     @property
     def uuid(self) -> str:
@@ -879,6 +865,7 @@ class DataFlowViewDiagram(ContextDiagram):
     ) -> None:
         default_render_parameters = {
             "display_symbols_as_boxes": True,
+            "collect": dataflow_view.collector,
         } | default_render_parameters
         super().__init__(
             class_,
@@ -886,7 +873,6 @@ class DataFlowViewDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
-        self.collector = dataflow_view.collector
 
     @property
     def uuid(self) -> str:
@@ -902,9 +888,6 @@ class DataFlowViewDiagram(ContextDiagram):
 class CableTreeViewDiagram(ContextDiagram):
     """An automatically generated CableTreeView."""
 
-    _display_port_labels: bool
-    _port_label_position: str
-
     def __init__(
         self,
         class_: str,
@@ -915,7 +898,9 @@ class CableTreeViewDiagram(ContextDiagram):
     ) -> None:
         default_render_parameters = {
             "display_port_labels": True,
-            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
+            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE,
+            "collect": cable_tree.collector,
+            "edge_direction": enums.EDGE_DIRECTION.TREE,
         } | default_render_parameters
         super().__init__(
             class_,
@@ -923,7 +908,6 @@ class CableTreeViewDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
-        self.collector = cable_tree.collector
 
     @property
     def uuid(self) -> str:
@@ -946,25 +930,12 @@ class PhysicalPortContextDiagram(ContextDiagram):
         render_styles: dict[str, styling.Styler] | None = None,
         default_render_parameters: dict[str, t.Any],
     ) -> None:
-        visited = set()
-
-        def _collector(
-            target: m.ModelElement,
-        ) -> cabc.Iterator[m.ModelElement]:
-            if target.uuid in visited:
-                return
-            visited.add(target.uuid)
-            for link in target.links:
-                yield link
-                yield from _collector(link.source)
-                yield from _collector(link.target)
-
         default_render_parameters = {
-            "collect": _collector(obj),
+            "collect": default.physical_port_context_collector,
             "display_parent_relation": True,
-            "unify_edge_direction": "TREE",
+            "edge_direction": enums.EDGE_DIRECTION.TREE,
             "display_port_labels": True,
-            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE.name,
+            "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE,
         } | default_render_parameters
 
         super().__init__(
@@ -973,7 +944,6 @@ class PhysicalPortContextDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
-        self.collector = custom.collector
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:

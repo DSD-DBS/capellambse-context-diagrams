@@ -118,7 +118,7 @@ def test_context_diagrams_rerender_on_parameter_change(
             [
                 (TEST_ACTOR_SIZING_UUID, 40, 40),
                 (TEST_HUMAN_ACTOR_SIZING_UUID, 43, 43),
-                (TEST_CAP_SIZING_UUID, 141, 141),
+                (TEST_CAP_SIZING_UUID, 140, 140),
             ],
             id="Capability",
         ),
@@ -263,23 +263,22 @@ def test_context_diagram_hide_direct_children(
 ) -> None:
     obj = model.by_uuid("eca84d5c-fdcd-4cbe-90d5-7d00a256c62b")
     expected_hidden_uuids = {
-        "a34300ee-6e63-4c72-b210-2adee00478f8",
         "6a557565-c9d4-4216-8e9e-03539c0e6095",
         "32483de8-abd5-4e50-811b-407fad44defa",
-        "e786b912-51ed-4bb8-b03c-acb05c48f0c8",
         "727b7d69-3cd2-45cc-b423-1e7b93c83f5b",
-        "c0a2ae6d-ac5e-4a73-84ef-b7b9df344170",
         "3e66b559-eea0-40af-b18c-0328ee10add7",
         "1b978e1e-1368-44a2-a9e6-12818614b23e",  # Port
     }
 
     diag = obj.context_diagram
-    grey = diag.render(None, blackbox=True)
+    black = diag.render(None, mode="BLACKBOX")
     diag.invalidate_cache()
-    white = diag.render(None, blackbox=False)
+    white = diag.render(None, mode="WHITEBOX")
 
-    assert not {element.uuid for element in grey} & expected_hidden_uuids
-    assert {element.uuid for element in white} & expected_hidden_uuids
+    assert not {element.uuid for element in black} & expected_hidden_uuids
+    assert (
+        {element.uuid for element in white} & expected_hidden_uuids
+    ) == expected_hidden_uuids
 
 
 def test_context_diagram_detects_and_handles_cycles(
@@ -305,7 +304,7 @@ def test_context_diagram_display_unused_ports(
     assert unused_port_uuid in {element.uuid for element in bdiag}
 
 
-def test_context_diagram_blackbox(
+def test_context_diagram_graybox(
     model: capellambse.MelodyModel,
 ) -> None:
     obj = model.by_uuid("fd69347c-fca9-4cdd-ae44-9182e13c8d9d")
@@ -316,11 +315,11 @@ def test_context_diagram_blackbox(
         "ce221886-adfd-45f5-99cf-07baac99458d",
     }
 
-    white = obj.context_diagram.render(None, blackbox=False)
-    black = obj.context_diagram.render(None, blackbox=True)
+    white = obj.context_diagram.render(None, mode="WHITEBOX")
+    gray = obj.context_diagram.render(None, mode="GRAYBOX")
 
     assert {element.uuid for element in white} & hidden_element_uuids
-    assert not {element.uuid for element in black} & hidden_element_uuids
+    assert not {element.uuid for element in gray} & hidden_element_uuids
 
 
 @pytest.mark.skipif(
@@ -338,3 +337,20 @@ def test_serializer_handles_hierarchical_edges_correctly(
 
     assert (231.35, 94) <= adiag[f"{edge_uuid}_j0"].center <= (235, 94)
     assert (405.25, 122) <= adiag[f"{edge1_uuid}_j1"].center <= (410, 122)
+
+
+def test_context_diagrams_includes_external_context(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid("309296b1-cf37-45d7-b0f3-f7bc00422a59")
+
+    adiag = obj.context_diagram.render(
+        None,
+        _include_children_context=True,
+        include_external_context=True,
+        mode="WHITEBOX",
+    )
+
+    assert adiag["aa723351-32cb-44ab-a7ef-6319a1fbdaac"]
+    assert adiag["9dd62de4-0370-41aa-a20b-df2085499a73"]
+    assert "5db3cb8f-36bd-4f99-870b-f27272cae9df" not in adiag

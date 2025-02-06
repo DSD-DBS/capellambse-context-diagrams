@@ -59,7 +59,7 @@ class DiagramBuilder:
         params: dict[str, t.Any],
     ) -> None:
         self.diagram = diagram
-        self.collection = list(self.diagram._collect(self.diagram))
+        self.collection = self.diagram._collect(self.diagram)
         self.target: m.ModelElement = self.diagram.target
         self.boxable_target: m.ModelElement
         if _is_port(self.target):

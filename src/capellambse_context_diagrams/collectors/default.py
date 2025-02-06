@@ -38,7 +38,6 @@ def collector(
         target: m.ModelElement,
         *,
         filter: Filter = lambda i: i,
-        include_children: bool = False,
     ) -> cabc.Iterator[m.ModelElement]:
         if target.uuid in visited:
             return
@@ -56,15 +55,20 @@ def collector(
             elif ex.target.uuid in ports and ex.source.uuid not in ports:
                 outside_components[ex.source.owner.uuid] = ex.source.owner
 
+        include_children = (
+            diagram._include_external_context
+            and diagram._mode != enums.MODE.BLACKBOX
+        )
         if include_children:
-            for cmp in list(getattr(target, "components", [])):
+            for cmp in getattr(target, "components", []):
                 yield from _collect(cmp)
 
-    include_children = (
-        diagram._include_children_context
-        and diagram._mode != enums.MODE.BLACKBOX
-    )
-    yield from _collect(diagram.target, include_children=include_children)
+        if include_children:
+            for cmp in outside_components.copy().values():
+                for ocmp in getattr(cmp, "components", []):
+                    yield from _collect(ocmp)
+
+    yield from _collect(diagram.target)
     if not diagram._display_actor_relation:
         return
 

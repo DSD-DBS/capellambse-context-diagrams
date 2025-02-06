@@ -252,6 +252,7 @@ class ContextDiagram(m.AbstractDiagram):
 
     Notes
     -----
+    The following render parameters are supported:
     * display_symbols_as_boxes — Display objects that are normally
       displayed as symbol as a simple box instead, with the symbol
       being the box' icon. This avoids the object of interest to
@@ -269,14 +270,26 @@ class ContextDiagram(m.AbstractDiagram):
     * display_port_labels — Display port labels on the diagram.
     * port_label_position - Position of the port labels. See
       [`PORT_LABEL_POSITION`][capellambse_context_diagrams.context._elkjs.PORT_LABEL_POSITION].
-    * display_unused_ports - Display ports that are not connected to an edge.
-    * collect - A list of collected elements.
+    * transparent_background - Make the background transparent.
+    * display_unused_ports - Display ports that are not connected to an
+      edge.
     * edge_direction - Reroute direction of edges.
     * mode - Context collection mode.
-    * display_actor_relation: Show the connections between the context actors.
+    * display_actor_relation: Show the connections between the context
+      actors.
     * hide_context_owner: Hide the context owner in the diagram.
-    * include_children_context: Include the context of the target's children.
-    * display_functional_parent_relation: Display the parent relation of functions within the context.
+    * include_children_context: Include the context of the target's
+      children.
+    * include_external_context: Include all children of external actors
+      in context.
+    * hide_functions: Hide functions from the diagram.
+    * display_functional_parent_relation: Display the parent relation of
+      functions within the context.
+
+    The following properties are used by the internal builders:
+    * collect - A callable that yields model elements from a given
+      context diagram.
+    * is_portless - Boolean flag, if the diagram is portless.
     """
 
     _display_symbols_as_boxes: bool
@@ -287,16 +300,18 @@ class ContextDiagram(m.AbstractDiagram):
     _port_label_position: _elkjs.PORT_LABEL_POSITION
     _transparent_background: bool
     _display_unused_ports: bool
-    _collect: cabc.Callable[[ContextDiagram], cabc.Iterator[m.ModelElement]]
     _edge_direction: enums.EDGE_DIRECTION
     _mode: enums.MODE
     _display_actor_relation: bool
     _hide_context_owner: bool
-    _is_portless: bool
     _include_children_context: bool
+    _include_external_context: bool
     _include_interface: bool
     _hide_functions: bool
     _display_functional_parent_relation: bool
+
+    _collect: cabc.Callable[[ContextDiagram], cabc.Iterator[m.ModelElement]]
+    _is_portless: bool
 
     def __init__(
         self,
@@ -329,6 +344,7 @@ class ContextDiagram(m.AbstractDiagram):
             "display_actor_relation": False,
             "hide_context_owner": False,
             "include_children_context": True,
+            "include_external_context": False,
             "include_interface": True,
             "hide_functions": False,
             "display_functional_parent_relation": False,

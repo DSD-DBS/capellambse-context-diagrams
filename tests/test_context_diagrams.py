@@ -449,3 +449,19 @@ def test_serializer_handles_hierarchical_edges_correctly(
 
     assert (231.35, 94) <= adiag[f"{edge_uuid}_j0"].center <= (235, 94)
     assert (405.25, 122) <= adiag[f"{edge1_uuid}_j1"].center <= (410, 122)
+
+
+def test_context_diagrams_includes_external_context(
+    model: capellambse.MelodyModel,
+) -> None:
+    obj = model.by_uuid("309296b1-cf37-45d7-b0f3-f7bc00422a59")
+
+    adiag = obj.context_diagram.render(
+        None,
+        _include_children_context=True,
+        include_external_context=True,
+        mode="WHITEBOX",
+    )
+
+    assert adiag["aa723351-32cb-44ab-a7ef-6319a1fbdaac"]
+    assert adiag["9dd62de4-0370-41aa-a20b-df2085499a73"]

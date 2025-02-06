@@ -28,7 +28,7 @@ from capellambse.diagram import COLORS, CSSdef, capstyle
 from capellambse.metamodel import cs, fa, information, la, oa, pa, sa
 from capellambse.model import DiagramType
 
-from . import _elkjs, context, styling
+from . import _elkjs, context, enums, styling
 
 try:
     __version__ = metadata.version("capellambse-context-diagrams")
@@ -138,6 +138,7 @@ def register_classes() -> None:
                 "display_parent_relation": True,
                 "display_port_labels": True,
                 "display_derived_interfaces": True,
+                "edge_direction": enums.EDGE_DIRECTION.NONE,
             },
         ),
         (

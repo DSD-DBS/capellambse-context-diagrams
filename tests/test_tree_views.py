@@ -55,7 +55,7 @@ def test_layouting(params: tuple[str, str, dict[str, t.Any]]):
 
 @pytest.mark.parametrize("params", TEST_TREE_SET)
 def test_serializing(model: capellambse.MelodyModel, params: tuple[str, str]):
-    assert generic_serializing_test(
+    generic_serializing_test(
         model, params, TEST_TREE_LAYOUT_ROOT, "tree_view"
     )
 

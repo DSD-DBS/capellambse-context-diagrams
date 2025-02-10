@@ -170,7 +170,7 @@ def generic_serializing_test(
     params: tuple[str, str, dict[str, t.Any]],
     layout_root: pathlib.Path,
     diagram_attr: str,
-) -> bool:
+):
     """Test serializing ELKOutput data, i.e. layout.
 
     Parameters
@@ -193,4 +193,3 @@ def generic_serializing_test(
     layout_data = (layout_root / file_name).read_text(encoding="utf8")
     layout = _elkjs.ELKOutputData.model_validate_json(layout_data)
     diag.serializer.make_diagram(layout)
-    return True

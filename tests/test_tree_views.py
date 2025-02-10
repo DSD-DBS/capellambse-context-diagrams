@@ -84,7 +84,7 @@ def test_tree_view_renders_with_additional_params(
     depth: int,
     super: t.Literal["ALL", "ROOT"],
     sub: t.Literal["ALL", "ROOT"],
-) -> None:
+):
     obj = model.by_uuid(CLASS_UUID)
 
     diag = obj.tree_view

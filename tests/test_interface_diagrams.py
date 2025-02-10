@@ -158,7 +158,7 @@ class TestInterfaceDiagrams:
 
 def test_interface_diagram_with_included_interface(
     model: capellambse.MelodyModel,
-) -> None:
+):
     obj = model.by_uuid(TEST_INTERFACE_UUID)
 
     diag = obj.context_diagram.render(None, include_interface=False)
@@ -169,7 +169,7 @@ def test_interface_diagram_with_included_interface(
 
 def test_interface_diagram_with_nested_functions(
     model: capellambse.MelodyModel,
-) -> None:
+):
     obj = model.by_uuid(TEST_INTERFACE_UUID)
     fex = model.by_uuid("2b30434f-a087-40f1-917b-c9d0af15be23")
     fnc = fex.target.owner

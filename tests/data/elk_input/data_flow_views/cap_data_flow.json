@@ -1,0 +1,44 @@
+{
+    "id": "9390b7d5-598a-42db-bef8-23677e45ba06_data_flow_view",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "1eee3b81-41ef-4b56-8018-b8e421a5a2bc",
+            "labels": [
+                {
+                    "text": "Root System Function",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 128,
+                    "height": 12
+                }
+            ],
+            "width": 134,
+            "height": 36
+        },
+        {
+            "id": "ceffa011-7b66-4b3c-9885-8e075e312ffa",
+            "labels": [
+                {
+                    "text": "Important Function",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 118,
+                    "height": 12
+                }
+            ],
+            "width": 124,
+            "height": 36
+        }
+    ]
+}

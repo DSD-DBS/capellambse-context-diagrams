@@ -1,0 +1,315 @@
+{
+    "id": "b7c7f442-377f-492c-90bf-331e66988bda_tree_view",
+    "layoutOptions": {
+        "algorithm": "elk.rectpacking",
+        "nodeSize.constraints": "[NODE_LABELS, MINIMUM_SIZE]",
+        "widthApproximation.targetWidth": 1,
+        "elk.contentAlignment": "V_TOP H_CENTER"
+    },
+    "children": [
+        {
+            "id": "861ff9e8-295d-43ae-a8eb-d77769879c9f",
+            "layoutOptions": {
+                "nodeSize.constraints": "NODE_LABELS"
+            },
+            "labels": [
+                {
+                    "text": "EnumExample",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 61,
+                    "height": 12
+                },
+                {
+                    "text": "",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    }
+                },
+                {
+                    "text": "DEFAULT",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 41,
+                    "height": 12
+                },
+                {
+                    "text": "VALUE A",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 41,
+                    "height": 12
+                }
+            ],
+            "width": 67,
+            "height": 66
+        },
+        {
+            "id": "d32f721c-d5b2-452e-ac2d-3bfc789e0da3",
+            "layoutOptions": {
+                "nodeSize.constraints": "NODE_LABELS"
+            },
+            "labels": [
+                {
+                    "text": "EnumExample_1",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 71,
+                    "height": 12
+                },
+                {
+                    "text": "",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    }
+                },
+                {
+                    "text": "DEFAULT_1",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 51,
+                    "height": 12
+                },
+                {
+                    "text": "VALUE A_1",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 51,
+                    "height": 12
+                },
+                {
+                    "text": "VALUE B",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 41,
+                    "height": 12
+                },
+                {
+                    "text": "VALUE C",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 41,
+                    "height": 12
+                },
+                {
+                    "text": "VALUE D",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 41,
+                    "height": 12
+                },
+                {
+                    "text": "VALUE E",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 41,
+                    "height": 12
+                }
+            ],
+            "width": 77,
+            "height": 122
+        },
+        {
+            "id": "2d646411-731b-4e6d-a90b-6ea04abecc4b",
+            "layoutOptions": {
+                "nodeSize.constraints": "NODE_LABELS"
+            },
+            "labels": [
+                {
+                    "text": "EnumExample_2",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 71,
+                    "height": 12
+                },
+                {
+                    "text": "",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    }
+                },
+                {
+                    "text": "DEFAULT_2",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 51,
+                    "height": 12
+                },
+                {
+                    "text": "VALUE A_2",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 51,
+                    "height": 12
+                }
+            ],
+            "width": 77,
+            "height": 66
+        },
+        {
+            "id": "d5623fcf-dad9-48a5-a649-f2c791ac98c8",
+            "layoutOptions": {
+                "nodeSize.constraints": "NODE_LABELS"
+            },
+            "labels": [
+                {
+                    "text": "EnumExample_3",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 71,
+                    "height": 12
+                },
+                {
+                    "text": "",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    }
+                },
+                {
+                    "text": "DEFAULT_3",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 51,
+                    "height": 12
+                },
+                {
+                    "text": "VALUE A_3",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 51,
+                    "height": 12
+                }
+            ],
+            "width": 77,
+            "height": 66
+        },
+        {
+            "id": "1f6a60f6-0563-44c4-a0c0-fa24378f1bd4",
+            "layoutOptions": {
+                "nodeSize.constraints": "NODE_LABELS"
+            },
+            "labels": [
+                {
+                    "text": "EnumExample_4",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 71,
+                    "height": 12
+                },
+                {
+                    "text": "",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    }
+                },
+                {
+                    "text": "DEFAULT_4",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 51,
+                    "height": 12
+                },
+                {
+                    "text": "VALUE A_4",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 51,
+                    "height": 12
+                }
+            ],
+            "width": 77,
+            "height": 66
+        },
+        {
+            "id": "cdfea28e-21a8-4643-81e4-cea184756733",
+            "layoutOptions": {
+                "nodeSize.constraints": "NODE_LABELS"
+            },
+            "labels": [
+                {
+                    "text": "Primitive",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 51,
+                    "height": 12
+                },
+                {
+                    "text": "",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    }
+                },
+                {
+                    "text": "[1..*] ex: EnumExample",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 116,
+                    "height": 12
+                }
+            ],
+            "width": 122,
+            "height": 52
+        },
+        {
+            "id": "96e696c3-cd4a-481d-a3e5-f5ecbce9233c",
+            "layoutOptions": {
+                "nodeSize.constraints": "NODE_LABELS"
+            },
+            "labels": [
+                {
+                    "text": "EnumExample_5",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 71,
+                    "height": 12
+                },
+                {
+                    "text": "",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    }
+                },
+                {
+                    "text": "DEFAULT_5",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 51,
+                    "height": 12
+                },
+                {
+                    "text": "VALUE A_5",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 51,
+                    "height": 12
+                }
+            ],
+            "width": 77,
+            "height": 66
+        }
+    ]
+}

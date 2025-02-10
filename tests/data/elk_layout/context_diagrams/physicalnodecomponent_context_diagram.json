@@ -1,0 +1,899 @@
+{
+    "id": "b51ccc6f-5f96-4e28-b90e-72463a3b50cf_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "b9f9a83c-fb02-44f7-9123-9d86326de5f1",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 1225,
+                "height": 452
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "7b188ad0-0d82-4b2c-9913-45292e537871",
+                    "position": {
+                        "x": 709,
+                        "y": 404
+                    },
+                    "size": {
+                        "width": 109,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "c0645cb3-a9bc-4330-90aa-ab211d5091c4",
+                            "position": {
+                                "x": 101,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "id": "g_048953",
+                                    "position": {
+                                        "x": 11,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "CP 1"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "g_090374",
+                            "position": {
+                                "x": 14,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 73,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Card 1 OS"
+                        }
+                    ]
+                },
+                {
+                    "id": "c78b5d7c-be0c-4ed4-9d12-d447cb39304e",
+                    "position": {
+                        "x": 1103,
+                        "y": 70
+                    },
+                    "size": {
+                        "width": 109,
+                        "height": 66
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "debe5e5c-c234-4f20-b04f-213f826eac1e",
+                            "position": {
+                                "x": -2,
+                                "y": 47
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "id": "g_493921",
+                                    "position": {
+                                        "x": -49,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "CP 1"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "4c37367f-9098-4fd4-a60c-4807b03976f2",
+                            "position": {
+                                "x": -2,
+                                "y": 28
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "id": "g_655969",
+                                    "position": {
+                                        "x": -49,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "CP 2"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "c014f9ce-eb57-42ed-96f4-42072d4e8827",
+                            "position": {
+                                "x": -2,
+                                "y": 9
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "id": "g_560352",
+                                    "position": {
+                                        "x": -49,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "CP 3"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "g_668861",
+                            "position": {
+                                "x": 7,
+                                "y": 27
+                            },
+                            "size": {
+                                "width": 103,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Switch Firmware"
+                        }
+                    ]
+                },
+                {
+                    "id": "09e19313-c824-467f-9fb5-95ed8b4e2d51",
+                    "position": {
+                        "x": 709,
+                        "y": 85
+                    },
+                    "size": {
+                        "width": 109,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "d96c7025-9080-4790-99f4-e1fe68543e8c",
+                            "position": {
+                                "x": 101,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "id": "g_451524",
+                                    "position": {
+                                        "x": 11,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "CP 1"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "g_460129",
+                            "position": {
+                                "x": 14,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 73,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Card 2 OS"
+                        }
+                    ]
+                },
+                {
+                    "id": "db2d86d7-48ee-478b-a6fc-d6387ab0032e",
+                    "position": {
+                        "x": 709,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 109,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "43b6cfff-89ab-4777-ac72-ce9de12626a8",
+                            "position": {
+                                "x": 101,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "id": "g_167874",
+                                    "position": {
+                                        "x": 11,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "CP 2"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "g_912059",
+                            "position": {
+                                "x": -1,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 103,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Camera Firmware"
+                        }
+                    ]
+                },
+                {
+                    "id": "b327d900-abd2-4138-a111-9ff0684739d8",
+                    "position": {
+                        "x": 12,
+                        "y": 141
+                    },
+                    "size": {
+                        "width": 857,
+                        "height": 243
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "3f416925-9d8a-4e9c-99f3-e912efb23d2f",
+                            "position": {
+                                "x": 12,
+                                "y": 154
+                            },
+                            "size": {
+                                "width": 199,
+                                "height": 77
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "5bfc516b-c20d-4007-9a38-5ba0e889d0a4",
+                                    "position": {
+                                        "x": 12,
+                                        "y": 29
+                                    },
+                                    "size": {
+                                        "width": 124,
+                                        "height": 36
+                                    },
+                                    "type": "node",
+                                    "children": [
+                                        {
+                                            "id": "2d1e2ad5-3439-4820-baa8-189966407ba2",
+                                            "position": {
+                                                "x": 116,
+                                                "y": 13
+                                            },
+                                            "size": {
+                                                "width": 10,
+                                                "height": 10
+                                            },
+                                            "type": "port",
+                                            "children": [
+                                                {
+                                                    "id": "g_522655",
+                                                    "position": {
+                                                        "x": 11,
+                                                        "y": 11
+                                                    },
+                                                    "size": {
+                                                        "width": 48,
+                                                        "height": 12
+                                                    },
+                                                    "type": "label",
+                                                    "text": "PP 1"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "g_478680",
+                                            "position": {
+                                                "x": 6.5,
+                                                "y": 12
+                                            },
+                                            "size": {
+                                                "width": 103,
+                                                "height": 12
+                                            },
+                                            "type": "label",
+                                            "text": "Camera Assembly"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "g_153117",
+                                    "position": {
+                                        "x": 40.5,
+                                        "y": 5
+                                    },
+                                    "size": {
+                                        "width": 118,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Sensor compartment"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "3d68852d-fcc0-452c-af12-a2fbe22f81fa",
+                            "position": {
+                                "x": 309,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 536,
+                                "height": 185
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "9137f463-7497-40c2-b20a-897158fdba9a",
+                                    "position": {
+                                        "x": 12,
+                                        "y": 29
+                                    },
+                                    "size": {
+                                        "width": 204,
+                                        "height": 133
+                                    },
+                                    "type": "node",
+                                    "children": [
+                                        {
+                                            "id": "63be604e-883e-41ea-9023-fc74f29906fe",
+                                            "position": {
+                                                "x": 12,
+                                                "y": 85
+                                            },
+                                            "size": {
+                                                "width": 139,
+                                                "height": 36
+                                            },
+                                            "type": "node",
+                                            "children": [
+                                                {
+                                                    "id": "22859552-3710-4e58-9aa6-caebd044c921",
+                                                    "position": {
+                                                        "x": 131,
+                                                        "y": 13
+                                                    },
+                                                    "size": {
+                                                        "width": 10,
+                                                        "height": 10
+                                                    },
+                                                    "type": "port",
+                                                    "children": [
+                                                        {
+                                                            "id": "g_750585",
+                                                            "position": {
+                                                                "x": 11,
+                                                                "y": 11
+                                                            },
+                                                            "size": {
+                                                                "width": 38,
+                                                                "height": 12
+                                                            },
+                                                            "type": "label",
+                                                            "text": "X2"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": "g_201989",
+                                                    "position": {
+                                                        "x": 16.5,
+                                                        "y": 12
+                                                    },
+                                                    "size": {
+                                                        "width": 98,
+                                                        "height": 12
+                                                    },
+                                                    "type": "label",
+                                                    "text": "Compute Card 1"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "3a982128-3281-4d37-8838-a6058b7a25d9",
+                                            "position": {
+                                                "x": 12,
+                                                "y": 29
+                                            },
+                                            "size": {
+                                                "width": 139,
+                                                "height": 36
+                                            },
+                                            "type": "node",
+                                            "children": [
+                                                {
+                                                    "id": "5308754a-375f-4ab6-8d8f-86b30ea47288",
+                                                    "position": {
+                                                        "x": 131,
+                                                        "y": 13
+                                                    },
+                                                    "size": {
+                                                        "width": 10,
+                                                        "height": 10
+                                                    },
+                                                    "type": "port",
+                                                    "children": [
+                                                        {
+                                                            "id": "g_487069",
+                                                            "position": {
+                                                                "x": 11,
+                                                                "y": 11
+                                                            },
+                                                            "size": {
+                                                                "width": 38,
+                                                                "height": 12
+                                                            },
+                                                            "type": "label",
+                                                            "text": "X2"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "id": "g_842506",
+                                                    "position": {
+                                                        "x": 16.5,
+                                                        "y": 12
+                                                    },
+                                                    "size": {
+                                                        "width": 98,
+                                                        "height": 12
+                                                    },
+                                                    "type": "label",
+                                                    "text": "Compute Card 2"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "g_885679",
+                                            "position": {
+                                                "x": 73,
+                                                "y": 5
+                                            },
+                                            "size": {
+                                                "width": 58,
+                                                "height": 12
+                                            },
+                                            "type": "label",
+                                            "text": "Server"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "b51ccc6f-5f96-4e28-b90e-72463a3b50cf",
+                                    "position": {
+                                        "x": 385,
+                                        "y": 99
+                                    },
+                                    "size": {
+                                        "width": 139,
+                                        "height": 66
+                                    },
+                                    "type": "node",
+                                    "children": [
+                                        {
+                                            "id": "53c9fe29-18e2-4642-906e-b7507bf0ff39",
+                                            "position": {
+                                                "x": -2,
+                                                "y": 47
+                                            },
+                                            "size": {
+                                                "width": 10,
+                                                "height": 10
+                                            },
+                                            "type": "port",
+                                            "children": [
+                                                {
+                                                    "id": "g_853867",
+                                                    "position": {
+                                                        "x": -39,
+                                                        "y": 11
+                                                    },
+                                                    "size": {
+                                                        "width": 38,
+                                                        "height": 12
+                                                    },
+                                                    "type": "label",
+                                                    "text": "P1"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "f1c0db71-1927-4874-bf3e-0603a88f1d9b",
+                                            "position": {
+                                                "x": -2,
+                                                "y": 28
+                                            },
+                                            "size": {
+                                                "width": 10,
+                                                "height": 10
+                                            },
+                                            "type": "port",
+                                            "children": [
+                                                {
+                                                    "id": "g_267629",
+                                                    "position": {
+                                                        "x": -39,
+                                                        "y": 11
+                                                    },
+                                                    "size": {
+                                                        "width": 38,
+                                                        "height": 12
+                                                    },
+                                                    "type": "label",
+                                                    "text": "P3"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "76d9c301-c0ad-4615-9f02-b804b018decf",
+                                            "position": {
+                                                "x": -2,
+                                                "y": 9
+                                            },
+                                            "size": {
+                                                "width": 10,
+                                                "height": 10
+                                            },
+                                            "type": "port",
+                                            "children": [
+                                                {
+                                                    "id": "g_930035",
+                                                    "position": {
+                                                        "x": -39,
+                                                        "y": 11
+                                                    },
+                                                    "size": {
+                                                        "width": 38,
+                                                        "height": 12
+                                                    },
+                                                    "type": "label",
+                                                    "text": "P2"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "id": "g_695480",
+                                            "position": {
+                                                "x": 24.5,
+                                                "y": 27
+                                            },
+                                            "size": {
+                                                "width": 98,
+                                                "height": 12
+                                            },
+                                            "type": "label",
+                                            "text": "Network Switch"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "g_061059",
+                                    "position": {
+                                        "x": 201.5,
+                                        "y": 5
+                                    },
+                                    "size": {
+                                        "width": 133,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Equipment compartment"
+                                },
+                                {
+                                    "id": "42ee9e89-d445-45a2-8280-028d4fb1038d",
+                                    "type": "edge",
+                                    "sourceId": "22859552-3710-4e58-9aa6-caebd044c921",
+                                    "targetId": "f1c0db71-1927-4874-bf3e-0603a88f1d9b",
+                                    "routingPoints": [
+                                        {
+                                            "x": 165,
+                                            "y": 132
+                                        },
+                                        {
+                                            "x": 383,
+                                            "y": 132
+                                        }
+                                    ],
+                                    "children": [
+                                        {
+                                            "id": "g_159250",
+                                            "position": {
+                                                "x": 241,
+                                                "y": 135
+                                            },
+                                            "size": {
+                                                "width": 83,
+                                                "height": 12
+                                            },
+                                            "type": "label",
+                                            "text": "Eth Cable 2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "3078ec08-956a-4c61-87ed-0143d1d66715",
+                                    "type": "edge",
+                                    "sourceId": "5308754a-375f-4ab6-8d8f-86b30ea47288",
+                                    "targetId": "76d9c301-c0ad-4615-9f02-b804b018decf",
+                                    "routingPoints": [
+                                        {
+                                            "x": 165,
+                                            "y": 76
+                                        },
+                                        {
+                                            "x": 334,
+                                            "y": 76
+                                        },
+                                        {
+                                            "x": 334,
+                                            "y": 113
+                                        },
+                                        {
+                                            "x": 383,
+                                            "y": 113
+                                        }
+                                    ],
+                                    "children": [
+                                        {
+                                            "id": "g_564350",
+                                            "position": {
+                                                "x": 241,
+                                                "y": 61
+                                            },
+                                            "size": {
+                                                "width": 83,
+                                                "height": 12
+                                            },
+                                            "type": "label",
+                                            "text": "Eth Cable 3"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": "g_927055",
+                            "position": {
+                                "x": 397,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 63,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Vehicle"
+                        },
+                        {
+                            "id": "6d9a6777-472f-4045-8f54-700515fb3c70",
+                            "type": "edge",
+                            "sourceId": "2d1e2ad5-3439-4820-baa8-189966407ba2",
+                            "targetId": "53c9fe29-18e2-4642-906e-b7507bf0ff39",
+                            "routingPoints": [
+                                {
+                                    "x": 150,
+                                    "y": 201
+                                },
+                                {
+                                    "x": 643,
+                                    "y": 201
+                                },
+                                {
+                                    "x": 643,
+                                    "y": 180
+                                },
+                                {
+                                    "x": 692,
+                                    "y": 180
+                                }
+                            ],
+                            "children": [
+                                {
+                                    "id": "g_238513",
+                                    "position": {
+                                        "x": 236,
+                                        "y": 204
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "PL 1"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "g_076116",
+                    "position": {
+                        "x": 561,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 103,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Physical System"
+                },
+                {
+                    "id": "4b5bea95-9bc2-477c-a8b2-c4e54b5066fb",
+                    "type": "edge",
+                    "sourceId": "c0645cb3-a9bc-4330-90aa-ab211d5091c4",
+                    "targetId": "debe5e5c-c234-4f20-b04f-213f826eac1e",
+                    "routingPoints": [
+                        {
+                            "x": 820,
+                            "y": 422
+                        },
+                        {
+                            "x": 1042,
+                            "y": 422
+                        },
+                        {
+                            "x": 1042,
+                            "y": 122
+                        },
+                        {
+                            "x": 1101,
+                            "y": 122
+                        }
+                    ],
+                    "children": [
+                        {
+                            "id": "g_205114",
+                            "position": {
+                                "x": 939,
+                                "y": 425
+                            },
+                            "size": {
+                                "width": 43,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "C 3"
+                        }
+                    ]
+                },
+                {
+                    "id": "2681f26a-e492-4e5d-8b33-92fb00a48622",
+                    "type": "edge",
+                    "sourceId": "d96c7025-9080-4790-99f4-e1fe68543e8c",
+                    "targetId": "4c37367f-9098-4fd4-a60c-4807b03976f2",
+                    "routingPoints": [
+                        {
+                            "x": 820,
+                            "y": 103
+                        },
+                        {
+                            "x": 1101,
+                            "y": 103
+                        }
+                    ],
+                    "children": [
+                        {
+                            "id": "g_031190",
+                            "position": {
+                                "x": 939,
+                                "y": 106
+                            },
+                            "size": {
+                                "width": 43,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "C 4"
+                        }
+                    ]
+                },
+                {
+                    "id": "90e2a02f-3bd4-4d77-b16a-22a8a5a9c9eb",
+                    "type": "edge",
+                    "sourceId": "43b6cfff-89ab-4777-ac72-ce9de12626a8",
+                    "targetId": "c014f9ce-eb57-42ed-96f4-42072d4e8827",
+                    "routingPoints": [
+                        {
+                            "x": 820,
+                            "y": 47
+                        },
+                        {
+                            "x": 1042,
+                            "y": 47
+                        },
+                        {
+                            "x": 1042,
+                            "y": 84
+                        },
+                        {
+                            "x": 1101,
+                            "y": 84
+                        }
+                    ],
+                    "children": [
+                        {
+                            "id": "g_736489",
+                            "position": {
+                                "x": 889,
+                                "y": 50
+                            },
+                            "size": {
+                                "width": 143,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "communication interface"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

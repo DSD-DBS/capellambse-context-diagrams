@@ -1,0 +1,22 @@
+{
+    "edges": [
+        {
+            "id": "beaf5ba4-8fa9-4342-911f-0266bb29be45_00e7b925-cf4c-4cb0-929e-5409a1cd872b",
+            "sources": [
+                "beaf5ba4-8fa9-4342-911f-0266bb29be45"
+            ],
+            "targets": [
+                "00e7b925-cf4c-4cb0-929e-5409a1cd872b"
+            ]
+        },
+        {
+            "id": "da53c21f-4fb8-4da7-8d58-12d7a600bfa6_beaf5ba4-8fa9-4342-911f-0266bb29be45",
+            "sources": [
+                "da53c21f-4fb8-4da7-8d58-12d7a600bfa6"
+            ],
+            "targets": [
+                "beaf5ba4-8fa9-4342-911f-0266bb29be45"
+            ]
+        }
+    ]
+}

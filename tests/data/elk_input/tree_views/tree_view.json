@@ -1,0 +1,276 @@
+{
+    "id": "b7c7f442-377f-492c-90bf-331e66988bda_tree_view",
+    "layoutOptions": {
+        "layered.edgeLabels.sideSelection": "SMART_DOWN",
+        "algorithm": "layered",
+        "elk.direction": "DOWN",
+        "edgeRouting": "POLYLINE",
+        "nodeSizeConstraints": "NODE_LABELS"
+    },
+    "children": [
+        {
+            "id": "b7c7f442-377f-492c-90bf-331e66988bda",
+            "labels": [
+                {
+                    "text": "Root",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 48,
+                    "height": 12
+                },
+                {
+                    "text": "",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    }
+                },
+                {
+                    "text": "[1..*] example: Example",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 143,
+                    "height": 12
+                },
+                {
+                    "text": "[0..1] enum_example: EnumExample",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 188,
+                    "height": 12
+                },
+                {
+                    "text": "another: EnumExample_1",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 138,
+                    "height": 12
+                },
+                {
+                    "text": "another_one: EnumExample_2",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 158,
+                    "height": 12
+                },
+                {
+                    "text": "another_one_one: EnumExample_3",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 178,
+                    "height": 12
+                },
+                {
+                    "text": "last_one: EnumExample_4",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 143,
+                    "height": 12
+                },
+                {
+                    "text": "primitiveExample: Primitive",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 163,
+                    "height": 12
+                }
+            ],
+            "width": 194,
+            "height": 136
+        },
+        {
+            "id": "0093ffdd-ab4d-4c87-971d-0c2fc1a0b094",
+            "labels": [
+                {
+                    "text": "One",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 43,
+                    "height": 12
+                },
+                {
+                    "text": "",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    }
+                }
+            ],
+            "width": 49,
+            "height": 38
+        },
+        {
+            "id": "1dccccde-6ab1-47ac-8ee8-a3033a49a9e5",
+            "labels": [
+                {
+                    "text": "Two",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 43,
+                    "height": 12
+                },
+                {
+                    "text": "",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    }
+                }
+            ],
+            "width": 49,
+            "height": 38
+        },
+        {
+            "id": "322dc599-ea72-49e9-8e37-fe5226e41f19",
+            "labels": [
+                {
+                    "text": "Three",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 53,
+                    "height": 12
+                },
+                {
+                    "text": "",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    }
+                },
+                {
+                    "text": "primitiveExample: Primitive",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 163,
+                    "height": 12
+                }
+            ],
+            "width": 169,
+            "height": 52
+        },
+        {
+            "id": "37ae6942-cbbc-4e2a-acad-10fbdceb8d56",
+            "labels": [
+                {
+                    "text": "five",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 48,
+                    "height": 12
+                },
+                {
+                    "text": "",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    }
+                },
+                {
+                    "text": "fi: EnumExample_5",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 113,
+                    "height": 12
+                }
+            ],
+            "width": 119,
+            "height": 52
+        }
+    ],
+    "edges": [
+        {
+            "id": "11d42718-70a0-455b-af59-dbf87d50a885",
+            "sources": [
+                "b7c7f442-377f-492c-90bf-331e66988bda"
+            ],
+            "targets": [
+                "0093ffdd-ab4d-4c87-971d-0c2fc1a0b094"
+            ],
+            "labels": [
+                {
+                    "text": "[1..*] one",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 78,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "23211949-9b66-4033-93f9-a40bf103d519",
+            "sources": [
+                "b7c7f442-377f-492c-90bf-331e66988bda"
+            ],
+            "targets": [
+                "1dccccde-6ab1-47ac-8ee8-a3033a49a9e5"
+            ],
+            "labels": [
+                {
+                    "text": "two",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 43,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "1de298dd-ccef-4505-9a5e-1aa792f2eb19",
+            "sources": [
+                "1dccccde-6ab1-47ac-8ee8-a3033a49a9e5"
+            ],
+            "targets": [
+                "322dc599-ea72-49e9-8e37-fe5226e41f19"
+            ],
+            "labels": [
+                {
+                    "text": "[0..1] three",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "58b887af-7fe4-4b52-b877-268ea5ca9417",
+            "sources": [
+                "322dc599-ea72-49e9-8e37-fe5226e41f19"
+            ],
+            "targets": [
+                "37ae6942-cbbc-4e2a-acad-10fbdceb8d56"
+            ],
+            "labels": [
+                {
+                    "text": "five",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 48,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "a8828afb-fa24-44a8-942e-2665dbcf9405",
+            "sources": [
+                "322dc599-ea72-49e9-8e37-fe5226e41f19"
+            ],
+            "targets": [
+                "b7c7f442-377f-492c-90bf-331e66988bda"
+            ]
+        }
+    ]
+}

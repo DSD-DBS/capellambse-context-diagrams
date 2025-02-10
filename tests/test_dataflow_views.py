@@ -9,6 +9,7 @@ import pytest
 from .conftest import (  # type: ignore[import-untyped]
     TEST_ELK_INPUT_ROOT,
     TEST_ELK_LAYOUT_ROOT,
+    compare_elk_input_data,
     generic_collecting_test,
     generic_layouting_test,
     generic_serializing_test,
@@ -32,9 +33,11 @@ TEST_DATA_FLOW_SET = [
 def test_collecting(
     model: capellambse.MelodyModel, params: tuple[str, str, dict[str, t.Any]]
 ):
-    generic_collecting_test(
+    result, expected = generic_collecting_test(
         model, params, TEST_DATA_FLOW_DATA_ROOT, "data_flow_view"
     )
+
+    assert compare_elk_input_data(result, expected)
 
 
 @pytest.mark.parametrize("params", TEST_DATA_FLOW_SET)

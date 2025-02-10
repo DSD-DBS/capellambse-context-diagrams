@@ -10,6 +10,7 @@ import pytest
 from .conftest import (  # type: ignore[import-untyped]
     TEST_ELK_INPUT_ROOT,
     TEST_ELK_LAYOUT_ROOT,
+    compare_elk_input_data,
     generic_collecting_test,
     generic_layouting_test,
     generic_serializing_test,
@@ -49,9 +50,11 @@ TEST_SET = [
 def test_collecting(
     model: capellambse.MelodyModel, params: tuple[str, str, dict[str, t.Any]]
 ):
-    generic_collecting_test(
+    result, expected = generic_collecting_test(
         model, params, TEST_CABLE_TREE_DATA_ROOT, "cable_tree"
     )
+
+    assert compare_elk_input_data(result, expected)
 
 
 @pytest.mark.parametrize("params", TEST_SET)

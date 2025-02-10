@@ -10,6 +10,7 @@ import pytest
 from .conftest import (  # type: ignore[import-untyped]
     TEST_ELK_INPUT_ROOT,
     TEST_ELK_LAYOUT_ROOT,
+    compare_elk_input_data,
     generic_collecting_test,
     generic_layouting_test,
     generic_serializing_test,
@@ -237,9 +238,11 @@ class TestContextDiagrams:
         model: capellambse.MelodyModel,
         params: tuple[str, str, dict[str, t.Any]],
     ):
-        generic_collecting_test(
+        result, expected = generic_collecting_test(
             model, params, TEST_CONTEXT_DATA_ROOT, "context_diagram"
         )
+
+        assert compare_elk_input_data(result, expected)
 
     @staticmethod
     @pytest.mark.parametrize("params", TEST_CONTEXT_SET)

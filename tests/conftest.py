@@ -2,7 +2,6 @@
 # SPDX-License-Identifier: Apache-2.0
 """Global fixtures for pytest."""
 
-import collections.abc as cabc
 import io
 import pathlib
 import sys
@@ -81,17 +80,27 @@ def write_test_data_file(
     file_path.write_text(json.dumps(data_dump, indent=4), encoding="utf8")
 
 
+def compare_elk_input_data(
+    data: _elkjs.ELKInputData, expected: _elkjs.ELKInputData
+) -> bool:
+    return data.model_dump(exclude_defaults=True) == expected.model_dump(
+        exclude_defaults=True
+    )
+
+
+@mock.patch("capellambse.helpers.extent_func", text_size_mocker)
 def generic_collecting_test(
     model: capellambse.MelodyModel,
     params: tuple[str, str, dict[str, t.Any]],
     data_root: pathlib.Path,
     diagram_attr: str,
-    extra_suffix: str | None = None,
-    extra_assert: cabc.Callable[
-        [str, list[_elkjs.ELKInputEdge] | _elkjs.ELKOutputData], bool
-    ]
-    | None = None,
-):
+) -> tuple[
+    _elkjs.ELKInputData
+    | tuple[
+        _elkjs.ELKInputData, _elkjs.ELKInputData | list[_elkjs.ELKInputEdge]
+    ],
+    _elkjs.ELKInputData,
+]:
     """Test collecting test.
 
     Parameters
@@ -114,26 +123,7 @@ def generic_collecting_test(
     file_path = data_root / file_name
     data_text = file_path.read_text(encoding="utf8")
     expected_main = _elkjs.ELKInputData.model_validate_json(data_text)
-    expected_extra_file: pathlib.Path | None = None
-    if extra_suffix:
-        expected_extra_file = data_root / (file_path.stem + extra_suffix)
-        expected_extra = expected_extra_file.read_text(encoding="utf8")
-
-    with mock.patch("capellambse.helpers.extent_func") as mock_ext:
-        mock_ext.side_effect = text_size_mocker
-        result = getattr(obj, diagram_attr).elk_input_data({})
-
-    if extra_suffix and extra_assert and expected_extra_file:
-        main_output, extra_output = result
-        assert main_output.model_dump(
-            exclude_defaults=True
-        ) == expected_main.model_dump(exclude_defaults=True)
-        assert extra_assert(expected_extra, extra_output)
-        return
-
-    assert result.model_dump(
-        exclude_defaults=True
-    ) == expected_main.model_dump(exclude_defaults=True)
+    return getattr(obj, diagram_attr).elk_input_data({}), expected_main
 
 
 def generic_layouting_test(

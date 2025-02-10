@@ -10,6 +10,7 @@ import pytest
 from .conftest import (  # type: ignore[import-untyped]
     TEST_ELK_INPUT_ROOT,
     TEST_ELK_LAYOUT_ROOT,
+    compare_elk_input_data,
     generic_collecting_test,
     generic_layouting_test,
     generic_serializing_test,
@@ -27,16 +28,19 @@ TEST_TREE_SET = [
 def test_collecting(
     model: capellambse.MelodyModel, params: tuple[str, str, dict[str, t.Any]]
 ):
-    generic_collecting_test(
-        model,
-        params,
-        TEST_TREE_DATA_ROOT,
-        "tree_view",
-        extra_suffix="_legend.json",
-        extra_assert=lambda extra_file, legend: legend.model_dump(
-            exclude_defaults=True
-        )
-        == json.loads(extra_file),
+    file_path = TEST_TREE_DATA_ROOT / params[1]
+    expected_legend_file = TEST_TREE_DATA_ROOT / (
+        file_path.stem + "_legend.json"
+    )
+    expected_legend = expected_legend_file.read_text(encoding="utf8")
+
+    (result, legend), expected = generic_collecting_test(
+        model, params, TEST_TREE_DATA_ROOT, "tree_view"
+    )
+
+    assert compare_elk_input_data(result, expected)
+    assert legend.model_dump(exclude_defaults=True) == json.loads(
+        expected_legend
     )
 
 
@@ -55,9 +59,7 @@ def test_layouting(params: tuple[str, str, dict[str, t.Any]]):
 
 @pytest.mark.parametrize("params", TEST_TREE_SET)
 def test_serializing(model: capellambse.MelodyModel, params: tuple[str, str]):
-    generic_serializing_test(
-        model, params, TEST_TREE_LAYOUT_ROOT, "tree_view"
-    )
+    generic_serializing_test(model, params, TEST_TREE_LAYOUT_ROOT, "tree_view")
 
 
 @pytest.mark.parametrize(

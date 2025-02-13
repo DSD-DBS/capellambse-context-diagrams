@@ -5707,7 +5707,7 @@ The predator is far away</bodies>
             <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
                 id="5548913c-6fde-4003-ab41-7926e10e4cd9" name="PP 5"/>
             <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
-                id="4c0233ac-dd06-4fd2-86c0-f90ee56a7b2e" name="BNode_Box" linkEnds="#6559eb2f-f7a3-4d4d-8b83-13ec8944cb51 #cacae3be-b3f3-46f0-aa7f-202685615ea3"/>
+                id="4c0233ac-dd06-4fd2-86c0-f90ee56a7b2e" name="BNode_to_Box" linkEnds="#6559eb2f-f7a3-4d4d-8b83-13ec8944cb51 #cacae3be-b3f3-46f0-aa7f-202685615ea3"/>
             <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
                 id="957b9327-7813-4568-9ce9-719d6edc7439" name="BNode_to_Box" linkEnds="#e7f9d780-5000-4a58-b6d2-a3a0b96ad9bc #5548913c-6fde-4003-ab41-7926e10e4cd9"/>
             <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"

@@ -458,9 +458,9 @@ def test_context_diagrams_includes_external_context(
 
     adiag = obj.context_diagram.render(
         None,
-        _include_children_context=True,
         include_external_context=True,
-        mode="WHITEBOX",
+        edge_direction="SMART",
+        mode="BLACKBOX",
     )
 
     assert adiag["aa723351-32cb-44ab-a7ef-6319a1fbdaac"]

@@ -36,10 +36,10 @@ def _is_port(obj: m.ModelElement) -> bool:
     return obj.xtype.endswith("Port")
 
 
-def get_uncommon_owner(
-    src: m.ModelElement,
-    tgt_owners: list[str],
+def get_top_uncommon_owner(
+    src: m.ModelElement, tgt_owners: list[str]
 ) -> m.ModelElement:
+    """Return the top-level owner of ``src`` not in ``tgt_owners``."""
     current = src
     while (
         hasattr(current, "owner")
@@ -48,6 +48,18 @@ def get_uncommon_owner(
     ):
         current = current.owner
     return current
+
+
+def _get_boxeable_target(diagram: context.ContextDiagram) -> m.ModelElement:
+    if _is_port(diagram.target):
+        return diagram.target.owner
+    try:
+        src, _ = portless.collect_exchange_endpoints(diagram.target)
+        if diagram._is_portless:
+            return src
+        return src.owner
+    except AttributeError:
+        return diagram.target
 
 
 class DiagramBuilder:
@@ -61,19 +73,7 @@ class DiagramBuilder:
         self.diagram = diagram
         self.collection = self.diagram._collect(self.diagram)
         self.target: m.ModelElement = self.diagram.target
-        self.boxable_target: m.ModelElement
-        if _is_port(self.target):
-            self.boxable_target = self.target.owner
-        else:
-            try:
-                src, _ = portless.collect_exchange_endpoints(self.target)
-                if self.diagram._is_portless:
-                    self.boxable_target = src
-                else:
-                    self.boxable_target = src.owner
-            except AttributeError:
-                self.boxable_target = self.target
-
+        self.boxable_target = _get_boxeable_target(self.diagram)
         self.data = _makers.make_diagram(diagram)
         self.params = params
         self.boxes: dict[str, _elkjs.ELKInputChild] = {}
@@ -121,7 +121,12 @@ class DiagramBuilder:
             )
 
         for elem in self.collection:
-            self._make_target(elem)
+            if self.diagram._mode == enums.MODE.BLACKBOX:
+                self._make_blackbox_target(elem)
+            elif self.diagram._mode == enums.MODE.GRAYBOX:
+                self._make_graybox_target(elem)
+            elif self.diagram._mode == enums.MODE.WHITEBOX:
+                self._make_whitebox_target(elem)
 
         self._flip_edges()
 
@@ -213,13 +218,6 @@ class DiagramBuilder:
                 box = self.boxes[uuid]
                 box.height = max([box.height, *min_heights.values()])
 
-    def _make_target(
-        self, obj: m.ModelElement
-    ) -> _elkjs.ELKInputChild | _elkjs.ELKInputEdge | None:
-        if _is_edge(obj):
-            return self._make_edge_and_ports(obj)
-        return self._make_box(obj)
-
     def _make_box(
         self,
         obj: m.ModelElement,
@@ -252,87 +250,6 @@ class DiagramBuilder:
                 )
             )
         return box
-
-    def _make_edge_and_ports(
-        self,
-        edge_obj: m.ModelElement,
-    ) -> _elkjs.ELKInputEdge | None:
-        if self.edges.get(edge_obj.uuid):
-            return None
-
-        ex_data = _generic.ExchangeData(
-            edge_obj,
-            self.data,
-            self.diagram.filters,
-            self.params,
-        )
-
-        src_obj: m.ModelElement | None
-        tgt_obj: m.ModelElement | None
-
-        if self.diagram._is_portless:
-            src_owner, tgt_owner = _generic.exchange_data_collector(
-                ex_data, portless.collect_exchange_endpoints
-            )
-            src_obj, tgt_obj = None, None
-            edge = self.data.edges.pop()
-        else:
-            src_obj, tgt_obj = _generic.exchange_data_collector(ex_data)
-            src_owner, tgt_owner = src_obj.owner, tgt_obj.owner
-            edge = self.data.edges.pop()
-
-            if self.diagram._mode == enums.MODE.GRAYBOX:
-
-                def get_unc(obj):
-                    if self.boxable_target.uuid in _generic.get_all_owners(
-                        obj
-                    ):
-                        return self.boxable_target
-                    return get_uncommon_owner(obj, self.diagram_target_owners)
-
-                src_unc, tgt_unc = get_unc(src_owner), get_unc(tgt_owner)
-                if src_unc.uuid == tgt_unc.uuid:
-                    return None
-                if src_unc.uuid != src_owner.uuid:
-                    edge.id = f"{_makers.STYLECLASS_PREFIX}-ComponentExchange:{edge.id}"
-                    src_owner = src_unc
-                if tgt_unc.uuid != tgt_owner.uuid:
-                    edge.id = f"{_makers.STYLECLASS_PREFIX}-ComponentExchange:{edge.id}"
-                    tgt_owner = tgt_unc
-
-        src_owners = list(_generic.get_all_owners(src_owner))
-        tgt_owners = list(_generic.get_all_owners(tgt_owner))
-        if (
-            self.diagram._mode == enums.MODE.BLACKBOX
-            and self.boxable_target.uuid in src_owners
-            and self.boxable_target.uuid in tgt_owners
-        ):
-            return None
-
-        self._make_port_and_owner("right", src_obj, src_owner)
-        self._make_port_and_owner("left", tgt_obj, tgt_owner)
-
-        if self.diagram._display_parent_relation:
-            common_owner = None
-            for owner in src_owners:
-                if owner in tgt_owners:
-                    common_owner = owner
-                    break
-            if common_owner:
-                self.edge_owners[edge_obj.uuid] = common_owner
-
-        flip_needed, unc = self._need_flip(
-            src_owner,
-            tgt_owner,
-            src_owners,
-            tgt_owners,
-        )
-        self.edges_to_flip.setdefault(unc, {True: set(), False: set()})[
-            flip_needed
-        ].add(edge_obj.uuid)
-
-        self.edges[edge_obj.uuid] = edge
-        return edge
 
     def _update_min_heights(
         self,
@@ -372,7 +289,7 @@ class DiagramBuilder:
         ) -> tuple[bool | None, str]:
             if obj.uuid == self.boxable_target.uuid:
                 return None, ""
-            uncommon_owner = get_uncommon_owner(obj, opposite_owners)
+            uncommon_owner = get_top_uncommon_owner(obj, opposite_owners)
             return (
                 self.directions.setdefault(uncommon_owner.uuid, default),
                 uncommon_owner.uuid,
@@ -444,6 +361,214 @@ class DiagramBuilder:
             self.ports[port_obj.uuid] = port
         self._update_min_heights(owner_obj.uuid, side, port)
         return port
+
+    def _is_inside_noi(self, element: m.ModelElement) -> bool:
+        return self.boxable_target.uuid in set(
+            _generic.get_all_owners(element)
+        )
+
+    def _collect_edge_data(
+        self, edge_obj: m.ModelElement
+    ) -> tuple[
+        _elkjs.ELKInputEdge,
+        m.ModelElement | None,
+        m.ModelElement | None,
+        m.ModelElement,
+        m.ModelElement,
+    ]:
+        ex_data = _generic.ExchangeData(
+            edge_obj, self.data, self.diagram.filters, self.params
+        )
+        if self.diagram._is_portless:
+            src_owner, tgt_owner = _generic.exchange_data_collector(
+                ex_data, portless.collect_exchange_endpoints
+            )
+            src_obj = tgt_obj = None
+        else:
+            src_obj, tgt_obj = _generic.exchange_data_collector(ex_data)
+            src_owner, tgt_owner = src_obj.owner, tgt_obj.owner
+
+        edge = self.data.edges.pop()
+        return edge, src_obj, tgt_obj, src_owner, tgt_owner
+
+    def _update_edge_common(
+        self,
+        edge_obj: m.ModelElement,
+        edge: _elkjs.ELKInputEdge,
+        src_obj: m.ModelElement | None,
+        tgt_obj: m.ModelElement | None,
+        src_owner: m.ModelElement,
+        tgt_owner: m.ModelElement,
+    ) -> _elkjs.ELKInputEdge:
+        """Update ports, parent relation, and edge flip settings."""
+        src_owners = list(_generic.get_all_owners(src_owner))
+        tgt_owners = list(_generic.get_all_owners(tgt_owner))
+
+        self._make_port_and_owner("right", src_obj, src_owner)
+        self._make_port_and_owner("left", tgt_obj, tgt_owner)
+        if self.diagram._display_parent_relation:
+            common_owner = None
+            if src_owner == tgt_owner:
+                common_owner = getattr(src_owner.owner, "uuid", None)
+            else:
+                for owner in src_owners:
+                    if owner in tgt_owners:
+                        common_owner = owner
+                        break
+            if common_owner:
+                self.edge_owners[edge_obj.uuid] = common_owner
+
+        flip_needed, unc = self._need_flip(
+            src_owner, tgt_owner, src_owners, tgt_owners
+        )
+        self.edges_to_flip.setdefault(unc, {True: set(), False: set()})[
+            flip_needed
+        ].add(edge_obj.uuid)
+        self.edges[edge_obj.uuid] = edge
+        return edge
+
+    def _apply_unc_adjustment(
+        self,
+        edge: _elkjs.ELKInputEdge,
+        src_owner: m.ModelElement,
+        tgt_owner: m.ModelElement,
+        class_name: str,
+    ) -> tuple[m.ModelElement, m.ModelElement] | None:
+        def get_unc(obj: m.ModelElement) -> m.ModelElement:
+            if self.boxable_target.uuid in _generic.get_all_owners(obj):
+                return self.boxable_target
+            return get_top_uncommon_owner(obj, self.diagram_target_owners)
+
+        src_unc = get_unc(src_owner)
+        tgt_unc = get_unc(tgt_owner)
+        if src_unc.uuid == tgt_unc.uuid:  # Cycle
+            return None
+        if src_unc.uuid != src_owner.uuid:
+            edge.id = f"{_makers.STYLECLASS_PREFIX}-{class_name}:{edge.id}"
+            src_owner = src_unc
+        if tgt_unc.uuid != tgt_owner.uuid:
+            edge.id = f"{_makers.STYLECLASS_PREFIX}-{class_name}:{edge.id}"
+            tgt_owner = tgt_unc
+        return src_owner, tgt_owner
+
+    def _make_edge_and_ports(
+        self,
+        edge_obj: m.ModelElement,
+        source_override: m.ModelElement | None = None,
+        target_override: m.ModelElement | None = None,
+    ) -> _elkjs.ELKInputEdge | None:
+        if self.edges.get(edge_obj.uuid):
+            return None
+
+        edge, src_obj, tgt_obj, src_owner, tgt_owner = self._collect_edge_data(
+            edge_obj
+        )
+        if source_override is not None:
+            src_owner = source_override
+        if target_override is not None:
+            tgt_owner = target_override
+        return self._update_edge_common(
+            edge_obj, edge, src_obj, tgt_obj, src_owner, tgt_owner
+        )
+
+    def _make_whitebox_target(
+        self, obj: m.ModelElement
+    ) -> _elkjs.ELKInputChild | _elkjs.ELKInputEdge | None:
+        if _is_edge(obj):
+            return self._make_edge_and_ports(obj)
+        return self._make_box(obj)
+
+    def _make_graybox_target(
+        self, obj: m.ModelElement
+    ) -> _elkjs.ELKInputChild | _elkjs.ELKInputEdge | None:
+        """In graybox mode, for edges the owners are adjusted using uncommon-owner logic."""
+        if self.diagram._is_portless:
+            return self._make_whitebox_target(obj)
+
+        if _is_edge(obj):
+            if self.edges.get(obj.uuid):
+                return None
+
+            edge, src_obj, tgt_obj, src_owner, tgt_owner = (
+                self._collect_edge_data(obj)
+            )
+            adjustment = self._apply_unc_adjustment(
+                edge, src_owner, tgt_owner, type(obj).__name__
+            )
+            if adjustment is None:
+                return None
+
+            src_owner, tgt_owner = adjustment
+            return self._update_edge_common(
+                obj, edge, src_obj, tgt_obj, src_owner, tgt_owner
+            )
+
+        return self._make_box(obj)
+
+    def _make_blackbox_target(self, obj: m.ModelElement) -> None:
+        if _is_port(obj):
+            if self._is_inside_noi(obj.owner):
+                self._make_port_and_owner(
+                    "right", obj, owner=self.boxable_target
+                )
+            else:
+                top_owner = get_top_uncommon_owner(
+                    obj.owner, self.diagram_target_owners
+                )
+                if (
+                    top_owner.uuid == obj.owner.uuid
+                    or self.diagram._include_external_context
+                ):
+                    self._make_port_and_owner("left", obj)
+                else:
+                    self._make_port_and_owner("left", obj, owner=top_owner)
+            return
+
+        if _is_edge(obj):
+            ex_data = _generic.ExchangeData(
+                obj, self.data, self.diagram.filters, self.params
+            )
+            src_obj, tgt_obj = _generic.exchange_data_collector(ex_data)
+            self.data.edges.pop()
+
+            src_override = (
+                self.boxable_target
+                if self._is_inside_noi(src_obj)
+                else (
+                    get_top_uncommon_owner(
+                        src_obj.owner, self.diagram_target_owners
+                    )
+                    if not self.diagram._include_external_context
+                    else None
+                )
+            )
+            tgt_override = (
+                self.boxable_target
+                if self._is_inside_noi(tgt_obj)
+                else (
+                    get_top_uncommon_owner(
+                        tgt_obj.owner, self.diagram_target_owners
+                    )
+                    if not self.diagram._include_external_context
+                    else None
+                )
+            )
+
+            if (
+                self.diagram._hide_internal_relations
+                and src_override == tgt_override
+            ):
+                return
+
+            self._make_edge_and_ports(
+                obj, source_override=src_override, target_override=tgt_override
+            )
+            return
+
+        if obj.uuid == self.boxable_target.uuid or not self._is_inside_noi(
+            obj
+        ):
+            self._make_box(obj)
 
 
 def builder(

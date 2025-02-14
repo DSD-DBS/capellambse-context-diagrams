@@ -414,10 +414,20 @@ class DiagramBuilder:
             ConnectorData(tgt_obj, tgt_owner, False),
         )
 
-    def _update_edge_common(self, edge_data: EdgeData) -> _elkjs.ELKInputEdge:
+    def _update_edge_common(
+        self, edge_data: EdgeData
+    ) -> _elkjs.ELKInputEdge | None:
         """Update ports, parent relation, and edge flip settings."""
         src_owners = list(_generic.get_all_owners(edge_data.source.owner))
         tgt_owners = list(_generic.get_all_owners(edge_data.target.owner))
+
+        src_in_noi = self.boxable_target.uuid in src_owners
+        tgt_in_noi = self.boxable_target.uuid in tgt_owners
+        if (
+            not self.diagram._include_external_context
+            and (not src_in_noi and not tgt_in_noi)  # outside of noi's context
+        ):
+            return None
 
         if edge_data.source.remove_port:
             self._make_port_and_owner(
@@ -533,7 +543,7 @@ class DiagramBuilder:
 
         src_override: m.ModelElement | None = None
         assert edge_data.source.port is not None
-        if src_in_noi := self._is_inside_noi(edge_data.source.port):
+        if self._is_inside_noi(edge_data.source.port):
             src_override = self.boxable_target
         elif not self.diagram._include_external_context:
             src_override = get_top_uncommon_owner(
@@ -542,18 +552,12 @@ class DiagramBuilder:
 
         tgt_override: m.ModelElement | None = None
         assert edge_data.target.port is not None
-        if tgt_in_noi := self._is_inside_noi(edge_data.target.port):
+        if self._is_inside_noi(edge_data.target.port):
             tgt_override = self.boxable_target
         elif not self.diagram._include_external_context:
             tgt_override = get_top_uncommon_owner(
                 edge_data.target.owner, self.diagram_target_owners
             )
-
-        if (
-            (not src_in_noi and not tgt_in_noi)  # outside of noi's context
-            and not self.diagram._include_external_context
-        ):
-            return
 
         if (
             not self.diagram._display_internal_relations

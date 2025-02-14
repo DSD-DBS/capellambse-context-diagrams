@@ -459,7 +459,6 @@ def test_context_diagrams_includes_external_context(
     adiag = obj.context_diagram.render(
         None,
         include_external_context=True,
-        edge_direction="SMART",
         mode="BLACKBOX",
     )
 

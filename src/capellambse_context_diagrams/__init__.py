@@ -138,7 +138,8 @@ def register_classes() -> None:
                 "display_parent_relation": True,
                 "display_port_labels": True,
                 "display_derived_interfaces": True,
-                "edge_direction": enums.EDGE_DIRECTION.NONE,
+                "hide_context_owner": True,
+                "edge_direction": enums.EDGE_DIRECTION.RIGHT,
             },
         ),
         (

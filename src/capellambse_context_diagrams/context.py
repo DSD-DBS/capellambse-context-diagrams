@@ -904,6 +904,7 @@ class CableTreeViewDiagram(ContextDiagram):
         default_render_parameters = {
             "display_port_labels": True,
             "port_label_position": _elkjs.PORT_LABEL_POSITION.OUTSIDE,
+            "include_external_context": True,
             "collect": cable_tree.collector,
             "edge_direction": enums.EDGE_DIRECTION.TREE,
         } | default_render_parameters

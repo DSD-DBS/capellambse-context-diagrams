@@ -421,14 +421,6 @@ class DiagramBuilder:
         src_owners = list(_generic.get_all_owners(edge_data.source.owner))
         tgt_owners = list(_generic.get_all_owners(edge_data.target.owner))
 
-        src_in_noi = self.boxable_target.uuid in src_owners
-        tgt_in_noi = self.boxable_target.uuid in tgt_owners
-        if (
-            not self.diagram._include_external_context
-            and (not src_in_noi and not tgt_in_noi)  # outside of noi's context
-        ):
-            return None
-
         if edge_data.source.remove_port:
             self._make_port_and_owner(
                 "right", port_obj=None, owner=edge_data.source.owner

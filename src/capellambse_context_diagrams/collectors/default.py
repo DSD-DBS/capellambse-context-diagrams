@@ -30,68 +30,61 @@ if t.TYPE_CHECKING:
 def collector(
     diagram: context.ContextDiagram,
 ) -> cabc.Iterator[m.ModelElement]:
-    """Collect context data from ports of centric box."""
-    visited: set[str] = set()
-    outside_nodes: dict[str, m.ModelElement] = {}
-    edges: set[str] = set()
+    """Collect context data from exchanges of centric box."""
+    visited_comps: set[str] = set()
+    visited_ports: set[str] = set()
+    visited_exchanges: set[str] = set()
 
-    def _collect(
-        target: m.ModelElement,
-        *,
-        filter: Filter = lambda i: i,
-    ) -> cabc.Iterator[m.ModelElement]:
-        if target.uuid in visited:
-            return
-        visited.add(target.uuid)
+    stack: list[tuple[str, m.ModelElement]] = []
+    stack.append(("comp", diagram.target))
 
-        inc, out = _generic.port_collector(target, diagram.type)
-        ports = _generic.port_exchange_collector(
-            (inc | out).values(), filter=filter
-        )
-        for ex in chain.from_iterable(ports.values()):
-            if ex.uuid in edges:
+    while stack:
+        kind, current = stack.pop()
+
+        if kind == "comp":
+            if current.uuid in visited_comps:
                 continue
+            visited_comps.add(current.uuid)
 
-            edges.add(ex.uuid)
-            yield ex
+            inc, out = _generic.port_collector(current, diagram.type)
+            for port in chain(inc.values(), out.values()):
+                if (
+                    port.uuid not in visited_ports
+                    and diagram.target.uuid
+                    in set(_generic.get_all_owners(port))
+                ):
+                    visited_ports.add(port.uuid)
+                    stack.append(("port", port))
 
-            outside_port: m.ModelElement | None = None
-            if diagram.target.uuid not in set(
-                _generic.get_all_owners(ex.source)
-            ):
-                outside_nodes[ex.source.owner.uuid] = ex.source.owner
-                outside_port = ex.source
-            elif diagram.target.uuid not in set(
-                _generic.get_all_owners(ex.target)
-            ):
-                outside_nodes[ex.target.owner.uuid] = ex.target.owner
-                outside_port = ex.target
+            child_attr = get_child_attribute_name(current)
+            for child in getattr(current, child_attr, []):
+                if child.uuid not in visited_comps:
+                    stack.append(("comp", child))
 
-            if outside_port is not None:
-                for ex in port_context_collector(outside_port):
-                    if ex.uuid not in edges:
-                        edges.add(ex.uuid)
-                        yield ex
+        elif kind == "port":
+            for ex in port_context_collector(current):
+                if ex.uuid in visited_exchanges:
+                    continue
 
-        child_attribute_name = get_child_attribute_name(target)
-        for cmp in getattr(target, child_attribute_name, []):
-            yield from _collect(cmp)
-
-    yield from _collect(diagram.target)
-    if not diagram._display_actor_relation:
-        return
-
-    on_copy = outside_nodes.copy()
-    for cmp in on_copy.values():
-        yield from _collect(
-            cmp,
-            filter=lambda items: (
-                item
-                for item in items
-                if item.source.owner.uuid in visited
-                and item.target.owner.uuid in visited
-            ),
-        )
+                source_visited = ex.source.uuid in visited_ports
+                target_visited = ex.target.uuid in visited_ports
+                if source_visited and not target_visited:
+                    visited_exchanges.add(ex.uuid)
+                    yield ex
+                    visited_ports.add(ex.target.uuid)
+                    stack.append(("port", ex.target))
+                    if ex.target.owner.uuid not in visited_comps:
+                        stack.append(("comp", ex.target.owner))
+                elif target_visited and not source_visited:
+                    visited_exchanges.add(ex.uuid)
+                    yield ex
+                    visited_ports.add(ex.source.uuid)
+                    stack.append(("port", ex.source))
+                    if ex.source.owner.uuid not in visited_comps:
+                        stack.append(("comp", ex.source.owner))
+                elif source_visited and target_visited:
+                    visited_exchanges.add(ex.uuid)
+                    yield ex
 
 
 def get_child_attribute_name(target: m.ModelElement) -> str:

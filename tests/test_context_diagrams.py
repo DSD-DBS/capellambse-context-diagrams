@@ -465,3 +465,4 @@ def test_context_diagrams_includes_external_context(
     assert adiag["aa723351-32cb-44ab-a7ef-6319a1fbdaac"]
     assert adiag["9dd62de4-0370-41aa-a20b-df2085499a73"]
     assert "5db3cb8f-36bd-4f99-870b-f27272cae9df" not in adiag
+    assert "f4fe8a7e-702e-406f-8df2-a88708ce455f" not in adiag

@@ -285,8 +285,9 @@ class ContextDiagram(m.AbstractDiagram):
     * hide_functions: Hide functions from the diagram.
     * display_functional_parent_relation: Display the parent relation of
       functions within the context.
-    * hide_internal_relations: Hide exchanges that connect to children
-      of a box from the diagram. Only useful with ``BLACKBOX`` mode.
+    * display_internal_relations: Show exchanges that connect to
+      children of a box from the diagram. Only useful with ``BLACKBOX``
+      mode.
 
     The following properties are used by the internal builders:
     * collect - A callable that yields model elements from a given
@@ -311,7 +312,7 @@ class ContextDiagram(m.AbstractDiagram):
     _include_interface: bool
     _hide_functions: bool
     _display_functional_parent_relation: bool
-    _hide_internal_relations: bool
+    _display_internal_relations: bool
 
     _collect: cabc.Callable[[ContextDiagram], cabc.Iterator[m.ModelElement]]
     _is_portless: bool
@@ -351,7 +352,7 @@ class ContextDiagram(m.AbstractDiagram):
             "include_interface": True,
             "hide_functions": False,
             "display_functional_parent_relation": False,
-            "hide_internal_relations": False,
+            "display_internal_relations": False,
         }
         if not _generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES.get(self.type, ()):
             render_params |= {

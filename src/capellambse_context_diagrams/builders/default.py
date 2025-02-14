@@ -555,7 +555,7 @@ class DiagramBuilder:
             )
 
             if (
-                self.diagram._hide_internal_relations
+                not self.diagram._display_internal_relations
                 and src_override == tgt_override
             ):
                 return

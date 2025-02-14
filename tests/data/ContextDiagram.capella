@@ -5116,6 +5116,8 @@ The predator is far away</bodies>
               name="Box" abstractType="#309296b1-cf37-45d7-b0f3-f7bc00422a59"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="8a0e5c20-e0c0-4338-8600-2ba05af51f47"
               name="Right Box" abstractType="#8c4b9404-e5ca-41e9-a731-2a930a18b784"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="e0bfa922-b9eb-4721-b0c6-db50b023d4e4"
+              name="Other Box" abstractType="#42023c5f-8aa2-459c-b7de-613a1889d5f0"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="7aaa4d4d-741f-4b58-a782-2dce998ccf0e" targetElement="#0d2edb8f-fa34-4e73-89ec-fb9a63001440"
               sourceElement="#b9f9a83c-fb02-44f7-9123-9d86326de5f1"/>
@@ -5195,6 +5197,8 @@ The predator is far away</bodies>
               id="a70ea279-0bc4-4910-875d-901da2da97bd" name="Box_to_Right_Box" linkEnds="#5548913c-6fde-4003-ab41-7926e10e4cd9 #d02edb1b-a57a-4538-937f-6c1a56278c37"/>
           <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
               id="b025045e-eda9-4ab9-865a-31359a102254" name="Box_to_Right_Box" linkEnds="#f4dbc636-aede-44d1-b7f6-682d405ef7ba #cacae3be-b3f3-46f0-aa7f-202685615ea3"/>
+          <ownedPhysicalLinks xsi:type="org.polarsys.capella.core.data.cs:PhysicalLink"
+              id="f4fe8a7e-702e-406f-8df2-a88708ce455f" name="RBox_to_OBox" linkEnds="#d02edb1b-a57a-4538-937f-6c1a56278c37 #1ca4eff5-a6df-4ce9-ad03-98eed4db53c4"/>
           <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
               id="8a6d68c8-ac3d-4654-a07e-ada7adeed09f" name="PC 1" nature="NODE"/>
           <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
@@ -5773,6 +5777,11 @@ The predator is far away</bodies>
               <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
                   id="eb99c46f-e2c7-4d30-a069-2289138688f2" name="PP 1"/>
             </ownedPhysicalComponents>
+          </ownedPhysicalComponents>
+          <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"
+              id="42023c5f-8aa2-459c-b7de-613a1889d5f0" name="Other Box" nature="NODE">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
+                id="1ca4eff5-a6df-4ce9-ad03-98eed4db53c4" name="PP 1"/>
           </ownedPhysicalComponents>
         </ownedPhysicalComponents>
         <ownedPhysicalComponents xsi:type="org.polarsys.capella.core.data.pa:PhysicalComponent"

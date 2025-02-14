@@ -49,9 +49,11 @@ def collector(
             (inc | out).values(), filter=filter
         )
         for ex in chain.from_iterable(ports.values()):
-            if ex.uuid not in edges:
-                edges.add(ex.uuid)
-                yield ex
+            if ex.uuid in edges:
+                continue
+
+            edges.add(ex.uuid)
+            yield ex
 
             outside_port: m.ModelElement | None = None
             if diagram.target.uuid not in set(
@@ -68,6 +70,7 @@ def collector(
             if outside_port is not None:
                 for ex in port_context_collector(outside_port):
                     if ex.uuid not in edges:
+                        edges.add(ex.uuid)
                         yield ex
 
         child_attribute_name = get_child_attribute_name(target)

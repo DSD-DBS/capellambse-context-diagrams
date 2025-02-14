@@ -1,0 +1,367 @@
+{
+    "id": "9390b7d5-598a-42db-bef8-23677e45ba06_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "position": {
+                "x": 220,
+                "y": 57.400000000000006
+            },
+            "size": {
+                "width": 84,
+                "height": 117
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_656872",
+                    "position": {
+                        "x": 3,
+                        "y": 52.5
+                    },
+                    "size": {
+                        "width": 78,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Capability"
+                }
+            ]
+        },
+        {
+            "id": "562c5128-5acd-45cc-8b49-1d8d686f450a",
+            "position": {
+                "x": 491.8235294117647,
+                "y": 73
+            },
+            "size": {
+                "width": 51.17647058823529,
+                "height": 29
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_452279",
+                    "position": {
+                        "x": -5.911764705882355,
+                        "y": 34
+                    },
+                    "size": {
+                        "width": 63,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Capsoup"
+                }
+            ]
+        },
+        {
+            "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "position": {
+                "x": 491.8235294117647,
+                "y": 139
+            },
+            "size": {
+                "width": 42.35294117647059,
+                "height": 24
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_812109",
+                    "position": {
+                        "x": -22.823529411764707,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Kevin Spacey"
+                }
+            ]
+        },
+        {
+            "id": "da12377b-fb70-4441-8faa-3a5c153c5de2",
+            "position": {
+                "x": 491.8235294117647,
+                "y": 12
+            },
+            "size": {
+                "width": 42.35294117647059,
+                "height": 24
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_804587",
+                    "position": {
+                        "x": -10.323529411764707,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 63,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Affleck"
+                }
+            ]
+        },
+        {
+            "id": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+            "position": {
+                "x": 29.82352941176471,
+                "y": 103.9
+            },
+            "size": {
+                "width": 42.35294117647059,
+                "height": 24
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_113511",
+                    "position": {
+                        "x": -17.823529411764707,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 78,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Top secret"
+                }
+            ]
+        },
+        {
+            "id": "41cf3250-187b-44ab-9e7e-7c0d1fd12f8a",
+            "type": "edge",
+            "sourceId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "targetId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "routingPoints": [
+                {
+                    "x": 248,
+                    "y": 57.400000000000006
+                },
+                {
+                    "x": 248,
+                    "y": 47.400000000000006
+                },
+                {
+                    "x": 276,
+                    "y": 47.400000000000006
+                },
+                {
+                    "x": 276,
+                    "y": 57.400000000000006
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_727452",
+                    "position": {
+                        "x": 218,
+                        "y": 33.400000000000006
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab includes \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "992c4ba5-0165-470d-b2d0-f117e00a645c",
+            "type": "edge",
+            "sourceId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "targetId": "562c5128-5acd-45cc-8b49-1d8d686f450a",
+            "routingPoints": [
+                {
+                    "x": 304,
+                    "y": 127.6
+                },
+                {
+                    "x": 336,
+                    "y": 127.6
+                },
+                {
+                    "x": 336,
+                    "y": 92.33333333333333
+                },
+                {
+                    "x": 491.8235294117647,
+                    "y": 92.33333333333333
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_437278",
+                    "position": {
+                        "x": 356,
+                        "y": 95.33333333333333
+                    },
+                    "size": {
+                        "width": 83,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab extends \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "504c92c4-dc31-4065-9a82-31f277e59acb",
+            "type": "edge",
+            "sourceId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "targetId": "562c5128-5acd-45cc-8b49-1d8d686f450a",
+            "routingPoints": [
+                {
+                    "x": 304,
+                    "y": 104.2
+                },
+                {
+                    "x": 326,
+                    "y": 104.2
+                },
+                {
+                    "x": 326,
+                    "y": 66.33333333333333
+                },
+                {
+                    "x": 459,
+                    "y": 66.33333333333333
+                },
+                {
+                    "x": 459,
+                    "y": 82.66666666666666
+                },
+                {
+                    "x": 491.8235294117647,
+                    "y": 82.66666666666666
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_162554",
+                    "position": {
+                        "x": 346,
+                        "y": 69.33333333333333
+                    },
+                    "size": {
+                        "width": 103,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab specializes \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "30f5613f-9611-4b36-9f46-aacfa00c687a",
+            "type": "edge",
+            "sourceId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "targetId": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "routingPoints": [
+                {
+                    "x": 304,
+                    "y": 151
+                },
+                {
+                    "x": 491.8235294117647,
+                    "y": 151
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_834170",
+                    "position": {
+                        "x": 353.5,
+                        "y": 154
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab involves \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "8f1d649c-8ac7-4ed1-b8c1-06faaf5c0eac",
+            "type": "edge",
+            "sourceId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "targetId": "da12377b-fb70-4441-8faa-3a5c153c5de2",
+            "routingPoints": [
+                {
+                    "x": 304,
+                    "y": 80.80000000000001
+                },
+                {
+                    "x": 316,
+                    "y": 80.80000000000001
+                },
+                {
+                    "x": 316,
+                    "y": 24
+                },
+                {
+                    "x": 491.8235294117647,
+                    "y": 24
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_188400",
+                    "position": {
+                        "x": 353.5,
+                        "y": 27
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab involves \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "4513c8cd-b94b-4bde-bd00-4c18aaf600ff",
+            "type": "edge",
+            "sourceId": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+            "targetId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "routingPoints": [
+                {
+                    "x": 72.1764705882353,
+                    "y": 115.9
+                },
+                {
+                    "x": 220,
+                    "y": 115.9
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_295187",
+                    "position": {
+                        "x": 110,
+                        "y": 118.9
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab exploits \u00bb"
+                }
+            ]
+        }
+    ]
+}

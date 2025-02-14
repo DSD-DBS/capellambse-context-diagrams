@@ -1,0 +1,527 @@
+{
+    "id": "da08ddb6-92ba-4c3b-956a-017424dbfe85_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "position": {
+                "x": 213,
+                "y": 13
+            },
+            "size": {
+                "width": 64,
+                "height": 171
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_412469",
+                    "position": {
+                        "x": 3,
+                        "y": 79.5
+                    },
+                    "size": {
+                        "width": 58,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Middle"
+                }
+            ]
+        },
+        {
+            "id": "d3e1ce63-fad9-4eaa-8e70-959eb114cbc3",
+            "position": {
+                "x": 453.4117647058824,
+                "y": 12
+            },
+            "size": {
+                "width": 60,
+                "height": 34
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_831824",
+                    "position": {
+                        "x": 3.5,
+                        "y": 39
+                    },
+                    "size": {
+                        "width": 53,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Super"
+                }
+            ]
+        },
+        {
+            "id": "5419c967-8d8d-44de-af9a-5144f65eb891",
+            "position": {
+                "x": 453.4117647058824,
+                "y": 88.83333333333333
+            },
+            "size": {
+                "width": 51.17647058823529,
+                "height": 29
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_804861",
+                    "position": {
+                        "x": -13.411764705882355,
+                        "y": 34
+                    },
+                    "size": {
+                        "width": 78,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Second Sub"
+                }
+            ]
+        },
+        {
+            "id": "f6a9376c-53d3-4950-8ec9-420c0af4ca46",
+            "position": {
+                "x": 22.911764705882355,
+                "y": 60.333333333333336
+            },
+            "size": {
+                "width": 51.17647058823529,
+                "height": 29
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_209733",
+                    "position": {
+                        "x": -10.911764705882355,
+                        "y": 34
+                    },
+                    "size": {
+                        "width": 73,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "First Sub"
+                }
+            ]
+        },
+        {
+            "id": "1477b800-8da5-4889-b112-35e2353c4675",
+            "position": {
+                "x": 453.4117647058824,
+                "y": 210.83333333333331
+            },
+            "size": {
+                "width": 59,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_531888",
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 53,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Actor"
+                }
+            ]
+        },
+        {
+            "id": "f3577d00-01bb-405c-81c9-7bdc2dcdcdfc",
+            "position": {
+                "x": 453.4117647058824,
+                "y": 154.83333333333331
+            },
+            "size": {
+                "width": 64,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "g_976154",
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 58,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Entity"
+                }
+            ]
+        },
+        {
+            "id": "2952e76c-e227-4075-ad73-9d5fa120ab98",
+            "type": "edge",
+            "sourceId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "targetId": "d3e1ce63-fad9-4eaa-8e70-959eb114cbc3",
+            "routingPoints": [
+                {
+                    "x": 277,
+                    "y": 77.125
+                },
+                {
+                    "x": 287,
+                    "y": 77.125
+                },
+                {
+                    "x": 287,
+                    "y": 72.5
+                },
+                {
+                    "x": 430,
+                    "y": 72.5
+                },
+                {
+                    "x": 430,
+                    "y": 37.5
+                },
+                {
+                    "x": 453.4117647058824,
+                    "y": 37.5
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_214821",
+                    "position": {
+                        "x": 314.5,
+                        "y": 75.5
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab includes \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "7468616d-eb61-4572-bfb7-ac4c732bb316",
+            "type": "edge",
+            "sourceId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "targetId": "5419c967-8d8d-44de-af9a-5144f65eb891",
+            "routingPoints": [
+                {
+                    "x": 277,
+                    "y": 119.875
+                },
+                {
+                    "x": 287,
+                    "y": 119.875
+                },
+                {
+                    "x": 287,
+                    "y": 124.5
+                },
+                {
+                    "x": 420,
+                    "y": 124.5
+                },
+                {
+                    "x": 420,
+                    "y": 108.16666666666666
+                },
+                {
+                    "x": 453.4117647058824,
+                    "y": 108.16666666666666
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_538507",
+                    "position": {
+                        "x": 317,
+                        "y": 127.5
+                    },
+                    "size": {
+                        "width": 83,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab extends \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "3f119b35-8873-4ffb-8fac-d3fe3a9542da",
+            "type": "edge",
+            "sourceId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "targetId": "d3e1ce63-fad9-4eaa-8e70-959eb114cbc3",
+            "routingPoints": [
+                {
+                    "x": 277,
+                    "y": 55.75
+                },
+                {
+                    "x": 287,
+                    "y": 55.75
+                },
+                {
+                    "x": 287,
+                    "y": 46.5
+                },
+                {
+                    "x": 420,
+                    "y": 46.5
+                },
+                {
+                    "x": 420,
+                    "y": 29
+                },
+                {
+                    "x": 453.4117647058824,
+                    "y": 29
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_572599",
+                    "position": {
+                        "x": 307,
+                        "y": 49.5
+                    },
+                    "size": {
+                        "width": 103,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab specializes \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "ddbfd060-6118-48bc-b591-ed51872e0b45",
+            "type": "edge",
+            "sourceId": "f6a9376c-53d3-4950-8ec9-420c0af4ca46",
+            "targetId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "routingPoints": [
+                {
+                    "x": 74.08823529411765,
+                    "y": 79.66666666666667
+                },
+                {
+                    "x": 95,
+                    "y": 79.66666666666667
+                },
+                {
+                    "x": 95,
+                    "y": 127
+                },
+                {
+                    "x": 213,
+                    "y": 127
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_781904",
+                    "position": {
+                        "x": 105,
+                        "y": 130
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab includes \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "4a3d2744-19ef-41bc-abef-798099b89eb2",
+            "type": "edge",
+            "sourceId": "5419c967-8d8d-44de-af9a-5144f65eb891",
+            "targetId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "routingPoints": [
+                {
+                    "x": 453.4117647058824,
+                    "y": 98.5
+                },
+                {
+                    "x": 277,
+                    "y": 98.5
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_009891",
+                    "position": {
+                        "x": 314.5,
+                        "y": 101.5
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab includes \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "ef8b3d24-54b0-4654-bd0a-97584f58d457",
+            "type": "edge",
+            "sourceId": "d3e1ce63-fad9-4eaa-8e70-959eb114cbc3",
+            "targetId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "routingPoints": [
+                {
+                    "x": 453.4117647058824,
+                    "y": 20.5
+                },
+                {
+                    "x": 287,
+                    "y": 20.5
+                },
+                {
+                    "x": 287,
+                    "y": 34.375
+                },
+                {
+                    "x": 277,
+                    "y": 34.375
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_630291",
+                    "position": {
+                        "x": 317,
+                        "y": 23.5
+                    },
+                    "size": {
+                        "width": 83,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab extends \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "bb8b380c-fe44-4049-ad27-1f2dffcfa65e",
+            "type": "edge",
+            "sourceId": "f6a9376c-53d3-4950-8ec9-420c0af4ca46",
+            "targetId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "routingPoints": [
+                {
+                    "x": 74.08823529411765,
+                    "y": 70
+                },
+                {
+                    "x": 213,
+                    "y": 70
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_343474",
+                    "position": {
+                        "x": 107.5,
+                        "y": 73
+                    },
+                    "size": {
+                        "width": 83,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab extends \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "2d07b314-2162-4d29-9ff1-f16e9b503f3d",
+            "type": "edge",
+            "sourceId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "targetId": "1477b800-8da5-4889-b112-35e2353c4675",
+            "routingPoints": [
+                {
+                    "x": 277,
+                    "y": 162.625
+                },
+                {
+                    "x": 287,
+                    "y": 162.625
+                },
+                {
+                    "x": 287,
+                    "y": 228.83333333333331
+                },
+                {
+                    "x": 453.4117647058824,
+                    "y": 228.83333333333331
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_268028",
+                    "position": {
+                        "x": 314.5,
+                        "y": 231.83333333333331
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab involves \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "11033438-7962-43be-9ead-c98900a7eaa5",
+            "type": "edge",
+            "sourceId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "targetId": "f3577d00-01bb-405c-81c9-7bdc2dcdcdfc",
+            "routingPoints": [
+                {
+                    "x": 277,
+                    "y": 141.25
+                },
+                {
+                    "x": 297,
+                    "y": 141.25
+                },
+                {
+                    "x": 297,
+                    "y": 172.83333333333331
+                },
+                {
+                    "x": 453.4117647058824,
+                    "y": 172.83333333333331
+                }
+            ],
+            "children": [
+                {
+                    "id": "g_484929",
+                    "position": {
+                        "x": 314.5,
+                        "y": 175.83333333333331
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab involves \u00bb"
+                }
+            ]
+        }
+    ]
+}

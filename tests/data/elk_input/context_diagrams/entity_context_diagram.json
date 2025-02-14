@@ -1,0 +1,65 @@
+{
+    "id": "e37510b9-3166-4f80-a919-dfaac9b696c7_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "e37510b9-3166-4f80-a919-dfaac9b696c7",
+            "labels": [
+                {
+                    "text": "Environment",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 83,
+                    "height": 12
+                }
+            ],
+            "width": 89,
+            "height": 36
+        },
+        {
+            "id": "a8c42033-fdf2-458f-bae9-1cfd1207c49f",
+            "labels": [
+                {
+                    "text": "Functional Human Being",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 138,
+                    "height": 12
+                }
+            ],
+            "width": 144,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "6638ccd2-61cc-481e-bb23-4c1b147e1dbc",
+            "sources": [
+                "e37510b9-3166-4f80-a919-dfaac9b696c7"
+            ],
+            "targets": [
+                "a8c42033-fdf2-458f-bae9-1cfd1207c49f"
+            ],
+            "labels": [
+                {
+                    "text": "Environmental influence",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 143,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

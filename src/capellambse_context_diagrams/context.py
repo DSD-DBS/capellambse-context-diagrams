@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import collections.abc as cabc
 import copy
+import enum
 import json
 import logging
 import typing as t
@@ -51,6 +52,13 @@ CollectorOutputData: t.TypeAlias = (
     ]
 )
 """The output of a collector or the input prepared for ELK."""
+
+
+@m.stringy_enum
+class CustomDiagramType(enum.Enum):
+    """Custom Diagram types."""
+
+    REALIZATION_VIEW = "RealizationView Diagram"
 
 
 class ContextAccessor(m.Accessor):
@@ -770,6 +778,11 @@ class RealizationViewDiagram(ContextDiagram):
     def name(self) -> str:
         """Returns the name of the diagram."""
         return f"Realization view of {self.target.name}"
+
+    @property
+    def type(self) -> CustomDiagramType:  # type: ignore[override]
+        """Return the type of this diagram."""
+        return CustomDiagramType(self.styleclass)
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         data, edges = self.elk_input_data(params)

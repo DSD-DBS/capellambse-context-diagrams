@@ -14,45 +14,6 @@
             "id": "8c43d858-bab3-4d1d-afe0-71946d856e24",
             "children": [
                 {
-                    "id": "c90f731b-0036-47e5-a455-9cf270d6880c",
-                    "labels": [
-                        {
-                            "text": "Estimate required",
-                            "layoutOptions": {
-                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                            },
-                            "width": 113,
-                            "height": 12
-                        },
-                        {
-                            "text": "power and select a",
-                            "layoutOptions": {
-                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                            },
-                            "width": 118,
-                            "height": 12
-                        },
-                        {
-                            "text": "delivery bot with",
-                            "layoutOptions": {
-                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                            },
-                            "width": 113,
-                            "height": 12
-                        },
-                        {
-                            "text": "enough battery",
-                            "layoutOptions": {
-                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                            },
-                            "width": 98,
-                            "height": 12
-                        }
-                    ],
-                    "width": 124,
-                    "height": 78
-                },
-                {
                     "id": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
                     "labels": [
                         {
@@ -96,8 +57,47 @@
                             "height": 12
                         }
                     ],
-                    "width": 89,
+                    "width": 109,
                     "height": 36
+                },
+                {
+                    "id": "c90f731b-0036-47e5-a455-9cf270d6880c",
+                    "labels": [
+                        {
+                            "text": "Estimate required",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 113,
+                            "height": 12
+                        },
+                        {
+                            "text": "power and select a",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 118,
+                            "height": 12
+                        },
+                        {
+                            "text": "delivery bot with",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 113,
+                            "height": 12
+                        },
+                        {
+                            "text": "enough battery",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 98,
+                            "height": 12
+                        }
+                    ],
+                    "width": 124,
+                    "height": 78
                 }
             ],
             "edges": [

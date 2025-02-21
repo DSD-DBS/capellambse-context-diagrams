@@ -98,7 +98,7 @@ def get_child_attribute_name(target: m.ModelElement) -> str:
 def get_port_exchange_attribute_name(target: m.ModelElement) -> str:
     if isinstance(target, cs.PhysicalPort):
         return "links"
-    if isinstance(target, fa.FunctionPort):
+    if isinstance(target, fa.FunctionPort | fa.ComponentPort):
         return "exchanges"
     return ""
 

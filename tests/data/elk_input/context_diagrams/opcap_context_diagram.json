@@ -7,7 +7,7 @@
         "hierarchyHandling": "INCLUDE_CHILDREN",
         "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
         "layered.nodePlacement.strategy": "BRANDES_KOEPF",
-        "spacing.labelNode": 5.0
+        "spacing.labelNode": "0.0"
     },
     "children": [
         {
@@ -23,7 +23,7 @@
                 }
             ],
             "width": 64,
-            "height": 171
+            "height": 63.0
         },
         {
             "id": "d3e1ce63-fad9-4eaa-8e70-959eb114cbc3",
@@ -31,14 +31,14 @@
                 {
                     "text": "Super",
                     "layoutOptions": {
-                        "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 53,
                     "height": 12
                 }
             ],
-            "width": 60.0,
-            "height": 34
+            "width": 59,
+            "height": 36
         },
         {
             "id": "5419c967-8d8d-44de-af9a-5144f65eb891",
@@ -46,14 +46,14 @@
                 {
                     "text": "Second Sub",
                     "layoutOptions": {
-                        "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 78,
                     "height": 12
                 }
             ],
-            "width": 51.17647058823529,
-            "height": 29
+            "width": 84,
+            "height": 36
         },
         {
             "id": "f6a9376c-53d3-4950-8ec9-420c0af4ca46",
@@ -61,14 +61,14 @@
                 {
                     "text": "First Sub",
                     "layoutOptions": {
-                        "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 73,
                     "height": 12
                 }
             ],
-            "width": 51.17647058823529,
-            "height": 29
+            "width": 79,
+            "height": 36
         },
         {
             "id": "1477b800-8da5-4889-b112-35e2353c4675",
@@ -124,10 +124,10 @@
         {
             "id": "7468616d-eb61-4572-bfb7-ac4c732bb316",
             "sources": [
-                "da08ddb6-92ba-4c3b-956a-017424dbfe85"
+                "5419c967-8d8d-44de-af9a-5144f65eb891"
             ],
             "targets": [
-                "5419c967-8d8d-44de-af9a-5144f65eb891"
+                "da08ddb6-92ba-4c3b-956a-017424dbfe85"
             ],
             "labels": [
                 {
@@ -200,10 +200,10 @@
         {
             "id": "ef8b3d24-54b0-4654-bd0a-97584f58d457",
             "sources": [
-                "d3e1ce63-fad9-4eaa-8e70-959eb114cbc3"
+                "da08ddb6-92ba-4c3b-956a-017424dbfe85"
             ],
             "targets": [
-                "da08ddb6-92ba-4c3b-956a-017424dbfe85"
+                "d3e1ce63-fad9-4eaa-8e70-959eb114cbc3"
             ],
             "labels": [
                 {

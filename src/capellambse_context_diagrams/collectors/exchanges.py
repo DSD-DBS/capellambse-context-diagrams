@@ -13,12 +13,6 @@ from capellambse.model import DiagramType as DT
 from .. import context
 
 
-def functional_context_collector(
-    diagram: context.FunctionalContextDiagram,
-) -> cabc.Iterator[m.ModelElement]:
-    raise NotImplementedError()
-
-
 def interface_context_collector(
     diagram: context.InterfaceContextDiagram,
 ) -> cabc.Iterator[m.ModelElement]:

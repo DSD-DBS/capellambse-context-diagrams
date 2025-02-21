@@ -27,7 +27,6 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_252542",
                             "position": {
                                 "x": 11,
                                 "y": 11
@@ -42,10 +41,9 @@
                     ]
                 },
                 {
-                    "id": "g_208814",
                     "position": {
                         "x": -1,
-                        "y": 5
+                        "y": 12
                     },
                     "size": {
                         "width": 128,
@@ -81,7 +79,6 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_062413",
                             "position": {
                                 "x": 11,
                                 "y": 11
@@ -96,10 +93,9 @@
                     ]
                 },
                 {
-                    "id": "g_895917",
                     "position": {
                         "x": -1,
-                        "y": 5
+                        "y": 12
                     },
                     "size": {
                         "width": 143,
@@ -135,7 +131,6 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_867655",
                             "position": {
                                 "x": -49,
                                 "y": 11
@@ -150,10 +145,9 @@
                     ]
                 },
                 {
-                    "id": "g_968242",
                     "position": {
                         "x": 7,
-                        "y": 5
+                        "y": 12
                     },
                     "size": {
                         "width": 138,
@@ -189,7 +183,6 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_498404",
                             "position": {
                                 "x": -49,
                                 "y": 11
@@ -204,10 +197,9 @@
                     ]
                 },
                 {
-                    "id": "g_966217",
                     "position": {
                         "x": 7,
-                        "y": 5
+                        "y": 12
                     },
                     "size": {
                         "width": 178,
@@ -243,7 +235,6 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_553304",
                             "position": {
                                 "x": -49,
                                 "y": 11
@@ -258,10 +249,9 @@
                     ]
                 },
                 {
-                    "id": "g_812627",
                     "position": {
                         "x": 7,
-                        "y": 5
+                        "y": 12
                     },
                     "size": {
                         "width": 93,
@@ -297,7 +287,6 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_361832",
                             "position": {
                                 "x": -49,
                                 "y": 11
@@ -312,10 +301,9 @@
                     ]
                 },
                 {
-                    "id": "g_937087",
                     "position": {
                         "x": 7,
-                        "y": 5
+                        "y": 12
                     },
                     "size": {
                         "width": 163,
@@ -351,7 +339,6 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_673513",
                             "position": {
                                 "x": 11,
                                 "y": 11
@@ -366,10 +353,9 @@
                     ]
                 },
                 {
-                    "id": "g_173705",
                     "position": {
                         "x": -1,
-                        "y": 5
+                        "y": 12
                     },
                     "size": {
                         "width": 108,
@@ -405,7 +391,6 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_319794",
                             "position": {
                                 "x": -49,
                                 "y": 11
@@ -420,10 +405,9 @@
                     ]
                 },
                 {
-                    "id": "g_384651",
                     "position": {
                         "x": 7,
-                        "y": 5
+                        "y": 12
                     },
                     "size": {
                         "width": 138,
@@ -459,7 +443,6 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_900088",
                             "position": {
                                 "x": -49,
                                 "y": 11
@@ -474,10 +457,9 @@
                     ]
                 },
                 {
-                    "id": "g_558909",
                     "position": {
                         "x": 7,
-                        "y": 5
+                        "y": 12
                     },
                     "size": {
                         "width": 133,
@@ -513,7 +495,6 @@
                     "type": "port",
                     "children": [
                         {
-                            "id": "g_850743",
                             "position": {
                                 "x": -49,
                                 "y": 11
@@ -528,10 +509,9 @@
                     ]
                 },
                 {
-                    "id": "g_389474",
                     "position": {
                         "x": 7,
-                        "y": 5
+                        "y": 12
                     },
                     "size": {
                         "width": 113,
@@ -567,7 +547,6 @@
             ],
             "children": [
                 {
-                    "id": "5c55b11b-4911-40fb-9c4c-f1363dad846e_j0",
                     "type": "junction",
                     "position": {
                         "x": 597,
@@ -575,7 +554,6 @@
                     }
                 },
                 {
-                    "id": "g_671725",
                     "position": {
                         "x": 243,
                         "y": 143
@@ -614,7 +592,6 @@
             ],
             "children": [
                 {
-                    "id": "g_275456",
                     "position": {
                         "x": 609.5,
                         "y": 293
@@ -653,7 +630,6 @@
             ],
             "children": [
                 {
-                    "id": "0397b675-e78b-41a3-bf96-f2ae6cf7adde_j0",
                     "type": "junction",
                     "position": {
                         "x": 597,
@@ -661,7 +637,6 @@
                     }
                 },
                 {
-                    "id": "g_848849",
                     "position": {
                         "x": 614.5,
                         "y": 237
@@ -700,7 +675,6 @@
             ],
             "children": [
                 {
-                    "id": "4a4be6cc-973e-4d2a-bf4e-3d5aad9f73e3_j0",
                     "type": "junction",
                     "position": {
                         "x": 597,
@@ -708,7 +682,6 @@
                     }
                 },
                 {
-                    "id": "g_549537",
                     "position": {
                         "x": 617,
                         "y": 145
@@ -747,7 +720,6 @@
             ],
             "children": [
                 {
-                    "id": "93b6d377-0718-4c5b-8bc0-b020122beb83_j0",
                     "type": "junction",
                     "position": {
                         "x": 755,
@@ -755,7 +727,6 @@
                     }
                 },
                 {
-                    "id": "g_235891",
                     "position": {
                         "x": 816.5,
                         "y": 183
@@ -802,7 +773,6 @@
             ],
             "children": [
                 {
-                    "id": "aaec4139-9982-4abb-b27f-df3ceaf8e0a8_j0",
                     "type": "junction",
                     "position": {
                         "x": 208,
@@ -810,7 +780,6 @@
                     }
                 },
                 {
-                    "id": "aaec4139-9982-4abb-b27f-df3ceaf8e0a8_j1",
                     "type": "junction",
                     "position": {
                         "x": 597,
@@ -818,7 +787,6 @@
                     }
                 },
                 {
-                    "id": "aaec4139-9982-4abb-b27f-df3ceaf8e0a8_j2",
                     "type": "junction",
                     "position": {
                         "x": 597,
@@ -826,7 +794,6 @@
                     }
                 },
                 {
-                    "id": "g_334158",
                     "position": {
                         "x": 218,
                         "y": 61
@@ -857,7 +824,6 @@
             ],
             "children": [
                 {
-                    "id": "g_858856",
                     "position": {
                         "x": 614.5,
                         "y": 89
@@ -896,7 +862,6 @@
             ],
             "children": [
                 {
-                    "id": "g_206755",
                     "position": {
                         "x": 607,
                         "y": 33
@@ -935,7 +900,6 @@
             ],
             "children": [
                 {
-                    "id": "g_167185",
                     "position": {
                         "x": 233,
                         "y": 227

@@ -9,38 +9,11 @@
                 "y": 12
             },
             "size": {
-                "width": 436,
+                "width": 677,
                 "height": 101
             },
             "type": "node",
             "children": [
-                {
-                    "id": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
-                    "position": {
-                        "x": 226,
-                        "y": 53
-                    },
-                    "size": {
-                        "width": 49,
-                        "height": 36
-                    },
-                    "type": "node",
-                    "children": [
-                        {
-                            "id": "g_887404",
-                            "position": {
-                                "x": 3,
-                                "y": 12
-                            },
-                            "size": {
-                                "width": 43,
-                                "height": 12
-                            },
-                            "type": "label",
-                            "text": "Eat"
-                        }
-                    ]
-                },
                 {
                     "id": "0e0164c3-076e-42c1-8f82-7a43ab84385c",
                     "position": {
@@ -48,15 +21,14 @@
                         "y": 53
                     },
                     "size": {
-                        "width": 79,
+                        "width": 144,
                         "height": 36
                     },
                     "type": "node",
                     "children": [
                         {
-                            "id": "g_200200",
                             "position": {
-                                "x": 3,
+                                "x": 35.5,
                                 "y": 12
                             },
                             "size": {
@@ -71,19 +43,18 @@
                 {
                     "id": "ab016025-d456-4c2d-8359-d50cf9de3825",
                     "position": {
-                        "x": 365,
+                        "x": 521,
                         "y": 53
                     },
                     "size": {
-                        "width": 59,
+                        "width": 144,
                         "height": 36
                     },
                     "type": "node",
                     "children": [
                         {
-                            "id": "g_200338",
                             "position": {
-                                "x": 3,
+                                "x": 45.5,
                                 "y": 12
                             },
                             "size": {
@@ -96,9 +67,34 @@
                     ]
                 },
                 {
-                    "id": "g_507512",
+                    "id": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
                     "position": {
-                        "x": 149,
+                        "x": 289,
+                        "y": 53
+                    },
+                    "size": {
+                        "width": 144,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "position": {
+                                "x": 50.5,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 43,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Eat"
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 269.5,
                         "y": 5
                     },
                     "size": {
@@ -115,27 +111,26 @@
                     "targetId": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
                     "routingPoints": [
                         {
-                            "x": 242.33333333333334,
+                            "x": 337,
                             "y": 53
                         },
                         {
-                            "x": 242.33333333333334,
+                            "x": 337,
                             "y": 43
                         },
                         {
-                            "x": 258.66666666666663,
+                            "x": 385,
                             "y": 43
                         },
                         {
-                            "x": 258.66666666666663,
+                            "x": 385,
                             "y": 53
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_615145",
                             "position": {
-                                "x": 224,
+                                "x": 334.5,
                                 "y": 29
                             },
                             "size": {
@@ -154,19 +149,18 @@
                     "targetId": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
                     "routingPoints": [
                         {
-                            "x": 91,
+                            "x": 156,
                             "y": 71
                         },
                         {
-                            "x": 226,
+                            "x": 289,
                             "y": 71
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_784936",
                             "position": {
-                                "x": 111,
+                                "x": 176,
                                 "y": 74
                             },
                             "size": {
@@ -185,19 +179,18 @@
                     "targetId": "ab016025-d456-4c2d-8359-d50cf9de3825",
                     "routingPoints": [
                         {
-                            "x": 275,
+                            "x": 433,
                             "y": 71
                         },
                         {
-                            "x": 365,
+                            "x": 521,
                             "y": 71
                         }
                     ],
                     "children": [
                         {
-                            "id": "g_270124",
                             "position": {
-                                "x": 297,
+                                "x": 453,
                                 "y": 74
                             },
                             "size": {

@@ -6,7 +6,7 @@
         "elk.direction": "RIGHT",
         "hierarchyHandling": "INCLUDE_CHILDREN",
         "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
-        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
         "spacing.labelNode": "0.0"
     },
     "children": [

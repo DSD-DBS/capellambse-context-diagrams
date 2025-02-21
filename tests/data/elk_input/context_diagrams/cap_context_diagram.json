@@ -7,7 +7,7 @@
         "hierarchyHandling": "INCLUDE_CHILDREN",
         "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
         "layered.nodePlacement.strategy": "BRANDES_KOEPF",
-        "spacing.labelNode": 5.0
+        "spacing.labelNode": "0.0"
     },
     "children": [
         {
@@ -23,7 +23,7 @@
                 }
             ],
             "width": 84,
-            "height": 117
+            "height": 49.0
         },
         {
             "id": "562c5128-5acd-45cc-8b49-1d8d686f450a",
@@ -31,14 +31,14 @@
                 {
                     "text": "Capsoup",
                     "layoutOptions": {
-                        "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 63,
                     "height": 12
                 }
             ],
-            "width": 51.17647058823529,
-            "height": 29
+            "width": 69,
+            "height": 36
         },
         {
             "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
@@ -46,14 +46,14 @@
                 {
                     "text": "Kevin Spacey",
                     "layoutOptions": {
-                        "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 88,
                     "height": 12
                 }
             ],
-            "width": 42.35294117647059,
-            "height": 24
+            "width": 94,
+            "height": 36
         },
         {
             "id": "da12377b-fb70-4441-8faa-3a5c153c5de2",
@@ -61,14 +61,14 @@
                 {
                     "text": "Affleck",
                     "layoutOptions": {
-                        "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 63,
                     "height": 12
                 }
             ],
-            "width": 42.35294117647059,
-            "height": 24
+            "width": 69,
+            "height": 36
         },
         {
             "id": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
@@ -76,14 +76,14 @@
                 {
                     "text": "Top secret",
                     "layoutOptions": {
-                        "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 78,
                     "height": 12
                 }
             ],
-            "width": 42.35294117647059,
-            "height": 24
+            "width": 84,
+            "height": 36
         }
     ],
     "edges": [

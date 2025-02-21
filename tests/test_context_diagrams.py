@@ -48,6 +48,22 @@ TEST_CONTEXT_SET = [
     ),
     pytest.param(
         (
+            "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "opcap_symbols_context_diagram.json",
+            {"display_symbols_as_boxes": False},
+        ),
+        id="OperationalCapability with symbols",
+    ),
+    pytest.param(
+        (
+            "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+            "mis_symbols_context_diagram.json",
+            {"display_symbols_as_boxes": False},
+        ),
+        id="Mission with symbols",
+    ),
+    pytest.param(
+        (
             TEST_ENTITY_UUID,
             "entity_context_diagram.json",
             {},
@@ -224,6 +240,53 @@ TEST_CONTEXT_SET = [
             {},
         ),
         id="Cycle handling",
+    ),
+    pytest.param(
+        (
+            "309296b1-cf37-45d7-b0f3-f7bc00422a59",
+            "blackbox_physical_with_external_context_diagram.json",
+            {
+                "include_external_context": True,
+                "mode": "BLACKBOX",
+                "port_label_position": "OUTSIDE",
+            },
+        ),
+        id="Physical Blackbox ContextDiagram with External Context",
+    ),
+    pytest.param(
+        (
+            "309296b1-cf37-45d7-b0f3-f7bc00422a59",
+            "blackbox_physical_context_diagram.json",
+            {"mode": "BLACKBOX", "port_label_position": "OUTSIDE"},
+        ),
+        id="Blackbox Physical ContextDiagram",
+    ),
+    pytest.param(
+        (
+            "309296b1-cf37-45d7-b0f3-f7bc00422a59",
+            "graybox_physical_context_diagram.json",
+            {"mode": "GRAYBOX", "port_label_position": "OUTSIDE"},
+        ),
+        id="Graybox Physical ContextDiagram",
+    ),
+    pytest.param(
+        (
+            "309296b1-cf37-45d7-b0f3-f7bc00422a59",
+            "whitebox_physical_context_diagram.json",
+            {"port_label_position": "OUTSIDE"},
+        ),
+        id="Whitebox Physical ContextDiagram",
+    ),
+    pytest.param(
+        (
+            "309296b1-cf37-45d7-b0f3-f7bc00422a59",
+            "whitebox_physical_without_child_context_diagram.json",
+            {
+                "include_children_context": False,
+                "port_label_position": "OUTSIDE",
+            },
+        ),
+        id="Whitebox Physical ContextDiagram without child context",
     ),
 ]
 
@@ -457,9 +520,7 @@ def test_context_diagrams_includes_external_context(
     obj = model.by_uuid("309296b1-cf37-45d7-b0f3-f7bc00422a59")
 
     adiag = obj.context_diagram.render(
-        None,
-        include_external_context=True,
-        mode="BLACKBOX",
+        None, include_external_context=True, mode="BLACKBOX"
     )
 
     assert adiag["aa723351-32cb-44ab-a7ef-6319a1fbdaac"]

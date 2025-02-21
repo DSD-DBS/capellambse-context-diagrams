@@ -24,7 +24,7 @@
             ],
             "ports": [
                 {
-                    "id": "898b878b-4392-499a-82f7-eb48e0f07e36",
+                    "id": "dcbf18a9-8589-4ba6-84ad-094ec1810de1",
                     "layoutOptions": {
                         "borderOffset": -8
                     },
@@ -32,7 +32,7 @@
                     "height": 10
                 },
                 {
-                    "id": "dcbf18a9-8589-4ba6-84ad-094ec1810de1",
+                    "id": "898b878b-4392-499a-82f7-eb48e0f07e36",
                     "layoutOptions": {
                         "borderOffset": -8
                     },
@@ -50,31 +50,6 @@
             ],
             "width": 64,
             "height": 44
-        },
-        {
-            "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
-            "labels": [
-                {
-                    "text": "Kevin Spacey",
-                    "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                    },
-                    "width": 88,
-                    "height": 12
-                }
-            ],
-            "ports": [
-                {
-                    "id": "d5fd4286-1d41-4d21-b3cf-9babc8872c77",
-                    "layoutOptions": {
-                        "borderOffset": -8
-                    },
-                    "width": 10,
-                    "height": 10
-                }
-            ],
-            "width": 94,
-            "height": 36
         },
         {
             "id": "6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6",
@@ -99,6 +74,31 @@
                 }
             ],
             "width": 99,
+            "height": 36
+        },
+        {
+            "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "labels": [
+                {
+                    "text": "Kevin Spacey",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "d5fd4286-1d41-4d21-b3cf-9babc8872c77",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 94,
             "height": 36
         },
         {
@@ -129,25 +129,6 @@
     ],
     "edges": [
         {
-            "id": "560e799d-d291-4928-a367-430232ddef65",
-            "sources": [
-                "d5fd4286-1d41-4d21-b3cf-9babc8872c77"
-            ],
-            "targets": [
-                "898b878b-4392-499a-82f7-eb48e0f07e36"
-            ],
-            "labels": [
-                {
-                    "text": "Test Input Ex",
-                    "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                    },
-                    "width": 93,
-                    "height": 12
-                }
-            ]
-        },
-        {
             "id": "2602eeef-c1bc-40a8-9406-52f4a809ca4a",
             "sources": [
                 "dcbf18a9-8589-4ba6-84ad-094ec1810de1"
@@ -162,6 +143,25 @@
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 98,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "560e799d-d291-4928-a367-430232ddef65",
+            "sources": [
+                "d5fd4286-1d41-4d21-b3cf-9babc8872c77"
+            ],
+            "targets": [
+                "898b878b-4392-499a-82f7-eb48e0f07e36"
+            ],
+            "labels": [
+                {
+                    "text": "Test Input Ex",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 93,
                     "height": 12
                 }
             ]

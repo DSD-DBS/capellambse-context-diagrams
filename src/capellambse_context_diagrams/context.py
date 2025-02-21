@@ -20,6 +20,7 @@ from capellambse import helpers
 from capellambse import model as m
 
 from . import _elkjs, enums, filters, serializers, styling
+from .builders import dataflow as df
 from .builders import default as db
 from .collectors import (
     _generic,
@@ -112,20 +113,6 @@ class InterfaceContextAccessor(ContextAccessor):
         assert isinstance(obj.parent, m.ModelElement)
         self._dgcls = self.__dgclasses[obj.parent.__class__]
         return self._get(obj, InterfaceContextDiagram)
-
-
-class FunctionalContextAccessor(ContextAccessor):
-    def __get__(  # type: ignore
-        self,
-        obj: m.T | None,
-        objtype: type | None = None,
-    ) -> m.Accessor | ContextDiagram:
-        """Make a ContextDiagram for the given model object."""
-        del objtype
-        if obj is None:  # pragma: no cover
-            return self
-        assert isinstance(obj, m.ModelElement)
-        return self._get(obj, FunctionalContextDiagram)
 
 
 class PhysicalPortContextAccessor(ContextAccessor):
@@ -613,28 +600,6 @@ def _create_edge(
     )
 
 
-class FunctionalContextDiagram(ContextDiagram):
-    """A Context Diagram exclusively for Components."""
-
-    def __init__(
-        self,
-        class_: str,
-        obj: m.ModelElement,
-        *,
-        default_render_parameters: dict[str, t.Any],
-    ):
-        default_render_parameters = {
-            "collect": exchanges.functional_context_collector,
-        }
-        super().__init__(
-            class_, obj, default_render_parameters=default_render_parameters
-        )
-
-    @property
-    def name(self) -> str:
-        return f"Interface Context of {self.target.name}"
-
-
 class ClassTreeDiagram(ContextDiagram):
     """An automatically generated ClassTree Diagram.
 
@@ -858,8 +823,6 @@ class RealizationViewDiagram(ContextDiagram):
 class DataFlowViewDiagram(ContextDiagram):
     """An automatically generated DataFlowViewDiagram."""
 
-    _display_symbols_as_boxes: bool
-
     def __init__(
         self,
         class_: str,
@@ -870,6 +833,9 @@ class DataFlowViewDiagram(ContextDiagram):
     ) -> None:
         default_render_parameters = {
             "display_symbols_as_boxes": True,
+            "display_parent_relation": False,
+            "edge_direction": enums.EDGE_DIRECTION.NONE,
+            "mode": enums.MODE.WHITEBOX,
             "collect": dataflow_view.collector,
         } | default_render_parameters
         super().__init__(
@@ -878,6 +844,7 @@ class DataFlowViewDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
+        self.builder = df.builder
 
     @property
     def uuid(self) -> str:

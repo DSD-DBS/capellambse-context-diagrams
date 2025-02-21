@@ -80,7 +80,7 @@ def _get_boxeable_target(diagram: context.ContextDiagram) -> m.ModelElement:
 
 
 class DiagramBuilder:
-    """Collect the context for a custom diagram."""
+    """Collect the context for a ContextDiagram."""
 
     def __init__(
         self,
@@ -125,17 +125,7 @@ class DiagramBuilder:
             )
 
     def __call__(self) -> _elkjs.ELKInputData:
-        if _is_port(self.target):
-            port = self._make_port_and_owner("right", self.target)
-            self._update_min_heights(self.boxable_target.uuid, "left", port)
-        elif not _is_edge(self.target):
-            self._make_box(self.target)
-        elif self.diagram._include_interface or self.diagram._hide_functions:
-            edge = self._make_edge_and_ports(self.target)
-            assert edge is not None
-            edge.layoutOptions = copy.deepcopy(
-                _elkjs.EDGE_STRAIGHTENING_LAYOUT_OPTIONS
-            )
+        self._handle_boxeable_target()
 
         for elem in self.collection:
             if self.diagram._mode == enums.MODE.BLACKBOX:
@@ -146,7 +136,33 @@ class DiagramBuilder:
                 self._make_whitebox_target(elem)
 
         self._flip_edges()
+        self._resolve_parent_relationship()
 
+        derivator = derived.DERIVATORS.get(type(self.target))
+        if self.diagram._display_derived_interfaces and derivator is not None:
+            derivator(self.diagram, self.boxes, self.edges)
+
+        self._fix_box_heights()
+
+        for uuid in self.boxes_to_delete:
+            del self.boxes[uuid]
+
+        return self._get_data()
+
+    def _handle_boxeable_target(self) -> None:
+        if _is_port(self.target):
+            port = self._make_port_and_owner("right", self.target)
+            self._update_min_heights(self.boxable_target.uuid, "left", port)
+        elif not _is_edge(self.target):
+            self._make_box(self.target, no_symbol=self.diagram._is_portless)
+        elif self.diagram._include_interface or self.diagram._hide_functions:
+            edge = self._make_edge_and_ports(self.target)
+            assert edge is not None
+            edge.layoutOptions = copy.deepcopy(
+                _elkjs.EDGE_STRAIGHTENING_LAYOUT_OPTIONS
+            )
+
+    def _resolve_parent_relationship(self) -> None:
         if (
             self.diagram._display_parent_relation
             or self.diagram._display_functional_parent_relation
@@ -177,18 +193,7 @@ class DiagramBuilder:
                         owner_box.children.remove(box)
                     parent_box.children.append(box)
 
-        derivator = derived.DERIVATORS.get(type(self.target))
-        if self.diagram._display_derived_interfaces and derivator is not None:
-            derivator(self.diagram, self.boxes, self.edges)
-
-        self._fix_box_heights()
-
-        for uuid in self.boxes_to_delete:
-            del self.boxes[uuid]
-
-        return self._get_data()
-
-    def _get_data(self) -> t.Any:
+    def _get_data(self) -> _elkjs.ELKInputData:
         safe_to_hide = False
         if (
             self.diagram._hide_context_owner
@@ -251,9 +256,13 @@ class DiagramBuilder:
     ) -> _elkjs.ELKInputChild:
         if box := self.boxes.get(obj.uuid):
             return box
+        no_symbol = (
+            kwargs.pop("no_symbol", False)
+            or self.diagram._display_symbols_as_boxes
+        )
         box = _makers.make_box(
             obj,
-            no_symbol=self.diagram._display_symbols_as_boxes,
+            no_symbol=no_symbol,
             slim_width=self.diagram._slim_center_box,
             **kwargs,
         )
@@ -265,6 +274,7 @@ class DiagramBuilder:
                 for port_obj in getattr(obj, attr, []):
                     side = "left" if attr == "inputs" else "right"
                     self._make_port_and_owner(side, port_obj)
+
         if self.diagram._display_parent_relation:
             self.common_owners.add(
                 _makers.make_owner_boxes(
@@ -291,7 +301,9 @@ class DiagramBuilder:
                 2 * _makers.PORT_PADDING,
                 sum(label.height for label in port.labels),
             )
-        self.min_heights.setdefault(owner_uuid, {"left": 0.0, "right": 0.0})[
+
+        box = self.boxes[owner_uuid]
+        self.min_heights.setdefault(box.id, {"left": 0.0, "right": 0.0})[
             side
         ] += height
 
@@ -571,7 +583,9 @@ class DiagramBuilder:
 
 
 def builder(
-    diagram: context.ContextDiagram, params: dict[str, t.Any]
+    diagram: context.ContextDiagram,
+    params: dict[str, t.Any],
+    builder_type: type[DiagramBuilder] = DiagramBuilder,
 ) -> _elkjs.ELKInputData:
     """High level builder function to build collected data for ELK.
 
@@ -584,10 +598,12 @@ def builder(
         for.
     params
         Optional render params dictionary.
+    builder_type
+        The type of diagram builder to use.
 
     Returns
     -------
     elkdata
         The data that can be fed into elkjs.
     """
-    return DiagramBuilder(diagram, params)()
+    return builder_type(diagram, params)()

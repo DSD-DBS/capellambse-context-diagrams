@@ -7,7 +7,7 @@
         "hierarchyHandling": "INCLUDE_CHILDREN",
         "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
         "layered.nodePlacement.strategy": "BRANDES_KOEPF",
-        "spacing.labelNode": 5.0
+        "spacing.labelNode": "0.0"
     },
     "children": [
         {
@@ -23,7 +23,7 @@
                 }
             ],
             "width": 84,
-            "height": 68
+            "height": 36
         },
         {
             "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
@@ -31,14 +31,14 @@
                 {
                     "text": "Kevin Spacey",
                     "layoutOptions": {
-                        "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 88,
                     "height": 12
                 }
             ],
-            "width": 42.35294117647059,
-            "height": 24
+            "width": 94,
+            "height": 36
         },
         {
             "id": "9390b7d5-598a-42db-bef8-23677e45ba06",
@@ -46,14 +46,14 @@
                 {
                     "text": "Capability",
                     "layoutOptions": {
-                        "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 78,
                     "height": 12
                 }
             ],
-            "width": 42.35294117647059,
-            "height": 24
+            "width": 84,
+            "height": 36
         }
     ],
     "edges": [

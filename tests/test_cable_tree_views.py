@@ -68,4 +68,6 @@ def test_layouting(params: tuple[str, str, dict[str, t.Any]]):
 def test_serializing(
     model: capellambse.MelodyModel, params: tuple[str, str, dict[str, t.Any]]
 ):
-    generic_serializing_test(model, params, TEST_CABLE_TREE_LAYOUT_ROOT, "cable_tree")
+    generic_serializing_test(
+        model, params, TEST_CABLE_TREE_LAYOUT_ROOT, "cable_tree"
+    )

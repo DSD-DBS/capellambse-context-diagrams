@@ -31,6 +31,10 @@ class ConnectorData:
     owner: m.ModelElement
     is_source: bool
     remove_port: bool = False
+    owners: list[str] = dataclasses.field(init=False, default_factory=list)
+
+    def __post_init__(self):
+        self.owners = list(_generic.get_all_owners(self.port or self.owner))
 
 
 @dataclasses.dataclass
@@ -430,27 +434,27 @@ class DiagramBuilder:
         self, edge_data: EdgeData
     ) -> _elkjs.ELKInputEdge | None:
         """Update ports, parent relation, and edge flip settings."""
-        src_owners = list(_generic.get_all_owners(edge_data.source.owner))
-        tgt_owners = list(_generic.get_all_owners(edge_data.target.owner))
+        src_owners = edge_data.source.owners
+        tgt_owners = edge_data.target.owners
 
         if edge_data.source.remove_port:
             self._make_port_and_owner(
-                "right", port_obj=None, owner=edge_data.source.owner
+                "left", port_obj=None, owner=edge_data.source.owner
             )
             edge_data.edge.sources[-1] = edge_data.source.owner.uuid
         else:
             self._make_port_and_owner(
-                "right", edge_data.source.port, edge_data.source.owner
+                "left", edge_data.source.port, edge_data.source.owner
             )
 
         if edge_data.target.remove_port:
             self._make_port_and_owner(
-                "left", port_obj=None, owner=edge_data.target.owner
+                "right", port_obj=None, owner=edge_data.target.owner
             )
             edge_data.edge.targets[-1] = edge_data.target.owner.uuid
         else:
             self._make_port_and_owner(
-                "left", edge_data.target.port, edge_data.target.owner
+                "right", edge_data.target.port, edge_data.target.owner
             )
 
         if self.diagram._display_parent_relation:

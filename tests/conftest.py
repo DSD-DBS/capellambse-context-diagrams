@@ -4,6 +4,7 @@
 
 import io
 import json
+import os
 import pathlib
 import sys
 import typing as t
@@ -186,6 +187,13 @@ def generic_collecting_test(
     file_path = data_root / file_name
     data_text = file_path.read_text(encoding="utf8")
     expected_main = _elkjs.ELKInputData.model_validate_json(data_text)
+    if (
+        os.getenv("CAPELLAMBSE_CONTEXT_DIAGRAMS_WRITE_TEST_FILES", "false")
+        == "true"
+    ):
+        write_test_data_file(
+            file_path, getattr(obj, diagram_attr).elk_input_data(render_params)
+        )
     return getattr(obj, diagram_attr).elk_input_data(
         render_params
     ), expected_main
@@ -214,6 +222,11 @@ def generic_layouting_test(
     expected: dict[str, t.Any] = json.loads(expected_layout_data)
 
     layout = context.try_to_layout(data)
+    if (
+        os.getenv("CAPELLAMBSE_CONTEXT_DIAGRAMS_WRITE_TEST_FILES", "false")
+        == "true"
+    ):
+        write_layout_test_data_file(layout_root / file_name, layout)
 
     assert (
         remove_ids_from_labels_and_junctions_in_elk_layout(layout) == expected

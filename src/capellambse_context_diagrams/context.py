@@ -21,7 +21,7 @@ from capellambse import helpers
 from capellambse import model as m
 
 from . import _elkjs, enums, filters, serializers, styling
-from .builders import dataflow as df
+from .builders import dataflow, interface
 from .builders import default as db
 from .collectors import (
     _generic,
@@ -534,6 +534,7 @@ class InterfaceContextDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
+        self.builder = interface.builder
 
     def _create_diagram(self, params: dict[str, t.Any]) -> cdiagram.Diagram:
         data = self.elk_input_data(params)
@@ -548,12 +549,29 @@ class InterfaceContextDiagram(ContextDiagram):
             layout, transparent_background=self._transparent_background
         )
 
+    def _find_node_in_layout(
+        self, layout: _elkjs.ELKOutputData, uuid: str
+    ) -> _elkjs.ELKOutputNode:
+        for node in layout.children:
+            if node.type != "node":
+                continue
+
+            if node.id == uuid:
+                return node
+            for child in node.children:
+                if child.id == uuid:
+                    assert child.type == "node"
+                    return child
+
+        raise ValueError(f"Node with id {uuid!r} doesn't exist in layout.")
+
     def _add_port_allocations(self, layout: _elkjs.ELKOutputData) -> None:
-        uuids = (self.target.source.uuid, self.target.target.uuid)
-        for i, _ in enumerate(uuids):
-            node = layout.children[i]
+        uuids = (self.target.source.owner.uuid, self.target.target.owner.uuid)
+        port_uuids = (self.target.source.uuid, self.target.target.uuid)
+        for i, _ in enumerate(port_uuids):
+            node = self._find_node_in_layout(layout, uuids[i])
             assert isinstance(node, _elkjs.ELKOutputNode)
-            port = next((p for p in node.children if p.id in uuids), None)
+            port = next((p for p in node.children if p.id in port_uuids), None)
             assert isinstance(port, _elkjs.ELKOutputPort)
             if port is not None:
                 layout.children.extend(
@@ -588,7 +606,11 @@ class InterfaceContextDiagram(ContextDiagram):
 
 
 def _create_edge(
-    styleclass, port_id, interface_id, port_middle, interface_middle
+    styleclass: str,
+    port_id: str,
+    interface_id: str,
+    port_middle: _elkjs.ELKPoint,
+    interface_middle: _elkjs.ELKPoint,
 ) -> _elkjs.ELKOutputEdge:
     if styleclass == "FIP":
         eid = f"__PortInputAllocation:{port_id}"
@@ -857,7 +879,7 @@ class DataFlowViewDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
-        self.builder = df.builder
+        self.builder = dataflow.builder
 
     @property
     def uuid(self) -> str:

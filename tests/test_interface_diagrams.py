@@ -118,7 +118,7 @@ TEST_INTERFACE_SET = [
         (
             TEST_INTERFACE_UUID,
             "interface_hidden_functions_context_diagram.json",
-            {},
+            {"hide_functions": True},
         ),
         id="Interface hidden functions",
     ),
@@ -182,6 +182,6 @@ def test_interface_diagram_with_nested_functions(
 
     diag = obj.context_diagram.render(
         None, display_functional_parent_relation=True
-    )
+    )  # .save(pretty=True)
 
     assert {b.uuid for b in diag[fnc.uuid].children} >= expected_uuids

@@ -3,6 +3,8 @@
 """Global fixtures for pytest."""
 
 import io
+import json
+import os
 import pathlib
 import sys
 import typing as t
@@ -33,20 +35,52 @@ def model(monkeypatch) -> capellambse.MelodyModel:
     return capellambse.MelodyModel(TEST_ROOT / TEST_MODEL)
 
 
-def remove_ids_from_elk_layout(
+def remove_ids_from_labels_and_junctions_in_elk_layout(
     elk_layout: _elkjs.ELKOutputData,
 ) -> dict[str, t.Any]:
-    """Remove ids from a layout from ELK."""
-    layout_dict = elk_layout.model_dump(exclude_defaults=True)
+    """Remove ids from labels and junctions in a layout from ELK."""
+    layout = elk_layout.model_dump(exclude_defaults=True)
 
-    def remove_ids(obj: t.Any) -> t.Any:
+    def remove_select_ids(obj: t.Any) -> t.Any:
         if isinstance(obj, dict):
-            return {k: remove_ids(v) for k, v in obj.items() if k != "id"}
+            if obj.get("type") in ["label", "junction"]:
+                return {
+                    k: remove_select_ids(v)
+                    for k, v in obj.items()
+                    if k != "id"
+                }
+            return {k: remove_select_ids(v) for k, v in obj.items()}
         if isinstance(obj, list):
-            return [remove_ids(item) for item in obj]
+            return [remove_select_ids(item) for item in obj]
         return obj
 
-    return remove_ids(layout_dict)
+    return remove_select_ids(layout)
+
+
+def add_deterministic_ids_to_elk_layout(elk_layout: str) -> dict[str, t.Any]:
+    """Add sequential IDs to labels and junctions in an ELK layout."""
+    layout = json.loads(elk_layout)
+    next_id = 0
+
+    def add_ids(obj):
+        nonlocal next_id
+        if not isinstance(obj, dict):
+            return obj
+
+        prefix = ""
+        if obj.get("type") in {"label", "junction"}:
+            prefix = f"{obj['type'][0]}"
+
+        if prefix:
+            obj["id"] = f"{prefix}_{next_id}"
+            next_id += 1
+
+        if "children" in obj:
+            obj["children"] = [add_ids(child) for child in obj["children"]]
+
+        return obj
+
+    return add_ids(layout)
 
 
 def text_size_mocker(
@@ -59,9 +93,9 @@ def text_size_mocker(
 
 def write_test_data_file(
     file_path: pathlib.Path,
-    data: _elkjs.BaseELKModel | list[_elkjs.BaseELKModel],
+    data: _elkjs.ELKInputData | list[_elkjs.ELKInputData],
 ):
-    """Write test data to file.
+    """Write ELKInput test data to file.
 
     Note
     ----
@@ -77,6 +111,36 @@ def write_test_data_file(
     else:
         data_dump = data.model_dump(exclude_defaults=True)
 
+    if not file_path.is_file():
+        file_path.touch()
+    file_path.write_text(json.dumps(data_dump, indent=4), encoding="utf8")
+
+
+def write_layout_test_data_file(
+    file_path: pathlib.Path,
+    data: _elkjs.ELKOutputData | list[_elkjs.ELKOutputData],
+):
+    """Write layout test data to file.
+
+    Note
+    ----
+    This is a helper function to write test data to files in case the
+    expected test data changed.
+    """
+    import json
+
+    if isinstance(data, list):
+        data_dump = {
+            "edges": [
+                remove_ids_from_labels_and_junctions_in_elk_layout(edge)
+                for edge in data
+            ]
+        }
+    else:
+        data_dump = remove_ids_from_labels_and_junctions_in_elk_layout(data)
+
+    if not file_path.is_file():
+        file_path.touch()
     file_path.write_text(json.dumps(data_dump, indent=4), encoding="utf8")
 
 
@@ -118,12 +182,21 @@ def generic_collecting_test(
     extra_assert
         Optional function to assert a statement with an extra file.
     """
-    uuid, file_name, _ = params
+    uuid, file_name, render_params = params
     obj = model.by_uuid(uuid)
     file_path = data_root / file_name
     data_text = file_path.read_text(encoding="utf8")
     expected_main = _elkjs.ELKInputData.model_validate_json(data_text)
-    return getattr(obj, diagram_attr).elk_input_data({}), expected_main
+    if (
+        os.getenv("CAPELLAMBSE_CONTEXT_DIAGRAMS_WRITE_TEST_FILES", "false")
+        == "true"
+    ):
+        write_test_data_file(
+            file_path, getattr(obj, diagram_attr).elk_input_data(render_params)
+        )
+    return getattr(obj, diagram_attr).elk_input_data(
+        render_params
+    ), expected_main
 
 
 def generic_layouting_test(
@@ -146,12 +219,17 @@ def generic_layouting_test(
     test_data = (data_root / file_name).read_text(encoding="utf8")
     data = _elkjs.ELKInputData.model_validate_json(test_data)
     expected_layout_data = (layout_root / file_name).read_text(encoding="utf8")
-    expected = _elkjs.ELKOutputData.model_validate_json(expected_layout_data)
+    expected: dict[str, t.Any] = json.loads(expected_layout_data)
 
     layout = context.try_to_layout(data)
+    if (
+        os.getenv("CAPELLAMBSE_CONTEXT_DIAGRAMS_WRITE_TEST_FILES", "false")
+        == "true"
+    ):
+        write_layout_test_data_file(layout_root / file_name, layout)
 
-    assert remove_ids_from_elk_layout(layout) == remove_ids_from_elk_layout(
-        expected
+    assert (
+        remove_ids_from_labels_and_junctions_in_elk_layout(layout) == expected
     )
 
 
@@ -180,6 +258,8 @@ def generic_serializing_test(
     for key, value in render_params.items():
         setattr(diag, f"_{key}", value)
 
-    layout_data = (layout_root / file_name).read_text(encoding="utf8")
-    layout = _elkjs.ELKOutputData.model_validate_json(layout_data)
+    layout_datastring = (layout_root / file_name).read_text(encoding="utf8")
+    layout_data = add_deterministic_ids_to_elk_layout(layout_datastring)
+    layout = _elkjs.ELKOutputData.model_validate(layout_data, strict=True)
+
     diag.serializer.make_diagram(layout)

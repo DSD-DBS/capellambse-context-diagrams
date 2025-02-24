@@ -67,8 +67,8 @@
                             "height": 10
                         }
                     ],
-                    "width": 64,
-                    "height": 62
+                    "width": 74,
+                    "height": 70.0
                 }
             ],
             "labels": [
@@ -83,7 +83,7 @@
             ],
             "ports": [
                 {
-                    "id": "f89ea9b3-e92d-49cb-ae9e-a734a9f5c5dc",
+                    "id": "58f89f0a-7647-4077-b29b-8fe2bf270f02",
                     "layoutOptions": {
                         "borderOffset": -8
                     },
@@ -91,8 +91,8 @@
                     "height": 10
                 }
             ],
-            "width": 59,
-            "height": 62
+            "width": 74,
+            "height": 36
         },
         {
             "id": "f632888e-51bc-4c9f-8e81-73e9404de784",
@@ -128,7 +128,7 @@
                         }
                     ],
                     "width": 64,
-                    "height": 38
+                    "height": 36
                 },
                 {
                     "id": "7f138bae-4949-40a1-9a88-15941f827f8c",
@@ -161,7 +161,7 @@
                         }
                     ],
                     "width": 59,
-                    "height": 38
+                    "height": 36
                 },
                 {
                     "id": "b41202e2-1415-4ddd-b913-54f861952172",
@@ -186,7 +186,7 @@
                         }
                     ],
                     "width": 59,
-                    "height": 38
+                    "height": 36
                 }
             ],
             "labels": [
@@ -201,7 +201,7 @@
             ],
             "ports": [
                 {
-                    "id": "58f89f0a-7647-4077-b29b-8fe2bf270f02",
+                    "id": "f89ea9b3-e92d-49cb-ae9e-a734a9f5c5dc",
                     "layoutOptions": {
                         "borderOffset": -8
                     },
@@ -209,8 +209,8 @@
                     "height": 10
                 }
             ],
-            "width": 54,
-            "height": 154
+            "width": 74,
+            "height": 36
         }
     ],
     "edges": [
@@ -220,10 +220,10 @@
                 "layered.priority.straightness": "10"
             },
             "sources": [
-                "f89ea9b3-e92d-49cb-ae9e-a734a9f5c5dc"
+                "58f89f0a-7647-4077-b29b-8fe2bf270f02"
             ],
             "targets": [
-                "58f89f0a-7647-4077-b29b-8fe2bf270f02"
+                "f89ea9b3-e92d-49cb-ae9e-a734a9f5c5dc"
             ],
             "labels": [
                 {

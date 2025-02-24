@@ -8,7 +8,7 @@ import collections.abc as cabc
 import capellambse.model as m
 import typing_extensions as te
 from capellambse import helpers as chelpers
-from capellambse.metamodel import oa, sa
+from capellambse.metamodel import la, oa, pa, sa
 from capellambse.svg import helpers as svghelpers
 from capellambse.svg.decorations import icon_padding, icon_size
 
@@ -70,10 +70,16 @@ SYMBOL_LAYOUT_OPTIONS: _elkjs.LayoutOptions = {
 """Layout options for a symbol label."""
 
 STYLECLASS_PREFIX = "__Derived"
+PackageTypes: tuple[type[m.ModelElement], ...] = (
+    oa.EntityPkg,
+    la.LogicalComponentPkg,
+    sa.SystemComponentPkg,
+    pa.PhysicalComponentPkg,
+)
 
 
-def make_diagram(diagram: context.CustomDiagram) -> _elkjs.ELKInputData:
-    """Return basic skeleton for ``CustomDiagram``s."""
+def make_diagram(diagram: context.ContextDiagram) -> _elkjs.ELKInputData:
+    """Return basic skeleton for ``ContextDiagram``s."""
     return _elkjs.ELKInputData(
         id=diagram.uuid,
         layoutOptions=_elkjs.get_global_layered_layout_options(),
@@ -228,3 +234,47 @@ def make_port(uuid: str) -> _elkjs.ELKInputPort:
         height=PORT_SIZE,
         layoutOptions={"borderOffset": -4 * PORT_PADDING},
     )
+
+
+def make_owner_box(
+    obj: m.ModelElement,
+    make_box_func: cabc.Callable,
+    boxes: dict[str, _elkjs.ELKInputChild],
+    boxes_to_delete: set[str],
+) -> m.ModelElement:
+    parent_box = make_box_func(
+        obj.owner,
+        layout_options=DEFAULT_LABEL_LAYOUT_OPTIONS,
+    )
+    assert (obj_box := boxes.get(obj.uuid))
+    for box in (children := parent_box.children):
+        if box.id == obj.uuid:
+            break
+    else:
+        children.append(obj_box)
+        obj_box.width = max(obj_box.width, parent_box.width)
+        for label in parent_box.labels:
+            label.layoutOptions = DEFAULT_LABEL_LAYOUT_OPTIONS
+    boxes_to_delete.add(obj.uuid)
+    return obj.owner
+
+
+def make_owner_boxes(
+    obj: m.ModelElement,
+    excluded: list[str],
+    make_box_func: cabc.Callable,
+    boxes: dict[str, _elkjs.ELKInputChild],
+    boxes_to_delete: set[str],
+) -> str:
+    """Create owner boxes for all owners of ``obj``."""
+    current = obj
+    while (
+        current
+        and current.uuid not in excluded
+        and getattr(current, "owner", None) is not None
+        and not isinstance(current.owner, PackageTypes)
+    ):
+        current = make_owner_box(
+            current, make_box_func, boxes, boxes_to_delete
+        )
+    return current.uuid

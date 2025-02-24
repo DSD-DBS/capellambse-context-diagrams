@@ -38,7 +38,7 @@
                 }
             ],
             "width": 49,
-            "height": 50
+            "height": 36
         },
         {
             "id": "ab016025-d456-4c2d-8359-d50cf9de3825",
@@ -53,7 +53,7 @@
                 }
             ],
             "width": 59,
-            "height": 50
+            "height": 36
         },
         {
             "id": "5d637de8-410f-42b8-a467-3b1c84d40775",
@@ -68,7 +68,7 @@
                 }
             ],
             "width": 64,
-            "height": 50
+            "height": 36
         }
     ],
     "edges": [

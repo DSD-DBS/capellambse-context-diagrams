@@ -15,7 +15,6 @@
             "type": "node",
             "children": [
                 {
-                    "id": "g_768988",
                     "position": {
                         "x": 3,
                         "y": 12
@@ -37,15 +36,14 @@
             },
             "size": {
                 "width": 49,
-                "height": 50
+                "height": 36
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_403594",
                     "position": {
                         "x": 3,
-                        "y": 19
+                        "y": 12
                     },
                     "size": {
                         "width": 43,
@@ -64,15 +62,14 @@
             },
             "size": {
                 "width": 59,
-                "height": 50
+                "height": 36
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_754106",
                     "position": {
                         "x": 3,
-                        "y": 19
+                        "y": 12
                     },
                     "size": {
                         "width": 53,
@@ -91,15 +88,14 @@
             },
             "size": {
                 "width": 64,
-                "height": 50
+                "height": 36
             },
             "type": "node",
             "children": [
                 {
-                    "id": "g_995743",
                     "position": {
                         "x": 3,
-                        "y": 19
+                        "y": 12
                     },
                     "size": {
                         "width": 58,
@@ -135,7 +131,6 @@
             ],
             "children": [
                 {
-                    "id": "g_362354",
                     "position": {
                         "x": 33,
                         "y": 68
@@ -157,19 +152,18 @@
             "routingPoints": [
                 {
                     "x": 84,
-                    "y": 117
+                    "y": 110
                 },
                 {
                     "x": 174,
-                    "y": 117
+                    "y": 110
                 }
             ],
             "children": [
                 {
-                    "id": "g_200267",
                     "position": {
                         "x": 106,
-                        "y": 120
+                        "y": 113
                     },
                     "size": {
                         "width": 48,
@@ -188,19 +182,18 @@
             "routingPoints": [
                 {
                     "x": 233,
-                    "y": 117
+                    "y": 110
                 },
                 {
                     "x": 356,
-                    "y": 117
+                    "y": 110
                 }
             ],
             "children": [
                 {
-                    "id": "g_032852",
                     "position": {
                         "x": 253,
-                        "y": 120
+                        "y": 113
                     },
                     "size": {
                         "width": 83,

@@ -11,46 +11,6 @@
     },
     "children": [
         {
-            "id": "2668c01d-8ba8-47a9-9acb-33616bcc088d",
-            "children": [
-                {
-                    "id": "097bb133-abf3-4df0-ae4e-a28378537691",
-                    "labels": [
-                        {
-                            "text": "Confirm availability",
-                            "layoutOptions": {
-                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                            },
-                            "width": 128,
-                            "height": 12
-                        },
-                        {
-                            "text": "for delivery",
-                            "layoutOptions": {
-                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                            },
-                            "width": 88,
-                            "height": 12
-                        }
-                    ],
-                    "width": 134,
-                    "height": 88
-                }
-            ],
-            "labels": [
-                {
-                    "text": "Customer",
-                    "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
-                    },
-                    "width": 68,
-                    "height": 12
-                }
-            ],
-            "width": 74,
-            "height": 36
-        },
-        {
             "id": "8c43d858-bab3-4d1d-afe0-71946d856e24",
             "children": [
                 {
@@ -166,16 +126,56 @@
             ],
             "width": 74,
             "height": 36
+        },
+        {
+            "id": "2668c01d-8ba8-47a9-9acb-33616bcc088d",
+            "children": [
+                {
+                    "id": "097bb133-abf3-4df0-ae4e-a28378537691",
+                    "labels": [
+                        {
+                            "text": "Confirm availability",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 128,
+                            "height": 12
+                        },
+                        {
+                            "text": "for delivery",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 88,
+                            "height": 12
+                        }
+                    ],
+                    "width": 134,
+                    "height": 50
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Customer",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ],
+            "width": 74,
+            "height": 36
         }
     ],
     "edges": [
         {
             "id": "637b02b5-f26d-47e1-94e1-c1cc7bcba150",
             "sources": [
-                "56f47e3e-104a-479f-8226-e149bc18481c"
+                "097bb133-abf3-4df0-ae4e-a28378537691"
             ],
             "targets": [
-                "097bb133-abf3-4df0-ae4e-a28378537691"
+                "56f47e3e-104a-479f-8226-e149bc18481c"
             ],
             "labels": [
                 {

@@ -1,0 +1,99 @@
+{
+    "id": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+            "labels": [
+                {
+                    "text": "Top secret",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 78,
+                    "height": 12
+                }
+            ],
+            "width": 84,
+            "height": 36
+        },
+        {
+            "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "labels": [
+                {
+                    "text": "Kevin Spacey",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ],
+            "width": 30.0,
+            "height": 17
+        },
+        {
+            "id": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "labels": [
+                {
+                    "text": "Capability",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "OUTSIDE, V_BOTTOM, H_CENTER"
+                    },
+                    "width": 78,
+                    "height": 12
+                }
+            ],
+            "width": 30.0,
+            "height": 17
+        }
+    ],
+    "edges": [
+        {
+            "id": "4ec609b6-e3bf-4be1-ba09-14da9c920ef3",
+            "sources": [
+                "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6"
+            ],
+            "targets": [
+                "344a405e-c7e5-4367-8a9a-41d3d9a27f81"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "4513c8cd-b94b-4bde-bd00-4c18aaf600ff",
+            "sources": [
+                "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6"
+            ],
+            "targets": [
+                "9390b7d5-598a-42db-bef8-23677e45ba06"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab exploits \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

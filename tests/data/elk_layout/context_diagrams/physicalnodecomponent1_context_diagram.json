@@ -9,8 +9,8 @@
                 "y": 12
             },
             "size": {
-                "width": 507,
-                "height": 133
+                "width": 234,
+                "height": 77
             },
             "type": "node",
             "children": [
@@ -39,7 +39,6 @@
                             "type": "port",
                             "children": [
                                 {
-                                    "id": "g_231242",
                                     "position": {
                                         "x": -99,
                                         "y": 11
@@ -54,7 +53,6 @@
                             ]
                         },
                         {
-                            "id": "g_797505",
                             "position": {
                                 "x": 17,
                                 "y": 12
@@ -69,117 +67,8 @@
                     ]
                 },
                 {
-                    "id": "313f48f4-fb7e-47a8-b28a-76440932fcb9",
                     "position": {
-                        "x": 62,
-                        "y": 85
-                    },
-                    "size": {
-                        "width": 109,
-                        "height": 36
-                    },
-                    "type": "node",
-                    "children": [
-                        {
-                            "id": "db2d7b36-8144-4ec7-8673-206faaf4590e",
-                            "position": {
-                                "x": 101,
-                                "y": 13
-                            },
-                            "size": {
-                                "width": 10,
-                                "height": 10
-                            },
-                            "type": "port",
-                            "children": [
-                                {
-                                    "id": "g_628351",
-                                    "position": {
-                                        "x": 11,
-                                        "y": 11
-                                    },
-                                    "size": {
-                                        "width": 48,
-                                        "height": 12
-                                    },
-                                    "type": "label",
-                                    "text": "CP 1"
-                                }
-                            ]
-                        },
-                        {
-                            "id": "g_867200",
-                            "position": {
-                                "x": 9,
-                                "y": 12
-                            },
-                            "size": {
-                                "width": 83,
-                                "height": 12
-                            },
-                            "type": "label",
-                            "text": "PC Software"
-                        }
-                    ]
-                },
-                {
-                    "id": "2de65884-8c89-4c55-8941-4aa1a07b8d86",
-                    "position": {
-                        "x": 386,
-                        "y": 85
-                    },
-                    "size": {
-                        "width": 109,
-                        "height": 36
-                    },
-                    "type": "node",
-                    "children": [
-                        {
-                            "id": "f61701c6-bfc2-4549-91d9-f76efaf0c9ee",
-                            "position": {
-                                "x": -2,
-                                "y": 13
-                            },
-                            "size": {
-                                "width": 10,
-                                "height": 10
-                            },
-                            "type": "port",
-                            "children": [
-                                {
-                                    "id": "g_148988",
-                                    "position": {
-                                        "x": -49,
-                                        "y": 11
-                                    },
-                                    "size": {
-                                        "width": 48,
-                                        "height": 12
-                                    },
-                                    "type": "label",
-                                    "text": "CP 1"
-                                }
-                            ]
-                        },
-                        {
-                            "id": "g_323169",
-                            "position": {
-                                "x": 12,
-                                "y": 12
-                            },
-                            "size": {
-                                "width": 93,
-                                "height": 12
-                            },
-                            "type": "label",
-                            "text": "Node Software"
-                        }
-                    ]
-                },
-                {
-                    "id": "g_998240",
-                    "position": {
-                        "x": 202,
+                        "x": 65.5,
                         "y": 5
                     },
                     "size": {
@@ -188,37 +77,6 @@
                     },
                     "type": "label",
                     "text": "Physical System"
-                },
-                {
-                    "id": "25f46b82-1bb8-495a-b6bc-3ad086aad02e",
-                    "type": "edge",
-                    "sourceId": "db2d7b36-8144-4ec7-8673-206faaf4590e",
-                    "targetId": "f61701c6-bfc2-4549-91d9-f76efaf0c9ee",
-                    "routingPoints": [
-                        {
-                            "x": 173,
-                            "y": 103
-                        },
-                        {
-                            "x": 384,
-                            "y": 103
-                        }
-                    ],
-                    "children": [
-                        {
-                            "id": "g_327268",
-                            "position": {
-                                "x": 242,
-                                "y": 106
-                            },
-                            "size": {
-                                "width": 73,
-                                "height": 12
-                            },
-                            "type": "label",
-                            "text": "Interface"
-                        }
-                    ]
                 }
             ]
         },
@@ -259,7 +117,6 @@
                             "type": "port",
                             "children": [
                                 {
-                                    "id": "g_463392",
                                     "position": {
                                         "x": 11,
                                         "y": 11
@@ -274,7 +131,6 @@
                             ]
                         },
                         {
-                            "id": "g_460043",
                             "position": {
                                 "x": -1,
                                 "y": 12
@@ -289,7 +145,6 @@
                     ]
                 },
                 {
-                    "id": "g_019003",
                     "position": {
                         "x": 76,
                         "y": 5
@@ -320,7 +175,6 @@
             ],
             "children": [
                 {
-                    "id": "g_727740",
                     "position": {
                         "x": 287,
                         "y": 62

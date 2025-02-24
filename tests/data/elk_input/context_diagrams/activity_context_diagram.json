@@ -14,21 +14,6 @@
             "id": "a8c42033-fdf2-458f-bae9-1cfd1207c49f",
             "children": [
                 {
-                    "id": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
-                    "labels": [
-                        {
-                            "text": "Eat",
-                            "layoutOptions": {
-                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                            },
-                            "width": 43,
-                            "height": 12
-                        }
-                    ],
-                    "width": 49,
-                    "height": 36
-                },
-                {
                     "id": "0e0164c3-076e-42c1-8f82-7a43ab84385c",
                     "labels": [
                         {
@@ -40,7 +25,7 @@
                             "height": 12
                         }
                     ],
-                    "width": 79,
+                    "width": 144,
                     "height": 36
                 },
                 {
@@ -55,7 +40,22 @@
                             "height": 12
                         }
                     ],
-                    "width": 59,
+                    "width": 144,
+                    "height": 36
+                },
+                {
+                    "id": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
+                    "labels": [
+                        {
+                            "text": "Eat",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 43,
+                            "height": 12
+                        }
+                    ],
+                    "width": 144,
                     "height": 36
                 }
             ],

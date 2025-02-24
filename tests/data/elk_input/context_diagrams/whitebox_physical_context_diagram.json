@@ -1,0 +1,514 @@
+{
+    "id": "309296b1-cf37-45d7-b0f3-f7bc00422a59_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "8c4b9404-e5ca-41e9-a731-2a930a18b784",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
+            "children": [
+                {
+                    "id": "aa723351-32cb-44ab-a7ef-6319a1fbdaac",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "RBNode 1",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 68,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "503d11cb-ebe7-40d9-93c0-e6e7813873cd",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 109,
+                    "height": 36
+                },
+                {
+                    "id": "9dd62de4-0370-41aa-a20b-df2085499a73",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "RBNode",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 58,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "e12e5c46-f619-442c-a132-3c4040841163",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 109,
+                    "height": 36
+                }
+            ],
+            "edges": [
+                {
+                    "id": "f3c93649-0875-4daf-812e-00a98390119f",
+                    "sources": [
+                        "503d11cb-ebe7-40d9-93c0-e6e7813873cd"
+                    ],
+                    "targets": [
+                        "9d4e5145-c4a0-46eb-b470-def61ce9e6d0"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Right_Box_to_RBNode_1",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 133,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "8dd15f61-a406-45ae-bbf8-aaafff67abd5",
+                    "sources": [
+                        "e12e5c46-f619-442c-a132-3c4040841163"
+                    ],
+                    "targets": [
+                        "f4dbc636-aede-44d1-b7f6-682d405ef7ba"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Right_Box_to_RBNode",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 123,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Right Box",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 73,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "9d4e5145-c4a0-46eb-b470-def61ce9e6d0",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "PP 5",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "d02edb1b-a57a-4538-937f-6c1a56278c37",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "PP 2",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "f4dbc636-aede-44d1-b7f6-682d405ef7ba",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "PP 1",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "width": 109,
+            "height": 66.0
+        },
+        {
+            "id": "309296b1-cf37-45d7-b0f3-f7bc00422a59",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
+            "children": [
+                {
+                    "id": "7a17e2e8-c0cd-4313-b39d-f78f31873772",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "BNode 2",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 63,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "0b72eebb-c7da-49f6-aee3-3181ed92d9f6",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 69,
+                    "height": 36
+                },
+                {
+                    "id": "635f5858-5887-4343-ba62-234fae4c5970",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "BNode 1",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 63,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "5688a250-3a46-40b2-ac01-b3a672e0f907",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 69,
+                    "height": 36
+                },
+                {
+                    "id": "3d7c7411-b183-4f63-87cc-e012de588b53",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "BNode",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 53,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "e7f9d780-5000-4a58-b6d2-a3a0b96ad9bc",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 2",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        },
+                        {
+                            "id": "6559eb2f-f7a3-4d4d-8b83-13ec8944cb51",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 59,
+                    "height": 44.0
+                }
+            ],
+            "edges": [
+                {
+                    "id": "957b9327-7813-4568-9ce9-719d6edc7439",
+                    "sources": [
+                        "5548913c-6fde-4003-ab41-7926e10e4cd9"
+                    ],
+                    "targets": [
+                        "e7f9d780-5000-4a58-b6d2-a3a0b96ad9bc"
+                    ],
+                    "labels": [
+                        {
+                            "text": "BNode_to_Box",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 88,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "4c0233ac-dd06-4fd2-86c0-f90ee56a7b2e",
+                    "sources": [
+                        "cacae3be-b3f3-46f0-aa7f-202685615ea3"
+                    ],
+                    "targets": [
+                        "6559eb2f-f7a3-4d4d-8b83-13ec8944cb51"
+                    ],
+                    "labels": [
+                        {
+                            "text": "BNode_to_Box",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 88,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Box",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 43,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "5548913c-6fde-4003-ab41-7926e10e4cd9",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "PP 5",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "cacae3be-b3f3-46f0-aa7f-202685615ea3",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "PP 3",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "width": 109,
+            "height": 44.0
+        }
+    ],
+    "edges": [
+        {
+            "id": "de6d52f5-d2af-49d1-be32-eecc6e998c27",
+            "sources": [
+                "0b72eebb-c7da-49f6-aee3-3181ed92d9f6"
+            ],
+            "targets": [
+                "9d4e5145-c4a0-46eb-b470-def61ce9e6d0"
+            ],
+            "labels": [
+                {
+                    "text": "BNode_2_to_Right_Box",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 128,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "c9ca02c7-04e5-4854-ac2b-82c91904c587",
+            "sources": [
+                "503d11cb-ebe7-40d9-93c0-e6e7813873cd"
+            ],
+            "targets": [
+                "5688a250-3a46-40b2-ac01-b3a672e0f907"
+            ],
+            "labels": [
+                {
+                    "text": "BNode_1_to_RBNode_1",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 123,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "a70ea279-0bc4-4910-875d-901da2da97bd",
+            "sources": [
+                "5548913c-6fde-4003-ab41-7926e10e4cd9"
+            ],
+            "targets": [
+                "d02edb1b-a57a-4538-937f-6c1a56278c37"
+            ],
+            "labels": [
+                {
+                    "text": "Box_to_Right_Box",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 108,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "b025045e-eda9-4ab9-865a-31359a102254",
+            "sources": [
+                "cacae3be-b3f3-46f0-aa7f-202685615ea3"
+            ],
+            "targets": [
+                "f4dbc636-aede-44d1-b7f6-682d405ef7ba"
+            ],
+            "labels": [
+                {
+                    "text": "Box_to_Right_Box",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 108,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

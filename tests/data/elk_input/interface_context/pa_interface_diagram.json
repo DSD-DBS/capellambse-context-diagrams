@@ -11,31 +11,6 @@
     },
     "children": [
         {
-            "id": "313f48f4-fb7e-47a8-b28a-76440932fcb9",
-            "labels": [
-                {
-                    "text": "PC Software",
-                    "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                    },
-                    "width": 83,
-                    "height": 12
-                }
-            ],
-            "ports": [
-                {
-                    "id": "db2d7b36-8144-4ec7-8673-206faaf4590e",
-                    "layoutOptions": {
-                        "borderOffset": -8
-                    },
-                    "width": 10,
-                    "height": 10
-                }
-            ],
-            "width": 89,
-            "height": 36
-        },
-        {
             "id": "2de65884-8c89-4c55-8941-4aa1a07b8d86",
             "labels": [
                 {
@@ -57,7 +32,32 @@
                     "height": 10
                 }
             ],
-            "width": 99,
+            "width": 109,
+            "height": 36
+        },
+        {
+            "id": "313f48f4-fb7e-47a8-b28a-76440932fcb9",
+            "labels": [
+                {
+                    "text": "PC Software",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 83,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "db2d7b36-8144-4ec7-8673-206faaf4590e",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 109,
             "height": 36
         }
     ],

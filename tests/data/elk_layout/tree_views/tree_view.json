@@ -15,7 +15,6 @@
             "type": "node",
             "children": [
                 {
-                    "id": "g_001219",
                     "position": {
                         "x": 73,
                         "y": 5
@@ -28,7 +27,6 @@
                     "text": "Root"
                 },
                 {
-                    "id": "g_268026",
                     "position": {
                         "x": 0,
                         "y": 0
@@ -41,7 +39,6 @@
                     "text": ""
                 },
                 {
-                    "id": "g_435128",
                     "position": {
                         "x": 25.5,
                         "y": 26
@@ -54,7 +51,6 @@
                     "text": "[1..*] example: Example"
                 },
                 {
-                    "id": "g_745983",
                     "position": {
                         "x": 3,
                         "y": 38
@@ -67,7 +63,6 @@
                     "text": "[0..1] enum_example: EnumExample"
                 },
                 {
-                    "id": "g_529067",
                     "position": {
                         "x": 28,
                         "y": 50
@@ -80,7 +75,6 @@
                     "text": "another: EnumExample_1"
                 },
                 {
-                    "id": "g_159475",
                     "position": {
                         "x": 18,
                         "y": 62
@@ -93,7 +87,6 @@
                     "text": "another_one: EnumExample_2"
                 },
                 {
-                    "id": "g_467815",
                     "position": {
                         "x": 8,
                         "y": 74
@@ -106,7 +99,6 @@
                     "text": "another_one_one: EnumExample_3"
                 },
                 {
-                    "id": "g_741084",
                     "position": {
                         "x": 25.5,
                         "y": 86
@@ -119,7 +111,6 @@
                     "text": "last_one: EnumExample_4"
                 },
                 {
-                    "id": "g_748197",
                     "position": {
                         "x": 15.5,
                         "y": 98
@@ -146,7 +137,6 @@
             "type": "node",
             "children": [
                 {
-                    "id": "g_932812",
                     "position": {
                         "x": 3,
                         "y": 5
@@ -159,7 +149,6 @@
                     "text": "One"
                 },
                 {
-                    "id": "g_478744",
                     "position": {
                         "x": 0,
                         "y": 0
@@ -186,7 +175,6 @@
             "type": "node",
             "children": [
                 {
-                    "id": "g_466410",
                     "position": {
                         "x": 3,
                         "y": 5
@@ -199,7 +187,6 @@
                     "text": "Two"
                 },
                 {
-                    "id": "g_451608",
                     "position": {
                         "x": 0,
                         "y": 0
@@ -226,7 +213,6 @@
             "type": "node",
             "children": [
                 {
-                    "id": "g_957947",
                     "position": {
                         "x": 58,
                         "y": 5
@@ -239,7 +225,6 @@
                     "text": "Three"
                 },
                 {
-                    "id": "g_457168",
                     "position": {
                         "x": 0,
                         "y": 0
@@ -252,7 +237,6 @@
                     "text": ""
                 },
                 {
-                    "id": "g_299536",
                     "position": {
                         "x": 3,
                         "y": 20
@@ -279,7 +263,6 @@
             "type": "node",
             "children": [
                 {
-                    "id": "g_655835",
                     "position": {
                         "x": 35.5,
                         "y": 5
@@ -292,7 +275,6 @@
                     "text": "five"
                 },
                 {
-                    "id": "g_279284",
                     "position": {
                         "x": 0,
                         "y": 0
@@ -305,7 +287,6 @@
                     "text": ""
                 },
                 {
-                    "id": "g_927597",
                     "position": {
                         "x": 3,
                         "y": 20
@@ -340,7 +321,6 @@
             ],
             "children": [
                 {
-                    "id": "g_154978",
                     "position": {
                         "x": 12,
                         "y": 168.75
@@ -375,7 +355,6 @@
             ],
             "children": [
                 {
-                    "id": "g_970435",
                     "position": {
                         "x": 147.75,
                         "y": 168.75
@@ -410,7 +389,6 @@
             ],
             "children": [
                 {
-                    "id": "g_965111",
                     "position": {
                         "x": 195.75,
                         "y": 258.75
@@ -445,7 +423,6 @@
             ],
             "children": [
                 {
-                    "id": "g_208762",
                     "position": {
                         "x": 114.75,
                         "y": 362.7833333333333

@@ -15,19 +15,7 @@
             "type": "node",
             "children": [
                 {
-                    "id": "6b07c5a0-8731-4266-b465-25590d1af82c",
-                    "position": {
-                        "x": -2,
-                        "y": 23
-                    },
-                    "size": {
-                        "width": 10,
-                        "height": 10
-                    },
-                    "type": "port"
-                },
-                {
-                    "id": "1817adb2-a3f2-498e-bb29-3031231426a3",
+                    "id": "d5fd4286-1d41-4d21-b3cf-9babc8872c77",
                     "position": {
                         "x": 86,
                         "y": 23
@@ -51,7 +39,7 @@
                     "type": "port"
                 },
                 {
-                    "id": "d5fd4286-1d41-4d21-b3cf-9babc8872c77",
+                    "id": "1817adb2-a3f2-498e-bb29-3031231426a3",
                     "position": {
                         "x": 86,
                         "y": 6.5
@@ -63,7 +51,18 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_195353",
+                    "id": "6b07c5a0-8731-4266-b465-25590d1af82c",
+                    "position": {
+                        "x": -2,
+                        "y": 23
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
                     "position": {
                         "x": 3,
                         "y": 22
@@ -78,58 +77,19 @@
             ]
         },
         {
-            "id": "da12377b-fb70-4441-8faa-3a5c153c5de2",
-            "position": {
-                "x": 13,
-                "y": 28.5
-            },
-            "size": {
-                "width": 69,
-                "height": 36
-            },
-            "type": "node",
-            "children": [
-                {
-                    "id": "b2d2a4f1-0c21-45f4-918c-3d3c5e8af104",
-                    "position": {
-                        "x": 61,
-                        "y": 13
-                    },
-                    "size": {
-                        "width": 10,
-                        "height": 10
-                    },
-                    "type": "port"
-                },
-                {
-                    "id": "g_914541",
-                    "position": {
-                        "x": -1,
-                        "y": 12
-                    },
-                    "size": {
-                        "width": 63,
-                        "height": 12
-                    },
-                    "type": "label",
-                    "text": "Affleck"
-                }
-            ]
-        },
-        {
-            "id": "6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6",
+            "id": "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df",
             "position": {
                 "x": 435,
                 "y": 68
             },
             "size": {
-                "width": 99,
+                "width": 64,
                 "height": 36
             },
             "type": "node",
             "children": [
                 {
-                    "id": "74505eac-7abc-476d-8dec-ad68abb4b2a5",
+                    "id": "898b878b-4392-499a-82f7-eb48e0f07e36",
                     "position": {
                         "x": -2,
                         "y": 13
@@ -141,17 +101,16 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_842399",
                     "position": {
                         "x": 7,
                         "y": 12
                     },
                     "size": {
-                        "width": 93,
+                        "width": 58,
                         "height": 12
                     },
                     "type": "label",
-                    "text": "Gerard Butler"
+                    "text": "System"
                 }
             ]
         },
@@ -180,7 +139,6 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_074040",
                     "position": {
                         "x": 7,
                         "y": 12
@@ -195,19 +153,19 @@
             ]
         },
         {
-            "id": "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df",
+            "id": "6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6",
             "position": {
                 "x": 435,
                 "y": 12
             },
             "size": {
-                "width": 64,
+                "width": 99,
                 "height": 36
             },
             "type": "node",
             "children": [
                 {
-                    "id": "898b878b-4392-499a-82f7-eb48e0f07e36",
+                    "id": "74505eac-7abc-476d-8dec-ad68abb4b2a5",
                     "position": {
                         "x": -2,
                         "y": 13
@@ -219,56 +177,62 @@
                     "type": "port"
                 },
                 {
-                    "id": "g_183433",
                     "position": {
                         "x": 7,
                         "y": 12
                     },
                     "size": {
-                        "width": 58,
+                        "width": 93,
                         "height": 12
                     },
                     "type": "label",
-                    "text": "System"
+                    "text": "Gerard Butler"
                 }
             ]
         },
         {
-            "id": "86a1afc2-b7fd-4023-bbd5-ab44f5dc2c28",
-            "type": "edge",
-            "sourceId": "b2d2a4f1-0c21-45f4-918c-3d3c5e8af104",
-            "targetId": "6b07c5a0-8731-4266-b465-25590d1af82c",
-            "routingPoints": [
-                {
-                    "x": 84,
-                    "y": 46.5
-                },
-                {
-                    "x": 192,
-                    "y": 46.5
-                }
-            ],
+            "id": "da12377b-fb70-4441-8faa-3a5c153c5de2",
+            "position": {
+                "x": 13,
+                "y": 28.5
+            },
+            "size": {
+                "width": 69,
+                "height": 36
+            },
+            "type": "node",
             "children": [
                 {
-                    "id": "g_795689",
+                    "id": "b2d2a4f1-0c21-45f4-918c-3d3c5e8af104",
                     "position": {
-                        "x": 104,
-                        "y": 49.5
+                        "x": 61,
+                        "y": 13
                     },
                     "size": {
-                        "width": 68,
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": -1,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 63,
                         "height": 12
                     },
                     "type": "label",
-                    "text": "afflecks"
+                    "text": "Affleck"
                 }
             ]
         },
         {
-            "id": "9ded0504-94e5-456a-b446-af72924448e1",
+            "id": "560e799d-d291-4928-a367-430232ddef65",
             "type": "edge",
-            "sourceId": "1817adb2-a3f2-498e-bb29-3031231426a3",
-            "targetId": "74505eac-7abc-476d-8dec-ad68abb4b2a5",
+            "sourceId": "d5fd4286-1d41-4d21-b3cf-9babc8872c77",
+            "targetId": "898b878b-4392-499a-82f7-eb48e0f07e36",
             "routingPoints": [
                 {
                     "x": 290,
@@ -289,17 +253,16 @@
             ],
             "children": [
                 {
-                    "id": "g_027332",
                     "position": {
-                        "x": 332.5,
+                        "x": 320,
                         "y": 89
                     },
                     "size": {
-                        "width": 68,
+                        "width": 93,
                         "height": 12
                     },
                     "type": "label",
-                    "text": "befriend"
+                    "text": "Test Input Ex"
                 }
             ]
         },
@@ -328,7 +291,6 @@
             ],
             "children": [
                 {
-                    "id": "g_074135",
                     "position": {
                         "x": 340,
                         "y": 145
@@ -343,10 +305,10 @@
             ]
         },
         {
-            "id": "560e799d-d291-4928-a367-430232ddef65",
+            "id": "9ded0504-94e5-456a-b446-af72924448e1",
             "type": "edge",
-            "sourceId": "d5fd4286-1d41-4d21-b3cf-9babc8872c77",
-            "targetId": "898b878b-4392-499a-82f7-eb48e0f07e36",
+            "sourceId": "1817adb2-a3f2-498e-bb29-3031231426a3",
+            "targetId": "74505eac-7abc-476d-8dec-ad68abb4b2a5",
             "routingPoints": [
                 {
                     "x": 290,
@@ -359,17 +321,46 @@
             ],
             "children": [
                 {
-                    "id": "g_063631",
                     "position": {
-                        "x": 320,
+                        "x": 332.5,
                         "y": 33
                     },
                     "size": {
-                        "width": 93,
+                        "width": 68,
                         "height": 12
                     },
                     "type": "label",
-                    "text": "Test Input Ex"
+                    "text": "befriend"
+                }
+            ]
+        },
+        {
+            "id": "86a1afc2-b7fd-4023-bbd5-ab44f5dc2c28",
+            "type": "edge",
+            "sourceId": "b2d2a4f1-0c21-45f4-918c-3d3c5e8af104",
+            "targetId": "6b07c5a0-8731-4266-b465-25590d1af82c",
+            "routingPoints": [
+                {
+                    "x": 84,
+                    "y": 46.5
+                },
+                {
+                    "x": 192,
+                    "y": 46.5
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 104,
+                        "y": 49.5
+                    },
+                    "size": {
+                        "width": 68,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "afflecks"
                 }
             ]
         }

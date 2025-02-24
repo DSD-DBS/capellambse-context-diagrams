@@ -17,13 +17,27 @@ from .conftest import (  # type: ignore[import-untyped]
 
 TEST_DATA_FLOW_DATA_ROOT = TEST_ELK_INPUT_ROOT / "data_flow_views"
 TEST_DATA_FLOW_LAYOUT_ROOT = TEST_ELK_LAYOUT_ROOT / "data_flow_views"
+RENDER_PARAMS = {
+    "display_symbols_as_boxes": True,
+    "display_parent_relation": False,
+    "edge_direction": "NONE",
+    "mode": "WHITEBOX",
+}
 TEST_DATA_FLOW_SET = [
     pytest.param(
-        ("3b83b4ba-671a-4de8-9c07-a5c6b1d3c422", "opcap_data_flow.json", {}),
+        (
+            "3b83b4ba-671a-4de8-9c07-a5c6b1d3c422",
+            "opcap_data_flow.json",
+            RENDER_PARAMS,
+        ),
         id="OperationalCapability",
     ),
     pytest.param(
-        ("9390b7d5-598a-42db-bef8-23677e45ba06", "cap_data_flow.json", {}),
+        (
+            "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "cap_data_flow.json",
+            RENDER_PARAMS,
+        ),
         id="Capability",
     ),
 ]

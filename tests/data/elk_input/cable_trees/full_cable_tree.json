@@ -3,16 +3,23 @@
     "layoutOptions": {
         "algorithm": "layered",
         "edgeRouting": "ORTHOGONAL",
-        "elk.layered.nodePlacement.strategy": "NETWORK_SIMPLEX"
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
+        "spacing.labelNode": "0.0"
     },
     "children": [
         {
             "id": "07ba7c6c-3a3e-4817-967d-a30a34808089",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
             "labels": [
                 {
                     "text": "Main Control Station",
                     "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 128,
                     "height": 12
@@ -43,11 +50,14 @@
         },
         {
             "id": "2c2888dc-4e8f-4d07-aca9-9f4de004266b",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
             "labels": [
                 {
                     "text": "Train Signal Controller",
                     "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 143,
                     "height": 12
@@ -78,11 +88,14 @@
         },
         {
             "id": "57325353-a19c-4dec-8f6f-05a214eac1c5",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
             "labels": [
                 {
                     "text": "Train Detection Sensor",
                     "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 138,
                     "height": 12
@@ -113,11 +126,14 @@
         },
         {
             "id": "a4cb3ff6-1289-4e27-91f2-4291cabe9db2",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
             "labels": [
                 {
                     "text": "Level Crossing Barrier Control",
                     "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 178,
                     "height": 12
@@ -148,11 +164,14 @@
         },
         {
             "id": "2c907e35-bf5a-4421-ba51-5191af0a30f8",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
             "labels": [
                 {
                     "text": "Track Circuit",
                     "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 93,
                     "height": 12
@@ -183,11 +202,14 @@
         },
         {
             "id": "23faf496-7a2d-4a41-b92a-fc240d9b5924",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
             "labels": [
                 {
                     "text": "Train Speed Monitoring Unit",
                     "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 163,
                     "height": 12
@@ -218,11 +240,14 @@
         },
         {
             "id": "954d934f-8804-454b-9ef2-ced201640891",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
             "labels": [
                 {
                     "text": "Signal Relay Box",
                     "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 108,
                     "height": 12
@@ -253,11 +278,14 @@
         },
         {
             "id": "7b78da30-7f39-4000-a2d6-3f7c1b56a5f5",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
             "labels": [
                 {
                     "text": "Trackside Signal Light",
                     "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 138,
                     "height": 12
@@ -288,11 +316,14 @@
         },
         {
             "id": "3924460c-321e-4300-8788-a6713dd64456",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
             "labels": [
                 {
                     "text": "Emergency Stop Button",
                     "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 133,
                     "height": 12
@@ -323,11 +354,14 @@
         },
         {
             "id": "7ae1d744-67b8-4506-8e39-be3006b0e5b9",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
             "labels": [
                 {
                     "text": "Communication Hub",
                     "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 113,
                     "height": 12
@@ -360,6 +394,9 @@
     "edges": [
         {
             "id": "5c55b11b-4911-40fb-9c4c-f1363dad846e",
+            "layoutOptions": {
+                "layered.priority.straightness": "10"
+            },
             "sources": [
                 "c403d4f4-9633-42a2-a5d6-9e1df2655146"
             ],

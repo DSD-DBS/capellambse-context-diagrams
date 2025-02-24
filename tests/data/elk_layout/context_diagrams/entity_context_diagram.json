@@ -15,7 +15,6 @@
             "type": "node",
             "children": [
                 {
-                    "id": "g_526302",
                     "position": {
                         "x": 3,
                         "y": 12
@@ -42,7 +41,6 @@
             "type": "node",
             "children": [
                 {
-                    "id": "g_115102",
                     "position": {
                         "x": 3,
                         "y": 12
@@ -73,7 +71,6 @@
             ],
             "children": [
                 {
-                    "id": "g_295643",
                     "position": {
                         "x": 121,
                         "y": 33

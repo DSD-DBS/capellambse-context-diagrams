@@ -44,7 +44,7 @@
                         }
                     ],
                     "width": 109,
-                    "height": 38
+                    "height": 36
                 }
             ],
             "labels": [
@@ -68,7 +68,7 @@
                 }
             ],
             "width": 69,
-            "height": 38
+            "height": 36
         },
         {
             "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
@@ -95,8 +95,8 @@
                             "height": 10
                         }
                     ],
-                    "width": 54,
-                    "height": 38
+                    "width": 94,
+                    "height": 36
                 },
                 {
                     "id": "098810d9-0325-4ae8-a111-82202c0d2016",
@@ -120,8 +120,8 @@
                             "height": 10
                         }
                     ],
-                    "width": 79,
-                    "height": 38
+                    "width": 94,
+                    "height": 36
                 }
             ],
             "labels": [
@@ -145,7 +145,7 @@
                 }
             ],
             "width": 94,
-            "height": 96
+            "height": 36
         }
     ],
     "edges": [

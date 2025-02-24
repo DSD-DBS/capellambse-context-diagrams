@@ -33,6 +33,7 @@ import typing as t
 import platformdirs
 import pydantic
 import requests
+from capellambse import model as m
 
 __all__ = [
     "ELKInputChild",
@@ -99,6 +100,7 @@ EDGE_STRAIGHTENING_LAYOUT_OPTIONS: LayoutOptions = {
 """Options for increasing the edge straightness priority."""
 
 
+@m.stringy_enum
 class PORT_LABEL_POSITION(enum.Enum):
     """Position of port labels.
 

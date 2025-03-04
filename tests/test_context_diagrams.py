@@ -290,14 +290,6 @@ TEST_CONTEXT_SET = [
     pytest.param(
         (
             TEST_PC_NODE_UUID,
-            "graybox_physical_context_diagram.json",
-            {"mode": "GRAYBOX", "port_label_position": "OUTSIDE"},
-        ),
-        id="Graybox Physical ContextDiagram",
-    ),
-    pytest.param(
-        (
-            TEST_PC_NODE_UUID,
             "whitebox_physical_context_diagram.json",
             {"port_label_position": "OUTSIDE"},
         ),
@@ -505,24 +497,6 @@ def test_context_diagram_display_unused_ports(model: capellambse.MelodyModel):
     assert unused_port_uuid in {element.uuid for element in bdiag}
 
 
-def test_context_diagram_graybox(
-    model: capellambse.MelodyModel,
-) -> None:
-    obj = model.by_uuid("fd69347c-fca9-4cdd-ae44-9182e13c8d9d")
-    hidden_element_uuids = {
-        "9f92e453-0692-4842-9e0c-4d36ab541acd",
-        "847991cf-546d-4817-b52f-a58b5a42d0e5",
-        "955b6e5d-df64-4805-8973-93756a4be879",
-        "ce221886-adfd-45f5-99cf-07baac99458d",
-    }
-
-    white = obj.context_diagram.render(None, mode="WHITEBOX")
-    gray = obj.context_diagram.render(None, mode="GRAYBOX")
-
-    assert {element.uuid for element in white} & hidden_element_uuids
-    assert not {element.uuid for element in gray} & hidden_element_uuids
-
-
 @pytest.mark.skipif(
     sys.platform == "win32",
     reason="Wrong coordinates on Windows for some reason",
@@ -538,18 +512,3 @@ def test_serializer_handles_hierarchical_edges_correctly(
 
     assert (231.35, 94) <= adiag[f"{edge_uuid}_j0"].center <= (235, 94)
     assert (405.25, 122) <= adiag[f"{edge1_uuid}_j1"].center <= (410, 122)
-
-
-def test_context_diagrams_includes_external_context(
-    model: capellambse.MelodyModel,
-) -> None:
-    obj = model.by_uuid(TEST_PC_NODE_UUID)
-
-    adiag = obj.context_diagram.render(
-        None, include_external_context=True, mode="BLACKBOX"
-    )
-
-    assert adiag["aa723351-32cb-44ab-a7ef-6319a1fbdaac"]
-    assert adiag["9dd62de4-0370-41aa-a20b-df2085499a73"]
-    assert "5db3cb8f-36bd-4f99-870b-f27272cae9df" not in adiag
-    assert "f4fe8a7e-702e-406f-8df2-a88708ce455f" not in adiag

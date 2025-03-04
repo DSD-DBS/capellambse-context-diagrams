@@ -134,8 +134,6 @@ class DiagramBuilder:
         for elem in self.collection:
             if self.diagram._mode == enums.MODE.BLACKBOX:
                 self._make_blackbox_target(elem)
-            elif self.diagram._mode == enums.MODE.GRAYBOX:
-                self._make_graybox_target(elem)
             elif self.diagram._mode == enums.MODE.WHITEBOX:
                 self._make_whitebox_target(elem)
 
@@ -514,36 +512,6 @@ class DiagramBuilder:
     ) -> _elkjs.ELKInputChild | _elkjs.ELKInputEdge | None:
         if _is_edge(obj):
             return self._make_edge_and_ports(obj)
-        return self._make_box(obj)
-
-    def _make_graybox_target(
-        self, obj: m.ModelElement
-    ) -> _elkjs.ELKInputChild | _elkjs.ELKInputEdge | None:
-        """In graybox mode, for edges the owners are adjusted using uncommon-owner logic."""
-        if self.diagram._is_portless:
-            return self._make_whitebox_target(obj)
-
-        if _is_edge(obj):
-            if self.edges.get(obj.uuid):
-                return None
-
-            edge_data = self._collect_edge_data(obj)
-
-            def get_unc(obj: m.ModelElement) -> m.ModelElement:
-                if self.boxable_target.uuid in _generic.get_all_owners(obj):
-                    return self.boxable_target
-                return get_top_uncommon_owner(obj, self.diagram_target_owners)
-
-            src_unc = get_unc(edge_data.source.owner)
-            tgt_unc = get_unc(edge_data.target.owner)
-            if src_unc.uuid == tgt_unc.uuid:  # Cycle:
-                return None
-
-            self._apply_internal_adjustment(
-                edge_data, src_unc, tgt_unc, type(obj).__name__
-            )
-            return self._update_edge_common(edge_data)
-
         return self._make_box(obj)
 
     def _make_blackbox_target(self, obj: m.ModelElement) -> None:

@@ -29,6 +29,7 @@ TEST_ENTITY_UUID = "e37510b9-3166-4f80-a919-dfaac9b696c7"
 TEST_SYS_FNC_UUID = "a5642060-c9cc-4d49-af09-defaa3024bae"
 TEST_DERIVATION_UUID = "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c"
 TEST_PHYSICAL_PORT_UUID = "c403d4f4-9633-42a2-a5d6-9e1df2655146"
+TEST_PC_NODE_UUID = "309296b1-cf37-45d7-b0f3-f7bc00422a59"
 TEST_CONTEXT_SET = [
     pytest.param(
         (
@@ -243,7 +244,7 @@ TEST_CONTEXT_SET = [
     ),
     pytest.param(
         (
-            "309296b1-cf37-45d7-b0f3-f7bc00422a59",
+            TEST_PC_NODE_UUID,
             "blackbox_physical_with_external_context_diagram.json",
             {
                 "include_external_context": True,
@@ -251,11 +252,36 @@ TEST_CONTEXT_SET = [
                 "port_label_position": "OUTSIDE",
             },
         ),
-        id="Physical Blackbox ContextDiagram with External Context",
+        id="Blackbox Physical ContextDiagram with External Context",
     ),
     pytest.param(
         (
-            "309296b1-cf37-45d7-b0f3-f7bc00422a59",
+            TEST_PC_NODE_UUID,
+            "blackbox_physical_context_diagram_without_int_relations.json",
+            {
+                "mode": "BLACKBOX",
+                "display_internal_relations": False,
+                "port_label_position": "OUTSIDE",
+            },
+        ),
+        id="Blackbox Physical ContextDiagram without Internal Relations",
+    ),
+    pytest.param(
+        (
+            TEST_PC_NODE_UUID,
+            "blackbox_physical_context_diagram_with_int_cycles.json",
+            {
+                "mode": "BLACKBOX",
+                "display_internal_relations": True,
+                "display_cyclic_relations": True,
+                "port_label_position": "OUTSIDE",
+            },
+        ),
+        id="Blackbox Physical ContextDiagram with Internal Cycles",
+    ),
+    pytest.param(
+        (
+            TEST_PC_NODE_UUID,
             "blackbox_physical_context_diagram.json",
             {"mode": "BLACKBOX", "port_label_position": "OUTSIDE"},
         ),
@@ -263,7 +289,7 @@ TEST_CONTEXT_SET = [
     ),
     pytest.param(
         (
-            "309296b1-cf37-45d7-b0f3-f7bc00422a59",
+            TEST_PC_NODE_UUID,
             "graybox_physical_context_diagram.json",
             {"mode": "GRAYBOX", "port_label_position": "OUTSIDE"},
         ),
@@ -271,7 +297,7 @@ TEST_CONTEXT_SET = [
     ),
     pytest.param(
         (
-            "309296b1-cf37-45d7-b0f3-f7bc00422a59",
+            TEST_PC_NODE_UUID,
             "whitebox_physical_context_diagram.json",
             {"port_label_position": "OUTSIDE"},
         ),
@@ -279,7 +305,7 @@ TEST_CONTEXT_SET = [
     ),
     pytest.param(
         (
-            "309296b1-cf37-45d7-b0f3-f7bc00422a59",
+            TEST_PC_NODE_UUID,
             "whitebox_physical_without_child_context_diagram.json",
             {
                 "include_children_context": False,
@@ -517,7 +543,7 @@ def test_serializer_handles_hierarchical_edges_correctly(
 def test_context_diagrams_includes_external_context(
     model: capellambse.MelodyModel,
 ) -> None:
-    obj = model.by_uuid("309296b1-cf37-45d7-b0f3-f7bc00422a59")
+    obj = model.by_uuid(TEST_PC_NODE_UUID)
 
     adiag = obj.context_diagram.render(
         None, include_external_context=True, mode="BLACKBOX"

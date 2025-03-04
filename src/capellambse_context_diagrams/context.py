@@ -282,7 +282,10 @@ class ContextDiagram(m.AbstractDiagram):
       functions within the context.
     * display_internal_relations: Show exchanges that connect to
       children of a box from the diagram. Only useful with ``BLACKBOX``
-      mode.
+      mode. Possible variations:
+
+        - display_cyclic_relations: Show cyclic exchanges that connect
+          either the box of interest or a child with itself or a child.
 
     The following properties are used by the internal builders:
     * collect - A callable that yields model elements from a given
@@ -308,6 +311,7 @@ class ContextDiagram(m.AbstractDiagram):
     _hide_functions: bool
     _display_functional_parent_relation: bool
     _display_internal_relations: bool
+    _display_cyclic_relations: bool
 
     _collect: cabc.Callable[[ContextDiagram], cabc.Iterator[m.ModelElement]]
     _is_portless: bool
@@ -347,7 +351,8 @@ class ContextDiagram(m.AbstractDiagram):
             "include_interface": True,
             "hide_functions": False,
             "display_functional_parent_relation": False,
-            "display_internal_relations": False,
+            "display_internal_relations": True,
+            "display_cyclic_relations": False,
         }
         if not _generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES.get(self.type, ()):
             render_params |= {

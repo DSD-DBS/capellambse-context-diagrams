@@ -185,8 +185,6 @@ def generic_collecting_test(
     uuid, file_name, render_params = params
     obj = model.by_uuid(uuid)
     file_path = data_root / file_name
-    data_text = file_path.read_text(encoding="utf8")
-    expected_main = _elkjs.ELKInputData.model_validate_json(data_text)
     if (
         os.getenv("CAPELLAMBSE_CONTEXT_DIAGRAMS_WRITE_TEST_FILES", "false")
         == "true"
@@ -194,6 +192,8 @@ def generic_collecting_test(
         write_test_data_file(
             file_path, getattr(obj, diagram_attr).elk_input_data(render_params)
         )
+    data_text = file_path.read_text(encoding="utf8")
+    expected_main = _elkjs.ELKInputData.model_validate_json(data_text)
     return getattr(obj, diagram_attr).elk_input_data(
         render_params
     ), expected_main
@@ -218,8 +218,6 @@ def generic_layouting_test(
     _, file_name, _ = params
     test_data = (data_root / file_name).read_text(encoding="utf8")
     data = _elkjs.ELKInputData.model_validate_json(test_data)
-    expected_layout_data = (layout_root / file_name).read_text(encoding="utf8")
-    expected: dict[str, t.Any] = json.loads(expected_layout_data)
 
     layout = context.try_to_layout(data)
     if (
@@ -228,6 +226,8 @@ def generic_layouting_test(
     ):
         write_layout_test_data_file(layout_root / file_name, layout)
 
+    expected_layout_data = (layout_root / file_name).read_text(encoding="utf8")
+    expected: dict[str, t.Any] = json.loads(expected_layout_data)
     assert (
         remove_ids_from_labels_and_junctions_in_elk_layout(layout) == expected
     )

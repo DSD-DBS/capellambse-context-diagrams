@@ -44,6 +44,7 @@ realization_comp_uuid = "b9f9a83c-fb02-44f7-9123-9d86326de5f1"
 data_flow_uuid = "3b83b4ba-671a-4de8-9c07-a5c6b1d3c422"
 derived_uuid = "47c3130b-ec39-4365-a77a-5ab6365d1e2e"
 cable_tree_uuid = "5c55b11b-4911-40fb-9c4c-f1363dad846e"
+blackbox_node_uuid = "309296b1-cf37-45d7-b0f3-f7bc00422a59"
 
 
 def generate_index_images() -> None:
@@ -211,6 +212,39 @@ def generate_cable_tree_image():
         print(diag.render("svg", transparent_background=False), file=fd)
 
 
+def generate_modes_pc_image():
+    diag: context.CableTreeViewDiagram = model.by_uuid(
+        blackbox_node_uuid
+    ).context_diagram
+    parameters = {
+        "blackbox": {
+            "mode": "BLACKBOX",
+            "display_cyclic_relations": False,
+            "edge_direction": "RIGHT",
+        },
+        "blackbox_without_internal_relations": {
+            "mode": "BLACKBOX",
+            "display_internal_relations": False,
+            "edge_direction": "RIGHT",
+        },
+        "blackbox_with_external_context": {
+            "mode": "BLACKBOX",
+            "include_external_context": True,
+            "edge_direction": "RIGHT",
+        },
+        "blackbox_with_internal_cycles": {
+            "mode": "BLACKBOX",
+            "display_cyclic_relations": True,
+            "edge_direction": "RIGHT",
+        },
+        "whitebox": {"mode": "WHITEBOX", "edge_direction": "NONE"},
+    }
+    for name, params in parameters.items():
+        filename = f"{dest / diag.name!s}-{name}.svg"
+        with mkdocs_gen_files.open(filename, "w") as fd:
+            print(diag.render("svg", **params), file=fd)
+
+
 generate_index_images()
 generate_hierarchy_image()
 generate_symbol_images()
@@ -240,3 +274,4 @@ generate_derived_image()
 generate_interface_with_hide_functions_image()
 generate_interface_with_hide_interface_image()
 generate_cable_tree_image()
+generate_modes_pc_image()

@@ -483,7 +483,7 @@ class DiagramBuilder:
         self.edges[edge_data.obj.uuid] = edge_data.edge
         return edge_data.edge
 
-    def _apply_unc_adjustment(
+    def _apply_internal_adjustment(
         self,
         edge_data: EdgeData,
         src_override: m.ModelElement,
@@ -539,7 +539,7 @@ class DiagramBuilder:
             if src_unc.uuid == tgt_unc.uuid:  # Cycle:
                 return None
 
-            self._apply_unc_adjustment(
+            self._apply_internal_adjustment(
                 edge_data, src_unc, tgt_unc, type(obj).__name__
             )
             return self._update_edge_common(edge_data)
@@ -567,15 +567,20 @@ class DiagramBuilder:
                 edge_data.target.owner, self.diagram_target_owners
             )
 
-        if (
-            not self.diagram._display_internal_relations
-            and src_override is not None
-            and src_override == tgt_override
-        ):
+        allow_internal = self.diagram._display_internal_relations
+        allow_cycle = self.diagram._display_cyclic_relations
+        cycle = self._is_cycle(src_override, tgt_override)
+        internal = self._is_external_internal(
+            src_override, tgt_override, edge_data
+        )
+        if (internal and not allow_internal) or (cycle and not allow_cycle):
+            return
+
+        if internal and not allow_internal:
             return
 
         if src_override or tgt_override:
-            self._apply_unc_adjustment(
+            self._apply_internal_adjustment(
                 edge_data,
                 src_override or edge_data.source.owner,
                 tgt_override or edge_data.target.owner,
@@ -584,6 +589,23 @@ class DiagramBuilder:
 
         self._make_edge_and_ports(obj, edge_data=edge_data)
         return
+
+    def _is_cycle(
+        self, source: m.ModelElement | None, target: m.ModelElement | None
+    ) -> bool:
+        return bool(source and source == target)
+
+    def _is_external_internal(
+        self,
+        source: m.ModelElement | None,
+        target: m.ModelElement | None,
+        edge_data: EdgeData,
+    ) -> bool:
+        """Check if edge connects to the inside of source or target."""
+        return bool(
+            (source and source.uuid != edge_data.source.owner.uuid)
+            or (target and target.uuid != edge_data.target.owner.uuid)
+        )
 
 
 def builder(

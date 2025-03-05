@@ -283,10 +283,11 @@ class ContextDiagram(m.AbstractDiagram):
       functions within the context.
     * display_internal_relations: Show exchanges that connect to
       children of a box from the diagram. Only useful with ``BLACKBOX``
-      mode. Possible variations:
-
-        * display_cyclic_relations: Show cyclic exchanges that connect
-          either the box of interest or a child with itself or a child.
+      mode.
+    * display_cyclic_relations: Show cyclic exchanges that connect
+      either the box of interest or a child with itself or a child.
+      Only useful with ``BLACKBOX`` mode and
+      ``display_cyclic_relations`` turned on.
 
     The following properties are used by the internal builders:
 

@@ -240,6 +240,108 @@ Hierarchy is identified and supported:
     <figcaption>Context diagram of Weird guy SystemFunction</figcaption>
     </figure>
 
+
+### View modes
+
+#### Whitebox
+
+There are different view modes for context diagrams. `WHITEBOX` is
+enabled per **default**.
+
+!!! example "WHITEBOX view mode"
+
+    ``` py
+    import capellambse
+
+    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+    obj = model.by_uuid("309296b1-cf37-45d7-b0f3-f7bc00422a59")
+    diagram = obj.context_diagram.render("svgdiagram", mode="WHITEBOX")
+    diagram.save(pretty=True)
+    ```
+    <figure markdown>
+        <img src="assets/images/Context of Box-whitebox.svg" width="1000000">
+        <figcaption>Context diagram of Box PhysicalComponent with WHITEBOX mode</figcaption>
+    </figure>
+
+#### Blackbox
+
+This render parameter conceals internal details to provide a streamlined
+black box representation of the system of interest.
+
+!!! example "BLACKBOX view mode"
+
+    ``` py
+    import capellambse
+
+    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+    obj = model.by_uuid("309296b1-cf37-45d7-b0f3-f7bc00422a59")
+    diagram = obj.context_diagram.render("svgdiagram", mode="BLACKBOX")
+    diagram.save(pretty=True)
+    ```
+    <figure markdown>
+        <img src="assets/images/Context of Box-blackbox.svg" width="1000000">
+        <figcaption>Context diagram of Box PhysicalComponent with BLACKBOX mode</figcaption>
+    </figure>
+
+Additional render parameters for hiding internal relations (dashed) or
+even cyclic internal relations are offered via:
+
+-   ??? example "display_internal_relations=False"
+
+          ``` py
+          import capellambse
+
+          model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+          obj = model.by_uuid("309296b1-cf37-45d7-b0f3-f7bc00422a59")
+          diagram = obj.context_diagram.render(
+            "svgdiagram", mode="BLACKBOX", display_internal_relations=False
+          )
+          diagram.save(pretty=True)
+          ```
+          <figure markdown>
+              <img src="assets/images/Context of Box-blackbox_without_internal_relations.svg" width="1000000">
+              <figcaption>Context diagram of Box PhysicalComponent with BLACKBOX mode</figcaption>
+          </figure>
+
+-   ??? example "display_cyclic_relations=True"
+
+          ``` py
+          import capellambse
+
+          model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+          obj = model.by_uuid("309296b1-cf37-45d7-b0f3-f7bc00422a59")
+          diagram = obj.context_diagram.render(
+              "svgdiagram",
+              mode="BLACKBOX",
+              display_internal_relations=True, # per default
+              display_cyclic_relations=True,
+          )
+          diagram.save(pretty=True)
+          ```
+          <figure markdown>
+              <img src="assets/images/Context of Box-blackbox_with_internal_cycles.svg" width="1000000">
+              <figcaption>Context diagram of Box PhysicalComponent with BLACKBOX mode and Cycle display</figcaption>
+          </figure>
+
+-   ??? example "include_external_context=True"
+
+          ``` py
+          import capellambse
+
+          model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+          obj = model.by_uuid("309296b1-cf37-45d7-b0f3-f7bc00422a59")
+          diagram = obj.context_diagram.render(
+              "svgdiagram",
+              mode="BLACKBOX",
+              display_internal_relations=True, # per default
+              include_external_context=True,
+          )
+          diagram.save(pretty=True)
+          ```
+          <figure markdown>
+              <img src="assets/images/Context of Box-blackbox_with_external_context.svg" width="1000000">
+              <figcaption>Context diagram of Box PhysicalComponent with BLACKBOX mode and External Context display</figcaption>
+          </figure>
 ---
 
 See the code [reference][capellambse_context_diagrams] section for understanding the underlying

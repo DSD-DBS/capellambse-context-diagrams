@@ -15,14 +15,11 @@ class MODE(enum.Enum):
     ----------
     WHITEBOX
         Collect target context and it's children's context.
-    GRAYBOX
-        Collect target context and derived context from it's children's context.
     BLACKBOX
         Collect target context only.
     """
 
     WHITEBOX = enum.auto()
-    GRAYBOX = enum.auto()
     BLACKBOX = enum.auto()
 
 

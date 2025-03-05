@@ -248,28 +248,29 @@ class ContextDiagram(m.AbstractDiagram):
     Notes
     -----
     The following render parameters are supported:
-    * display_symbols_as_boxes — Display objects that are normally
+
+    * display_symbols_as_boxes: Display objects that are normally
       displayed as symbol as a simple box instead, with the symbol
       being the box' icon. This avoids the object of interest to
       become one giant, oversized symbol in the middle of the diagram,
       and instead keeps the symbol small and only enlarges the
       surrounding box.
-    * display_parent_relation — Display objects with a parent
+    * display_parent_relation: Display objects with a parent
       relationship to the object of interest as the parent box.
-    * display_derived_interfaces — Display derived objects collected
+    * display_derived_interfaces: Display derived objects collected
       from additional collectors beside the main collector for building
       the context.
-    * slim_center_box — Minimal width for the center box, containing
+    * slim_center_box: Minimal width for the center box, containing
       just the icon and the label. This is False if hierarchy was
       identified.
-    * display_port_labels — Display port labels on the diagram.
-    * port_label_position - Position of the port labels. See
+    * display_port_labels: Display port labels on the diagram.
+    * port_label_position: Position of the port labels. See
       [`PORT_LABEL_POSITION`][capellambse_context_diagrams.context._elkjs.PORT_LABEL_POSITION].
-    * transparent_background - Make the background transparent.
-    * display_unused_ports - Display ports that are not connected to an
+    * transparent_background: Make the background transparent.
+    * display_unused_ports: Display ports that are not connected to an
       edge.
-    * edge_direction - Reroute direction of edges.
-    * mode - Context collection mode.
+    * edge_direction: Reroute direction of edges.
+    * mode: Context collection mode.
     * display_actor_relation: Show the connections between the context
       actors.
     * hide_context_owner: Hide the context owner in the diagram.
@@ -283,11 +284,16 @@ class ContextDiagram(m.AbstractDiagram):
     * display_internal_relations: Show exchanges that connect to
       children of a box from the diagram. Only useful with ``BLACKBOX``
       mode.
+    * display_cyclic_relations: Show cyclic exchanges that connect
+      either the box of interest or a child with itself or a child.
+      Only useful with ``BLACKBOX`` mode and
+      ``display_cyclic_relations`` turned on.
 
     The following properties are used by the internal builders:
-    * collect - A callable that yields model elements from a given
+
+    * collect: A callable that yields model elements from a given
       context diagram.
-    * is_portless - Boolean flag, if the diagram is portless.
+    * is_portless: Boolean flag, if the diagram is portless.
     """
 
     _display_symbols_as_boxes: bool
@@ -308,6 +314,7 @@ class ContextDiagram(m.AbstractDiagram):
     _hide_functions: bool
     _display_functional_parent_relation: bool
     _display_internal_relations: bool
+    _display_cyclic_relations: bool
 
     _collect: cabc.Callable[[ContextDiagram], cabc.Iterator[m.ModelElement]]
     _is_portless: bool
@@ -347,7 +354,8 @@ class ContextDiagram(m.AbstractDiagram):
             "include_interface": True,
             "hide_functions": False,
             "display_functional_parent_relation": False,
-            "display_internal_relations": False,
+            "display_internal_relations": True,
+            "display_cyclic_relations": False,
         }
         if not _generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES.get(self.type, ()):
             render_params |= {
@@ -491,11 +499,11 @@ class InterfaceContextDiagram(ContextDiagram):
     -----
     The following render parameters are available:
 
-    * include_interface — Boolean flag to enable inclusion of the
+    * include_interface: Boolean flag to enable inclusion of the
       context diagram target: The interface ComponentExchange.
-    * include_port_allocations — Boolean flag to enable rendering of
+    * include_port_allocations: Boolean flag to enable rendering of
       port allocations.
-    * hide_functions — Boolean flag to enable white box view: Only
+    * hide_functions: Boolean flag to enable white box view: Only
       displaying Components or Entities.
 
 

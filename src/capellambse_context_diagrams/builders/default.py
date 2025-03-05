@@ -134,8 +134,6 @@ class DiagramBuilder:
         for elem in self.collection:
             if self.diagram._mode == enums.MODE.BLACKBOX:
                 self._make_blackbox_target(elem)
-            elif self.diagram._mode == enums.MODE.GRAYBOX:
-                self._make_graybox_target(elem)
             elif self.diagram._mode == enums.MODE.WHITEBOX:
                 self._make_whitebox_target(elem)
 
@@ -483,7 +481,7 @@ class DiagramBuilder:
         self.edges[edge_data.obj.uuid] = edge_data.edge
         return edge_data.edge
 
-    def _apply_unc_adjustment(
+    def _apply_internal_adjustment(
         self,
         edge_data: EdgeData,
         src_override: m.ModelElement,
@@ -516,36 +514,6 @@ class DiagramBuilder:
             return self._make_edge_and_ports(obj)
         return self._make_box(obj)
 
-    def _make_graybox_target(
-        self, obj: m.ModelElement
-    ) -> _elkjs.ELKInputChild | _elkjs.ELKInputEdge | None:
-        """In graybox mode, for edges the owners are adjusted using uncommon-owner logic."""
-        if self.diagram._is_portless:
-            return self._make_whitebox_target(obj)
-
-        if _is_edge(obj):
-            if self.edges.get(obj.uuid):
-                return None
-
-            edge_data = self._collect_edge_data(obj)
-
-            def get_unc(obj: m.ModelElement) -> m.ModelElement:
-                if self.boxable_target.uuid in _generic.get_all_owners(obj):
-                    return self.boxable_target
-                return get_top_uncommon_owner(obj, self.diagram_target_owners)
-
-            src_unc = get_unc(edge_data.source.owner)
-            tgt_unc = get_unc(edge_data.target.owner)
-            if src_unc.uuid == tgt_unc.uuid:  # Cycle:
-                return None
-
-            self._apply_unc_adjustment(
-                edge_data, src_unc, tgt_unc, type(obj).__name__
-            )
-            return self._update_edge_common(edge_data)
-
-        return self._make_box(obj)
-
     def _make_blackbox_target(self, obj: m.ModelElement) -> None:
         edge_data = self._collect_edge_data(obj)
 
@@ -567,15 +535,20 @@ class DiagramBuilder:
                 edge_data.target.owner, self.diagram_target_owners
             )
 
-        if (
-            not self.diagram._display_internal_relations
-            and src_override is not None
-            and src_override == tgt_override
-        ):
+        allow_internal = self.diagram._display_internal_relations
+        allow_cycle = self.diagram._display_cyclic_relations
+        cycle = self._is_cycle(src_override, tgt_override)
+        internal = self._is_external_internal(
+            src_override, tgt_override, edge_data
+        )
+        if (internal and not allow_internal) or (cycle and not allow_cycle):
+            return
+
+        if internal and not allow_internal:
             return
 
         if src_override or tgt_override:
-            self._apply_unc_adjustment(
+            self._apply_internal_adjustment(
                 edge_data,
                 src_override or edge_data.source.owner,
                 tgt_override or edge_data.target.owner,
@@ -584,6 +557,23 @@ class DiagramBuilder:
 
         self._make_edge_and_ports(obj, edge_data=edge_data)
         return
+
+    def _is_cycle(
+        self, source: m.ModelElement | None, target: m.ModelElement | None
+    ) -> bool:
+        return bool(source and source == target)
+
+    def _is_external_internal(
+        self,
+        source: m.ModelElement | None,
+        target: m.ModelElement | None,
+        edge_data: EdgeData,
+    ) -> bool:
+        """Check if edge connects to the inside of source or target."""
+        return bool(
+            (source and source.uuid != edge_data.source.owner.uuid)
+            or (target and target.uuid != edge_data.target.owner.uuid)
+        )
 
 
 def builder(

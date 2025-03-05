@@ -319,7 +319,7 @@ even cyclic internal relations are offered via:
           diagram.save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of Box-blackbox.svg" width="1000000">
+              <img src="assets/images/Context of Box-blackbox_with_internal_cycles.svg" width="1000000">
               <figcaption>Context diagram of Box PhysicalComponent with BLACKBOX mode and Cycle display</figcaption>
           </figure>
 

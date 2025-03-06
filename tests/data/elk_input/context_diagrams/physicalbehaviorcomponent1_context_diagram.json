@@ -1,0 +1,111 @@
+{
+    "id": "313f48f4-fb7e-47a8-b28a-76440932fcb9_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "2de65884-8c89-4c55-8941-4aa1a07b8d86",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
+            "labels": [
+                {
+                    "text": "Node Software",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 93,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "f61701c6-bfc2-4549-91d9-f76efaf0c9ee",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "CP 1",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "width": 109,
+            "height": 36
+        },
+        {
+            "id": "313f48f4-fb7e-47a8-b28a-76440932fcb9",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
+            "labels": [
+                {
+                    "text": "PC Software",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 83,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "db2d7b36-8144-4ec7-8673-206faaf4590e",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "CP 1",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "width": 109,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "25f46b82-1bb8-495a-b6bc-3ad086aad02e",
+            "sources": [
+                "db2d7b36-8144-4ec7-8673-206faaf4590e"
+            ],
+            "targets": [
+                "f61701c6-bfc2-4549-91d9-f76efaf0c9ee"
+            ],
+            "labels": [
+                {
+                    "text": "Interface",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 73,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,205 @@
+{
+    "id": "9390b7d5-598a-42db-bef8-23677e45ba06_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "labels": [
+                {
+                    "text": "Capability",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 78,
+                    "height": 12
+                }
+            ],
+            "width": 84,
+            "height": 49.0
+        },
+        {
+            "id": "562c5128-5acd-45cc-8b49-1d8d686f450a",
+            "labels": [
+                {
+                    "text": "Capsoup",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 63,
+                    "height": 12
+                }
+            ],
+            "width": 69,
+            "height": 36
+        },
+        {
+            "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "labels": [
+                {
+                    "text": "Kevin Spacey",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ],
+            "width": 94,
+            "height": 36
+        },
+        {
+            "id": "da12377b-fb70-4441-8faa-3a5c153c5de2",
+            "labels": [
+                {
+                    "text": "Affleck",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 63,
+                    "height": 12
+                }
+            ],
+            "width": 69,
+            "height": 36
+        },
+        {
+            "id": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+            "labels": [
+                {
+                    "text": "Top secret",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 78,
+                    "height": 12
+                }
+            ],
+            "width": 84,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "41cf3250-187b-44ab-9e7e-7c0d1fd12f8a",
+            "sources": [
+                "9390b7d5-598a-42db-bef8-23677e45ba06"
+            ],
+            "targets": [
+                "9390b7d5-598a-42db-bef8-23677e45ba06"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab includes \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "992c4ba5-0165-470d-b2d0-f117e00a645c",
+            "sources": [
+                "9390b7d5-598a-42db-bef8-23677e45ba06"
+            ],
+            "targets": [
+                "562c5128-5acd-45cc-8b49-1d8d686f450a"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab extends \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 83,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "504c92c4-dc31-4065-9a82-31f277e59acb",
+            "sources": [
+                "9390b7d5-598a-42db-bef8-23677e45ba06"
+            ],
+            "targets": [
+                "562c5128-5acd-45cc-8b49-1d8d686f450a"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab specializes \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 103,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "30f5613f-9611-4b36-9f46-aacfa00c687a",
+            "sources": [
+                "9390b7d5-598a-42db-bef8-23677e45ba06"
+            ],
+            "targets": [
+                "344a405e-c7e5-4367-8a9a-41d3d9a27f81"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "8f1d649c-8ac7-4ed1-b8c1-06faaf5c0eac",
+            "sources": [
+                "9390b7d5-598a-42db-bef8-23677e45ba06"
+            ],
+            "targets": [
+                "da12377b-fb70-4441-8faa-3a5c153c5de2"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "4513c8cd-b94b-4bde-bd00-4c18aaf600ff",
+            "sources": [
+                "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6"
+            ],
+            "targets": [
+                "9390b7d5-598a-42db-bef8-23677e45ba06"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab exploits \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

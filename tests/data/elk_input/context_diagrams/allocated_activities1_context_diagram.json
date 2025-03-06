@@ -1,0 +1,268 @@
+{
+    "id": "097bb133-abf3-4df0-ae4e-a28378537691_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "8c43d858-bab3-4d1d-afe0-71946d856e24",
+            "children": [
+                {
+                    "id": "56f47e3e-104a-479f-8226-e149bc18481c",
+                    "labels": [
+                        {
+                            "text": "Notify customer of",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 118,
+                            "height": 12
+                        },
+                        {
+                            "text": "upcoming delivery",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 113,
+                            "height": 12
+                        }
+                    ],
+                    "width": 124,
+                    "height": 50
+                },
+                {
+                    "id": "7548f5c0-ceac-4f92-a497-cf0e00405a4a",
+                    "labels": [
+                        {
+                            "text": "Reroute to neighbor",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 123,
+                            "height": 12
+                        }
+                    ],
+                    "width": 129,
+                    "height": 36
+                },
+                {
+                    "id": "f236bb9a-0cae-482b-896f-54021e2d23f6",
+                    "labels": [
+                        {
+                            "text": "Reschedule delivery",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 123,
+                            "height": 12
+                        }
+                    ],
+                    "width": 129,
+                    "height": 36
+                },
+                {
+                    "id": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+                    "labels": [
+                        {
+                            "text": "Prepare delivery",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 108,
+                            "height": 12
+                        }
+                    ],
+                    "width": 114,
+                    "height": 36
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Smart warehouse",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 103,
+                    "height": 12
+                }
+            ],
+            "width": 109,
+            "height": 36
+        },
+        {
+            "id": "6329094a-99cc-4d39-a8d6-31e9a8eb4066",
+            "children": [
+                {
+                    "id": "86df271e-7c42-4067-b6fd-1161c3e11891",
+                    "labels": [
+                        {
+                            "text": "Receive a package for customer",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 178,
+                            "height": 12
+                        }
+                    ],
+                    "width": 184,
+                    "height": 36
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Neighbor",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ],
+            "width": 74,
+            "height": 36
+        },
+        {
+            "id": "2668c01d-8ba8-47a9-9acb-33616bcc088d",
+            "children": [
+                {
+                    "id": "097bb133-abf3-4df0-ae4e-a28378537691",
+                    "labels": [
+                        {
+                            "text": "Confirm availability",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 128,
+                            "height": 12
+                        },
+                        {
+                            "text": "for delivery",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 88,
+                            "height": 12
+                        }
+                    ],
+                    "width": 134,
+                    "height": 50
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Customer",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ],
+            "width": 74,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "637b02b5-f26d-47e1-94e1-c1cc7bcba150",
+            "sources": [
+                "097bb133-abf3-4df0-ae4e-a28378537691"
+            ],
+            "targets": [
+                "56f47e3e-104a-479f-8226-e149bc18481c"
+            ],
+            "labels": [
+                {
+                    "text": "upcoming delivery notification",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 178,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "75ef0e4e-733c-4559-ad89-90d582f9134c",
+            "sources": [
+                "097bb133-abf3-4df0-ae4e-a28378537691"
+            ],
+            "targets": [
+                "86df271e-7c42-4067-b6fd-1161c3e11891"
+            ],
+            "labels": [
+                {
+                    "text": "receive package request",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 143,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "ed43bfdd-1bc1-4c19-9e07-28bb6d41d130",
+            "sources": [
+                "097bb133-abf3-4df0-ae4e-a28378537691"
+            ],
+            "targets": [
+                "7548f5c0-ceac-4f92-a497-cf0e00405a4a"
+            ],
+            "labels": [
+                {
+                    "text": "reroute request",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 103,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "7439ea66-2562-422d-a5f2-85438c744124",
+            "sources": [
+                "097bb133-abf3-4df0-ae4e-a28378537691"
+            ],
+            "targets": [
+                "f236bb9a-0cae-482b-896f-54021e2d23f6"
+            ],
+            "labels": [
+                {
+                    "text": "alternative delivery date request",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 193,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "54364f74-f566-4744-bb4e-b96eebcadfc1",
+            "sources": [
+                "097bb133-abf3-4df0-ae4e-a28378537691"
+            ],
+            "targets": [
+                "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36"
+            ],
+            "labels": [
+                {
+                    "text": "availability confirmation",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 153,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

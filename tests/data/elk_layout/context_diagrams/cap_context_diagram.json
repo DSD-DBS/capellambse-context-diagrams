@@ -1,0 +1,356 @@
+{
+    "id": "9390b7d5-598a-42db-bef8-23677e45ba06_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "position": {
+                "x": 226,
+                "y": 102.8
+            },
+            "size": {
+                "width": 84,
+                "height": 49
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 18.5
+                    },
+                    "size": {
+                        "width": 78,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Capability"
+                }
+            ]
+        },
+        {
+            "id": "562c5128-5acd-45cc-8b49-1d8d686f450a",
+            "position": {
+                "x": 475,
+                "y": 68
+            },
+            "size": {
+                "width": 69,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 63,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Capsoup"
+                }
+            ]
+        },
+        {
+            "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "position": {
+                "x": 475,
+                "y": 124
+            },
+            "size": {
+                "width": 94,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Kevin Spacey"
+                }
+            ]
+        },
+        {
+            "id": "da12377b-fb70-4441-8faa-3a5c153c5de2",
+            "position": {
+                "x": 475,
+                "y": 12
+            },
+            "size": {
+                "width": 69,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 63,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Affleck"
+                }
+            ]
+        },
+        {
+            "id": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+            "position": {
+                "x": 12,
+                "y": 109.3
+            },
+            "size": {
+                "width": 84,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 78,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Top secret"
+                }
+            ]
+        },
+        {
+            "id": "41cf3250-187b-44ab-9e7e-7c0d1fd12f8a",
+            "type": "edge",
+            "sourceId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "targetId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "routingPoints": [
+                {
+                    "x": 254,
+                    "y": 102.8
+                },
+                {
+                    "x": 254,
+                    "y": 92.8
+                },
+                {
+                    "x": 282,
+                    "y": 92.8
+                },
+                {
+                    "x": 282,
+                    "y": 102.8
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 224,
+                        "y": 78.8
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab includes \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "992c4ba5-0165-470d-b2d0-f117e00a645c",
+            "type": "edge",
+            "sourceId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "targetId": "562c5128-5acd-45cc-8b49-1d8d686f450a",
+            "routingPoints": [
+                {
+                    "x": 310,
+                    "y": 132.2
+                },
+                {
+                    "x": 342,
+                    "y": 132.2
+                },
+                {
+                    "x": 342,
+                    "y": 92
+                },
+                {
+                    "x": 475,
+                    "y": 92
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 362,
+                        "y": 95
+                    },
+                    "size": {
+                        "width": 83,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab extends \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "504c92c4-dc31-4065-9a82-31f277e59acb",
+            "type": "edge",
+            "sourceId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "targetId": "562c5128-5acd-45cc-8b49-1d8d686f450a",
+            "routingPoints": [
+                {
+                    "x": 310,
+                    "y": 122.4
+                },
+                {
+                    "x": 332,
+                    "y": 122.4
+                },
+                {
+                    "x": 332,
+                    "y": 66
+                },
+                {
+                    "x": 465,
+                    "y": 66
+                },
+                {
+                    "x": 465,
+                    "y": 80
+                },
+                {
+                    "x": 475,
+                    "y": 80
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 352,
+                        "y": 69
+                    },
+                    "size": {
+                        "width": 103,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab specializes \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "30f5613f-9611-4b36-9f46-aacfa00c687a",
+            "type": "edge",
+            "sourceId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "targetId": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "routingPoints": [
+                {
+                    "x": 310,
+                    "y": 142
+                },
+                {
+                    "x": 475,
+                    "y": 142
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 359.5,
+                        "y": 145
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab involves \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "8f1d649c-8ac7-4ed1-b8c1-06faaf5c0eac",
+            "type": "edge",
+            "sourceId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "targetId": "da12377b-fb70-4441-8faa-3a5c153c5de2",
+            "routingPoints": [
+                {
+                    "x": 310,
+                    "y": 112.6
+                },
+                {
+                    "x": 322,
+                    "y": 112.6
+                },
+                {
+                    "x": 322,
+                    "y": 30
+                },
+                {
+                    "x": 475,
+                    "y": 30
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 359.5,
+                        "y": 33
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab involves \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "4513c8cd-b94b-4bde-bd00-4c18aaf600ff",
+            "type": "edge",
+            "sourceId": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+            "targetId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "routingPoints": [
+                {
+                    "x": 96,
+                    "y": 127.3
+                },
+                {
+                    "x": 226,
+                    "y": 127.3
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 116,
+                        "y": 130.3
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab exploits \u00bb"
+                }
+            ]
+        }
+    ]
+}

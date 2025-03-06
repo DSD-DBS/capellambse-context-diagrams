@@ -1,0 +1,371 @@
+{
+    "id": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "2668c01d-8ba8-47a9-9acb-33616bcc088d",
+            "children": [
+                {
+                    "id": "097bb133-abf3-4df0-ae4e-a28378537691",
+                    "labels": [
+                        {
+                            "text": "Confirm availability",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 128,
+                            "height": 12
+                        },
+                        {
+                            "text": "for delivery",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 88,
+                            "height": 12
+                        }
+                    ],
+                    "width": 134,
+                    "height": 50
+                },
+                {
+                    "id": "93009deb-9b57-4413-8d70-3877b39125cf",
+                    "labels": [
+                        {
+                            "text": "Retrieve package",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 108,
+                            "height": 12
+                        }
+                    ],
+                    "width": 114,
+                    "height": 36
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Customer",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ],
+            "width": 74,
+            "height": 36
+        },
+        {
+            "id": "41bce8af-577d-41a1-abce-2cc74c021713",
+            "labels": [
+                {
+                    "text": "Provide warehouse status",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 148,
+                    "height": 12
+                }
+            ],
+            "width": 154,
+            "height": 36
+        },
+        {
+            "id": "8c43d858-bab3-4d1d-afe0-71946d856e24",
+            "children": [
+                {
+                    "id": "7000b811-c8e8-4060-8f60-c87462046057",
+                    "children": [
+                        {
+                            "id": "2b7515a7-aed4-4272-ba3a-5263735532b6",
+                            "labels": [
+                                {
+                                    "text": "Retrieve package",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 108,
+                                    "height": 12
+                                }
+                            ],
+                            "width": 114,
+                            "height": 36
+                        }
+                    ],
+                    "labels": [
+                        {
+                            "text": "Loading Bot",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                            },
+                            "width": 83,
+                            "height": 12
+                        }
+                    ],
+                    "width": 109,
+                    "height": 36
+                },
+                {
+                    "id": "c90f731b-0036-47e5-a455-9cf270d6880c",
+                    "labels": [
+                        {
+                            "text": "Estimate required",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 113,
+                            "height": 12
+                        },
+                        {
+                            "text": "power and select a",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 118,
+                            "height": 12
+                        },
+                        {
+                            "text": "delivery bot with",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 113,
+                            "height": 12
+                        },
+                        {
+                            "text": "enough battery",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 98,
+                            "height": 12
+                        }
+                    ],
+                    "width": 124,
+                    "height": 78
+                },
+                {
+                    "id": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+                    "labels": [
+                        {
+                            "text": "Prepare delivery",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 108,
+                            "height": 12
+                        }
+                    ],
+                    "width": 114,
+                    "height": 49.0
+                }
+            ],
+            "edges": [
+                {
+                    "id": "cc0a5fe7-2e28-4721-a9d1-c434f38e5a22",
+                    "sources": [
+                        "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36"
+                    ],
+                    "targets": [
+                        "2b7515a7-aed4-4272-ba3a-5263735532b6"
+                    ],
+                    "labels": [
+                        {
+                            "text": "package details",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 103,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "8db45fd9-fc53-4eec-857f-e642864985d9",
+                    "sources": [
+                        "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36"
+                    ],
+                    "targets": [
+                        "c90f731b-0036-47e5-a455-9cf270d6880c"
+                    ],
+                    "labels": [
+                        {
+                            "text": "delivery address",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 108,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Smart warehouse",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 103,
+                    "height": 12
+                }
+            ],
+            "width": 109,
+            "height": 36
+        },
+        {
+            "id": "9e7eb78b-f4ad-4762-9f5c-d6f60630b10e",
+            "children": [
+                {
+                    "id": "a325cfe4-2cd5-4c1a-9a0a-e4e2dff82f92",
+                    "labels": [
+                        {
+                            "text": "Store package",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 93,
+                            "height": 12
+                        }
+                    ],
+                    "width": 99,
+                    "height": 36
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Delivery Bot",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ],
+            "width": 94,
+            "height": 36
+        },
+        {
+            "id": "dc1f0a7e-0508-4457-9f9f-77fb85f2e897",
+            "labels": [
+                {
+                    "text": "Record delivery plan",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 128,
+                    "height": 12
+                }
+            ],
+            "width": 134,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "54364f74-f566-4744-bb4e-b96eebcadfc1",
+            "sources": [
+                "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36"
+            ],
+            "targets": [
+                "097bb133-abf3-4df0-ae4e-a28378537691"
+            ],
+            "labels": [
+                {
+                    "text": "availability confirmation",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 153,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "640dda9f-f968-4b0d-aaf5-ebcc0aa2af1b",
+            "sources": [
+                "41bce8af-577d-41a1-abce-2cc74c021713"
+            ],
+            "targets": [
+                "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36"
+            ],
+            "labels": [
+                {
+                    "text": "package readyness status",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 148,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "9987fa03-b1e0-4e8d-9649-074bbed9f93d",
+            "sources": [
+                "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36"
+            ],
+            "targets": [
+                "a325cfe4-2cd5-4c1a-9a0a-e4e2dff82f92"
+            ],
+            "labels": [
+                {
+                    "text": "storage lock code",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 113,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "c22f7c0f-f00d-4861-bda4-34216881bf89",
+            "sources": [
+                "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36"
+            ],
+            "targets": [
+                "93009deb-9b57-4413-8d70-3877b39125cf"
+            ],
+            "labels": [
+                {
+                    "text": "storage lock code",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 113,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "82ce4911-d905-415a-9dbd-31400d85f7a4",
+            "sources": [
+                "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36"
+            ],
+            "targets": [
+                "dc1f0a7e-0508-4457-9f9f-77fb85f2e897"
+            ],
+            "labels": [
+                {
+                    "text": "delivery plan",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 93,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

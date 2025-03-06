@@ -14,9 +14,9 @@ import typing as t
 from itertools import chain
 
 import capellambse.model as m
+from capellambse.metamodel import cs, fa
 
-from .. import _elkjs
-from . import custom, generic
+from . import _generic
 
 if t.TYPE_CHECKING:
     from .. import context
@@ -28,53 +28,105 @@ if t.TYPE_CHECKING:
 
 
 def collector(
-    diagram: context.ContextDiagram, params: dict[str, t.Any]
-) -> _elkjs.ELKInputData:
-    """Collect context data from ports of centric box."""
-    visited: set[str] = set()
-    outside_components: dict[str, m.ModelElement] = {}
+    diagram: context.ContextDiagram,
+) -> cabc.Iterator[m.ModelElement]:
+    """Collect context data from exchanges of centric box."""
+    visited_comps: set[str] = set()
+    visited_ports: set[str] = set()
+    visited_exchanges: set[str] = set()
+
+    stack: list[tuple[str, m.ModelElement]] = []
+    stack.append(("comp", diagram.target))
+
+    while stack:
+        kind, current = stack.pop()
+
+        if kind == "comp":
+            if current.uuid in visited_comps:
+                continue
+            visited_comps.add(current.uuid)
+
+            inc, out = _generic.port_collector(current, diagram.type)
+            for port in chain(inc.values(), out.values()):
+                if (
+                    port.uuid not in visited_ports
+                    and diagram.target.uuid
+                    in set(_generic.get_all_owners(port))
+                ):
+                    visited_ports.add(port.uuid)
+                    stack.append(("port", port))
+
+            child_attr = get_child_attribute_name(current)
+            for child in getattr(current, child_attr, []):
+                if child.uuid not in visited_comps:
+                    stack.append(("comp", child))
+
+        elif kind == "port":
+            for ex in port_context_collector(current):
+                if ex.uuid in visited_exchanges:
+                    continue
+
+                source_visited = ex.source.uuid in visited_ports
+                target_visited = ex.target.uuid in visited_ports
+                if source_visited and not target_visited:
+                    visited_exchanges.add(ex.uuid)
+                    yield ex
+                    visited_ports.add(ex.target.uuid)
+                    stack.append(("port", ex.target))
+                    if ex.target.owner.uuid not in visited_comps:
+                        stack.append(("comp", ex.target.owner))
+                elif target_visited and not source_visited:
+                    visited_exchanges.add(ex.uuid)
+                    yield ex
+                    visited_ports.add(ex.source.uuid)
+                    stack.append(("port", ex.source))
+                    if ex.source.owner.uuid not in visited_comps:
+                        stack.append(("comp", ex.source.owner))
+                elif source_visited and target_visited:
+                    visited_exchanges.add(ex.uuid)
+                    yield ex
+
+
+def get_child_attribute_name(target: m.ModelElement) -> str:
+    if isinstance(target, cs.Component):
+        return "components"
+    if isinstance(target, fa.Function):
+        return "functions"
+    return ""
+
+
+def get_port_exchange_attribute_name(target: m.ModelElement) -> str:
+    if isinstance(target, cs.PhysicalPort):
+        return "links"
+    if isinstance(target, fa.FunctionPort | fa.ComponentPort):
+        return "exchanges"
+    return ""
+
+
+def port_context_collector(
+    obj: context.ContextDiagram | m.ModelElement,
+) -> cabc.Iterator[fa.AbstractExchange]:
+    """Collect context data from a physical port."""
+    ports = set()
+    links = set()
 
     def _collect(
         target: m.ModelElement,
-        filter: Filter = lambda i: i,
     ) -> cabc.Iterator[m.ModelElement]:
-        if target.uuid in visited:
+        if target.uuid in ports:
             return
-        visited.add(target.uuid)
+        ports.add(target.uuid)
+        exchange_attribute_name = get_port_exchange_attribute_name(target)
+        for link in getattr(target, exchange_attribute_name, []):
+            if link.uuid in links:
+                continue
+            links.add(link.uuid)
+            yield link
+            yield from _collect(link.source)
+            yield from _collect(link.target)
 
-        inc, out = generic.port_collector(target, diagram.type)
-        ports = generic.port_exchange_collector(
-            (inc | out).values(), filter=filter
-        )
-        exchanges = chain.from_iterable(ports.values())
-        for ex in exchanges:
-            yield ex
-            if ex.source.uuid in ports and ex.target.uuid not in ports:
-                outside_components[ex.target.owner.uuid] = ex.target.owner
-            elif ex.target.uuid in ports and ex.source.uuid not in ports:
-                outside_components[ex.source.owner.uuid] = ex.source.owner
+    if isinstance(obj, m.ModelElement):
+        yield from _collect(obj)  # type: ignore[misc]
+        return
 
-        if diagram._include_children_context or diagram._blackbox:
-            for cmp in list(getattr(target, "components", [])):
-                yield from _collect(cmp)
-
-    def _collect_extended_context(
-        target: m.ModelElement,
-    ) -> cabc.Iterator[m.ModelElement]:
-        yield from _collect(target)
-        if not diagram._display_actor_relation:
-            return
-        oc_copy = outside_components.copy()
-        for cmp in oc_copy.values():
-            yield from _collect(
-                cmp,
-                filter=lambda items: (
-                    item
-                    for item in items
-                    if item.source.owner.uuid in oc_copy
-                    and item.target.owner.uuid in oc_copy
-                ),
-            )
-
-    diagram._collect = _collect_extended_context(diagram.target)
-    return custom.CustomCollector(diagram, params=params)()
+    yield from _collect(obj.target)  # type: ignore[misc]

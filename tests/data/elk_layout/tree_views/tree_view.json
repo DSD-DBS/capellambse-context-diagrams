@@ -1,0 +1,460 @@
+{
+    "id": "b7c7f442-377f-492c-90bf-331e66988bda_tree_view",
+    "type": "graph",
+    "children": [
+        {
+            "id": "b7c7f442-377f-492c-90bf-331e66988bda",
+            "position": {
+                "x": 43.5,
+                "y": 12
+            },
+            "size": {
+                "width": 194,
+                "height": 136
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 73,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Root"
+                },
+                {
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                },
+                {
+                    "position": {
+                        "x": 25.5,
+                        "y": 26
+                    },
+                    "size": {
+                        "width": 143,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "[1..*] example: Example"
+                },
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 38
+                    },
+                    "size": {
+                        "width": 188,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "[0..1] enum_example: EnumExample"
+                },
+                {
+                    "position": {
+                        "x": 28,
+                        "y": 50
+                    },
+                    "size": {
+                        "width": 138,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "another: EnumExample_1"
+                },
+                {
+                    "position": {
+                        "x": 18,
+                        "y": 62
+                    },
+                    "size": {
+                        "width": 158,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "another_one: EnumExample_2"
+                },
+                {
+                    "position": {
+                        "x": 8,
+                        "y": 74
+                    },
+                    "size": {
+                        "width": 178,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "another_one_one: EnumExample_3"
+                },
+                {
+                    "position": {
+                        "x": 25.5,
+                        "y": 86
+                    },
+                    "size": {
+                        "width": 143,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "last_one: EnumExample_4"
+                },
+                {
+                    "position": {
+                        "x": 15.5,
+                        "y": 98
+                    },
+                    "size": {
+                        "width": 163,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "primitiveExample: Primitive"
+                }
+            ]
+        },
+        {
+            "id": "0093ffdd-ab4d-4c87-971d-0c2fc1a0b094",
+            "position": {
+                "x": 67.5,
+                "y": 200.75
+            },
+            "size": {
+                "width": 49,
+                "height": 38
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 43,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "One"
+                },
+                {
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                }
+            ]
+        },
+        {
+            "id": "1dccccde-6ab1-47ac-8ee8-a3033a49a9e5",
+            "position": {
+                "x": 168.25,
+                "y": 200.75
+            },
+            "size": {
+                "width": 49,
+                "height": 38
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 43,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Two"
+                },
+                {
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                }
+            ]
+        },
+        {
+            "id": "322dc599-ea72-49e9-8e37-fe5226e41f19",
+            "position": {
+                "x": 80.25,
+                "y": 290.7833333333333
+            },
+            "size": {
+                "width": 169,
+                "height": 52
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 58,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 53,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Three"
+                },
+                {
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                },
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 20
+                    },
+                    "size": {
+                        "width": 163,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "primitiveExample: Primitive"
+                }
+            ]
+        },
+        {
+            "id": "37ae6942-cbbc-4e2a-acad-10fbdceb8d56",
+            "position": {
+                "x": 105.25,
+                "y": 394.7833333333333
+            },
+            "size": {
+                "width": 119,
+                "height": 52
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 35.5,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "five"
+                },
+                {
+                    "position": {
+                        "x": 0,
+                        "y": 0
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                },
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 20
+                    },
+                    "size": {
+                        "width": 113,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "fi: EnumExample_5"
+                }
+            ]
+        },
+        {
+            "id": "11d42718-70a0-455b-af59-dbf87d50a885",
+            "type": "edge",
+            "sourceId": "b7c7f442-377f-492c-90bf-331e66988bda",
+            "targetId": "0093ffdd-ab4d-4c87-971d-0c2fc1a0b094",
+            "routingPoints": [
+                {
+                    "x": 92,
+                    "y": 148
+                },
+                {
+                    "x": 92,
+                    "y": 168.75
+                },
+                {
+                    "x": 92,
+                    "y": 200.75
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 12,
+                        "y": 168.75
+                    },
+                    "size": {
+                        "width": 78,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "[1..*] one"
+                }
+            ]
+        },
+        {
+            "id": "23211949-9b66-4033-93f9-a40bf103d519",
+            "type": "edge",
+            "sourceId": "b7c7f442-377f-492c-90bf-331e66988bda",
+            "targetId": "1dccccde-6ab1-47ac-8ee8-a3033a49a9e5",
+            "routingPoints": [
+                {
+                    "x": 189,
+                    "y": 148
+                },
+                {
+                    "x": 192.75,
+                    "y": 168.75
+                },
+                {
+                    "x": 192.75,
+                    "y": 200.75
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 147.75,
+                        "y": 168.75
+                    },
+                    "size": {
+                        "width": 43,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "two"
+                }
+            ]
+        },
+        {
+            "id": "1de298dd-ccef-4505-9a5e-1aa792f2eb19",
+            "type": "edge",
+            "sourceId": "1dccccde-6ab1-47ac-8ee8-a3033a49a9e5",
+            "targetId": "322dc599-ea72-49e9-8e37-fe5226e41f19",
+            "routingPoints": [
+                {
+                    "x": 192.75,
+                    "y": 238.75
+                },
+                {
+                    "x": 192.75,
+                    "y": 258.75
+                },
+                {
+                    "x": 192.91666666666669,
+                    "y": 290.7833333333333
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 195.75,
+                        "y": 258.75
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "[0..1] three"
+                }
+            ]
+        },
+        {
+            "id": "58b887af-7fe4-4b52-b877-268ea5ca9417",
+            "type": "edge",
+            "sourceId": "322dc599-ea72-49e9-8e37-fe5226e41f19",
+            "targetId": "37ae6942-cbbc-4e2a-acad-10fbdceb8d56",
+            "routingPoints": [
+                {
+                    "x": 164.75,
+                    "y": 342.7833333333333
+                },
+                {
+                    "x": 164.75,
+                    "y": 362.7833333333333
+                },
+                {
+                    "x": 164.75,
+                    "y": 394.7833333333333
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 114.75,
+                        "y": 362.7833333333333
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "five"
+                }
+            ]
+        },
+        {
+            "id": "a8828afb-fa24-44a8-942e-2665dbcf9405",
+            "type": "edge",
+            "sourceId": "322dc599-ea72-49e9-8e37-fe5226e41f19",
+            "targetId": "b7c7f442-377f-492c-90bf-331e66988bda",
+            "routingPoints": [
+                {
+                    "x": 136.58333333333334,
+                    "y": 290.7833333333333
+                },
+                {
+                    "x": 136.75,
+                    "y": 168.75
+                },
+                {
+                    "x": 140.5,
+                    "y": 148
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,476 @@
+{
+    "id": "b7c7f442-377f-492c-90bf-331e66988bda_tree_view",
+    "type": "graph",
+    "children": [
+        {
+            "id": "861ff9e8-295d-43ae-a8eb-d77769879c9f",
+            "position": {
+                "x": 15,
+                "y": 15
+            },
+            "size": {
+                "width": 71,
+                "height": 58
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 5,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 61,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "EnumExample"
+                },
+                {
+                    "position": {
+                        "x": 35.5,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                },
+                {
+                    "position": {
+                        "x": 15,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 41,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "DEFAULT"
+                },
+                {
+                    "position": {
+                        "x": 15,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 41,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "VALUE A"
+                }
+            ]
+        },
+        {
+            "id": "d32f721c-d5b2-452e-ac2d-3bfc789e0da3",
+            "position": {
+                "x": 101,
+                "y": 15
+            },
+            "size": {
+                "width": 81,
+                "height": 106
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 5,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 71,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "EnumExample_1"
+                },
+                {
+                    "position": {
+                        "x": 40.5,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                },
+                {
+                    "position": {
+                        "x": 15,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 51,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "DEFAULT_1"
+                },
+                {
+                    "position": {
+                        "x": 15,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 51,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "VALUE A_1"
+                },
+                {
+                    "position": {
+                        "x": 20,
+                        "y": 41
+                    },
+                    "size": {
+                        "width": 41,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "VALUE B"
+                },
+                {
+                    "position": {
+                        "x": 20,
+                        "y": 53
+                    },
+                    "size": {
+                        "width": 41,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "VALUE C"
+                },
+                {
+                    "position": {
+                        "x": 20,
+                        "y": 65
+                    },
+                    "size": {
+                        "width": 41,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "VALUE D"
+                },
+                {
+                    "position": {
+                        "x": 20,
+                        "y": 77
+                    },
+                    "size": {
+                        "width": 41,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "VALUE E"
+                }
+            ]
+        },
+        {
+            "id": "2d646411-731b-4e6d-a90b-6ea04abecc4b",
+            "position": {
+                "x": 197,
+                "y": 15
+            },
+            "size": {
+                "width": 81,
+                "height": 58
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 5,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 71,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "EnumExample_2"
+                },
+                {
+                    "position": {
+                        "x": 40.5,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                },
+                {
+                    "position": {
+                        "x": 15,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 51,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "DEFAULT_2"
+                },
+                {
+                    "position": {
+                        "x": 15,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 51,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "VALUE A_2"
+                }
+            ]
+        },
+        {
+            "id": "d5623fcf-dad9-48a5-a649-f2c791ac98c8",
+            "position": {
+                "x": 15,
+                "y": 136
+            },
+            "size": {
+                "width": 81,
+                "height": 58
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 5,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 71,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "EnumExample_3"
+                },
+                {
+                    "position": {
+                        "x": 40.5,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                },
+                {
+                    "position": {
+                        "x": 15,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 51,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "DEFAULT_3"
+                },
+                {
+                    "position": {
+                        "x": 15,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 51,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "VALUE A_3"
+                }
+            ]
+        },
+        {
+            "id": "1f6a60f6-0563-44c4-a0c0-fa24378f1bd4",
+            "position": {
+                "x": 111,
+                "y": 136
+            },
+            "size": {
+                "width": 81,
+                "height": 58
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 5,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 71,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "EnumExample_4"
+                },
+                {
+                    "position": {
+                        "x": 40.5,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                },
+                {
+                    "position": {
+                        "x": 15,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 51,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "DEFAULT_4"
+                },
+                {
+                    "position": {
+                        "x": 15,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 51,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "VALUE A_4"
+                }
+            ]
+        },
+        {
+            "id": "cdfea28e-21a8-4643-81e4-cea184756733",
+            "position": {
+                "x": 207,
+                "y": 136
+            },
+            "size": {
+                "width": 126,
+                "height": 46
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 37.5,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 51,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Primitive"
+                },
+                {
+                    "position": {
+                        "x": 63,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                },
+                {
+                    "position": {
+                        "x": 5,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 116,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "[1..*] ex: EnumExample"
+                }
+            ]
+        },
+        {
+            "id": "96e696c3-cd4a-481d-a3e5-f5ecbce9233c",
+            "position": {
+                "x": 15,
+                "y": 209
+            },
+            "size": {
+                "width": 81,
+                "height": 58
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 5,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 71,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "EnumExample_5"
+                },
+                {
+                    "position": {
+                        "x": 40.5,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 0,
+                        "height": 0
+                    },
+                    "type": "label",
+                    "text": ""
+                },
+                {
+                    "position": {
+                        "x": 15,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 51,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "DEFAULT_5"
+                },
+                {
+                    "position": {
+                        "x": 15,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 51,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "VALUE A_5"
+                }
+            ]
+        }
+    ]
+}

@@ -39,4 +39,6 @@ Copyright and license information added and maintained via the reuse tool from [
 
 ***Copyright (c) 2021 Kiel University and others, ELK/Sprotty contributions ([elkgraph-json.js](https://github.com/DSD-DBS/capellambse-context-diagrams/blob/master/capellambse_context_diagrams/elkgraph-json.js) & [elkgraph-to-sprotty.js](https://github.com/DSD-DBS/capellambse-context-diagrams/blob/master/capellambse_context_diagrams/elkgraph-to-sprotty.js)) licensed under EPL-2.0***
 
+***Copyright denoland/deno, the deno runtime used in the distributed assets on releases (deno)(https://deno.com/) licensed under MIT***
+
 ***Dot-files licensed under CC0-1.0 (see full text in [LICENSES/CC0-1.0](https://github.com/DSD-DBS/capellambse-context-diagrams/blob/master/LICENSES/CC0-1.0.txt))***

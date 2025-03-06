@@ -1,0 +1,394 @@
+{
+    "id": "c78b5d7c-be0c-4ed4-9d12-d447cb39304e_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "db2d86d7-48ee-478b-a6fc-d6387ab0032e",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
+            "labels": [
+                {
+                    "text": "Camera Firmware",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 103,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "43b6cfff-89ab-4777-ac72-ce9de12626a8",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "CP 2",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "width": 109,
+            "height": 36
+        },
+        {
+            "id": "09e19313-c824-467f-9fb5-95ed8b4e2d51",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
+            "labels": [
+                {
+                    "text": "Card 2 OS",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 73,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "d96c7025-9080-4790-99f4-e1fe68543e8c",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "CP 1",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "width": 109,
+            "height": 36
+        },
+        {
+            "id": "ca5af12c-5259-4844-aaac-9ca9f84aa90b",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
+            "labels": [
+                {
+                    "text": "App 2 SWC",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 73,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "7e56e3c5-341d-4144-92e0-8aceb67581cc",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "CP 1",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "width": 109,
+            "height": 36
+        },
+        {
+            "id": "b80a6fcc-8d35-4675-a2e6-60efcbd61e27",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
+            "labels": [
+                {
+                    "text": "App 1 SWC",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 73,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "c848495c-b3db-48ce-bf53-bac08440b6df",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "CP 2",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "width": 109,
+            "height": 36
+        },
+        {
+            "id": "7b188ad0-0d82-4b2c-9913-45292e537871",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
+            "labels": [
+                {
+                    "text": "Card 1 OS",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 73,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "c0645cb3-a9bc-4330-90aa-ab211d5091c4",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "CP 1",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "width": 109,
+            "height": 36
+        },
+        {
+            "id": "c78b5d7c-be0c-4ed4-9d12-d447cb39304e",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
+            "labels": [
+                {
+                    "text": "Switch Firmware",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 103,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "c014f9ce-eb57-42ed-96f4-42072d4e8827",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "CP 3",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "4c37367f-9098-4fd4-a60c-4807b03976f2",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "CP 2",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "debe5e5c-c234-4f20-b04f-213f826eac1e",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "CP 1",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "width": 109,
+            "height": 66.0
+        }
+    ],
+    "edges": [
+        {
+            "id": "90e2a02f-3bd4-4d77-b16a-22a8a5a9c9eb",
+            "sources": [
+                "c014f9ce-eb57-42ed-96f4-42072d4e8827"
+            ],
+            "targets": [
+                "43b6cfff-89ab-4777-ac72-ce9de12626a8"
+            ],
+            "labels": [
+                {
+                    "text": "communication interface",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 143,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "2681f26a-e492-4e5d-8b33-92fb00a48622",
+            "sources": [
+                "4c37367f-9098-4fd4-a60c-4807b03976f2"
+            ],
+            "targets": [
+                "d96c7025-9080-4790-99f4-e1fe68543e8c"
+            ],
+            "labels": [
+                {
+                    "text": "C 4",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 43,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "dcc71dee-2eaa-429f-b7ae-1d24e742c88b",
+            "sources": [
+                "7e56e3c5-341d-4144-92e0-8aceb67581cc"
+            ],
+            "targets": [
+                "d96c7025-9080-4790-99f4-e1fe68543e8c"
+            ],
+            "labels": [
+                {
+                    "text": "D 7",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 43,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "3aa006b1-f954-4e8f-a4e9-2e9cd38555de",
+            "sources": [
+                "7e56e3c5-341d-4144-92e0-8aceb67581cc"
+            ],
+            "targets": [
+                "c848495c-b3db-48ce-bf53-bac08440b6df"
+            ],
+            "labels": [
+                {
+                    "text": "C 6",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 43,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "0c19b624-594b-4049-b6e8-ec77344f3f2e",
+            "sources": [
+                "c0645cb3-a9bc-4330-90aa-ab211d5091c4"
+            ],
+            "targets": [
+                "c848495c-b3db-48ce-bf53-bac08440b6df"
+            ],
+            "labels": [
+                {
+                    "text": "D 8",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 43,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "4b5bea95-9bc2-477c-a8b2-c4e54b5066fb",
+            "sources": [
+                "c0645cb3-a9bc-4330-90aa-ab211d5091c4"
+            ],
+            "targets": [
+                "debe5e5c-c234-4f20-b04f-213f826eac1e"
+            ],
+            "labels": [
+                {
+                    "text": "C 3",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 43,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,520 @@
+{
+    "id": "da08ddb6-92ba-4c3b-956a-017424dbfe85_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "position": {
+                "x": 228,
+                "y": 19.500000000000004
+            },
+            "size": {
+                "width": 64,
+                "height": 63
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 25.5
+                    },
+                    "size": {
+                        "width": 58,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Middle"
+                }
+            ]
+        },
+        {
+            "id": "d3e1ce63-fad9-4eaa-8e70-959eb114cbc3",
+            "position": {
+                "x": 476.5,
+                "y": 71.5
+            },
+            "size": {
+                "width": 30,
+                "height": 21
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": -11.5,
+                        "y": 21
+                    },
+                    "size": {
+                        "width": 53,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Super"
+                }
+            ]
+        },
+        {
+            "id": "5419c967-8d8d-44de-af9a-5144f65eb891",
+            "position": {
+                "x": 36,
+                "y": 65.03333333333335
+            },
+            "size": {
+                "width": 30,
+                "height": 17
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": -24,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 78,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Second Sub"
+                }
+            ]
+        },
+        {
+            "id": "f6a9376c-53d3-4950-8ec9-420c0af4ca46",
+            "position": {
+                "x": 36,
+                "y": 13.033333333333335
+            },
+            "size": {
+                "width": 30,
+                "height": 17
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": -21.5,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 73,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "First Sub"
+                }
+            ]
+        },
+        {
+            "id": "1477b800-8da5-4889-b112-35e2353c4675",
+            "position": {
+                "x": 470,
+                "y": 124.5
+            },
+            "size": {
+                "width": 59,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 53,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Actor"
+                }
+            ]
+        },
+        {
+            "id": "f3577d00-01bb-405c-81c9-7bdc2dcdcdfc",
+            "position": {
+                "x": 465,
+                "y": 12
+            },
+            "size": {
+                "width": 64,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 58,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Entity"
+                }
+            ]
+        },
+        {
+            "id": "2952e76c-e227-4075-ad73-9d5fa120ab98",
+            "type": "edge",
+            "sourceId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "targetId": "d3e1ce63-fad9-4eaa-8e70-959eb114cbc3",
+            "routingPoints": [
+                {
+                    "x": 292,
+                    "y": 61.5
+                },
+                {
+                    "x": 312,
+                    "y": 61.5
+                },
+                {
+                    "x": 312,
+                    "y": 108
+                },
+                {
+                    "x": 455,
+                    "y": 108
+                },
+                {
+                    "x": 455,
+                    "y": 87.25
+                },
+                {
+                    "x": 476.5,
+                    "y": 87.25
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 349.5,
+                        "y": 111
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab includes \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "7468616d-eb61-4572-bfb7-ac4c732bb316",
+            "type": "edge",
+            "sourceId": "5419c967-8d8d-44de-af9a-5144f65eb891",
+            "targetId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "routingPoints": [
+                {
+                    "x": 66,
+                    "y": 70.7
+                },
+                {
+                    "x": 208,
+                    "y": 70.7
+                },
+                {
+                    "x": 208,
+                    "y": 57.3
+                },
+                {
+                    "x": 228,
+                    "y": 57.3
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 112.5,
+                        "y": 73.7
+                    },
+                    "size": {
+                        "width": 83,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab extends \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "3f119b35-8873-4ffb-8fac-d3fe3a9542da",
+            "type": "edge",
+            "sourceId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "targetId": "d3e1ce63-fad9-4eaa-8e70-959eb114cbc3",
+            "routingPoints": [
+                {
+                    "x": 292,
+                    "y": 51
+                },
+                {
+                    "x": 322,
+                    "y": 51
+                },
+                {
+                    "x": 322,
+                    "y": 82
+                },
+                {
+                    "x": 476.5,
+                    "y": 82
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 342,
+                        "y": 85
+                    },
+                    "size": {
+                        "width": 103,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab specializes \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "ddbfd060-6118-48bc-b591-ed51872e0b45",
+            "type": "edge",
+            "sourceId": "f6a9376c-53d3-4950-8ec9-420c0af4ca46",
+            "targetId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "routingPoints": [
+                {
+                    "x": 66,
+                    "y": 24.366666666666667
+                },
+                {
+                    "x": 100,
+                    "y": 24.366666666666667
+                },
+                {
+                    "x": 100,
+                    "y": 44.7
+                },
+                {
+                    "x": 228,
+                    "y": 44.7
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 110,
+                        "y": 47.7
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab includes \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "4a3d2744-19ef-41bc-abef-798099b89eb2",
+            "type": "edge",
+            "sourceId": "5419c967-8d8d-44de-af9a-5144f65eb891",
+            "targetId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "routingPoints": [
+                {
+                    "x": 66,
+                    "y": 76.36666666666667
+                },
+                {
+                    "x": 100,
+                    "y": 76.36666666666667
+                },
+                {
+                    "x": 100,
+                    "y": 96.7
+                },
+                {
+                    "x": 218,
+                    "y": 96.7
+                },
+                {
+                    "x": 218,
+                    "y": 69.9
+                },
+                {
+                    "x": 228,
+                    "y": 69.9
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 110,
+                        "y": 99.7
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab includes \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "ef8b3d24-54b0-4654-bd0a-97584f58d457",
+            "type": "edge",
+            "sourceId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "targetId": "d3e1ce63-fad9-4eaa-8e70-959eb114cbc3",
+            "routingPoints": [
+                {
+                    "x": 292,
+                    "y": 40.5
+                },
+                {
+                    "x": 332,
+                    "y": 40.5
+                },
+                {
+                    "x": 332,
+                    "y": 56
+                },
+                {
+                    "x": 455,
+                    "y": 56
+                },
+                {
+                    "x": 455,
+                    "y": 76.75
+                },
+                {
+                    "x": 476.5,
+                    "y": 76.75
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 352,
+                        "y": 59
+                    },
+                    "size": {
+                        "width": 83,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab extends \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "bb8b380c-fe44-4049-ad27-1f2dffcfa65e",
+            "type": "edge",
+            "sourceId": "f6a9376c-53d3-4950-8ec9-420c0af4ca46",
+            "targetId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "routingPoints": [
+                {
+                    "x": 66,
+                    "y": 18.700000000000003
+                },
+                {
+                    "x": 208,
+                    "y": 18.700000000000003
+                },
+                {
+                    "x": 208,
+                    "y": 32.10000000000001
+                },
+                {
+                    "x": 228,
+                    "y": 32.10000000000001
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 112.5,
+                        "y": 21.700000000000003
+                    },
+                    "size": {
+                        "width": 83,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab extends \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "2d07b314-2162-4d29-9ff1-f16e9b503f3d",
+            "type": "edge",
+            "sourceId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "targetId": "1477b800-8da5-4889-b112-35e2353c4675",
+            "routingPoints": [
+                {
+                    "x": 292,
+                    "y": 72
+                },
+                {
+                    "x": 302,
+                    "y": 72
+                },
+                {
+                    "x": 302,
+                    "y": 142.5
+                },
+                {
+                    "x": 470,
+                    "y": 142.5
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 349.5,
+                        "y": 145.5
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab involves \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "11033438-7962-43be-9ead-c98900a7eaa5",
+            "type": "edge",
+            "sourceId": "da08ddb6-92ba-4c3b-956a-017424dbfe85",
+            "targetId": "f3577d00-01bb-405c-81c9-7bdc2dcdcdfc",
+            "routingPoints": [
+                {
+                    "x": 292,
+                    "y": 30.000000000000004
+                },
+                {
+                    "x": 465,
+                    "y": 30
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 349.5,
+                        "y": 33
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab involves \u00bb"
+                }
+            ]
+        }
+    ]
+}

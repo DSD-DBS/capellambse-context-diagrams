@@ -1,0 +1,268 @@
+{
+    "id": "b9f9a83c-fb02-44f7-9123-9d86326de5f1_realization_view",
+    "type": "graph",
+    "children": [
+        {
+            "id": "853cb005-cba0-489b-8fe3-bb694ad4543b",
+            "position": {
+                "x": 15,
+                "y": 15
+            },
+            "size": {
+                "width": 335,
+                "height": 260
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
+                    "position": {
+                        "x": 15,
+                        "y": 15
+                    },
+                    "size": {
+                        "width": 157,
+                        "height": 230
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "f632888e-51bc-4c9f-8e81-73e9404de784",
+                            "position": {
+                                "x": 12,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 54,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 3,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Left"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "37dfa5e6-a121-4ce9-8aa4-09a0c73dc2e9",
+                            "position": {
+                                "x": 12,
+                                "y": 85
+                            },
+                            "size": {
+                                "width": 108,
+                                "height": 133
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "e1e48763-7479-4f3a-8134-c82bb6705d58",
+                                    "position": {
+                                        "x": 12,
+                                        "y": 85
+                                    },
+                                    "size": {
+                                        "width": 84,
+                                        "height": 36
+                                    },
+                                    "type": "node",
+                                    "children": [
+                                        {
+                                            "position": {
+                                                "x": 3,
+                                                "y": 12
+                                            },
+                                            "size": {
+                                                "width": 78,
+                                                "height": 12
+                                            },
+                                            "type": "label",
+                                            "text": "RightStack"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "8df45b70-15cc-4d3a-99e4-593516392c5a",
+                                    "position": {
+                                        "x": 12,
+                                        "y": 29
+                                    },
+                                    "size": {
+                                        "width": 79,
+                                        "height": 36
+                                    },
+                                    "type": "node",
+                                    "children": [
+                                        {
+                                            "position": {
+                                                "x": 3,
+                                                "y": 12
+                                            },
+                                            "size": {
+                                                "width": 73,
+                                                "height": 12
+                                            },
+                                            "type": "label",
+                                            "text": "LeftStack"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "position": {
+                                        "x": 27.5,
+                                        "y": 5
+                                    },
+                                    "size": {
+                                        "width": 53,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Right"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "f8c9df04-fcd5-479d-814b-696fa6050231",
+                            "position": {
+                                "x": 86,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 59,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 3,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 53,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Upper"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 44.5,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 68,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Hogwarts"
+                        }
+                    ]
+                },
+                {
+                    "id": "6583b560-6d2f-4190-baa2-94eef179c8ea",
+                    "position": {
+                        "x": 187,
+                        "y": 15
+                    },
+                    "size": {
+                        "width": 133,
+                        "height": 77
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "3bdd4fa2-5646-44a1-9fa6-80c68433ddb7",
+                            "position": {
+                                "x": 12,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 109,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 3,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 103,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Whomping Willow"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 37.5,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 58,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Campus"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "26e187b6-72e7-4872-8d8d-70b96243c96c",
+            "position": {
+                "x": 15,
+                "y": 290
+            },
+            "size": {
+                "width": 139,
+                "height": 66
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "b9f9a83c-fb02-44f7-9123-9d86326de5f1",
+                    "position": {
+                        "x": 15,
+                        "y": 15
+                    },
+                    "size": {
+                        "width": 109,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "position": {
+                                "x": 3,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 103,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Physical System"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

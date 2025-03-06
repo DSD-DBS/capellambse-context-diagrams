@@ -1,0 +1,135 @@
+{
+    "id": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "a8c42033-fdf2-458f-bae9-1cfd1207c49f",
+            "children": [
+                {
+                    "id": "0e0164c3-076e-42c1-8f82-7a43ab84385c",
+                    "labels": [
+                        {
+                            "text": "Make Food",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 73,
+                            "height": 12
+                        }
+                    ],
+                    "width": 144,
+                    "height": 36
+                },
+                {
+                    "id": "ab016025-d456-4c2d-8359-d50cf9de3825",
+                    "labels": [
+                        {
+                            "text": "Sleep",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 53,
+                            "height": 12
+                        }
+                    ],
+                    "width": 144,
+                    "height": 36
+                },
+                {
+                    "id": "8bcb11e6-443b-4b92-bec2-ff1d87a224e7",
+                    "labels": [
+                        {
+                            "text": "Eat",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 43,
+                            "height": 12
+                        }
+                    ],
+                    "width": 144,
+                    "height": 36
+                }
+            ],
+            "edges": [
+                {
+                    "id": "b8f34893-c50b-4b7d-9326-1d01990434d8",
+                    "sources": [
+                        "8bcb11e6-443b-4b92-bec2-ff1d87a224e7"
+                    ],
+                    "targets": [
+                        "8bcb11e6-443b-4b92-bec2-ff1d87a224e7"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Munch",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 53,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "55b90f9a-c5af-47fc-9c1c-48090414d1f1",
+                    "sources": [
+                        "0e0164c3-076e-42c1-8f82-7a43ab84385c"
+                    ],
+                    "targets": [
+                        "8bcb11e6-443b-4b92-bec2-ff1d87a224e7"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Prepared food",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 93,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "097639a6-ad9c-4a3f-81cc-ebecab772bb6",
+                    "sources": [
+                        "8bcb11e6-443b-4b92-bec2-ff1d87a224e7"
+                    ],
+                    "targets": [
+                        "ab016025-d456-4c2d-8359-d50cf9de3825"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Rest",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Functional Human Being",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 138,
+                    "height": 12
+                }
+            ],
+            "width": 144,
+            "height": 36
+        }
+    ]
+}

@@ -1,0 +1,785 @@
+{
+    "id": "309296b1-cf37-45d7-b0f3-f7bc00422a59_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "8c4b9404-e5ca-41e9-a731-2a930a18b784",
+            "position": {
+                "x": 591,
+                "y": 105
+            },
+            "size": {
+                "width": 353,
+                "height": 138
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "aa723351-32cb-44ab-a7ef-6319a1fbdaac",
+                    "position": {
+                        "x": 20,
+                        "y": 90
+                    },
+                    "size": {
+                        "width": 109,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "503d11cb-ebe7-40d9-93c0-e6e7813873cd",
+                            "position": {
+                                "x": 101,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 11,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "PP 1"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 16.5,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 68,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "RBNode 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "9dd62de4-0370-41aa-a20b-df2085499a73",
+                    "position": {
+                        "x": 20,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 109,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "e12e5c46-f619-442c-a132-3c4040841163",
+                            "position": {
+                                "x": 101,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 11,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "PP 1"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 21.5,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 58,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "RBNode"
+                        }
+                    ]
+                },
+                {
+                    "id": "9d4e5145-c4a0-46eb-b470-def61ce9e6d0",
+                    "position": {
+                        "x": 345,
+                        "y": 75
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port",
+                    "children": [
+                        {
+                            "position": {
+                                "x": 11,
+                                "y": 11
+                            },
+                            "size": {
+                                "width": 48,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "PP 5"
+                        }
+                    ]
+                },
+                {
+                    "id": "d02edb1b-a57a-4538-937f-6c1a56278c37",
+                    "position": {
+                        "x": -2,
+                        "y": 90
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port",
+                    "children": [
+                        {
+                            "position": {
+                                "x": -49,
+                                "y": 11
+                            },
+                            "size": {
+                                "width": 48,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "PP 2"
+                        }
+                    ]
+                },
+                {
+                    "id": "f4dbc636-aede-44d1-b7f6-682d405ef7ba",
+                    "position": {
+                        "x": 345,
+                        "y": 42
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port",
+                    "children": [
+                        {
+                            "position": {
+                                "x": 11,
+                                "y": 11
+                            },
+                            "size": {
+                                "width": 48,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "PP 1"
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 140,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 73,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Right Box"
+                },
+                {
+                    "id": "f3c93649-0875-4daf-812e-00a98390119f",
+                    "type": "edge",
+                    "sourceId": "503d11cb-ebe7-40d9-93c0-e6e7813873cd",
+                    "targetId": "9d4e5145-c4a0-46eb-b470-def61ce9e6d0",
+                    "routingPoints": [
+                        {
+                            "x": 131,
+                            "y": 108
+                        },
+                        {
+                            "x": 190,
+                            "y": 108
+                        },
+                        {
+                            "x": 190,
+                            "y": 80
+                        },
+                        {
+                            "x": 355,
+                            "y": 80
+                        }
+                    ],
+                    "children": [
+                        {
+                            "type": "junction",
+                            "position": {
+                                "x": 190,
+                                "y": 108
+                            }
+                        },
+                        {
+                            "position": {
+                                "x": 200,
+                                "y": 83
+                            },
+                            "size": {
+                                "width": 133,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Right_Box_to_RBNode_1"
+                        }
+                    ]
+                },
+                {
+                    "id": "8dd15f61-a406-45ae-bbf8-aaafff67abd5",
+                    "type": "edge",
+                    "sourceId": "e12e5c46-f619-442c-a132-3c4040841163",
+                    "targetId": "f4dbc636-aede-44d1-b7f6-682d405ef7ba",
+                    "routingPoints": [
+                        {
+                            "x": 131,
+                            "y": 47
+                        },
+                        {
+                            "x": 355,
+                            "y": 47
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 205,
+                                "y": 50
+                            },
+                            "size": {
+                                "width": 123,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Right_Box_to_RBNode"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "309296b1-cf37-45d7-b0f3-f7bc00422a59",
+            "position": {
+                "x": 27,
+                "y": 22
+            },
+            "size": {
+                "width": 294,
+                "height": 204
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "7a17e2e8-c0cd-4313-b39d-f78f31873772",
+                    "position": {
+                        "x": 154,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 69,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "0b72eebb-c7da-49f6-aee3-3181ed92d9f6",
+                            "position": {
+                                "x": 61,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 11,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "PP 1"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": -1,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 63,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "BNode 2"
+                        }
+                    ]
+                },
+                {
+                    "id": "635f5858-5887-4343-ba62-234fae4c5970",
+                    "position": {
+                        "x": 63,
+                        "y": 156
+                    },
+                    "size": {
+                        "width": 69,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "5688a250-3a46-40b2-ac01-b3a672e0f907",
+                            "position": {
+                                "x": -2,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": -49,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "PP 1"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 7,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 63,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "BNode 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "3d7c7411-b183-4f63-87cc-e012de588b53",
+                    "position": {
+                        "x": 23,
+                        "y": 87
+                    },
+                    "size": {
+                        "width": 59,
+                        "height": 44
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "e7f9d780-5000-4a58-b6d2-a3a0b96ad9bc",
+                            "position": {
+                                "x": 51,
+                                "y": 26
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 11,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "PP 2"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "6559eb2f-f7a3-4d4d-8b83-13ec8944cb51",
+                            "position": {
+                                "x": 51,
+                                "y": 8
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 11,
+                                        "y": -13
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "PP 1"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": -1,
+                                "y": 16
+                            },
+                            "size": {
+                                "width": 53,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "BNode"
+                        }
+                    ]
+                },
+                {
+                    "id": "5548913c-6fde-4003-ab41-7926e10e4cd9",
+                    "position": {
+                        "x": 286,
+                        "y": 128
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port",
+                    "children": [
+                        {
+                            "position": {
+                                "x": 11,
+                                "y": 11
+                            },
+                            "size": {
+                                "width": 48,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "PP 5"
+                        }
+                    ]
+                },
+                {
+                    "id": "cacae3be-b3f3-46f0-aa7f-202685615ea3",
+                    "position": {
+                        "x": 286,
+                        "y": 95
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port",
+                    "children": [
+                        {
+                            "position": {
+                                "x": 11,
+                                "y": 11
+                            },
+                            "size": {
+                                "width": 48,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "PP 3"
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 121.5,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 43,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Box"
+                },
+                {
+                    "id": "957b9327-7813-4568-9ce9-719d6edc7439",
+                    "type": "edge",
+                    "sourceId": "5548913c-6fde-4003-ab41-7926e10e4cd9",
+                    "targetId": "e7f9d780-5000-4a58-b6d2-a3a0b96ad9bc",
+                    "routingPoints": [
+                        {
+                            "x": 296,
+                            "y": 133
+                        },
+                        {
+                            "x": 143,
+                            "y": 133
+                        },
+                        {
+                            "x": 143,
+                            "y": 118
+                        },
+                        {
+                            "x": 84,
+                            "y": 118
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 169.5,
+                                "y": 136
+                            },
+                            "size": {
+                                "width": 88,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "BNode_to_Box"
+                        }
+                    ]
+                },
+                {
+                    "id": "4c0233ac-dd06-4fd2-86c0-f90ee56a7b2e",
+                    "type": "edge",
+                    "sourceId": "cacae3be-b3f3-46f0-aa7f-202685615ea3",
+                    "targetId": "6559eb2f-f7a3-4d4d-8b83-13ec8944cb51",
+                    "routingPoints": [
+                        {
+                            "x": 296,
+                            "y": 100
+                        },
+                        {
+                            "x": 84,
+                            "y": 100
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 169.5,
+                                "y": 85
+                            },
+                            "size": {
+                                "width": 88,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "BNode_to_Box"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "de6d52f5-d2af-49d1-be32-eecc6e998c27",
+            "type": "edge",
+            "sourceId": "0b72eebb-c7da-49f6-aee3-3181ed92d9f6",
+            "targetId": "9d4e5145-c4a0-46eb-b470-def61ce9e6d0",
+            "routingPoints": [
+                {
+                    "x": 252,
+                    "y": 69
+                },
+                {
+                    "x": 1015,
+                    "y": 69
+                },
+                {
+                    "x": 1015,
+                    "y": 185
+                },
+                {
+                    "x": 946,
+                    "y": 185
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 392,
+                        "y": 72
+                    },
+                    "size": {
+                        "width": 128,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "BNode_2_to_Right_Box"
+                }
+            ]
+        },
+        {
+            "id": "c9ca02c7-04e5-4854-ac2b-82c91904c587",
+            "type": "edge",
+            "sourceId": "503d11cb-ebe7-40d9-93c0-e6e7813873cd",
+            "targetId": "5688a250-3a46-40b2-ac01-b3a672e0f907",
+            "routingPoints": [
+                {
+                    "x": 722,
+                    "y": 213
+                },
+                {
+                    "x": 1025,
+                    "y": 213
+                },
+                {
+                    "x": 1025,
+                    "y": 12
+                },
+                {
+                    "x": 12,
+                    "y": 12
+                },
+                {
+                    "x": 12,
+                    "y": 196
+                },
+                {
+                    "x": 88,
+                    "y": 196
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 394.5,
+                        "y": 15
+                    },
+                    "size": {
+                        "width": 123,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "BNode_1_to_RBNode_1"
+                }
+            ]
+        },
+        {
+            "id": "a70ea279-0bc4-4910-875d-901da2da97bd",
+            "type": "edge",
+            "sourceId": "5548913c-6fde-4003-ab41-7926e10e4cd9",
+            "targetId": "d02edb1b-a57a-4538-937f-6c1a56278c37",
+            "routingPoints": [
+                {
+                    "x": 323,
+                    "y": 155
+                },
+                {
+                    "x": 530,
+                    "y": 155
+                },
+                {
+                    "x": 530,
+                    "y": 200
+                },
+                {
+                    "x": 589,
+                    "y": 200
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 402,
+                        "y": 158
+                    },
+                    "size": {
+                        "width": 108,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Box_to_Right_Box"
+                }
+            ]
+        },
+        {
+            "id": "b025045e-eda9-4ab9-865a-31359a102254",
+            "type": "edge",
+            "sourceId": "cacae3be-b3f3-46f0-aa7f-202685615ea3",
+            "targetId": "f4dbc636-aede-44d1-b7f6-682d405ef7ba",
+            "routingPoints": [
+                {
+                    "x": 323,
+                    "y": 122
+                },
+                {
+                    "x": 530,
+                    "y": 122
+                },
+                {
+                    "x": 530,
+                    "y": 95
+                },
+                {
+                    "x": 1005,
+                    "y": 95
+                },
+                {
+                    "x": 1005,
+                    "y": 152
+                },
+                {
+                    "x": 946,
+                    "y": 152
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 402,
+                        "y": 125
+                    },
+                    "size": {
+                        "width": 108,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Box_to_Right_Box"
+                }
+            ]
+        }
+    ]
+}

@@ -4,7 +4,7 @@
 import capellambse
 import pytest
 
-from capellambse_context_diagrams.collectors import makers
+from capellambse_context_diagrams.builders import _makers
 
 
 @pytest.mark.parametrize(
@@ -21,12 +21,12 @@ from capellambse_context_diagrams.collectors import makers
         ),
     ],
 )
-def test_context_diagrams(
+def test_make_label_wraps_long_label(
     model: capellambse.MelodyModel, uuid: str, expected_labels: list[list[str]]
-) -> None:
+):
     obj = model.by_uuid(uuid)
 
-    labels = makers.make_label(obj.name, max_width=makers.MAX_LABEL_WIDTH)
+    labels = _makers.make_label(obj.name, max_width=_makers.MAX_LABEL_WIDTH)
 
     actual = [label.text for label in labels]
     assert actual == expected_labels

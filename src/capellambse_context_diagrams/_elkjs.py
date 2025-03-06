@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import atexit
 import collections.abc as cabc
+import contextlib
 import copy
 import enum
 import importlib.metadata
@@ -26,11 +27,13 @@ import pathlib
 import platform
 import shutil
 import subprocess
+import threading
 import typing as t
 
 import platformdirs
 import pydantic
 import requests
+from capellambse import model as m
 
 __all__ = [
     "ELKInputChild",
@@ -97,6 +100,7 @@ EDGE_STRAIGHTENING_LAYOUT_OPTIONS: LayoutOptions = {
 """Options for increasing the edge straightness priority."""
 
 
+@m.stringy_enum
 class PORT_LABEL_POSITION(enum.Enum):
     """Position of port labels.
 
@@ -299,9 +303,24 @@ ELKOutputChild = (
 
 class ELKManager:
     _proc: subprocess.Popen | None
+    _lock: threading.Lock
 
     def __init__(self):
         self._proc = None
+        self._lock = threading.Lock()
+
+    @property
+    def runtime_version(self) -> str:
+        """The version of the elkjs runtime package to download."""
+        package_version = importlib.metadata.version(
+            "capellambse_context_diagrams"
+        )
+        if ".dev" in package_version:
+            package_version, _ = package_version.split(".dev", 1)
+            head, tail = package_version.rsplit(".", 1)
+            assert tail != "0"
+            package_version = f"{head}.{int(tail) - 1}"
+        return package_version
 
     @property
     def binary_name(self):
@@ -317,15 +336,10 @@ class ELKManager:
         }
 
         build = build_mapping.get((system, machine))
-
-        package_version = importlib.metadata.version(
-            "capellambse_context_diagrams"
-        )
-
         if not build:
             raise RuntimeError(f"Unsupported platform: {system} {machine}")
 
-        return f"elk-v{package_version}-{build}{'.exe' if system == 'windows' else ''}"
+        return f"elk-v{self.runtime_version}-{build}{'.exe' if system == 'windows' else ''}"
 
     @property
     def binary_path(self):
@@ -341,10 +355,7 @@ class ELKManager:
 
         log.debug("Downloading elk.js helper binary")
         self.binary_path.parent.mkdir(parents=True, exist_ok=True)
-        package_version = importlib.metadata.version(
-            "capellambse_context_diagrams"
-        )
-        url = f"https://github.com/DSD-DBS/capellambse-context-diagrams/releases/download/v{package_version}/{self.binary_name}"
+        url = f"https://github.com/DSD-DBS/capellambse-context-diagrams/releases/download/v{self.runtime_version}/{self.binary_name}"
         response = requests.get(url)
         response.raise_for_status()
         with open(self.binary_path, "wb") as f:
@@ -435,11 +446,15 @@ class ELKManager:
         else:
             log.debug("No elk.js helper process to terminate")
 
-    def get_process(self) -> subprocess.Popen:
-        if self._proc is None:
-            self.spawn_process()
-            assert self._proc is not None
-        return self._proc
+    @contextlib.contextmanager
+    def get_process(self) -> cabc.Iterator[tuple[t.IO[str], t.IO[str]]]:
+        with self._lock:
+            if self._proc is None:
+                self.spawn_process()
+                assert self._proc is not None
+            assert self._proc.stdin is not None
+            assert self._proc.stdout is not None
+            yield self._proc.stdin, self._proc.stdout
 
     def call_elkjs(self, elk_model: ELKInputData) -> ELKOutputData:
         """Call into elk.js to auto-layout the ``diagram``.
@@ -454,17 +469,12 @@ class ELKManager:
         layouted_diagram
             The diagram data, augmented with layouting information
         """
-        process = self.get_process()
-
-        if not process.stdin or not process.stdout:
-            raise RuntimeError("ELK process stdin/stdout not available")
-
         ELKInputData.model_validate(elk_model, strict=True)
-        process.stdin.write(
-            elk_model.model_dump_json(exclude_defaults=True) + "\n"
-        )
-        process.stdin.flush()
-        response = process.stdout.readline()
+        request = elk_model.model_dump_json(exclude_defaults=True) + "\n"
+        with self.get_process() as (stdin, stdout):
+            stdin.write(request)
+            stdin.flush()
+            response = stdout.readline()
         return ELKOutputData.model_validate_json(response, strict=True)
 
 

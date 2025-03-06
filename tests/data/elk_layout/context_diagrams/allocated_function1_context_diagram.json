@@ -1,0 +1,576 @@
+{
+    "id": "861b9be3-a7b2-4e1d-b34b-8e857062b3df_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 801,
+                "height": 267
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "c999f0f0-49d0-4b01-b260-f69dc63abbcb",
+                    "position": {
+                        "x": 619,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 141,
+                        "height": 77
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "4904b56b-f82f-41f4-a5b6-aa8ccc64a9b5",
+                            "position": {
+                                "x": 14,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 114,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "ba26d020-30cc-4d79-ac9a-b4729663a9e5",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 13
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "position": {
+                                        "x": 7,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 108,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Right Function 1"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 39,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 63,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Right 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "53558f58-270e-4206-8fc7-3cf9e788fac9",
+                    "position": {
+                        "x": 619,
+                        "y": 126
+                    },
+                    "size": {
+                        "width": 170,
+                        "height": 118
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "ea3ff951-47ec-441e-aae6-c5103d47cf1a",
+                            "position": {
+                                "x": 17,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 141,
+                                "height": 77
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "4fd46193-95cc-4295-8672-94a0cab06bef",
+                                    "position": {
+                                        "x": 14,
+                                        "y": 29
+                                    },
+                                    "size": {
+                                        "width": 114,
+                                        "height": 36
+                                    },
+                                    "type": "node",
+                                    "children": [
+                                        {
+                                            "id": "da3e108d-c8b1-4beb-896a-bbb6618acf22",
+                                            "position": {
+                                                "x": -2,
+                                                "y": 13
+                                            },
+                                            "size": {
+                                                "width": 10,
+                                                "height": 10
+                                            },
+                                            "type": "port"
+                                        },
+                                        {
+                                            "position": {
+                                                "x": 7,
+                                                "y": 12
+                                            },
+                                            "size": {
+                                                "width": 108,
+                                                "height": 12
+                                            },
+                                            "type": "label",
+                                            "text": "Right Function 2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "position": {
+                                        "x": 39,
+                                        "y": 5
+                                    },
+                                    "size": {
+                                        "width": 63,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Right 2"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 43.5,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 83,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Right owner"
+                        }
+                    ]
+                },
+                {
+                    "id": "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb",
+                    "position": {
+                        "x": 12,
+                        "y": 58
+                    },
+                    "size": {
+                        "width": 479,
+                        "height": 197
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "77c9db12-29c7-4ced-822d-3a154726f2be",
+                            "position": {
+                                "x": 29,
+                                "y": 126
+                            },
+                            "size": {
+                                "width": 124,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "34450485-578a-4bce-b74c-4723d470257f",
+                                    "position": {
+                                        "x": 116,
+                                        "y": 13
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "position": {
+                                        "x": -1,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 118,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Hierarchy Function"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "31bc2326-5a55-45f9-9967-f1957bcd3f89",
+                            "position": {
+                                "x": 12,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 141,
+                                "height": 77
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "f0bc11ba-89aa-4297-98d2-076440e9117f",
+                                    "position": {
+                                        "x": 13,
+                                        "y": 29
+                                    },
+                                    "size": {
+                                        "width": 114,
+                                        "height": 36
+                                    },
+                                    "type": "node",
+                                    "children": [
+                                        {
+                                            "id": "9fefbe1e-3f74-4544-833c-bb040bcfeac7",
+                                            "position": {
+                                                "x": 106,
+                                                "y": 13
+                                            },
+                                            "size": {
+                                                "width": 10,
+                                                "height": 10
+                                            },
+                                            "type": "port"
+                                        },
+                                        {
+                                            "position": {
+                                                "x": -1,
+                                                "y": 12
+                                            },
+                                            "size": {
+                                                "width": 108,
+                                                "height": 12
+                                            },
+                                            "type": "label",
+                                            "text": "Inner Function 1"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "position": {
+                                        "x": 39,
+                                        "y": 5
+                                    },
+                                    "size": {
+                                        "width": 63,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Inner 1"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "99a1d711-74af-4db7-af08-4dbd91c281ce",
+                            "position": {
+                                "x": 286,
+                                "y": 47
+                            },
+                            "size": {
+                                "width": 176,
+                                "height": 138
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "ad0bdf2f-bd0e-48bc-9296-5be3371a76e2",
+                                    "position": {
+                                        "x": 17,
+                                        "y": 29
+                                    },
+                                    "size": {
+                                        "width": 142,
+                                        "height": 97
+                                    },
+                                    "type": "node",
+                                    "children": [
+                                        {
+                                            "id": "861b9be3-a7b2-4e1d-b34b-8e857062b3df",
+                                            "position": {
+                                                "x": 14,
+                                                "y": 29
+                                            },
+                                            "size": {
+                                                "width": 114,
+                                                "height": 56
+                                            },
+                                            "type": "node",
+                                            "children": [
+                                                {
+                                                    "id": "09ad0a10-a06b-401e-a31b-3ca0e33ede8e",
+                                                    "position": {
+                                                        "x": 106,
+                                                        "y": 12
+                                                    },
+                                                    "size": {
+                                                        "width": 10,
+                                                        "height": 10
+                                                    },
+                                                    "type": "port"
+                                                },
+                                                {
+                                                    "id": "ad194d39-1467-490f-9825-a7bafcd3e952",
+                                                    "position": {
+                                                        "x": 106,
+                                                        "y": 34
+                                                    },
+                                                    "size": {
+                                                        "width": 10,
+                                                        "height": 10
+                                                    },
+                                                    "type": "port"
+                                                },
+                                                {
+                                                    "id": "7ae51ce0-31d3-4811-b921-ded78588922c",
+                                                    "position": {
+                                                        "x": -2,
+                                                        "y": 34
+                                                    },
+                                                    "size": {
+                                                        "width": 10,
+                                                        "height": 10
+                                                    },
+                                                    "type": "port"
+                                                },
+                                                {
+                                                    "id": "aed02601-7d03-4ed8-bd19-83faa0df3d71",
+                                                    "position": {
+                                                        "x": -2,
+                                                        "y": 12
+                                                    },
+                                                    "size": {
+                                                        "width": 10,
+                                                        "height": 10
+                                                    },
+                                                    "type": "port"
+                                                },
+                                                {
+                                                    "position": {
+                                                        "x": 3,
+                                                        "y": 22
+                                                    },
+                                                    "size": {
+                                                        "width": 108,
+                                                        "height": 12
+                                                    },
+                                                    "type": "label",
+                                                    "text": "Inner Function 2"
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "position": {
+                                                "x": 39.5,
+                                                "y": 5
+                                            },
+                                            "size": {
+                                                "width": 63,
+                                                "height": 12
+                                            },
+                                            "type": "label",
+                                            "text": "Inner 2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "position": {
+                                        "x": 46.5,
+                                        "y": 5
+                                    },
+                                    "size": {
+                                        "width": 83,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Inner owner"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 203,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 73,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Hierarchy"
+                        },
+                        {
+                            "id": "a2dfec73-81aa-4742-86b7-8d510a78ccea",
+                            "type": "edge",
+                            "sourceId": "34450485-578a-4bce-b74c-4723d470257f",
+                            "targetId": "7ae51ce0-31d3-4811-b921-ded78588922c",
+                            "routingPoints": [
+                                {
+                                    "x": 155,
+                                    "y": 144
+                                },
+                                {
+                                    "x": 315,
+                                    "y": 144
+                                }
+                            ],
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 178,
+                                        "y": 147
+                                    },
+                                    "size": {
+                                        "width": 83,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Hier to IF2"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "d3b412f4-91cc-4f1c-a32d-3a56459a108d",
+                            "type": "edge",
+                            "sourceId": "9fefbe1e-3f74-4544-833c-bb040bcfeac7",
+                            "targetId": "aed02601-7d03-4ed8-bd19-83faa0df3d71",
+                            "routingPoints": [
+                                {
+                                    "x": 141,
+                                    "y": 76
+                                },
+                                {
+                                    "x": 271,
+                                    "y": 76
+                                },
+                                {
+                                    "x": 271,
+                                    "y": 122
+                                },
+                                {
+                                    "x": 315,
+                                    "y": 122
+                                }
+                            ],
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 180.5,
+                                        "y": 61
+                                    },
+                                    "size": {
+                                        "width": 78,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "IF1 to IF2"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 366.5,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 68,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Hogwarts"
+                },
+                {
+                    "id": "0b97879b-08f5-4fc2-bc3b-66e73e7c2158",
+                    "type": "edge",
+                    "sourceId": "09ad0a10-a06b-401e-a31b-3ca0e33ede8e",
+                    "targetId": "ba26d020-30cc-4d79-ac9a-b4729663a9e5",
+                    "routingPoints": [
+                        {
+                            "x": 445,
+                            "y": 180
+                        },
+                        {
+                            "x": 506,
+                            "y": 180
+                        },
+                        {
+                            "x": 506,
+                            "y": 76
+                        },
+                        {
+                            "x": 631,
+                            "y": 76
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 516,
+                                "y": 61
+                            },
+                            "size": {
+                                "width": 78,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "IF2 to RF1"
+                        }
+                    ]
+                },
+                {
+                    "id": "209d39e3-d6d9-4d87-8e48-a85b3a4565ab",
+                    "type": "edge",
+                    "sourceId": "ad194d39-1467-490f-9825-a7bafcd3e952",
+                    "targetId": "da3e108d-c8b1-4beb-896a-bbb6618acf22",
+                    "routingPoints": [
+                        {
+                            "x": 445,
+                            "y": 202
+                        },
+                        {
+                            "x": 648,
+                            "y": 202
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 516,
+                                "y": 205
+                            },
+                            "size": {
+                                "width": 78,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "IF2 to RF2"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

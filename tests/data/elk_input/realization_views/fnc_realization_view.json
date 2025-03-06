@@ -1,0 +1,142 @@
+{
+    "id": "beaf5ba4-8fa9-4342-911f-0266bb29be45_realization_view",
+    "layoutOptions": {
+        "algorithm": "elk.rectpacking",
+        "nodeSize.constraints": "[NODE_LABELS, MINIMUM_SIZE]",
+        "elk.contentAlignment": "V_CENTER H_CENTER"
+    },
+    "children": [
+        {
+            "id": "79d35fe7-f172-4405-b499-48aef545148a",
+            "layoutOptions": {
+                "algorithm": "elk.rectpacking",
+                "nodeSize.constraints": "[NODE_LABELS,MINIMUM_SIZE]",
+                "elk.contentAlignment": "V_CENTER H_CENTER"
+            },
+            "children": [
+                {
+                    "id": "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df",
+                    "children": [
+                        {
+                            "id": "00e7b925-cf4c-4cb0-929e-5409a1cd872b",
+                            "labels": [
+                                {
+                                    "text": "Sysexfunc",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 73,
+                                    "height": 12
+                                }
+                            ],
+                            "width": 79,
+                            "height": 36
+                        }
+                    ],
+                    "labels": [
+                        {
+                            "text": "System",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                            },
+                            "width": 58,
+                            "height": 12
+                        }
+                    ],
+                    "width": 143,
+                    "height": 72
+                }
+            ],
+            "width": 36,
+            "height": 64
+        },
+        {
+            "id": "853cb005-cba0-489b-8fe3-bb694ad4543b",
+            "layoutOptions": {
+                "algorithm": "elk.rectpacking",
+                "nodeSize.constraints": "[NODE_LABELS,MINIMUM_SIZE]",
+                "elk.contentAlignment": "V_CENTER H_CENTER"
+            },
+            "children": [
+                {
+                    "id": "08e02248-504d-4ed8-a295-c7682a614f66",
+                    "children": [
+                        {
+                            "id": "beaf5ba4-8fa9-4342-911f-0266bb29be45",
+                            "labels": [
+                                {
+                                    "text": "advise Harry",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 88,
+                                    "height": 12
+                                }
+                            ],
+                            "width": 94,
+                            "height": 36
+                        }
+                    ],
+                    "labels": [
+                        {
+                            "text": "Prof. A. P. W. B. Dumbledore",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                            },
+                            "width": 168,
+                            "height": 12
+                        }
+                    ],
+                    "width": 268,
+                    "height": 72
+                }
+            ],
+            "width": 36,
+            "height": 69
+        },
+        {
+            "id": "26e187b6-72e7-4872-8d8d-70b96243c96c",
+            "layoutOptions": {
+                "algorithm": "elk.rectpacking",
+                "nodeSize.constraints": "[NODE_LABELS,MINIMUM_SIZE]",
+                "elk.contentAlignment": "V_CENTER H_CENTER"
+            },
+            "children": [
+                {
+                    "id": "ca5af12c-5259-4844-aaac-9ca9f84aa90b",
+                    "children": [
+                        {
+                            "id": "da53c21f-4fb8-4da7-8d58-12d7a600bfa6",
+                            "labels": [
+                                {
+                                    "text": "Apping around",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 93,
+                                    "height": 12
+                                }
+                            ],
+                            "width": 99,
+                            "height": 36
+                        }
+                    ],
+                    "labels": [
+                        {
+                            "text": "App 2 SWC",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                            },
+                            "width": 73,
+                            "height": 12
+                        }
+                    ],
+                    "width": 178,
+                    "height": 72
+                }
+            ],
+            "width": 36,
+            "height": 74
+        }
+    ]
+}

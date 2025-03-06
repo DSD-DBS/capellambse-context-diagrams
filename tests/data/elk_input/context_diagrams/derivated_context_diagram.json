@@ -1,0 +1,117 @@
+{
+    "id": "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c",
+            "labels": [
+                {
+                    "text": "Derivation Example",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 118,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "__Derived-CP_INOUT:-1",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                },
+                {
+                    "id": "__Derived-CP_INOUT:-2",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 124,
+            "height": 50
+        },
+        {
+            "id": "__Derived-LogicalComponent:aad1bc27-e66c-4b38-a54a-b2de4a73a3b4",
+            "labels": [
+                {
+                    "text": "Derived Source",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 98,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "__Derived-CP_INOUT:1",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 104,
+            "height": 36
+        },
+        {
+            "id": "__Derived-LogicalComponent:7cde329d-0f47-4eaa-a1ae-dc6ede90af57",
+            "labels": [
+                {
+                    "text": "Derived Target",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 98,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "__Derived-CP_INOUT:2",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 104,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "__Derived-ComponentExchange:1",
+            "sources": [
+                "__Derived-CP_INOUT:1"
+            ],
+            "targets": [
+                "__Derived-CP_INOUT:-1"
+            ]
+        },
+        {
+            "id": "__Derived-ComponentExchange:2",
+            "sources": [
+                "__Derived-CP_INOUT:-2"
+            ],
+            "targets": [
+                "__Derived-CP_INOUT:2"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,208 @@
+{
+    "id": "98bbf6ec-161a-4332-a95e-e6990df868ad_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "8a7d2233-f115-4b75-bcda-b23814c05a6d",
+            "labels": [
+                {
+                    "text": "Cycle Actor Right",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 113,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "baf47117-26e4-4fd3-af60-b33e87346772",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 119,
+            "height": 36
+        },
+        {
+            "id": "b911b6bc-bde5-4d43-87fd-e20748a6938e",
+            "labels": [
+                {
+                    "text": "Cycle Actor Left",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 108,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "4e98c66f-fd6a-4f9c-9e88-8b4dca7d4112",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 114,
+            "height": 36
+        },
+        {
+            "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
+            "children": [
+                {
+                    "id": "57bcce8e-e1fb-45dc-aaa1-4c5748b02b5d",
+                    "children": [
+                        {
+                            "id": "98bbf6ec-161a-4332-a95e-e6990df868ad",
+                            "labels": [
+                                {
+                                    "text": "Cycle",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 53,
+                                    "height": 12
+                                }
+                            ],
+                            "ports": [
+                                {
+                                    "id": "11f4a3d8-756d-4f76-9270-7974624d4caa",
+                                    "layoutOptions": {
+                                        "borderOffset": -8
+                                    },
+                                    "width": 10,
+                                    "height": 10
+                                },
+                                {
+                                    "id": "25d22f15-6c25-405a-93c9-3a5cec005e4a",
+                                    "layoutOptions": {
+                                        "borderOffset": -8
+                                    },
+                                    "width": 10,
+                                    "height": 10
+                                },
+                                {
+                                    "id": "c83cea1c-1553-4433-94be-2dca8f4a51d2",
+                                    "layoutOptions": {
+                                        "borderOffset": -8
+                                    },
+                                    "width": 10,
+                                    "height": 10
+                                },
+                                {
+                                    "id": "e027cee4-5330-4d0e-bb2a-8551c313856c",
+                                    "layoutOptions": {
+                                        "borderOffset": -8
+                                    },
+                                    "width": 10,
+                                    "height": 10
+                                }
+                            ],
+                            "width": 94,
+                            "height": 56.0
+                        }
+                    ],
+                    "edges": [
+                        {
+                            "id": "3bcdd5da-9f35-4967-a661-bbe2c736fb80",
+                            "sources": [
+                                "11f4a3d8-756d-4f76-9270-7974624d4caa"
+                            ],
+                            "targets": [
+                                "25d22f15-6c25-405a-93c9-3a5cec005e4a"
+                            ],
+                            "labels": [
+                                {
+                                    "text": "C 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 43,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "labels": [
+                        {
+                            "text": "Cycle Parent",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                            },
+                            "width": 88,
+                            "height": 12
+                        }
+                    ],
+                    "width": 94,
+                    "height": 36
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Hogwarts",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ],
+            "width": 74,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "ed6325c5-582e-4537-af6b-a9568a388202",
+            "sources": [
+                "c83cea1c-1553-4433-94be-2dca8f4a51d2"
+            ],
+            "targets": [
+                "baf47117-26e4-4fd3-af60-b33e87346772"
+            ],
+            "labels": [
+                {
+                    "text": "C 11",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 48,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "1a2920eb-0806-4f27-95ca-5009855fff2c",
+            "sources": [
+                "4e98c66f-fd6a-4f9c-9e88-8b4dca7d4112"
+            ],
+            "targets": [
+                "e027cee4-5330-4d0e-bb2a-8551c313856c"
+            ],
+            "labels": [
+                {
+                    "text": "C 10",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 48,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

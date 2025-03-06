@@ -1,0 +1,322 @@
+{
+    "id": "c90f731b-0036-47e5-a455-9cf270d6880c_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "8c43d858-bab3-4d1d-afe0-71946d856e24",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 741,
+                "height": 140
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+                    "position": {
+                        "x": 12,
+                        "y": 71
+                    },
+                    "size": {
+                        "width": 114,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "position": {
+                                "x": 3,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 108,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Prepare delivery"
+                        }
+                    ]
+                },
+                {
+                    "id": "7000b811-c8e8-4060-8f60-c87462046057",
+                    "position": {
+                        "x": 541,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 188,
+                        "height": 77
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "ecf98af6-6648-4552-b5ba-4c86e458ca45",
+                            "position": {
+                                "x": 12,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 164,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 3,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 158,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Load selected delivery bot"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 52.5,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 83,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Loading Bot"
+                        }
+                    ]
+                },
+                {
+                    "id": "c90f731b-0036-47e5-a455-9cf270d6880c",
+                    "position": {
+                        "x": 274,
+                        "y": 50
+                    },
+                    "size": {
+                        "width": 124,
+                        "height": 78
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "position": {
+                                "x": 5.5,
+                                "y": 15
+                            },
+                            "size": {
+                                "width": 113,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Estimate required"
+                        },
+                        {
+                            "position": {
+                                "x": 3,
+                                "y": 27
+                            },
+                            "size": {
+                                "width": 118,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "power and select a"
+                        },
+                        {
+                            "position": {
+                                "x": 5.5,
+                                "y": 39
+                            },
+                            "size": {
+                                "width": 113,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "delivery bot with"
+                        },
+                        {
+                            "position": {
+                                "x": 13,
+                                "y": 51
+                            },
+                            "size": {
+                                "width": 98,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "enough battery"
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 319,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 103,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Smart warehouse"
+                },
+                {
+                    "id": "8db45fd9-fc53-4eec-857f-e642864985d9",
+                    "type": "edge",
+                    "sourceId": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+                    "targetId": "c90f731b-0036-47e5-a455-9cf270d6880c",
+                    "routingPoints": [
+                        {
+                            "x": 126,
+                            "y": 89
+                        },
+                        {
+                            "x": 274,
+                            "y": 89
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 146,
+                                "y": 92
+                            },
+                            "size": {
+                                "width": 108,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "delivery address"
+                        }
+                    ]
+                },
+                {
+                    "id": "49c6b407-9fab-4c7a-a813-f26d01bdaba2",
+                    "type": "edge",
+                    "sourceId": "c90f731b-0036-47e5-a455-9cf270d6880c",
+                    "targetId": "ecf98af6-6648-4552-b5ba-4c86e458ca45",
+                    "routingPoints": [
+                        {
+                            "x": 398,
+                            "y": 76
+                        },
+                        {
+                            "x": 553,
+                            "y": 76
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 418,
+                                "y": 61
+                            },
+                            "size": {
+                                "width": 98,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "bot identifier"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "9e7eb78b-f4ad-4762-9f5c-d6f60630b10e",
+            "position": {
+                "x": 951,
+                "y": 81
+            },
+            "size": {
+                "width": 138,
+                "height": 77
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "b4601205-9104-4e24-bd03-940ca15f6a1e",
+                    "position": {
+                        "x": 12,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 114,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "position": {
+                                "x": 3,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 108,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Move for loading"
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 25,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Delivery Bot"
+                }
+            ]
+        },
+        {
+            "id": "89b4d943-cfd5-4bf1-a381-fa82c925e8e2",
+            "type": "edge",
+            "sourceId": "c90f731b-0036-47e5-a455-9cf270d6880c",
+            "targetId": "b4601205-9104-4e24-bd03-940ca15f6a1e",
+            "routingPoints": [
+                {
+                    "x": 410,
+                    "y": 114
+                },
+                {
+                    "x": 420,
+                    "y": 114
+                },
+                {
+                    "x": 420,
+                    "y": 128
+                },
+                {
+                    "x": 963,
+                    "y": 128
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 778,
+                        "y": 131
+                    },
+                    "size": {
+                        "width": 148,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "loading movement command"
+                }
+            ]
+        }
+    ]
+}

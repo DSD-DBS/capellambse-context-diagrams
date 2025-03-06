@@ -1,0 +1,88 @@
+{
+    "id": "e37510b9-3166-4f80-a919-dfaac9b696c7_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "e37510b9-3166-4f80-a919-dfaac9b696c7",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 89,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 83,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Environment"
+                }
+            ]
+        },
+        {
+            "id": "a8c42033-fdf2-458f-bae9-1cfd1207c49f",
+            "position": {
+                "x": 284,
+                "y": 12
+            },
+            "size": {
+                "width": 144,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 138,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Functional Human Being"
+                }
+            ]
+        },
+        {
+            "id": "6638ccd2-61cc-481e-bb23-4c1b147e1dbc",
+            "type": "edge",
+            "sourceId": "e37510b9-3166-4f80-a919-dfaac9b696c7",
+            "targetId": "a8c42033-fdf2-458f-bae9-1cfd1207c49f",
+            "routingPoints": [
+                {
+                    "x": 101,
+                    "y": 30
+                },
+                {
+                    "x": 284,
+                    "y": 30
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 121,
+                        "y": 33
+                    },
+                    "size": {
+                        "width": 143,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Environmental influence"
+                }
+            ]
+        }
+    ]
+}

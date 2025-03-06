@@ -1,0 +1,510 @@
+{
+    "id": "b51ccc6f-5f96-4e28-b90e-72463a3b50cf_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "3f416925-9d8a-4e9c-99f3-e912efb23d2f",
+            "position": {
+                "x": 921,
+                "y": 130
+            },
+            "size": {
+                "width": 199,
+                "height": 77
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "5bfc516b-c20d-4007-9a38-5ba0e889d0a4",
+                    "position": {
+                        "x": 63,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 124,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "2d1e2ad5-3439-4820-baa8-189966407ba2",
+                            "position": {
+                                "x": -2,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": -49,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "X CA"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 14.5,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 103,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Camera Assembly"
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 40.5,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 118,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Sensor compartment"
+                }
+            ]
+        },
+        {
+            "id": "3d68852d-fcc0-452c-af12-a2fbe22f81fa",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 811,
+                "height": 178
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "9137f463-7497-40c2-b20a-897158fdba9a",
+                    "position": {
+                        "x": 355,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 444,
+                        "height": 126
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "3a982128-3281-4d37-8838-a6058b7a25d9",
+                            "position": {
+                                "x": 293,
+                                "y": 78
+                            },
+                            "size": {
+                                "width": 139,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "5308754a-375f-4ab6-8d8f-86b30ea47288",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 13
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port",
+                                    "children": [
+                                        {
+                                            "position": {
+                                                "x": -39,
+                                                "y": 11
+                                            },
+                                            "size": {
+                                                "width": 38,
+                                                "height": 12
+                                            },
+                                            "type": "label",
+                                            "text": "X2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "position": {
+                                        "x": 24.5,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 98,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Compute Card 2"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "63be604e-883e-41ea-9023-fc74f29906fe",
+                            "position": {
+                                "x": 73,
+                                "y": 40
+                            },
+                            "size": {
+                                "width": 139,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "22859552-3710-4e58-9aa6-caebd044c921",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 13
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port",
+                                    "children": [
+                                        {
+                                            "position": {
+                                                "x": -39,
+                                                "y": 11
+                                            },
+                                            "size": {
+                                                "width": 38,
+                                                "height": 12
+                                            },
+                                            "type": "label",
+                                            "text": "X2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "position": {
+                                        "x": 24.5,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 98,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Compute Card 1"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 193,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 58,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Server"
+                        },
+                        {
+                            "id": "4dfacf58-0889-42cf-9b9d-f76229d08fe6",
+                            "type": "edge",
+                            "sourceId": "22859552-3710-4e58-9aa6-caebd044c921",
+                            "targetId": "5308754a-375f-4ab6-8d8f-86b30ea47288",
+                            "routingPoints": [
+                                {
+                                    "x": 71,
+                                    "y": 58
+                                },
+                                {
+                                    "x": 22,
+                                    "y": 58
+                                },
+                                {
+                                    "x": 22,
+                                    "y": 96
+                                },
+                                {
+                                    "x": 291,
+                                    "y": 96
+                                }
+                            ],
+                            "children": [
+                                {
+                                    "type": "junction",
+                                    "position": {
+                                        "x": 22,
+                                        "y": 58
+                                    }
+                                },
+                                {
+                                    "position": {
+                                        "x": 98,
+                                        "y": 99
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "PL 1"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "b51ccc6f-5f96-4e28-b90e-72463a3b50cf",
+                    "position": {
+                        "x": 12,
+                        "y": 44
+                    },
+                    "size": {
+                        "width": 139,
+                        "height": 66
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "76d9c301-c0ad-4615-9f02-b804b018decf",
+                            "position": {
+                                "x": 131,
+                                "y": 9
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 11,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 73,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "X FSwitch"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "f1c0db71-1927-4874-bf3e-0603a88f1d9b",
+                            "position": {
+                                "x": 131,
+                                "y": 28
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 11,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 68,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "X Switch"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "53c9fe29-18e2-4642-906e-b7507bf0ff39",
+                            "position": {
+                                "x": 131,
+                                "y": 47
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 11,
+                                        "y": 11
+                                    },
+                                    "size": {
+                                        "width": 73,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "X NSwitch"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 16.5,
+                                "y": 27
+                            },
+                            "size": {
+                                "width": 98,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Network Switch"
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 339,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 133,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Equipment compartment"
+                },
+                {
+                    "id": "3078ec08-956a-4c61-87ed-0143d1d66715",
+                    "type": "edge",
+                    "sourceId": "76d9c301-c0ad-4615-9f02-b804b018decf",
+                    "targetId": "5308754a-375f-4ab6-8d8f-86b30ea47288",
+                    "routingPoints": [
+                        {
+                            "x": 153,
+                            "y": 58
+                        },
+                        {
+                            "x": 577,
+                            "y": 58
+                        },
+                        {
+                            "x": 577,
+                            "y": 125
+                        },
+                        {
+                            "x": 646,
+                            "y": 125
+                        }
+                    ],
+                    "children": [
+                        {
+                            "type": "junction",
+                            "position": {
+                                "x": 577,
+                                "y": 125
+                            }
+                        },
+                        {
+                            "position": {
+                                "x": 247,
+                                "y": 43
+                            },
+                            "size": {
+                                "width": 83,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Eth Cable 3"
+                        }
+                    ]
+                },
+                {
+                    "id": "42ee9e89-d445-45a2-8280-028d4fb1038d",
+                    "type": "edge",
+                    "sourceId": "f1c0db71-1927-4874-bf3e-0603a88f1d9b",
+                    "targetId": "22859552-3710-4e58-9aa6-caebd044c921",
+                    "routingPoints": [
+                        {
+                            "x": 153,
+                            "y": 77
+                        },
+                        {
+                            "x": 340,
+                            "y": 77
+                        },
+                        {
+                            "x": 340,
+                            "y": 87
+                        },
+                        {
+                            "x": 426,
+                            "y": 87
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 247,
+                                "y": 80
+                            },
+                            "size": {
+                                "width": 83,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Eth Cable 2"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "6d9a6777-472f-4045-8f54-700515fb3c70",
+            "type": "edge",
+            "sourceId": "53c9fe29-18e2-4642-906e-b7507bf0ff39",
+            "targetId": "2d1e2ad5-3439-4820-baa8-189966407ba2",
+            "routingPoints": [
+                {
+                    "x": 165,
+                    "y": 108
+                },
+                {
+                    "x": 249,
+                    "y": 108
+                },
+                {
+                    "x": 249,
+                    "y": 177
+                },
+                {
+                    "x": 982,
+                    "y": 177
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 848,
+                        "y": 180
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "PL 1"
+                }
+            ]
+        }
+    ]
+}

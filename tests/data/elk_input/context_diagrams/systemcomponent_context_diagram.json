@@ -1,0 +1,241 @@
+{
+    "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "labels": [
+                {
+                    "text": "Kevin Spacey",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "d5fd4286-1d41-4d21-b3cf-9babc8872c77",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                },
+                {
+                    "id": "1bf2b3e5-fcdd-45b6-9b9f-fa211dbd50aa",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                },
+                {
+                    "id": "1817adb2-a3f2-498e-bb29-3031231426a3",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                },
+                {
+                    "id": "6b07c5a0-8731-4266-b465-25590d1af82c",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 94,
+            "height": 56.0
+        },
+        {
+            "id": "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df",
+            "labels": [
+                {
+                    "text": "System",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 58,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "898b878b-4392-499a-82f7-eb48e0f07e36",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 64,
+            "height": 36
+        },
+        {
+            "id": "d4a22478-5717-4ca7-bfc9-9a193e6218a8",
+            "labels": [
+                {
+                    "text": "HollyWood",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 73,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "5e53616c-d3b6-4b2c-be23-6fb4229ddd20",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 79,
+            "height": 36
+        },
+        {
+            "id": "6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6",
+            "labels": [
+                {
+                    "text": "Gerard Butler",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 93,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "74505eac-7abc-476d-8dec-ad68abb4b2a5",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 99,
+            "height": 36
+        },
+        {
+            "id": "da12377b-fb70-4441-8faa-3a5c153c5de2",
+            "labels": [
+                {
+                    "text": "Affleck",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 63,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "b2d2a4f1-0c21-45f4-918c-3d3c5e8af104",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 69,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "560e799d-d291-4928-a367-430232ddef65",
+            "sources": [
+                "d5fd4286-1d41-4d21-b3cf-9babc8872c77"
+            ],
+            "targets": [
+                "898b878b-4392-499a-82f7-eb48e0f07e36"
+            ],
+            "labels": [
+                {
+                    "text": "Test Input Ex",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 93,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "4ad47697-2560-4e32-8c6a-8908efe8e5ee",
+            "sources": [
+                "1bf2b3e5-fcdd-45b6-9b9f-fa211dbd50aa"
+            ],
+            "targets": [
+                "5e53616c-d3b6-4b2c-be23-6fb4229ddd20"
+            ],
+            "labels": [
+                {
+                    "text": "go to",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 53,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "9ded0504-94e5-456a-b446-af72924448e1",
+            "sources": [
+                "1817adb2-a3f2-498e-bb29-3031231426a3"
+            ],
+            "targets": [
+                "74505eac-7abc-476d-8dec-ad68abb4b2a5"
+            ],
+            "labels": [
+                {
+                    "text": "befriend",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "86a1afc2-b7fd-4023-bbd5-ab44f5dc2c28",
+            "sources": [
+                "b2d2a4f1-0c21-45f4-918c-3d3c5e8af104"
+            ],
+            "targets": [
+                "6b07c5a0-8731-4266-b465-25590d1af82c"
+            ],
+            "labels": [
+                {
+                    "text": "afflecks",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

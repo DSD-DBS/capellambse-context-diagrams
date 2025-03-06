@@ -1,0 +1,366 @@
+{
+    "id": "7f138bae-4949-40a1-9a88-15941f827f8c_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 338,
+                "height": 215
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "37dfa5e6-a121-4ce9-8aa4-09a0c73dc2e9",
+                    "position": {
+                        "x": 12,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 100,
+                        "height": 77
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "a65281e5-83e9-4aad-a2c6-0c31d8b24477",
+                            "position": {
+                                "x": 12,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 74,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "dd98c04f-6e47-4989-bccf-7fa6cc51a28f",
+                                    "position": {
+                                        "x": 66,
+                                        "y": 20.666666666666664
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "id": "aac1f636-44cd-467a-8238-3c383f28351e",
+                                    "position": {
+                                        "x": 66,
+                                        "y": 5.333333333333333
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "position": {
+                                        "x": 4,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 58,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Circle"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 23.5,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 53,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Right"
+                        }
+                    ]
+                },
+                {
+                    "id": "f8c9df04-fcd5-479d-814b-696fa6050231",
+                    "position": {
+                        "x": 12,
+                        "y": 126
+                    },
+                    "size": {
+                        "width": 100,
+                        "height": 77
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "9d367e35-d826-4256-98b1-3278cc4c3ab8",
+                            "position": {
+                                "x": 12,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 74,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "cd739c16-9f51-42b5-ace1-42e82acbf63a",
+                                    "position": {
+                                        "x": 66,
+                                        "y": 13
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "position": {
+                                        "x": 4,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 58,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "UpUpUp"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 23.5,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 53,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Upper"
+                        }
+                    ]
+                },
+                {
+                    "id": "f632888e-51bc-4c9f-8e81-73e9404de784",
+                    "position": {
+                        "x": 240,
+                        "y": 33.666666666666664
+                    },
+                    "size": {
+                        "width": 86,
+                        "height": 83
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "7f138bae-4949-40a1-9a88-15941f827f8c",
+                            "position": {
+                                "x": 14,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 59,
+                                "height": 42
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "6265248f-2ec9-449f-9b07-0614957cbab3",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 16
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "id": "8b39d153-234b-4ced-9c0a-af75f79c23ec",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 29
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "id": "60fbcf0f-7cbc-4540-a4b0-961c82007924",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 3
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "position": {
+                                        "x": 7,
+                                        "y": 15
+                                    },
+                                    "size": {
+                                        "width": 53,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "First"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 19,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 48,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Left"
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 135,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 68,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Hogwarts"
+                },
+                {
+                    "id": "4bc441b9-cb90-46c2-92e4-5d942a41ec66",
+                    "type": "edge",
+                    "sourceId": "dd98c04f-6e47-4989-bccf-7fa6cc51a28f",
+                    "targetId": "6265248f-2ec9-449f-9b07-0614957cbab3",
+                    "routingPoints": [
+                        {
+                            "x": 100,
+                            "y": 83.66666666666666
+                        },
+                        {
+                            "x": 252,
+                            "y": 83.66666666666666
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 139.5,
+                                "y": 86.66666666666666
+                            },
+                            "size": {
+                                "width": 73,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "labelsize"
+                        }
+                    ]
+                },
+                {
+                    "id": "ed7a3230-f559-4a62-bd8a-745ee5e2faae",
+                    "type": "edge",
+                    "sourceId": "cd739c16-9f51-42b5-ace1-42e82acbf63a",
+                    "targetId": "8b39d153-234b-4ced-9c0a-af75f79c23ec",
+                    "routingPoints": [
+                        {
+                            "x": 100,
+                            "y": 173
+                        },
+                        {
+                            "x": 225,
+                            "y": 173
+                        },
+                        {
+                            "x": 225,
+                            "y": 96.66666666666666
+                        },
+                        {
+                            "x": 252,
+                            "y": 96.66666666666666
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 142,
+                                "y": 176
+                            },
+                            "size": {
+                                "width": 68,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Uptoleft"
+                        }
+                    ]
+                },
+                {
+                    "id": "0641d09d-4627-44fc-9926-3978e80e2ca9",
+                    "type": "edge",
+                    "sourceId": "aac1f636-44cd-467a-8238-3c383f28351e",
+                    "targetId": "60fbcf0f-7cbc-4540-a4b0-961c82007924",
+                    "routingPoints": [
+                        {
+                            "x": 100,
+                            "y": 68.33333333333333
+                        },
+                        {
+                            "x": 225,
+                            "y": 68.33333333333333
+                        },
+                        {
+                            "x": 225,
+                            "y": 70.66666666666666
+                        },
+                        {
+                            "x": 252,
+                            "y": 70.66666666666666
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 137,
+                                "y": 53.33333333333333
+                            },
+                            "size": {
+                                "width": 78,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "determines"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

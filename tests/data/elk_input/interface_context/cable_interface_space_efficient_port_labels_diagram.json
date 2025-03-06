@@ -1,0 +1,148 @@
+{
+    "id": "da949a89-23c0-4487-88e1-f14b33326570_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "b9f9a83c-fb02-44f7-9123-9d86326de5f1",
+            "children": [
+                {
+                    "id": "d5259b69-1473-4b00-bb41-b94eb44abde5",
+                    "layoutOptions": {
+                        "portLabels.placement": "SPACE_EFFICIENT"
+                    },
+                    "labels": [
+                        {
+                            "text": "Random Node",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 83,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "682edffb-6b44-48c0-826b-32eb217eb81c",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "Cable 1 Target",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 98,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 109,
+                    "height": 36
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Physical System",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 103,
+                    "height": 12
+                }
+            ],
+            "width": 109,
+            "height": 36
+        },
+        {
+            "id": "307a75e9-642d-4f68-b195-d57dc8dda60d",
+            "children": [
+                {
+                    "id": "fdb34c92-7c49-491d-bf11-dd139930786e",
+                    "layoutOptions": {
+                        "portLabels.placement": "SPACE_EFFICIENT"
+                    },
+                    "labels": [
+                        {
+                            "text": "Physical Component",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 118,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "f3722f0a-c7de-421d-b4aa-fea6f5278672",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "Cable 1 Source",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 98,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 124,
+                    "height": 36
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Physical Actor",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 98,
+                    "height": 12
+                }
+            ],
+            "width": 104,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "da949a89-23c0-4487-88e1-f14b33326570",
+            "layoutOptions": {
+                "layered.priority.straightness": "10"
+            },
+            "sources": [
+                "f3722f0a-c7de-421d-b4aa-fea6f5278672"
+            ],
+            "targets": [
+                "682edffb-6b44-48c0-826b-32eb217eb81c"
+            ],
+            "labels": [
+                {
+                    "text": "Cable 1",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 63,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

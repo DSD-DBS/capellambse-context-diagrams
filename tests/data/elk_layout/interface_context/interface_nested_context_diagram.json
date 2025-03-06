@@ -1,0 +1,723 @@
+{
+    "id": "2f8ed849-fbda-4902-82ec-cbf8104ae686_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "7f375127-f08a-4deb-8fb6-97c955840f89",
+            "position": {
+                "x": 283,
+                "y": 12
+            },
+            "size": {
+                "width": 186,
+                "height": 327
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "a71b6a6c-ad7e-4be2-a426-f7742fe992f3",
+                    "position": {
+                        "x": 45,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 129,
+                        "height": 174
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "a305ab7e-d3ac-4152-8ee3-995102c556da",
+                            "position": {
+                                "x": 17,
+                                "y": 126
+                            },
+                            "size": {
+                                "width": 74,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "426971e1-2854-4c2b-b5a9-bc09d84a0980",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 20.666666666666664
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "id": "3d03fde7-3c12-409f-9a4a-5ccbc5cb9ee1",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 5.333333333333333
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "position": {
+                                        "x": 12,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 58,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "RFNC 2"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "8d24bd39-a7c4-4b2e-93c4-b63088a83248",
+                            "position": {
+                                "x": 17,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 100,
+                                "height": 77
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "a1283c40-6fd4-4c2d-aec1-114155811684",
+                                    "position": {
+                                        "x": 14,
+                                        "y": 29
+                                    },
+                                    "size": {
+                                        "width": 74,
+                                        "height": 36
+                                    },
+                                    "type": "node",
+                                    "children": [
+                                        {
+                                            "id": "7c38a08d-c70e-477f-a8d7-47263c47df94",
+                                            "position": {
+                                                "x": -2,
+                                                "y": 13
+                                            },
+                                            "size": {
+                                                "width": 10,
+                                                "height": 10
+                                            },
+                                            "type": "port"
+                                        },
+                                        {
+                                            "position": {
+                                                "x": 12,
+                                                "y": 12
+                                            },
+                                            "size": {
+                                                "width": 58,
+                                                "height": 12
+                                            },
+                                            "type": "label",
+                                            "text": "RFNC 3"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "position": {
+                                        "x": 26,
+                                        "y": 5
+                                    },
+                                    "size": {
+                                        "width": 48,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "LC 1"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 40.5,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 48,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "LC 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "f713ba11-b18c-48f8-aabf-5ee57d5c87b7",
+                    "position": {
+                        "x": 45,
+                        "y": 279
+                    },
+                    "size": {
+                        "width": 89,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "be863470-e4a8-4930-bb9f-4a6574907abe",
+                            "position": {
+                                "x": -2,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port"
+                        },
+                        {
+                            "position": {
+                                "x": 7,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 83,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "RFNC Part 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "7cd5ae5b-6de7-42f6-8a35-9375dd5bbde8",
+                    "position": {
+                        "x": 45,
+                        "y": 223
+                    },
+                    "size": {
+                        "width": 89,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "5267b95c-9f78-40d6-88b3-6e390bd31526",
+                            "position": {
+                                "x": -2,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port"
+                        },
+                        {
+                            "position": {
+                                "x": 7,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 83,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "RFNC Part 2"
+                        }
+                    ]
+                },
+                {
+                    "id": "10c28db9-efbb-4486-90ee-042cf867db1a",
+                    "position": {
+                        "x": -2,
+                        "y": 135
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": 70.5,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 53,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "LC 20"
+                }
+            ]
+        },
+        {
+            "id": "44d051f2-875d-4a51-93f0-6c7b20a45842",
+            "position": {
+                "x": 12,
+                "y": 99
+            },
+            "size": {
+                "width": 128,
+                "height": 174
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "b839937e-8cc4-49cd-87e7-e1aee020ee05",
+                    "position": {
+                        "x": 39,
+                        "y": 126
+                    },
+                    "size": {
+                        "width": 64,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "64736cbe-2a66-41af-b300-5174ebeb1da9",
+                            "position": {
+                                "x": 56,
+                                "y": 5.333333333333333
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port"
+                        },
+                        {
+                            "id": "3d2f4e3d-19c3-4cb7-aa90-a5c2f7568677",
+                            "position": {
+                                "x": 56,
+                                "y": 20.666666666666664
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port"
+                        },
+                        {
+                            "position": {
+                                "x": -1,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 58,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "LFNC 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "adfff141-aa41-4258-8889-b49cdc575e11",
+                    "position": {
+                        "x": 12,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 91,
+                        "height": 77
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "065cffb2-de36-48dc-ac55-f21b30a00961",
+                            "position": {
+                                "x": 13,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 64,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "05fe69c7-d4c3-43a3-aaa4-0ce0fb27ce7e",
+                                    "position": {
+                                        "x": 56,
+                                        "y": 5.333333333333333
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "id": "f6447eb1-a4d3-4af6-84ad-22fdd29c05c8",
+                                    "position": {
+                                        "x": 56,
+                                        "y": 20.666666666666664
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "position": {
+                                        "x": -1,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 58,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "LFNC 2"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 21.5,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 48,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "LA 1"
+                        }
+                    ]
+                },
+                {
+                    "id": "50d8bc7b-c029-45eb-a6d5-dfa4ef2abcf2",
+                    "position": {
+                        "x": 120,
+                        "y": 48
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": 36,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "LC 1"
+                }
+            ]
+        },
+        {
+            "id": "2f8ed849-fbda-4902-82ec-cbf8104ae686",
+            "type": "edge",
+            "sourceId": "50d8bc7b-c029-45eb-a6d5-dfa4ef2abcf2",
+            "targetId": "10c28db9-efbb-4486-90ee-042cf867db1a",
+            "routingPoints": [
+                {
+                    "x": 142,
+                    "y": 152
+                },
+                {
+                    "x": 281,
+                    "y": 152
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 165,
+                        "y": 155
+                    },
+                    "size": {
+                        "width": 73,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Interface"
+                }
+            ]
+        },
+        {
+            "id": "d635ffca-4a12-451e-84c0-77fc66a9fa2e",
+            "type": "edge",
+            "sourceId": "64736cbe-2a66-41af-b300-5174ebeb1da9",
+            "targetId": "426971e1-2854-4c2b-b5a9-bc09d84a0980",
+            "routingPoints": [
+                {
+                    "x": 117,
+                    "y": 235.33333333333331
+                },
+                {
+                    "x": 145,
+                    "y": 235
+                },
+                {
+                    "x": 155,
+                    "y": 235
+                },
+                {
+                    "x": 155,
+                    "y": 230
+                },
+                {
+                    "x": 268,
+                    "y": 230
+                },
+                {
+                    "x": 268,
+                    "y": 193
+                },
+                {
+                    "x": 278,
+                    "y": 192.66666666666663
+                },
+                {
+                    "x": 343,
+                    "y": 192.66666666666663
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 177.5,
+                        "y": 233
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "FE 3"
+                }
+            ]
+        },
+        {
+            "id": "594656d7-7ebc-4128-aa8b-c7e17981d870",
+            "type": "edge",
+            "sourceId": "05fe69c7-d4c3-43a3-aaa4-0ce0fb27ce7e",
+            "targetId": "7c38a08d-c70e-477f-a8d7-47263c47df94",
+            "routingPoints": [
+                {
+                    "x": 103,
+                    "y": 167.33333333333334
+                },
+                {
+                    "x": 145,
+                    "y": 167
+                },
+                {
+                    "x": 155,
+                    "y": 167
+                },
+                {
+                    "x": 155,
+                    "y": 178
+                },
+                {
+                    "x": 248,
+                    "y": 178
+                },
+                {
+                    "x": 248,
+                    "y": 167
+                },
+                {
+                    "x": 278,
+                    "y": 167.33333333333331
+                },
+                {
+                    "x": 313,
+                    "y": 167.33333333333331
+                },
+                {
+                    "x": 313,
+                    "y": 117
+                },
+                {
+                    "x": 357,
+                    "y": 117
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 177.5,
+                        "y": 181
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "FE 1"
+                }
+            ]
+        },
+        {
+            "id": "5f67436c-9742-4b84-b99e-7ee719ff02a0",
+            "type": "edge",
+            "sourceId": "f6447eb1-a4d3-4af6-84ad-22fdd29c05c8",
+            "targetId": "3d03fde7-3c12-409f-9a4a-5ccbc5cb9ee1",
+            "routingPoints": [
+                {
+                    "x": 103,
+                    "y": 182.66666666666666
+                },
+                {
+                    "x": 145,
+                    "y": 183
+                },
+                {
+                    "x": 155,
+                    "y": 183
+                },
+                {
+                    "x": 155,
+                    "y": 204
+                },
+                {
+                    "x": 258,
+                    "y": 204
+                },
+                {
+                    "x": 258,
+                    "y": 177
+                },
+                {
+                    "x": 278,
+                    "y": 177.33333333333331
+                },
+                {
+                    "x": 343,
+                    "y": 177.33333333333331
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 177.5,
+                        "y": 207
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "FE 2"
+                }
+            ]
+        },
+        {
+            "id": "aaca5723-a95f-43c8-830e-7ddea343abdf",
+            "type": "edge",
+            "sourceId": "3d2f4e3d-19c3-4cb7-aa90-a5c2f7568677",
+            "targetId": "be863470-e4a8-4930-bb9f-4a6574907abe",
+            "routingPoints": [
+                {
+                    "x": 117,
+                    "y": 250.66666666666666
+                },
+                {
+                    "x": 145,
+                    "y": 251
+                },
+                {
+                    "x": 155,
+                    "y": 251
+                },
+                {
+                    "x": 155,
+                    "y": 309
+                },
+                {
+                    "x": 326,
+                    "y": 309
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 177.5,
+                        "y": 312
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "FE 5"
+                }
+            ]
+        },
+        {
+            "id": "cb1e41b1-744b-43ea-89d2-d7c54dff4606",
+            "type": "edge",
+            "sourceId": "3d2f4e3d-19c3-4cb7-aa90-a5c2f7568677",
+            "targetId": "5267b95c-9f78-40d6-88b3-6e390bd31526",
+            "routingPoints": [
+                {
+                    "x": 117,
+                    "y": 250.66666666666666
+                },
+                {
+                    "x": 145,
+                    "y": 251
+                },
+                {
+                    "x": 155,
+                    "y": 251
+                },
+                {
+                    "x": 155,
+                    "y": 256
+                },
+                {
+                    "x": 248,
+                    "y": 256
+                },
+                {
+                    "x": 248,
+                    "y": 253
+                },
+                {
+                    "x": 326,
+                    "y": 253
+                }
+            ],
+            "children": [
+                {
+                    "type": "junction",
+                    "position": {
+                        "x": 155,
+                        "y": 256
+                    }
+                },
+                {
+                    "position": {
+                        "x": 177.5,
+                        "y": 259
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "FE 6"
+                }
+            ]
+        }
+    ]
+}

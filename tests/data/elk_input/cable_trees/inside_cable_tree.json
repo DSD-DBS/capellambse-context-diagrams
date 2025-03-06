@@ -1,0 +1,171 @@
+{
+    "id": "39e96ffc-2f32-41b9-b406-ba82c78fe451_cable_tree",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "54039718-8e47-442e-98ad-44d0459a5170",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
+            "labels": [
+                {
+                    "text": "PC 1",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 48,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "1ceea88f-63fe-4015-b73e-94ebcea67e1b",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "PP 1",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "width": 54,
+            "height": 36
+        },
+        {
+            "id": "dcad75de-d7d5-4f28-9fb2-b084c150eb30",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
+            "labels": [
+                {
+                    "text": "PC 35",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 53,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "9e155e28-d27a-4e07-89a3-0e67f54641cc",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "PP 3",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "width": 59,
+            "height": 36
+        },
+        {
+            "id": "86268c87-29d1-4427-af68-bcd88779ce8e",
+            "layoutOptions": {
+                "portLabels.placement": "OUTSIDE"
+            },
+            "labels": [
+                {
+                    "text": "PC 2",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 48,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "0adba03e-922d-4e0f-9637-d5d20533cc59",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10,
+                    "labels": [
+                        {
+                            "text": "PP 1",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "width": 54,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "39e96ffc-2f32-41b9-b406-ba82c78fe451",
+            "layoutOptions": {
+                "layered.priority.straightness": "10"
+            },
+            "sources": [
+                "1ceea88f-63fe-4015-b73e-94ebcea67e1b"
+            ],
+            "targets": [
+                "9e155e28-d27a-4e07-89a3-0e67f54641cc"
+            ],
+            "labels": [
+                {
+                    "text": "PL 1",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 48,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "e3fa2759-4508-4b9b-b2e3-c5b39f3b9cdb",
+            "sources": [
+                "9e155e28-d27a-4e07-89a3-0e67f54641cc"
+            ],
+            "targets": [
+                "0adba03e-922d-4e0f-9637-d5d20533cc59"
+            ],
+            "labels": [
+                {
+                    "text": "PL 2",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 48,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

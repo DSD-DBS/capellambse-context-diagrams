@@ -1,0 +1,379 @@
+{
+    "id": "861b9be3-a7b2-4e1d-b34b-8e857062b3df_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
+            "children": [
+                {
+                    "id": "c999f0f0-49d0-4b01-b260-f69dc63abbcb",
+                    "children": [
+                        {
+                            "id": "4904b56b-f82f-41f4-a5b6-aa8ccc64a9b5",
+                            "labels": [
+                                {
+                                    "text": "Right Function 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 108,
+                                    "height": 12
+                                }
+                            ],
+                            "ports": [
+                                {
+                                    "id": "ba26d020-30cc-4d79-ac9a-b4729663a9e5",
+                                    "layoutOptions": {
+                                        "borderOffset": -8
+                                    },
+                                    "width": 10,
+                                    "height": 10
+                                }
+                            ],
+                            "width": 114,
+                            "height": 36
+                        }
+                    ],
+                    "labels": [
+                        {
+                            "text": "Right 1",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                            },
+                            "width": 63,
+                            "height": 12
+                        }
+                    ],
+                    "width": 74,
+                    "height": 36
+                },
+                {
+                    "id": "53558f58-270e-4206-8fc7-3cf9e788fac9",
+                    "children": [
+                        {
+                            "id": "ea3ff951-47ec-441e-aae6-c5103d47cf1a",
+                            "children": [
+                                {
+                                    "id": "4fd46193-95cc-4295-8672-94a0cab06bef",
+                                    "labels": [
+                                        {
+                                            "text": "Right Function 2",
+                                            "layoutOptions": {
+                                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                            },
+                                            "width": 108,
+                                            "height": 12
+                                        }
+                                    ],
+                                    "ports": [
+                                        {
+                                            "id": "da3e108d-c8b1-4beb-896a-bbb6618acf22",
+                                            "layoutOptions": {
+                                                "borderOffset": -8
+                                            },
+                                            "width": 10,
+                                            "height": 10
+                                        }
+                                    ],
+                                    "width": 114,
+                                    "height": 36
+                                }
+                            ],
+                            "labels": [
+                                {
+                                    "text": "Right 2",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                                    },
+                                    "width": 63,
+                                    "height": 12
+                                }
+                            ],
+                            "width": 89,
+                            "height": 36
+                        }
+                    ],
+                    "labels": [
+                        {
+                            "text": "Right owner",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                            },
+                            "width": 83,
+                            "height": 12
+                        }
+                    ],
+                    "width": 89,
+                    "height": 36
+                },
+                {
+                    "id": "16b4fcc5-548d-4721-b62a-d3d5b1c1d2eb",
+                    "children": [
+                        {
+                            "id": "77c9db12-29c7-4ced-822d-3a154726f2be",
+                            "labels": [
+                                {
+                                    "text": "Hierarchy Function",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 118,
+                                    "height": 12
+                                }
+                            ],
+                            "ports": [
+                                {
+                                    "id": "34450485-578a-4bce-b74c-4723d470257f",
+                                    "layoutOptions": {
+                                        "borderOffset": -8
+                                    },
+                                    "width": 10,
+                                    "height": 10
+                                }
+                            ],
+                            "width": 124,
+                            "height": 36
+                        },
+                        {
+                            "id": "31bc2326-5a55-45f9-9967-f1957bcd3f89",
+                            "children": [
+                                {
+                                    "id": "f0bc11ba-89aa-4297-98d2-076440e9117f",
+                                    "labels": [
+                                        {
+                                            "text": "Inner Function 1",
+                                            "layoutOptions": {
+                                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                            },
+                                            "width": 108,
+                                            "height": 12
+                                        }
+                                    ],
+                                    "ports": [
+                                        {
+                                            "id": "9fefbe1e-3f74-4544-833c-bb040bcfeac7",
+                                            "layoutOptions": {
+                                                "borderOffset": -8
+                                            },
+                                            "width": 10,
+                                            "height": 10
+                                        }
+                                    ],
+                                    "width": 114,
+                                    "height": 36
+                                }
+                            ],
+                            "labels": [
+                                {
+                                    "text": "Inner 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                                    },
+                                    "width": 63,
+                                    "height": 12
+                                }
+                            ],
+                            "width": 79,
+                            "height": 36
+                        },
+                        {
+                            "id": "99a1d711-74af-4db7-af08-4dbd91c281ce",
+                            "children": [
+                                {
+                                    "id": "ad0bdf2f-bd0e-48bc-9296-5be3371a76e2",
+                                    "children": [
+                                        {
+                                            "id": "861b9be3-a7b2-4e1d-b34b-8e857062b3df",
+                                            "labels": [
+                                                {
+                                                    "text": "Inner Function 2",
+                                                    "layoutOptions": {
+                                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                                    },
+                                                    "width": 108,
+                                                    "height": 12
+                                                }
+                                            ],
+                                            "ports": [
+                                                {
+                                                    "id": "09ad0a10-a06b-401e-a31b-3ca0e33ede8e",
+                                                    "layoutOptions": {
+                                                        "borderOffset": -8
+                                                    },
+                                                    "width": 10,
+                                                    "height": 10
+                                                },
+                                                {
+                                                    "id": "ad194d39-1467-490f-9825-a7bafcd3e952",
+                                                    "layoutOptions": {
+                                                        "borderOffset": -8
+                                                    },
+                                                    "width": 10,
+                                                    "height": 10
+                                                },
+                                                {
+                                                    "id": "7ae51ce0-31d3-4811-b921-ded78588922c",
+                                                    "layoutOptions": {
+                                                        "borderOffset": -8
+                                                    },
+                                                    "width": 10,
+                                                    "height": 10
+                                                },
+                                                {
+                                                    "id": "aed02601-7d03-4ed8-bd19-83faa0df3d71",
+                                                    "layoutOptions": {
+                                                        "borderOffset": -8
+                                                    },
+                                                    "width": 10,
+                                                    "height": 10
+                                                }
+                                            ],
+                                            "width": 114,
+                                            "height": 56.0
+                                        }
+                                    ],
+                                    "labels": [
+                                        {
+                                            "text": "Inner 2",
+                                            "layoutOptions": {
+                                                "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                                            },
+                                            "width": 63,
+                                            "height": 12
+                                        }
+                                    ],
+                                    "width": 89,
+                                    "height": 36
+                                }
+                            ],
+                            "labels": [
+                                {
+                                    "text": "Inner owner",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                                    },
+                                    "width": 83,
+                                    "height": 12
+                                }
+                            ],
+                            "width": 89,
+                            "height": 36
+                        }
+                    ],
+                    "edges": [
+                        {
+                            "id": "a2dfec73-81aa-4742-86b7-8d510a78ccea",
+                            "sources": [
+                                "34450485-578a-4bce-b74c-4723d470257f"
+                            ],
+                            "targets": [
+                                "7ae51ce0-31d3-4811-b921-ded78588922c"
+                            ],
+                            "labels": [
+                                {
+                                    "text": "Hier to IF2",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 83,
+                                    "height": 12
+                                }
+                            ]
+                        },
+                        {
+                            "id": "d3b412f4-91cc-4f1c-a32d-3a56459a108d",
+                            "sources": [
+                                "9fefbe1e-3f74-4544-833c-bb040bcfeac7"
+                            ],
+                            "targets": [
+                                "aed02601-7d03-4ed8-bd19-83faa0df3d71"
+                            ],
+                            "labels": [
+                                {
+                                    "text": "IF1 to IF2",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 78,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "labels": [
+                        {
+                            "text": "Hierarchy",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                            },
+                            "width": 73,
+                            "height": 12
+                        }
+                    ],
+                    "width": 79,
+                    "height": 36
+                }
+            ],
+            "edges": [
+                {
+                    "id": "0b97879b-08f5-4fc2-bc3b-66e73e7c2158",
+                    "sources": [
+                        "09ad0a10-a06b-401e-a31b-3ca0e33ede8e"
+                    ],
+                    "targets": [
+                        "ba26d020-30cc-4d79-ac9a-b4729663a9e5"
+                    ],
+                    "labels": [
+                        {
+                            "text": "IF2 to RF1",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 78,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "209d39e3-d6d9-4d87-8e48-a85b3a4565ab",
+                    "sources": [
+                        "ad194d39-1467-490f-9825-a7bafcd3e952"
+                    ],
+                    "targets": [
+                        "da3e108d-c8b1-4beb-896a-bbb6618acf22"
+                    ],
+                    "labels": [
+                        {
+                            "text": "IF2 to RF2",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 78,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Hogwarts",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ],
+            "width": 74,
+            "height": 36
+        }
+    ]
+}

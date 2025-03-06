@@ -1,0 +1,213 @@
+{
+    "id": "86a1afc2-b7fd-4023-bbd5-ab44f5dc2c28_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "da12377b-fb70-4441-8faa-3a5c153c5de2",
+            "children": [
+                {
+                    "id": "1c304898-b1b7-49c4-8877-5ea3c9959b6e",
+                    "labels": [
+                        {
+                            "text": "Not real Batman",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 103,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "31e32de6-0f67-4922-9185-66706925cff8",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        },
+                        {
+                            "id": "91fd613c-4cea-4c2b-8acb-0c8c27f5f0da",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        }
+                    ],
+                    "width": 109,
+                    "height": 36
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Affleck",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 63,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "b2d2a4f1-0c21-45f4-918c-3d3c5e8af104",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 69,
+            "height": 36
+        },
+        {
+            "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "children": [
+                {
+                    "id": "a5642060-c9cc-4d49-af09-defaa3024bae",
+                    "labels": [
+                        {
+                            "text": "Lost",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "b9ef0be8-e4b1-4588-aed7-f6e24130c5bf",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        }
+                    ],
+                    "width": 94,
+                    "height": 36
+                },
+                {
+                    "id": "098810d9-0325-4ae8-a111-82202c0d2016",
+                    "labels": [
+                        {
+                            "text": "Weird guy",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 73,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "4a528807-d155-43b4-9e5e-533648a06217",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        }
+                    ],
+                    "width": 94,
+                    "height": 36
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Kevin Spacey",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "6b07c5a0-8731-4266-b465-25590d1af82c",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 94,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "86a1afc2-b7fd-4023-bbd5-ab44f5dc2c28",
+            "layoutOptions": {
+                "layered.priority.straightness": "10"
+            },
+            "sources": [
+                "b2d2a4f1-0c21-45f4-918c-3d3c5e8af104"
+            ],
+            "targets": [
+                "6b07c5a0-8731-4266-b465-25590d1af82c"
+            ],
+            "labels": [
+                {
+                    "text": "afflecks",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "d95c20ad-aefe-44f9-bc42-a36f66b10ba9",
+            "sources": [
+                "31e32de6-0f67-4922-9185-66706925cff8"
+            ],
+            "targets": [
+                "b9ef0be8-e4b1-4588-aed7-f6e24130c5bf"
+            ],
+            "labels": [
+                {
+                    "text": "into",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 48,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "77dd3442-c092-4b69-8b50-830bc1c5d584",
+            "sources": [
+                "91fd613c-4cea-4c2b-8acb-0c8c27f5f0da"
+            ],
+            "targets": [
+                "4a528807-d155-43b4-9e5e-533648a06217"
+            ],
+            "labels": [
+                {
+                    "text": "onto",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 48,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

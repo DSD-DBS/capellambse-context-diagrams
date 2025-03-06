@@ -1,0 +1,584 @@
+{
+    "id": "c403d4f4-9633-42a2-a5d6-9e1df2655146_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "b9f9a83c-fb02-44f7-9123-9d86326de5f1",
+            "children": [
+                {
+                    "id": "2c2888dc-4e8f-4d07-aca9-9f4de004266b",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "Train Signal Controller",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 143,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "6ae29909-b358-4964-9d56-412a5dc4b2f2",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 2",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 149,
+                    "height": 36
+                },
+                {
+                    "id": "57325353-a19c-4dec-8f6f-05a214eac1c5",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "Train Detection Sensor",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 138,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "161568d6-9907-4c34-b9cc-a46fe81442a1",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 144,
+                    "height": 36
+                },
+                {
+                    "id": "a4cb3ff6-1289-4e27-91f2-4291cabe9db2",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "Level Crossing Barrier Control",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 178,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "1604610c-c437-40fc-ba61-d01431b1d961",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 184,
+                    "height": 36
+                },
+                {
+                    "id": "2c907e35-bf5a-4421-ba51-5191af0a30f8",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "Track Circuit",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 93,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "ef739eb8-10c2-4b27-aa76-636c89e2403b",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 109,
+                    "height": 36
+                },
+                {
+                    "id": "23faf496-7a2d-4a41-b92a-fc240d9b5924",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "Train Speed Monitoring Unit",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 163,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "5cbec23a-3f3e-4828-8f14-1be0c09e1b54",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 169,
+                    "height": 36
+                },
+                {
+                    "id": "954d934f-8804-454b-9ef2-ced201640891",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "Signal Relay Box",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 108,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "781b3eb5-ab04-4677-a704-f42a987bef5a",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 114,
+                    "height": 36
+                },
+                {
+                    "id": "7b78da30-7f39-4000-a2d6-3f7c1b56a5f5",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "Trackside Signal Light",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 138,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "1f4ae78e-0602-4313-a9b7-60ec607141f8",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 144,
+                    "height": 36
+                },
+                {
+                    "id": "3924460c-321e-4300-8788-a6713dd64456",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "Emergency Stop Button",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 133,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "a9554c35-de02-4c68-90fc-e3bcba791654",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 139,
+                    "height": 36
+                },
+                {
+                    "id": "7ae1d744-67b8-4506-8e39-be3006b0e5b9",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "Communication Hub",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 113,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "6eed2367-eb48-4bf0-a1c8-bfd2f245bd3d",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 119,
+                    "height": 36
+                },
+                {
+                    "id": "07ba7c6c-3a3e-4817-967d-a30a34808089",
+                    "layoutOptions": {
+                        "portLabels.placement": "OUTSIDE"
+                    },
+                    "labels": [
+                        {
+                            "text": "Main Control Station",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 128,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "c403d4f4-9633-42a2-a5d6-9e1df2655146",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10,
+                            "labels": [
+                                {
+                                    "text": "PP 1",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 48,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "width": 134,
+                    "height": 44.0
+                }
+            ],
+            "edges": [
+                {
+                    "id": "5c55b11b-4911-40fb-9c4c-f1363dad846e",
+                    "sources": [
+                        "c403d4f4-9633-42a2-a5d6-9e1df2655146"
+                    ],
+                    "targets": [
+                        "6ae29909-b358-4964-9d56-412a5dc4b2f2"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Control Signal",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 98,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "890dc479-062c-416d-955f-b78e083e0e48",
+                    "sources": [
+                        "6ae29909-b358-4964-9d56-412a5dc4b2f2"
+                    ],
+                    "targets": [
+                        "161568d6-9907-4c34-b9cc-a46fe81442a1"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Detection Signal Link",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 133,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "0397b675-e78b-41a3-bf96-f2ae6cf7adde",
+                    "sources": [
+                        "6ae29909-b358-4964-9d56-412a5dc4b2f2"
+                    ],
+                    "targets": [
+                        "1604610c-c437-40fc-ba61-d01431b1d961"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Level Crossing Link",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 123,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "4a4be6cc-973e-4d2a-bf4e-3d5aad9f73e3",
+                    "sources": [
+                        "6ae29909-b358-4964-9d56-412a5dc4b2f2"
+                    ],
+                    "targets": [
+                        "ef739eb8-10c2-4b27-aa76-636c89e2403b"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Track Circuit Link",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 118,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "93b6d377-0718-4c5b-8bc0-b020122beb83",
+                    "sources": [
+                        "ef739eb8-10c2-4b27-aa76-636c89e2403b"
+                    ],
+                    "targets": [
+                        "5cbec23a-3f3e-4828-8f14-1be0c09e1b54"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Track Monitoring Link",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 133,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "aaec4139-9982-4abb-b27f-df3ceaf8e0a8",
+                    "sources": [
+                        "c403d4f4-9633-42a2-a5d6-9e1df2655146"
+                    ],
+                    "targets": [
+                        "781b3eb5-ab04-4677-a704-f42a987bef5a"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Signal Transmission Link",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 148,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "58e19655-0094-49c1-bf73-aaddf1f60cff",
+                    "sources": [
+                        "781b3eb5-ab04-4677-a704-f42a987bef5a"
+                    ],
+                    "targets": [
+                        "1f4ae78e-0602-4313-a9b7-60ec607141f8"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Signal Control Link",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 123,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "c619ff57-aad7-4ad7-928a-77160235198a",
+                    "sources": [
+                        "781b3eb5-ab04-4677-a704-f42a987bef5a"
+                    ],
+                    "targets": [
+                        "a9554c35-de02-4c68-90fc-e3bcba791654"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Emergency Control Link",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 138,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "4205ee10-8afd-45da-83db-0be04100b8fa",
+                    "sources": [
+                        "c403d4f4-9633-42a2-a5d6-9e1df2655146"
+                    ],
+                    "targets": [
+                        "6eed2367-eb48-4bf0-a1c8-bfd2f245bd3d"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Communication Link",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 118,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Physical System",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 103,
+                    "height": 12
+                }
+            ],
+            "width": 109,
+            "height": 36
+        }
+    ]
+}

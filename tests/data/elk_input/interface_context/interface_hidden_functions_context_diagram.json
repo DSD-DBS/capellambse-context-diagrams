@@ -1,0 +1,88 @@
+{
+    "id": "2f8ed849-fbda-4902-82ec-cbf8104ae686_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "7f375127-f08a-4deb-8fb6-97c955840f89",
+            "labels": [
+                {
+                    "text": "LC 20",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 53,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "10c28db9-efbb-4486-90ee-042cf867db1a",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 74,
+            "height": 36
+        },
+        {
+            "id": "44d051f2-875d-4a51-93f0-6c7b20a45842",
+            "labels": [
+                {
+                    "text": "LC 1",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 48,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "50d8bc7b-c029-45eb-a6d5-dfa4ef2abcf2",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 74,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "2f8ed849-fbda-4902-82ec-cbf8104ae686",
+            "layoutOptions": {
+                "layered.priority.straightness": "10"
+            },
+            "sources": [
+                "50d8bc7b-c029-45eb-a6d5-dfa4ef2abcf2"
+            ],
+            "targets": [
+                "10c28db9-efbb-4486-90ee-042cf867db1a"
+            ],
+            "labels": [
+                {
+                    "text": "Interface",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 73,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

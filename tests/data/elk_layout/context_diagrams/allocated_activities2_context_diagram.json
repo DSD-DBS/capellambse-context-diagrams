@@ -1,0 +1,648 @@
+{
+    "id": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "2668c01d-8ba8-47a9-9acb-33616bcc088d",
+            "position": {
+                "x": 1051,
+                "y": 68
+            },
+            "size": {
+                "width": 158,
+                "height": 147
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "097bb133-abf3-4df0-ae4e-a28378537691",
+                    "position": {
+                        "x": 12,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 134,
+                        "height": 50
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "position": {
+                                "x": 3,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 128,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Confirm availability"
+                        },
+                        {
+                            "position": {
+                                "x": 23,
+                                "y": 25
+                            },
+                            "size": {
+                                "width": 88,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "for delivery"
+                        }
+                    ]
+                },
+                {
+                    "id": "93009deb-9b57-4413-8d70-3877b39125cf",
+                    "position": {
+                        "x": 12,
+                        "y": 99
+                    },
+                    "size": {
+                        "width": 114,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "position": {
+                                "x": 3,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 108,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Retrieve package"
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 45,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 68,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Customer"
+                }
+            ]
+        },
+        {
+            "id": "41bce8af-577d-41a1-abce-2cc74c021713",
+            "position": {
+                "x": 12,
+                "y": 120.5
+            },
+            "size": {
+                "width": 154,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 148,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Provide warehouse status"
+                }
+            ]
+        },
+        {
+            "id": "8c43d858-bab3-4d1d-afe0-71946d856e24",
+            "position": {
+                "x": 359,
+                "y": 45
+            },
+            "size": {
+                "width": 469,
+                "height": 250
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "7000b811-c8e8-4060-8f60-c87462046057",
+                    "position": {
+                        "x": 319,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 138,
+                        "height": 77
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "2b7515a7-aed4-4272-ba3a-5263735532b6",
+                            "position": {
+                                "x": 12,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 114,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 3,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 108,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Retrieve package"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 27.5,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 83,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Loading Bot"
+                        }
+                    ]
+                },
+                {
+                    "id": "c90f731b-0036-47e5-a455-9cf270d6880c",
+                    "position": {
+                        "x": 319,
+                        "y": 127
+                    },
+                    "size": {
+                        "width": 124,
+                        "height": 78
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "position": {
+                                "x": 5.5,
+                                "y": 15
+                            },
+                            "size": {
+                                "width": 113,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Estimate required"
+                        },
+                        {
+                            "position": {
+                                "x": 3,
+                                "y": 27
+                            },
+                            "size": {
+                                "width": 118,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "power and select a"
+                        },
+                        {
+                            "position": {
+                                "x": 5.5,
+                                "y": 39
+                            },
+                            "size": {
+                                "width": 113,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "delivery bot with"
+                        },
+                        {
+                            "position": {
+                                "x": 13,
+                                "y": 51
+                            },
+                            "size": {
+                                "width": 98,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "enough battery"
+                        }
+                    ]
+                },
+                {
+                    "id": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+                    "position": {
+                        "x": 12,
+                        "y": 69
+                    },
+                    "size": {
+                        "width": 114,
+                        "height": 49
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "position": {
+                                "x": 3,
+                                "y": 18.5
+                            },
+                            "size": {
+                                "width": 108,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Prepare delivery"
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 183,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 103,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Smart warehouse"
+                },
+                {
+                    "id": "cc0a5fe7-2e28-4721-a9d1-c434f38e5a22",
+                    "type": "edge",
+                    "sourceId": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+                    "targetId": "2b7515a7-aed4-4272-ba3a-5263735532b6",
+                    "routingPoints": [
+                        {
+                            "x": 126,
+                            "y": 76
+                        },
+                        {
+                            "x": 331,
+                            "y": 76
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 188.5,
+                                "y": 79
+                            },
+                            "size": {
+                                "width": 103,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "package details"
+                        }
+                    ]
+                },
+                {
+                    "id": "8db45fd9-fc53-4eec-857f-e642864985d9",
+                    "type": "edge",
+                    "sourceId": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+                    "targetId": "c90f731b-0036-47e5-a455-9cf270d6880c",
+                    "routingPoints": [
+                        {
+                            "x": 126,
+                            "y": 90
+                        },
+                        {
+                            "x": 166,
+                            "y": 90
+                        },
+                        {
+                            "x": 166,
+                            "y": 166
+                        },
+                        {
+                            "x": 319,
+                            "y": 166
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 186,
+                                "y": 169
+                            },
+                            "size": {
+                                "width": 108,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "delivery address"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "9e7eb78b-f4ad-4762-9f5c-d6f60630b10e",
+            "position": {
+                "x": 1051,
+                "y": 235
+            },
+            "size": {
+                "width": 123,
+                "height": 77
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "a325cfe4-2cd5-4c1a-9a0a-e4e2dff82f92",
+                    "position": {
+                        "x": 12,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 99,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "position": {
+                                "x": 3,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 93,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Store package"
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 17.5,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Delivery Bot"
+                }
+            ]
+        },
+        {
+            "id": "dc1f0a7e-0508-4457-9f9f-77fb85f2e897",
+            "position": {
+                "x": 1051,
+                "y": 12
+            },
+            "size": {
+                "width": 134,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 128,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Record delivery plan"
+                }
+            ]
+        },
+        {
+            "id": "54364f74-f566-4744-bb4e-b96eebcadfc1",
+            "type": "edge",
+            "sourceId": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+            "targetId": "097bb133-abf3-4df0-ae4e-a28378537691",
+            "routingPoints": [
+                {
+                    "x": 485,
+                    "y": 142
+                },
+                {
+                    "x": 515,
+                    "y": 142
+                },
+                {
+                    "x": 515,
+                    "y": 260
+                },
+                {
+                    "x": 853,
+                    "y": 260
+                },
+                {
+                    "x": 853,
+                    "y": 159
+                },
+                {
+                    "x": 1036,
+                    "y": 159
+                },
+                {
+                    "x": 1036,
+                    "y": 122
+                },
+                {
+                    "x": 1063,
+                    "y": 122
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 873,
+                        "y": 162
+                    },
+                    "size": {
+                        "width": 153,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "availability confirmation"
+                }
+            ]
+        },
+        {
+            "id": "640dda9f-f968-4b0d-aaf5-ebcc0aa2af1b",
+            "type": "edge",
+            "sourceId": "41bce8af-577d-41a1-abce-2cc74c021713",
+            "targetId": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+            "routingPoints": [
+                {
+                    "x": 166,
+                    "y": 138.5
+                },
+                {
+                    "x": 371,
+                    "y": 138.5
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 186,
+                        "y": 141.5
+                    },
+                    "size": {
+                        "width": 148,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "package readyness status"
+                }
+            ]
+        },
+        {
+            "id": "9987fa03-b1e0-4e8d-9649-074bbed9f93d",
+            "type": "edge",
+            "sourceId": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+            "targetId": "a325cfe4-2cd5-4c1a-9a0a-e4e2dff82f92",
+            "routingPoints": [
+                {
+                    "x": 485,
+                    "y": 156
+                },
+                {
+                    "x": 495,
+                    "y": 156
+                },
+                {
+                    "x": 495,
+                    "y": 282
+                },
+                {
+                    "x": 1063,
+                    "y": 282
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 893,
+                        "y": 285
+                    },
+                    "size": {
+                        "width": 113,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "storage lock code"
+                }
+            ]
+        },
+        {
+            "id": "c22f7c0f-f00d-4861-bda4-34216881bf89",
+            "type": "edge",
+            "sourceId": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+            "targetId": "93009deb-9b57-4413-8d70-3877b39125cf",
+            "routingPoints": [
+                {
+                    "x": 485,
+                    "y": 149
+                },
+                {
+                    "x": 505,
+                    "y": 149
+                },
+                {
+                    "x": 505,
+                    "y": 271
+                },
+                {
+                    "x": 863,
+                    "y": 271
+                },
+                {
+                    "x": 863,
+                    "y": 185
+                },
+                {
+                    "x": 1063,
+                    "y": 185
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 893,
+                        "y": 188
+                    },
+                    "size": {
+                        "width": 113,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "storage lock code"
+                }
+            ]
+        },
+        {
+            "id": "82ce4911-d905-415a-9dbd-31400d85f7a4",
+            "type": "edge",
+            "sourceId": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+            "targetId": "dc1f0a7e-0508-4457-9f9f-77fb85f2e897",
+            "routingPoints": [
+                {
+                    "x": 485,
+                    "y": 128
+                },
+                {
+                    "x": 535,
+                    "y": 128
+                },
+                {
+                    "x": 535,
+                    "y": 161
+                },
+                {
+                    "x": 843,
+                    "y": 161
+                },
+                {
+                    "x": 843,
+                    "y": 30
+                },
+                {
+                    "x": 1051,
+                    "y": 30
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 903,
+                        "y": 33
+                    },
+                    "size": {
+                        "width": 93,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "delivery plan"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,306 @@
+{
+    "id": "98bbf6ec-161a-4332-a95e-e6990df868ad_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "8a7d2233-f115-4b75-bcda-b23814c05a6d",
+            "position": {
+                "x": 473,
+                "y": 110
+            },
+            "size": {
+                "width": 119,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "baf47117-26e4-4fd3-af60-b33e87346772",
+                    "position": {
+                        "x": -2,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": 7,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 113,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Cycle Actor Right"
+                }
+            ]
+        },
+        {
+            "id": "b911b6bc-bde5-4d43-87fd-e20748a6938e",
+            "position": {
+                "x": 13,
+                "y": 110
+            },
+            "size": {
+                "width": 114,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "4e98c66f-fd6a-4f9c-9e88-8b4dca7d4112",
+                    "position": {
+                        "x": 106,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": -1,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 108,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Cycle Actor Left"
+                }
+            ]
+        },
+        {
+            "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
+            "position": {
+                "x": 222,
+                "y": 12
+            },
+            "size": {
+                "width": 156,
+                "height": 164
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "57bcce8e-e1fb-45dc-aaa1-4c5748b02b5d",
+                    "position": {
+                        "x": 17,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 122,
+                        "height": 123
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "98bbf6ec-161a-4332-a95e-e6990df868ad",
+                            "position": {
+                                "x": 14,
+                                "y": 55
+                            },
+                            "size": {
+                                "width": 94,
+                                "height": 56
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "11f4a3d8-756d-4f76-9270-7974624d4caa",
+                                    "position": {
+                                        "x": 27.333333333333336,
+                                        "y": -2
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "id": "25d22f15-6c25-405a-93c9-3a5cec005e4a",
+                                    "position": {
+                                        "x": 56.66666666666667,
+                                        "y": -2
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "id": "c83cea1c-1553-4433-94be-2dca8f4a51d2",
+                                    "position": {
+                                        "x": 86,
+                                        "y": 27
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "id": "e027cee4-5330-4d0e-bb2a-8551c313856c",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 27
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "position": {
+                                        "x": 20.5,
+                                        "y": 26
+                                    },
+                                    "size": {
+                                        "width": 53,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Cycle"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 17,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 88,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Cycle Parent"
+                        },
+                        {
+                            "id": "3bcdd5da-9f35-4967-a661-bbe2c736fb80",
+                            "type": "edge",
+                            "sourceId": "11f4a3d8-756d-4f76-9270-7974624d4caa",
+                            "targetId": "25d22f15-6c25-405a-93c9-3a5cec005e4a",
+                            "routingPoints": [
+                                {
+                                    "x": 46.333333333333336,
+                                    "y": 53
+                                },
+                                {
+                                    "x": 46.333333333333336,
+                                    "y": 43
+                                },
+                                {
+                                    "x": 75.66666666666667,
+                                    "y": 43
+                                },
+                                {
+                                    "x": 75.66666666666667,
+                                    "y": 53
+                                }
+                            ],
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 39.5,
+                                        "y": 29
+                                    },
+                                    "size": {
+                                        "width": 43,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "C 1"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 44,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 68,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Hogwarts"
+                }
+            ]
+        },
+        {
+            "id": "ed6325c5-582e-4537-af6b-a9568a388202",
+            "type": "edge",
+            "sourceId": "c83cea1c-1553-4433-94be-2dca8f4a51d2",
+            "targetId": "baf47117-26e4-4fd3-af60-b33e87346772",
+            "routingPoints": [
+                {
+                    "x": 349,
+                    "y": 128
+                },
+                {
+                    "x": 471,
+                    "y": 128
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 403,
+                        "y": 131
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "C 11"
+                }
+            ]
+        },
+        {
+            "id": "1a2920eb-0806-4f27-95ca-5009855fff2c",
+            "type": "edge",
+            "sourceId": "4e98c66f-fd6a-4f9c-9e88-8b4dca7d4112",
+            "targetId": "e027cee4-5330-4d0e-bb2a-8551c313856c",
+            "routingPoints": [
+                {
+                    "x": 129,
+                    "y": 128
+                },
+                {
+                    "x": 251,
+                    "y": 128
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 149,
+                        "y": 131
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "C 10"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,152 @@
+{
+    "id": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+            "position": {
+                "x": 12,
+                "y": 18
+            },
+            "size": {
+                "width": 84,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 78,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Top secret"
+                }
+            ]
+        },
+        {
+            "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "position": {
+                "x": 224,
+                "y": 12
+            },
+            "size": {
+                "width": 94,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Kevin Spacey"
+                }
+            ]
+        },
+        {
+            "id": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "position": {
+                "x": 224,
+                "y": 68
+            },
+            "size": {
+                "width": 84,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 78,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Capability"
+                }
+            ]
+        },
+        {
+            "id": "4ec609b6-e3bf-4be1-ba09-14da9c920ef3",
+            "type": "edge",
+            "sourceId": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+            "targetId": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "routingPoints": [
+                {
+                    "x": 96,
+                    "y": 30
+                },
+                {
+                    "x": 224,
+                    "y": 30
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 116,
+                        "y": 33
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab involves \u00bb"
+                }
+            ]
+        },
+        {
+            "id": "4513c8cd-b94b-4bde-bd00-4c18aaf600ff",
+            "type": "edge",
+            "sourceId": "5bf3f1e3-0f5e-4fec-81d5-c113d3a1b3a6",
+            "targetId": "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "routingPoints": [
+                {
+                    "x": 96,
+                    "y": 42
+                },
+                {
+                    "x": 106,
+                    "y": 42
+                },
+                {
+                    "x": 106,
+                    "y": 86
+                },
+                {
+                    "x": 224,
+                    "y": 86
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 116,
+                        "y": 89
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "\u00ab exploits \u00bb"
+                }
+            ]
+        }
+    ]
+}

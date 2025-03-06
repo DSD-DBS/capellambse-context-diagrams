@@ -16,13 +16,20 @@ import logging
 import typing as t
 
 from capellambse import model as m
-from capellambse.metamodel import cs, fa
+from capellambse.metamodel import cs, fa, la, oa, pa, sa
 
 from .. import _elkjs, context
-from . import generic, makers
+from ..builders import _makers
+from . import _generic
 
 logger = logging.getLogger(__name__)
 PortTypes: t.TypeAlias = fa.FunctionPort | fa.ComponentPort | cs.PhysicalPort
+PackageTypes: tuple[type[m.ModelElement], ...] = (
+    oa.EntityPkg,
+    la.LogicalComponentPkg,
+    sa.SystemComponentPkg,
+    pa.PhysicalComponentPkg,
+)
 
 
 def is_function(node: m.ModelElement) -> bool:
@@ -56,7 +63,7 @@ class Collector:
     def __init__(self, diagram: context.ELKDiagram):
         self.diagram = diagram
         self._diagram = diagram.target
-        self.data = generic.collector(self.diagram, no_symbol=True)
+        self.data = _generic.collector(self.diagram, no_symbol=True)
         self.data.children = []
 
         self.made_elements: dict[
@@ -89,8 +96,8 @@ class Collector:
                     id=node.uuid,
                     sources=[node.source.uuid],
                     targets=[node.target.uuid],
-                    labels=makers.make_label(
-                        node.name, max_width=makers.MAX_LABEL_WIDTH
+                    labels=_makers.make_label(
+                        node.name, max_width=_makers.MAX_LABEL_WIDTH
                     ),
                 )
                 self.ports[node.source.uuid] = node.source
@@ -130,7 +137,7 @@ class Collector:
         while (
             current
             and hasattr(current, "owner")
-            and not isinstance(current.owner, generic.PackageTypes)
+            and not isinstance(current.owner, PackageTypes)
         ):
             current = self._make_owner_box(current)
 
@@ -142,7 +149,7 @@ class Collector:
             parent_box = self._make_box(
                 obj.owner,
                 no_symbol=True,
-                layout_options=makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
+                layout_options=_makers.DEFAULT_LABEL_LAYOUT_OPTIONS,
             )
         assert (obj_box := self.made_boxes.get(obj.uuid))
         for box in (children := parent_box.children):
@@ -152,7 +159,7 @@ class Collector:
         else:
             children.append(obj_box)
             for label in parent_box.labels:
-                label.layoutOptions = makers.DEFAULT_LABEL_LAYOUT_OPTIONS
+                label.layoutOptions = _makers.DEFAULT_LABEL_LAYOUT_OPTIONS
 
         self.boxes_to_delete.add(obj.uuid)
         return obj.owner
@@ -160,7 +167,7 @@ class Collector:
     def _make_box(
         self, obj: m.ModelElement, **kwargs: t.Any
     ) -> _elkjs.ELKInputChild:
-        box = makers.make_box(obj, **kwargs)
+        box = _makers.make_box(obj, **kwargs)
         self.global_boxes[obj.uuid] = box
         self.made_boxes[obj.uuid] = box
         return box
@@ -171,18 +178,20 @@ class Collector:
         else:
             label = ""
 
-        return makers.make_port(obj.uuid, label=label)
+        return _makers.make_port(obj.uuid, label=label)
 
     def _adjust_box_sizes(self, params: dict[str, t.Any]):
         del params  # No use for it now
         for box in self.made_boxes.values():
-            box.height += (makers.PORT_SIZE + 2 * makers.PORT_PADDING) * (
+            box.height += (_makers.PORT_SIZE + 2 * _makers.PORT_PADDING) * (
                 len(box.ports) + 1
             )
 
     def _solve_hierarchy(self, params: dict[str, t.Any]):
         del params  # No use for it now
-        generic.move_edges(self.made_boxes, self.exchanges.values(), self.data)
+        _generic.move_edges(
+            self.made_boxes, self.exchanges.values(), self.data
+        )
 
 
 def collect_from_diagram(

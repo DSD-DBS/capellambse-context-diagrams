@@ -1,0 +1,154 @@
+{
+    "id": "f632888e-51bc-4c9f-8e81-73e9404de784_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
+            "children": [
+                {
+                    "id": "37dfa5e6-a121-4ce9-8aa4-09a0c73dc2e9",
+                    "labels": [
+                        {
+                            "text": "Right",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 53,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "58f89f0a-7647-4077-b29b-8fe2bf270f02",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        }
+                    ],
+                    "width": 74,
+                    "height": 36
+                },
+                {
+                    "id": "f8c9df04-fcd5-479d-814b-696fa6050231",
+                    "labels": [
+                        {
+                            "text": "Upper",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 53,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "1286b0fe-dd57-46ba-8303-bd57eb04178d",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        }
+                    ],
+                    "width": 74,
+                    "height": 36
+                },
+                {
+                    "id": "f632888e-51bc-4c9f-8e81-73e9404de784",
+                    "labels": [
+                        {
+                            "text": "Left",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 48,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "f89ea9b3-e92d-49cb-ae9e-a734a9f5c5dc",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        },
+                        {
+                            "id": "a001cfb0-2b21-4e52-a119-8f4515dded91",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        }
+                    ],
+                    "width": 74,
+                    "height": 38
+                }
+            ],
+            "edges": [
+                {
+                    "id": "3ef23099-ce9a-4f7d-812f-935f47e7938d",
+                    "sources": [
+                        "f89ea9b3-e92d-49cb-ae9e-a734a9f5c5dc"
+                    ],
+                    "targets": [
+                        "58f89f0a-7647-4077-b29b-8fe2bf270f02"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Left to right",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 93,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "cd34492e-568e-4ade-981b-ed0d03c3ebe5",
+                    "sources": [
+                        "1286b0fe-dd57-46ba-8303-bd57eb04178d"
+                    ],
+                    "targets": [
+                        "a001cfb0-2b21-4e52-a119-8f4515dded91"
+                    ],
+                    "labels": [
+                        {
+                            "text": "Upper to Left",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 93,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Hogwarts",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ],
+            "width": 74,
+            "height": 36
+        }
+    ]
+}

@@ -1,0 +1,112 @@
+{
+    "id": "2f8ed849-fbda-4902-82ec-cbf8104ae686_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "7f375127-f08a-4deb-8fb6-97c955840f89",
+            "position": {
+                "x": 203,
+                "y": 12
+            },
+            "size": {
+                "width": 74,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "10c28db9-efbb-4486-90ee-042cf867db1a",
+                    "position": {
+                        "x": -2,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": 14.5,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 53,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "LC 20"
+                }
+            ]
+        },
+        {
+            "id": "44d051f2-875d-4a51-93f0-6c7b20a45842",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 74,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "50d8bc7b-c029-45eb-a6d5-dfa4ef2abcf2",
+                    "position": {
+                        "x": 66,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": 9,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "LC 1"
+                }
+            ]
+        },
+        {
+            "id": "2f8ed849-fbda-4902-82ec-cbf8104ae686",
+            "type": "edge",
+            "sourceId": "50d8bc7b-c029-45eb-a6d5-dfa4ef2abcf2",
+            "targetId": "10c28db9-efbb-4486-90ee-042cf867db1a",
+            "routingPoints": [
+                {
+                    "x": 88,
+                    "y": 30
+                },
+                {
+                    "x": 201,
+                    "y": 30
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 108,
+                        "y": 33
+                    },
+                    "size": {
+                        "width": 73,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Interface"
+                }
+            ]
+        }
+    ]
+}

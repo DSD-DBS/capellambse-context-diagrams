@@ -38,7 +38,7 @@
                             "height": 10,
                             "labels": [
                                 {
-                                    "text": "PP 1",
+                                    "text": "X CA",
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
@@ -207,11 +207,11 @@
                             "height": 10,
                             "labels": [
                                 {
-                                    "text": "P2",
+                                    "text": "X FSwitch",
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 38,
+                                    "width": 73,
                                     "height": 12
                                 }
                             ]
@@ -225,11 +225,11 @@
                             "height": 10,
                             "labels": [
                                 {
-                                    "text": "P3",
+                                    "text": "X Switch",
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 38,
+                                    "width": 68,
                                     "height": 12
                                 }
                             ]
@@ -243,11 +243,11 @@
                             "height": 10,
                             "labels": [
                                 {
-                                    "text": "P1",
+                                    "text": "X NSwitch",
                                     "layoutOptions": {
                                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                                     },
-                                    "width": 38,
+                                    "width": 73,
                                     "height": 12
                                 }
                             ]

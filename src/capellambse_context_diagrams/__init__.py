@@ -25,7 +25,6 @@ from importlib import metadata
 import capellambse.model as m
 from capellambse.diagram import COLORS, CSSdef, capstyle
 from capellambse.metamodel import cs, information
-from capellambse.model import DiagramType
 
 from . import _elkjs, _registry, context
 
@@ -65,6 +64,7 @@ def init() -> None:
     register_realization_view()
     register_data_flow_view()
     register_cable_tree_view()
+    register_diagram_layout_accessor()
 
 
 def register_classes() -> None:
@@ -121,7 +121,7 @@ def register_interface_context() -> None:
         "stroke-dasharray": "2",
         "text_fill": COLORS["black"],
     }
-    for dt in (DiagramType.SAB, DiagramType.LAB, DiagramType.PAB):
+    for dt in (m.DiagramType.SAB, m.DiagramType.LAB, m.DiagramType.PAB):
         capstyle.STYLES[dt.value]["Edge.PortInputAllocation"] = (
             port_alloc_input_style
         )
@@ -135,7 +135,7 @@ def register_physical_port_context() -> None:
     m.set_accessor(
         cs.PhysicalPort,
         ATTR_NAME,
-        context.PhysicalPortContextAccessor(DiagramType.PAB.value, {}),
+        context.PhysicalPortContextAccessor(m.DiagramType.PAB.value, {}),
     )
 
 
@@ -144,7 +144,7 @@ def register_tree_view() -> None:
     m.set_accessor(
         information.Class,
         "tree_view",
-        context.ClassTreeAccessor(DiagramType.CDB.value),
+        context.ClassTreeAccessor(m.DiagramType.CDB.value),
     )
 
 
@@ -188,7 +188,16 @@ def register_cable_tree_view() -> None:
         cs.PhysicalLink,
         "cable_tree",
         context.CableTreeAccessor(
-            DiagramType.PAB.value,
+            m.DiagramType.PAB.value,
             {},
         ),
+    )
+
+
+def register_diagram_layout_accessor() -> None:
+    """Add the `auto_layout` attribute to `Diagram`s."""
+    m.set_accessor(
+        m.Diagram,
+        "auto_layout",
+        context.DiagramLayoutAccessor(_registry.DIAGRAM_LAYOUT_PARAMS),
     )

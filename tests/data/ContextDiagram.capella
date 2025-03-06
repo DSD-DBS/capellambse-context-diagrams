@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--Capella_Version_5.2.0-->
+<!--Capella_Version_7.0.0-->
 <org.polarsys.capella.core.data.capellamodeller:Project xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:CapellaRequirements="http://www.polarsys.org/capella/requirements"
-    xmlns:Requirements="http://www.polarsys.org/kitalpha/requirements" xmlns:libraries="http://www.polarsys.org/capella/common/libraries/5.0.0"
-    xmlns:org.polarsys.capella.core.data.capellacommon="http://www.polarsys.org/capella/core/common/5.0.0"
-    xmlns:org.polarsys.capella.core.data.capellacore="http://www.polarsys.org/capella/core/core/5.0.0"
-    xmlns:org.polarsys.capella.core.data.capellamodeller="http://www.polarsys.org/capella/core/modeller/5.0.0"
-    xmlns:org.polarsys.capella.core.data.cs="http://www.polarsys.org/capella/core/cs/5.0.0"
-    xmlns:org.polarsys.capella.core.data.ctx="http://www.polarsys.org/capella/core/ctx/5.0.0"
-    xmlns:org.polarsys.capella.core.data.epbs="http://www.polarsys.org/capella/core/epbs/5.0.0"
-    xmlns:org.polarsys.capella.core.data.fa="http://www.polarsys.org/capella/core/fa/5.0.0"
-    xmlns:org.polarsys.capella.core.data.information="http://www.polarsys.org/capella/core/information/5.0.0"
-    xmlns:org.polarsys.capella.core.data.information.datatype="http://www.polarsys.org/capella/core/information/datatype/5.0.0"
-    xmlns:org.polarsys.capella.core.data.information.datavalue="http://www.polarsys.org/capella/core/information/datavalue/5.0.0"
-    xmlns:org.polarsys.capella.core.data.interaction="http://www.polarsys.org/capella/core/interaction/5.0.0"
-    xmlns:org.polarsys.capella.core.data.la="http://www.polarsys.org/capella/core/la/5.0.0"
-    xmlns:org.polarsys.capella.core.data.oa="http://www.polarsys.org/capella/core/oa/5.0.0"
-    xmlns:org.polarsys.capella.core.data.pa="http://www.polarsys.org/capella/core/pa/5.0.0"
-    xmlns:org.polarsys.capella.core.data.pa.deployment="http://www.polarsys.org/capella/core/pa/deployment/5.0.0"
+    xmlns:Requirements="http://www.polarsys.org/kitalpha/requirements" xmlns:libraries="http://www.polarsys.org/capella/common/libraries/7.0.0"
+    xmlns:org.polarsys.capella.core.data.capellacommon="http://www.polarsys.org/capella/core/common/7.0.0"
+    xmlns:org.polarsys.capella.core.data.capellacore="http://www.polarsys.org/capella/core/core/7.0.0"
+    xmlns:org.polarsys.capella.core.data.capellamodeller="http://www.polarsys.org/capella/core/modeller/7.0.0"
+    xmlns:org.polarsys.capella.core.data.cs="http://www.polarsys.org/capella/core/cs/7.0.0"
+    xmlns:org.polarsys.capella.core.data.ctx="http://www.polarsys.org/capella/core/ctx/7.0.0"
+    xmlns:org.polarsys.capella.core.data.epbs="http://www.polarsys.org/capella/core/epbs/7.0.0"
+    xmlns:org.polarsys.capella.core.data.fa="http://www.polarsys.org/capella/core/fa/7.0.0"
+    xmlns:org.polarsys.capella.core.data.information="http://www.polarsys.org/capella/core/information/7.0.0"
+    xmlns:org.polarsys.capella.core.data.information.datatype="http://www.polarsys.org/capella/core/information/datatype/7.0.0"
+    xmlns:org.polarsys.capella.core.data.information.datavalue="http://www.polarsys.org/capella/core/information/datavalue/7.0.0"
+    xmlns:org.polarsys.capella.core.data.interaction="http://www.polarsys.org/capella/core/interaction/7.0.0"
+    xmlns:org.polarsys.capella.core.data.la="http://www.polarsys.org/capella/core/la/7.0.0"
+    xmlns:org.polarsys.capella.core.data.oa="http://www.polarsys.org/capella/core/oa/7.0.0"
+    xmlns:org.polarsys.capella.core.data.pa="http://www.polarsys.org/capella/core/pa/7.0.0"
+    xmlns:org.polarsys.capella.core.data.pa.deployment="http://www.polarsys.org/capella/core/pa/deployment/7.0.0"
     id="af2196ac-49d3-4063-885c-9fa29adc39a8"
     name="ContextDiagram">
   <ownedExtensions xsi:type="libraries:ModelInformation" id="c54c817d-e470-432b-8b1b-3880fd6978b1"/>
@@ -5220,7 +5220,7 @@ The predator is far away</bodies>
                 id="793e6da2-d019-4716-a5c5-af8ad550ca5e" name="Sub PC" kind="FIRMWARE"
                 nature="NODE">
               <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
-                  id="38c69508-f12f-4e1d-a8c1-a422cbf8f358" name="PP 1">
+                  id="38c69508-f12f-4e1d-a8c1-a422cbf8f358" name="Sub BUS">
                 <ownedComponentPortAllocations xsi:type="org.polarsys.capella.core.data.fa:ComponentPortAllocation"
                     id="c2cb630e-be2f-4857-8358-83f4a13da7ad" targetElement="#dea08a09-7a9f-4d65-bd65-9514237e5553"
                     sourceElement="#38c69508-f12f-4e1d-a8c1-a422cbf8f358"/>
@@ -5361,19 +5361,19 @@ The predator is far away</bodies>
                   id="b51ccc6f-5f96-4e28-b90e-72463a3b50cf" name="Network Switch"
                   kind="HARDWARE" nature="NODE">
                 <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
-                    id="53c9fe29-18e2-4642-906e-b7507bf0ff39" name="P1">
+                    id="53c9fe29-18e2-4642-906e-b7507bf0ff39" name="X NSwitch">
                   <ownedComponentPortAllocations xsi:type="org.polarsys.capella.core.data.fa:ComponentPortAllocation"
                       id="56ec9c8a-00ba-4dc2-9183-5c440b6f8198" targetElement="#c014f9ce-eb57-42ed-96f4-42072d4e8827"
                       sourceElement="#53c9fe29-18e2-4642-906e-b7507bf0ff39"/>
                 </ownedFeatures>
                 <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
-                    id="f1c0db71-1927-4874-bf3e-0603a88f1d9b" name="P3">
+                    id="f1c0db71-1927-4874-bf3e-0603a88f1d9b" name="X Switch">
                   <ownedComponentPortAllocations xsi:type="org.polarsys.capella.core.data.fa:ComponentPortAllocation"
                       id="e6ffdec4-a443-46b5-b190-e6e006ae28b7" targetElement="#debe5e5c-c234-4f20-b04f-213f826eac1e"
                       sourceElement="#f1c0db71-1927-4874-bf3e-0603a88f1d9b"/>
                 </ownedFeatures>
                 <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
-                    id="76d9c301-c0ad-4615-9f02-b804b018decf" name="P2">
+                    id="76d9c301-c0ad-4615-9f02-b804b018decf" name="X FSwitch">
                   <ownedComponentPortAllocations xsi:type="org.polarsys.capella.core.data.fa:ComponentPortAllocation"
                       id="fea4735b-7774-466a-819a-169d7df71692" targetElement="#4c37367f-9098-4fd4-a60c-4807b03976f2"
                       sourceElement="#76d9c301-c0ad-4615-9f02-b804b018decf"/>
@@ -5393,7 +5393,7 @@ The predator is far away</bodies>
                   id="5bfc516b-c20d-4007-9a38-5ba0e889d0a4" name="Camera Assembly"
                   kind="HARDWARE" nature="NODE">
                 <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
-                    id="2d1e2ad5-3439-4820-baa8-189966407ba2" name="PP 1">
+                    id="2d1e2ad5-3439-4820-baa8-189966407ba2" name="X CA">
                   <ownedComponentPortAllocations xsi:type="org.polarsys.capella.core.data.fa:ComponentPortAllocation"
                       id="efe9f882-148c-4c9d-8a73-a0e6e401ae73" targetElement="#43b6cfff-89ab-4777-ac72-ce9de12626a8"
                       sourceElement="#2d1e2ad5-3439-4820-baa8-189966407ba2"/>
@@ -5404,7 +5404,7 @@ The predator is far away</bodies>
                 id="8a6c6ec9-095d-4d8b-9728-69bc79af5f27" name="Deploy Sub PC" kind="PERSON"
                 nature="NODE">
               <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:PhysicalPort"
-                  id="7400c2a3-913f-4a08-aca7-8dd7c389e5e9" name="PP 1">
+                  id="7400c2a3-913f-4a08-aca7-8dd7c389e5e9" name="Deploy BUS 1">
                 <ownedComponentPortAllocations xsi:type="org.polarsys.capella.core.data.fa:ComponentPortAllocation"
                     id="b549b1da-6f26-4ce1-84ed-a013f3dfe33b" targetElement="#4f45fbfd-f397-4a4a-9dee-6b8231f39f68"
                     sourceElement="#7400c2a3-913f-4a08-aca7-8dd7c389e5e9"/>

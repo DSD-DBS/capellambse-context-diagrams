@@ -220,7 +220,7 @@ def is_symbol(obj: str | m.ModelElement | None) -> bool:
     return type(obj).__name__ in BOX_TO_SYMBOL
 
 
-def make_port(uuid: str) -> _elkjs.ELKInputPort:
+def make_port(uuid: str, label: str = "") -> _elkjs.ELKInputPort:
     """Return a port.
 
     See Also
@@ -228,10 +228,12 @@ def make_port(uuid: str) -> _elkjs.ELKInputPort:
     [`ELKInputPort`][capellambse_context_diagrams._elkjs.ELKInputPort] :
         Input data for an ELK port.
     """
+    labels = make_label(label) if label else []
     return _elkjs.ELKInputPort(
         id=uuid,
         width=PORT_SIZE,
         height=PORT_SIZE,
+        labels=labels,
         layoutOptions={"borderOffset": -4 * PORT_PADDING},
     )
 

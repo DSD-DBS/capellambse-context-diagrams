@@ -61,48 +61,6 @@
             "height": 36
         },
         {
-            "id": "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df",
-            "children": [
-                {
-                    "id": "00e7b925-cf4c-4cb0-929e-5409a1cd872b",
-                    "labels": [
-                        {
-                            "text": "Sysexfunc",
-                            "layoutOptions": {
-                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                            },
-                            "width": 73,
-                            "height": 12
-                        }
-                    ],
-                    "ports": [
-                        {
-                            "id": "5a589076-b839-4606-9e0b-c9d76677af38",
-                            "layoutOptions": {
-                                "borderOffset": -8
-                            },
-                            "width": 10,
-                            "height": 10
-                        }
-                    ],
-                    "width": 79,
-                    "height": 36
-                }
-            ],
-            "labels": [
-                {
-                    "text": "System",
-                    "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
-                    },
-                    "width": 58,
-                    "height": 12
-                }
-            ],
-            "width": 64,
-            "height": 36
-        },
-        {
             "id": "6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6",
             "children": [
                 {
@@ -280,25 +238,6 @@
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 63,
-                    "height": 12
-                }
-            ]
-        },
-        {
-            "id": "1a414995-f4cd-488c-8152-486e459fb9de",
-            "sources": [
-                "5a589076-b839-4606-9e0b-c9d76677af38"
-            ],
-            "targets": [
-                "af361e95-9a87-4b67-8d0c-74585c1d695a"
-            ],
-            "labels": [
-                {
-                    "text": "Test fex",
-                    "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                    },
-                    "width": 68,
                     "height": 12
                 }
             ]

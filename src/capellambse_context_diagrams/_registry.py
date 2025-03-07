@@ -41,6 +41,7 @@ CONTEXT_DIAGRAM_CLASSES: list[SupportedContextClass] = [
             "display_symbols_as_boxes": True,
             "display_parent_relation": True,
             "display_derived_interfaces": True,
+            "include_external_context": True,
             "render_styles": styling.BLUE_ACTOR_FNCS,
         },
     ),
@@ -59,6 +60,7 @@ CONTEXT_DIAGRAM_CLASSES: list[SupportedContextClass] = [
         {
             "display_symbols_as_boxes": True,
             "display_parent_relation": True,
+            "include_external_context": True,
             "display_derived_interfaces": True,
             "render_styles": styling.BLUE_ACTOR_FNCS,
         },
@@ -79,6 +81,7 @@ CONTEXT_DIAGRAM_CLASSES: list[SupportedContextClass] = [
             "display_parent_relation": True,
             "display_port_labels": True,
             "display_derived_interfaces": True,
+            "include_external_context": True,
             "hide_context_owner": True,
             "edge_direction": enums.EDGE_DIRECTION.RIGHT,
         },

@@ -261,6 +261,7 @@ TEST_CONTEXT_SET = [
             {
                 "mode": "BLACKBOX",
                 "display_internal_relations": False,
+                "include_external_context": False,
                 "port_label_position": "OUTSIDE",
             },
         ),
@@ -274,6 +275,7 @@ TEST_CONTEXT_SET = [
                 "mode": "BLACKBOX",
                 "display_internal_relations": True,
                 "display_cyclic_relations": True,
+                "include_external_context": False,
                 "port_label_position": "OUTSIDE",
             },
         ),
@@ -283,7 +285,11 @@ TEST_CONTEXT_SET = [
         (
             TEST_PC_NODE_UUID,
             "blackbox_physical_context_diagram.json",
-            {"mode": "BLACKBOX", "port_label_position": "OUTSIDE"},
+            {
+                "mode": "BLACKBOX",
+                "include_external_context": False,
+                "port_label_position": "OUTSIDE",
+            },
         ),
         id="Blackbox Physical ContextDiagram",
     ),

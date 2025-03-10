@@ -263,6 +263,25 @@ enabled per **default**.
         <figcaption>Context diagram of Box PhysicalComponent with WHITEBOX mode</figcaption>
     </figure>
 
+Additional render parameters for `WHITEBOX` mode are offered via:
+
+-   ??? example "include_external_context=True"
+
+          ``` py
+          import capellambse
+
+          model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+          obj = model.by_uuid("309296b1-cf37-45d7-b0f3-f7bc00422a59")
+          diagram = obj.context_diagram.render(
+            "svgdiagram", mode="WHITEBOX", include_external_context=True,
+          )
+          diagram.save(pretty=True)
+          ```
+          <figure markdown>
+              <img src="assets/images/Context of Box-whitebox_with_external_context.svg" width="1000000">
+              <figcaption>Context diagram of Box PhysicalComponent with WHITEBOX mode and External Context display</figcaption>
+          </figure>
+
 #### Blackbox
 
 This render parameter conceals internal details to provide a streamlined

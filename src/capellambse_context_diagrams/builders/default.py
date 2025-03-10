@@ -508,7 +508,6 @@ class DiagramBuilder:
 
         if (
             (not _is_edge(self.target) and not _is_port(self.target))
-            and self.target.uuid
             and not self._is_inside_noi(edge_data.source.owner)
             and not self._is_inside_noi(edge_data.target.owner)
             and not self.diagram._include_external_context

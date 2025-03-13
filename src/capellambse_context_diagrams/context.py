@@ -558,18 +558,27 @@ class InterfaceContextDiagram(ContextDiagram):
         )
 
     def _find_node_in_layout(
-        self, layout: _elkjs.ELKOutputData, uuid: str
-    ) -> _elkjs.ELKOutputNode:
+        self,
+        layout: _elkjs.ELKOutputData | _elkjs.ELKOutputNode,
+        uuid: str,
+        ref: cdiagram.Vector2D | None = None,
+    ) -> tuple[_elkjs.ELKOutputNode, cdiagram.Vector2D]:
+        if ref is None:
+            ref = cdiagram.Vector2D(0, 0)
+
         for node in layout.children:
             if node.type != "node":
                 continue
 
+            current_ref = cdiagram.Vector2D(
+                ref.x + node.position.x, ref.y + node.position.y
+            )
             if node.id == uuid:
-                return node
-            for child in node.children:
-                if child.id == uuid:
-                    assert child.type == "node"
-                    return child
+                return node, current_ref
+            try:
+                return self._find_node_in_layout(node, uuid, ref=current_ref)
+            except ValueError:
+                pass
 
         raise ValueError(f"Node with id {uuid!r} doesn't exist in layout.")
 
@@ -577,26 +586,27 @@ class InterfaceContextDiagram(ContextDiagram):
         uuids = (self.target.source.owner.uuid, self.target.target.owner.uuid)
         port_uuids = (self.target.source.uuid, self.target.target.uuid)
         for i, _ in enumerate(port_uuids):
-            node = self._find_node_in_layout(layout, uuids[i])
+            node, node_ref = self._find_node_in_layout(layout, uuids[i])
             assert isinstance(node, _elkjs.ELKOutputNode)
             port = next((p for p in node.children if p.id in port_uuids), None)
             assert isinstance(port, _elkjs.ELKOutputPort)
             if port is not None:
                 layout.children.extend(
-                    self._yield_port_allocations(node, port)
+                    self._yield_port_allocations(node, port, node_ref)
                 )
 
     def _yield_port_allocations(
-        self, node: _elkjs.ELKOutputNode, interface_port: _elkjs.ELKOutputPort
+        self,
+        node: _elkjs.ELKOutputNode,
+        interface_port: _elkjs.ELKOutputPort,
+        ref: cdiagram.Vector2D,
     ) -> cabc.Iterator[_elkjs.ELKOutputEdge]:
-        ref = cdiagram.Vector2D(node.position.x, node.position.y)
         for position, port in _get_all_ports(node, ref=ref):
             if port == interface_port:
                 continue
-
             port_middle = _calculate_middle(position, port.size)
             interface_middle = _calculate_middle(
-                interface_port.position, interface_port.size, node.position
+                interface_port.position, interface_port.size, ref
             )
             styleclass = self.serializer.get_styleclass(port.id)
             if styleclass in {"FIP", "FOP"}:
@@ -1066,10 +1076,14 @@ def _get_all_ports(
             )
 
 
-def _calculate_middle(position, size, offset=None) -> _elkjs.ELKPoint:
+def _calculate_middle(
+    position: _elkjs.ELKPoint | cdiagram.Vector2D,
+    size: _elkjs.ELKSize,
+    offset: cdiagram.Vector2D | None = None,
+) -> _elkjs.ELKPoint:
     x = position.x + size.width / 2
     y = position.y + size.height / 2
-    if offset:
+    if offset is not None:
         x += offset.x
         y += offset.y
     return _elkjs.ELKPoint(x=x, y=y)

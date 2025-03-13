@@ -505,6 +505,14 @@ class DiagramBuilder:
 
         if edge_data is None:
             edge_data = self._collect_edge_data(edge_obj)
+
+        if (
+            (not _is_edge(self.target) and not _is_port(self.target))
+            and not self._is_inside_noi(edge_data.source.owner)
+            and not self._is_inside_noi(edge_data.target.owner)
+            and not self.diagram._include_external_context
+        ):
+            return None
         return self._update_edge_common(edge_data)
 
     def _make_whitebox_target(

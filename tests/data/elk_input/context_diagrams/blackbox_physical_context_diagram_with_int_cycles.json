@@ -82,7 +82,7 @@
                 }
             ],
             "width": 109,
-            "height": 87.0
+            "height": 73.0
         },
         {
             "id": "309296b1-cf37-45d7-b0f3-f7bc00422a59",
@@ -157,25 +157,6 @@
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 128,
-                    "height": 12
-                }
-            ]
-        },
-        {
-            "id": "__Derived-PhysicalLink:f3c93649-0875-4daf-812e-00a98390119f",
-            "sources": [
-                "8c4b9404-e5ca-41e9-a731-2a930a18b784"
-            ],
-            "targets": [
-                "9d4e5145-c4a0-46eb-b470-def61ce9e6d0"
-            ],
-            "labels": [
-                {
-                    "text": "Right_Box_to_RBNode_1",
-                    "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                    },
-                    "width": 133,
                     "height": 12
                 }
             ]
@@ -271,25 +252,6 @@
                         "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
                     },
                     "width": 108,
-                    "height": 12
-                }
-            ]
-        },
-        {
-            "id": "__Derived-PhysicalLink:8dd15f61-a406-45ae-bbf8-aaafff67abd5",
-            "sources": [
-                "f4dbc636-aede-44d1-b7f6-682d405ef7ba"
-            ],
-            "targets": [
-                "8c4b9404-e5ca-41e9-a731-2a930a18b784"
-            ],
-            "labels": [
-                {
-                    "text": "Right_Box_to_RBNode",
-                    "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                    },
-                    "width": 123,
                     "height": 12
                 }
             ]

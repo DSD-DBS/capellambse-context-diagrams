@@ -220,11 +220,13 @@ def generate_modes_pc_image():
         "blackbox": {
             "mode": "BLACKBOX",
             "display_cyclic_relations": False,
+            "include_external_context": False,
             "edge_direction": "RIGHT",
         },
         "blackbox_without_internal_relations": {
             "mode": "BLACKBOX",
             "display_internal_relations": False,
+            "include_external_context": False,
             "edge_direction": "RIGHT",
         },
         "blackbox_with_external_context": {
@@ -235,9 +237,19 @@ def generate_modes_pc_image():
         "blackbox_with_internal_cycles": {
             "mode": "BLACKBOX",
             "display_cyclic_relations": True,
+            "include_external_context": False,
             "edge_direction": "RIGHT",
         },
-        "whitebox": {"mode": "WHITEBOX", "edge_direction": "NONE"},
+        "whitebox": {
+            "mode": "WHITEBOX",
+            "include_external_context": False,
+            "edge_direction": "NONE",
+        },
+        "whitebox_with_external_context": {
+            "mode": "WHITEBOX",
+            "include_external_context": True,
+            "edge_direction": "NONE",
+        },
     }
     for name, params in parameters.items():
         filename = f"{dest / diag.name!s}-{name}.svg"

@@ -66,6 +66,7 @@ def get_top_uncommon_owner(
         hasattr(current, "owner")
         and current.owner is not None
         and current.owner.uuid not in tgt_owners
+        and not isinstance(current.owner, _makers.PackageTypes)
     ):
         current = current.owner
     return current

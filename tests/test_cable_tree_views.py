@@ -54,7 +54,7 @@ def test_collecting(
         model, params, TEST_CABLE_TREE_DATA_ROOT, "cable_tree"
     )
 
-    assert compare_elk_input_data(result, expected)
+    compare_elk_input_data(result, expected)
 
 
 @pytest.mark.parametrize("params", TEST_SET)

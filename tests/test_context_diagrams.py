@@ -329,7 +329,7 @@ class TestContextDiagrams:
             model, params, TEST_CONTEXT_DATA_ROOT, "context_diagram"
         )
 
-        assert compare_elk_input_data(result, expected)
+        compare_elk_input_data(result, expected)
 
     @staticmethod
     @pytest.mark.parametrize("params", TEST_CONTEXT_SET)

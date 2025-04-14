@@ -38,7 +38,7 @@ def test_collecting(
         model, params, TEST_TREE_DATA_ROOT, "tree_view"
     )
 
-    assert compare_elk_input_data(result, expected)
+    compare_elk_input_data(result, expected)
     assert legend.model_dump(exclude_defaults=True) == json.loads(
         expected_legend
     )

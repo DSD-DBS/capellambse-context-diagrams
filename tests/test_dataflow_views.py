@@ -51,7 +51,7 @@ def test_collecting(
         model, params, TEST_DATA_FLOW_DATA_ROOT, "data_flow_view"
     )
 
-    assert compare_elk_input_data(result, expected)
+    compare_elk_input_data(result, expected)
 
 
 @pytest.mark.parametrize("params", TEST_DATA_FLOW_SET)

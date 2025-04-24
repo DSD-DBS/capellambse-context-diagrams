@@ -39,7 +39,7 @@ repos:
           - mkdocs
           - mkdocs-gen-files
           - mkdocs-literate-nav
-          - pydantic==2.7.3
+          - pydantic==2.8.0
           - pytest
           - types-setuptools
           - types-requests

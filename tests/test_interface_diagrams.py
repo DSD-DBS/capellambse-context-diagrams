@@ -136,7 +136,7 @@ class TestInterfaceDiagrams:
             model, params, TEST_INTERFACE_DATA_ROOT, "context_diagram"
         )
 
-        assert compare_elk_input_data(result, expected)
+        compare_elk_input_data(result, expected)
 
     @staticmethod
     @pytest.mark.parametrize("params", TEST_INTERFACE_SET)

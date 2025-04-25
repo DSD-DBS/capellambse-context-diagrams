@@ -146,10 +146,10 @@ def write_layout_test_data_file(
 
 def compare_elk_input_data(
     data: _elkjs.ELKInputData, expected: _elkjs.ELKInputData
-) -> bool:
-    return data.model_dump(exclude_defaults=True) == expected.model_dump(
-        exclude_defaults=True
-    )
+) -> None:
+    data_dump = data.model_dump(exclude_defaults=True)
+    expected_dump = expected.model_dump(exclude_defaults=True)
+    assert data_dump == expected_dump
 
 
 @mock.patch("capellambse.helpers.extent_func", text_size_mocker)

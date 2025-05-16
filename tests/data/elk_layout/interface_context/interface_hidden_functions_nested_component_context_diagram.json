@@ -1,0 +1,138 @@
+{
+    "id": "4823634f-a21e-4075-b3a5-b8c353ea0166_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "4f13205c-b892-4ea7-9966-e0b2cc99678e",
+            "position": {
+                "x": 247,
+                "y": 41
+            },
+            "size": {
+                "width": 84,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "14f35643-ce2e-4da8-84b3-f9b0f4d4d0d7",
+                    "position": {
+                        "x": -2,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": 7,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 78,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Right Comp"
+                }
+            ]
+        },
+        {
+            "id": "4b108adb-4187-4160-a7c5-5a7229c06c9c",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 115,
+                "height": 77
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "50c7ba9e-3805-48b7-adb8-2b34453d0694",
+                    "position": {
+                        "x": 12,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 89,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "3d14fe35-b2ee-4347-832d-41710d03134a",
+                            "position": {
+                                "x": 81,
+                                "y": 13
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port"
+                        },
+                        {
+                            "position": {
+                                "x": 1.5,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 78,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Child Comp"
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 16,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 83,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Owning Comp"
+                }
+            ]
+        },
+        {
+            "id": "4823634f-a21e-4075-b3a5-b8c353ea0166",
+            "type": "edge",
+            "sourceId": "3d14fe35-b2ee-4347-832d-41710d03134a",
+            "targetId": "14f35643-ce2e-4da8-84b3-f9b0f4d4d0d7",
+            "routingPoints": [
+                {
+                    "x": 115,
+                    "y": 59
+                },
+                {
+                    "x": 245,
+                    "y": 59
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 152,
+                        "y": 62
+                    },
+                    "size": {
+                        "width": 73,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Interface"
+                }
+            ]
+        }
+    ]
+}

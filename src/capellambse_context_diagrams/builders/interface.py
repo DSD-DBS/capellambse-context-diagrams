@@ -5,6 +5,7 @@
 
 from __future__ import annotations
 
+import collections.abc as cabc
 import logging
 import typing as t
 
@@ -84,22 +85,14 @@ class DiagramBuilder(default.DiagramBuilder):
         if self.diagram._hide_functions:
             assert self.left is not None
             left_box = next(
-                (
-                    c
-                    for c in self.data.children
-                    if c.id == self.left.owner.uuid
-                ),
+                self.yield_box_from_children(self.left.owner.uuid),
                 None,
             )
             assert left_box is not None
             left_box.children = []
             assert self.right is not None
             right_box = next(
-                (
-                    c
-                    for c in self.data.children
-                    if c.id == self.right.owner.uuid
-                ),
+                self.yield_box_from_children(self.right.owner.uuid),
                 None,
             )
             assert right_box is not None
@@ -166,6 +159,19 @@ class DiagramBuilder(default.DiagramBuilder):
                 self.incoming_edges,
             )
         return self._get_data()
+
+    def yield_box_from_children(
+        self,
+        uuid: str,
+        children: cabc.Iterable[_elkjs.ELKInputChild] | None = None,
+    ) -> cabc.Iterator[_elkjs.ELKInputChild | None]:
+        """Yield the box from data with given uuid."""
+        for child in children or self.data.children:
+            if child.id == uuid:
+                yield child
+            elif child.children:
+                yield from self.yield_box_from_children(uuid, child.children)
+        return None
 
 
 def builder(

@@ -29,7 +29,6 @@ from .collectors import (
     dataflow_view,
     default,
     exchanges,
-    functional_chain,
     portless,
     realization_view,
     tree_view,
@@ -1010,7 +1009,7 @@ class FunctionalChainContextDiagram(ContextDiagram):
             "display_parent_relation": True,
             "edge_direction": enums.EDGE_DIRECTION.SMART,
             "mode": enums.MODE.WHITEBOX,
-            "collect": functional_chain.collector,
+            "collect": default.functional_chain_collector,
         } | default_render_parameters
 
         super().__init__(

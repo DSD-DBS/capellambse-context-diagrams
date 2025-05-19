@@ -1,0 +1,347 @@
+{
+    "id": "ec1ecf8b-d58b-4468-9742-6fdfd6cff702_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
+            "children": [
+                {
+                    "id": "a43560f6-ed60-4907-bf24-3afa4678f77c",
+                    "children": [
+                        {
+                            "id": "75662c2c-8b0e-49fd-b390-d6528e3b97b0",
+                            "labels": [
+                                {
+                                    "text": "Acquire weather data",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 128,
+                                    "height": 12
+                                }
+                            ],
+                            "ports": [
+                                {
+                                    "id": "d3911dcc-4932-4a65-bde0-8f3f1de6ee7b",
+                                    "layoutOptions": {
+                                        "borderOffset": -8
+                                    },
+                                    "width": 10,
+                                    "height": 10
+                                },
+                                {
+                                    "id": "7a172077-0ece-4ce8-a415-29d0375de6e8",
+                                    "layoutOptions": {
+                                        "borderOffset": -8
+                                    },
+                                    "width": 10,
+                                    "height": 10
+                                },
+                                {
+                                    "id": "ae235f06-52d1-4b3c-b257-622c755e4e21",
+                                    "layoutOptions": {
+                                        "borderOffset": -8
+                                    },
+                                    "width": 10,
+                                    "height": 10
+                                }
+                            ],
+                            "width": 134,
+                            "height": 42.0
+                        },
+                        {
+                            "id": "8d087293-a2e9-4762-b2f0-1f418ca0a54a",
+                            "children": [
+                                {
+                                    "id": "9ebc0a92-06cc-41f3-adfd-cd53de02dddd",
+                                    "labels": [
+                                        {
+                                            "text": "Elaborate current situation",
+                                            "layoutOptions": {
+                                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                            },
+                                            "width": 163,
+                                            "height": 12
+                                        }
+                                    ],
+                                    "ports": [
+                                        {
+                                            "id": "7a0581f8-71ce-44e8-98fe-02ea9dc4ff70",
+                                            "layoutOptions": {
+                                                "borderOffset": -8
+                                            },
+                                            "width": 10,
+                                            "height": 10
+                                        }
+                                    ],
+                                    "width": 169,
+                                    "height": 36
+                                }
+                            ],
+                            "labels": [
+                                {
+                                    "text": "Elaborator",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                                    },
+                                    "width": 78,
+                                    "height": 12
+                                }
+                            ],
+                            "width": 109,
+                            "height": 36
+                        }
+                    ],
+                    "edges": [
+                        {
+                            "id": "31a6b0a0-1b0d-4681-b45f-30d563fd362c",
+                            "sources": [
+                                "ae235f06-52d1-4b3c-b257-622c755e4e21"
+                            ],
+                            "targets": [
+                                "7a0581f8-71ce-44e8-98fe-02ea9dc4ff70"
+                            ],
+                            "labels": [
+                                {
+                                    "text": "collected weather data",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 138,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "labels": [
+                        {
+                            "text": "Weather station",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                            },
+                            "width": 103,
+                            "height": 12
+                        }
+                    ],
+                    "width": 109,
+                    "height": 36
+                },
+                {
+                    "id": "d370f3b5-fbfc-4b09-abef-444e14c81aa0",
+                    "children": [
+                        {
+                            "id": "7ce379ea-3b77-4087-b955-b6e5a3df627a",
+                            "labels": [
+                                {
+                                    "text": "Make weather",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 88,
+                                    "height": 12
+                                }
+                            ],
+                            "ports": [
+                                {
+                                    "id": "62a357ec-d61c-4737-90fc-dcfd2bd629a4",
+                                    "layoutOptions": {
+                                        "borderOffset": -8
+                                    },
+                                    "width": 10,
+                                    "height": 10
+                                }
+                            ],
+                            "width": 94,
+                            "height": 36
+                        }
+                    ],
+                    "labels": [
+                        {
+                            "text": "Environment",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                            },
+                            "width": 83,
+                            "height": 12
+                        }
+                    ],
+                    "width": 89,
+                    "height": 36
+                },
+                {
+                    "id": "1ec85995-5fc1-42d2-8bf0-8eccb34aeff4",
+                    "children": [
+                        {
+                            "id": "d513d32f-6bfa-4a2b-b22e-b32df9bfbfa9",
+                            "children": [
+                                {
+                                    "id": "627791b9-ceba-49d2-aa97-01303c1ea113",
+                                    "labels": [
+                                        {
+                                            "text": "Launch Data acquisition",
+                                            "layoutOptions": {
+                                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                            },
+                                            "width": 143,
+                                            "height": 12
+                                        }
+                                    ],
+                                    "ports": [
+                                        {
+                                            "id": "bdd60d80-a0e0-44d9-8fcf-9c5f80ec84f3",
+                                            "layoutOptions": {
+                                                "borderOffset": -8
+                                            },
+                                            "width": 10,
+                                            "height": 10
+                                        },
+                                        {
+                                            "id": "3ea9f583-a37c-432f-99d0-cc1cc7b82761",
+                                            "layoutOptions": {
+                                                "borderOffset": -8
+                                            },
+                                            "width": 10,
+                                            "height": 10
+                                        }
+                                    ],
+                                    "width": 149,
+                                    "height": 36
+                                },
+                                {
+                                    "id": "ad1a44c6-48ab-4923-a14d-ab2cf09cead9",
+                                    "labels": [
+                                        {
+                                            "text": "Activate weather station",
+                                            "layoutOptions": {
+                                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                            },
+                                            "width": 148,
+                                            "height": 12
+                                        }
+                                    ],
+                                    "ports": [
+                                        {
+                                            "id": "621abc4c-6ebd-4c39-b4a3-9d5efdca2816",
+                                            "layoutOptions": {
+                                                "borderOffset": -8
+                                            },
+                                            "width": 10,
+                                            "height": 10
+                                        }
+                                    ],
+                                    "width": 154,
+                                    "height": 36
+                                }
+                            ],
+                            "edges": [
+                                {
+                                    "id": "85ae91a1-6190-4372-8f17-7bf1bb55d41c",
+                                    "sources": [
+                                        "621abc4c-6ebd-4c39-b4a3-9d5efdca2816"
+                                    ],
+                                    "targets": [
+                                        "3ea9f583-a37c-432f-99d0-cc1cc7b82761"
+                                    ],
+                                    "labels": [
+                                        {
+                                            "text": "FC Fex",
+                                            "layoutOptions": {
+                                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                            },
+                                            "width": 58,
+                                            "height": 12
+                                        }
+                                    ]
+                                }
+                            ],
+                            "labels": [
+                                {
+                                    "text": "Launcher",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                                    },
+                                    "width": 68,
+                                    "height": 12
+                                }
+                            ],
+                            "width": 119,
+                            "height": 36
+                        }
+                    ],
+                    "labels": [
+                        {
+                            "text": "Weather Datahouse",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                            },
+                            "width": 113,
+                            "height": 12
+                        }
+                    ],
+                    "width": 119,
+                    "height": 36
+                }
+            ],
+            "edges": [
+                {
+                    "id": "8beae0b8-b0a6-426a-b0c4-b9e3580df0e8",
+                    "sources": [
+                        "62a357ec-d61c-4737-90fc-dcfd2bd629a4"
+                    ],
+                    "targets": [
+                        "d3911dcc-4932-4a65-bde0-8f3f1de6ee7b"
+                    ],
+                    "labels": [
+                        {
+                            "text": "weather",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 63,
+                            "height": 12
+                        }
+                    ]
+                },
+                {
+                    "id": "6911c71b-d4bb-450c-9502-1eb67e9d2db9",
+                    "sources": [
+                        "bdd60d80-a0e0-44d9-8fcf-9c5f80ec84f3"
+                    ],
+                    "targets": [
+                        "7a172077-0ece-4ce8-a415-29d0375de6e8"
+                    ],
+                    "labels": [
+                        {
+                            "text": "weather data request",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 128,
+                            "height": 12
+                        }
+                    ]
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Hogwarts",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ],
+            "width": 74,
+            "height": 36
+        }
+    ]
+}

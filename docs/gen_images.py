@@ -30,6 +30,7 @@ general_context_diagram_uuids: dict[str, str] = {
     "Physical Behavior": "313f48f4-fb7e-47a8-b28a-76440932fcb9",
     "Maintain": "ee745644-07d7-40b9-ad7a-910dc8cbb805",
     "Physical Port": "c403d4f4-9633-42a2-a5d6-9e1df2655146",
+    "FunctionalChain": (fchain := "ec1ecf8b-d58b-4468-9742-6fdfd6cff702"),
 }
 interface_context_diagram_uuids: dict[str, str] = {
     "Left to right": "3ef23099-ce9a-4f7d-812f-935f47e7938d",
@@ -257,6 +258,19 @@ def generate_modes_pc_image():
             print(diag.render("svg", **params), file=fd)
 
 
+def generate_functional_chain_with_params_image():
+    params = {"display_parent_relation": False}
+    diag: context.FunctionalChainContextDiagram = model.by_uuid(
+        fchain
+    ).context_diagram
+    with mkdocs_gen_files.open(
+        f"{dest / diag.name!s}-without-component-allocation.svg", "w"
+    ) as fd:
+        print(
+            diag.render("svg", **params, transparent_background=False), file=fd
+        )
+
+
 generate_index_images()
 generate_hierarchy_image()
 generate_symbol_images()
@@ -287,3 +301,4 @@ generate_interface_with_hide_functions_image()
 generate_interface_with_hide_interface_image()
 generate_cable_tree_image()
 generate_modes_pc_image()
+generate_functional_chain_with_params_image()

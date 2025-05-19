@@ -2863,6 +2863,31 @@ The predator is far away</bodies>
             <ownedSequenceNodes xsi:type="org.polarsys.capella.core.data.fa:ControlNode"
                 id="0e564b44-4d0f-41b3-bb3c-833fb57323d5" kind="ITERATE"/>
           </ownedFunctionalChains>
+          <ownedFunctionalChains xsi:type="org.polarsys.capella.core.data.fa:FunctionalChain"
+              id="ec1ecf8b-d58b-4468-9742-6fdfd6cff702" name="Context">
+            <ownedFunctionalChainInvolvements xsi:type="org.polarsys.capella.core.data.fa:FunctionalChainInvolvementLink"
+                id="ebacf052-fe7c-492f-9564-679c0d835bce" involved="#8beae0b8-b0a6-426a-b0c4-b9e3580df0e8"
+                source="#c8cea935-4e8a-46dd-8c43-2502855bbf7c" target="#d3ea33f8-4ab7-4337-9a22-4167c17b5a88"/>
+            <ownedFunctionalChainInvolvements xsi:type="org.polarsys.capella.core.data.fa:FunctionalChainInvolvementFunction"
+                id="d3ea33f8-4ab7-4337-9a22-4167c17b5a88" involved="#75662c2c-8b0e-49fd-b390-d6528e3b97b0"/>
+            <ownedFunctionalChainInvolvements xsi:type="org.polarsys.capella.core.data.fa:FunctionalChainInvolvementFunction"
+                id="c8cea935-4e8a-46dd-8c43-2502855bbf7c" involved="#7ce379ea-3b77-4087-b955-b6e5a3df627a"/>
+            <ownedFunctionalChainInvolvements xsi:type="org.polarsys.capella.core.data.fa:FunctionalChainInvolvementLink"
+                id="acecaf47-12f5-46ee-87f7-aee388750f76" involved="#6911c71b-d4bb-450c-9502-1eb67e9d2db9"
+                source="#daba869e-b748-4578-be1c-74936c5dd6cb" target="#d3ea33f8-4ab7-4337-9a22-4167c17b5a88"/>
+            <ownedFunctionalChainInvolvements xsi:type="org.polarsys.capella.core.data.fa:FunctionalChainInvolvementFunction"
+                id="daba869e-b748-4578-be1c-74936c5dd6cb" involved="#627791b9-ceba-49d2-aa97-01303c1ea113"/>
+            <ownedFunctionalChainInvolvements xsi:type="org.polarsys.capella.core.data.fa:FunctionalChainInvolvementLink"
+                id="84da7369-bd7e-4e77-bf05-0e4b25e512a7" involved="#85ae91a1-6190-4372-8f17-7bf1bb55d41c"
+                source="#cab6a166-8cae-41fb-ba94-6fafb8e2e1d9" target="#daba869e-b748-4578-be1c-74936c5dd6cb"/>
+            <ownedFunctionalChainInvolvements xsi:type="org.polarsys.capella.core.data.fa:FunctionalChainInvolvementFunction"
+                id="cab6a166-8cae-41fb-ba94-6fafb8e2e1d9" involved="#ad1a44c6-48ab-4923-a14d-ab2cf09cead9"/>
+            <ownedFunctionalChainInvolvements xsi:type="org.polarsys.capella.core.data.fa:FunctionalChainInvolvementFunction"
+                id="2f4d34d9-0bf0-4613-9086-c37ef0f2f149" involved="#9ebc0a92-06cc-41f3-adfd-cd53de02dddd"/>
+            <ownedFunctionalChainInvolvements xsi:type="org.polarsys.capella.core.data.fa:FunctionalChainInvolvementLink"
+                id="19da43ce-26fc-47f9-b602-06f6c0f0a356" involved="#31a6b0a0-1b0d-4681-b45f-30d563fd362c"
+                source="#d3ea33f8-4ab7-4337-9a22-4167c17b5a88" target="#2f4d34d9-0bf0-4613-9086-c37ef0f2f149"/>
+          </ownedFunctionalChains>
           <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
               id="f708bc29-d69f-42a0-90cc-11fc01054cd0" name="manage the school">
             <outputs xsi:type="org.polarsys.capella.core.data.fa:FunctionOutputPort"
@@ -3256,6 +3281,37 @@ The predator is far away</bodies>
             <outputs xsi:type="org.polarsys.capella.core.data.fa:FunctionOutputPort"
                 id="ae8e5fc2-1ad7-45b9-ad5f-e6c1c8c0c9af" name="FOP 1"/>
           </ownedFunctions>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
+              id="75662c2c-8b0e-49fd-b390-d6528e3b97b0" name="Acquire weather data">
+            <inputs xsi:type="org.polarsys.capella.core.data.fa:FunctionInputPort"
+                id="7a172077-0ece-4ce8-a415-29d0375de6e8" name="FIP 1"/>
+            <inputs xsi:type="org.polarsys.capella.core.data.fa:FunctionInputPort"
+                id="d3911dcc-4932-4a65-bde0-8f3f1de6ee7b" name="FIP 2"/>
+            <outputs xsi:type="org.polarsys.capella.core.data.fa:FunctionOutputPort"
+                id="ae235f06-52d1-4b3c-b257-622c755e4e21" name="FOP 1"/>
+          </ownedFunctions>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
+              id="ad1a44c6-48ab-4923-a14d-ab2cf09cead9" name="Activate weather station">
+            <outputs xsi:type="org.polarsys.capella.core.data.fa:FunctionOutputPort"
+                id="621abc4c-6ebd-4c39-b4a3-9d5efdca2816" name="FOP 1"/>
+          </ownedFunctions>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
+              id="627791b9-ceba-49d2-aa97-01303c1ea113" name="Launch Data acquisition">
+            <inputs xsi:type="org.polarsys.capella.core.data.fa:FunctionInputPort"
+                id="3ea9f583-a37c-432f-99d0-cc1cc7b82761" name="FIP 1"/>
+            <outputs xsi:type="org.polarsys.capella.core.data.fa:FunctionOutputPort"
+                id="bdd60d80-a0e0-44d9-8fcf-9c5f80ec84f3" name="FOP 1"/>
+          </ownedFunctions>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
+              id="7ce379ea-3b77-4087-b955-b6e5a3df627a" name="Make weather">
+            <outputs xsi:type="org.polarsys.capella.core.data.fa:FunctionOutputPort"
+                id="62a357ec-d61c-4737-90fc-dcfd2bd629a4" name="FOP 1"/>
+          </ownedFunctions>
+          <ownedFunctions xsi:type="org.polarsys.capella.core.data.la:LogicalFunction"
+              id="9ebc0a92-06cc-41f3-adfd-cd53de02dddd" name="Elaborate current situation">
+            <inputs xsi:type="org.polarsys.capella.core.data.fa:FunctionInputPort"
+                id="7a0581f8-71ce-44e8-98fe-02ea9dc4ff70" name="FIP 1"/>
+          </ownedFunctions>
           <ownedFunctionRealizations xsi:type="org.polarsys.capella.core.data.fa:FunctionRealization"
               id="6a78f907-3b22-436f-8762-8d576723773a" targetElement="#1eee3b81-41ef-4b56-8018-b8e421a5a2bc"
               sourceElement="#f28ec0f8-f3b3-43a0-8af7-79f194b29a2d"/>
@@ -3406,6 +3462,18 @@ The predator is far away</bodies>
           <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
               id="cd9fcbdb-3b57-48d9-9d36-c33e186c0105" name="test fex" target="#cbfea021-bfd7-4e51-8e8f-aea7e3814391"
               source="#ae8e5fc2-1ad7-45b9-ad5f-e6c1c8c0c9af" exchangedItems="#8f8ba7de-a7e6-4b5c-bd5d-11fba313b444 #e76aa1f5-cc12-4885-a8c2-a0022b061549"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="6911c71b-d4bb-450c-9502-1eb67e9d2db9" name="weather data request"
+              target="#7a172077-0ece-4ce8-a415-29d0375de6e8" source="#bdd60d80-a0e0-44d9-8fcf-9c5f80ec84f3"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="8beae0b8-b0a6-426a-b0c4-b9e3580df0e8" name="weather" target="#d3911dcc-4932-4a65-bde0-8f3f1de6ee7b"
+              source="#62a357ec-d61c-4737-90fc-dcfd2bd629a4"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="85ae91a1-6190-4372-8f17-7bf1bb55d41c" name="FC Fex" target="#3ea9f583-a37c-432f-99d0-cc1cc7b82761"
+              source="#621abc4c-6ebd-4c39-b4a3-9d5efdca2816"/>
+          <ownedFunctionalExchanges xsi:type="org.polarsys.capella.core.data.fa:FunctionalExchange"
+              id="31a6b0a0-1b0d-4681-b45f-30d563fd362c" name="collected weather data"
+              target="#7a0581f8-71ce-44e8-98fe-02ea9dc4ff70" source="#ae235f06-52d1-4b3c-b257-622c755e4e21"/>
         </ownedLogicalFunctions>
       </ownedFunctionPkg>
       <ownedAbstractCapabilityPkg xsi:type="org.polarsys.capella.core.data.la:CapabilityRealizationPkg"
@@ -3844,6 +3912,12 @@ The predator is far away</bodies>
               name="Owning Comp" abstractType="#4b108adb-4187-4160-a7c5-5a7229c06c9c"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="ab29dc00-89b3-4266-b277-6492b6ccae9f"
               name="Right Comp" abstractType="#4f13205c-b892-4ea7-9966-e0b2cc99678e"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="09cdc9ce-a8d2-425b-8540-6a5e1c5b027e"
+              name="Environment" abstractType="#d370f3b5-fbfc-4b09-abef-444e14c81aa0"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="a5c5edc4-545d-4c52-a2d6-ef7277aef9dc"
+              name="Weather station" abstractType="#a43560f6-ed60-4907-bf24-3afa4678f77c"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="03267884-4f53-4274-afe4-63dee82616b8"
+              name="Weather Datahouse" abstractType="#1ec85995-5fc1-42d2-8bf0-8eccb34aeff4"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="0f8b10b5-d460-4055-bd34-7e4a33e94b5e" targetElement="#230c4621-7e0a-4d0a-9db2-d4ba5e97b3df"
               sourceElement="#0d2edb8f-fa34-4e73-89ec-fb9a63001440"/>
@@ -4639,6 +4713,40 @@ The predator is far away</bodies>
                   id="b179ad55-afcd-4948-8ed2-366adb1c8d5f" targetElement="#cbfea021-bfd7-4e51-8e8f-aea7e3814391"
                   sourceElement="#14f35643-ce2e-4da8-84b3-f9b0f4d4d0d7"/>
             </ownedFeatures>
+          </ownedLogicalComponents>
+          <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+              id="d370f3b5-fbfc-4b09-abef-444e14c81aa0" name="Environment">
+            <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                id="16888517-58fa-41a6-842e-f98fb1ce5db7" targetElement="#7ce379ea-3b77-4087-b955-b6e5a3df627a"
+                sourceElement="#d370f3b5-fbfc-4b09-abef-444e14c81aa0"/>
+          </ownedLogicalComponents>
+          <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+              id="a43560f6-ed60-4907-bf24-3afa4678f77c" name="Weather station">
+            <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                id="809b764a-7293-467b-aeee-867e04946666" targetElement="#75662c2c-8b0e-49fd-b390-d6528e3b97b0"
+                sourceElement="#a43560f6-ed60-4907-bf24-3afa4678f77c"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="76902a7c-b29b-4082-b418-721fb228172a"
+                name="Elaborator" abstractType="#8d087293-a2e9-4762-b2f0-1f418ca0a54a"/>
+            <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+                id="8d087293-a2e9-4762-b2f0-1f418ca0a54a" name="Elaborator">
+              <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                  id="d8f4607e-64df-43ac-8697-fce2abae990c" targetElement="#9ebc0a92-06cc-41f3-adfd-cd53de02dddd"
+                  sourceElement="#8d087293-a2e9-4762-b2f0-1f418ca0a54a"/>
+            </ownedLogicalComponents>
+          </ownedLogicalComponents>
+          <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+              id="1ec85995-5fc1-42d2-8bf0-8eccb34aeff4" name="Weather Datahouse">
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="da0ed0b4-77f7-468b-b270-4bec76ec5cbe"
+                name="Launcher" abstractType="#d513d32f-6bfa-4a2b-b22e-b32df9bfbfa9"/>
+            <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+                id="d513d32f-6bfa-4a2b-b22e-b32df9bfbfa9" name="Launcher">
+              <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                  id="e8f2eb27-9cf8-4415-b3ad-6af6fd43c695" targetElement="#ad1a44c6-48ab-4923-a14d-ab2cf09cead9"
+                  sourceElement="#d513d32f-6bfa-4a2b-b22e-b32df9bfbfa9"/>
+              <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
+                  id="c4aa42bd-c236-4bcd-bd67-0e6c0fbf3f02" targetElement="#627791b9-ceba-49d2-aa97-01303c1ea113"
+                  sourceElement="#d513d32f-6bfa-4a2b-b22e-b32df9bfbfa9"/>
+            </ownedLogicalComponents>
           </ownedLogicalComponents>
           <ownedLogicalComponentPkgs xsi:type="org.polarsys.capella.core.data.la:LogicalComponentPkg"
               id="83d80c8a-e845-4fd9-bb6f-91fc32145785" name="LogicalComponents">

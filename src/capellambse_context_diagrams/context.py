@@ -21,7 +21,7 @@ from capellambse import helpers
 from capellambse import model as m
 
 from . import _elkjs, enums, filters, serializers, styling
-from .builders import dataflow, interface
+from .builders import dataflow, fchain, interface
 from .builders import default as db
 from .collectors import (
     _generic,
@@ -107,7 +107,7 @@ class InterfaceContextAccessor(ContextAccessor):
         diagclass: dict[type[m.ModelElement], str],
         render_params: dict[str, t.Any] | None = None,
     ) -> None:
-        self.__dgclasses = diagclass
+        self._dgclasses = diagclass
         self._default_render_params = render_params or {}
 
     def __get__(  # type: ignore
@@ -119,7 +119,7 @@ class InterfaceContextAccessor(ContextAccessor):
             return self
         assert isinstance(obj, m.ModelElement)
         assert isinstance(obj.parent, m.ModelElement)
-        self._dgcls = self.__dgclasses[obj.parent.__class__]
+        self._dgcls = self._dgclasses[obj.parent.__class__]
         return self._get(obj, InterfaceContextDiagram)
 
 
@@ -218,6 +218,22 @@ class CableTreeAccessor(ContextAccessor):
             return self
         assert isinstance(obj, m.ModelElement)
         return self._get(obj, CableTreeViewDiagram)
+
+
+class FunctionalChainContextAccessor(InterfaceContextAccessor):
+    """Provides access to the functional chain view diagrams."""
+
+    def __get__(  # type: ignore
+        self, obj: m.T | None, objtype: type | None = None
+    ) -> m.Accessor | ContextDiagram:
+        """Make a ContextDiagram for the given model object."""
+        del objtype
+        if obj is None:  # pragma: no cover
+            return self
+        assert isinstance(obj, m.ModelElement)
+        assert isinstance(obj.layer, m.ModelElement)
+        self._dgcls = self._dgclasses[obj.layer.__class__]
+        return self._get(obj, FunctionalChainContextDiagram)
 
 
 class ContextDiagram(m.AbstractDiagram):
@@ -388,7 +404,8 @@ class ContextDiagram(m.AbstractDiagram):
     @property
     def name(self) -> str:
         """Returns the diagram name."""
-        return f"Context of {self.target.name.replace('/', '- or -')}"
+        class_ = self.__class__.__name__
+        return f"{class_} of {self.target.name.replace('/', '- or -')}"
 
     @property
     def type(self) -> m.DiagramType:
@@ -974,6 +991,35 @@ class PhysicalPortContextDiagram(ContextDiagram):
             render_styles=render_styles,
             default_render_parameters=default_render_parameters,
         )
+
+
+class FunctionalChainContextDiagram(ContextDiagram):
+    """A custom Context Diagram exclusively for FunctionalChains."""
+
+    def __init__(
+        self,
+        class_: str,
+        obj: m.ModelElement,
+        *,
+        render_styles: dict[str, styling.Styler] | None = None,
+        default_render_parameters: dict[str, t.Any],
+    ) -> None:
+        default_render_parameters = {
+            "display_symbols_as_boxes": True,
+            "display_parent_relation": True,
+            "edge_direction": enums.EDGE_DIRECTION.SMART,
+            "mode": enums.MODE.WHITEBOX,
+            "collect": default.functional_chain_collector,
+        } | default_render_parameters
+
+        super().__init__(
+            class_,
+            obj,
+            render_styles=render_styles,
+            default_render_parameters=default_render_parameters,
+        )
+
+        self.builder = fchain.builder
 
 
 def try_to_layout(data: _elkjs.ELKInputData) -> _elkjs.ELKOutputData:

@@ -19,7 +19,7 @@ When the extension is installed you get additional method `.context_diagram` ava
 
 ### Simple context
 
-![Context diagram of **Left**](https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/main/docs/assets/images/Context%20of%20Left.svg "Context diagram of **Left**")
+![Context diagram of **Left**](https://raw.githubusercontent.com/DSD-DBS/capellambse-context-diagrams/main/docs/assets/images/ContextDiagram%20of%20Left.svg "Context diagram of **Left**")
 
 ### Interface context
 

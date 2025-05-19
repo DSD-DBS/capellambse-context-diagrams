@@ -130,3 +130,13 @@ def port_context_collector(
         return
 
     yield from _collect(obj.target)  # type: ignore[misc]
+
+
+def functional_chain_collector(
+    diagram: context.ContextDiagram,
+) -> cabc.Iterator[m.ModelElement]:
+    """Collect context data for a FunctionalChain."""
+    if not isinstance(diagram.target, fa.FunctionalChain):
+        return
+
+    yield from diagram.target.involved

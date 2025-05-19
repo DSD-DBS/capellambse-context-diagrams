@@ -27,11 +27,10 @@ and is available on:
     ).save(pretty=True)
     ```
     <figure markdown>
-        <img src="../../assets/images/Context of Center-derived.svg" width="1000000">
+        <img src="../../assets/images/ContextDiagram of Center-derived.svg" width="1000000">
         <figcaption>Context diagram of <b>Center</b> with derived context</figcaption>
     </figure>
 
-See [`the derivator
-functions`][capellambse_context_diagrams.builders.derived.DERIVATORS] to gain
+See [`the derivatorfunctions`][capellambse_context_diagrams.builders.derived.DERIVATORS] to gain
 an overview over all supported capellambse types and the logic to derive
 elements.

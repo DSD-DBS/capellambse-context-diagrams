@@ -65,6 +65,7 @@ def init() -> None:
     register_realization_view()
     register_data_flow_view()
     register_cable_tree_view()
+    register_functional_chain_view()
 
 
 def register_classes() -> None:
@@ -192,3 +193,16 @@ def register_cable_tree_view() -> None:
             {},
         ),
     )
+
+
+def register_functional_chain_view() -> None:
+    """Add the ``context_diagram`` attribute to ``FunctionalChain``s."""
+    for (
+        class_,
+        dgclasses,
+        default_render_params,
+    ) in _registry.FUNCTIONAL_CHAIN_CONTEXT_CLASSES:
+        accessor = context.FunctionalChainContextAccessor(
+            dgclasses, default_render_params
+        )
+        m.set_accessor(class_, ATTR_NAME, accessor)

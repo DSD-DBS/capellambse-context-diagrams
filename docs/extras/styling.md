@@ -26,7 +26,7 @@ Capella. These appear to be blue.
     ```
     produces
     <figure markdown>
-        <img src="../../assets/images/Context of educate Wizards.svg" width="1000000">
+        <img src="../../assets/images/ContextDiagram of educate Wizards.svg" width="1000000">
         <figcaption>Context diagram of Lost SystemFunction with blue actor styling</figcaption>
     </figure>
 
@@ -50,8 +50,8 @@ icon beside the box-label. Per default it is set to `True`.
     ```
     produces
     <figure markdown>
-        <img src="../../assets/images/Context of Middle symbols.svg" width="1000000">
-        <figcaption>Context of Middle OperationalCapability [OCB] no-symbols</figcaption>
+        <img src="../../assets/images/ContextDiagram of Middle symbols.svg" width="1000000">
+        <figcaption>ContextDiagram of Middle OperationalCapability [OCB] no-symbols</figcaption>
     </figure>
 
 ??? example "Box-only style for Context diagram of Capability Capability [MCB]"
@@ -64,8 +64,8 @@ icon beside the box-label. Per default it is set to `True`.
     ```
     produces
     <figure markdown>
-        <img src="../../assets/images/Context of Capability symbols.svg" width="1000000">
-        <figcaption>Context of Capability Capability [MCB] no-symbols</figcaption>
+        <img src="../../assets/images/ContextDiagram of Capability symbols.svg" width="1000000">
+        <figcaption>ContextDiagram of Capability Capability [MCB] no-symbols</figcaption>
     </figure>
 
 # No edge labels
@@ -82,7 +82,7 @@ The `no_edgelabels` render parameter prevents edge labels from being displayed.
     diag.render("svgdiagram", no_edgelabels=True).save(pretty=True)
     ```
     <figure markdown>
-        <img src="../../assets/images/Context of educate Wizards no_edgelabels.svg" width="1000000">
+        <img src="../../assets/images/ContextDiagram of educate Wizards no_edgelabels.svg" width="1000000">
         <figcaption>Context diagram of educate Wizards LogicalFunction no-edgelabels</figcaption>
     </figure>
 
@@ -103,7 +103,7 @@ You can switch to py-capellambse default styling by overriding the
     ```
     produces
     <figure markdown>
-        <img src="../../assets/images/Context of educate Wizards no_styles.svg" width="1000000">
+        <img src="../../assets/images/ContextDiagram of educate Wizards no_styles.svg" width="1000000">
         <figcaption>Context diagram of educate Wizards LogicalFunction w/o any styles</figcaption>
     </figure>
 
@@ -128,7 +128,7 @@ Style your diagram elements ([ElkChildType][capellambse_context_diagrams.seriali
     ```
     produces
     <figure markdown>
-        <img src="../../assets/images/Context of Lost red junction.svg" width="1000000">
+        <img src="../../assets/images/ContextDiagram of Lost red junction.svg" width="1000000">
         <figcaption>Context diagram of Lost SystemFunction with junction point styling</figcaption>
     </figure>
 
@@ -147,6 +147,6 @@ The `display_port_labels` render parameter allows you to display the port labels
     diagram.save(pretty=True)
     ```
     <figure markdown>
-        <img src="../../assets/images/Context of Hierarchy display_port_labels.svg" width="1000000">
+        <img src="../../assets/images/ContextDiagram of Hierarchy display_port_labels.svg" width="1000000">
         <figcaption>Context diagram of Hierarchy LogicalComponenet with type [LAB] display_port_labels</figcaption>
     </figure>

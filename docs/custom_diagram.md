@@ -34,8 +34,8 @@ You can easily create custom diagrams based on the data in the model. You define
     diag.render("svgdiagram", collect=_collector(obj)).save(pretty=True)
     ```
     <figure markdown>
-        <img src="../assets/images/Context of PP 1.svg" width="1000000">
-        <figcaption>Context of PP 1 [PAB]</figcaption>
+        <img src="../assets/images/PhysicalPortContextDiagram of PP 1.svg" width="1000000">
+        <figcaption>PhysicalPortContextDiagram of PP 1 [PAB]</figcaption>
     </figure>
 
 You can find more examples of collectors in the

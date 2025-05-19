@@ -10,7 +10,7 @@ that extends the [`AbstractDiagram`][capellambse.model.diagram.AbstractDiagram]
 base class with [`ContextDiagram`s][capellambse_context_diagrams.context.ContextDiagram] that are layouted by [elkjs'](https://github.com/kieler/elkjs) Layered algorithm.
 
 <figure markdown>
-<img src="assets/images/Context of Left.svg" width="1000000">
+<img src="assets/images/ContextDiagram of Left.svg" width="1000000">
 <figcaption>Context diagram of <b>Left</b></figcaption>
 </figure>
 
@@ -42,7 +42,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
           diag.render("svgdiagram").save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of Environment.svg" width="1000000">
+              <img src="assets/images/ContextDiagram of Environment.svg" width="1000000">
               <figcaption>Context diagram of Environment Entity with type [OAB]</figcaption>
           </figure>
 
@@ -56,7 +56,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
           diag.render("svgdiagram").save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of Eat.svg" width="1000000">
+              <img src="assets/images/ContextDiagram of Eat.svg" width="1000000">
               <figcaption>Context diagram of Activity Eat with type [OAIB]</figcaption>
           </figure>
 
@@ -70,7 +70,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
           diag.render("svgdiagram").save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of Middle.svg" width="1000000">
+              <img src="assets/images/ContextDiagram of Middle.svg" width="1000000">
               <figcaption>Context diagram of Middle OperationalCapability with type [OCB]</figcaption>
           </figure>
 
@@ -84,7 +84,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
           diag.render("svgdiagram").save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of Top secret.svg" width="1000000">
+              <img src="assets/images/ContextDiagram of Top secret.svg" width="1000000">
               <figcaption>Context diagram of Mission Top secret with type [MCB]</figcaption>
           </figure>
 
@@ -98,7 +98,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
           diag.render("svgdiagram").save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of Capability.svg" width="1000000">
+              <img src="assets/images/ContextDiagram of Capability.svg" width="1000000">
               <figcaption>Context diagram of Capability Capability with type [MCB]</figcaption>
           </figure>
 
@@ -114,7 +114,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
           diag.render("svgdiagram").save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of Lost.svg" width="1000000">
+              <img src="assets/images/ContextDiagram of Lost.svg" width="1000000">
               <figcaption>Context diagram of Lost SystemFunction with type [SDFB]</figcaption>
           </figure>
 
@@ -128,7 +128,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
           diag.render("svgdiagram").save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of Left.svg" width="1000000">
+              <img src="assets/images/ContextDiagram of Left.svg" width="1000000">
               <figcaption>Context diagram of Left LogicalComponent with type [LAB]</figcaption>
           </figure>
 
@@ -142,7 +142,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
           diag.render("svgdiagram").save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of educate Wizards.svg" width="1000000">
+              <img src="assets/images/ContextDiagram of educate Wizards.svg" width="1000000">
               <figcaption>Context diagram of educate Wizards LogicalFunction with type [LDFB]</figcaption>
           </figure>
 
@@ -158,8 +158,8 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
           diag.render("svgdiagram").save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of Physical Component.svg" width="1000000">
-              <figcaption>Context of Physical Component [PAB]</figcaption>
+              <img src="assets/images/ContextDiagram of Physical Component.svg" width="1000000">
+              <figcaption>ContextDiagram of Physical Component [PAB]</figcaption>
           </figure>
 
           `PhysicalBehaviourComponent`
@@ -172,7 +172,7 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
           diag.render("svgdiagram").save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of PC Software.svg" width="1000000">
+              <img src="assets/images/ContextDiagram of PC Software.svg" width="1000000">
               <figcaption>Context diagram of PC Software [PAB]</figcaption>
           </figure>
 
@@ -186,8 +186,8 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
           diag.render("svgdiagram").save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of Maintain Switch Firmware.svg" width="1000000">
-              <figcaption>Context of Maintain Switch Firmware [PDFB]</figcaption>
+              <img src="assets/images/ContextDiagram of Maintain Switch Firmware.svg" width="1000000">
+              <figcaption>ContextDiagram of Maintain Switch Firmware [PDFB]</figcaption>
           </figure>
 
 -   ??? example "[`pa.PhysicalPort`][capellambse.metamodel.cs.PhysicalPort] (PAB)"
@@ -200,9 +200,43 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
           diag.render("svgdiagram").save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of PP 1.svg" width="1000000">
-              <figcaption>Context of PP 1 [PAB]</figcaption>
+              <img src="assets/images/PhysicalPortContextDiagram of PP 1.svg" width="1000000">
+              <figcaption>PhysicalPortContextDiagram of PP 1 [PAB]</figcaption>
           </figure>
+
+### FunctionalChains
+
+The `context_diagram` attribute is also available to `FunctionalChain`s:
+
+??? example "[`fa.FunctionalChain`][capellambse.metamodel.fa.FunctionalChain]"
+
+    ``` py
+    import capellambse
+
+    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+    diag = model.by_uuid("ec1ecf8b-d58b-4468-9742-6fdfd6cff702").context_diagram
+    diag.render("svgdiagram").save(pretty=True)
+    ```
+    <figure markdown>
+        <img src="assets/images/FunctionalChainContextDiagram of Context.svg" width="1000000">
+        <figcaption>FunctionalChainContextDiagram of Context [LAB]</figcaption>
+    </figure>
+
+and with the following rendering parameters:
+
+- ??? example "`display_parent_relation=False`"
+
+        ``` py
+        import capellambse
+
+        model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+        diag = model.by_uuid("ec1ecf8b-d58b-4468-9742-6fdfd6cff702").context_diagram
+        diag.render("svgdiagram", display_parent_relation=False).save(pretty=True)
+        ```
+        <figure markdown>
+            <img src="assets/images/FunctionalChainContextDiagram of Context-without-component-allocation.svg" width="1000000">
+            <figcaption>FunctionalChainContextDiagram of Context without Component Allocation [LAB]</figcaption>
+        </figure>
 
 #### Hierarchy in diagrams
 
@@ -221,7 +255,7 @@ Hierarchy is identified and supported:
     diagram.save(pretty=True)
     ```
     <figure markdown>
-        <img src="assets/images/Context of Hierarchy.svg" width="1000000">
+        <img src="assets/images/ContextDiagram of Hierarchy.svg" width="1000000">
         <figcaption>Context diagram of Hierarchy LogicalComponenet with type [LAB]</figcaption>
     </figure>
 
@@ -236,7 +270,7 @@ Hierarchy is identified and supported:
     flow exchanges routes lengths and bendpoints increase.
 
     <figure markdown>
-    <img src="assets/images/Context of Weird guy.svg" width="1000000">
+    <img src="assets/images/ContextDiagram of Weird guy.svg" width="1000000">
     <figcaption>Context diagram of Weird guy SystemFunction</figcaption>
     </figure>
 
@@ -259,7 +293,7 @@ enabled per **default**.
     diagram.save(pretty=True)
     ```
     <figure markdown>
-        <img src="assets/images/Context of Box-whitebox.svg" width="1000000">
+        <img src="assets/images/ContextDiagram of Box-whitebox.svg" width="1000000">
         <figcaption>Context diagram of Box PhysicalComponent with WHITEBOX mode</figcaption>
     </figure>
 
@@ -278,7 +312,7 @@ Additional render parameters for `WHITEBOX` mode are offered via:
           diagram.save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of Box-whitebox_with_external_context.svg" width="1000000">
+              <img src="assets/images/ContextDiagram of Box-whitebox_with_external_context.svg" width="1000000">
               <figcaption>Context diagram of Box PhysicalComponent with WHITEBOX mode and External Context display</figcaption>
           </figure>
 
@@ -298,7 +332,7 @@ black box representation of the system of interest.
     diagram.save(pretty=True)
     ```
     <figure markdown>
-        <img src="assets/images/Context of Box-blackbox.svg" width="1000000">
+        <img src="assets/images/ContextDiagram of Box-blackbox.svg" width="1000000">
         <figcaption>Context diagram of Box PhysicalComponent with BLACKBOX mode</figcaption>
     </figure>
 
@@ -318,7 +352,7 @@ even cyclic internal relations are offered via:
           diagram.save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of Box-blackbox_without_internal_relations.svg" width="1000000">
+              <img src="assets/images/ContextDiagram of Box-blackbox_without_internal_relations.svg" width="1000000">
               <figcaption>Context diagram of Box PhysicalComponent with BLACKBOX mode</figcaption>
           </figure>
 
@@ -338,7 +372,7 @@ even cyclic internal relations are offered via:
           diagram.save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of Box-blackbox_with_internal_cycles.svg" width="1000000">
+              <img src="assets/images/ContextDiagram of Box-blackbox_with_internal_cycles.svg" width="1000000">
               <figcaption>Context diagram of Box PhysicalComponent with BLACKBOX mode and Cycle display</figcaption>
           </figure>
 
@@ -358,7 +392,7 @@ even cyclic internal relations are offered via:
           diagram.save(pretty=True)
           ```
           <figure markdown>
-              <img src="assets/images/Context of Box-blackbox_with_external_context.svg" width="1000000">
+              <img src="assets/images/ContextDiagram of Box-blackbox_with_external_context.svg" width="1000000">
               <figcaption>Context diagram of Box PhysicalComponent with BLACKBOX mode and External Context display</figcaption>
           </figure>
 ---

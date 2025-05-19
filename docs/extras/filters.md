@@ -29,7 +29,7 @@ Currently the supported filters are:
     diag.render("svgdiagram").save(pretty=True)
     ```
     <figure markdown>
-        <img src="../../assets/images/Context of Lost ex.svg" width="1000000">
+        <img src="../../assets/images/ContextDiagram of Lost ex.svg" width="1000000">
         <figcaption>Context diagram of Lost SystemFunction with applied filter [`EX_ITEMS_FILTER`][capellambse_context_diagrams.filters.EX_ITEMS]</figcaption>
     </figure>
 
@@ -46,7 +46,7 @@ Currently the supported filters are:
     diag.render("svgdiagram").save(pretty=True)
     ```
     <figure markdown>
-        <img src="../../assets/images/Context of Lost fex and ex.svg" width="1000000">
+        <img src="../../assets/images/ContextDiagram of Lost fex and ex.svg" width="1000000">
         <figcaption>Context diagram of Lost SystemFunction with applied filter [`SHOW_EX_ITEMS`][capellambse_context_diagrams.filters.SHOW_EX_ITEMS]</figcaption>
     </figure>
 
@@ -65,7 +65,7 @@ Currently the supported filters are:
     diag.render("svgdiagram").save(pretty=True)
     ```
     <figure markdown>
-        <img src="../../assets/images/Context of Lost ex or fex.svg" width="1000000">
+        <img src="../../assets/images/ContextDiagram of Lost ex or fex.svg" width="1000000">
         <figcaption>Context diagram of Lost SystemFunction with applied filter [`EX_ITEMS_OR_EXCH`][capellambse_context_diagrams.filters.EX_ITEMS_OR_EXCH]</figcaption>
     </figure>
 

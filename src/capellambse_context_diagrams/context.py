@@ -548,7 +548,11 @@ class InterfaceContextDiagram(ContextDiagram):
         data = self.elk_input_data(params)
         assert not isinstance(data, tuple)
         layout = try_to_layout(data)
-        if self._include_interface and self._include_port_allocations:
+        if (
+            self._include_interface
+            and self._include_port_allocations
+            and not self._hide_functions
+        ):
             self._add_port_allocations(layout)
 
         is_legend: bool = params.get("is_legend", False)

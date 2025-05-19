@@ -122,6 +122,14 @@ TEST_INTERFACE_SET = [
         ),
         id="Interface hidden functions",
     ),
+    pytest.param(
+        (
+            "4823634f-a21e-4075-b3a5-b8c353ea0166",
+            "interface_hidden_functions_nested_component_context_diagram.json",
+            {"hide_functions": True},
+        ),
+        id="Interface for nested component with hidden functions",
+    ),
 ]
 
 
@@ -182,6 +190,6 @@ def test_interface_diagram_with_nested_functions(
 
     diag = obj.context_diagram.render(
         None, display_functional_parent_relation=True
-    )  # .save(pretty=True)
+    )
 
     assert {b.uuid for b in diag[fnc.uuid].children} >= expected_uuids

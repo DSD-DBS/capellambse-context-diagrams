@@ -1,0 +1,105 @@
+{
+    "id": "4823634f-a21e-4075-b3a5-b8c353ea0166_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "NETWORK_SIMPLEX",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "4f13205c-b892-4ea7-9966-e0b2cc99678e",
+            "labels": [
+                {
+                    "text": "Right Comp",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 78,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "14f35643-ce2e-4da8-84b3-f9b0f4d4d0d7",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 84,
+            "height": 36
+        },
+        {
+            "id": "4b108adb-4187-4160-a7c5-5a7229c06c9c",
+            "children": [
+                {
+                    "id": "50c7ba9e-3805-48b7-adb8-2b34453d0694",
+                    "labels": [
+                        {
+                            "text": "Child Comp",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 78,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "3d14fe35-b2ee-4347-832d-41710d03134a",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        }
+                    ],
+                    "width": 89,
+                    "height": 36
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Owning Comp",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 83,
+                    "height": 12
+                }
+            ],
+            "width": 89,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "4823634f-a21e-4075-b3a5-b8c353ea0166",
+            "layoutOptions": {
+                "layered.priority.straightness": "10"
+            },
+            "sources": [
+                "3d14fe35-b2ee-4347-832d-41710d03134a"
+            ],
+            "targets": [
+                "14f35643-ce2e-4da8-84b3-f9b0f4d4d0d7"
+            ],
+            "labels": [
+                {
+                    "text": "Interface",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 73,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

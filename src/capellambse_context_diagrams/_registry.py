@@ -142,3 +142,14 @@ DATAFLOW_CLASSES: list[SupportedContextClass] = [
     (oa.OperationalCapability, DiagramType.OAIB, {}),  # portless
     (sa.Capability, DiagramType.SDFB, {}),  # default
 ]
+FUNCTIONAL_CHAIN_CONTEXT_CLASSES: list[SupportedInterfaceContextClass] = [
+    (
+        fa.FunctionalChain,
+        {
+            sa.SystemAnalysis: DiagramType.SAB.value,
+            la.LogicalArchitecture: DiagramType.LAB.value,
+            pa.PhysicalArchitecture: DiagramType.PAB.value,
+        },
+        {},
+    )
+]

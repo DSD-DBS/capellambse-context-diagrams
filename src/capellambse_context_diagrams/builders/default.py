@@ -57,6 +57,10 @@ def _is_port(obj: m.ModelElement) -> bool:
     return obj.xtype.endswith("Port")
 
 
+def _is_functional_chain(obj: m.ModelElement) -> bool:
+    return obj.xtype.endswith("FunctionalChain")
+
+
 def get_top_uncommon_owner(
     src: m.ModelElement, tgt_owners: list[str]
 ) -> m.ModelElement:
@@ -75,6 +79,8 @@ def get_top_uncommon_owner(
 def _get_boxeable_target(diagram: context.ContextDiagram) -> m.ModelElement:
     if _is_port(diagram.target):
         return diagram.target.owner
+    if _is_functional_chain(diagram.target):
+        return diagram.target
     try:
         src, _ = portless.collect_exchange_endpoints(diagram.target)
         if diagram._is_portless:
@@ -105,7 +111,7 @@ class DiagramBuilder:
         self.edges_to_flip: dict[str, dict[bool, set[str]]] = {}
         self.min_heights: dict[str, dict[str, float]] = {}
         self.directions: dict[str, bool] = {}
-        self.diagram_target_owners = list(
+        self.diagram_target_owners: list[str] = list(
             _generic.get_all_owners(self.boxable_target)
         )
 

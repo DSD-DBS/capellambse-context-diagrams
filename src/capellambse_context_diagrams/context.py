@@ -1006,10 +1006,11 @@ class FunctionalChainContextDiagram(ContextDiagram):
         default_render_parameters: dict[str, t.Any],
     ) -> None:
         default_render_parameters = {
-            "collect": functional_chain.collector,
+            "display_symbols_as_boxes": True,
             "display_parent_relation": True,
             "edge_direction": enums.EDGE_DIRECTION.SMART,
             "mode": enums.MODE.WHITEBOX,
+            "collect": functional_chain.collector,
         } | default_render_parameters
 
         super().__init__(

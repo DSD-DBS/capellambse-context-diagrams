@@ -58,7 +58,7 @@ def _is_port(obj: m.ModelElement) -> bool:
 
 
 def _is_functional_chain(obj: m.ModelElement) -> bool:
-    return obj.xtype.endswith("FunctionalChain")
+    return obj.xtype.endswith(("FunctionalChain", "OperationalProcess"))
 
 
 def get_top_uncommon_owner(

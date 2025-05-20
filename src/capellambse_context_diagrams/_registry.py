@@ -151,5 +151,10 @@ FUNCTIONAL_CHAIN_CONTEXT_CLASSES: list[SupportedInterfaceContextClass] = [
             pa.PhysicalArchitecture: DiagramType.PAB.value,
         },
         {},
-    )
+    ),
+    (
+        oa.OperationalProcess,
+        {oa.OperationalAnalysis: DiagramType.OAB.value},
+        {},
+    ),
 ]

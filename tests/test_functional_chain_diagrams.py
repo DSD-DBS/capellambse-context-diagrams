@@ -16,6 +16,7 @@ from .conftest import (  # type: ignore[import-untyped]
 )
 
 TEST_FNC_CHAIN_UUID = "ec1ecf8b-d58b-4468-9742-6fdfd6cff702"
+TEST_OA_PROCESS_UUID = "bec38a21-cc4b-4c06-8acf-067bd5f44824"
 TEST_CONTEXT_SET = [
     pytest.param(
         (TEST_FNC_CHAIN_UUID, "functional_chain_context_diagram.json", {}),
@@ -27,7 +28,19 @@ TEST_CONTEXT_SET = [
             "functional_chain_no_parent_relation_context_diagram.json",
             {"display_parent_relation": False},
         ),
-        id="FunctionalChain with hidden functions",
+        id="FunctionalChain with hidden owners",
+    ),
+    pytest.param(
+        (TEST_OA_PROCESS_UUID, "operational_process_context_diagram.json", {}),
+        id="OperationalProcess",
+    ),
+    pytest.param(
+        (
+            TEST_OA_PROCESS_UUID,
+            "operational_process_no_parent_relation_context_diagram.json",
+            {"display_parent_relation": False},
+        ),
+        id="OperationalProcess with hidden owners",
     ),
 ]
 

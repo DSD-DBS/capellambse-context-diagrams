@@ -1,0 +1,171 @@
+{
+    "id": "bec38a21-cc4b-4c06-8acf-067bd5f44824_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "a82af3a6-cf4d-4356-8a2b-442371fc2af9",
+            "labels": [
+                {
+                    "text": "OCap Outside",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ],
+            "width": 94,
+            "height": 36
+        },
+        {
+            "id": "0e7663d3-221a-43f6-8dd0-cf1b05594d23",
+            "labels": [
+                {
+                    "text": "OCap Middle",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 83,
+                    "height": 12
+                }
+            ],
+            "width": 89,
+            "height": 36
+        },
+        {
+            "id": "78575a54-6733-4aa6-90c2-991676156c40",
+            "labels": [
+                {
+                    "text": "OCap Left",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 73,
+                    "height": 12
+                }
+            ],
+            "width": 79,
+            "height": 36
+        },
+        {
+            "id": "d31c0716-c5b4-41b1-b51d-baee4f97a84f",
+            "labels": [
+                {
+                    "text": "OCap Right",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 78,
+                    "height": 12
+                }
+            ],
+            "width": 84,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "e300755e-d394-411c-af1c-323b5f812b02",
+            "sources": [
+                "0e7663d3-221a-43f6-8dd0-cf1b05594d23"
+            ],
+            "targets": [
+                "a82af3a6-cf4d-4356-8a2b-442371fc2af9"
+            ],
+            "labels": [
+                {
+                    "text": "I2",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 38,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "00630667-425e-40a8-8a1c-fe9bca64420d",
+            "sources": [
+                "a82af3a6-cf4d-4356-8a2b-442371fc2af9"
+            ],
+            "targets": [
+                "78575a54-6733-4aa6-90c2-991676156c40"
+            ],
+            "labels": [
+                {
+                    "text": "I1",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 38,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "3808a028-1339-4b6d-b223-d35fea61dbfc",
+            "sources": [
+                "78575a54-6733-4aa6-90c2-991676156c40"
+            ],
+            "targets": [
+                "d31c0716-c5b4-41b1-b51d-baee4f97a84f"
+            ],
+            "labels": [
+                {
+                    "text": "I3",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 38,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "b242887c-1262-4bd1-a4ff-f4ff3ed9ab76",
+            "sources": [
+                "78575a54-6733-4aa6-90c2-991676156c40"
+            ],
+            "targets": [
+                "0e7663d3-221a-43f6-8dd0-cf1b05594d23"
+            ],
+            "labels": [
+                {
+                    "text": "I4",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 38,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "9b0c4e83-1b7d-4e48-bd97-063e20cb3d3a",
+            "sources": [
+                "0e7663d3-221a-43f6-8dd0-cf1b05594d23"
+            ],
+            "targets": [
+                "d31c0716-c5b4-41b1-b51d-baee4f97a84f"
+            ],
+            "labels": [
+                {
+                    "text": "I5",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 38,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

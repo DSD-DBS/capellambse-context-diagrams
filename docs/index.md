@@ -206,7 +206,8 @@ Available via `.context_diagram` on a [`ModelObject`][capellambse.model.ModelObj
 
 ### FunctionalChains
 
-The `context_diagram` attribute is also available to `FunctionalChain`s:
+The `context_diagram` attribute is also available to `FunctionalChain`s and
+`OperationalProcess`es:
 
 ??? example "[`fa.FunctionalChain`][capellambse.metamodel.fa.FunctionalChain]"
 
@@ -238,7 +239,23 @@ and with the following rendering parameters:
             <figcaption>FunctionalChainContextDiagram of Context without Component Allocation [LAB]</figcaption>
         </figure>
 
-#### Hierarchy in diagrams
+### OperationalProcess
+
+??? example "[`oa.OperationalProcess`][capellambse.metamodel.oa.OperationalProcess]"
+
+    ``` py
+    import capellambse
+
+    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+    diag = model.by_uuid("bec38a21-cc4b-4c06-8acf-067bd5f44824").context_diagram
+    diag.render("svgdiagram").save(pretty=True)
+    ```
+    <figure markdown>
+        <img src="assets/images/FunctionalChainContextDiagram of OAContext.svg" width="1000000">
+        <figcaption>FunctionalChainContextDiagram of OAContext [LAB]</figcaption>
+    </figure>
+
+### Hierarchy in diagrams
 
 Hierarchical diagrams are diagrams where boxes have child boxes and edges
 contained. These form subdiagrams which can be layouted via ELK again.

@@ -218,7 +218,7 @@
                 id="1c1e1329-db10-46d1-9422-9f9c36efb33a" involved="#cf9b1a63-9693-477c-9f8a-c872bab1f6bd"/>
           </ownedFunctionalChains>
           <ownedFunctionalChains xsi:type="org.polarsys.capella.core.data.oa:OperationalProcess"
-              id="bec38a21-cc4b-4c06-8acf-067bd5f44824" name="Context">
+              id="bec38a21-cc4b-4c06-8acf-067bd5f44824" name="OAContext">
             <ownedFunctionalChainInvolvements xsi:type="org.polarsys.capella.core.data.fa:FunctionalChainInvolvementLink"
                 id="331ac4c2-1383-4882-84e6-9e4d5495ede5" involved="#e300755e-d394-411c-af1c-323b5f812b02"
                 source="#a1a4b6dc-f975-4730-8493-48e0cb284c14" target="#b1a2149c-1fe9-453f-a47d-455ebfd13373"/>

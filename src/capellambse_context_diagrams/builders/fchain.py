@@ -10,6 +10,7 @@ import typing as t
 import capellambse.model as m
 
 from .. import _elkjs, _registry, context
+from ..collectors import _generic, portless
 from . import default
 
 SUPPORTED_CLASSES: tuple[type[m.ModelElement], ...] = tuple(
@@ -50,6 +51,27 @@ class DiagramBuilder(default.DiagramBuilder):
             edge_data = self._collect_edge_data(edge_obj)
 
         return self._update_edge_common(edge_data)
+
+    def _collect_edge_data(self, edge_obj: m.ModelElement) -> default.EdgeData:
+        ex_data = _generic.ExchangeData(
+            edge_obj, self.data, self.diagram.filters, self.params
+        )
+        if self.diagram._is_portless:
+            src_owner, tgt_owner = _generic.exchange_data_collector(
+                ex_data, portless.collect_exchange_endpoints
+            )
+            src_obj = tgt_obj = None
+        else:
+            src_obj, tgt_obj = _generic.exchange_data_collector(ex_data)
+            src_owner, tgt_owner = src_obj.owner, tgt_obj.owner
+
+        edge = self.data.edges.pop()
+        return default.EdgeData(
+            edge_obj,
+            edge,
+            default.ConnectorData(src_obj, src_owner, True),
+            default.ConnectorData(tgt_obj, tgt_owner, False),
+        )
 
 
 def builder(

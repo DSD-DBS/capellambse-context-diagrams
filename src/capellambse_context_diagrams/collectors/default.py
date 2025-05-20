@@ -140,3 +140,4 @@ def functional_chain_collector(
         return
 
     yield from diagram.target.involved
+    yield from diagram.target.sequence_links

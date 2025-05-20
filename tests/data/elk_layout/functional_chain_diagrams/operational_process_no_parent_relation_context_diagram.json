@@ -1,0 +1,292 @@
+{
+    "id": "bec38a21-cc4b-4c06-8acf-067bd5f44824_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "a82af3a6-cf4d-4356-8a2b-442371fc2af9",
+            "position": {
+                "x": 12,
+                "y": 42
+            },
+            "size": {
+                "width": 94,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "OCap Outside"
+                }
+            ]
+        },
+        {
+            "id": "0e7663d3-221a-43f6-8dd0-cf1b05594d23",
+            "position": {
+                "x": 341,
+                "y": 16
+            },
+            "size": {
+                "width": 89,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 83,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "OCap Middle"
+                }
+            ]
+        },
+        {
+            "id": "78575a54-6733-4aa6-90c2-991676156c40",
+            "position": {
+                "x": 184,
+                "y": 48
+            },
+            "size": {
+                "width": 79,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 73,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "OCap Left"
+                }
+            ]
+        },
+        {
+            "id": "d31c0716-c5b4-41b1-b51d-baee4f97a84f",
+            "position": {
+                "x": 508,
+                "y": 48
+            },
+            "size": {
+                "width": 84,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 78,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "OCap Right"
+                }
+            ]
+        },
+        {
+            "id": "e300755e-d394-411c-af1c-323b5f812b02",
+            "type": "edge",
+            "sourceId": "0e7663d3-221a-43f6-8dd0-cf1b05594d23",
+            "targetId": "a82af3a6-cf4d-4356-8a2b-442371fc2af9",
+            "routingPoints": [
+                {
+                    "x": 341,
+                    "y": 28
+                },
+                {
+                    "x": 331,
+                    "y": 28
+                },
+                {
+                    "x": 331,
+                    "y": 12
+                },
+                {
+                    "x": 116,
+                    "y": 12
+                },
+                {
+                    "x": 116,
+                    "y": 54
+                },
+                {
+                    "x": 106,
+                    "y": 54
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 204.5,
+                        "y": 15
+                    },
+                    "size": {
+                        "width": 38,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "I2"
+                }
+            ]
+        },
+        {
+            "id": "00630667-425e-40a8-8a1c-fe9bca64420d",
+            "type": "edge",
+            "sourceId": "a82af3a6-cf4d-4356-8a2b-442371fc2af9",
+            "targetId": "78575a54-6733-4aa6-90c2-991676156c40",
+            "routingPoints": [
+                {
+                    "x": 106,
+                    "y": 66
+                },
+                {
+                    "x": 184,
+                    "y": 66
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 126,
+                        "y": 69
+                    },
+                    "size": {
+                        "width": 38,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "I1"
+                }
+            ]
+        },
+        {
+            "id": "3808a028-1339-4b6d-b223-d35fea61dbfc",
+            "type": "edge",
+            "sourceId": "78575a54-6733-4aa6-90c2-991676156c40",
+            "targetId": "d31c0716-c5b4-41b1-b51d-baee4f97a84f",
+            "routingPoints": [
+                {
+                    "x": 263,
+                    "y": 72
+                },
+                {
+                    "x": 508,
+                    "y": 72
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 366.5,
+                        "y": 75
+                    },
+                    "size": {
+                        "width": 38,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "I3"
+                }
+            ]
+        },
+        {
+            "id": "b242887c-1262-4bd1-a4ff-f4ff3ed9ab76",
+            "type": "edge",
+            "sourceId": "78575a54-6733-4aa6-90c2-991676156c40",
+            "targetId": "0e7663d3-221a-43f6-8dd0-cf1b05594d23",
+            "routingPoints": [
+                {
+                    "x": 263,
+                    "y": 60
+                },
+                {
+                    "x": 273,
+                    "y": 60
+                },
+                {
+                    "x": 273,
+                    "y": 40
+                },
+                {
+                    "x": 341,
+                    "y": 40
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 283,
+                        "y": 43
+                    },
+                    "size": {
+                        "width": 38,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "I4"
+                }
+            ]
+        },
+        {
+            "id": "9b0c4e83-1b7d-4e48-bd97-063e20cb3d3a",
+            "type": "edge",
+            "sourceId": "0e7663d3-221a-43f6-8dd0-cf1b05594d23",
+            "targetId": "d31c0716-c5b4-41b1-b51d-baee4f97a84f",
+            "routingPoints": [
+                {
+                    "x": 430,
+                    "y": 34
+                },
+                {
+                    "x": 498,
+                    "y": 34
+                },
+                {
+                    "x": 498,
+                    "y": 60
+                },
+                {
+                    "x": 508,
+                    "y": 60
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 450,
+                        "y": 37
+                    },
+                    "size": {
+                        "width": 38,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "I5"
+                }
+            ]
+        }
+    ]
+}

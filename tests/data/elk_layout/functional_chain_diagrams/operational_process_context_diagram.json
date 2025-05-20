@@ -1,0 +1,430 @@
+{
+    "id": "bec38a21-cc4b-4c06-8acf-067bd5f44824_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "9bb657b7-66cb-4186-b5f7-cd440a08720d",
+            "position": {
+                "x": 644,
+                "y": 83
+            },
+            "size": {
+                "width": 118,
+                "height": 77
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "a82af3a6-cf4d-4356-8a2b-442371fc2af9",
+                    "position": {
+                        "x": 12,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 94,
+                        "height": 36
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "position": {
+                                "x": 3,
+                                "y": 12
+                            },
+                            "size": {
+                                "width": 88,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "OCap Outside"
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 40,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 38,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "OE"
+                }
+            ]
+        },
+        {
+            "id": "7f8c7168-e2dd-4a1a-ab4a-f8a25cac7bf0",
+            "position": {
+                "x": 27,
+                "y": 12
+            },
+            "size": {
+                "width": 529,
+                "height": 154
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "a4d68ace-303d-4e6a-92fd-5246480d45bb",
+                    "position": {
+                        "x": 208,
+                        "y": 65
+                    },
+                    "size": {
+                        "width": 113,
+                        "height": 77
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "0e7663d3-221a-43f6-8dd0-cf1b05594d23",
+                            "position": {
+                                "x": 12,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 89,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 3,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 83,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "OCap Middle"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 37.5,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 38,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "OE"
+                        }
+                    ]
+                },
+                {
+                    "id": "b406cc45-2b7c-41cc-92a7-9b1314d532b3",
+                    "position": {
+                        "x": 17,
+                        "y": 59
+                    },
+                    "size": {
+                        "width": 103,
+                        "height": 77
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "78575a54-6733-4aa6-90c2-991676156c40",
+                            "position": {
+                                "x": 12,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 79,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 3,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 73,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "OCap Left"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 32.5,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 38,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "OE"
+                        }
+                    ]
+                },
+                {
+                    "id": "fe8c474e-90c0-45ee-882e-064812676f8f",
+                    "position": {
+                        "x": 409,
+                        "y": 31
+                    },
+                    "size": {
+                        "width": 108,
+                        "height": 77
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "d31c0716-c5b4-41b1-b51d-baee4f97a84f",
+                            "position": {
+                                "x": 12,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 84,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 3,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 78,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "OCap Right"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 35,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 38,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "OE"
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 230.5,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 68,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "OE Owner"
+                },
+                {
+                    "id": "3808a028-1339-4b6d-b223-d35fea61dbfc",
+                    "type": "edge",
+                    "sourceId": "78575a54-6733-4aa6-90c2-991676156c40",
+                    "targetId": "d31c0716-c5b4-41b1-b51d-baee4f97a84f",
+                    "routingPoints": [
+                        {
+                            "x": 108,
+                            "y": 100
+                        },
+                        {
+                            "x": 135,
+                            "y": 100
+                        },
+                        {
+                            "x": 135,
+                            "y": 44
+                        },
+                        {
+                            "x": 394,
+                            "y": 44
+                        },
+                        {
+                            "x": 394,
+                            "y": 72
+                        },
+                        {
+                            "x": 421,
+                            "y": 72
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 245.5,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 38,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "I3"
+                        }
+                    ]
+                },
+                {
+                    "id": "b242887c-1262-4bd1-a4ff-f4ff3ed9ab76",
+                    "type": "edge",
+                    "sourceId": "78575a54-6733-4aa6-90c2-991676156c40",
+                    "targetId": "0e7663d3-221a-43f6-8dd0-cf1b05594d23",
+                    "routingPoints": [
+                        {
+                            "x": 108,
+                            "y": 112
+                        },
+                        {
+                            "x": 220,
+                            "y": 112
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 145,
+                                "y": 115
+                            },
+                            "size": {
+                                "width": 38,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "I4"
+                        }
+                    ]
+                },
+                {
+                    "id": "9b0c4e83-1b7d-4e48-bd97-063e20cb3d3a",
+                    "type": "edge",
+                    "sourceId": "0e7663d3-221a-43f6-8dd0-cf1b05594d23",
+                    "targetId": "d31c0716-c5b4-41b1-b51d-baee4f97a84f",
+                    "routingPoints": [
+                        {
+                            "x": 309,
+                            "y": 106
+                        },
+                        {
+                            "x": 336,
+                            "y": 106
+                        },
+                        {
+                            "x": 336,
+                            "y": 84
+                        },
+                        {
+                            "x": 421,
+                            "y": 84
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 346,
+                                "y": 87
+                            },
+                            "size": {
+                                "width": 38,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "I5"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "e300755e-d394-411c-af1c-323b5f812b02",
+            "type": "edge",
+            "sourceId": "0e7663d3-221a-43f6-8dd0-cf1b05594d23",
+            "targetId": "a82af3a6-cf4d-4356-8a2b-442371fc2af9",
+            "routingPoints": [
+                {
+                    "x": 336,
+                    "y": 130
+                },
+                {
+                    "x": 656,
+                    "y": 130
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 581,
+                        "y": 133
+                    },
+                    "size": {
+                        "width": 38,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "I2"
+                }
+            ]
+        },
+        {
+            "id": "00630667-425e-40a8-8a1c-fe9bca64420d",
+            "type": "edge",
+            "sourceId": "a82af3a6-cf4d-4356-8a2b-442371fc2af9",
+            "targetId": "78575a54-6733-4aa6-90c2-991676156c40",
+            "routingPoints": [
+                {
+                    "x": 750,
+                    "y": 130
+                },
+                {
+                    "x": 777,
+                    "y": 130
+                },
+                {
+                    "x": 777,
+                    "y": 176
+                },
+                {
+                    "x": 12,
+                    "y": 176
+                },
+                {
+                    "x": 12,
+                    "y": 118
+                },
+                {
+                    "x": 56,
+                    "y": 118
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 581,
+                        "y": 179
+                    },
+                    "size": {
+                        "width": 38,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "I1"
+                }
+            ]
+        }
+    ]
+}

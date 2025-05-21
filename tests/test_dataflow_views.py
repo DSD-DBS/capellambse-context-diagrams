@@ -19,7 +19,7 @@ TEST_DATA_FLOW_DATA_ROOT = TEST_ELK_INPUT_ROOT / "data_flow_views"
 TEST_DATA_FLOW_LAYOUT_ROOT = TEST_ELK_LAYOUT_ROOT / "data_flow_views"
 RENDER_PARAMS = {
     "display_symbols_as_boxes": True,
-    "display_parent_relation": False,
+    "display_parent_relation": True,
     "edge_direction": "NONE",
     "mode": "WHITEBOX",
 }
@@ -34,11 +34,27 @@ TEST_DATA_FLOW_SET = [
     ),
     pytest.param(
         (
+            "3b83b4ba-671a-4de8-9c07-a5c6b1d3c422",
+            "opcap_without_entities_data_flow.json",
+            RENDER_PARAMS | {"display_parent_relation": False},
+        ),
+        id="OperationalCapability without entities",
+    ),
+    pytest.param(
+        (
             "9390b7d5-598a-42db-bef8-23677e45ba06",
             "cap_data_flow.json",
             RENDER_PARAMS,
         ),
         id="Capability",
+    ),
+    pytest.param(
+        (
+            "9390b7d5-598a-42db-bef8-23677e45ba06",
+            "cap_without_components_data_flow.json",
+            RENDER_PARAMS | {"display_parent_relation": False},
+        ),
+        id="Capability without entities",
     ),
 ]
 

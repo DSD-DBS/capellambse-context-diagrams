@@ -1887,6 +1887,10 @@ The predator is far away</bodies>
               id="8aa523aa-7e0b-4926-9871-ff7493f5219a" involved="#1eee3b81-41ef-4b56-8018-b8e421a5a2bc"/>
           <ownedAbstractFunctionAbstractCapabilityInvolvements xsi:type="org.polarsys.capella.core.data.interaction:AbstractFunctionAbstractCapabilityInvolvement"
               id="281faf5d-f699-48f4-ae87-3ad78f43d62e" involved="#ceffa011-7b66-4b3c-9885-8e075e312ffa"/>
+          <ownedAbstractFunctionAbstractCapabilityInvolvements xsi:type="org.polarsys.capella.core.data.interaction:AbstractFunctionAbstractCapabilityInvolvement"
+              id="9202ebb6-f61b-4943-a2dd-87bbedced1b5" involved="#a5642060-c9cc-4d49-af09-defaa3024bae"/>
+          <ownedAbstractFunctionAbstractCapabilityInvolvements xsi:type="org.polarsys.capella.core.data.interaction:AbstractFunctionAbstractCapabilityInvolvement"
+              id="98e6a2aa-fd70-4a98-81ea-84912fa56678" involved="#00e7b925-cf4c-4cb0-929e-5409a1cd872b"/>
           <ownedAbstractCapabilityRealizations xsi:type="org.polarsys.capella.core.data.interaction:AbstractCapabilityRealization"
               id="ba57a574-4a2d-4a02-a7c2-bf3376c68ed9" targetElement="#83d1334f-6180-46c4-a80d-6839341df688"
               sourceElement="#9390b7d5-598a-42db-bef8-23677e45ba06"/>

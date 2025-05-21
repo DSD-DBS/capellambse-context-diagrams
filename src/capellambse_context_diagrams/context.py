@@ -907,7 +907,7 @@ class DataFlowViewDiagram(ContextDiagram):
     ) -> None:
         default_render_parameters = {
             "display_symbols_as_boxes": True,
-            "display_parent_relation": False,
+            "display_parent_relation": True,
             "edge_direction": enums.EDGE_DIRECTION.NONE,
             "mode": enums.MODE.WHITEBOX,
             "collect": dataflow_view.collector,

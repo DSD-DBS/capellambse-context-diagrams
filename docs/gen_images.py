@@ -43,7 +43,11 @@ diagram_uuids = general_context_diagram_uuids | interface_context_diagram_uuids
 class_tree_uuid = "b7c7f442-377f-492c-90bf-331e66988bda"
 realization_fnc_uuid = "beaf5ba4-8fa9-4342-911f-0266bb29be45"
 realization_comp_uuid = "b9f9a83c-fb02-44f7-9123-9d86326de5f1"
-data_flow_uuid = "3b83b4ba-671a-4de8-9c07-a5c6b1d3c422"
+data_flow_uuids: dict[str, str] = {
+    "OperationalCapability": "3b83b4ba-671a-4de8-9c07-a5c6b1d3c422",
+    "Capability": "9390b7d5-598a-42db-bef8-23677e45ba06",
+    "CapabilityRealization": "72147e11-70df-499b-a339-b81722271f1a",
+}
 derived_uuid = "47c3130b-ec39-4365-a77a-5ab6365d1e2e"
 cable_tree_uuid = "5c55b11b-4911-40fb-9c4c-f1363dad846e"
 blackbox_node_uuid = "309296b1-cf37-45d7-b0f3-f7bc00422a59"
@@ -169,12 +173,11 @@ def generate_realization_view_images() -> None:
                 )
 
 
-def generate_data_flow_image() -> None:
-    diag: context.DataFlowViewDiagram = model.by_uuid(
-        data_flow_uuid
-    ).data_flow_view
-    with mkdocs_gen_files.open(f"{dest / diag.name!s}.svg", "w") as fd:
-        print(diag.render("svg", transparent_background=False), file=fd)
+def generate_data_flow_images() -> None:
+    for uuid in data_flow_uuids.values():
+        diag: context.DataFlowViewDiagram = model.by_uuid(uuid).data_flow_view
+        with mkdocs_gen_files.open(f"{dest / diag.name!s}.svg", "w") as fd:
+            print(diag.render("svg", transparent_background=False), file=fd)
 
 
 def generate_derived_image() -> None:
@@ -296,7 +299,7 @@ generate_styling_image(
 generate_styling_image(wizard_uuid, {}, "no_styles")
 generate_class_tree_images()
 generate_realization_view_images()
-generate_data_flow_image()
+generate_data_flow_images()
 generate_derived_image()
 generate_interface_with_hide_functions_image()
 generate_interface_with_hide_interface_image()

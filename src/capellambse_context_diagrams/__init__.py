@@ -185,6 +185,10 @@ def register_data_flow_view() -> None:
         capstyle.STYLES["System Architecture Blank"]
         | capstyle.STYLES["System Data Flow Blank"]
     )
+    capstyle.STYLES["Logical Data Flow Blank"] = (
+        capstyle.STYLES["Logical Architecture Blank"]
+        | capstyle.STYLES["Logical Data Flow Blank"]
+    )
 
     class_: type[m.ModelElement]
     for class_, dgcls, default_render_params in _registry.DATAFLOW_CLASSES:

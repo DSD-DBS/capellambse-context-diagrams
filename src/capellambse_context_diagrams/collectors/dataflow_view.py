@@ -23,6 +23,11 @@ COLLECTOR_PARAMS: dict[m.DiagramType, dict[str, t.Any]] = {
         "filter_attrs": ("source.owner", "target.owner"),
         "port_collector": _generic.port_collector,
     },
+    m.DiagramType.LDFB: {
+        "attribute": "involved_functions",
+        "filter_attrs": ("source.owner", "target.owner"),
+        "port_collector": _generic.port_collector,
+    },
 }
 
 

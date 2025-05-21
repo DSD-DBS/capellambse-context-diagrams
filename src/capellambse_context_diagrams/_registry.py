@@ -140,7 +140,8 @@ REALIZATION_VIEW_CLASSES: list[SupportedContextClass] = [
 ]
 DATAFLOW_CLASSES: list[SupportedContextClass] = [
     (oa.OperationalCapability, DiagramType.OAIB, {}),  # portless
-    (sa.Capability, DiagramType.SDFB, {}),  # default
+    (sa.Capability, DiagramType.SDFB, {}),
+    (la.CapabilityRealization, DiagramType.LDFB, {}),
 ]
 FUNCTIONAL_CHAIN_CONTEXT_CLASSES: list[SupportedInterfaceContextClass] = [
     (

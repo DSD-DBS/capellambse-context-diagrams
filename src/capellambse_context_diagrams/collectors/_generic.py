@@ -15,7 +15,6 @@ import typing as t
 
 import capellambse.model as m
 from capellambse.metamodel import cs, fa, interaction
-from capellambse.model import DiagramType as DT
 
 from .. import _elkjs, context, filters
 from ..builders import _makers
@@ -34,17 +33,17 @@ PHYSICAL_CONNECTOR_ATTR_NAMES = ("physical_ports",)
 """Attribute of PhysicalComponents for receiving connections."""
 CONNECTOR_ATTR_NAMES = ("ports", "inputs", "outputs")
 """Attribute of ModelElements for receiving connections."""
-DIAGRAM_TYPE_TO_CONNECTOR_NAMES: dict[DT, tuple[str, ...]] = {
-    DT.OAB: (),
-    DT.OAIB: (),
-    DT.OCB: (),
-    DT.MCB: (),
-    DT.SAB: CONNECTOR_ATTR_NAMES,
-    DT.SDFB: CONNECTOR_ATTR_NAMES,
-    DT.LAB: CONNECTOR_ATTR_NAMES,
-    DT.LDFB: CONNECTOR_ATTR_NAMES,
-    DT.PAB: CONNECTOR_ATTR_NAMES + PHYSICAL_CONNECTOR_ATTR_NAMES,
-    DT.PDFB: CONNECTOR_ATTR_NAMES + PHYSICAL_CONNECTOR_ATTR_NAMES,
+DIAGRAM_TYPE_TO_CONNECTOR_NAMES: dict[m.DiagramType, tuple[str, ...]] = {
+    m.DiagramType.OAB: (),
+    m.DiagramType.OAIB: (),
+    m.DiagramType.OCB: (),
+    m.DiagramType.MCB: (),
+    m.DiagramType.SAB: CONNECTOR_ATTR_NAMES,
+    m.DiagramType.SDFB: CONNECTOR_ATTR_NAMES,
+    m.DiagramType.LAB: CONNECTOR_ATTR_NAMES,
+    m.DiagramType.LDFB: CONNECTOR_ATTR_NAMES,
+    m.DiagramType.PAB: CONNECTOR_ATTR_NAMES + PHYSICAL_CONNECTOR_ATTR_NAMES,
+    m.DiagramType.PDFB: CONNECTOR_ATTR_NAMES + PHYSICAL_CONNECTOR_ATTR_NAMES,
 }
 """Supported diagram types mapping to the attribute name of connectors."""
 MARKER_SIZE = 3
@@ -244,7 +243,7 @@ def get_all_owners(obj: m.ModelElement) -> cabc.Iterator[str]:
 
 
 def port_collector(
-    target: m.ModelElement | m.ElementList, diagram_type: DT
+    target: m.ModelElement | m.ElementList, diagram_type: m.DiagramType
 ) -> tuple[dict[str, m.ModelElement], dict[str, m.ModelElement]]:
     """Collect ports from `target` savely."""
 

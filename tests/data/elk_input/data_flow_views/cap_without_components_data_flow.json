@@ -1,0 +1,171 @@
+{
+    "id": "9390b7d5-598a-42db-bef8-23677e45ba06_data_flow_view",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "1eee3b81-41ef-4b56-8018-b8e421a5a2bc",
+            "labels": [
+                {
+                    "text": "Root System Function",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 128,
+                    "height": 12
+                }
+            ],
+            "width": 134,
+            "height": 36
+        },
+        {
+            "id": "ceffa011-7b66-4b3c-9885-8e075e312ffa",
+            "labels": [
+                {
+                    "text": "Important Function",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 118,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "af361e95-9a87-4b67-8d0c-74585c1d695a",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                },
+                {
+                    "id": "28ced9df-b6f2-48a0-8bf3-81a7a5cd1b6b",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 124,
+            "height": 36
+        },
+        {
+            "id": "00e7b925-cf4c-4cb0-929e-5409a1cd872b",
+            "labels": [
+                {
+                    "text": "Sysexfunc",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 73,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "5a589076-b839-4606-9e0b-c9d76677af38",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 79,
+            "height": 36
+        },
+        {
+            "id": "a5642060-c9cc-4d49-af09-defaa3024bae",
+            "labels": [
+                {
+                    "text": "Lost",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 48,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "1249ce59-c099-40bb-afe3-27ff51e9ee8c",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 54,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "1a414995-f4cd-488c-8152-486e459fb9de",
+            "sources": [
+                "5a589076-b839-4606-9e0b-c9d76677af38"
+            ],
+            "targets": [
+                "af361e95-9a87-4b67-8d0c-74585c1d695a"
+            ],
+            "labels": [
+                {
+                    "text": "Test fex",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "eff8df13-49c8-4af8-8dca-2ad3e95dcc32",
+            "sources": [
+                "1249ce59-c099-40bb-afe3-27ff51e9ee8c"
+            ],
+            "targets": [
+                "af361e95-9a87-4b67-8d0c-74585c1d695a"
+            ],
+            "labels": [
+                {
+                    "text": "doesn't",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 63,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "50806c7c-0632-4055-abef-a0b77f2b9b7a",
+            "sources": [
+                "1249ce59-c099-40bb-afe3-27ff51e9ee8c"
+            ],
+            "targets": [
+                "28ced9df-b6f2-48a0-8bf3-81a7a5cd1b6b"
+            ],
+            "labels": [
+                {
+                    "text": "what",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 48,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

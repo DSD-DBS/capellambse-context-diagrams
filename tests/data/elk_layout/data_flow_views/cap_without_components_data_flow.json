@@ -1,0 +1,286 @@
+{
+    "id": "9390b7d5-598a-42db-bef8-23677e45ba06_data_flow_view",
+    "type": "graph",
+    "children": [
+        {
+            "id": "1eee3b81-41ef-4b56-8018-b8e421a5a2bc",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 134,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 128,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Root System Function"
+                }
+            ]
+        },
+        {
+            "id": "ceffa011-7b66-4b3c-9885-8e075e312ffa",
+            "position": {
+                "x": 256,
+                "y": 86.33333333333334
+            },
+            "size": {
+                "width": 124,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "af361e95-9a87-4b67-8d0c-74585c1d695a",
+                    "position": {
+                        "x": -2,
+                        "y": 20.666666666666664
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "id": "28ced9df-b6f2-48a0-8bf3-81a7a5cd1b6b",
+                    "position": {
+                        "x": -2,
+                        "y": 5.333333333333333
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": 7,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 118,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Important Function"
+                }
+            ]
+        },
+        {
+            "id": "00e7b925-cf4c-4cb0-929e-5409a1cd872b",
+            "position": {
+                "x": 65,
+                "y": 124
+            },
+            "size": {
+                "width": 79,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "5a589076-b839-4606-9e0b-c9d76677af38",
+                    "position": {
+                        "x": 71,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": -1,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 73,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Sysexfunc"
+                }
+            ]
+        },
+        {
+            "id": "a5642060-c9cc-4d49-af09-defaa3024bae",
+            "position": {
+                "x": 90,
+                "y": 68
+            },
+            "size": {
+                "width": 54,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "1249ce59-c099-40bb-afe3-27ff51e9ee8c",
+                    "position": {
+                        "x": 46,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": -1,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Lost"
+                }
+            ]
+        },
+        {
+            "id": "1a414995-f4cd-488c-8152-486e459fb9de",
+            "type": "edge",
+            "sourceId": "5a589076-b839-4606-9e0b-c9d76677af38",
+            "targetId": "af361e95-9a87-4b67-8d0c-74585c1d695a",
+            "routingPoints": [
+                {
+                    "x": 146,
+                    "y": 142
+                },
+                {
+                    "x": 244,
+                    "y": 142
+                },
+                {
+                    "x": 244,
+                    "y": 112
+                },
+                {
+                    "x": 254,
+                    "y": 112
+                }
+            ],
+            "children": [
+                {
+                    "type": "junction",
+                    "position": {
+                        "x": 244,
+                        "y": 112
+                    }
+                },
+                {
+                    "position": {
+                        "x": 166,
+                        "y": 145
+                    },
+                    "size": {
+                        "width": 68,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Test fex"
+                }
+            ]
+        },
+        {
+            "id": "eff8df13-49c8-4af8-8dca-2ad3e95dcc32",
+            "type": "edge",
+            "sourceId": "1249ce59-c099-40bb-afe3-27ff51e9ee8c",
+            "targetId": "af361e95-9a87-4b67-8d0c-74585c1d695a",
+            "routingPoints": [
+                {
+                    "x": 146,
+                    "y": 86
+                },
+                {
+                    "x": 156,
+                    "y": 86
+                },
+                {
+                    "x": 156,
+                    "y": 112
+                },
+                {
+                    "x": 254,
+                    "y": 112
+                }
+            ],
+            "children": [
+                {
+                    "type": "junction",
+                    "position": {
+                        "x": 156,
+                        "y": 86
+                    }
+                },
+                {
+                    "position": {
+                        "x": 168.5,
+                        "y": 115
+                    },
+                    "size": {
+                        "width": 63,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "doesn't"
+                }
+            ]
+        },
+        {
+            "id": "50806c7c-0632-4055-abef-a0b77f2b9b7a",
+            "type": "edge",
+            "sourceId": "1249ce59-c099-40bb-afe3-27ff51e9ee8c",
+            "targetId": "28ced9df-b6f2-48a0-8bf3-81a7a5cd1b6b",
+            "routingPoints": [
+                {
+                    "x": 146,
+                    "y": 86
+                },
+                {
+                    "x": 244,
+                    "y": 86
+                },
+                {
+                    "x": 244,
+                    "y": 96.66666666666667
+                },
+                {
+                    "x": 254,
+                    "y": 96.66666666666667
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 176,
+                        "y": 89
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "what"
+                }
+            ]
+        }
+    ]
+}

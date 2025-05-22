@@ -177,6 +177,19 @@ def register_realization_view() -> None:
 
 def register_data_flow_view() -> None:
     """Add the `data_flow_view` attribute to ``Capability``s."""
+    capstyle.STYLES["Operational Activity Interaction Blank"] = (
+        capstyle.STYLES["Operational Entity Blank"]
+        | capstyle.STYLES["Operational Activity Interaction Blank"]
+    )
+    capstyle.STYLES["System Data Flow Blank"] = (
+        capstyle.STYLES["System Architecture Blank"]
+        | capstyle.STYLES["System Data Flow Blank"]
+    )
+    capstyle.STYLES["Logical Data Flow Blank"] = (
+        capstyle.STYLES["Logical Architecture Blank"]
+        | capstyle.STYLES["Logical Data Flow Blank"]
+    )
+
     class_: type[m.ModelElement]
     for class_, dgcls, default_render_params in _registry.DATAFLOW_CLASSES:
         accessor = context.DataFlowAccessor(dgcls.value, default_render_params)

@@ -23,6 +23,11 @@ COLLECTOR_PARAMS: dict[m.DiagramType, dict[str, t.Any]] = {
         "filter_attrs": ("source.owner", "target.owner"),
         "port_collector": _generic.port_collector,
     },
+    m.DiagramType.LDFB: {
+        "attribute": "involved_functions",
+        "filter_attrs": ("source.owner", "target.owner"),
+        "port_collector": _generic.port_collector,
+    },
 }
 
 
@@ -71,7 +76,11 @@ def _collect_data(
     ],
     attribute: str,
     filter_attrs: tuple[str, str] = ("source", "target"),
-    port_collector: cabc.Callable | None = None,
+    port_collector: cabc.Callable[
+        [m.ModelElement | m.ElementList, m.DiagramType],
+        tuple[dict[str, m.ModelElement], dict[str, m.ModelElement]],
+    ]
+    | None = None,
 ) -> cabc.Iterator[m.ModelElement]:
     elements = getattr(diagram.target, attribute)
     src_attr, trg_attr = filter_attrs
@@ -84,9 +93,9 @@ def _collect_data(
     for elem in elements:
         yield elem
         if port_collector:
-            _ports = port_collector(elem, diagram.type)
+            inputs, outputs = port_collector(elem, diagram.type)
             connections = _generic.port_exchange_collector(
-                _ports, filter=filter
+                list(inputs.values()) + list(outputs.values()), filter=filter
             )
             yield from chain.from_iterable(connections.values())
         else:

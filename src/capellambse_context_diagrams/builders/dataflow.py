@@ -39,6 +39,19 @@ class DiagramBuilder(default.DiagramBuilder):
             port = _makers.make_port("fake")
         return super()._update_min_heights(uuid, side, port)
 
+    def _make_edge_and_ports(
+        self,
+        edge_obj: m.ModelElement,
+        edge_data: default.EdgeData | None = None,
+    ) -> _elkjs.ELKInputEdge | None:
+        if self.edges.get(edge_obj.uuid):
+            return None
+
+        if edge_data is None:
+            edge_data = self._collect_edge_data(edge_obj)
+
+        return self._update_edge_common(edge_data)
+
 
 def builder(
     diagram: context.ContextDiagram, params: dict[str, t.Any]

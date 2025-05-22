@@ -1,0 +1,398 @@
+{
+    "id": "72147e11-70df-499b-a339-b81722271f1a_data_flow_view",
+    "type": "graph",
+    "children": [
+        {
+            "id": "e0a45ac7-f912-4b42-8b9f-1131a67a2096",
+            "position": {
+                "x": 13,
+                "y": 48.00000000000001
+            },
+            "size": {
+                "width": 54,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "62800b45-d59f-4eb0-a5e2-5d2804be18b3",
+                    "position": {
+                        "x": 46,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": -1,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "DF 1"
+                }
+            ]
+        },
+        {
+            "id": "77e61c41-2164-43b0-befa-dd9ac35a5452",
+            "position": {
+                "x": 430,
+                "y": 14.333333333333343
+            },
+            "size": {
+                "width": 54,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "e3ef701e-a357-4f5a-ba23-60d79afac6e1",
+                    "position": {
+                        "x": -2,
+                        "y": 5.333333333333333
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "id": "38e1961d-3be1-4f8b-8303-169a3f29527e",
+                    "position": {
+                        "x": -2,
+                        "y": 20.666666666666664
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": 7,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "DF 2"
+                }
+            ]
+        },
+        {
+            "id": "08a13918-49e6-4287-b4b0-44bdc9041bd6",
+            "position": {
+                "x": 169,
+                "y": 48.00000000000001
+            },
+            "size": {
+                "width": 54,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "960b26f4-03db-4e0c-839d-e60558b1b12e",
+                    "position": {
+                        "x": -2,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "id": "e9bf0e50-4003-4b58-ad4e-a7392a5eec07",
+                    "position": {
+                        "x": 46,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "DF 3"
+                }
+            ]
+        },
+        {
+            "id": "7c1a0877-2834-4eac-b945-11b17c836048",
+            "position": {
+                "x": 430,
+                "y": 78.33333333333334
+            },
+            "size": {
+                "width": 54,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "11edde83-4c1f-42d0-b56e-339f52582696",
+                    "position": {
+                        "x": -2,
+                        "y": 20.666666666666664
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "id": "22fc7ebb-4d97-4f15-a047-6128d9f62320",
+                    "position": {
+                        "x": -2,
+                        "y": 5.333333333333333
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": 7,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 48,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "DF 4"
+                }
+            ]
+        },
+        {
+            "id": "773c1177-2381-4491-88b2-a660dbdee249",
+            "type": "edge",
+            "sourceId": "62800b45-d59f-4eb0-a5e2-5d2804be18b3",
+            "targetId": "e3ef701e-a357-4f5a-ba23-60d79afac6e1",
+            "routingPoints": [
+                {
+                    "x": 69,
+                    "y": 66
+                },
+                {
+                    "x": 79,
+                    "y": 66
+                },
+                {
+                    "x": 79,
+                    "y": 12
+                },
+                {
+                    "x": 418,
+                    "y": 12
+                },
+                {
+                    "x": 418,
+                    "y": 24.66666666666668
+                },
+                {
+                    "x": 428,
+                    "y": 24.66666666666668
+                }
+            ],
+            "children": [
+                {
+                    "type": "junction",
+                    "position": {
+                        "x": 79,
+                        "y": 66
+                    }
+                },
+                {
+                    "position": {
+                        "x": 167,
+                        "y": 15
+                    },
+                    "size": {
+                        "width": 58,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "DF Fex"
+                }
+            ]
+        },
+        {
+            "id": "f34b5b20-d2e9-4439-b1c3-7223f61ad7e9",
+            "type": "edge",
+            "sourceId": "62800b45-d59f-4eb0-a5e2-5d2804be18b3",
+            "targetId": "960b26f4-03db-4e0c-839d-e60558b1b12e",
+            "routingPoints": [
+                {
+                    "x": 69,
+                    "y": 66
+                },
+                {
+                    "x": 167,
+                    "y": 66
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 89,
+                        "y": 69
+                    },
+                    "size": {
+                        "width": 58,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "DF Fex"
+                }
+            ]
+        },
+        {
+            "id": "ac253230-85b9-452a-8f0e-2d497f491186",
+            "type": "edge",
+            "sourceId": "62800b45-d59f-4eb0-a5e2-5d2804be18b3",
+            "targetId": "11edde83-4c1f-42d0-b56e-339f52582696",
+            "routingPoints": [
+                {
+                    "x": 69,
+                    "y": 66
+                },
+                {
+                    "x": 79,
+                    "y": 66
+                },
+                {
+                    "x": 79,
+                    "y": 104
+                },
+                {
+                    "x": 428,
+                    "y": 104
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 167,
+                        "y": 107
+                    },
+                    "size": {
+                        "width": 58,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "DF Fex"
+                }
+            ]
+        },
+        {
+            "id": "24854eba-f366-4c8d-826d-ae786ccb3d49",
+            "type": "edge",
+            "sourceId": "e9bf0e50-4003-4b58-ad4e-a7392a5eec07",
+            "targetId": "38e1961d-3be1-4f8b-8303-169a3f29527e",
+            "routingPoints": [
+                {
+                    "x": 225,
+                    "y": 66
+                },
+                {
+                    "x": 235,
+                    "y": 66
+                },
+                {
+                    "x": 235,
+                    "y": 40.00000000000001
+                },
+                {
+                    "x": 428,
+                    "y": 40.00000000000001
+                }
+            ],
+            "children": [
+                {
+                    "type": "junction",
+                    "position": {
+                        "x": 235,
+                        "y": 66
+                    }
+                },
+                {
+                    "position": {
+                        "x": 245,
+                        "y": 43.00000000000001
+                    },
+                    "size": {
+                        "width": 163,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Dataflow FunctionalExchange"
+                }
+            ]
+        },
+        {
+            "id": "9eb11b9c-c2d8-46b7-ae31-d39651c3c1a8",
+            "type": "edge",
+            "sourceId": "e9bf0e50-4003-4b58-ad4e-a7392a5eec07",
+            "targetId": "22fc7ebb-4d97-4f15-a047-6128d9f62320",
+            "routingPoints": [
+                {
+                    "x": 225,
+                    "y": 66
+                },
+                {
+                    "x": 418,
+                    "y": 66
+                },
+                {
+                    "x": 418,
+                    "y": 88.66666666666667
+                },
+                {
+                    "x": 428,
+                    "y": 88.66666666666667
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 297.5,
+                        "y": 69
+                    },
+                    "size": {
+                        "width": 58,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "DF Fex"
+                }
+            ]
+        }
+    ]
+}

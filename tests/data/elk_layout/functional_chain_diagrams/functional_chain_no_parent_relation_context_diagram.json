@@ -3,6 +3,44 @@
     "type": "graph",
     "children": [
         {
+            "id": "7ce379ea-3b77-4087-b955-b6e5a3df627a",
+            "position": {
+                "x": 324,
+                "y": 68
+            },
+            "size": {
+                "width": 94,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "62a357ec-d61c-4737-90fc-dcfd2bd629a4",
+                    "position": {
+                        "x": 86,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": -1,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Make weather"
+                }
+            ]
+        },
+        {
             "id": "75662c2c-8b0e-49fd-b390-d6528e3b97b0",
             "position": {
                 "x": 590,
@@ -61,44 +99,6 @@
                     },
                     "type": "label",
                     "text": "Acquire weather data"
-                }
-            ]
-        },
-        {
-            "id": "7ce379ea-3b77-4087-b955-b6e5a3df627a",
-            "position": {
-                "x": 324,
-                "y": 68
-            },
-            "size": {
-                "width": 94,
-                "height": 36
-            },
-            "type": "node",
-            "children": [
-                {
-                    "id": "62a357ec-d61c-4737-90fc-dcfd2bd629a4",
-                    "position": {
-                        "x": 86,
-                        "y": 13
-                    },
-                    "size": {
-                        "width": 10,
-                        "height": 10
-                    },
-                    "type": "port"
-                },
-                {
-                    "position": {
-                        "x": -1,
-                        "y": 12
-                    },
-                    "size": {
-                        "width": 88,
-                        "height": 12
-                    },
-                    "type": "label",
-                    "text": "Make weather"
                 }
             ]
         },

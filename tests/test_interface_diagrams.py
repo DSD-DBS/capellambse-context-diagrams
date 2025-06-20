@@ -6,7 +6,7 @@ import typing as t
 import capellambse
 import pytest
 
-from .conftest import (  # type: ignore[import-untyped]
+from .conftest import (  # type: ignore[import-not-found]
     TEST_ELK_INPUT_ROOT,
     TEST_ELK_LAYOUT_ROOT,
     compare_elk_input_data,

@@ -13,7 +13,7 @@ from capellambse import MelodyModel, diagram
 from capellambse_context_diagrams import context, filters
 
 # pylint: disable-next=relative-beyond-top-level, useless-suppression
-from .conftest import SYSTEM_ANALYSIS_PARAMS  # type: ignore[import-untyped]
+from .conftest import SYSTEM_ANALYSIS_PARAMS  # type: ignore[import-not-found]
 
 EX_PTRN = re.compile(r"\[(.*?)\]")
 CAP_EXPLOIT = "4513c8cd-b94b-4bde-bd00-4c18aaf600ff"

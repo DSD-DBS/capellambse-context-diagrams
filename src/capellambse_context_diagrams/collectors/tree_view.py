@@ -222,7 +222,7 @@ def process_property(
         logger.debug("Ignoring property without type: %s", prop._short_repr_())
         return
 
-    if not prop.type.xtype.endswith("Class") or prop.type.is_primitive:
+    if not isinstance(prop.type, information.Class) or prop.type.is_primitive:
         logger.debug("Ignoring non-class property: %s", prop._short_repr_())
         return
 
@@ -311,6 +311,7 @@ def get_all_classes(
 
     if sub == "ALL" or (sub == "ROOT" and partition == 1):
         for cls in root.sub:
+            assert isinstance(cls, information.Class)
             if cls.is_primitive:
                 continue
 
@@ -355,6 +356,7 @@ def _make_class_info(
         multiplicity = (start, end)
         target = prop.type
 
+    assert target is None or isinstance(target, information.Class)
     return ClassInfo(
         source=source,
         target=target,

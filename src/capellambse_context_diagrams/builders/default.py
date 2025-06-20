@@ -54,11 +54,13 @@ def _is_edge(obj: m.ModelElement) -> bool:
 
 
 def _is_port(obj: m.ModelElement) -> bool:
-    return obj.xtype.endswith("Port")
+    return type(obj).__name__.endswith("Port")
 
 
 def _is_functional_chain(obj: m.ModelElement) -> bool:
-    return obj.xtype.endswith(("FunctionalChain", "OperationalProcess"))
+    return type(obj).__name__.endswith(
+        ("FunctionalChain", "OperationalProcess")
+    )
 
 
 def get_top_uncommon_owner(

@@ -11,21 +11,6 @@
     },
     "children": [
         {
-            "id": "a82af3a6-cf4d-4356-8a2b-442371fc2af9",
-            "labels": [
-                {
-                    "text": "OCap Outside",
-                    "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                    },
-                    "width": 88,
-                    "height": 12
-                }
-            ],
-            "width": 94,
-            "height": 36
-        },
-        {
             "id": "0e7663d3-221a-43f6-8dd0-cf1b05594d23",
             "labels": [
                 {
@@ -38,6 +23,21 @@
                 }
             ],
             "width": 89,
+            "height": 36
+        },
+        {
+            "id": "a82af3a6-cf4d-4356-8a2b-442371fc2af9",
+            "labels": [
+                {
+                    "text": "OCap Outside",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ],
+            "width": 94,
             "height": 36
         },
         {

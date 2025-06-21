@@ -93,32 +93,6 @@
             ]
         },
         {
-            "id": "41bce8af-577d-41a1-abce-2cc74c021713",
-            "position": {
-                "x": 12,
-                "y": 120.5
-            },
-            "size": {
-                "width": 154,
-                "height": 36
-            },
-            "type": "node",
-            "children": [
-                {
-                    "position": {
-                        "x": 3,
-                        "y": 12
-                    },
-                    "size": {
-                        "width": 148,
-                        "height": 12
-                    },
-                    "type": "label",
-                    "text": "Provide warehouse status"
-                }
-            ]
-        },
-        {
             "id": "8c43d858-bab3-4d1d-afe0-71946d856e24",
             "position": {
                 "x": 359,
@@ -405,6 +379,32 @@
             ]
         },
         {
+            "id": "41bce8af-577d-41a1-abce-2cc74c021713",
+            "position": {
+                "x": 12,
+                "y": 120.5
+            },
+            "size": {
+                "width": 154,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 148,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Provide warehouse status"
+                }
+            ]
+        },
+        {
             "id": "dc1f0a7e-0508-4457-9f9f-77fb85f2e897",
             "position": {
                 "x": 1051,
@@ -481,36 +481,6 @@
                     },
                     "type": "label",
                     "text": "availability confirmation"
-                }
-            ]
-        },
-        {
-            "id": "640dda9f-f968-4b0d-aaf5-ebcc0aa2af1b",
-            "type": "edge",
-            "sourceId": "41bce8af-577d-41a1-abce-2cc74c021713",
-            "targetId": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
-            "routingPoints": [
-                {
-                    "x": 166,
-                    "y": 138.5
-                },
-                {
-                    "x": 371,
-                    "y": 138.5
-                }
-            ],
-            "children": [
-                {
-                    "position": {
-                        "x": 186,
-                        "y": 141.5
-                    },
-                    "size": {
-                        "width": 148,
-                        "height": 12
-                    },
-                    "type": "label",
-                    "text": "package readyness status"
                 }
             ]
         },
@@ -595,6 +565,36 @@
                     },
                     "type": "label",
                     "text": "storage lock code"
+                }
+            ]
+        },
+        {
+            "id": "640dda9f-f968-4b0d-aaf5-ebcc0aa2af1b",
+            "type": "edge",
+            "sourceId": "41bce8af-577d-41a1-abce-2cc74c021713",
+            "targetId": "5cc0ba13-badb-40b5-9d4c-e4d7b964fb36",
+            "routingPoints": [
+                {
+                    "x": 166,
+                    "y": 138.5
+                },
+                {
+                    "x": 371,
+                    "y": 138.5
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 186,
+                        "y": 141.5
+                    },
+                    "size": {
+                        "width": 148,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "package readyness status"
                 }
             ]
         },

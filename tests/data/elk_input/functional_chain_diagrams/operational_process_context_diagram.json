@@ -11,38 +11,6 @@
     },
     "children": [
         {
-            "id": "9bb657b7-66cb-4186-b5f7-cd440a08720d",
-            "children": [
-                {
-                    "id": "a82af3a6-cf4d-4356-8a2b-442371fc2af9",
-                    "labels": [
-                        {
-                            "text": "OCap Outside",
-                            "layoutOptions": {
-                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                            },
-                            "width": 88,
-                            "height": 12
-                        }
-                    ],
-                    "width": 94,
-                    "height": 36
-                }
-            ],
-            "labels": [
-                {
-                    "text": "OE",
-                    "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
-                    },
-                    "width": 38,
-                    "height": 12
-                }
-            ],
-            "width": 44,
-            "height": 36
-        },
-        {
             "id": "7f8c7168-e2dd-4a1a-ab4a-f8a25cac7bf0",
             "children": [
                 {
@@ -212,6 +180,38 @@
                 }
             ],
             "width": 74,
+            "height": 36
+        },
+        {
+            "id": "9bb657b7-66cb-4186-b5f7-cd440a08720d",
+            "children": [
+                {
+                    "id": "a82af3a6-cf4d-4356-8a2b-442371fc2af9",
+                    "labels": [
+                        {
+                            "text": "OCap Outside",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                            },
+                            "width": 88,
+                            "height": 12
+                        }
+                    ],
+                    "width": 94,
+                    "height": 36
+                }
+            ],
+            "labels": [
+                {
+                    "text": "OE",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 38,
+                    "height": 12
+                }
+            ],
+            "width": 44,
             "height": 36
         }
     ],

@@ -11,6 +11,31 @@
     },
     "children": [
         {
+            "id": "7ce379ea-3b77-4087-b955-b6e5a3df627a",
+            "labels": [
+                {
+                    "text": "Make weather",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "62a357ec-d61c-4737-90fc-dcfd2bd629a4",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 94,
+            "height": 36
+        },
+        {
             "id": "75662c2c-8b0e-49fd-b390-d6528e3b97b0",
             "labels": [
                 {
@@ -50,31 +75,6 @@
             ],
             "width": 134,
             "height": 42.0
-        },
-        {
-            "id": "7ce379ea-3b77-4087-b955-b6e5a3df627a",
-            "labels": [
-                {
-                    "text": "Make weather",
-                    "layoutOptions": {
-                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
-                    },
-                    "width": 88,
-                    "height": 12
-                }
-            ],
-            "ports": [
-                {
-                    "id": "62a357ec-d61c-4737-90fc-dcfd2bd629a4",
-                    "layoutOptions": {
-                        "borderOffset": -8
-                    },
-                    "width": 10,
-                    "height": 10
-                }
-            ],
-            "width": 94,
-            "height": 36
         },
         {
             "id": "627791b9-ceba-49d2-aa97-01303c1ea113",

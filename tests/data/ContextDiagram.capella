@@ -37,6 +37,78 @@
     <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
         id="43a3629e-2dfb-4d45-81ea-30395037f7a3" name="REVIEWED_OK"/>
   </ownedEnumerationPropertyTypes>
+  <ownedPropertyValuePkgs xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValuePkg"
+      id="3571204c-5c01-424d-b15b-5d53fb796ae0" name="EXTENSIONS">
+    <ownedPropertyValuePkgs xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValuePkg"
+        id="6bb975fb-9237-4d30-9d6f-2fcd50327b4d" sid="_qrXu4FAkEfCCXZwz5PG-mQ" name="Test">
+      <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+          id="e81e8c01-a6c1-4e3e-b9a8-1af9715f707f" name="version" value="1.0.0"/>
+      <ownedEnumerationPropertyTypes xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyType"
+          id="09be8be7-0890-497d-93b1-d3d1d2995091" sid="_tLsWkFAkEfCCXZwz5PG-mQ"
+          name="Kind">
+        <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+            id="28670565-10c6-4ca4-a92c-a5f0d59c9deb" sid="_yW4pEFAkEfCCXZwz5PG-mQ"
+            name="Component">
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="c622142a-489f-4988-ba0f-47c7eb4b54ff" name="__COLOR__" value="27,230,238,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="e93cbc0d-39af-4832-a6f3-2ed57aeaaa68" name="__LABEL_COLOR__" value="255,59,21,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="e4fe7ccc-3038-42bb-a62a-32893e2a8b86" name="__BORDER_COLOR__" value="82,53,53,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="59f1f6eb-8be8-4b7d-a9e8-55dd198e9bce" name="__LITERAL__"/>
+        </ownedLiterals>
+        <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+            id="e717a8e7-e1bd-42f3-8254-b10d2bdacdf5" sid="_ypW5IFAkEfCCXZwz5PG-mQ"
+            name="Actor">
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="73ba7add-67bb-4a52-be89-7e12d928cce9" name="__COLOR__" value="252,209,22,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="6fe9344f-78cb-4fa8-a3cc-531f6102b243" name="__LABEL_COLOR__" value="206,16,37,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="19a5c238-04e9-4585-addd-b15f702dd515" name="__BORDER_COLOR__" value="0,56,147,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="73ad4853-ac28-42a0-b96a-2792a5fcdd31" name="__LITERAL__"/>
+        </ownedLiterals>
+        <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+            id="14c94f4c-cb9a-419e-b515-46160518cffe" sid="_y4dsIFAkEfCCXZwz5PG-mQ"
+            name="HumanActor">
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="ba121388-3575-4599-b753-4011539de064" name="__COLOR__" value="106,40,192,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="04299aba-bdbc-47fa-9e17-34f6e23dbfa3" name="__LABEL_COLOR__" value="100,251,7,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="ce9463c4-28a0-431d-8200-bb740638c6db" name="__BORDER_COLOR__" value="249,197,13,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="401f5aa8-123f-43b5-868c-bf3fef762527" name="__LITERAL__"/>
+        </ownedLiterals>
+        <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+            id="ecec98bf-e470-4cd9-a09c-f77092da8c19" sid="_5gTg0FA6EfCCXZwz5PG-mQ"
+            name="KeinWert">
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="60d06ba3-657c-4959-9782-5851186251b5" name="__LITERAL__"/>
+        </ownedLiterals>
+        <ownedLiterals xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyLiteral"
+            id="3e021231-8960-4fb3-9c75-a859cf1da25a" sid="_vwx78FBEEfCCXZwz5PG-mQ"
+            name="Interface">
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="e4044bdf-a4db-4afe-923a-91e2cef30ec1" name="__LABEL_COLOR__" value="255,255,255,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="09192bcf-35f7-4ed6-a8b3-a0cf7aeccd29" name="__BORDER_COLOR__" value="252,209,22,0"/>
+          <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:StringPropertyValue"
+              id="062df34f-bc83-4174-bd15-637610a206d5" name="__LITERAL__"/>
+        </ownedLiterals>
+      </ownedEnumerationPropertyTypes>
+      <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+          id="07646e21-e2f0-47e1-a875-8cf40775fa82" sid="_vfHKsFAkEfCCXZwz5PG-mQ"
+          name="Kind" description="[CLASS]http://www.polarsys.org/capella/core/la/7.0.0/LogicalComponent,http://www.polarsys.org/capella/core/fa/7.0.0/ComponentExchange[/CLASS]&#xA;[ARCHITECTURE]LOGICAL[/ARCHITECTURE]">
+        <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+            id="13808fda-d017-4f81-a1a2-221b0d0d6c40" sid="_oNjMIFAlEfCCXZwz5PG-mQ"
+            name="Farbe" description="" type="#09be8be7-0890-497d-93b1-d3d1d2995091"
+            value="#ecec98bf-e470-4cd9-a09c-f77092da8c19"/>
+      </ownedPropertyValueGroups>
+    </ownedPropertyValuePkgs>
+  </ownedPropertyValuePkgs>
   <keyValuePairs xsi:type="org.polarsys.capella.core.data.capellacore:KeyValue" id="bf35cfae-d0c2-4438-a972-dbc0ceb180a1"
       key="projectApproach" value="SingletonComponents"/>
   <ownedModelRoots xsi:type="org.polarsys.capella.core.data.capellamodeller:SystemEngineering"
@@ -3769,6 +3841,14 @@ The predator is far away</bodies>
             name="Outsider" abstractType="#54d9011d-ad5a-4750-a6b7-9963121550f3"/>
         <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="fb785f4b-a7b7-4aae-90f3-372723e828c2"
             name="DF 2" abstractType="#57b9ae67-8150-4888-bf9d-03c872bc09f3"/>
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="76aa00b2-3a55-4f0d-bf5c-58de701f9b7d"
+            name="OtherActor" abstractType="#cb68eaf1-89ac-4259-8618-a1322bc17850"/>
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="82207375-259c-4c97-9e9a-8d7d8237536e"
+            name="Actor" abstractType="#efe61abb-2628-4065-9d54-89628027ea72"/>
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="c2fa5a48-6631-4b83-80d8-f1d4fd3a3882"
+            name="Human" abstractType="#2dd292ce-3de1-4a86-8848-e9900d1f9c86"/>
+        <ownedParts xsi:type="org.polarsys.capella.core.data.cs:Part" id="ef66f51c-68b4-4b01-a335-3f8c92afd65e"
+            name="Animal" abstractType="#d53fa277-f0aa-4498-b6cc-b8b2cf2504a8"/>
         <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
             id="c0bc49e1-8043-4418-8c0a-de6c6b749eab" name="Headmaster Responsibilities"
             convoyedInformations="#408f9055-bdcf-4181-865c-db3e823bd93d" source="#fcbf6881-720c-421f-9fe9-12fc3dfefe9c"
@@ -3833,6 +3913,18 @@ The predator is far away</bodies>
         <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
             id="1a302a4a-9839-4ba4-8296-f54b470b4e59" name="C 12" source="#f413a1aa-61d7-41d1-aa0b-60744965204f"
             target="#3fcf0fa8-16d7-46f5-a0ac-790b7e0f4c62" kind="FLOW"/>
+        <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+            id="e6f4d7ae-4358-4933-ab33-959ddf99479b" name="Actor Ex" source="#c350bc4b-a3f9-4819-a6ab-fa00e08615c2"
+            target="#46ec33df-8b98-47db-be0c-9a692c7f852e" kind="FLOW"/>
+        <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+            id="6aca8c81-6d6e-4bbc-84df-f564f57e2fc9" name="Actor Ex" source="#73801908-6c04-4dbc-b648-1744e13e10df"
+            target="#46ec33df-8b98-47db-be0c-9a692c7f852e" kind="FLOW"/>
+        <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+            id="8ea5bc8b-8344-4f86-b8a7-dff291807ad0" name="Human Ex" source="#eefa305b-36c4-4797-96ef-2cb1d96ca409"
+            target="#3d1a8880-c71d-46f7-bd16-57b06e460c68" kind="FLOW"/>
+        <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+            id="59e22812-772b-4c00-868f-b70f240b01e2" name="Human Ex" source="#eefa305b-36c4-4797-96ef-2cb1d96ca409"
+            target="#2e1e8eca-acb5-464e-8c3b-77286d4b506c" kind="FLOW"/>
         <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
             id="0d2edb8f-fa34-4e73-89ec-fb9a63001440" name="Hogwarts" description="&lt;p>This instance is the mighty Hogwarts. Do you really need a description? Then maybe read the books or watch atleast the epic movies.&lt;/p>&#xA;">
           <ownedExtensions xsi:type="CapellaRequirements:CapellaOutgoingRelation"
@@ -4082,6 +4174,8 @@ The predator is far away</bodies>
               name="Weather Datahouse" abstractType="#1ec85995-5fc1-42d2-8bf0-8eccb34aeff4"/>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="f1f4c98d-6a08-4c3a-9306-7a226b8e1854"
               name="DF 1" abstractType="#65505b05-f4fd-483e-96fb-43a6750088d6"/>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="7c7e4e3d-d2c5-48dc-a39f-7b072ccc7311"
+              name="PVMTOwner" abstractType="#789f8316-17cf-4c32-a66f-354fe111c40e"/>
           <ownedComponentRealizations xsi:type="org.polarsys.capella.core.data.cs:ComponentRealization"
               id="0f8b10b5-d460-4055-bd34-7e4a33e94b5e" targetElement="#230c4621-7e0a-4d0a-9db2-d4ba5e97b3df"
               sourceElement="#0d2edb8f-fa34-4e73-89ec-fb9a63001440"/>
@@ -4921,6 +5015,68 @@ The predator is far away</bodies>
                 id="49674281-6519-418d-a62f-a3b36a7c1b3b" targetElement="#77e61c41-2164-43b0-befa-dd9ac35a5452"
                 sourceElement="#65505b05-f4fd-483e-96fb-43a6750088d6"/>
           </ownedLogicalComponents>
+          <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+              id="789f8316-17cf-4c32-a66f-354fe111c40e" name="PVMTOwner">
+            <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+                id="3427c23a-8bbb-426c-9dcd-949037f3e38c" name="inner Ex" source="#ef0ab8fc-8724-4e24-b9ee-5423c0165801"
+                target="#f6fb82b9-58f0-4e88-99f9-1845f6a35de6" kind="FLOW"/>
+            <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
+                id="963492b8-1fdf-4142-9313-0b7690907855" name="inner Ex" appliedPropertyValueGroups="#5e7fb81d-21d4-4639-8ed7-b93c23a9c421"
+                source="#3563c3e8-7e41-46c6-826d-e14a758d1b20" target="#5b3276dd-4cca-4e35-868b-0b5f65e43021"
+                kind="FLOW">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="5e7fb81d-21d4-4639-8ed7-b93c23a9c421" name="Test.Kind" appliedPropertyValueGroups="#07646e21-e2f0-47e1-a875-8cf40775fa82">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="2745fa47-4490-46b0-9917-51bc72d53613" name="Farbe" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
+                    type="#09be8be7-0890-497d-93b1-d3d1d2995091" value="#3e021231-8960-4fb3-9c75-a859cf1da25a"/>
+              </ownedPropertyValueGroups>
+            </ownedComponentExchanges>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="da3241d6-3487-4fa5-b19c-0afb95223529"
+                name="Child" abstractType="#531953fe-c3ba-45e3-abde-a77683d06a1a"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="1c11368f-d321-4138-8ade-db3f820a7c40"
+                name="OtherChild" abstractType="#551f2a83-36b2-40ed-967d-108fa06a6b0f"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="46ec33df-8b98-47db-be0c-9a692c7f852e" name="CP 3" orientation="IN"
+                kind="FLOW"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="eefa305b-36c4-4797-96ef-2cb1d96ca409" name="CP 4" orientation="OUT"
+                kind="FLOW"/>
+            <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                id="ef0ab8fc-8724-4e24-b9ee-5423c0165801" name="CP 5" orientation="OUT"
+                kind="FLOW"/>
+            <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+                id="531953fe-c3ba-45e3-abde-a77683d06a1a" name="Child" appliedPropertyValueGroups="#0e7a0843-d775-4f95-a9ce-57f22dc336b4">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="0e7a0843-d775-4f95-a9ce-57f22dc336b4" name="Test.Kind" appliedPropertyValueGroups="#07646e21-e2f0-47e1-a875-8cf40775fa82">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="7d424c8c-ba0e-4ea8-bf15-b7792492fd82" name="Farbe" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
+                    type="#09be8be7-0890-497d-93b1-d3d1d2995091" value="#28670565-10c6-4ca4-a92c-a5f0d59c9deb"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="b50fce20-2543-41d7-bad4-50d2d3b4378b"
+                  name="ChildChild" abstractType="#589ba0d4-03ab-4d79-973f-d120ac8720d5"/>
+              <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+                  id="589ba0d4-03ab-4d79-973f-d120ac8720d5" name="ChildChild">
+                <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                    id="3563c3e8-7e41-46c6-826d-e14a758d1b20" name="CP 1" orientation="OUT"
+                    kind="FLOW"/>
+              </ownedLogicalComponents>
+            </ownedLogicalComponents>
+            <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+                id="551f2a83-36b2-40ed-967d-108fa06a6b0f" name="OtherChild" appliedPropertyValueGroups="#4f823a96-76b7-49d4-b080-3dd0af8611db">
+              <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+                  id="4f823a96-76b7-49d4-b080-3dd0af8611db" name="Test.Kind" appliedPropertyValueGroups="#07646e21-e2f0-47e1-a875-8cf40775fa82">
+                <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                    id="d88d195e-56d3-499e-9579-e2be661efa8a" name="Farbe" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
+                    type="#09be8be7-0890-497d-93b1-d3d1d2995091" value="#28670565-10c6-4ca4-a92c-a5f0d59c9deb"/>
+              </ownedPropertyValueGroups>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                  id="f6fb82b9-58f0-4e88-99f9-1845f6a35de6" name="CP 1" orientation="IN"
+                  kind="FLOW"/>
+              <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+                  id="5b3276dd-4cca-4e35-868b-0b5f65e43021" name="CP 2" orientation="IN"
+                  kind="FLOW"/>
+            </ownedLogicalComponents>
+          </ownedLogicalComponents>
           <ownedLogicalComponentPkgs xsi:type="org.polarsys.capella.core.data.la:LogicalComponentPkg"
               id="83d80c8a-e845-4fd9-bb6f-91fc32145785" name="LogicalComponents">
             <ownedComponentExchanges xsi:type="org.polarsys.capella.core.data.fa:ComponentExchange"
@@ -5135,6 +5291,58 @@ The predator is far away</bodies>
           <ownedFunctionalAllocation xsi:type="org.polarsys.capella.core.data.fa:ComponentFunctionalAllocation"
               id="5cfeb5f9-4d7a-488e-96cb-dd63371205a0" targetElement="#7c1a0877-2834-4eac-b945-11b17c836048"
               sourceElement="#57b9ae67-8150-4888-bf9d-03c872bc09f3"/>
+        </ownedLogicalComponents>
+        <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+            id="cb68eaf1-89ac-4259-8618-a1322bc17850" name="OtherActor" appliedPropertyValueGroups="#b6b66bdc-c88f-4c6c-908a-59a3ce1ce2a7"
+            actor="true">
+          <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+              id="b6b66bdc-c88f-4c6c-908a-59a3ce1ce2a7" name="Test.Kind" appliedPropertyValueGroups="#07646e21-e2f0-47e1-a875-8cf40775fa82">
+            <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                id="7d038950-bcb8-464b-8f6d-62ed0c942dd6" name="Farbe" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
+                type="#09be8be7-0890-497d-93b1-d3d1d2995091" value="#e717a8e7-e1bd-42f3-8254-b10d2bdacdf5"/>
+          </ownedPropertyValueGroups>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="c350bc4b-a3f9-4819-a6ab-fa00e08615c2" name="CP 1" orientation="OUT"
+              kind="FLOW"/>
+        </ownedLogicalComponents>
+        <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+            id="efe61abb-2628-4065-9d54-89628027ea72" name="Actor" appliedPropertyValueGroups="#2dc5a1b0-4e5f-4d99-a312-e7b0ff6a0d60"
+            actor="true">
+          <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+              id="2dc5a1b0-4e5f-4d99-a312-e7b0ff6a0d60" name="Test.Kind" appliedPropertyValueGroups="#07646e21-e2f0-47e1-a875-8cf40775fa82">
+            <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                id="6bf7bea1-c4fc-4f54-a8ac-1d861784fbb9" name="Farbe" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
+                type="#09be8be7-0890-497d-93b1-d3d1d2995091" value="#e717a8e7-e1bd-42f3-8254-b10d2bdacdf5"/>
+          </ownedPropertyValueGroups>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="73801908-6c04-4dbc-b648-1744e13e10df" name="CP 1" orientation="OUT"
+              kind="FLOW"/>
+        </ownedLogicalComponents>
+        <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+            id="2dd292ce-3de1-4a86-8848-e9900d1f9c86" name="Human" appliedPropertyValueGroups="#46d2f84b-5337-41d6-8da9-d9608e76a170"
+            actor="true" human="true">
+          <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+              id="46d2f84b-5337-41d6-8da9-d9608e76a170" name="Test.Kind" appliedPropertyValueGroups="#07646e21-e2f0-47e1-a875-8cf40775fa82">
+            <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                id="898fafc6-0936-40ba-9987-b0048d58e0ec" name="Farbe" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
+                type="#09be8be7-0890-497d-93b1-d3d1d2995091" value="#14c94f4c-cb9a-419e-b515-46160518cffe"/>
+          </ownedPropertyValueGroups>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="2e1e8eca-acb5-464e-8c3b-77286d4b506c" name="CP 1" orientation="IN"
+              kind="FLOW"/>
+        </ownedLogicalComponents>
+        <ownedLogicalComponents xsi:type="org.polarsys.capella.core.data.la:LogicalComponent"
+            id="d53fa277-f0aa-4498-b6cc-b8b2cf2504a8" name="Animal" appliedPropertyValueGroups="#dbd20aef-d344-42a5-bb9f-25ccab08b779"
+            actor="true" human="true">
+          <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
+              id="dbd20aef-d344-42a5-bb9f-25ccab08b779" name="Test.Kind" appliedPropertyValueGroups="#07646e21-e2f0-47e1-a875-8cf40775fa82">
+            <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
+                id="b3f09185-1c7c-4472-8e49-61a102c2b52b" name="Farbe" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
+                type="#09be8be7-0890-497d-93b1-d3d1d2995091" value="#14c94f4c-cb9a-419e-b515-46160518cffe"/>
+          </ownedPropertyValueGroups>
+          <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
+              id="3d1a8880-c71d-46f7-bd16-57b06e460c68" name="CP 1" orientation="IN"
+              kind="FLOW"/>
         </ownedLogicalComponents>
       </ownedLogicalComponentPkg>
       <ownedSystemAnalysisRealizations xsi:type="org.polarsys.capella.core.data.la:SystemAnalysisRealization"

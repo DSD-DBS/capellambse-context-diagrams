@@ -45,10 +45,7 @@ jobs:
         with:
           deno-version: "2.x"
       - name: Run unit tests
-        run: uv run coverage run
-      - name: Report coverage
-        if: always()
-        run: uv run coverage report
+        run: uv run pytest -n auto
 
   pre-commit:
     runs-on: ubuntu-latest

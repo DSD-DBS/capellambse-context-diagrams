@@ -1,0 +1,179 @@
+{
+    "id": "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df",
+            "labels": [
+                {
+                    "text": "System",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 58,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "dcbf18a9-8589-4ba6-84ad-094ec1810de1",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                },
+                {
+                    "id": "898b878b-4392-499a-82f7-eb48e0f07e36",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                },
+                {
+                    "id": "__Derived-CP_INOUT:-1",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 64,
+            "height": 44
+        },
+        {
+            "id": "6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6",
+            "labels": [
+                {
+                    "text": "Gerard Butler",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 93,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "c8ea5da6-6042-4881-89cb-c67977df1d60",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 99,
+            "height": 36
+        },
+        {
+            "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "labels": [
+                {
+                    "text": "Kevin Spacey",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "d5fd4286-1d41-4d21-b3cf-9babc8872c77",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 94,
+            "height": 36
+        },
+        {
+            "id": "__Derived-SystemActor:d4a22478-5717-4ca7-bfc9-9a193e6218a8",
+            "labels": [
+                {
+                    "text": "HollyWood",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 73,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "__Derived-CP_INOUT:1",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 79,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "2602eeef-c1bc-40a8-9406-52f4a809ca4a",
+            "sources": [
+                "dcbf18a9-8589-4ba6-84ad-094ec1810de1"
+            ],
+            "targets": [
+                "c8ea5da6-6042-4881-89cb-c67977df1d60"
+            ],
+            "labels": [
+                {
+                    "text": "Test Output Ex",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 98,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "560e799d-d291-4928-a367-430232ddef65",
+            "sources": [
+                "d5fd4286-1d41-4d21-b3cf-9babc8872c77"
+            ],
+            "targets": [
+                "898b878b-4392-499a-82f7-eb48e0f07e36"
+            ],
+            "labels": [
+                {
+                    "text": "Test Input Ex",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 93,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "__Derived-ComponentExchange:1",
+            "sources": [
+                "__Derived-CP_INOUT:1"
+            ],
+            "targets": [
+                "__Derived-CP_INOUT:-1"
+            ]
+        }
+    ]
+}

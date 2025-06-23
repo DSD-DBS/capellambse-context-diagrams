@@ -1,0 +1,266 @@
+{
+    "id": "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df",
+            "position": {
+                "x": 244,
+                "y": 17
+            },
+            "size": {
+                "width": 64,
+                "height": 44
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "dcbf18a9-8589-4ba6-84ad-094ec1810de1",
+                    "position": {
+                        "x": 56,
+                        "y": 17
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "id": "898b878b-4392-499a-82f7-eb48e0f07e36",
+                    "position": {
+                        "x": -2,
+                        "y": 26
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "id": "__Derived-CP_INOUT:-1",
+                    "position": {
+                        "x": -2,
+                        "y": 8
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": 3,
+                        "y": 16
+                    },
+                    "size": {
+                        "width": 58,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "System"
+                }
+            ]
+        },
+        {
+            "id": "6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6",
+            "position": {
+                "x": 450,
+                "y": 21
+            },
+            "size": {
+                "width": 99,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "c8ea5da6-6042-4881-89cb-c67977df1d60",
+                    "position": {
+                        "x": -2,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": 7,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 93,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Gerard Butler"
+                }
+            ]
+        },
+        {
+            "id": "344a405e-c7e5-4367-8a9a-41d3d9a27f81",
+            "position": {
+                "x": 13,
+                "y": 50
+            },
+            "size": {
+                "width": 94,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "d5fd4286-1d41-4d21-b3cf-9babc8872c77",
+                    "position": {
+                        "x": 86,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": -1,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 88,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Kevin Spacey"
+                }
+            ]
+        },
+        {
+            "id": "__Derived-SystemActor:d4a22478-5717-4ca7-bfc9-9a193e6218a8",
+            "position": {
+                "x": 141,
+                "y": 12
+            },
+            "size": {
+                "width": 79,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "__Derived-CP_INOUT:1",
+                    "position": {
+                        "x": 71,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": -1,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 73,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "HollyWood"
+                }
+            ]
+        },
+        {
+            "id": "2602eeef-c1bc-40a8-9406-52f4a809ca4a",
+            "type": "edge",
+            "sourceId": "dcbf18a9-8589-4ba6-84ad-094ec1810de1",
+            "targetId": "c8ea5da6-6042-4881-89cb-c67977df1d60",
+            "routingPoints": [
+                {
+                    "x": 310,
+                    "y": 39
+                },
+                {
+                    "x": 448,
+                    "y": 39
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 330,
+                        "y": 42
+                    },
+                    "size": {
+                        "width": 98,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Test Output Ex"
+                }
+            ]
+        },
+        {
+            "id": "560e799d-d291-4928-a367-430232ddef65",
+            "type": "edge",
+            "sourceId": "d5fd4286-1d41-4d21-b3cf-9babc8872c77",
+            "targetId": "898b878b-4392-499a-82f7-eb48e0f07e36",
+            "routingPoints": [
+                {
+                    "x": 109,
+                    "y": 68
+                },
+                {
+                    "x": 232,
+                    "y": 68
+                },
+                {
+                    "x": 232,
+                    "y": 48
+                },
+                {
+                    "x": 242,
+                    "y": 48
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 129,
+                        "y": 71
+                    },
+                    "size": {
+                        "width": 93,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Test Input Ex"
+                }
+            ]
+        },
+        {
+            "id": "__Derived-ComponentExchange:1",
+            "type": "edge",
+            "sourceId": "__Derived-CP_INOUT:1",
+            "targetId": "__Derived-CP_INOUT:-1",
+            "routingPoints": [
+                {
+                    "x": 222,
+                    "y": 30
+                },
+                {
+                    "x": 242,
+                    "y": 30
+                }
+            ]
+        }
+    ]
+}

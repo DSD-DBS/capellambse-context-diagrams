@@ -1,0 +1,636 @@
+{
+    "id": "9f1e1875-9ead-4af2-b428-c390786a436a_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
+            "position": {
+                "x": 12,
+                "y": 12
+            },
+            "size": {
+                "width": 528,
+                "height": 229.5
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "37dfa5e6-a121-4ce9-8aa4-09a0c73dc2e9",
+                    "position": {
+                        "x": 12,
+                        "y": 37.5
+                    },
+                    "size": {
+                        "width": 135,
+                        "height": 180
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "8df45b70-15cc-4d3a-99e4-593516392c5a",
+                            "position": {
+                                "x": 12,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 106,
+                                "height": 139
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "0c06cc88-8c77-46f2-8542-c08b1e8edd18",
+                                    "position": {
+                                        "x": 13,
+                                        "y": 29
+                                    },
+                                    "size": {
+                                        "width": 79,
+                                        "height": 98
+                                    },
+                                    "type": "node",
+                                    "children": [
+                                        {
+                                            "id": "add2b927-752a-4e54-a170-d378a425512d",
+                                            "position": {
+                                                "x": 71,
+                                                "y": 17
+                                            },
+                                            "size": {
+                                                "width": 10,
+                                                "height": 10
+                                            },
+                                            "type": "port"
+                                        },
+                                        {
+                                            "id": "5cd170c0-e4eb-48e2-bdcc-e1347d6d8170",
+                                            "position": {
+                                                "x": 71,
+                                                "y": 30.5
+                                            },
+                                            "size": {
+                                                "width": 10,
+                                                "height": 10
+                                            },
+                                            "type": "port"
+                                        },
+                                        {
+                                            "id": "d78cd1cb-b492-40fd-b76d-aacd3beb49ae",
+                                            "position": {
+                                                "x": 71,
+                                                "y": 44
+                                            },
+                                            "size": {
+                                                "width": 10,
+                                                "height": 10
+                                            },
+                                            "type": "port"
+                                        },
+                                        {
+                                            "id": "fde95642-67e8-451c-ba31-31a0372d939a",
+                                            "position": {
+                                                "x": 71,
+                                                "y": 57.5
+                                            },
+                                            "size": {
+                                                "width": 10,
+                                                "height": 10
+                                            },
+                                            "type": "port"
+                                        },
+                                        {
+                                            "id": "df741d83-c949-4def-b170-fa6a049914c0",
+                                            "position": {
+                                                "x": 71,
+                                                "y": 71
+                                            },
+                                            "size": {
+                                                "width": 10,
+                                                "height": 10
+                                            },
+                                            "type": "port"
+                                        },
+                                        {
+                                            "id": "3ba46c02-a423-4c14-b928-f106e9781227",
+                                            "position": {
+                                                "x": 71,
+                                                "y": 84.5
+                                            },
+                                            "size": {
+                                                "width": 10,
+                                                "height": 10
+                                            },
+                                            "type": "port"
+                                        },
+                                        {
+                                            "id": "e6fdeb87-bc28-410a-a896-32ecd3086c23",
+                                            "position": {
+                                                "x": 71,
+                                                "y": 3.5
+                                            },
+                                            "size": {
+                                                "width": 10,
+                                                "height": 10
+                                            },
+                                            "type": "port"
+                                        },
+                                        {
+                                            "position": {
+                                                "x": -1,
+                                                "y": 43
+                                            },
+                                            "size": {
+                                                "width": 73,
+                                                "height": 12
+                                            },
+                                            "type": "label",
+                                            "text": "LeftStack"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "position": {
+                                        "x": 16.5,
+                                        "y": 5
+                                    },
+                                    "size": {
+                                        "width": 73,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "LeftStack"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 41,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 53,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "Right"
+                        }
+                    ]
+                },
+                {
+                    "id": "74af6883-25a0-446a-80f3-656f8a490b11",
+                    "position": {
+                        "x": 400,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 116,
+                        "height": 139
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "9f1e1875-9ead-4af2-b428-c390786a436a",
+                            "position": {
+                                "x": 14,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 89,
+                                "height": 98
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "a0845bdc-c11f-4ab6-ab61-608de1e50820",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 17
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "id": "cd01e268-283b-4a54-8b12-b383906767d5",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 30.5
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "id": "4637cb4a-ad31-4ad8-b170-cb0300d7df74",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 44
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "id": "92eae10f-d1ed-4cbe-bb04-c9f544a9019f",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 57.5
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "id": "d7ff8e84-325e-4036-902a-f37d184e323c",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 71
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "id": "1c8068a6-df67-45c6-8973-4164df550b8c",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 84.5
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "id": "d2fe1237-b5c4-4a6d-8185-42a32b83e576",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 3.5
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "position": {
+                                        "x": 7,
+                                        "y": 43
+                                    },
+                                    "size": {
+                                        "width": 83,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "MiddleStack"
+                                }
+                            ]
+                        },
+                        {
+                            "position": {
+                                "x": 16.5,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 83,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "MiddleStack"
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 230,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 68,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Hogwarts"
+                },
+                {
+                    "id": "fd1e5e3b-85a1-4b9d-a630-b5da034ab16c",
+                    "type": "edge",
+                    "sourceId": "add2b927-752a-4e54-a170-d378a425512d",
+                    "targetId": "a0845bdc-c11f-4ab6-ab61-608de1e50820",
+                    "routingPoints": [
+                        {
+                            "x": 118,
+                            "y": 117.5
+                        },
+                        {
+                            "x": 172,
+                            "y": 117.5
+                        },
+                        {
+                            "x": 172,
+                            "y": 55
+                        },
+                        {
+                            "x": 375,
+                            "y": 55
+                        },
+                        {
+                            "x": 375,
+                            "y": 80
+                        },
+                        {
+                            "x": 412,
+                            "y": 80
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 222,
+                                "y": 58
+                            },
+                            "size": {
+                                "width": 133,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "FunctionalExchange 26"
+                        }
+                    ]
+                },
+                {
+                    "id": "e97fc274-1e09-4b9e-b2e0-08d2ef85770d",
+                    "type": "edge",
+                    "sourceId": "5cd170c0-e4eb-48e2-bdcc-e1347d6d8170",
+                    "targetId": "cd01e268-283b-4a54-8b12-b383906767d5",
+                    "routingPoints": [
+                        {
+                            "x": 118,
+                            "y": 131
+                        },
+                        {
+                            "x": 182,
+                            "y": 131
+                        },
+                        {
+                            "x": 182,
+                            "y": 81
+                        },
+                        {
+                            "x": 365,
+                            "y": 81
+                        },
+                        {
+                            "x": 365,
+                            "y": 93.5
+                        },
+                        {
+                            "x": 412,
+                            "y": 93.5
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 222,
+                                "y": 84
+                            },
+                            "size": {
+                                "width": 133,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "FunctionalExchange 25"
+                        }
+                    ]
+                },
+                {
+                    "id": "260b7b9d-b563-4c5f-9d59-b3da80489877",
+                    "type": "edge",
+                    "sourceId": "d78cd1cb-b492-40fd-b76d-aacd3beb49ae",
+                    "targetId": "4637cb4a-ad31-4ad8-b170-cb0300d7df74",
+                    "routingPoints": [
+                        {
+                            "x": 118,
+                            "y": 144.5
+                        },
+                        {
+                            "x": 192,
+                            "y": 144.5
+                        },
+                        {
+                            "x": 192,
+                            "y": 107
+                        },
+                        {
+                            "x": 412,
+                            "y": 107
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 222,
+                                "y": 110
+                            },
+                            "size": {
+                                "width": 133,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "FunctionalExchange 27"
+                        }
+                    ]
+                },
+                {
+                    "id": "3f901a69-37de-48f0-abc8-e612eef52ab0",
+                    "type": "edge",
+                    "sourceId": "fde95642-67e8-451c-ba31-31a0372d939a",
+                    "targetId": "92eae10f-d1ed-4cbe-bb04-c9f544a9019f",
+                    "routingPoints": [
+                        {
+                            "x": 118,
+                            "y": 158
+                        },
+                        {
+                            "x": 202,
+                            "y": 158
+                        },
+                        {
+                            "x": 202,
+                            "y": 133
+                        },
+                        {
+                            "x": 365,
+                            "y": 133
+                        },
+                        {
+                            "x": 365,
+                            "y": 120.5
+                        },
+                        {
+                            "x": 412,
+                            "y": 120.5
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 222,
+                                "y": 136
+                            },
+                            "size": {
+                                "width": 133,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "FunctionalExchange 24"
+                        }
+                    ]
+                },
+                {
+                    "id": "7bed4065-87d9-4e20-bbc5-4ab08e8702b8",
+                    "type": "edge",
+                    "sourceId": "df741d83-c949-4def-b170-fa6a049914c0",
+                    "targetId": "d7ff8e84-325e-4036-902a-f37d184e323c",
+                    "routingPoints": [
+                        {
+                            "x": 118,
+                            "y": 171.5
+                        },
+                        {
+                            "x": 212,
+                            "y": 171.5
+                        },
+                        {
+                            "x": 212,
+                            "y": 159
+                        },
+                        {
+                            "x": 375,
+                            "y": 159
+                        },
+                        {
+                            "x": 375,
+                            "y": 134
+                        },
+                        {
+                            "x": 412,
+                            "y": 134
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 222,
+                                "y": 162
+                            },
+                            "size": {
+                                "width": 133,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "FunctionalExchange 23"
+                        }
+                    ]
+                },
+                {
+                    "id": "1d00b4af-8f7d-44cc-ad39-bfbea72f5e14",
+                    "type": "edge",
+                    "sourceId": "3ba46c02-a423-4c14-b928-f106e9781227",
+                    "targetId": "1c8068a6-df67-45c6-8973-4164df550b8c",
+                    "routingPoints": [
+                        {
+                            "x": 118,
+                            "y": 185
+                        },
+                        {
+                            "x": 385,
+                            "y": 185
+                        },
+                        {
+                            "x": 385,
+                            "y": 147.5
+                        },
+                        {
+                            "x": 412,
+                            "y": 147.5
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 222,
+                                "y": 188
+                            },
+                            "size": {
+                                "width": 133,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "FunctionalExchange 22"
+                        }
+                    ]
+                },
+                {
+                    "id": "67ead148-fac9-4abb-9a0c-47771a85f5a6",
+                    "type": "edge",
+                    "sourceId": "e6fdeb87-bc28-410a-a896-32ecd3086c23",
+                    "targetId": "d2fe1237-b5c4-4a6d-8185-42a32b83e576",
+                    "routingPoints": [
+                        {
+                            "x": 118,
+                            "y": 104
+                        },
+                        {
+                            "x": 162,
+                            "y": 104
+                        },
+                        {
+                            "x": 162,
+                            "y": 29
+                        },
+                        {
+                            "x": 385,
+                            "y": 29
+                        },
+                        {
+                            "x": 385,
+                            "y": 66.5
+                        },
+                        {
+                            "x": 412,
+                            "y": 66.5
+                        }
+                    ],
+                    "children": [
+                        {
+                            "position": {
+                                "x": 222,
+                                "y": 32
+                            },
+                            "size": {
+                                "width": 133,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "FunctionalExchange 21"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

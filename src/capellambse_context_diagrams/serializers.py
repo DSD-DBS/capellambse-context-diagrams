@@ -23,7 +23,7 @@ from capellambse import diagram as cdiagram
 from capellambse import model as m
 from capellambse.svg import decorations
 
-from . import _elkjs, context
+from . import _elkjs, context, styling
 from .builders import _makers
 
 logger = logging.getLogger(__name__)
@@ -314,13 +314,18 @@ class DiagramSerializer:
         """
         style_condition = self._diagram.render_styles.get(child.type)
         styleoverrides: cdiagram.StyleOverrides = {}
-        if style_condition is not None:
-            if child.type != "junction":
-                obj = self._diagram._model.by_uuid(uuid)
-            else:
-                obj = None
+        try:
+            obj = self._diagram._model.by_uuid(uuid)
+        except KeyError:  # Junction
+            obj = None
 
+        if style_condition is not None:
             styleoverrides = style_condition(obj, self) or {}
+
+        if self._diagram._pvmt_styling is not None and obj is not None:
+            styleoverrides |= styling.get_styleoverrides_from_pvmt(
+                obj, styling.PVMTStyling(**self._diagram._pvmt_styling)
+            )  # type: ignore[operator]
 
         if uuid == self._diagram.target.uuid:
             styleoverrides["stroke-width"] = "4"

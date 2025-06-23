@@ -4,11 +4,13 @@
 
 from __future__ import annotations
 
+import dataclasses
 import typing as t
 
 from capellambse import diagram
 from capellambse import model as m
 from capellambse.diagram import capstyle
+from capellambse.extensions import pvmt
 
 if t.TYPE_CHECKING:
     from . import serializers
@@ -28,6 +30,14 @@ Styler = t.Callable[
     diagram.StyleOverrides | None,
 ]
 """Function that produces `CSSStyles` for given obj."""
+
+
+@dataclasses.dataclass(frozen=True)
+class PVMTStyling:
+    """Styling from PVMT value packages."""
+
+    value_groups: list[str]
+    children_coloring: bool = False
 
 
 def parent_is_actor_fills_blue(
@@ -61,6 +71,38 @@ def style_center_symbol(
         "stroke": capstyle.COLORS["gray"],
         "stroke-dasharray": "3",
     }
+
+
+def get_styleoverrides_from_pvmt(
+    obj: m.ModelElement, pvmt_styling: PVMTStyling
+) -> diagram.StyleOverrides:
+    """Return a `StyleOverrides` dict for PVMT value packages."""
+    styleoverrides: diagram.StyleOverrides = {}
+    color_mappings: dict[str, str] = {
+        "__COLOR__": "fill",
+        "__BORDER_COLOR__": "stroke",
+        "__LABEL_COLOR__": "text_fill",
+    }
+    for value_group in pvmt_styling.value_groups:
+        try:
+            prop_values = obj.pvmt[value_group].property_values
+        except (ValueError, pvmt.ScopeError):
+            continue
+
+        for pvmt_key, style_key in color_mappings.items():
+            try:
+                rgb_string = prop_values.by_name(pvmt_key).value
+                styleoverrides[style_key] = _parse_rgb_string(rgb_string)
+            except KeyError:
+                pass
+
+    return styleoverrides
+
+
+def _parse_rgb_string(rgb_string: str) -> capstyle.RGB:
+    """Parse RGB string like ``106,40,192,0`` into (106, 40, 192)."""
+    rgb_part = rgb_string.rsplit(",", 1)[0]
+    return capstyle.RGB(*map(int, rgb_part.split(",")))
 
 
 BLUE_ACTOR_FNCS: dict[str, Styler] = {"node": parent_is_actor_fills_blue}

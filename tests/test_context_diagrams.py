@@ -30,6 +30,8 @@ TEST_SYS_FNC_UUID = "a5642060-c9cc-4d49-af09-defaa3024bae"
 TEST_DERIVATION_UUID = "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c"
 TEST_PHYSICAL_PORT_UUID = "c403d4f4-9633-42a2-a5d6-9e1df2655146"
 TEST_PC_NODE_UUID = "309296b1-cf37-45d7-b0f3-f7bc00422a59"
+TEST_PVMT_STYLING_UUID = "789f8316-17cf-4c32-a66f-354fe111c40e"
+
 TEST_CONTEXT_SET = [
     pytest.param(
         (
@@ -351,6 +353,32 @@ TEST_CONTEXT_SET = [
             {"display_symbols_as_boxes": True},
         ),
         id="SystemComponent sizing ContextDiagram",
+    ),
+    pytest.param(
+        (
+            TEST_PVMT_STYLING_UUID,
+            "pvmt_styling_context_diagram.json",
+            {
+                "pvmt_styling": {
+                    "children_coloring": False,
+                    "value_groups": ["Test.Kind.Farbe"],
+                }
+            },
+        ),
+        id="LogicalComponent PVMT styling ContextDiagram",
+    ),
+    pytest.param(
+        (
+            TEST_PVMT_STYLING_UUID,
+            "pvmt_styling_with_children_coloring_context_diagram.json",
+            {
+                "pvmt_styling": {
+                    "children_coloring": True,
+                    "value_groups": ["Test.Kind.Farbe"],
+                }
+            },
+        ),
+        id="LogicalComponent PVMT with children styling ContextDiagram",
     ),
 ]
 

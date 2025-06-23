@@ -304,6 +304,9 @@ class ContextDiagram(m.AbstractDiagram):
       either the box of interest or a child with itself or a child.
       Only useful with ``BLACKBOX`` mode and
       ``display_cyclic_relations`` turned on.
+    * pvmt_styling: Style the diagram according to the PVMT group
+      applied to the diagram elements. See also
+      [`PVMTStyling`][capellambse_context_diagrams.styling.PVMTStyling].
 
     The following properties are used by the internal builders:
 
@@ -331,6 +334,7 @@ class ContextDiagram(m.AbstractDiagram):
     _display_functional_parent_relation: bool
     _display_internal_relations: bool
     _display_cyclic_relations: bool
+    _pvmt_styling: dict[str, t.Any] | None
 
     _collect: cabc.Callable[[ContextDiagram], cabc.Iterator[m.ModelElement]]
     _is_portless: bool
@@ -374,6 +378,7 @@ class ContextDiagram(m.AbstractDiagram):
             "display_functional_parent_relation": False,
             "display_internal_relations": True,
             "display_cyclic_relations": False,
+            "pvmt_styling": None,
         }
         if not _generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES.get(self.type, ()):
             render_params |= {
@@ -388,6 +393,7 @@ class ContextDiagram(m.AbstractDiagram):
         self._default_render_parameters = (
             render_params | default_render_parameters
         )
+        self._pvmt_styling = None
 
         if standard_filter := STANDARD_FILTERS.get(class_):
             self.filters.add(standard_filter)

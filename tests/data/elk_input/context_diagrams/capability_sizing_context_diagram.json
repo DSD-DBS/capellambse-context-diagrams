@@ -1,0 +1,471 @@
+{
+    "id": "b996a45f-2954-4fdd-9141-7934e7687de6_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "b996a45f-2954-4fdd-9141-7934e7687de6",
+            "labels": [
+                {
+                    "text": "MiddleStack",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 83,
+                    "height": 12
+                }
+            ],
+            "width": 89,
+            "height": 140.0
+        },
+        {
+            "id": "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df",
+            "labels": [
+                {
+                    "text": "System",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 58,
+                    "height": 12
+                }
+            ],
+            "width": 64,
+            "height": 36
+        },
+        {
+            "id": "e95847ae-40bb-459e-8104-7209e86ea2d1",
+            "labels": [
+                {
+                    "text": "RightStack I",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ],
+            "width": 94,
+            "height": 77.0
+        },
+        {
+            "id": "6c8f32bf-0316-477f-a23b-b5239624c28d",
+            "labels": [
+                {
+                    "text": "RightStack II",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 93,
+                    "height": 12
+                }
+            ],
+            "width": 99,
+            "height": 49.0
+        },
+        {
+            "id": "2c32176f-3ceb-42f5-8e69-5ef823aa086c",
+            "labels": [
+                {
+                    "text": "Whatever",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ],
+            "width": 74,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "ad84e148-82f6-42fb-b1b7-a47b988737f7",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "98dd301f-d4d1-4b61-8d11-6db99ff284db",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "e95847ae-40bb-459e-8104-7209e86ea2d1"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "4c0324c6-fe73-46a1-9bc7-8022d536f846",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "e95847ae-40bb-459e-8104-7209e86ea2d1"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "670283e4-9eb5-40a0-a71b-31a981aebb16",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "e95847ae-40bb-459e-8104-7209e86ea2d1"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "30331a99-560e-40ab-a56e-68a123eecbbe",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "e95847ae-40bb-459e-8104-7209e86ea2d1"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "0ec2438b-3b7a-4ae2-a026-55b960d34562",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "e95847ae-40bb-459e-8104-7209e86ea2d1"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "4c284f31-3812-4039-8c20-e8ba4987415e",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "e95847ae-40bb-459e-8104-7209e86ea2d1"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "62dc5191-6709-4efc-92f9-ef0382a4d7c3",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "e95847ae-40bb-459e-8104-7209e86ea2d1"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "d8c3ff4d-b5cb-4017-a646-a1610166e8d9",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "6c8f32bf-0316-477f-a23b-b5239624c28d"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "4d679d3e-1897-49db-abdf-d9aba36ab6a7",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "6c8f32bf-0316-477f-a23b-b5239624c28d"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "2371278e-683e-43c8-8a7b-a1f8f4c1aa7b",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "6c8f32bf-0316-477f-a23b-b5239624c28d"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "649d1f47-48dd-4257-bd43-a0506c229aeb",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "6c8f32bf-0316-477f-a23b-b5239624c28d"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "9eac5138-7cb2-4977-9e9b-aac28130961a",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "6c8f32bf-0316-477f-a23b-b5239624c28d"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "72dfcefd-ff75-4018-9c63-eb1fd0ba0b09",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "6c8f32bf-0316-477f-a23b-b5239624c28d"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "4b5d4244-5e8c-49c8-a8a2-684107e08fa7",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "6c8f32bf-0316-477f-a23b-b5239624c28d"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "a565e718-440e-49fc-a3ab-e0dd391b1770",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "e95847ae-40bb-459e-8104-7209e86ea2d1"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "a8eedd95-498c-4079-8d29-a70edab238cd",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "e95847ae-40bb-459e-8104-7209e86ea2d1"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "f66f2c5b-9221-41cb-a4de-a9816a564300",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "e95847ae-40bb-459e-8104-7209e86ea2d1"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "e7f289db-e4dc-41db-bcd8-9527bfe9bc0c",
+            "sources": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "targets": [
+                "e95847ae-40bb-459e-8104-7209e86ea2d1"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab involves \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "540c8b90-b2af-46be-abf3-be18bc214769",
+            "sources": [
+                "2c32176f-3ceb-42f5-8e69-5ef823aa086c"
+            ],
+            "targets": [
+                "b996a45f-2954-4fdd-9141-7934e7687de6"
+            ],
+            "labels": [
+                {
+                    "text": "\u00ab exploits \u00bb",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 88,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

@@ -312,6 +312,46 @@ TEST_CONTEXT_SET = [
         ),
         id="Whitebox Physical ContextDiagram without child context",
     ),
+    pytest.param(
+        (
+            "a07b7cb1-0424-4261-9980-504dd9c811d4",
+            "entity_sizing_context_diagram.json",
+            {"display_symbols_as_boxes": True},
+        ),
+        id="Entity sizing ContextDiagram",
+    ),
+    pytest.param(
+        (
+            TEST_CAP_SIZING_UUID,
+            "capability_sizing_context_diagram.json",
+            {"display_symbols_as_boxes": True},
+        ),
+        id="Capability sizing ContextDiagram",
+    ),
+    pytest.param(
+        (
+            "74af6883-25a0-446a-80f3-656f8a490b11",
+            "logical_component_sizing_context_diagram.json",
+            {"display_symbols_as_boxes": True},
+        ),
+        id="LogicalComponent sizing ContextDiagram",
+    ),
+    pytest.param(
+        (
+            "9f1e1875-9ead-4af2-b428-c390786a436a",
+            "logical_function_sizing_context_diagram.json",
+            {"display_symbols_as_boxes": True},
+        ),
+        id="LogicalFunction sizing ContextDiagram",
+    ),
+    pytest.param(
+        (
+            "230c4621-7e0a-4d0a-9db2-d4ba5e97b3df",
+            "system_component_sizing_context_diagram.json",
+            {"display_symbols_as_boxes": True},
+        ),
+        id="SystemComponent sizing ContextDiagram",
+    ),
 ]
 
 TEST_CONTEXT_DATA_ROOT = TEST_ELK_INPUT_ROOT / "context_diagrams"
@@ -373,73 +413,6 @@ def test_context_diagrams_rerender_on_parameter_change(
     diag = obj.context_diagram
     diag.render(None, **{parameter: True})
     diag.render(None, **{parameter: False})
-
-
-@pytest.mark.parametrize(
-    "diagram_elements",
-    [
-        pytest.param(
-            [
-                ("e9a6fd43-88d2-4832-91d5-595b6fbf613d", 42, 42),
-                ("a4f69ce4-2f3f-40d4-af58-423388df449f", 72, 72),
-                ("a07b7cb1-0424-4261-9980-504dd9c811d4", 72, 72),
-            ],
-            id="Entity",
-        ),
-        pytest.param(
-            [
-                (TEST_ACTOR_SIZING_UUID, 40, 40),
-                (TEST_HUMAN_ACTOR_SIZING_UUID, 43, 43),
-                (TEST_CAP_SIZING_UUID, 140, 140),
-            ],
-            id="Capability",
-        ),
-        pytest.param(
-            [
-                ("e1e48763-7479-4f3a-8134-c82bb6705d58", 112, 187),
-                ("8df45b70-15cc-4d3a-99e4-593516392c5a", 140, 234),
-                ("74af6883-25a0-446a-80f3-656f8a490b11", 252, 412),
-            ],
-            id="LogicalComponent",
-        ),
-        pytest.param(
-            [
-                ("0c06cc88-8c77-46f2-8542-c08b1e8edd18", 98, 164),
-                ("9f1e1875-9ead-4af2-b428-c390786a436a", 98, 164),
-            ],
-            id="LogicalFunction",
-        ),
-        pytest.param(
-            [
-                ("6241d0c5-65d2-4c0b-b79c-a2a8ed7273f6", 36, 36),
-                ("344a405e-c7e5-4367-8a9a-41d3d9a27f81", 40, 40),
-                ("230c4621-7e0a-4d0a-9db2-d4ba5e97b3df", 42, 49),
-            ],
-            id="SystemComponent Root",
-        ),
-    ],
-)
-def test_context_diagrams_box_sizing(
-    model: capellambse.MelodyModel,
-    diagram_elements: list[tuple[str, int, int]],
-):
-    uuid, min_size, min_size_labels = diagram_elements.pop()
-    obj = model.by_uuid(uuid)
-
-    adiag = obj.context_diagram.render(
-        None, display_symbols_as_boxes=True, display_port_labels=False
-    )
-    bdiag = obj.context_diagram.render(
-        None, display_symbols_as_boxes=True, display_port_labels=True
-    )
-
-    assert adiag[uuid].size.y >= min_size
-    assert bdiag[uuid].size.y >= min_size_labels
-    for uuid, min_size, min_size_labels in diagram_elements:
-        obj = model.by_uuid(uuid)
-
-        assert adiag[uuid].size.y >= min_size
-        assert bdiag[uuid].size.y >= min_size_labels
 
 
 def test_context_diagrams_symbol_sizing(model: capellambse.MelodyModel):

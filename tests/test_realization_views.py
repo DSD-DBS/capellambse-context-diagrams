@@ -22,12 +22,7 @@ TEST_FNC_UUID = "beaf5ba4-8fa9-4342-911f-0266bb29be45"
 TEST_CMP_UUID = "b9f9a83c-fb02-44f7-9123-9d86326de5f1"
 TEST_REALIZATION_SET = [
     pytest.param(
-        (
-            TEST_FNC_UUID,
-            "fnc_realization_view.json",
-            {"display_symbols_as_boxes": True},
-        ),
-        id="Function",
+        (TEST_FNC_UUID, "fnc_realization_view.json", {}), id="Function"
     ),
     pytest.param(
         (TEST_CMP_UUID, "cmp_realization_view.json", {}), id="Component"

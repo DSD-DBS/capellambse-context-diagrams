@@ -24,7 +24,7 @@ TEST_INTERFACE_SET = [
         (
             "86a1afc2-b7fd-4023-bbd5-ab44f5dc2c28",
             "sa_interface_diagram.json",
-            {"display_symbols_as_boxes": True},
+            {},
         ),
         id="SA",
     ),
@@ -48,10 +48,7 @@ TEST_INTERFACE_SET = [
         (
             TEST_CABLE_UUID,
             "cable_interface_outside_port_labels_diagram.json",
-            {
-                "display_symbols_as_boxes": True,
-                "port_label_position": "OUTSIDE",
-            },
+            {"port_label_position": "OUTSIDE"},
         ),
         id="PA - PhysicalLink",
     ),
@@ -59,10 +56,7 @@ TEST_INTERFACE_SET = [
         (
             TEST_CABLE_UUID,
             "cable_interface_inside_port_labels_diagram.json",
-            {
-                "display_symbols_as_boxes": True,
-                "port_label_position": "INSIDE",
-            },
+            {"port_label_position": "INSIDE"},
         ),
         id="PA - PhysicalLink Port Labels Inside",
     ),
@@ -70,10 +64,7 @@ TEST_INTERFACE_SET = [
         (
             TEST_CABLE_UUID,
             "cable_interface_next_to_port_port_labels_diagram.json",
-            {
-                "display_symbols_as_boxes": True,
-                "port_label_position": "NEXT_TO_PORT_IF_POSSIBLE",
-            },
+            {"port_label_position": "NEXT_TO_PORT_IF_POSSIBLE"},
         ),
         id="PA - PhysicalLink Port Labels Next to Port",
     ),
@@ -81,10 +72,7 @@ TEST_INTERFACE_SET = [
         (
             TEST_CABLE_UUID,
             "cable_interface_always_same_side_port_labels_diagram.json",
-            {
-                "display_symbols_as_boxes": True,
-                "port_label_position": "ALWAYS_SAME_SIDE",
-            },
+            {"port_label_position": "ALWAYS_SAME_SIDE"},
         ),
         id="PA - PhysicalLink Port Labels always same side",
     ),
@@ -92,10 +80,7 @@ TEST_INTERFACE_SET = [
         (
             TEST_CABLE_UUID,
             "cable_interface_always_other_side_port_labels_diagram.json",
-            {
-                "display_symbols_as_boxes": True,
-                "port_label_position": "ALWAYS_OTHER_SAME_SIDE",
-            },
+            {"port_label_position": "ALWAYS_OTHER_SAME_SIDE"},
         ),
         id="PA - PhysicalLink Port Labels always other side",
     ),
@@ -103,10 +88,7 @@ TEST_INTERFACE_SET = [
         (
             TEST_CABLE_UUID,
             "cable_interface_space_efficient_port_labels_diagram.json",
-            {
-                "display_symbols_as_boxes": True,
-                "port_label_position": "SPACE_EFFICIENT",
-            },
+            {"port_label_position": "SPACE_EFFICIENT"},
         ),
         id="PA - PhysicalLink Port Labels space efficient",
     ),

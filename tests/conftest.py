@@ -254,8 +254,9 @@ def generic_serializing_test(
     """
     uuid, file_name, render_params = params
     obj = model.by_uuid(uuid)
-    diag = getattr(obj, diagram_attr)
-    for key, value in render_params.items():
+    diag: context.ContextDiagram = getattr(obj, diagram_attr)
+    attributes = diag._default_render_parameters | render_params
+    for key, value in attributes.items():
         setattr(diag, f"_{key}", value)
 
     layout_datastring = (layout_root / file_name).read_text(encoding="utf8")

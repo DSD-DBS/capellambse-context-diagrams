@@ -23,7 +23,7 @@ TEST_SET = [
         (
             "5c55b11b-4911-40fb-9c4c-f1363dad846e",
             "full_cable_tree.json",
-            {"port_label_position": "OUTSIDE"},
+            {},
         ),
         id="Full Tree",
     ),
@@ -31,7 +31,7 @@ TEST_SET = [
         (
             "39e96ffc-2f32-41b9-b406-ba82c78fe451",
             "inside_cable_tree.json",
-            {"port_label_position": "OUTSIDE"},
+            {},
         ),
         id="Inside Tree",
     ),
@@ -39,7 +39,7 @@ TEST_SET = [
         (
             "6c607b75-504a-4d68-966b-0982fde3275e",
             "outside_cable_tree.json",
-            {"port_label_position": "OUTSIDE"},
+            {},
         ),
         id="Outside Tree",
     ),

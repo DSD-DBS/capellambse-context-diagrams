@@ -323,7 +323,7 @@ class ELKManager:
         return package_version
 
     @property
-    def binary_name(self):
+    def binary_name(self) -> str:
         system = platform.system().lower()
         machine = platform.machine().lower()
 
@@ -342,11 +342,11 @@ class ELKManager:
         return f"elk-v{self.runtime_version}-{build}{'.exe' if system == 'windows' else ''}"
 
     @property
-    def binary_path(self):
+    def binary_path(self) -> pathlib.Path:
         cache_dir = platformdirs.user_cache_dir("capellambse_context_diagrams")
         return pathlib.Path(cache_dir) / self.binary_name
 
-    def download_binary(self, force=False):
+    def download_binary(self, force=False) -> None:
         if self.binary_path.exists() and not force:
             log.debug(
                 "elk.js helper binary already exists at %s", self.binary_path
@@ -367,7 +367,7 @@ class ELKManager:
         if system != "windows":
             self.binary_path.chmod(0o700)
 
-    def _spawn_process_binary(self):
+    def _spawn_process_binary(self) -> None:
         self.download_binary()
 
         log.debug("Spawning elk.js helper process at %s", self.binary_path)
@@ -388,7 +388,7 @@ class ELKManager:
             raise RuntimeError("Failed to start elk.js helper process")
         log.debug("Spawned elk.js helper process")
 
-    def _spawn_process_deno(self):
+    def _spawn_process_deno(self) -> None:
         log.debug("Spawning elk.js helper process using deno")
         deno_location = shutil.which("deno")
         script_location = pathlib.Path(__file__).parent / "interop" / "elk.ts"
@@ -425,7 +425,7 @@ class ELKManager:
             )
         log.debug("Spawned elk.js helper process using deno")
 
-    def spawn_process(self):
+    def spawn_process(self) -> None:
         """Spawn the elk.js process.
 
         The preferenced order is:
@@ -437,7 +437,7 @@ class ELKManager:
         else:
             self._spawn_process_deno()
 
-    def terminate_process(self):
+    def terminate_process(self) -> None:
         log.debug("Terminating elk.js helper process")
         if self._proc is not None:
             self._proc.terminate()

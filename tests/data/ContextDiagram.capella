@@ -104,7 +104,7 @@
           name="Kind" description="[CLASS]http://www.polarsys.org/capella/core/la/7.0.0/LogicalComponent,http://www.polarsys.org/capella/core/fa/7.0.0/ComponentExchange[/CLASS]&#xA;[ARCHITECTURE]LOGICAL[/ARCHITECTURE]">
         <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
             id="13808fda-d017-4f81-a1a2-221b0d0d6c40" sid="_oNjMIFAlEfCCXZwz5PG-mQ"
-            name="Farbe" description="" type="#09be8be7-0890-497d-93b1-d3d1d2995091"
+            name="Color" description="" type="#09be8be7-0890-497d-93b1-d3d1d2995091"
             value="#ecec98bf-e470-4cd9-a09c-f77092da8c19"/>
       </ownedPropertyValueGroups>
     </ownedPropertyValuePkgs>
@@ -5027,7 +5027,7 @@ The predator is far away</bodies>
               <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
                   id="5e7fb81d-21d4-4639-8ed7-b93c23a9c421" name="Test.Kind" appliedPropertyValueGroups="#07646e21-e2f0-47e1-a875-8cf40775fa82">
                 <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
-                    id="2745fa47-4490-46b0-9917-51bc72d53613" name="Farbe" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
+                    id="2745fa47-4490-46b0-9917-51bc72d53613" name="Color" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
                     type="#09be8be7-0890-497d-93b1-d3d1d2995091" value="#3e021231-8960-4fb3-9c75-a859cf1da25a"/>
               </ownedPropertyValueGroups>
             </ownedComponentExchanges>
@@ -5049,7 +5049,7 @@ The predator is far away</bodies>
               <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
                   id="0e7a0843-d775-4f95-a9ce-57f22dc336b4" name="Test.Kind" appliedPropertyValueGroups="#07646e21-e2f0-47e1-a875-8cf40775fa82">
                 <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
-                    id="7d424c8c-ba0e-4ea8-bf15-b7792492fd82" name="Farbe" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
+                    id="7d424c8c-ba0e-4ea8-bf15-b7792492fd82" name="Color" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
                     type="#09be8be7-0890-497d-93b1-d3d1d2995091" value="#28670565-10c6-4ca4-a92c-a5f0d59c9deb"/>
               </ownedPropertyValueGroups>
               <ownedFeatures xsi:type="org.polarsys.capella.core.data.cs:Part" id="b50fce20-2543-41d7-bad4-50d2d3b4378b"
@@ -5066,7 +5066,7 @@ The predator is far away</bodies>
               <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
                   id="4f823a96-76b7-49d4-b080-3dd0af8611db" name="Test.Kind" appliedPropertyValueGroups="#07646e21-e2f0-47e1-a875-8cf40775fa82">
                 <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
-                    id="d88d195e-56d3-499e-9579-e2be661efa8a" name="Farbe" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
+                    id="d88d195e-56d3-499e-9579-e2be661efa8a" name="Color" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
                     type="#09be8be7-0890-497d-93b1-d3d1d2995091" value="#28670565-10c6-4ca4-a92c-a5f0d59c9deb"/>
               </ownedPropertyValueGroups>
               <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
@@ -5298,7 +5298,7 @@ The predator is far away</bodies>
           <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
               id="b6b66bdc-c88f-4c6c-908a-59a3ce1ce2a7" name="Test.Kind" appliedPropertyValueGroups="#07646e21-e2f0-47e1-a875-8cf40775fa82">
             <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
-                id="7d038950-bcb8-464b-8f6d-62ed0c942dd6" name="Farbe" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
+                id="7d038950-bcb8-464b-8f6d-62ed0c942dd6" name="Color" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
                 type="#09be8be7-0890-497d-93b1-d3d1d2995091" value="#e717a8e7-e1bd-42f3-8254-b10d2bdacdf5"/>
           </ownedPropertyValueGroups>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
@@ -5311,7 +5311,7 @@ The predator is far away</bodies>
           <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
               id="2dc5a1b0-4e5f-4d99-a312-e7b0ff6a0d60" name="Test.Kind" appliedPropertyValueGroups="#07646e21-e2f0-47e1-a875-8cf40775fa82">
             <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
-                id="6bf7bea1-c4fc-4f54-a8ac-1d861784fbb9" name="Farbe" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
+                id="6bf7bea1-c4fc-4f54-a8ac-1d861784fbb9" name="Color" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
                 type="#09be8be7-0890-497d-93b1-d3d1d2995091" value="#e717a8e7-e1bd-42f3-8254-b10d2bdacdf5"/>
           </ownedPropertyValueGroups>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
@@ -5324,7 +5324,7 @@ The predator is far away</bodies>
           <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
               id="46d2f84b-5337-41d6-8da9-d9608e76a170" name="Test.Kind" appliedPropertyValueGroups="#07646e21-e2f0-47e1-a875-8cf40775fa82">
             <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
-                id="898fafc6-0936-40ba-9987-b0048d58e0ec" name="Farbe" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
+                id="898fafc6-0936-40ba-9987-b0048d58e0ec" name="Color" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
                 type="#09be8be7-0890-497d-93b1-d3d1d2995091" value="#14c94f4c-cb9a-419e-b515-46160518cffe"/>
           </ownedPropertyValueGroups>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"
@@ -5337,7 +5337,7 @@ The predator is far away</bodies>
           <ownedPropertyValueGroups xsi:type="org.polarsys.capella.core.data.capellacore:PropertyValueGroup"
               id="dbd20aef-d344-42a5-bb9f-25ccab08b779" name="Test.Kind" appliedPropertyValueGroups="#07646e21-e2f0-47e1-a875-8cf40775fa82">
             <ownedPropertyValues xsi:type="org.polarsys.capella.core.data.capellacore:EnumerationPropertyValue"
-                id="b3f09185-1c7c-4472-8e49-61a102c2b52b" name="Farbe" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
+                id="b3f09185-1c7c-4472-8e49-61a102c2b52b" name="Color" appliedPropertyValues="#13808fda-d017-4f81-a1a2-221b0d0d6c40"
                 type="#09be8be7-0890-497d-93b1-d3d1d2995091" value="#14c94f4c-cb9a-419e-b515-46160518cffe"/>
           </ownedPropertyValueGroups>
           <ownedFeatures xsi:type="org.polarsys.capella.core.data.fa:ComponentPort"

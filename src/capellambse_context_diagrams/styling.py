@@ -33,9 +33,7 @@ Styler = t.Callable[
 
 
 @dataclasses.dataclass(frozen=True)
-class PVMTStyling:
-    """Styling from PVMT value packages."""
-
+class _PVMTStyling:
     value_groups: list[str]
     children_coloring: bool = False
 
@@ -74,7 +72,7 @@ def style_center_symbol(
 
 
 def get_styleoverrides_from_pvmt(
-    obj: m.ModelElement, pvmt_styling: PVMTStyling
+    obj: m.ModelElement, pvmt_styling: _PVMTStyling
 ) -> diagram.StyleOverrides:
     """Return a `StyleOverrides` dict for PVMT value packages."""
     styleoverrides: diagram.StyleOverrides = {}
@@ -92,17 +90,13 @@ def get_styleoverrides_from_pvmt(
         for pvmt_key, style_key in color_mappings.items():
             try:
                 rgb_string = prop_values.by_name(pvmt_key).value
-                styleoverrides[style_key] = _parse_rgb_string(rgb_string)
+                styleoverrides[style_key] = capstyle.RGB.fromcsv(
+                    rgb_string.rsplit(",", 1)[0]
+                )
             except KeyError:
                 pass
 
     return styleoverrides
-
-
-def _parse_rgb_string(rgb_string: str) -> capstyle.RGB:
-    """Parse RGB string like ``106,40,192,0`` into (106, 40, 192)."""
-    rgb_part = rgb_string.rsplit(",", 1)[0]
-    return capstyle.RGB(*map(int, rgb_part.split(",")))
 
 
 BLUE_ACTOR_FNCS: dict[str, Styler] = {"node": parent_is_actor_fills_blue}

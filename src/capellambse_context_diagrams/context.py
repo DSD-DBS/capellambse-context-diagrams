@@ -305,8 +305,7 @@ class ContextDiagram(m.AbstractDiagram):
       Only useful with ``BLACKBOX`` mode and
       ``display_cyclic_relations`` turned on.
     * pvmt_styling: Style the diagram according to the PVMT group
-      applied to the diagram elements. See also
-      [`PVMTStyling`][capellambse_context_diagrams.styling.PVMTStyling].
+      applied to the diagram elements.
 
     The following properties are used by the internal builders:
 

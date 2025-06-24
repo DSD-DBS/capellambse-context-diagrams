@@ -324,7 +324,7 @@ class DiagramSerializer:
 
         if self._diagram._pvmt_styling is not None and obj is not None:
             styleoverrides |= styling.get_styleoverrides_from_pvmt(
-                obj, styling.PVMTStyling(**self._diagram._pvmt_styling)
+                obj, styling._PVMTStyling(**self._diagram._pvmt_styling)
             )  # type: ignore[operator]
 
         if uuid == self._diagram.target.uuid:

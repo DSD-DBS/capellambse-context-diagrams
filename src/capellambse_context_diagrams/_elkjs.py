@@ -365,7 +365,7 @@ class ELKManager:
         # Ensure the binary is executable on Unix-like systems
         system = platform.system().lower()
         if system != "windows":
-            self.binary_path.chmod(self.binary_path.stat().st_mode | 0o111)
+            self.binary_path.chmod(0o700)
 
     def _spawn_process_binary(self):
         self.download_binary()

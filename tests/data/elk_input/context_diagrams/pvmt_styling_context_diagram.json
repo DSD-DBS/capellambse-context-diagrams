@@ -1,0 +1,367 @@
+{
+    "id": "789f8316-17cf-4c32-a66f-354fe111c40e_context",
+    "layoutOptions": {
+        "algorithm": "layered",
+        "edgeRouting": "ORTHOGONAL",
+        "elk.direction": "RIGHT",
+        "hierarchyHandling": "INCLUDE_CHILDREN",
+        "layered.edgeLabels.sideSelection": "ALWAYS_DOWN",
+        "layered.nodePlacement.strategy": "BRANDES_KOEPF",
+        "spacing.labelNode": "0.0"
+    },
+    "children": [
+        {
+            "id": "d53fa277-f0aa-4498-b6cc-b8b2cf2504a8",
+            "labels": [
+                {
+                    "text": "Animal",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 58,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "3d1a8880-c71d-46f7-bd16-57b06e460c68",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 64,
+            "height": 36
+        },
+        {
+            "id": "2dd292ce-3de1-4a86-8848-e9900d1f9c86",
+            "labels": [
+                {
+                    "text": "Human",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 53,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "2e1e8eca-acb5-464e-8c3b-77286d4b506c",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 59,
+            "height": 36
+        },
+        {
+            "id": "cb68eaf1-89ac-4259-8618-a1322bc17850",
+            "labels": [
+                {
+                    "text": "OtherActor",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 78,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "c350bc4b-a3f9-4819-a6ab-fa00e08615c2",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 84,
+            "height": 36
+        },
+        {
+            "id": "efe61abb-2628-4065-9d54-89628027ea72",
+            "labels": [
+                {
+                    "text": "Actor",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 53,
+                    "height": 12
+                }
+            ],
+            "ports": [
+                {
+                    "id": "73801908-6c04-4dbc-b648-1744e13e10df",
+                    "layoutOptions": {
+                        "borderOffset": -8
+                    },
+                    "width": 10,
+                    "height": 10
+                }
+            ],
+            "width": 59,
+            "height": 36
+        },
+        {
+            "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
+            "children": [
+                {
+                    "id": "789f8316-17cf-4c32-a66f-354fe111c40e",
+                    "children": [
+                        {
+                            "id": "531953fe-c3ba-45e3-abde-a77683d06a1a",
+                            "children": [
+                                {
+                                    "id": "589ba0d4-03ab-4d79-973f-d120ac8720d5",
+                                    "labels": [
+                                        {
+                                            "text": "ChildChild",
+                                            "layoutOptions": {
+                                                "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                            },
+                                            "width": 78,
+                                            "height": 12
+                                        }
+                                    ],
+                                    "ports": [
+                                        {
+                                            "id": "3563c3e8-7e41-46c6-826d-e14a758d1b20",
+                                            "layoutOptions": {
+                                                "borderOffset": -8
+                                            },
+                                            "width": 10,
+                                            "height": 10
+                                        }
+                                    ],
+                                    "width": 84,
+                                    "height": 36
+                                }
+                            ],
+                            "labels": [
+                                {
+                                    "text": "Child",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                                    },
+                                    "width": 53,
+                                    "height": 12
+                                }
+                            ],
+                            "width": 79,
+                            "height": 36
+                        },
+                        {
+                            "id": "551f2a83-36b2-40ed-967d-108fa06a6b0f",
+                            "labels": [
+                                {
+                                    "text": "OtherChild",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 78,
+                                    "height": 12
+                                }
+                            ],
+                            "ports": [
+                                {
+                                    "id": "5b3276dd-4cca-4e35-868b-0b5f65e43021",
+                                    "layoutOptions": {
+                                        "borderOffset": -8
+                                    },
+                                    "width": 10,
+                                    "height": 10
+                                },
+                                {
+                                    "id": "f6fb82b9-58f0-4e88-99f9-1845f6a35de6",
+                                    "layoutOptions": {
+                                        "borderOffset": -8
+                                    },
+                                    "width": 10,
+                                    "height": 10
+                                }
+                            ],
+                            "width": 84,
+                            "height": 36
+                        }
+                    ],
+                    "edges": [
+                        {
+                            "id": "963492b8-1fdf-4142-9313-0b7690907855",
+                            "sources": [
+                                "3563c3e8-7e41-46c6-826d-e14a758d1b20"
+                            ],
+                            "targets": [
+                                "5b3276dd-4cca-4e35-868b-0b5f65e43021"
+                            ],
+                            "labels": [
+                                {
+                                    "text": "inner Ex",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 68,
+                                    "height": 12
+                                }
+                            ]
+                        },
+                        {
+                            "id": "3427c23a-8bbb-426c-9dcd-949037f3e38c",
+                            "sources": [
+                                "ef0ab8fc-8724-4e24-b9ee-5423c0165801"
+                            ],
+                            "targets": [
+                                "f6fb82b9-58f0-4e88-99f9-1845f6a35de6"
+                            ],
+                            "labels": [
+                                {
+                                    "text": "inner Ex",
+                                    "layoutOptions": {
+                                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                                    },
+                                    "width": 68,
+                                    "height": 12
+                                }
+                            ]
+                        }
+                    ],
+                    "labels": [
+                        {
+                            "text": "PVMTOwner",
+                            "layoutOptions": {
+                                "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                            },
+                            "width": 73,
+                            "height": 12
+                        }
+                    ],
+                    "ports": [
+                        {
+                            "id": "ef0ab8fc-8724-4e24-b9ee-5423c0165801",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        },
+                        {
+                            "id": "eefa305b-36c4-4797-96ef-2cb1d96ca409",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        },
+                        {
+                            "id": "46ec33df-8b98-47db-be0c-9a692c7f852e",
+                            "layoutOptions": {
+                                "borderOffset": -8
+                            },
+                            "width": 10,
+                            "height": 10
+                        }
+                    ],
+                    "width": 79,
+                    "height": 42.0
+                }
+            ],
+            "labels": [
+                {
+                    "text": "Hogwarts",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_TOP, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ],
+            "width": 74,
+            "height": 36
+        }
+    ],
+    "edges": [
+        {
+            "id": "8ea5bc8b-8344-4f86-b8a7-dff291807ad0",
+            "sources": [
+                "eefa305b-36c4-4797-96ef-2cb1d96ca409"
+            ],
+            "targets": [
+                "3d1a8880-c71d-46f7-bd16-57b06e460c68"
+            ],
+            "labels": [
+                {
+                    "text": "Human Ex",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "59e22812-772b-4c00-868f-b70f240b01e2",
+            "sources": [
+                "eefa305b-36c4-4797-96ef-2cb1d96ca409"
+            ],
+            "targets": [
+                "2e1e8eca-acb5-464e-8c3b-77286d4b506c"
+            ],
+            "labels": [
+                {
+                    "text": "Human Ex",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "e6f4d7ae-4358-4933-ab33-959ddf99479b",
+            "sources": [
+                "c350bc4b-a3f9-4819-a6ab-fa00e08615c2"
+            ],
+            "targets": [
+                "46ec33df-8b98-47db-be0c-9a692c7f852e"
+            ],
+            "labels": [
+                {
+                    "text": "Actor Ex",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ]
+        },
+        {
+            "id": "6aca8c81-6d6e-4bbc-84df-f564f57e2fc9",
+            "sources": [
+                "73801908-6c04-4dbc-b648-1744e13e10df"
+            ],
+            "targets": [
+                "46ec33df-8b98-47db-be0c-9a692c7f852e"
+            ],
+            "labels": [
+                {
+                    "text": "Actor Ex",
+                    "layoutOptions": {
+                        "nodeLabels.placement": "INSIDE, V_CENTER, H_CENTER"
+                    },
+                    "width": 68,
+                    "height": 12
+                }
+            ]
+        }
+    ]
+}

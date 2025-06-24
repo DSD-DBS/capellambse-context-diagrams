@@ -361,7 +361,7 @@ TEST_CONTEXT_SET = [
             {
                 "pvmt_styling": {
                     "children_coloring": False,
-                    "value_groups": ["Test.Kind.Farbe"],
+                    "value_groups": ["Test.Kind.Color"],
                 }
             },
         ),
@@ -374,7 +374,7 @@ TEST_CONTEXT_SET = [
             {
                 "pvmt_styling": {
                     "children_coloring": True,
-                    "value_groups": ["Test.Kind.Farbe"],
+                    "value_groups": ["Test.Kind.Color"],
                 }
             },
         ),

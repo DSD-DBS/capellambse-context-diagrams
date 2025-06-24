@@ -13,8 +13,8 @@ build:
   jobs:
     create_environment:
       - asdf plugin-add deno https://github.com/asdf-community/asdf-deno.git
-      - asdf install deno latest
-      - asdf global deno latest
+      - asdf install deno 2.3.6
+      - asdf global deno 2.3.6
       - asdf plugin add uv
       - asdf install uv latest
       - asdf global uv latest

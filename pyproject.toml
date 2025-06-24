@@ -48,6 +48,7 @@ context_diagrams = "capellambse_context_diagrams:init"
 dev = [
   "coverage>=7.6.9",
   "ipykernel>=6.29.5",
+  "mypy==1.16.1",
   "pre-commit>=4.0.1",
   "pylsp-mypy>=0.6.9",
   "pytest>=8.3.4",
@@ -55,6 +56,7 @@ dev = [
   "python-lsp-server>=1.12.0",
   "requests-mock>=1.12.1",
   "ruff>=0.8.2",
+  "types-requests>=2.32.4.20250611",
 ]
 
 docs = [

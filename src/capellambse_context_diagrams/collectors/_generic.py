@@ -288,23 +288,25 @@ def _extract_edges(
     obj: m.ModelElement,
     attribute: str,
     filter: Filter,
-) -> cabc.Iterable[m.ModelElement]:
-    return filter(getattr(obj, attribute, []))
+) -> cabc.Iterable[fa.FunctionalExchange | fa.ComponentExchange]:
+    for i in filter(getattr(obj, attribute, [])):
+        assert isinstance(i, fa.FunctionalExchange | fa.ComponentExchange)
+        yield i
 
 
 def port_exchange_collector(
     ports: t.Iterable[m.ModelElement],
     filter: Filter = lambda i: i,
-) -> dict[str, list[fa.AbstractExchange]]:
+) -> dict[str, list[fa.FunctionalExchange | fa.ComponentExchange]]:
     """Collect exchanges from `ports` savely."""
-    edges: dict[str, list[fa.AbstractExchange]] = {}
+    edges: dict[str, list[fa.FunctionalExchange | fa.ComponentExchange]] = {}
 
     for port in ports:
         if exs := _extract_edges(port, "exchanges", filter):
-            edges[port.uuid] = t.cast(list[fa.AbstractExchange], exs)
+            edges[port.uuid] = list(exs)
             continue
 
         if links := _extract_edges(port, "links", filter):
-            edges[port.uuid] = t.cast(list[fa.AbstractExchange], links)
+            edges[port.uuid] = list(links)
 
     return edges

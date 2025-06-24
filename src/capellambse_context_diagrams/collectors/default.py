@@ -66,6 +66,8 @@ def collector(
                 if ex.uuid in visited_exchanges:
                     continue
 
+                assert ex.source is not None
+                assert ex.target is not None
                 source_visited = ex.source.uuid in visited_ports
                 target_visited = ex.target.uuid in visited_ports
                 if source_visited and not target_visited:
@@ -90,7 +92,7 @@ def collector(
 def get_child_attribute_name(target: m.ModelElement) -> str:
     if isinstance(target, cs.Component):
         return "components"
-    if isinstance(target, fa.Function):
+    if isinstance(target, fa.AbstractFunction):
         return "functions"
     return ""
 
@@ -105,7 +107,7 @@ def get_port_exchange_attribute_name(target: m.ModelElement) -> str:
 
 def port_context_collector(
     obj: context.ContextDiagram | m.ModelElement,
-) -> cabc.Iterator[fa.AbstractExchange]:
+) -> cabc.Iterator[fa.FunctionalExchange | fa.ComponentExchange]:
     """Collect context data from a physical port."""
     ports = set()
     links = set()

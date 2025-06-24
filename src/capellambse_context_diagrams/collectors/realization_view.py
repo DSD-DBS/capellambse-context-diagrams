@@ -37,7 +37,7 @@ def collector(
     }
     edges: list[_elkjs.ELKInputEdge] = []
     for layer in ("Operational", "System", "Logical", "Physical"):
-        if not (elements := lay_to_els.get(layer)):  # type: ignore[call-overload]
+        if not (elements := lay_to_els.get(layer)):
             continue
 
         labels = _makers.make_label(layer)
@@ -76,7 +76,9 @@ def collector(
 
                 if diagram._show_owners:
                     owner = target.owner
-                    if not isinstance(owner, fa.Function | cs.Component):
+                    if not isinstance(
+                        owner, fa.AbstractFunction | cs.Component
+                    ):
                         continue
 
                     if not (owner_box := children.get(owner.uuid)):
@@ -172,7 +174,7 @@ def collect_elements(
     ):
         return collected_elements
 
-    if isinstance(start, fa.Function):
+    if isinstance(start, fa.AbstractFunction):
         attribute_name = f"{attribute_prefix}_functions"
     elif isinstance(start, oa.OperationalActivity):
         attribute_name = f"{attribute_prefix}_system_functions"

@@ -335,6 +335,8 @@ class ContextDiagram(m.AbstractDiagram):
     _collect: cabc.Callable[[ContextDiagram], cabc.Iterator[m.ModelElement]]
     _is_portless: bool
 
+    target: m.ModelElement
+
     def __init__(
         self,
         class_: str,
@@ -344,7 +346,7 @@ class ContextDiagram(m.AbstractDiagram):
         default_render_parameters: dict[str, t.Any],
     ) -> None:
         super().__init__(obj._model)
-        self.target = obj  # type: ignore[misc]
+        self.target = obj
         self.styleclass = class_
 
         self.render_styles = render_styles or {}

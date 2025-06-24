@@ -99,6 +99,7 @@ def test_call_elkjs():
         "--- ELK layouter started ---\n",
         '{"id": "root", "type": "graph", "children": []}\n',
     ]
+    mock_process.poll.return_value = None
 
     with mock.patch("subprocess.Popen", return_value=mock_process):
         manager.spawn_process()

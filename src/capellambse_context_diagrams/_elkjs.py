@@ -449,6 +449,9 @@ class ELKManager:
     @contextlib.contextmanager
     def get_process(self) -> cabc.Iterator[tuple[t.IO[str], t.IO[str]]]:
         with self._lock:
+            if self._proc is not None and (r := self._proc.poll()) is not None:
+                log.warning("Layouter coprocess died, return code: %s", r)
+                self._proc = None
             if self._proc is None:
                 self.spawn_process()
                 assert self._proc is not None

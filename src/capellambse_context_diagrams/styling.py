@@ -71,10 +71,10 @@ def style_center_symbol(
     }
 
 
-def get_styleoverrides_from_pvmt(
+def _get_direct_pvmt_styles(
     obj: m.ModelElement, pvmt_styling: _PVMTStyling
 ) -> diagram.StyleOverrides:
-    """Return a `StyleOverrides` dict for PVMT value packages."""
+    """Get PVMT styles directly from the element."""
     styleoverrides: diagram.StyleOverrides = {}
     color_mappings: dict[str, str] = {
         "__COLOR__": "fill",
@@ -97,6 +97,37 @@ def get_styleoverrides_from_pvmt(
                 pass
 
     return styleoverrides
+
+
+def _get_inherited_pvmt_styles(
+    obj: m.ModelElement, pvmt_styling: _PVMTStyling
+) -> diagram.StyleOverrides:
+    """Get inherited PVMT styles from parent elements."""
+    current: m.ModelElement | None = getattr(obj, "owner", None)
+    type_name = type(obj).__name__
+    while current is not None and type_name == type(current).__name__:
+        if parent_styles := _get_direct_pvmt_styles(current, pvmt_styling):
+            return parent_styles
+
+        current = getattr(current, "owner", None)
+
+    return {}
+
+
+def get_styleoverrides_from_pvmt(
+    obj: m.ModelElement, pvmt_styling: _PVMTStyling
+) -> diagram.StyleOverrides:
+    """Return PVMT ``StyleOverrides`` for a model element.
+
+    If ``children_coloring`` is enabled and the element has no direct
+    PVMT styling, it will inherit styling from the nearest parent
+    element that has PVMT styling.
+    """
+    direct_styles = _get_direct_pvmt_styles(obj, pvmt_styling)
+    if direct_styles or not pvmt_styling.children_coloring:
+        return direct_styles
+
+    return _get_inherited_pvmt_styles(obj, pvmt_styling)
 
 
 BLUE_ACTOR_FNCS: dict[str, Styler] = {"node": parent_is_actor_fills_blue}

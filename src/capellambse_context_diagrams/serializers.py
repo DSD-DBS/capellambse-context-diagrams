@@ -15,6 +15,7 @@ The pre-layouted data was collected with the functions from
 from __future__ import annotations
 
 import collections.abc as cabc
+import copy
 import itertools
 import logging
 import typing as t
@@ -67,6 +68,7 @@ class DiagramSerializer:
         self._cache: dict[str, cdiagram.DiagramElement] = {}
         self._edges: dict[str, EdgeContext] = {}
         self._junctions: dict[str, EdgeContext] = {}
+        self._pvmt_cache: dict[str, cdiagram.StyleOverrides] = {}
 
     def make_diagram(
         self, data: _elkjs.ELKOutputData, **params: t.Any
@@ -104,6 +106,7 @@ class DiagramSerializer:
         self.order_children()
         self._edges.clear()
         self._junctions.clear()
+        self._pvmt_cache.clear()
         return self.diagram
 
     def deserialize_child(
@@ -285,6 +288,16 @@ class DiagramSerializer:
             else:
                 self.deserialize_child(i, ref, element)
 
+    def _get_cached_pvmt_styles(
+        self, obj: m.ModelElement, pvmt_styling: styling._PVMTStyling
+    ) -> cdiagram.StyleOverrides:
+        if obj.uuid not in self._pvmt_cache:
+            self._pvmt_cache[obj.uuid] = styling.get_styleoverrides_from_pvmt(
+                obj, pvmt_styling
+            )
+
+        return copy.deepcopy(self._pvmt_cache[obj.uuid])
+
     def get_styleclass(self, uuid: str) -> str | None:
         """Return the style-class string from a given ``uuid``."""
         try:
@@ -323,7 +336,7 @@ class DiagramSerializer:
             styleoverrides = style_condition(obj, self) or {}
 
         if self._diagram._pvmt_styling is not None and obj is not None:
-            styleoverrides |= styling.get_styleoverrides_from_pvmt(
+            styleoverrides |= self._get_cached_pvmt_styles(
                 obj, styling._PVMTStyling(**self._diagram._pvmt_styling)
             )  # type: ignore[operator]
 

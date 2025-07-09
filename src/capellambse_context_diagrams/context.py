@@ -425,15 +425,34 @@ class ContextDiagram(m.AbstractDiagram):
 
     @property
     def nodes(self) -> m.MixedElementList:
-        """Return a list of all nodes visible in this diagram."""
-        allids = {e.uuid for e in self.render(None) if not e.hidden}
+        """Return a list of all nodes visible in this diagram.
+
+        See Also
+        --------
+        [`nodes`][capellambse.model.diagram.AbstractDiagram.nodes]
+        """
+        base = self._render if hasattr(self, "_render") else self.render(None)
+        allids = {
+            e.uuid.split(":")[-1].split("_")[0]
+            for e in base
+            if not e.hidden and e.uuid is not None
+        }
         elems = []
         for elemid in allids:
             assert elemid is not None
             try:
                 elem = self._model.by_uuid(elemid)
-            except (KeyError, ValueError):
+            except KeyError:
                 continue
+            except ValueError as err:
+                if (
+                    isinstance(err.args, tuple)
+                    and len(err.args) == 1
+                    and isinstance(err.args[0], str)
+                    and err.args[0].startswith("Malformed link:")
+                ):
+                    continue
+                raise
 
             elems.append(elem._element)
         return m.MixedElementList(self._model, elems, m.ModelElement)

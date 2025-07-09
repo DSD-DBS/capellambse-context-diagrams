@@ -51,6 +51,7 @@ data_flow_uuids: dict[str, str] = {
 derived_uuid = "47c3130b-ec39-4365-a77a-5ab6365d1e2e"
 cable_tree_uuid = "5c55b11b-4911-40fb-9c4c-f1363dad846e"
 blackbox_node_uuid = "309296b1-cf37-45d7-b0f3-f7bc00422a59"
+pvmt_styling_uuid = "789f8316-17cf-4c32-a66f-354fe111c40e"
 
 
 def generate_index_images() -> None:
@@ -275,6 +276,37 @@ def generate_functional_chain_with_params_image():
         )
 
 
+def generate_pvmt_styling_images():
+    diag = model.by_uuid(pvmt_styling_uuid).context_diagram
+    filename = f"{dest / diag.name!s}.svg"
+    with mkdocs_gen_files.open(filename, "w") as fd:
+        print(
+            diag.render(
+                "svg",
+                pvmt_styling={
+                    "value_groups": ["Test.Kind.Color"],
+                    "children_coloring": False,
+                },
+                transparent_background=False,
+            ),
+            file=fd,
+        )
+
+    filename = f"{dest / diag.name!s} with children coloring.svg"
+    with mkdocs_gen_files.open(filename, "w") as fd:
+        print(
+            diag.render(
+                "svg",
+                pvmt_styling={
+                    "value_groups": ["Test.Kind.Color"],
+                    "children_coloring": True,
+                },
+                transparent_background=False,
+            ),
+            file=fd,
+        )
+
+
 generate_index_images()
 generate_hierarchy_image()
 generate_symbol_images()
@@ -306,3 +338,4 @@ generate_interface_with_hide_interface_image()
 generate_cable_tree_image()
 generate_modes_pc_image()
 generate_functional_chain_with_params_image()
+generate_pvmt_styling_images()

@@ -262,7 +262,7 @@
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/logical.odesign#//@ownedViewpoints[name='Logical%20Architecture']/@ownedRepresentations[name='Logical%20Architecture%20Blank']"/>
         <target xmi:type="org.polarsys.capella.core.data.la:LogicalComponentPkg" href="ContextDiagram.capella#84c0978d-9a32-4f5b-8013-5b0b6adbfd73"/>
       </ownedRepresentationDescriptors>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_oHFHAFBBEfCCXZwz5PG-mQ" name="[LAB] PVMT Styling" repPath="#_oHCqwFBBEfCCXZwz5PG-mQ" changeId="1750691766708">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_oHFHAFBBEfCCXZwz5PG-mQ" name="[LAB] PVMT Styling" repPath="#_oHCqwFBBEfCCXZwz5PG-mQ" changeId="1752222759067">
         <eAnnotations xmi:type="description:DAnnotation" uid="_oHIxYFBBEfCCXZwz5PG-mQ" source="https://www.polarsys.org/capella/dannotation/DesactivatedFilters">
           <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_oHIxYVBBEfCCXZwz5PG-mQ" key="hide.computed.component.exchanges.filter" value="true"/>
           <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_oHIxYlBBEfCCXZwz5PG-mQ" key="hide.computed.physical.links.filter" value="true"/>
@@ -23026,18 +23026,18 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_4f0QAFBBEfCCXZwz5PG-mQ" name="Actor Ex" sourceNode="_4fzB4FBBEfCCXZwz5PG-mQ" targetNode="_4fzo8VBBEfCCXZwz5PG-mQ">
       <target xmi:type="org.polarsys.capella.core.data.fa:ComponentExchange" href="ContextDiagram.capella#e6f4d7ae-4358-4933-ab33-959ddf99479b"/>
       <semanticElements xmi:type="org.polarsys.capella.core.data.fa:ComponentExchange" href="ContextDiagram.capella#e6f4d7ae-4358-4933-ab33-959ddf99479b"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_4f03EFBBEfCCXZwz5PG-mQ" targetArrow="NoDecoration" centered="Both" strokeColor="74,74,151">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/logical.odesign#//@ownedViewpoints[name='Logical%20Architecture']/@ownedRepresentations[name='Logical%20Architecture%20Blank']/@defaultLayer/@edgeMappings[name='LAB%20DataFlow%20between%20Logical%20Components']/@conditionnalStyles.3/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_4f03EVBBEfCCXZwz5PG-mQ" labelColor="74,74,151"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_eZiiYF4xEfCO8NqXlTn5kw" targetArrow="NoDecoration" size="2" strokeColor="106,40,192">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/com.thalesgroup.mde.capella.diagramstyler/descriptions/diagramstyler.odesign#//@ownedViewpoints[name='Diagram%20Styler']/@ownedRepresentationExtensions[name='LAB%20extensions']/@layers[name='Diagram%20Styler']/@edgeMappingImports[name='LAB%20CE%20Styler']/@conditionnalStyles.0/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_eZiiYV4xEfCO8NqXlTn5kw" labelColor="100,251,7"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMappingImport" href="platform:/plugin/com.thalesgroup.mde.capella.diagramstyler/descriptions/diagramstyler.odesign#//@ownedViewpoints[name='Diagram%20Styler']/@ownedRepresentationExtensions[name='LAB%20extensions']/@layers[name='Diagram%20Styler']/@edgeMappingImports[name='LAB%20CE%20Styler']"/>
     </ownedDiagramElements>
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_5QMkEFBBEfCCXZwz5PG-mQ" name="Actor Ex" sourceNode="_5QL9AFBBEfCCXZwz5PG-mQ" targetNode="_4fzo8VBBEfCCXZwz5PG-mQ">
       <target xmi:type="org.polarsys.capella.core.data.fa:ComponentExchange" href="ContextDiagram.capella#6aca8c81-6d6e-4bbc-84df-f564f57e2fc9"/>
       <semanticElements xmi:type="org.polarsys.capella.core.data.fa:ComponentExchange" href="ContextDiagram.capella#6aca8c81-6d6e-4bbc-84df-f564f57e2fc9"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_5QMkEVBBEfCCXZwz5PG-mQ" targetArrow="NoDecoration" centered="Both" strokeColor="74,74,151">
-        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.polarsys.capella.core.sirius.analysis/description/logical.odesign#//@ownedViewpoints[name='Logical%20Architecture']/@ownedRepresentations[name='Logical%20Architecture%20Blank']/@defaultLayer/@edgeMappings[name='LAB%20DataFlow%20between%20Logical%20Components']/@conditionnalStyles.3/@style"/>
-        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_5QMkElBBEfCCXZwz5PG-mQ" labelColor="74,74,151"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_dYeuBF4xEfCO8NqXlTn5kw" targetArrow="NoDecoration" size="2" strokeColor="252,209,22">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/com.thalesgroup.mde.capella.diagramstyler/descriptions/diagramstyler.odesign#//@ownedViewpoints[name='Diagram%20Styler']/@ownedRepresentationExtensions[name='LAB%20extensions']/@layers[name='Diagram%20Styler']/@edgeMappingImports[name='LAB%20CE%20Styler']/@conditionnalStyles.0/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_dYeuBV4xEfCO8NqXlTn5kw" labelColor="206,16,37"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMappingImport" href="platform:/plugin/com.thalesgroup.mde.capella.diagramstyler/descriptions/diagramstyler.odesign#//@ownedViewpoints[name='Diagram%20Styler']/@ownedRepresentationExtensions[name='LAB%20extensions']/@layers[name='Diagram%20Styler']/@edgeMappingImports[name='LAB%20CE%20Styler']"/>
     </ownedDiagramElements>
@@ -23071,7 +23071,7 @@
     <ownedDiagramElements xmi:type="diagram:DEdge" uid="_8H4i4FBBEfCCXZwz5PG-mQ" name="inner Ex" sourceNode="_8H370FBBEfCCXZwz5PG-mQ" targetNode="_8H371FBBEfCCXZwz5PG-mQ">
       <target xmi:type="org.polarsys.capella.core.data.fa:ComponentExchange" href="ContextDiagram.capella#963492b8-1fdf-4142-9313-0b7690907855"/>
       <semanticElements xmi:type="org.polarsys.capella.core.data.fa:ComponentExchange" href="ContextDiagram.capella#963492b8-1fdf-4142-9313-0b7690907855"/>
-      <ownedStyle xmi:type="diagram:EdgeStyle" uid="__CZr7FBEEfCCXZwz5PG-mQ" targetArrow="NoDecoration" size="2" strokeColor="0,0,0">
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="__CZr7FBEEfCCXZwz5PG-mQ" targetArrow="NoDecoration" size="2" strokeColor="27,38,254">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/com.thalesgroup.mde.capella.diagramstyler/descriptions/diagramstyler.odesign#//@ownedViewpoints[name='Diagram%20Styler']/@ownedRepresentationExtensions[name='LAB%20extensions']/@layers[name='Diagram%20Styler']/@edgeMappingImports[name='LAB%20CE%20Styler']/@conditionnalStyles.0/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="__CZr7VBEEfCCXZwz5PG-mQ" labelColor="255,255,255"/>
       </ownedStyle>

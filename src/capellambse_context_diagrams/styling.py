@@ -5,12 +5,15 @@
 from __future__ import annotations
 
 import dataclasses
+import enum
 import typing as t
 
 from capellambse import diagram
 from capellambse import model as m
 from capellambse.diagram import capstyle
 from capellambse.extensions import pvmt
+
+from . import helpers
 
 if t.TYPE_CHECKING:
     from . import serializers
@@ -30,6 +33,41 @@ Styler = t.Callable[
     diagram.StyleOverrides | None,
 ]
 """Function that produces `CSSStyles` for given obj."""
+
+
+class PVMTObjectType(str, enum.Enum):
+    """Enumeration of object types for PVMT styling."""
+
+    BOX = "box"
+    SYMBOL = "symbol"
+    EDGE = "edge"
+    LABEL = "label"
+    JUNCTION = "junction"
+
+
+PVMT_COLOR_MAPPINGS: dict[PVMTObjectType, dict[str, str]] = {
+    PVMTObjectType.BOX: {
+        "__COLOR__": "fill",
+        "__BORDER_COLOR__": "stroke",
+        "__LABEL_COLOR__": "text_fill",
+    },
+    PVMTObjectType.EDGE: {
+        "__COLOR__": "stroke",
+        "__LABEL_COLOR__": "text_fill",
+    },
+    PVMTObjectType.JUNCTION: {
+        "__COLOR__": "stroke",
+        "__LABEL_COLOR__": "text_fill",
+    },
+    PVMTObjectType.SYMBOL: {
+        "__COLOR__": "text_fill",
+        "__LABEL_COLOR__": "text_fill",
+    },
+    PVMTObjectType.LABEL: {
+        "__COLOR__": "text_fill",
+        "__LABEL_COLOR__": "text_fill",
+    },
+}
 
 
 @dataclasses.dataclass(frozen=True)
@@ -71,16 +109,17 @@ def style_center_symbol(
     }
 
 
-def _get_direct_pvmt_styles(
-    obj: m.ModelElement, pvmt_styling: _PVMTStyling
+def _extract_direct_pvmt_styles(
+    obj: m.ModelElement,
+    pvmt_styling: _PVMTStyling,
+    obj_type: PVMTObjectType,
 ) -> diagram.StyleOverrides:
     """Get PVMT styles directly from the element."""
+    color_mappings = PVMT_COLOR_MAPPINGS.get(obj_type, {})
+    if not color_mappings:
+        return {}
+
     styleoverrides: diagram.StyleOverrides = {}
-    color_mappings: dict[str, str] = {
-        "__COLOR__": "fill",
-        "__BORDER_COLOR__": "stroke",
-        "__LABEL_COLOR__": "text_fill",
-    }
     for value_group in pvmt_styling.value_groups:
         try:
             prop_values = obj.pvmt[value_group].property_values
@@ -90,23 +129,29 @@ def _get_direct_pvmt_styles(
         for pvmt_key, style_key in color_mappings.items():
             try:
                 rgb_string = prop_values.by_name(pvmt_key).value
-                styleoverrides[style_key] = capstyle.RGB.fromcsv(
-                    rgb_string.rsplit(",", 1)[0]
-                )
+                styleoverrides[style_key] = _parse_rgb_string(rgb_string)
             except KeyError:
                 pass
 
     return styleoverrides
 
 
-def _get_inherited_pvmt_styles(
-    obj: m.ModelElement, pvmt_styling: _PVMTStyling
+def _parse_rgb_string(rgb_string: str) -> capstyle.RGB:
+    """Parse RGB string and return RGB object."""
+    return capstyle.RGB.fromcsv(rgb_string.rsplit(",", 1)[0])
+
+
+def _extract_inherited_pvmt_styles(
+    obj: m.ModelElement,
+    pvmt_styling: _PVMTStyling,
+    obj_type: PVMTObjectType,
 ) -> diagram.StyleOverrides:
     """Get inherited PVMT styles from parent elements."""
     current: m.ModelElement | None = getattr(obj, "owner", None)
-    type_name = type(obj).__name__
-    while current is not None and type_name == type(current).__name__:
-        if parent_styles := _get_direct_pvmt_styles(current, pvmt_styling):
+    while current is not None and helpers.has_same_type(obj, current):
+        if parent_styles := _extract_direct_pvmt_styles(
+            current, pvmt_styling, obj_type
+        ):
             return parent_styles
 
         current = getattr(current, "owner", None)
@@ -115,7 +160,9 @@ def _get_inherited_pvmt_styles(
 
 
 def get_styleoverrides_from_pvmt(
-    obj: m.ModelElement, pvmt_styling: _PVMTStyling
+    obj: m.ModelElement,
+    pvmt_styling: _PVMTStyling,
+    obj_type: PVMTObjectType,
 ) -> diagram.StyleOverrides:
     """Return PVMT ``StyleOverrides`` for a model element.
 
@@ -123,11 +170,11 @@ def get_styleoverrides_from_pvmt(
     PVMT styling, it will inherit styling from the nearest parent
     element that has PVMT styling.
     """
-    direct_styles = _get_direct_pvmt_styles(obj, pvmt_styling)
+    direct_styles = _extract_direct_pvmt_styles(obj, pvmt_styling, obj_type)
     if direct_styles or not pvmt_styling.children_coloring:
         return direct_styles
 
-    return _get_inherited_pvmt_styles(obj, pvmt_styling)
+    return _extract_inherited_pvmt_styles(obj, pvmt_styling, obj_type)
 
 
 BLUE_ACTOR_FNCS: dict[str, Styler] = {"node": parent_is_actor_fills_blue}

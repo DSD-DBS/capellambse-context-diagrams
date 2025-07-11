@@ -24,7 +24,7 @@ from capellambse import diagram as cdiagram
 from capellambse import model as m
 from capellambse.svg import decorations
 
-from . import _elkjs, context, styling
+from . import _elkjs, context, helpers, styling
 from .builders import _makers
 
 logger = logging.getLogger(__name__)
@@ -68,7 +68,7 @@ class DiagramSerializer:
         self._cache: dict[str, cdiagram.DiagramElement] = {}
         self._edges: dict[str, EdgeContext] = {}
         self._junctions: dict[str, EdgeContext] = {}
-        self._pvmt_cache: dict[str, cdiagram.StyleOverrides] = {}
+        self._pvmt_cache: dict[tuple[str, str], cdiagram.StyleOverrides] = {}
 
     def make_diagram(
         self, data: _elkjs.ELKOutputData, **params: t.Any
@@ -108,6 +108,22 @@ class DiagramSerializer:
         self._junctions.clear()
         self._pvmt_cache.clear()
         return self.diagram
+
+    def _apply_pvmt_styling(
+        self,
+        uuid: str,
+        obj_type: styling.PVMTObjectType,
+        styleoverrides: cdiagram.StyleOverrides,
+    ) -> cdiagram.StyleOverrides:
+        obj = helpers.get_model_object(self._diagram._model, uuid)
+        if self._diagram._pvmt_styling is not None and obj is not None:
+            pvmt_styles = self._get_cached_pvmt_styles(
+                obj,
+                styling._PVMTStyling(**self._diagram._pvmt_styling),
+                obj_type,
+            )
+            return styleoverrides | pvmt_styles  # type: ignore[operator]
+        return styleoverrides
 
     def deserialize_child(
         self,
@@ -175,6 +191,10 @@ class DiagramSerializer:
                 assert isinstance(child, _elkjs.ELKOutputNode)
                 features = handle_features(child)
 
+            styleoverrides = self._apply_pvmt_styling(
+                uuid, styling.PVMTObjectType(box_type), styleoverrides
+            )
+
             element = cdiagram.Box(
                 ref,
                 size,
@@ -213,6 +233,10 @@ class DiagramSerializer:
                 assert isinstance(target, cdiagram.Box)
                 refpoints = route_shortest_connection(source, target)
 
+            styleoverrides = self._apply_pvmt_styling(
+                uuid, styling.PVMTObjectType.EDGE, styleoverrides
+            )
+
             element = cdiagram.Edge(
                 refpoints,
                 uuid=child.id,
@@ -241,6 +265,9 @@ class DiagramSerializer:
             ):
                 bring_labels_closer_to_port(child)
 
+            styleoverrides = self._apply_pvmt_styling(
+                uuid, styling.PVMTObjectType.LABEL, styleoverrides
+            )
             if labels := getattr(parent, attr_name):
                 label_box = labels[-1]
                 label_box.label += " " + child.text
@@ -252,6 +279,7 @@ class DiagramSerializer:
                     min(label_box.pos.x, ref.x + child.position.x),
                     label_box.pos.y,
                 )
+                label_box.styleoverrides.update(styleoverrides)
             else:
                 labels.append(
                     cdiagram.Box(
@@ -266,6 +294,9 @@ class DiagramSerializer:
         elif child.type == "junction":
             uuid = uuid.rsplit("_", maxsplit=1)[0]
             pos = cdiagram.Vector2D(child.position.x, child.position.y)
+            styleoverrides = self._apply_pvmt_styling(
+                uuid, styling.PVMTObjectType.JUNCTION, styleoverrides
+            )
             element = cdiagram.Circle(
                 ref + pos,
                 5,
@@ -289,14 +320,18 @@ class DiagramSerializer:
                 self.deserialize_child(i, ref, element)
 
     def _get_cached_pvmt_styles(
-        self, obj: m.ModelElement, pvmt_styling: styling._PVMTStyling
+        self,
+        obj: m.ModelElement,
+        pvmt_styling: styling._PVMTStyling,
+        obj_type: styling.PVMTObjectType,
     ) -> cdiagram.StyleOverrides:
-        if obj.uuid not in self._pvmt_cache:
-            self._pvmt_cache[obj.uuid] = styling.get_styleoverrides_from_pvmt(
-                obj, pvmt_styling
+        cache_key = (obj.uuid, obj_type.value)
+        if cache_key not in self._pvmt_cache:
+            self._pvmt_cache[cache_key] = styling.get_styleoverrides_from_pvmt(
+                obj, pvmt_styling, obj_type
             )
 
-        return copy.deepcopy(self._pvmt_cache[obj.uuid])
+        return copy.deepcopy(self._pvmt_cache[cache_key])
 
     def get_styleclass(self, uuid: str) -> str | None:
         """Return the style-class string from a given ``uuid``."""
@@ -327,18 +362,10 @@ class DiagramSerializer:
         """
         style_condition = self._diagram.render_styles.get(child.type)
         styleoverrides: cdiagram.StyleOverrides = {}
-        try:
-            obj = self._diagram._model.by_uuid(uuid)
-        except KeyError:  # Junction
-            obj = None
+        obj = helpers.get_model_object(self._diagram._model, uuid)
 
-        if style_condition is not None:
+        if style_condition is not None and obj is not None:
             styleoverrides = style_condition(obj, self) or {}
-
-        if self._diagram._pvmt_styling is not None and obj is not None:
-            styleoverrides |= self._get_cached_pvmt_styles(
-                obj, styling._PVMTStyling(**self._diagram._pvmt_styling)
-            )  # type: ignore[operator]
 
         if uuid == self._diagram.target.uuid:
             styleoverrides["stroke-width"] = "4"

@@ -519,3 +519,33 @@ def test_serializer_handles_hierarchical_edges_correctly(
 
     assert (231.35, 94) <= adiag[f"{edge_uuid}_j0"].center <= (235, 94)
     assert (405.25, 122) <= adiag[f"{edge1_uuid}_j1"].center <= (410, 122)
+
+
+def test_pvmt_styling_shorthand_equivalence(model: capellambse.MelodyModel):
+    """Test that all shorthand syntax formats produce equivalent results."""
+    obj = model.by_uuid(TEST_PVMT_STYLING_UUID)
+
+    full_syntax = obj.context_diagram.render(
+        None,
+        pvmt_styling={
+            "value_groups": ["Test.Kind.Color"],
+            "children_coloring": False,
+        },
+    )
+
+    dict_shorthand = obj.context_diagram.render(
+        None, pvmt_styling={"value_groups": ["Test.Kind.Color"]}
+    )
+    list_shorthand = obj.context_diagram.render(
+        None, pvmt_styling=["Test.Kind.Color"]
+    )
+    string_shorthand = obj.context_diagram.render(
+        None, pvmt_styling="Test.Kind.Color"
+    )
+
+    assert (
+        len(full_syntax)
+        == len(dict_shorthand)
+        == len(list_shorthand)
+        == len(string_shorthand)
+    )

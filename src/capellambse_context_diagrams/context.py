@@ -460,6 +460,11 @@ class ContextDiagram(m.AbstractDiagram):
     def elk_input_data(self, params: dict[str, t.Any]) -> CollectorOutputData:
         """Return the collected ELK input data."""
         params = self._default_render_parameters | params
+        if "pvmt_styling" in params:
+            params["pvmt_styling"] = styling.normalize_pvmt_styling(
+                params["pvmt_styling"]  # type: ignore[arg-type]
+            )
+
         for param_name in self._default_render_parameters:
             setattr(self, f"_{param_name}", params.pop(param_name))
 

@@ -76,6 +76,42 @@ class _PVMTStyling:
     children_coloring: bool = False
 
 
+def normalize_pvmt_styling(
+    pvmt_styling: dict[str, t.Any] | list[str] | str | None,
+) -> dict[str, t.Any] | None:
+    """Normalize ``pvmt_styling`` parameter to dict format.
+
+    Notes
+    -----
+    The following ways of providing ``pvmt_styling`` are accepted:
+
+    * dict: {"value_groups": [...], "children_coloring": ...}
+    * list: ["group1", "group2"]
+    * str: "group1"
+    * None: None
+    """
+    if pvmt_styling is None:
+        return None
+
+    if isinstance(pvmt_styling, dict):
+        if "value_groups" not in pvmt_styling:
+            raise ValueError(
+                "pvmt_styling dict must contain 'value_groups' key"
+            )
+        return pvmt_styling
+
+    if isinstance(pvmt_styling, list):
+        return {"value_groups": pvmt_styling}
+
+    if isinstance(pvmt_styling, str):
+        return {"value_groups": [pvmt_styling]}
+
+    raise TypeError(
+        "pvmt_styling must be dict, list, str or None!"
+        f" got {type(pvmt_styling)!r}"
+    )
+
+
 def parent_is_actor_fills_blue(
     obj: m.ModelElement, serializer: serializers.DiagramSerializer
 ) -> CSSStyles:

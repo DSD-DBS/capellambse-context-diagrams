@@ -163,11 +163,20 @@ The `pvmt_styling` render parameter allows you to dynamically style diagram elem
 
 The `pvmt_styling` parameter accepts a dictionary with the following structure:
 
-``` yaml
-pvmt_styling:
-  value_groups:
-    - "Test.Kind.Color"  # List of PVMT value group names
-  children_coloring: false  # Whether to apply styling to child elements
+```python
+pvmt_styling = {
+    "value_groups": ["Test.Kind.Color"],  # List of PVMT value group names
+    "children_coloring": False,  # Whether to apply styling to child elements
+}
+```
+
+`children_coloring` is set per default to `False`. Without using this flag the
+following shorter values for `pvmt_styling` are supported:
+
+```python
+diagram.render(..., pvmt_styling={"value_groups": ["Test.Kind.Color"]})
+diagram.render(..., pvmt_styling=["Test.Kind.Color"])
+diagram.render(..., pvmt_styling="Test.Kind.Color")
 ```
 
 ## Supported PVMT Properties

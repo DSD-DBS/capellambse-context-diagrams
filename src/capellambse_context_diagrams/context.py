@@ -392,7 +392,6 @@ class ContextDiagram(m.AbstractDiagram):
         self._default_render_parameters = (
             render_params | default_render_parameters
         )
-        self._pvmt_styling = None
 
         if standard_filter := STANDARD_FILTERS.get(class_):
             self.filters.add(standard_filter)

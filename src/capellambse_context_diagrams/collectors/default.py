@@ -9,9 +9,10 @@ diagrams that involve ports.
 
 from __future__ import annotations
 
+import collections
 import collections.abc as cabc
+import itertools
 import typing as t
-from itertools import chain
 
 import capellambse.model as m
 from capellambse.metamodel import cs, fa
@@ -35,6 +36,7 @@ def collector(
     visited_ports: set[str] = set()
     visited_exchanges: set[str] = set()
 
+    port_to_exchanges = get_port_to_exchange_mapping(diagram)
     stack: list[tuple[str, m.ModelElement]] = []
     stack.append(("comp", diagram.target))
 
@@ -47,7 +49,7 @@ def collector(
             visited_comps.add(current.uuid)
 
             inc, out = _generic.port_collector(current, diagram.type)
-            for port in chain(inc.values(), out.values()):
+            for port in itertools.chain(inc.values(), out.values()):
                 if (
                     port.uuid not in visited_ports
                     and diagram.target.uuid
@@ -62,7 +64,7 @@ def collector(
                     stack.append(("comp", child))
 
         elif kind == "port":
-            for ex in port_context_collector(current):
+            for ex in port_context_collector(current, port_to_exchanges):
                 if ex.uuid in visited_exchanges:
                     continue
 
@@ -105,8 +107,31 @@ def get_port_exchange_attribute_name(target: m.ModelElement) -> str:
     return ""
 
 
+def get_port_to_exchange_mapping(
+    diagram: context.ContextDiagram,
+) -> dict[str, list[m.ModelElement]]:
+    """Get a mapping of port UUIDs to their exchanges."""
+    all_exchanges = diagram.target._model.search(
+        "ComponentExchange", "FunctionalExchange", "PhysicalLink"
+    )
+    port_to_exchanges: dict[str, list[m.ModelElement]] = (
+        collections.defaultdict(list)
+    )
+    for exchange in all_exchanges:
+        if exchange.source:
+            port_uuid = exchange.source.uuid
+            port_to_exchanges[port_uuid].append(exchange)
+
+        if exchange.target:
+            port_uuid = exchange.target.uuid
+            port_to_exchanges[port_uuid].append(exchange)
+
+    return port_to_exchanges
+
+
 def port_context_collector(
-    obj: context.ContextDiagram | m.ModelElement,
+    obj: m.ModelElement,
+    port_to_exchanges: dict[str, list[m.ModelElement]],
 ) -> cabc.Iterator[fa.FunctionalExchange | fa.ComponentExchange]:
     """Collect context data from a physical port."""
     ports = set()
@@ -117,21 +142,19 @@ def port_context_collector(
     ) -> cabc.Iterator[m.ModelElement]:
         if target.uuid in ports:
             return
+
         ports.add(target.uuid)
-        exchange_attribute_name = get_port_exchange_attribute_name(target)
-        for link in getattr(target, exchange_attribute_name, []):
+        for link in port_to_exchanges.get(target.uuid, []):
             if link.uuid in links:
                 continue
+
             links.add(link.uuid)
             yield link
             yield from _collect(link.source)
             yield from _collect(link.target)
 
-    if isinstance(obj, m.ModelElement):
-        yield from _collect(obj)  # type: ignore[misc]
-        return
-
-    yield from _collect(obj.target)  # type: ignore[misc]
+    yield from _collect(obj)  # type: ignore[misc]
+    return
 
 
 def functional_chain_collector(
@@ -142,3 +165,15 @@ def functional_chain_collector(
         return
 
     yield from diagram.target.involved
+
+
+def physical_port_context_collector(
+    diagram: context.ContextDiagram,
+) -> cabc.Iterator[fa.FunctionalExchange | fa.ComponentExchange]:
+    """Collect context data from a physical port."""
+    if not isinstance(diagram.target, cs.PhysicalPort):
+        return
+
+    port_to_exchanges = get_port_to_exchange_mapping(diagram)
+    yield from port_context_collector(diagram.target, port_to_exchanges)
+    return

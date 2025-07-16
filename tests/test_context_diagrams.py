@@ -30,6 +30,8 @@ TEST_SYS_FNC_UUID = "a5642060-c9cc-4d49-af09-defaa3024bae"
 TEST_DERIVATION_UUID = "4ec45aec-0d6a-411a-80ee-ebd3c1a53d2c"
 TEST_PHYSICAL_PORT_UUID = "c403d4f4-9633-42a2-a5d6-9e1df2655146"
 TEST_PC_NODE_UUID = "309296b1-cf37-45d7-b0f3-f7bc00422a59"
+TEST_PVMT_STYLING_UUID = "789f8316-17cf-4c32-a66f-354fe111c40e"
+
 TEST_CONTEXT_SET = [
     pytest.param(
         (
@@ -352,6 +354,32 @@ TEST_CONTEXT_SET = [
         ),
         id="SystemComponent sizing ContextDiagram",
     ),
+    pytest.param(
+        (
+            TEST_PVMT_STYLING_UUID,
+            "pvmt_styling_context_diagram.json",
+            {
+                "pvmt_styling": {
+                    "children_coloring": False,
+                    "value_groups": ["Test.Kind.Color"],
+                }
+            },
+        ),
+        id="LogicalComponent PVMT styling ContextDiagram",
+    ),
+    pytest.param(
+        (
+            TEST_PVMT_STYLING_UUID,
+            "pvmt_styling_with_children_coloring_context_diagram.json",
+            {
+                "pvmt_styling": {
+                    "children_coloring": True,
+                    "value_groups": ["Test.Kind.Color"],
+                }
+            },
+        ),
+        id="LogicalComponent PVMT with children styling ContextDiagram",
+    ),
 ]
 
 TEST_CONTEXT_DATA_ROOT = TEST_ELK_INPUT_ROOT / "context_diagrams"
@@ -491,3 +519,33 @@ def test_serializer_handles_hierarchical_edges_correctly(
 
     assert (231.35, 94) <= adiag[f"{edge_uuid}_j0"].center <= (235, 94)
     assert (405.25, 122) <= adiag[f"{edge1_uuid}_j1"].center <= (410, 122)
+
+
+def test_pvmt_styling_shorthand_equivalence(model: capellambse.MelodyModel):
+    """Test that all shorthand syntax formats produce equivalent results."""
+    obj = model.by_uuid(TEST_PVMT_STYLING_UUID)
+
+    full_syntax = obj.context_diagram.render(
+        None,
+        pvmt_styling={
+            "value_groups": ["Test.Kind.Color"],
+            "children_coloring": False,
+        },
+    )
+
+    dict_shorthand = obj.context_diagram.render(
+        None, pvmt_styling={"value_groups": ["Test.Kind.Color"]}
+    )
+    list_shorthand = obj.context_diagram.render(
+        None, pvmt_styling=["Test.Kind.Color"]
+    )
+    string_shorthand = obj.context_diagram.render(
+        None, pvmt_styling="Test.Kind.Color"
+    )
+
+    assert (
+        len(full_syntax)
+        == len(dict_shorthand)
+        == len(list_shorthand)
+        == len(string_shorthand)
+    )

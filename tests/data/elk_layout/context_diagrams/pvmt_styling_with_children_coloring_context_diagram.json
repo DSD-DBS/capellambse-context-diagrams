@@ -1,0 +1,578 @@
+{
+    "id": "789f8316-17cf-4c32-a66f-354fe111c40e_context",
+    "type": "graph",
+    "children": [
+        {
+            "id": "d53fa277-f0aa-4498-b6cc-b8b2cf2504a8",
+            "position": {
+                "x": 706,
+                "y": 57
+            },
+            "size": {
+                "width": 64,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "3d1a8880-c71d-46f7-bd16-57b06e460c68",
+                    "position": {
+                        "x": -2,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": 7,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 58,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Animal"
+                }
+            ]
+        },
+        {
+            "id": "2dd292ce-3de1-4a86-8848-e9900d1f9c86",
+            "position": {
+                "x": 706,
+                "y": 113
+            },
+            "size": {
+                "width": 59,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "2e1e8eca-acb5-464e-8c3b-77286d4b506c",
+                    "position": {
+                        "x": -2,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": 7,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 53,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Human"
+                }
+            ]
+        },
+        {
+            "id": "cb68eaf1-89ac-4259-8618-a1322bc17850",
+            "position": {
+                "x": 13,
+                "y": 87
+            },
+            "size": {
+                "width": 84,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "c350bc4b-a3f9-4819-a6ab-fa00e08615c2",
+                    "position": {
+                        "x": 76,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": -1,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 78,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "OtherActor"
+                }
+            ]
+        },
+        {
+            "id": "efe61abb-2628-4065-9d54-89628027ea72",
+            "position": {
+                "x": 38,
+                "y": 143
+            },
+            "size": {
+                "width": 59,
+                "height": 36
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "73801908-6c04-4dbc-b648-1744e13e10df",
+                    "position": {
+                        "x": 51,
+                        "y": 13
+                    },
+                    "size": {
+                        "width": 10,
+                        "height": 10
+                    },
+                    "type": "port"
+                },
+                {
+                    "position": {
+                        "x": -1,
+                        "y": 12
+                    },
+                    "size": {
+                        "width": 53,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Actor"
+                }
+            ]
+        },
+        {
+            "id": "0d2edb8f-fa34-4e73-89ec-fb9a63001440",
+            "position": {
+                "x": 212,
+                "y": 12
+            },
+            "size": {
+                "width": 379,
+                "height": 195
+            },
+            "type": "node",
+            "children": [
+                {
+                    "id": "789f8316-17cf-4c32-a66f-354fe111c40e",
+                    "position": {
+                        "x": 14,
+                        "y": 29
+                    },
+                    "size": {
+                        "width": 351,
+                        "height": 154
+                    },
+                    "type": "node",
+                    "children": [
+                        {
+                            "id": "531953fe-c3ba-45e3-abde-a77683d06a1a",
+                            "position": {
+                                "x": 20,
+                                "y": 65
+                            },
+                            "size": {
+                                "width": 111,
+                                "height": 77
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "589ba0d4-03ab-4d79-973f-d120ac8720d5",
+                                    "position": {
+                                        "x": 13,
+                                        "y": 29
+                                    },
+                                    "size": {
+                                        "width": 84,
+                                        "height": 36
+                                    },
+                                    "type": "node",
+                                    "children": [
+                                        {
+                                            "id": "3563c3e8-7e41-46c6-826d-e14a758d1b20",
+                                            "position": {
+                                                "x": 76,
+                                                "y": 13
+                                            },
+                                            "size": {
+                                                "width": 10,
+                                                "height": 10
+                                            },
+                                            "type": "port"
+                                        },
+                                        {
+                                            "position": {
+                                                "x": -1,
+                                                "y": 12
+                                            },
+                                            "size": {
+                                                "width": 78,
+                                                "height": 12
+                                            },
+                                            "type": "label",
+                                            "text": "ChildChild"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "position": {
+                                        "x": 29,
+                                        "y": 5
+                                    },
+                                    "size": {
+                                        "width": 53,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "Child"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "551f2a83-36b2-40ed-967d-108fa06a6b0f",
+                            "position": {
+                                "x": 246,
+                                "y": 33.66666666666667
+                            },
+                            "size": {
+                                "width": 84,
+                                "height": 36
+                            },
+                            "type": "node",
+                            "children": [
+                                {
+                                    "id": "5b3276dd-4cca-4e35-868b-0b5f65e43021",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 20.666666666666664
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "id": "f6fb82b9-58f0-4e88-99f9-1845f6a35de6",
+                                    "position": {
+                                        "x": -2,
+                                        "y": 5.333333333333333
+                                    },
+                                    "size": {
+                                        "width": 10,
+                                        "height": 10
+                                    },
+                                    "type": "port"
+                                },
+                                {
+                                    "position": {
+                                        "x": 7,
+                                        "y": 12
+                                    },
+                                    "size": {
+                                        "width": 78,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "OtherChild"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "ef0ab8fc-8724-4e24-b9ee-5423c0165801",
+                            "position": {
+                                "x": -2,
+                                "y": 39
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port"
+                        },
+                        {
+                            "id": "eefa305b-36c4-4797-96ef-2cb1d96ca409",
+                            "position": {
+                                "x": 343,
+                                "y": 29
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port"
+                        },
+                        {
+                            "id": "46ec33df-8b98-47db-be0c-9a692c7f852e",
+                            "position": {
+                                "x": -2,
+                                "y": 59
+                            },
+                            "size": {
+                                "width": 10,
+                                "height": 10
+                            },
+                            "type": "port"
+                        },
+                        {
+                            "position": {
+                                "x": 139,
+                                "y": 5
+                            },
+                            "size": {
+                                "width": 73,
+                                "height": 12
+                            },
+                            "type": "label",
+                            "text": "PVMTOwner"
+                        },
+                        {
+                            "id": "963492b8-1fdf-4142-9313-0b7690907855",
+                            "type": "edge",
+                            "sourceId": "3563c3e8-7e41-46c6-826d-e14a758d1b20",
+                            "targetId": "5b3276dd-4cca-4e35-868b-0b5f65e43021",
+                            "routingPoints": [
+                                {
+                                    "x": 119,
+                                    "y": 112
+                                },
+                                {
+                                    "x": 234,
+                                    "y": 112
+                                },
+                                {
+                                    "x": 234,
+                                    "y": 59.33333333333333
+                                },
+                                {
+                                    "x": 244,
+                                    "y": 59.33333333333333
+                                }
+                            ],
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 156,
+                                        "y": 115
+                                    },
+                                    "size": {
+                                        "width": 68,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "inner Ex"
+                                }
+                            ]
+                        },
+                        {
+                            "id": "3427c23a-8bbb-426c-9dcd-949037f3e38c",
+                            "type": "edge",
+                            "sourceId": "ef0ab8fc-8724-4e24-b9ee-5423c0165801",
+                            "targetId": "f6fb82b9-58f0-4e88-99f9-1845f6a35de6",
+                            "routingPoints": [
+                                {
+                                    "x": -2,
+                                    "y": 44
+                                },
+                                {
+                                    "x": 244,
+                                    "y": 44
+                                }
+                            ],
+                            "children": [
+                                {
+                                    "position": {
+                                        "x": 44,
+                                        "y": 29
+                                    },
+                                    "size": {
+                                        "width": 68,
+                                        "height": 12
+                                    },
+                                    "type": "label",
+                                    "text": "inner Ex"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "position": {
+                        "x": 155.5,
+                        "y": 5
+                    },
+                    "size": {
+                        "width": 68,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Hogwarts"
+                }
+            ]
+        },
+        {
+            "id": "8ea5bc8b-8344-4f86-b8a7-dff291807ad0",
+            "type": "edge",
+            "sourceId": "eefa305b-36c4-4797-96ef-2cb1d96ca409",
+            "targetId": "3d1a8880-c71d-46f7-bd16-57b06e460c68",
+            "routingPoints": [
+                {
+                    "x": 579,
+                    "y": 75
+                },
+                {
+                    "x": 704,
+                    "y": 75
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 616,
+                        "y": 78
+                    },
+                    "size": {
+                        "width": 68,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Human Ex"
+                }
+            ]
+        },
+        {
+            "id": "59e22812-772b-4c00-868f-b70f240b01e2",
+            "type": "edge",
+            "sourceId": "eefa305b-36c4-4797-96ef-2cb1d96ca409",
+            "targetId": "2e1e8eca-acb5-464e-8c3b-77286d4b506c",
+            "routingPoints": [
+                {
+                    "x": 579,
+                    "y": 75
+                },
+                {
+                    "x": 606,
+                    "y": 75
+                },
+                {
+                    "x": 606,
+                    "y": 131
+                },
+                {
+                    "x": 704,
+                    "y": 131
+                }
+            ],
+            "children": [
+                {
+                    "type": "junction",
+                    "position": {
+                        "x": 606,
+                        "y": 75
+                    }
+                },
+                {
+                    "position": {
+                        "x": 616,
+                        "y": 134
+                    },
+                    "size": {
+                        "width": 68,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Human Ex"
+                }
+            ]
+        },
+        {
+            "id": "e6f4d7ae-4358-4933-ab33-959ddf99479b",
+            "type": "edge",
+            "sourceId": "c350bc4b-a3f9-4819-a6ab-fa00e08615c2",
+            "targetId": "46ec33df-8b98-47db-be0c-9a692c7f852e",
+            "routingPoints": [
+                {
+                    "x": 99,
+                    "y": 105
+                },
+                {
+                    "x": 224,
+                    "y": 105
+                }
+            ],
+            "children": [
+                {
+                    "position": {
+                        "x": 119,
+                        "y": 108
+                    },
+                    "size": {
+                        "width": 68,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Actor Ex"
+                }
+            ]
+        },
+        {
+            "id": "6aca8c81-6d6e-4bbc-84df-f564f57e2fc9",
+            "type": "edge",
+            "sourceId": "73801908-6c04-4dbc-b648-1744e13e10df",
+            "targetId": "46ec33df-8b98-47db-be0c-9a692c7f852e",
+            "routingPoints": [
+                {
+                    "x": 99,
+                    "y": 161
+                },
+                {
+                    "x": 197,
+                    "y": 161
+                },
+                {
+                    "x": 197,
+                    "y": 105
+                },
+                {
+                    "x": 224,
+                    "y": 105
+                }
+            ],
+            "children": [
+                {
+                    "type": "junction",
+                    "position": {
+                        "x": 197,
+                        "y": 105
+                    }
+                },
+                {
+                    "position": {
+                        "x": 119,
+                        "y": 164
+                    },
+                    "size": {
+                        "width": 68,
+                        "height": 12
+                    },
+                    "type": "label",
+                    "text": "Actor Ex"
+                }
+            ]
+        }
+    ]
+}

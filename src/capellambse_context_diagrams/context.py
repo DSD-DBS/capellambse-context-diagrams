@@ -304,6 +304,8 @@ class ContextDiagram(m.AbstractDiagram):
       either the box of interest or a child with itself or a child.
       Only useful with ``BLACKBOX`` mode and
       ``display_cyclic_relations`` turned on.
+    * pvmt_styling: Style the diagram according to the PVMT group
+      applied to the diagram elements.
 
     The following properties are used by the internal builders:
 
@@ -331,6 +333,7 @@ class ContextDiagram(m.AbstractDiagram):
     _display_functional_parent_relation: bool
     _display_internal_relations: bool
     _display_cyclic_relations: bool
+    _pvmt_styling: dict[str, t.Any] | None
 
     _collect: cabc.Callable[[ContextDiagram], cabc.Iterator[m.ModelElement]]
     _is_portless: bool
@@ -374,6 +377,7 @@ class ContextDiagram(m.AbstractDiagram):
             "display_functional_parent_relation": False,
             "display_internal_relations": True,
             "display_cyclic_relations": False,
+            "pvmt_styling": None,
         }
         if not _generic.DIAGRAM_TYPE_TO_CONNECTOR_NAMES.get(self.type, ()):
             render_params |= {
@@ -420,15 +424,34 @@ class ContextDiagram(m.AbstractDiagram):
 
     @property
     def nodes(self) -> m.MixedElementList:
-        """Return a list of all nodes visible in this diagram."""
-        allids = {e.uuid for e in self.render(None) if not e.hidden}
+        """Return a list of all nodes visible in this diagram.
+
+        See Also
+        --------
+        [`nodes`][capellambse.model.diagram.AbstractDiagram.nodes]
+        """
+        base = self._render if hasattr(self, "_render") else self.render(None)
+        allids = {
+            e.uuid.split(":")[-1].split("_")[0]
+            for e in base
+            if not e.hidden and e.uuid is not None
+        }
         elems = []
         for elemid in allids:
             assert elemid is not None
             try:
                 elem = self._model.by_uuid(elemid)
-            except (KeyError, ValueError):
+            except KeyError:
                 continue
+            except ValueError as err:
+                if (
+                    isinstance(err.args, tuple)
+                    and len(err.args) == 1
+                    and isinstance(err.args[0], str)
+                    and err.args[0].startswith("Malformed link:")
+                ):
+                    continue
+                raise
 
             elems.append(elem._element)
         return m.MixedElementList(self._model, elems, m.ModelElement)
@@ -436,6 +459,11 @@ class ContextDiagram(m.AbstractDiagram):
     def elk_input_data(self, params: dict[str, t.Any]) -> CollectorOutputData:
         """Return the collected ELK input data."""
         params = self._default_render_parameters | params
+        if "pvmt_styling" in params:
+            params["pvmt_styling"] = styling.normalize_pvmt_styling(
+                params["pvmt_styling"]  # type: ignore[arg-type]
+            )
+
         for param_name in self._default_render_parameters:
             setattr(self, f"_{param_name}", params.pop(param_name))
 

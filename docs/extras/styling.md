@@ -150,3 +150,88 @@ The `display_port_labels` render parameter allows you to display the port labels
         <img src="../../assets/images/ContextDiagram of Hierarchy display_port_labels.svg" width="1000000">
         <figcaption>Context diagram of Hierarchy LogicalComponenet with type [LAB] display_port_labels</figcaption>
     </figure>
+
+# PVMT Styling
+
+The `pvmt_styling` render parameter allows you to dynamically style diagram elements based on PVMT (Property Value Management Tool) properties attached to model elements in Capella. This enables custom coloring and styling based on model metadata.
+
+!!! info "PVMT Integration"
+
+    This feature requires PVMT properties to be defined in your Capella model. The styling system reads color values from specific PVMT properties and applies them to diagram elements.
+
+## Configuration
+
+The `pvmt_styling` parameter accepts a dictionary with the following structure:
+
+```python
+pvmt_styling = {
+    "value_groups": ["Test.Kind.Color"],  # List of PVMT value group names
+    "children_coloring": False,  # Whether to apply styling to child elements
+}
+```
+
+`children_coloring` is set per default to `False`. Without using this flag the
+following shorter values for `pvmt_styling` are supported:
+
+```python
+diagram.render(..., pvmt_styling={"value_groups": ["Test.Kind.Color"]})
+diagram.render(..., pvmt_styling=["Test.Kind.Color"])
+diagram.render(..., pvmt_styling="Test.Kind.Color")
+```
+
+## Supported PVMT Properties
+
+The following PVMT properties are automatically mapped to CSS styling:
+
+| PVMT Property | CSS Property | Description |
+|---------------|--------------|-------------|
+| `__COLOR__` | `fill` | Background/fill color of elements |
+| `__BORDER_COLOR__` | `stroke` | Border color of elements |
+| `__LABEL_COLOR__` | `text_fill` | Text color of labels |
+
+## Example Usage
+
+??? example "PVMT Styling Example"
+
+    ``` py
+    import capellambse
+
+    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+    obj = model.by_uuid("789f8316-17cf-4c32-a66f-354fe111c40e")
+
+    diagram = obj.context_diagram.render(
+        "svgdiagram",
+        pvmt_styling={
+            "value_groups": ["Test.Kind.Color"],
+            "children_coloring": False
+        }
+    )
+    diagram.save(pretty=True)
+    ```
+    <figure markdown>
+        <img src="../../assets/images/ContextDiagram of PVMTOwner.svg" width="1000000">
+        <figcaption>Context diagram with PVMT styling applied</figcaption>
+    </figure>
+
+??? example "PVMT Styling with Children Coloring"
+
+    ``` py
+    import capellambse
+
+    model = capellambse.MelodyModel("tests/data/ContextDiagram.aird")
+    obj = model.by_uuid("789f8316-17cf-4c32-a66f-354fe111c40e")
+
+    # Apply PVMT styling with children coloring
+    diagram = obj.context_diagram.render(
+        "svgdiagram",
+        pvmt_styling={
+            "value_groups": ["Test.Kind.Color"],
+            "children_coloring": True
+        }
+    )
+    diagram.save(pretty=True)
+    ```
+    <figure markdown>
+        <img src="../../assets/images/ContextDiagram of PVMTOwner with children coloring.svg" width="1000000">
+        <figcaption>Context diagram with PVMT styling and children coloring</figcaption>
+    </figure>

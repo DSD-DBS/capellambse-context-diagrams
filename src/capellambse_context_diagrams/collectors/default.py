@@ -99,24 +99,16 @@ def get_child_attribute_name(target: m.ModelElement) -> str:
     return ""
 
 
-def get_port_exchange_attribute_name(target: m.ModelElement) -> str:
-    if isinstance(target, cs.PhysicalPort):
-        return "links"
-    if isinstance(target, fa.FunctionPort | fa.ComponentPort):
-        return "exchanges"
-    return ""
-
-
 def get_port_to_exchange_mapping(
     diagram: context.ContextDiagram,
-) -> dict[str, list[m.ModelElement]]:
+) -> dict[str, list[fa.FunctionalExchange | fa.ComponentExchange]]:
     """Get a mapping of port UUIDs to their exchanges."""
     all_exchanges = diagram.target._model.search(
         "ComponentExchange", "FunctionalExchange", "PhysicalLink"
     )
-    port_to_exchanges: dict[str, list[m.ModelElement]] = (
-        collections.defaultdict(list)
-    )
+    port_to_exchanges: dict[
+        str, list[fa.FunctionalExchange | fa.ComponentExchange]
+    ] = collections.defaultdict(list)
     for exchange in all_exchanges:
         if exchange.source:
             port_uuid = exchange.source.uuid
@@ -131,7 +123,9 @@ def get_port_to_exchange_mapping(
 
 def port_context_collector(
     obj: m.ModelElement,
-    port_to_exchanges: dict[str, list[m.ModelElement]],
+    port_to_exchanges: dict[
+        str, list[fa.FunctionalExchange | fa.ComponentExchange]
+    ],
 ) -> cabc.Iterator[fa.FunctionalExchange | fa.ComponentExchange]:
     """Collect context data from a physical port."""
     ports = set()
@@ -139,7 +133,7 @@ def port_context_collector(
 
     def _collect(
         target: m.ModelElement,
-    ) -> cabc.Iterator[m.ModelElement]:
+    ) -> cabc.Iterator[fa.FunctionalExchange | fa.ComponentExchange]:
         if target.uuid in ports:
             return
 
@@ -150,11 +144,12 @@ def port_context_collector(
 
             links.add(link.uuid)
             yield link
+            assert link.source is not None
             yield from _collect(link.source)
+            assert link.target is not None
             yield from _collect(link.target)
 
-    yield from _collect(obj)  # type: ignore[misc]
-    return
+    yield from _collect(obj)
 
 
 def functional_chain_collector(
@@ -176,4 +171,3 @@ def physical_port_context_collector(
 
     port_to_exchanges = get_port_to_exchange_mapping(diagram)
     yield from port_context_collector(diagram.target, port_to_exchanges)
-    return

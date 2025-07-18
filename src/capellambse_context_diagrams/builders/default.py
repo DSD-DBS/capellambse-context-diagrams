@@ -139,7 +139,6 @@ class DiagramBuilder:
 
     def __call__(self) -> _elkjs.ELKInputData:
         self._handle_boxeable_target()
-
         for elem in self.collection:
             if self.diagram._mode == enums.MODE.BLACKBOX:
                 self._make_blackbox_target(elem)
@@ -225,6 +224,7 @@ class DiagramBuilder:
         else:
             self.data.children = list(self.boxes.values())
             self.data.edges = list(self.edges.values())
+
         return self.data
 
     def _flip_edges(self) -> None:

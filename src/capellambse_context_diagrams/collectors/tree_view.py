@@ -13,7 +13,7 @@ import math
 import typing as t
 
 import capellambse.model as m
-from capellambse.metamodel import information, modeltypes
+from capellambse.metamodel import information
 
 from .. import _elkjs, context
 from ..builders import _makers
@@ -47,6 +47,11 @@ class ClassProcessor:
 
         self._edge_count: dict[str, int] = collections.defaultdict(int)
 
+        self._associations: dict[str, str] = {}
+        for assoc in self.diagram.target._model.search("Association"):
+            for role in assoc.roles:
+                self._associations[role.uuid] = assoc.uuid
+
         self._set_layout_options()
         assert isinstance(diagram.target, information.Class)
         self._set_data_types_and_labels(self.data.children[0], diagram.target)
@@ -62,15 +67,15 @@ class ClassProcessor:
             assert cls.prop is not None
             self._process_box(cls.target, cls.partition)
 
-            if cls.prop.association is not None:
-                edge_id = cls.prop.association.uuid
-            else:
+            edge_id = self._associations.get(cls.prop.uuid)
+            if edge_id is None:
                 logger.warning(
                     "No Association found for %s set on 'navigable_members'",
                     cls.prop._short_repr_(),
                 )
-                if cls.prop.kind != modeltypes.AggregationKind.UNSET:
-                    styleclass = cls.prop.kind.name.capitalize()
+                aggregation_kind = cls.prop.aggregation_kind
+                if aggregation_kind != information.AggregationKind.UNSET:
+                    styleclass = aggregation_kind.name.capitalize()
                 else:
                     styleclass = "Association"
 

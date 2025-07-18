@@ -1008,7 +1008,7 @@ class PhysicalPortContextDiagram(ContextDiagram):
         default_render_parameters: dict[str, t.Any],
     ) -> None:
         default_render_parameters = {
-            "collect": default.port_context_collector,
+            "collect": default.physical_port_context_collector,
             "display_parent_relation": True,
             "edge_direction": enums.EDGE_DIRECTION.TREE,
             "display_port_labels": True,

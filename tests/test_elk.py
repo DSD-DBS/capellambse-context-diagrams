@@ -73,20 +73,18 @@ def test_download_binary(mock_get):
 
 def test_process_management():
     manager = ELKManager()
+    assert getattr(manager, "_proc", None) is None  # fool mypy
 
-    # Mock successful process startup
-    mock_process = mock.Mock()
-    mock_process.stdout.readline.return_value = (
-        "--- ELK layouter started ---\n"
-    )
+    manager._spawn_process_deno()
+    assert manager._proc is not None
+    with manager._proc:
+        proc = manager._proc
+        with mock.patch.object(
+            proc, "terminate", mock.MagicMock(wraps=proc.terminate)
+        ) as terminate:
+            manager.terminate_process()
 
-    with mock.patch("subprocess.Popen", return_value=mock_process):
-        manager._spawn_process_deno()
-        assert manager._proc is not None
-
-        # Test process termination
-        manager.terminate_process()
-        mock_process.terminate.assert_called_once()
+        terminate.assert_called_once()
         assert manager._proc is None
 
 

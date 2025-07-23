@@ -375,7 +375,6 @@ class ELKManager:
             [self.binary_path],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
             text=True,
             bufsize=1,
         )
@@ -408,7 +407,6 @@ class ELKManager:
             ],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
             text=True,
             bufsize=1,
         )
@@ -440,7 +438,13 @@ class ELKManager:
     def terminate_process(self) -> None:
         log.debug("Terminating elk.js helper process")
         if self._proc is not None:
+            assert self._proc.stdin is not None
+            assert self._proc.stdout is not None
+            assert self._proc.stderr is None
+            self._proc.stdin.close()
             self._proc.terminate()
+            self._proc.wait(30)
+            self._proc.stdout.close()
             self._proc = None
             log.debug("Terminated elk.js helper process")
         else:

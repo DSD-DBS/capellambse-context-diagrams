@@ -36,8 +36,6 @@ except metadata.PackageNotFoundError:
 
 logger = logging.getLogger(__name__)
 
-ATTR_NAME = "context_diagram"
-
 
 def install_elk() -> None:
     """Install an ELK.js binary.
@@ -90,8 +88,9 @@ def register_classes() -> None:
         dgcls,
         default_render_params,
     ) in _registry.CONTEXT_DIAGRAM_CLASSES:
-        accessor = context.ContextAccessor(dgcls.value, default_render_params)
-        m.set_accessor(class_, ATTR_NAME, accessor)
+        class_.context_diagram = context.ContextAccessor(
+            dgcls.value, default_render_params
+        )
         capstyle.STYLES[dgcls.value]["Circle.FunctionalExchange"] = (
             circle_style
         )
@@ -105,10 +104,9 @@ def register_interface_context() -> None:
         dgclasses,
         default_render_params,
     ) in _registry.INTERFACE_CONTEXT_CLASSES:
-        accessor = context.InterfaceContextAccessor(
+        class_.context_diagram = context.InterfaceContextAccessor(
             dgclasses, default_render_params
         )
-        m.set_accessor(class_, ATTR_NAME, accessor)
 
     port_alloc_output_style: dict[str, CSSdef] = {
         "fill": COLORS["_CAP_xAB_Function_Border_Green"],
@@ -133,19 +131,15 @@ def register_interface_context() -> None:
 
 def register_physical_port_context() -> None:
     """Add the `context_diagram` attribute to `PhysicalPort`s."""
-    m.set_accessor(
-        cs.PhysicalPort,
-        ATTR_NAME,
-        context.PhysicalPortContextAccessor(DiagramType.PAB.value, {}),
+    cs.PhysicalPort.context_diagram = context.PhysicalPortContextAccessor(
+        DiagramType.PAB.value, {}
     )
 
 
 def register_tree_view() -> None:
     """Add the ``tree_view`` attribute to ``Class``es."""
-    m.set_accessor(
-        information.Class,
-        "tree_view",
-        context.ClassTreeAccessor(DiagramType.CDB.value),
+    information.Class.tree_view = context.ClassTreeAccessor(
+        DiagramType.CDB.value
     )
 
 
@@ -157,10 +151,8 @@ def register_realization_view() -> None:
     """
     styles: dict[str, dict[str, capstyle.CSSdef]] = {}
     for class_, dgcls, _ in _registry.REALIZATION_VIEW_CLASSES:
-        m.set_accessor(
-            class_,
-            "realization_view",
-            context.RealizationViewContextAccessor("RealizationView Diagram"),
+        class_.realization_view = context.RealizationViewContextAccessor(
+            "RealizationView Diagram"
         )
         styles.update(capstyle.STYLES.get(dgcls.value, {}))
 
@@ -193,18 +185,13 @@ def register_data_flow_view() -> None:
     class_: type[m.ModelElement]
     for class_, dgcls, default_render_params in _registry.DATAFLOW_CLASSES:
         accessor = context.DataFlowAccessor(dgcls.value, default_render_params)
-        m.set_accessor(class_, "data_flow_view", accessor)
+        class_.data_flow_view = accessor
 
 
 def register_cable_tree_view() -> None:
     """Add the `cable_tree_view` attribute to `PhysicalLink`s."""
-    m.set_accessor(
-        cs.PhysicalLink,
-        "cable_tree",
-        context.CableTreeAccessor(
-            DiagramType.PAB.value,
-            {},
-        ),
+    cs.PhysicalLink.cable_tree = context.CableTreeAccessor(
+        DiagramType.PAB.value, {}
     )
 
 
@@ -215,7 +202,6 @@ def register_functional_chain_view() -> None:
         dgclasses,
         default_render_params,
     ) in _registry.FUNCTIONAL_CHAIN_CONTEXT_CLASSES:
-        accessor = context.FunctionalChainContextAccessor(
+        class_.context_diagram = context.FunctionalChainContextAccessor(
             dgclasses, default_render_params
         )
-        m.set_accessor(class_, ATTR_NAME, accessor)
